@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Virtual environments
+census_env/
+cki_env/
+*_unpacked/
+
+# IDE
+.vscode/
+.idea/
+
+# WorkBuddy
+.workbuddy/
+
+# Data (large files)
+data/FACS.zip
+data/FACS/
+data/brain/
+data/tcga/
+data/ts_human/
+data/housekeeping/
+
+# Unpacked/auto-generated
+思路_unpacked/
+
+# Temp files
+push_log.txt
+push_result.txt
+nul
+
+# Large dataset files
+results/*.npz
