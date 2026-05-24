@@ -34,6 +34,16 @@ data/housekeeping/
 push_log.txt
 push_result.txt
 nul
+*.tmp
+*.bak
+
+# Unpacked docx (temporary unpack output)
+unpacked_*/
+results/unpacked_*/
+
+# Generated PDF/PNG (large binaries, generated from scripts)
+results/figures_pdf/
+results/*.npz
 
 # Large dataset files
 results/*.npz
