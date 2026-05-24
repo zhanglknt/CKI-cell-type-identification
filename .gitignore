@@ -45,5 +45,47 @@ results/unpacked_*/
 results/figures_pdf/
 results/*.npz
 
-# Large dataset files
+# Old submission packages / temp dirs
+results/NAR_Submission_*/
+results/NAR_*.zip
+
+# Old version artifacts (keep only latest)
+results/*_v2.* results/*_v3.* results/*_v4.* results/*_v5.* results/*_v6.*
+results/figures_final/*_v2.* results/figures_final/*_v8.* results/figures_final/*_v9.*
+results/figures_final/*_v10.* results/figures_final/*_v11.* results/figures_final/*_v12.*
+results/figures_final/verify_*.*
+results/figures_final/_test.* results/figures_final/test.*
+
+# Temporary/docx working files
+results/~* results/\$*~
+*.tmp *.bak *.~*
+~$*.pptx ~$*.docx
+**/~$*
+
+# Playwright / browser temp
+.playwright-cli/
+
+# Phase debug notebooks (ephemeral)
+notebooks/phase*/
+notebooks/*debug* notebooks/*Debug*
+notebooks/06b_* notebooks/06c_*
+notebooks/07_* notebooks/08* notebooks/09_* notebooks/10* notebooks/11* notebooks/12_*
+notebooks/15_* notebooks/17_* notebooks/18_* notebooks/19_* notebooks/20_* notebooks/21_* notebooks/22_*
+notebooks/27_* notebooks/28_* notebooks/29_*
+notebooks/31_nar_usage* notebooks/32_*render* notebooks/32_*ORIG* notebooks/32_*v5*
+
+# Old PPT / script leftovers
+*.pptx.bak ppt_scripts/
+zz_builder.py _check_*.py build_*.py create_*.js
+fix_*.py
+
+# User-created docs (not version-controlled)
+CKI_*.md
+CKI算法优化思路.pptx
+思路.docx
+修订说明.docx
+
+# Data (large files)
+data/annotations_FACS.csv
+data/metadata_FACS.csv
 results/*.npz
