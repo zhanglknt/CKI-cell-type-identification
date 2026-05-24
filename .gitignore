@@ -45,6 +45,38 @@ results/unpacked_*/
 results/figures_pdf/
 results/*.npz
 
+# ============================================================
+# NAR SUBMISSION MATERIALS — DO NOT SYNC TO GITHUB
+# (未投稿，严格保密)
+# ============================================================
+# Manuscript, Cover Letter, Combined PDF
+results/CKI_NAR_Manuscript*.docx
+results/CKI_NAR_Manuscript*.pdf
+results/CKI_NAR_Cover_Letter*.docx
+results/CKI_NAR_Combined_Submission*.pdf
+
+# All NAR figures (PNG + PDF) in figures_final
+results/figures_final/figure*.pdf
+results/figures_final/figure*.png
+results/figures_final/ed_fig*.pdf
+results/figures_final/ed_fig*.png
+
+# Usage guides
+results/figures_final/usage_guide_*
+
+# PPT lecture slides
+results/figures_final/CKI_Lecture_*.pptx
+results/figures_final/slide3_images/
+
+# Submission generation scripts (reveal strategy)
+generate_manuscript_v4_nar.py
+generate_cover_letter_nar.py
+generate_combined_pdf.py
+notebooks/30_nar_figures_final.py
+notebooks/32_generate_usage_guide_html.py
+notebooks/16_gen_chinese_docx.py
+notebooks/40_fix_ppt_slides.py
+
 # Old submission packages / temp dirs
 results/NAR_Submission_*/
 results/NAR_*.zip
