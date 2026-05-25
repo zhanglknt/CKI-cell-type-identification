@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 560">
+<rect width="1800" height="560" fill="#F8FAFC" rx="8"/>
+<text x="900" y="40" text-anchor="middle" font-size="24" font-weight="700" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">同一细胞类型，不同功能状态</text>
+<text x="900" y="66" text-anchor="middle" font-size="13" fill="#64748B" font-family="Arial,Helvetica,sans-serif">CKI 捕获细胞类型内的状态特异性变化</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8" fill="#94A3B8"/></marker></defs>
+<rect x="60" y="180" width="240" height="100" rx="14" fill="#F1F5F9" stroke="#0D9488" stroke-width="3"/>
+<text x="180" y="215" text-anchor="middle" font-size="17" font-weight="700" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">巨噬细胞（同一类型）</text>
+<text x="180" y="242" text-anchor="middle" font-size="12" fill="#64748B" font-family="Arial,Helvetica,sans-serif">CD45+, F4/80+</text>
+<line x1="300" y1="135" x2="430" y2="135" stroke="#94A3B8" stroke-width="2.5" marker-end="url(#arr)"/>
+<rect x="440" y="100" width="300" height="70" rx="10" fill="#FFFFFF" stroke="#0D9488" stroke-width="2.5"/>
+<text x="590" y="130" text-anchor="middle" font-size="15" font-weight="700" fill="#0D9488" font-family="Arial,Helvetica,sans-serif">M0（静息）</text>
+<text x="590" y="152" text-anchor="middle" font-size="11" fill="#64748B" font-family="Arial,Helvetica,sans-serif">持家基因主导 omega</text>
+<line x1="740" y1="135" x2="830" y2="135" stroke="#94A3B8" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="840" y="105" width="200" height="60" rx="8" fill="#F1F5F9" stroke="#0D9488" stroke-width="1.5"/>
+<text x="940" y="132" text-anchor="middle" font-size="13" font-weight="700" fill="#0D9488" font-family="Arial,Helvetica,sans-serif">omega_low</text>
+<text x="940" y="150" text-anchor="middle" font-size="10" fill="#64748B" font-family="Arial,Helvetica,sans-serif">omega ~ low</text>
+<line x1="300" y1="255" x2="430" y2="255" stroke="#94A3B8" stroke-width="2.5" marker-end="url(#arr)"/>
+<rect x="440" y="220" width="300" height="70" rx="10" fill="#FFFFFF" stroke="#DC2626" stroke-width="2.5"/>
+<text x="590" y="250" text-anchor="middle" font-size="15" font-weight="700" fill="#DC2626" font-family="Arial,Helvetica,sans-serif">M1（促炎）</text>
+<text x="590" y="272" text-anchor="middle" font-size="11" fill="#64748B" font-family="Arial,Helvetica,sans-serif">高免疫应答 omega</text>
+<line x1="740" y1="255" x2="830" y2="255" stroke="#94A3B8" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="840" y="225" width="200" height="60" rx="8" fill="#F1F5F9" stroke="#DC2626" stroke-width="1.5"/>
+<text x="940" y="252" text-anchor="middle" font-size="13" font-weight="700" fill="#DC2626" font-family="Arial,Helvetica,sans-serif">omega_high</text>
+<text x="940" y="270" text-anchor="middle" font-size="10" fill="#64748B" font-family="Arial,Helvetica,sans-serif">omega ~ high</text>
+<line x1="300" y1="375" x2="430" y2="375" stroke="#94A3B8" stroke-width="2.5" marker-end="url(#arr)"/>
+<rect x="440" y="340" width="300" height="70" rx="10" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2.5"/>
+<text x="590" y="370" text-anchor="middle" font-size="15" font-weight="700" fill="#F59E0B" font-family="Arial,Helvetica,sans-serif">M2（抗炎）</text>
+<text x="590" y="392" text-anchor="middle" font-size="11" fill="#64748B" font-family="Arial,Helvetica,sans-serif">组织修复 omega</text>
+<line x1="740" y1="375" x2="830" y2="375" stroke="#94A3B8" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="840" y="345" width="200" height="60" rx="8" fill="#F1F5F9" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="940" y="372" text-anchor="middle" font-size="13" font-weight="700" fill="#F59E0B" font-family="Arial,Helvetica,sans-serif">omega_mid</text>
+<text x="940" y="390" text-anchor="middle" font-size="10" fill="#64748B" font-family="Arial,Helvetica,sans-serif">omega ~ medium</text>
+<line x1="300" y1="495" x2="430" y2="495" stroke="#94A3B8" stroke-width="2.5" marker-end="url(#arr)"/>
+<rect x="440" y="460" width="300" height="70" rx="10" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2.5"/>
+<text x="590" y="490" text-anchor="middle" font-size="15" font-weight="700" fill="#7C3AED" font-family="Arial,Helvetica,sans-serif">耗竭态</text>
+<text x="590" y="512" text-anchor="middle" font-size="11" fill="#64748B" font-family="Arial,Helvetica,sans-serif">功能失调 omega</text>
+<line x1="740" y1="495" x2="830" y2="495" stroke="#94A3B8" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="840" y="465" width="200" height="60" rx="8" fill="#F1F5F9" stroke="#7C3AED" stroke-width="1.5"/>
+<text x="940" y="492" text-anchor="middle" font-size="13" font-weight="700" fill="#7C3AED" font-family="Arial,Helvetica,sans-serif">omega_var</text>
+<text x="940" y="510" text-anchor="middle" font-size="10" fill="#64748B" font-family="Arial,Helvetica,sans-serif">omega ~ variable</text>
+<rect x="1120" y="140" width="620" height="320" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+<text x="1430" y="175" text-anchor="middle" font-size="16" font-weight="700" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">Why This Matters for CKI</text>
+<text x="1150" y="200" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">细胞类型不是均质的——每种类型包含</text>
+<text x="1150" y="222" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">多个功能状态，各有独特的基因</text>
+<text x="1150" y="244" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">表达程序。</text>
+<text x="1150" y="266" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif"></text>
+<text x="1150" y="288" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">CKI 的持家基因集必须覆盖类型内</text>
+<text x="1150" y="310" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">所有状态，因为它定义了功能分化</text>
+<text x="1150" y="332" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">的「基线」。</text>
+<text x="1150" y="354" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif"></text>
+<text x="1150" y="376" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">状态特异性基因驱动 KF（功能分化），</text>
+<text x="1150" y="398" font-size="11" fill="#1E293B" font-family="Arial,Helvetica,sans-serif">而通用持家基因锚定 KN（保守基线）。</text>
+<rect x="20" y="500" width="1760" height="44" rx="10" fill="#0D9488"/>
+<text x="900" y="528" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF" font-family="Arial,Helvetica,sans-serif">CKI 的 HK 基因集（detection_rate + CV）自动覆盖类型内所有状态</text>
+</svg>

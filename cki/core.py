@@ -271,7 +271,7 @@ def compute(
     hk_method: str = "combined",
     hk_detection_threshold: float = 0.9,
     hk_cv_percentile: float = 0.3,
-    use_reference_hk: bool = True,
+    use_reference_hk: bool = False,
     hk_merge_mode: str = "union",
     func_method: str = "hvg",
     n_top_genes: int = 2000,

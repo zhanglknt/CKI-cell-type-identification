@@ -3,6 +3,28 @@ Gene Set Auto-Detection
 ========================
 Automatic detection of housekeeping (HK) and functional (identity) gene sets
 from single-cell expression data, eliminating the need for manual gene list input.
+
+Universal Principles
+--------------------
+CKI gene set selection is **entirely data-driven** and works for any species
+without requiring external reference databases.
+
+**Housekeeping genes** are defined by two intrinsic properties:
+1. **Ubiquity** — expressed in >90% of cells in the dataset (detection rate)
+2. **Stability** — coefficient of variation (CV) below the 30th percentile
+
+The combined criterion (both ubiquity AND stability) is the default, as it
+provides the most stringent selection of constitutive genes. For human and
+mouse, the HRT Atlas (Hounkpe et al., NAR 2021) is available as an optional
+enhancement via ``use_reference=True``, but is never required.
+
+**Functional/Identity genes** are defined as the top-*N* highly variable
+genes (HVGs; Seurat v3 flavor), with housekeeping genes explicitly excluded
+to maintain k_n/k_f independence. The default *N* is min(2000, 0.8 * n_genes)
+to adapt to datasets of any size.
+
+These principles apply to any species — no species-specific gene annotation
+or pathway database is needed for the core computation.
 """
 
 from typing import List, Optional, Tuple, Union, Dict, Set
@@ -24,7 +46,7 @@ def detect_housekeeping_genes(
     detection_threshold: float = 0.9,
     cv_percentile: float = 0.3,
     min_mean_expr: float = 0.5,
-    use_reference: bool = True,
+    use_reference: bool = False,
     merge_mode: str = "union",
     cell_type_col: Optional[str] = None,
     layer: Optional[str] = None,
@@ -33,12 +55,23 @@ def detect_housekeeping_genes(
     """
     Auto-detect housekeeping genes from single-cell expression matrix.
 
-    Housekeeping genes are defined as genes that are:
-    1. Expressed in a high fraction of cells (low cell-to-cell variation)
-    2. Exhibit low expression coefficient of variation (stable across cells)
+    Housekeeping genes are defined by two intrinsic, data-driven properties:
+    1. **Ubiquity**: expressed in a high fraction of cells (detection rate)
+    2. **Stability**: low coefficient of variation across cells (Eisenberg-style)
 
-    Three detection methods are available, and an optional HRT Atlas
-    reference can be used to enhance or validate the detected gene set.
+    These criteria are species-agnostic and work for any organism without
+    requiring external reference databases.
+
+    Three detection methods are available:
+
+    - ``"detection_rate"``: genes expressed in > threshold fraction of cells
+    - ``"cv"``: genes with low CV (below given percentile among well-expressed genes)
+    - ``"combined"``: both detection rate AND low CV (most stringent; **default**)
+
+    For human and mouse datasets, an optional HRT Atlas reference
+    (Hounkpe et al., NAR 2021) can be enabled via ``use_reference=True``
+    to enhance or validate the detected gene set. For any other species,
+    the reference is unavailable and detection is purely data-driven.
 
     Parameters
     ----------
@@ -62,7 +95,8 @@ def detect_housekeeping_genes(
         Minimum mean expression for CV-based filtering.
         Genes below this threshold are excluded from CV calculation.
     use_reference : bool
-        If True, load HRT Atlas reference genes as enhancement/fallback.
+        If True, load HRT Atlas reference genes as enhancement (human/mouse
+        only). Default False — CKI works data-driven for any species.
     merge_mode : str
         How to merge reference with detected:
         - ``"union"``: detected OR reference (most comprehensive)
@@ -296,17 +330,27 @@ def detect_functional_genes(
     capture biological differences between cell states. They are used
     to compute k_f (functional conversion rate) in CKI.
 
+    The default method is highly variable gene (HVG) selection using
+    Scanpy's Seurat v3 flavor. The number of HVGs is adaptively capped
+    at ``min(2000, 0.8 * n_total_genes)`` to accommodate datasets of any
+    size. Housekeeping genes are explicitly excluded to maintain the
+    k_n/k_f independence assumption.
+
+    These principles are species-agnostic and require no external
+    annotation databases for the core computation.
+
     Parameters
     ----------
     adata : AnnData
         Expression matrix (cells x genes). Should be log-normalized.
     method : str
         Detection method:
-        - ``"hvg"``: Scanpy highly_variable_genes (recommended)
+        - ``"hvg"``: Scanpy highly_variable_genes (recommended, default)
         - ``"markers"``: differential expression per cluster
         - ``"hvg_and_markers"``: union of HVG and cluster markers
     n_top_genes : int
         Number of top HVGs. Default 2000 (standard for scRNA-seq).
+        Automatically capped at ``min(n_top_genes, 0.8 * n_total_genes)``.
     hk_indices : Optional[List[int]]
         Housekeeping gene indices to EXCLUDE from functional gene set.
         Essential for maintaining the k_n/k_f independence assumption.
@@ -342,6 +386,15 @@ def detect_functional_genes(
     """
     import scanpy as sc
 
+    # Adaptive cap: never select more HVGs than 80% of total genes
+    n_total_genes = adata.n_vars
+    effective_n_top = min(n_top_genes, int(n_total_genes * 0.8))
+    if effective_n_top < n_top_genes:
+        warnings.warn(
+            f"n_top_genes capped from {n_top_genes} to {effective_n_top} "
+            f"(80% of {n_total_genes} total genes)."
+        )
+
     info: Dict = {"method": method}
     identity_set: Set[int] = set()
 
@@ -351,7 +404,7 @@ def detect_functional_genes(
         adata_tmp = adata.copy() if method == "hvg_and_markers" else adata
         sc.pp.highly_variable_genes(
             adata_tmp,
-            n_top_genes=n_top_genes,
+            n_top_genes=effective_n_top,
             flavor=flavor,
             batch_key=batch_key,
             layer=layer,
@@ -359,7 +412,7 @@ def detect_functional_genes(
         hvg_idx = set(np.where(adata_tmp.var["highly_variable"].values)[0])
         identity_set |= hvg_idx
         info["n_hvg"] = len(hvg_idx)
-        info["n_top_genes"] = n_top_genes
+        info["n_top_genes"] = effective_n_top
 
     if method in ("markers", "hvg_and_markers"):
         if cell_type_col is None or cell_type_col not in adata.obs.columns:

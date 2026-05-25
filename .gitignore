@@ -54,6 +54,9 @@ results/CKI_NAR_Manuscript*.docx
 results/CKI_NAR_Manuscript*.pdf
 results/CKI_NAR_Cover_Letter*.docx
 results/CKI_NAR_Combined_Submission*.pdf
+results/CKI_NAR_投稿信.docx
+results/CKI_NAR_正文.docx
+results/CKI_NAR_补充材料.docx
 
 # All NAR figures (PNG + PDF) in figures_final
 results/figures_final/figure*.pdf
@@ -75,18 +78,33 @@ generate_combined_pdf.py
 notebooks/30_nar_figures_final.py
 notebooks/32_generate_usage_guide_html.py
 notebooks/16_gen_chinese_docx.py
-notebooks/40_fix_ppt_slides.py
+notebooks/4*_fix_ppt*.py
 
 # Old submission packages / temp dirs
 results/NAR_Submission_*/
 results/NAR_*.zip
 
-# Old version artifacts (keep only latest)
-results/*_v2.* results/*_v3.* results/*_v4.* results/*_v5.* results/*_v6.*
-results/figures_final/*_v2.* results/figures_final/*_v8.* results/figures_final/*_v9.*
-results/figures_final/*_v10.* results/figures_final/*_v11.* results/figures_final/*_v12.*
+# Old version artifacts in results/ (keep only v2/v3 in figures_final)
+results/*_v1.*
+results/*_v4.*
+results/*_v5.*
+results/*_v6.*
+results/figures_final/*_v0.*
+results/figures_final/*_v1.*
+results/figures_final/*_v8.*
+results/figures_final/*_v9.*
+results/figures_final/*_v10.*
+results/figures_final/*_v11.*
+results/figures_final/*_v12.*
 results/figures_final/verify_*.*
-results/figures_final/_test.* results/figures_final/test.*
+results/figures_final/_test.*
+results/figures_final/_test_*
+results/figures_final/test.*
+
+# Temp unpack / intermediate render dirs in figures_final
+results/figures_final/_preview/
+results/figures_final/_tmp_*/
+results/figures_final/slide*/
 
 # Temporary/docx working files
 results/~* results/\$*~
