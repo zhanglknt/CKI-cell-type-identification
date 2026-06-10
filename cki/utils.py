@@ -9,12 +9,11 @@ import numpy as np
 
 def ensure_probability_distribution(
     x: np.ndarray,
-    epsilon: float = 1e-10,
+    epsilon: float = 1e-9,
+    mode: str = "auto",
 ) -> np.ndarray:
     """
     Normalize a vector to a valid probability distribution (sum = 1).
-
-    Ensures non-negativity and handles edge cases gracefully.
 
     Parameters
     ----------
@@ -22,6 +21,11 @@ def ensure_probability_distribution(
         Input vector (1D).
     epsilon : float
         Small constant to avoid division by zero.
+    mode : str
+        How to convert to a probability distribution:
+        - "auto": use softmax if any value is negative, otherwise normalize by sum.
+        - "softmax": always use softmax (appropriate for log1p-transformed data).
+        - "normalize": normalize by sum, after clipping negatives to 0 (legacy behavior).
 
     Returns
     -------
@@ -30,6 +34,17 @@ def ensure_probability_distribution(
         Falls back to uniform distribution if input sum is zero.
     """
     x = np.asarray(x, dtype=float)
+
+    if mode == "auto":
+        mode = "softmax" if (x < 0).any() else "normalize"
+
+    if mode == "softmax":
+        # log1p-transformed values: convert via softmax
+        x_max = x.max()
+        exp_x = np.exp(x - x_max)  # subtract max for numerical stability
+        return exp_x / (exp_x.sum() + epsilon)
+
+    # normalize mode (legacy, for non-negative raw counts)
     x = np.maximum(x, 0)  # ensure non-negative
     x_sum = x.sum()
     if x_sum > 0:

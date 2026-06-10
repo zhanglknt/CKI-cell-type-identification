@@ -178,7 +178,6 @@ def compute_omega(
     alpha: float = 1.0,
     w1: float = 1.0,
     w2: float = 0.0,
-    epsilon: float = 1e-10,
 ) -> Dict[str, float]:
     """
     Compute the Cell-state Kinetic Index (omega) between two pseudobulk samples.
@@ -209,8 +208,6 @@ def compute_omega(
         Weight for identity gene component in k_f. Default 1.0.
     w2 : float
         Weight for pathway component in k_f. Default 0.0.
-    epsilon : float
-        Small constant for numerical stability.
 
     Returns
     -------
@@ -251,7 +248,7 @@ def compute_omega(
     else:
         delta_identity = 0.0
 
-    omega = kf / (kn + epsilon) if kn > epsilon else 0.0
+    omega = kf / kn if kn > 0 else float('inf')  # kn=0 → omega=∞ (consistent with Ka/Ks)
 
     return {
         "omega": omega,

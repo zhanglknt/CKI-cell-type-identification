@@ -235,8 +235,10 @@ def bootstrap_test(
 
     null_omega = np.array(null_omega)
 
-    # 5. Compute statistics
-    p_value = (np.sum(null_omega >= obs_result["omega"]) + 1) / (len(null_omega) + 1)
+    # 5. Compute statistics (two-sided test: |null-1| >= |obs-1|)
+    obs_dist = abs(obs_result["omega"] - 1.0)
+    null_dists = np.abs(null_omega - 1.0)
+    p_value = (np.sum(null_dists >= obs_dist) + 1) / (len(null_omega) + 1)
     null_mean = float(np.mean(null_omega))
     null_std = float(np.std(null_omega))
     cohens_d = (

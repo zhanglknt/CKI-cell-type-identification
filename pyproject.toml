@@ -30,6 +30,7 @@ dependencies = [
     "scanpy>=1.9.0",
     "anndata>=0.8.0",
     "tqdm>=4.64.0",
+    "python-docx>=0.8.11",
 ]
 
 [project.optional-dependencies]
