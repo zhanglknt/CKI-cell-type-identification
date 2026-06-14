@@ -321,6 +321,9 @@ def detect_functional_genes(
     layer: Optional[str] = None,
     flavor: str = "seurat",
     batch_key: Optional[str] = None,
+    groupby: Optional[str] = None,
+    group_a: Optional[str] = None,
+    group_b: Optional[str] = None,
     random_state: int = 42,
 ) -> Tuple[List[int], Dict]:
     """
@@ -346,11 +349,18 @@ def detect_functional_genes(
     method : str
         Detection method:
         - ``"hvg"``: Scanpy highly_variable_genes (recommended, default)
-        - ``"markers"``: differential expression per cluster
+        - ``"markers"``: differential expression per cluster (global)
         - ``"hvg_and_markers"``: union of HVG and cluster markers
+        - ``"pairwise_de"``: per-pair DE between group_a vs group_b only.
+          Corresponds to the "Hybrid" mode in the Genome Biology manuscript.
+          Requires ``groupby``, ``group_a``, ``group_b``.
     n_top_genes : int
-        Number of top HVGs. Default 2000 (standard for scRNA-seq).
-        Automatically capped at ``min(n_top_genes, 0.8 * n_total_genes)``.
+        Number of top HVGs (for ``"hvg"``) or number of DE genes per direction
+        (for ``"pairwise_de"``). Default 2000. For ``"pairwise_de"`` this
+        controls the number of DEGs selected for each of group_a↑ and group_b↑;
+        total functional gene set ≈ 2 × n_top_genes (before dedup).
+        Automatically capped at ``min(n_top_genes, 0.8 * n_total_genes)``
+        for HVG mode only.
     hk_indices : Optional[List[int]]
         Housekeeping gene indices to EXCLUDE from functional gene set.
         Essential for maintaining the k_n/k_f independence assumption.
@@ -371,6 +381,15 @@ def detect_functional_genes(
         HVG flavor for Scanpy: ``"seurat"``, ``"seurat_v3"``, ``"cell_ranger"``.
     batch_key : Optional[str]
         Batch key for batch-aware HVG selection.
+    groupby : Optional[str]
+        Column in ``adata.obs`` for cell type labels.
+        Required for ``method="pairwise_de"``.
+    group_a : Optional[str]
+        First group label for pairwise DE.
+        Required for ``method="pairwise_de"``.
+    group_b : Optional[str]
+        Second group label (reference) for pairwise DE.
+        Required for ``method="pairwise_de"``.
     random_state : int
         Random seed for reproducibility.
 
@@ -386,20 +405,34 @@ def detect_functional_genes(
     """
     import scanpy as sc
 
-    # Adaptive cap: never select more HVGs than 80% of total genes
-    n_total_genes = adata.n_vars
-    effective_n_top = min(n_top_genes, int(n_total_genes * 0.8))
-    if effective_n_top < n_top_genes:
-        warnings.warn(
-            f"n_top_genes capped from {n_top_genes} to {effective_n_top} "
-            f"(80% of {n_total_genes} total genes)."
-        )
-
     info: Dict = {"method": method}
     identity_set: Set[int] = set()
 
-    # Primary detection
-    if method in ("hvg", "hvg_and_markers"):
+    # ── Pairwise DE (Hybrid) mode ──────────────────────────────────
+    if method == "pairwise_de":
+        if groupby is None or group_a is None or group_b is None:
+            raise ValueError(
+                "groupby, group_a, and group_b are required for method='pairwise_de'."
+            )
+        identity_set = _detect_by_pairwise_de(
+            adata, groupby, group_a, group_b,
+            n_top_genes, layer, random_state,
+        )
+        info["n_top_genes"] = n_top_genes
+        info["group_a"] = group_a
+        info["group_b"] = group_b
+
+    # ── HVG mode ───────────────────────────────────────────────────
+    elif method in ("hvg", "hvg_and_markers"):
+        # Adaptive cap: never select more HVGs than 80% of total genes
+        n_total_genes = adata.n_vars
+        effective_n_top = min(n_top_genes, int(n_total_genes * 0.8))
+        if effective_n_top < n_top_genes:
+            warnings.warn(
+                f"n_top_genes capped from {n_top_genes} to {effective_n_top} "
+                f"(80% of {n_total_genes} total genes)."
+            )
+
         # Work on a copy to avoid mutating source adata
         adata_tmp = adata.copy() if method == "hvg_and_markers" else adata
         sc.pp.highly_variable_genes(
@@ -414,6 +447,7 @@ def detect_functional_genes(
         info["n_hvg"] = len(hvg_idx)
         info["n_top_genes"] = effective_n_top
 
+    # ── Markers mode ───────────────────────────────────────────────
     if method in ("markers", "hvg_and_markers"):
         if cell_type_col is None or cell_type_col not in adata.obs.columns:
             raise ValueError(
@@ -493,6 +527,78 @@ def _detect_by_markers(
             marker_genes.update(genes)
         except (KeyError, IndexError):
             continue
+
+    return {i for i, g in enumerate(gene_names) if g in marker_genes}
+
+
+def _detect_by_pairwise_de(
+    adata: AnnData,
+    groupby: str,
+    group_a: str,
+    group_b: str,
+    n_top_genes: int,
+    layer: Optional[str],
+    random_state: int,
+) -> Set[int]:
+    """Detect functional genes via pairwise DE between group_a vs group_b.
+
+    This is the "Hybrid" mode used in the Genome Biology manuscript:
+    instead of global HVG or per-cluster markers, it selects the top-N
+    differentially expressed genes *specific to this pair* of cell types.
+    Each call to ``compute()`` produces a different functional gene set
+    tailored to the two groups being compared.
+    """
+    import scanpy as sc
+
+    # Subset to only the two groups of interest
+    mask = adata.obs[groupby].isin([group_a, group_b])
+    if mask.sum() < 10:
+        raise ValueError(
+            f"Only {mask.sum()} cells found for '{group_a}' vs '{group_b}'. "
+            f"Need at least 10 cells for pairwise DE."
+        )
+    adata_sub = adata[mask].copy()
+
+    gene_names = adata_sub.var_names.tolist()
+    marker_genes: Set[str] = set()
+
+    # DE: group_a vs group_b (up in group_a)
+    sc.tl.rank_genes_groups(
+        adata_sub,
+        groupby=groupby,
+        groups=[group_a],
+        reference=group_b,
+        n_genes=n_top_genes,
+        method="wilcoxon",
+        layer=layer,
+    )
+    try:
+        genes_up = adata_sub.uns["rank_genes_groups"]["names"][group_a]
+        marker_genes.update(genes_up)
+    except (KeyError, IndexError):
+        pass
+
+    # DE: group_b vs group_a (up in group_b)
+    sc.tl.rank_genes_groups(
+        adata_sub,
+        groupby=groupby,
+        groups=[group_b],
+        reference=group_a,
+        n_genes=n_top_genes,
+        method="wilcoxon",
+        layer=layer,
+    )
+    try:
+        genes_up = adata_sub.uns["rank_genes_groups"]["names"][group_b]
+        marker_genes.update(genes_up)
+    except (KeyError, IndexError):
+        pass
+
+    if len(marker_genes) == 0:
+        raise RuntimeError(
+            f"No DE genes detected between '{group_a}' and '{group_b}'. "
+            f"Check input data quality and group labels."
+        )
 
     return {i for i, g in enumerate(gene_names) if g in marker_genes}
 

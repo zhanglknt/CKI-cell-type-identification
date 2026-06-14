@@ -341,9 +341,15 @@ def compute(
     hk_merge_mode : str
         How to merge reference: "union", "intersection", "detected_only".
     func_method : str
-        Functional gene method: "hvg" or "markers".
+        Functional gene method: "hvg" (default), "markers",
+        "hvg_and_markers", or "pairwise_de".
+        ``"pairwise_de"`` selects the top ``n_top_genes`` DE genes
+        specifically between ``group_a`` and ``group_b`` (two directions),
+        corresponding to the "Hybrid" mode in the Genome Biology manuscript.
+        ``groupby``, ``group_a``, ``group_b`` are required for this mode.
     n_top_genes : int
-        Number of HVGs. Default 2000.
+        Number of HVGs (default 2000). For "pairwise_de" mode, number of
+        top DE genes per direction (≈ 2× total before dedup).
     go_terms : optional
         GO term IDs for pathway enhancement.
     kegg_pathways : optional
@@ -426,6 +432,9 @@ def compute(
             kegg_pathways=kegg_pathways,
             cell_type_col=cell_type_col or groupby,
             layer=layer,
+            groupby=groupby,
+            group_a=group_a,
+            group_b=group_b,
             random_state=random_state,
         )
 

@@ -34,7 +34,7 @@ from .utils import ensure_probability_distribution
 from .gene_sets import detect_housekeeping_genes, detect_functional_genes, genes_to_indices
 from .species import get_species_config, load_reference_hk_genes, list_supported_species
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 __all__ = [
     # High-level API
