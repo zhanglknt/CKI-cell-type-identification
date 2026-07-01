@@ -96,7 +96,7 @@ omega > 1.5    Divergent / Positive selection
 
 ## Citation
 
-Li Zhang. *CKI: A Ka/Ks-inspired metric for quantifying transcriptomic selection pressure in single-cell data.* bioRxiv (submitted).
+Li Zhang. *CKI: A Ka/Ks-inspired metric for quantifying transcriptomic selection pressure in single-cell data.* Submitted to Genome Biology (2026).
 
 ## License
 

@@ -219,7 +219,7 @@ for i in range(n_ct):
         pi_top = ensure_prob(pb_i[top_idx])
         pj_top = ensure_prob(pb_j[top_idx])
         kf_val = float(jensenshannon(pi_top, pj_top, base=2.0) ** 2)
-        omega_val = kf_val / (kn_val + 1e-9)
+        omega_val = kf_val / kn_val if kn_val > 0 else float('inf')
 
         # --- M2: Raw JS divergence (all genes) ---
         pi_all = ensure_prob(pb_i)

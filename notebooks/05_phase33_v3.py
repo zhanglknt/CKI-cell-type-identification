@@ -166,7 +166,7 @@ for i in range(n_ct):
         kf_val = js_divergence(pb_i[top_idx], pb_j[top_idx])
 
         # omega
-        omega_val = kf_val / (kn_val + 1e-9)
+        omega_val = kf_val / kn_val if kn_val > 0 else float('inf')
 
         omega_matrix[i,j] = omega_val
         omega_matrix[j,i] = omega_val

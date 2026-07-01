@@ -344,7 +344,8 @@ for cancer in usable:
     baseline = (np.nanmean(tt_vals) + np.nanmean(nn_vals)) / 2
     from scipy.stats import mannwhitneyu
     combined = np.concatenate([tt_vals, nn_vals])
-    _, p_val = mannwhitneyu(tn_vals, combined, alternative="greater") if len(combined) > 0 else (0, 1.0)
+    # Fixed: TN < baseline (tumors more homogeneous), use alternative="less"
+    _, p_val = mannwhitneyu(tn_vals, combined, alternative="less") if len(combined) > 0 else (0, 1.0)
     
     print(f"    omega_TT: mean={np.nanmean(tt_vals):.1f}, median={np.nanmedian(tt_vals):.1f}, std={np.nanstd(tt_vals):.1f}")
     print(f"    omega_NN: mean={np.nanmean(nn_vals):.1f}, median={np.nanmedian(nn_vals):.1f}, std={np.nanstd(nn_vals):.1f}")

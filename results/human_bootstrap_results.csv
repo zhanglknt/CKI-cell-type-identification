@@ -1,0 +1,5 @@
+group,n_pairs,omega_mean,omega_median,omega_std,ci_95_lower,ci_95_upper,p_ge_obs
+same_organ_diff_ct,1140,16.0009,15.2015,9.1905,15.4964,16.5501,5.1848e-01
+diff_organ_same_ct,60,8.651,8.668,5.0189,7.4321,9.9978,4.8252e-01
+diff_organ_diff_ct,3951,13.6583,13.4287,7.3455,13.4483,13.8775,4.9251e-01
+cross_vs_same_organ_ratio,5151,0.8489,,,0.8201,0.8794,4.7752e-01

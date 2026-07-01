@@ -1,0 +1,2 @@
+total_pairs,gradient_fold,gradient_lowest_ct,gradient_lowest_omega,gradient_highest_ct,gradient_highest_omega,n_strong,n_moderate,n_weak,pct_strong,pct_moderate,pct_weak,n_nuclei,n_genes,cki_version,hk_source,normalization
+31764,6.06,Bergmann glia,2.37,Astrocyte,14.36,30,1247,6567,0.09,3.93,20.67,888263,59480,0.2.0,HRT_Atlas_1115_genes,pseudobulk_only

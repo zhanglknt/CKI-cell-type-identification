@@ -275,7 +275,14 @@ print("  -> phase36_fig1c_bootstrap.png")
 # ============================================================
 print("[4/10] Fig 2b: k_n/k_f component decomposition")
 
-pilot_df = pd.read_csv(RESULTS_DIR / "ct_pilot_results.csv")
+pilot_df = pd.read_csv(RESULTS_DIR / "pilot_results.csv")
+# 根据expected列创建category映射
+expected_to_category = {
+    "conserved": "C_control",
+    "moderate": "X_cross",
+    "divergent": "D_diff_ct"
+}
+pilot_df["category"] = pilot_df["expected"].map(expected_to_category)
 pilot_df["category_short"] = pilot_df["category"].map({
     "C_control": "Controls (C)", "S_same_ct": "Same-CT (S)",
     "D_diff_ct": "Diff-CT (D)", "X_cross": "Cross (X)"
