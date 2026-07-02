@@ -19,7 +19,7 @@ mouse, the HRT Atlas (Hounkpe et al., NAR 2021) is available as an optional
 enhancement via ``use_reference=True``, but is never required.
 
 **Functional/Identity genes** are defined as the top-*N* highly variable
-genes (HVGs; Seurat v3 flavor), with housekeeping genes explicitly excluded
+genes (HVGs; Seurat flavor), with housekeeping genes explicitly excluded
 to maintain k_n/k_f independence. The default *N* is min(2000, 0.8 * n_genes)
 to adapt to datasets of any size.
 
@@ -334,7 +334,7 @@ def detect_functional_genes(
     to compute k_f (functional conversion rate) in CKI.
 
     The default method is highly variable gene (HVG) selection using
-    Scanpy's Seurat v3 flavor. The number of HVGs is adaptively capped
+    Scanpy's Seurat flavor. The number of HVGs is adaptively capped
     at ``min(2000, 0.8 * n_total_genes)`` to accommodate datasets of any
     size. Housekeeping genes are explicitly excluded to maintain the
     k_n/k_f independence assumption.
