@@ -415,7 +415,6 @@ fig = plt.figure(figsize=(DOUBLE, 140*MM), dpi=DPI)
 gs = gridspec.GridSpec(2, 3, hspace=0.45, wspace=0.35)
 
 # Load data
-pilot_csv = RESULTS_DIR / 'ct_pilot_results.csv'
 tm_csv    = RESULTS_DIR / 'phase33_v3_human_pairs.csv'
 
 # Panel A: k_n calibration (REAL DATA from mouse pilot C_control)

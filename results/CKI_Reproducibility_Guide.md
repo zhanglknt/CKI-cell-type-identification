@@ -186,76 +186,64 @@ pathway databases.
 3.3 Script-to-Manuscript Results Mapping
 --------------------------------------
 
-  This section clarifies which notebook scripts produce the results
-  reported in the manuscript, and which scripts are exploratory
-  (older designs that do not match the manuscript numbers).
+  The 10 scripts below produce all results reported in the manuscript.
+  They are the only scripts included in this reproducibility package.
+  Earlier exploratory scripts that do not match manuscript numbers
+  have been excluded to avoid confusion.
 
   All scripts listed below are in the `notebooks/` directory.
-  Scripts marked "Exploratory" are retained for reference but
-  their output does NOT correspond to manuscript values.
 
-  +----------+-------------+------------------+---------------------+
-  | Dataset  | Manuscript | Primary script  | Output CSV(s)       |
-  |          | Figure       |                  |                     |
-  +----------+-------------+------------------+---------------------+
-  | Mouse    | Results 1-2, | `02b_pilot_v2.py`  | `mouse_pilot_v2_results.csv` |
-  | (pilot)  | Fig. 2      | `02c_pilot_v2b.py` | `mouse_pilot_v2b_results.csv` |
-  +----------+-------------+------------------+---------------------+
-  | Mouse    | Fig. 2      | `03_full_matrix.py` | `full_matrix_omega.csv` |
-  | (full    | heatmap     |                  | `full_matrix_pairs.csv` |
-  |  pairwise)|             |                  |                     |
-  +----------+-------------+------------------+---------------------+
-  | Human    | Fig. 3      | `05_phase33_v3_fixed.py` | `phase33_v3_human_omega.csv` |
-  +----------+-------------+------------------+---------------------+
-  | TCGA     | Fig. 4      | `06_phase34_v2.py` | `phase34_v2_summary.csv` |
-  | (tumor   | (tumor      |                  | `phase34_v2_all_pairs.csv` |
-  |  vs      |  vs normal) |                  |                     |
-  |  normal) |             |                  |                     |
-  +----------+-------------+------------------+---------------------+
-  | TCGA     | Fig. 4      | `07_phase34_clinical.py` | `phase34_clinical_severity.csv` |
-  | (clinical)| (clinical   |                  |                     |
-  |  severity)|  severity)  |                  |                     |
-  +----------+-------------+------------------+---------------------+
-  | Brain    | Fig. 5      | `07c_brain_siletti_v3.py` | `brain_siletti_omega_pairs_v3.csv` |
-  +----------+-------------+------------------+---------------------+
-  | Method   | Fig. 4      | `13_phase35_method_comparison.py` | `phase35_all_metrics_pairs.csv` |
-  | comparison| (AUC)       |                  | `phase35_cross_organ_conservation.csv` |
-  +----------+-------------+------------------+---------------------+
-  | Bootstrap| Fig. 2-3    | `08a_tcga_bootstrap.py` | `tcga_bootstrap_results.csv` |
-  |          | (significance)| `08b_mouse_bootstrap.py` | `mouse_pilot_v2b_bootstrap.csv` |
-  +----------+-------------+------------------+---------------------+
+  +----------+------------------+------------------+---------------------------+
+  | Dataset  | Manuscript       | Primary script   | Key Output CSV(s)         |
+  +----------+------------------+------------------+---------------------------+
+  | Mouse    | Fig. 2, Results  | `02b_pilot_v2.py`  | `mouse_pilot_v2_results.csv` |
+  | (pilot)  | 1-2              | `02c_pilot_v2b.py` | `mouse_pilot_v2b_results.csv` |
+  +----------+------------------+------------------+---------------------------+
+  | Mouse    | Fig. 2 heatmap   | `03_full_matrix.py` | `full_matrix_omega.csv`    |
+  | (full)   |                  |                     | `full_matrix_pairs.csv`    |
+  +----------+------------------+------------------+---------------------------+
+  | Human    | Fig. 3, Results  | `05_phase33_v3_fixed.py` | `phase33_v3_human_omega.csv` |
+  | (TS)     | 3                |                     | `phase33_v3_human_pairs.csv` |
+  +----------+------------------+------------------+---------------------------+
+  | Cross-   | Fig. 5, Results  | `13_phase35_method_comparison.py` | `phase35_all_metrics_pairs.csv` |
+  | organ &  | 3                |                     | `phase35_cross_organ_conservation.csv` |
+  | method   |                  |                     | `phase35_metric_correlation.csv` |
+  +----------+------------------+------------------+---------------------------+
+  | TCGA     | Fig. 4 (tumor    | `06_phase34_v2.py` | `phase34_v2_summary.csv`   |
+  |          | vs normal)       |                     | `phase34_v2_all_pairs.csv` |
+  +----------+------------------+------------------+---------------------------+
+  | TCGA     | Fig. 4 (clinical | `07_phase34_clinical.py` | `phase34_clinical_severity.csv` |
+  | clinical | severity)        |                     | `phase34_clinical_paired_unpaired.csv` |
+  +----------+------------------+------------------+---------------------------+
+  | Brain    | Fig. 5-6, Results| `07c_brain_siletti_v3.py` | `brain_siletti_omega_pairs_v3.csv` |
+  |          | 5-6              |                     | `brain_siletti_ct_summary_v3.csv` |
+  +----------+------------------+------------------+---------------------------+
+  | Bootstrap| Fig. 2, 4        | `08a_tcga_bootstrap.py` | `tcga_bootstrap_results.csv` |
+  |          | (significance)   | (mouse bootstrap is     | (Mouse bootstrap is embedded |
+  |          |                  |  embedded in 02c)       |  in `02c_pilot_v2b.py`)     |
+  +----------+------------------+------------------+---------------------------+
+  | All      | All figures      | `30_genome_biology_figures.py` | PDF figures in `results/` |
+  | figures  |                  |                     | (reads from all CSVs above) |
+  +----------+------------------+------------------+---------------------------+
 
-  Exploratory scripts (do NOT match manuscript numbers):
-
-  - `01_pilot_mouse.py`
-      Tissue-level CKI only (not cell-type-level).
-      Uses a different control design (split by mouse ID at tissue level).
-      Replaced by `02b`/`02c` in the manuscript.
-
-  - `02_ct_pilot.py`
-      Early cell-type-level pilot with random-split control.
-      The manuscript uses mouse-ID-split control (`02c_pilot_v2b.py`)
-      which is more biologically meaningful.
-      [Bug fixed in v0.3.2: `fname`→`fname` typo on line 72.]
-
-  - `04_phase32_sweep.py`
-      Parameter sweep over w1/w2 weights for multi-component k_f.
-      The sweep result is NOT exactly reproducible because
-      `gsp.utils.download_library('H', 'Mouse')` downloads the
-      latest MSigDB Hallmark definitions at runtime, and pathway
-      gene sets can change between MSigDB releases.
-      The manuscript reports sweep results with MSigDB Hallmark v7.5.
-      To reproduce exactly, use the bundled `results/phase32_sweep_results.csv`
-      instead of re-running the sweep.
-      [Bug fixed in v0.3.2: `fname`→`fname` typo on line 69.]
+  Excluded scripts (removed from package to avoid confusion):
+    `01_pilot_mouse.py`, `02_ct_pilot.py` — early designs, replaced by `02b`/`02c`.
+    `04_phase32_sweep.py` — parameter sweep depends on live MSigDB download
+      and cannot be exactly reproduced; ED Fig. 1 uses hard-coded sweep AUC values.
+    `05_phase33_human.py`, `05_phase33_v2.py`, `05_phase33_v3.py` — early versions,
+      replaced by `05_phase33_v3_fixed.py`.
+    `06_phase34_tcga.py` — does not reproduce Table S5; replaced by `06_phase34_v2.py`.
+    `07_brain_siletti_analysis.py`, `07b_brain_siletti_v2.py`, `07d_brain_siletti_v4.py` —
+      crash on modern hardware (MemoryError) or produce mismatched results;
+      replaced by `07c_brain_siletti_v3.py`.
 
   Recommended reproduction workflow:
-  1. Run `02b_pilot_v2.py` → `02c_pilot_v2b.py` → `03_full_matrix.py`
-     to reproduce all mouse results (Fig. 2, Results 1-2).
-  2. For the parameter sweep, use the bundled `phase32_sweep_results.csv`
-     rather than re-running `04_phase32_sweep.py`.
-  3. All other scripts (`05` through `08`) reproduce manuscript results
-     exactly when run with the provided data and CKI v0.3.1.
+  1. Mouse: `02b_pilot_v2.py` → `02c_pilot_v2b.py` → `03_full_matrix.py`
+  2. Human: `05_phase33_v3_fixed.py` → `13_phase35_method_comparison.py`
+  3. TCGA: `06_phase34_v2.py` → `07_phase34_clinical.py`
+  4. Brain: `07c_brain_siletti_v3.py`
+  5. Bootstrap: `08a_tcga_bootstrap.py`
+  6. Figures: `30_genome_biology_figures.py` (reads from all CSVs)
 
   
 
@@ -340,10 +328,10 @@ pathway databases.
       6. Global k_n: JS divergence on full pseudobulk matrix with shared HK set.
       7. Per-pair k_f: top-200 DE genes (ranked by absolute mean
          difference), HK genes excluded.
-      8. Full pairwise omega computed for all 5,151 cell-type pairs.
+      8. Full pairwise omega computed for all 4,851 cell-type pairs.
 
     Method comparison: Spearman rank correlation computed between CKI
-    omega and four standard metrics on all 5,151 pairs:
+    omega and four standard metrics on all 4,851 pairs:
       - Raw JS divergence (all genes)
       - Spearman distance (1 - Spearman r)
       - Cosine distance (1 - cosine similarity)
@@ -367,7 +355,7 @@ pathway databases.
     Cross-organ conservation (Fig. 5):
 
     This analysis uses the same Tabula Sapiens pseudobulks to identify
-    60 same-cell-type cross-organ pairs and rank cell types by their
+    59 same-cell-type cross-organ pairs and rank cell types by their
     transcriptional conservation across organs.
 
     Processing:
@@ -376,7 +364,7 @@ pathway databases.
          different organs (e.g., macrophage in Liver vs Bone Marrow).
       2. Compute CKI omega, raw JS divergence, Spearman distance,
          cosine distance, and marker Jaccard distance for each of
-         these 60 cross-organ pairs.
+         these 59 cross-organ pairs.
       3. Rank cell types by their mean cross-organ omega. Lower omega
          indicates higher cross-organ conservation (the cell type's
          transcriptional program is less organ-dependent).
@@ -387,15 +375,15 @@ pathway databases.
     Input requirement: Tabula Sapiens h5ad files (same as Section 4.2;
                        must complete 05_phase33_v3_fixed.py first)
     Output:           results/phase35_cross_organ_conservation.csv
-    (60 rows  x  7 columns: ct, organ_i, organ_j, omega, js_raw,
+    (59 rows  x  7 columns: ct, organ_i, organ_j, omega, js_raw,
      spearman, cosine, marker_jaccard)
 
     Expected results:
-      - 60 same-CT cross-organ pairs across 6 organs
+      - 59 same-CT cross-organ pairs across 6 organs
       - Most conserved: immune cells (macrophage omega_mean ~9.8,
         T cells ~8–12)
       - Most variable: structural cells (erythrocyte, endothelial)
-      - CKI ranking vs standard metrics: Spearman r = -0.13 to +0.02
+      - CKI ranking vs standard metrics: Spearman r = -0.40 to +0.02
         (little agreement, because CKI normalizes for neutral drift)
 
     How to re-run:
@@ -654,8 +642,8 @@ All results are written to results/:
       results/phase33_v3_human_pairs.csv       # long-form pair list with omega
 
     Cross-organ conservation & method comparison (13_phase35_method_comparison.py):
-      results/phase35_cross_organ_conservation.csv  # 60 same-CT cross-organ pairs
-      results/phase35_all_metrics_pairs.csv        # 5,151 pairs x 5 metrics
+      results/phase35_cross_organ_conservation.csv  # 59 same-CT cross-organ pairs
+      results/phase35_all_metrics_pairs.csv        # 4,851 pairs x 5 metrics
       results/phase35_metric_correlation.csv       # 5x5 inter-metric correlation
 
     TCGA (06_phase34_v2.py):
