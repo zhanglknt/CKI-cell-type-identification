@@ -15,14 +15,19 @@ OUTPUT = ROOT / "results" / "CKI_Reproducibility.ipynb"
 
 # ── core analysis scripts in execution order ──────────────────────────
 CORE_SCRIPTS = [
+    # Part 0: Tissue omega matrix + HK gene set analysis
+    ("01_tissue_omega_matrix.py", "Part 0: Tissue-Level Omega Matrix — Tabula Muris 6 Organs"),
+    ("01b_hk_stability.py", "Part 0 (cont.): HK Gene Set Stability Analysis"),
+    ("01c_hk_overlap.py", "Part 0 (cont.): HK Gene Set Detection Overlap with HRT Atlas"),
+    ("precompute_figure_data.py", "Part 0 (cont.): Pre-compute Derived Figure Data"),
     # Part A: Mouse pilot
-    ("01_pilot_mouse.py", "Part A: Mouse Pilot — Tabula Muris FACS"),
-    ("02_ct_pilot.py", "Part A (cont.): Cell-Type Pilot"),
+    ("02b_pilot_v2.py", "Part A: Mouse Pilot v2 — Tabula Muris FACS"),
+    ("02c_pilot_v2b.py", "Part A (cont.): Cell-Type Pilot v2b"),
     # Part B: Human full matrix
     ("03_full_matrix.py", "Part B: Full Matrix — All Human Cell-Type Pairs (32x32)"),
     ("04_phase32_sweep.py", "Part B (cont.): Mouse-Human Cross-Species Sweep"),
     # Part C: Tabula Sapiens — omega profiles
-    ("05_phase33_v3.py", "Part C: Tabula Sapiens — Omega Profiles per Organ"),
+    ("05_phase33_v3_fixed.py", "Part C: Tabula Sapiens — Omega Profiles per Organ"),
     # Part D: TCGA tumor perturbation
     ("06_phase34_v2.py", "Part D: TCGA Tumor Perturbation"),
     ("07_phase34_clinical.py", "Part D (cont.): Clinical Severity Analysis"),

@@ -1,0 +1,49 @@
+CKI NAR Manuscript - PubMed Reference Verification Report
+======================================================================
+
+Total: 36
+Found: 30
+Not found: 6
+Skipped: 0
+
+--- FOUND ---
+[1] PMID:34262047  1. Regev,A., Teichmann,S.A., Lander,E.S., Amit,I., Benoist,C., Birney,E., Bodenmiller,B., Campbell,P
+[2] PMID:31217225  2. Luecken,M.D. and Theis,F.J. (2019) Current best practices in single-cell RNA-seq analysis: a tuto
+[3] PMID:8078400  3. Nei,M. and Gojobori,T. (1986) Simple methods for estimating the numbers of synonymous and nonsyno
+[5] PMID:30283141  5. Tabula Muris Consortium. (2018) Single-cell transcriptomics of 20 mouse organs creates a Tabula M
+[6] PMID:35549404  6. Tabula Sapiens Consortium. (2022) The Tabula Sapiens: a multiple-organ, single-cell transcriptomi
+[8] PMID:24764584  8. Weinstein,J.N., Collisson,E.A., Mills,G.B., Shaw,K.R.M., Ozenberger,B.A., Ellrott,K., Shmulevich,
+[9] PMID:23000897  9. Cancer Genome Atlas Network. (2012) Comprehensive molecular portraits of human breast tumours. Na
+[10] PMID:37939194  10. Siletti,K., Hodge,R., Mossi Albiach,A., Lee,K.W., Ding,S.L., Hu,L., Lönnerberg,P., Bakken,T., Ca
+[11] PMID:33349700  11. Tran,H.T.N., Ang,K.S., Chevrier,M., Zhang,X., Lee,N.Y.S., Goh,M. and Chen,J. (2020) A benchmark 
+[12] PMID:31740819  12. Korsunsky,I., Millard,N., Fan,J., Slowikowski,K., Zhang,F., Wei,K., Baglaenko,Y., Brenner,M., Lo
+[13] PMID:42027209  13. Lopez,R., Regier,J., Cole,M.B., Jordan,M.I. and Yosef,N. (2018) Deep generative modeling for sin
+[15] PMID:19605365  15. Storey,J.D. and Tibshirani,R. (2003) Statistical significance for genomewide studies. Proc. Natl
+[16] PMID:29409532  16. Wolf,F.A., Angerer,P. and Theis,F.J. (2018) SCANPY: large-scale single-cell gene expression data
+[17] PMID:13160935  17. Edmondson,H.A. and Steiner,P.E. (1954) Primary carcinoma of the liver: a study of 100 cases amon
+[18] PMID:10963602  18. Perou,C.M., Sørlie,T., Eisen,M.B., van de Rijn,M., Jeffrey,S.S., Rees,C.A., Pollack,J.R., Ross,D
+[19] PMID:27501701  19. Parker,J.S., Mullins,M., Cheang,M.C.U., Leung,S., Voduc,D., Vickery,T., Davies,S., Fauron,C., He
+[20] PMID:24105918  20. Yang,Z. (2007) PAML 4: phylogenetic analysis by maximum likelihood. Mol. Biol. Evol., 24, 1586–1
+[21] PMID:33944782  21. Tarashansky,A.J., Musser,J.M., Khariton,M., Li,P., Arendt,D., Quake,S.R. and Wang,B. (2021) Mapp
+[22] PMID:38856169  22. Jiang,J., Li,J., Huang,Y., Wang,Y., Chen,L. and Zhang,X. (2024) CACIMAR: cross-species analysis 
+[23] PMID:37439936  23. Hao,Y., Hao,S., Andersen-Nissen,E., Mauck,W.M., Zheng,S., Butler,A., Lee,M.J., Wilk,A.J., Darby,
+[24] PMID:39607691  24. CZI Cell Science Program. (2025) CZ CELLxGENE Discover: a single-cell data platform for scalable
+[26] PMID:22588877  26. Cerami,E., Gao,J., Dogrusoz,U., Gross,B.E., Sumer,S.O., Aksoy,B.A., Jacobsen,A., Byrne,C.J., Heu
+[27] PMID:26771021  27. Liberzon,A., Birger,C., Thorvaldsdóttir,H., Ghandi,M., Mesirov,J.P. and Tamayo,P. (2015) The Mol
+[28] PMID:26798014  28. Tsai,H.H., Niu,J., Munji,R., Davalos,D., Chang,J., Zhang,H., Tien,A.C., Kuo,C.J., Chan,J.R., Dan
+[30] PMID:38849524  30. Foerster,S., Floriddia,E.M., Neumann,B., Agirre,E., Castelo-Branco,G. and Franklin,R.J.M. (2024)
+[32] PMID:42203489  32. Yang,L., Zhao,Z., Li,Y., Wang,J., Chen,X. and Liu,Z. (2024) Single-cell multi-omics analysis of 
+[33] PMID:31772305  33. Tan,Y.L., Yuan,Y. and Tian,L. (2020) Microglial regional heterogeneity and its role in the brain
+[34] PMID:35977545  34. Menassa,D.A., Muntslag,T.A.O., Martin-Estebané,M., Barry-Carroll,L., Chapman,M.A., Adorjan,I., T
+[35] PMID:42180968  35. Wälchli,T., Ghobrial,M., Schwab,M., Takada,S., Zhong,H., Le,J., Bisschop,J., Lyons,K., Wood,S., 
+[36] PMID:37231261  36. Hao,Y., Stuart,T., Kowalski,M.H., Choudhary,S., Hoffman,P., Hartman,A., Srivastava,A., Molla,G.,
+
+--- NOT FOUND (need manual check) ---
+[4] 4. Hounkpe,B.W., Chenou,F., de Lima,F. and De Paula,E.V. (2021) HRT Atlas v1.0 database: redefining human and mouse housekeeping genes and candidate tissue transitions. Nucleic Acids Res., 49, D947–D955.
+[7] 7. Cancer Genome Atlas Research Network. (2014) Comprehensive molecular profiling of lung adenocarcinoma. Nature, 511, 543–550.
+[14] 14. Rosen,Y., Brbic,M., Roohani,Y., Swanson,K., Li,Z. and Leskovec,J. (2024) Universal cell-type embeddings from single-cell atlases using protein language models. Nat. Methods, 21, 881–892.
+[25] 25. Colaprico,A., Silva,T.C., Olsen,C., Garofano,L., Cava,C., Garolini,D., Sabedot,T.S., Malta,T.M., Pagnotta,S.M., Castiglioni,I. et al. (2016) TCGAbiolinks: an R/Bioconductor package for integrative analysis of TCGA data. Nucleic Acids Res., 44, e71.
+[29] 29. Akay,L.A., Effenberger,A.H. and Tsai,L.H. (2022) Astrocyte endfoot formation controls the termination of oligodendrocyte precursor cell perivascular migration. Neuron, 110, 3699–3714.
+[31] 31. Endo,F., Kasai,A., Cui,W., Tanaka,K.F. and Hashimoto,H. (2024) Astrocyte allocation during brain development is controlled by Tcf4-mediated fate restriction. EMBO J., 43, 4423–4447.
+
+--- SKIPPED ---

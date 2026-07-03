@@ -579,7 +579,7 @@ p('Figure 6. Brain regional cell-type differentiation and migration inference. (
 # ============================================================
 heading('Extended Data Figure legends', level=1)
 
-p('Extended Data Figure 1. Parameter sweep and pathway analysis. (a) k_n stability as a function of housekeeping gene set size, showing convergence at ~200-300 HK genes. (b) k_f component contribution per pathway: decomposition of k_n vs. k_f for representative pathways. (c) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs).')
+p('Extended Data Figure 1. Parameter sweep and pathway analysis. (a) k_n stability as a function of housekeeping gene set size, showing convergence at ~200-300 HK genes. (b) k_f component contribution per pathway: decomposition of k_n vs. k_f for representative pathways. (c) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.847, n = 703 mouse cell-type pairs, 6 organs).')
 
 p('Extended Data Figure 2. Cross-species validation details. (a) Cross-species \u03c9 conservation: scatter plot of human vs. mouse \u03c9 for shared cell types, with Spearman r and P-value. (b) HK gene set detection stability: overlap between human and mouse HK gene sets detected by the combined criterion. (c) \u03c9 distribution comparison between mouse (n = 15 shared cell types) and human (n = 4,851 pairs).')
 

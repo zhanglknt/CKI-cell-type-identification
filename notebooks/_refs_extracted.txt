@@ -1,0 +1,36 @@
+1. Regev,A., Teichmann,S.A., Lander,E.S., Amit,I., Benoist,C., Birney,E., Bodenmiller,B., Campbell,P., Carninci,P., Clatworthy,M. et al. (2017) The Human Cell Atlas. eLife, 6, e27041.
+2. Luecken,M.D. and Theis,F.J. (2019) Current best practices in single-cell RNA-seq analysis: a tutorial. Mol. Syst. Biol., 15, e8746.
+3. Nei,M. and Gojobori,T. (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. Mol. Biol. Evol., 3, 418–426.
+4. Hounkpe,B.W., Chenou,F., de Lima,F. and De Paula,E.V. (2021) HRT Atlas v1.0 database: redefining human and mouse housekeeping genes and candidate tissue transitions. Nucleic Acids Res., 49, D947–D955.
+5. Tabula Muris Consortium. (2018) Single-cell transcriptomics of 20 mouse organs creates a Tabula Muris. Nature, 562, 367–372.
+6. Tabula Sapiens Consortium. (2022) The Tabula Sapiens: a multiple-organ, single-cell transcriptomic atlas of humans. Science, 376, eabl4896.
+7. Cancer Genome Atlas Research Network. (2014) Comprehensive molecular profiling of lung adenocarcinoma. Nature, 511, 543–550.
+8. Weinstein,J.N., Collisson,E.A., Mills,G.B., Shaw,K.R.M., Ozenberger,B.A., Ellrott,K., Shmulevich,I., Sander,C. and Stuart,J.M. (2013) The Cancer Genome Atlas Pan-Cancer analysis project. Nat. Genet., 45, 1113–1120.
+9. Cancer Genome Atlas Network. (2012) Comprehensive molecular portraits of human breast tumours. Nature, 490, 61–70.
+10. Siletti,K., Hodge,R., Mossi Albiach,A., Lee,K.W., Ding,S.L., Hu,L., Lönnerberg,P., Bakken,T., Casper,T., Clark,M. et al. (2023) Transcriptomic diversity of cell types across the adult human brain. Science, 382, eadd7046.
+11. Tran,H.T.N., Ang,K.S., Chevrier,M., Zhang,X., Lee,N.Y.S., Goh,M. and Chen,J. (2020) A benchmark of batch-effect correction methods for single-cell RNA sequencing data. Genome Biol., 21, 12.
+12. Korsunsky,I., Millard,N., Fan,J., Slowikowski,K., Zhang,F., Wei,K., Baglaenko,Y., Brenner,M., Loh,P. and Raychaudhuri,S. (2019) Fast, sensitive and accurate integration of single-cell data with Harmony. Nat. Methods, 16, 1289–1296.
+13. Lopez,R., Regier,J., Cole,M.B., Jordan,M.I. and Yosef,N. (2018) Deep generative modeling for single-cell transcriptomics. Nat. Methods, 15, 1053–1058.
+14. Rosen,Y., Brbic,M., Roohani,Y., Swanson,K., Li,Z. and Leskovec,J. (2024) Universal cell-type embeddings from single-cell atlases using protein language models. Nat. Methods, 21, 881–892.
+15. Storey,J.D. and Tibshirani,R. (2003) Statistical significance for genomewide studies. Proc. Natl. Acad. Sci. USA, 100, 9440–9445.
+16. Wolf,F.A., Angerer,P. and Theis,F.J. (2018) SCANPY: large-scale single-cell gene expression data analysis. Genome Biol., 19, 15.
+17. Edmondson,H.A. and Steiner,P.E. (1954) Primary carcinoma of the liver: a study of 100 cases among 48,900 necropsies. Cancer, 7, 462–503.
+18. Perou,C.M., Sørlie,T., Eisen,M.B., van de Rijn,M., Jeffrey,S.S., Rees,C.A., Pollack,J.R., Ross,D.T., Johnsen,H., Akslen,L.A. et al. (2000) Molecular portraits of human breast tumours. Nature, 406, 747–752.
+19. Parker,J.S., Mullins,M., Cheang,M.C.U., Leung,S., Voduc,D., Vickery,T., Davies,S., Fauron,C., He,X., Hu,Z. et al. (2009) Supervised risk predictor of breast cancer based on intrinsic subtypes. J. Clin. Oncol., 27, 1160–1167.
+20. Yang,Z. (2007) PAML 4: phylogenetic analysis by maximum likelihood. Mol. Biol. Evol., 24, 1586–1591.
+21. Tarashansky,A.J., Musser,J.M., Khariton,M., Li,P., Arendt,D., Quake,S.R. and Wang,B. (2021) Mapping single-cell atlases throughout Metazoa unveils cell type evolution. eLife, 10, e66747.
+22. Jiang,J., Li,J., Huang,Y., Wang,Y., Chen,L. and Zhang,X. (2024) CACIMAR: cross-species analysis of cell identities, markers, regulations, and interactions. Brief. Bioinform., 25, bbae283.
+23. Hao,Y., Hao,S., Andersen-Nissen,E., Mauck,W.M., Zheng,S., Butler,A., Lee,M.J., Wilk,A.J., Darby,C., Zager,M. et al. (2021) Integrated analysis of multimodal single-cell data. Cell, 184, 3573–3587.
+24. CZI Cell Science Program. (2025) CZ CELLxGENE Discover: a single-cell data platform for scalable exploration, analysis and modeling of aggregated data. Nucleic Acids Res., 53, D886–D900.
+25. Colaprico,A., Silva,T.C., Olsen,C., Garofano,L., Cava,C., Garolini,D., Sabedot,T.S., Malta,T.M., Pagnotta,S.M., Castiglioni,I. et al. (2016) TCGAbiolinks: an R/Bioconductor package for integrative analysis of TCGA data. Nucleic Acids Res., 44, e71.
+26. Cerami,E., Gao,J., Dogrusoz,U., Gross,B.E., Sumer,S.O., Aksoy,B.A., Jacobsen,A., Byrne,C.J., Heuer,M.L., Larsson,E. et al. (2012) The cBio Cancer Genomics Portal: an open platform for exploring multidimensional cancer genomics data. Cancer Discov., 2, 401–404.
+27. Liberzon,A., Birger,C., Thorvaldsdóttir,H., Ghandi,M., Mesirov,J.P. and Tamayo,P. (2015) The Molecular Signatures Database Hallmark Gene Set Collection. Cell Syst., 1, 417–425.
+28. Tsai,H.H., Niu,J., Munji,R., Davalos,D., Chang,J., Zhang,H., Tien,A.C., Kuo,C.J., Chan,J.R., Daneman,R. et al. (2016) Oligodendrocyte precursors migrate along vasculature in the developing nervous system. Science, 351, 379–384.
+29. Akay,L.A., Effenberger,A.H. and Tsai,L.H. (2022) Astrocyte endfoot formation controls the termination of oligodendrocyte precursor cell perivascular migration. Neuron, 110, 3699–3714.
+30. Foerster,S., Floriddia,E.M., Neumann,B., Agirre,E., Castelo-Branco,G. and Franklin,R.J.M. (2024) Developmental origin of oligodendrocytes determines their function in the adult brain. Nat. Neurosci., 27, 1155–1166.
+31. Endo,F., Kasai,A., Cui,W., Tanaka,K.F. and Hashimoto,H. (2024) Astrocyte allocation during brain development is controlled by Tcf4-mediated fate restriction. EMBO J., 43, 4423–4447.
+32. Yang,L., Zhao,Z., Li,Y., Wang,J., Chen,X. and Liu,Z. (2024) Single-cell multi-omics analysis of lineage development and spatial organization in the human fetal cerebellum. Cell Discov., 10, 25.
+33. Tan,Y.L., Yuan,Y. and Tian,L. (2020) Microglial regional heterogeneity and its role in the brain. Mol. Psychiatry, 25, 351–367.
+34. Menassa,D.A., Muntslag,T.A.O., Martin-Estebané,M., Barry-Carroll,L., Chapman,M.A., Adorjan,I., Tyler,T., Turnbull,B., Rose-Zerilli,M.J.J., Nicoll,J.A.R. et al. (2022) The spatiotemporal dynamics of microglia across the human lifespan. Dev. Cell, 57, 1910–1927.
+35. Wälchli,T., Ghobrial,M., Schwab,M., Takada,S., Zhong,H., Le,J., Bisschop,J., Lyons,K., Wood,S., He,L. et al. (2024) Single-cell atlas of the human brain vasculature across development, adulthood and disease. Nature, 632, 603–613.
+36. Hao,Y., Stuart,T., Kowalski,M.H., Choudhary,S., Hoffman,P., Hartman,A., Srivastava,A., Molla,G., Madad,S., Fernandez-Granda,C. et al. (2024) Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nat. Biotechnol., 42, 293–304.

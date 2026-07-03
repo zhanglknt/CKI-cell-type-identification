@@ -1,0 +1,157 @@
+============================================================
+0. Loading HK gene mapping...
+============================================================
+  HK gene symbols: 1129, probeMap entries: 60498
+
+============================================================
+1. Parsing TCGA sample metadata...
+============================================================
+  Total samples in file: 10535
+
+  Sample counts per cancer:
+    BRCA: total=1065 (Normal=109, Tumor=950, Metastasis=6, Recurrence=0)
+    KIRC: total=690 (Normal=37, Tumor=652, Metastasis=1, Recurrence=0)
+    LIHC: total=196 (Normal=21, Tumor=174, Metastasis=0, Recurrence=1)
+    LUAD: total=494 (Normal=59, Tumor=430, Metastasis=0, Recurrence=5)
+    COAD: total=1598 (Normal=207, Tumor=1380, Metastasis=6, Recurrence=5)
+    HNSC: total=1012 (Normal=56, Tumor=952, Metastasis=4, Recurrence=0)
+
+  Unmapped TSS codes: 437
+  Mapped samples (target cancers): 5055
+
+============================================================
+3. Computing per-cancer omega matrices...
+============================================================
+
+--- BRCA ---
+  Available subtypes: Normal(109), Tumor(950), Metastasis(6)
+  Loading expression data...
+  Loaded: 1065 samples x 14290 genes, 1125 HK genes
+    Normal: 109 samples -> pseudobulk
+    Tumor: 950 samples -> pseudobulk
+    Metastasis: 6 samples -> pseudobulk
+    Computed 4/16 entries    Computed 8/16 entries    Computed 12/16 entries
+  Done in 81s
+  Omega matrix:
+    Normal      : 1851.98  2198.22  1666.68     NaN
+    Tumor       : 2198.22  675.36  4224.24     NaN
+    Metastasis  : 1666.68  4224.24  629.25     NaN
+    Recurrence  :    NaN     NaN     NaN     NaN
+
+--- KIRC ---
+  Available subtypes: Normal(37), Tumor(652), Metastasis(1)
+  Loading expression data...
+  Loaded: 690 samples x 13920 genes, 1125 HK genes
+    Normal: 37 samples -> pseudobulk
+    Tumor: 652 samples -> pseudobulk
+    Metastasis: 1 samples -> pseudobulk
+    Computed 4/16 entries    Computed 8/16 entries    Computed 12/16 entries
+  Done in 78s
+  Omega matrix:
+    Normal      : 1738.48  1397.64  380.20     NaN
+    Tumor       : 1397.64  592.19  151.70     NaN
+    Metastasis  : 380.20  151.70     NaN     NaN
+    Recurrence  :    NaN     NaN     NaN     NaN
+
+--- LIHC ---
+  Available subtypes: Normal(21), Tumor(174), Recurrence(1)
+  Loading expression data...
+  Loaded: 196 samples x 12309 genes, 1124 HK genes
+    Normal: 21 samples -> pseudobulk
+    Tumor: 174 samples -> pseudobulk
+    Recurrence: 1 samples -> pseudobulk
+    Computed 4/16 entries    Computed 8/16 entries    Computed 16/16 entries
+  Done in 60s
+  Omega matrix:
+    Normal      : 233.87  154.28     NaN  139.16
+    Tumor       : 154.28  250.59     NaN  168.81
+    Metastasis  :    NaN     NaN     NaN     NaN
+    Recurrence  : 139.16  168.81     NaN     NaN
+
+--- LUAD ---
+  Available subtypes: Normal(59), Tumor(430), Recurrence(5)
+  Loading expression data...
+  Loaded: 494 samples x 14284 genes, 1125 HK genes
+    Normal: 59 samples -> pseudobulk
+    Tumor: 430 samples -> pseudobulk
+    Recurrence: 5 samples -> pseudobulk
+    Computed 4/16 entries    Computed 8/16 entries    Computed 16/16 entries
+  Done in 71s
+  Omega matrix:
+    Normal      : 2265.58  2101.64     NaN  1147.94
+    Tumor       : 2101.64  546.82     NaN  1191.66
+    Metastasis  :    NaN     NaN     NaN     NaN
+    Recurrence  : 1147.94  1191.66     NaN  1043.81
+
+--- COAD ---
+  Available subtypes: Normal(207), Tumor(1380), Metastasis(6), Recurrence(5)
+  Loading expression data...
+  Loaded: 1598 samples x 13312 genes, 1125 HK genes
+    Normal: 207 samples -> pseudobulk
+    Tumor: 1380 samples -> pseudobulk
+    Metastasis: 6 samples -> pseudobulk
+    Recurrence: 5 samples -> pseudobulk
+    Computed 4/16 entries    Computed 8/16 entries    Computed 12/16 entries    Computed 16/16 entries
+  Done in 106s
+  Omega matrix:
+    Normal      : 641.37  1675.42  370.33  1137.40
+    Tumor       : 1675.42  374.77  605.50  3031.60
+    Metastasis  : 370.33  605.50  664.81  482.29
+    Recurrence  : 1137.40  3031.60  482.29  273.36
+
+--- HNSC ---
+  Available subtypes: Normal(56), Tumor(952), Metastasis(4)
+  Loading expression data...
+  Loaded: 1012 samples x 13212 genes, 1125 HK genes
+    Normal: 56 samples -> pseudobulk
+    Tumor: 952 samples -> pseudobulk
+    Metastasis: 4 samples -> pseudobulk
+    Computed 4/16 entries    Computed 8/16 entries    Computed 12/16 entries
+  Done in 88s
+  Omega matrix:
+    Normal      : 569.24  1908.16  154.00     NaN
+    Tumor       : 1908.16  394.86  118.07     NaN
+    Metastasis  : 154.00  118.07  168.53     NaN
+    Recurrence  :    NaN     NaN     NaN     NaN
+
+============================================================
+4. Saving results...
+============================================================
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\figures_final\ed_fig3_tcga_omega_matrices.npz
+
+Total time: 484s
+Done!
+
+============================================================
+5. Summary for ed_fig3
+============================================================
+
+  BRCA:
+    Samples: Normal=109, Tumor=950, Metastasis=6, Recurrence=0
+    Valid entries: 9/16
+    Omega range: [629.252, 4224.239]
+
+  KIRC:
+    Samples: Normal=37, Tumor=652, Metastasis=1, Recurrence=0
+    Valid entries: 8/16
+    Omega range: [151.695, 1738.480]
+
+  LIHC:
+    Samples: Normal=21, Tumor=174, Metastasis=0, Recurrence=1
+    Valid entries: 8/16
+    Omega range: [139.157, 250.594]
+
+  LUAD:
+    Samples: Normal=59, Tumor=430, Metastasis=0, Recurrence=5
+    Valid entries: 9/16
+    Omega range: [546.825, 2265.576]
+
+  COAD:
+    Samples: Normal=207, Tumor=1380, Metastasis=6, Recurrence=5
+    Valid entries: 16/16
+    Omega range: [273.356, 3031.602]
+
+  HNSC:
+    Samples: Normal=56, Tumor=952, Metastasis=4, Recurrence=0
+    Valid entries: 9/16
+    Omega range: [118.068, 1908.162]

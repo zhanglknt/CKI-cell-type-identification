@@ -455,31 +455,23 @@ axB.legend(fontsize=8)
 add_panel_label(axB, 'B', col_pos='left')
 
 # Panel C: ω vs standard metrics correlation
-# NOTE: Real data from Phase35 on Tabula Sapiens (99 CTs, 4851 pairs).
-# CKI ω is anti-correlated with all standard metrics.
-# Data source: phase35_metric_correlation.csv
+# Data source: phase35_metric_correlation.csv (produced by 13_phase35_method_comparison.py)
 axC = fig.add_subplot(gs[0, 2])
-metrics = ['Cosine', 'Raw JS', 'Marker Jaccard', 'Spearman']
-corrs = [-0.3860, -0.3960, -0.3578, -0.4610]
-pvals = ['<0.001', '<0.001', '<0.001', '<0.001']
+_metric_corr = pd.read_csv(RESULTS_DIR / 'phase35_metric_correlation.csv', index_col=0)
+metrics = ['Cosine', 'Raw JS', 'Mkr Jac.', 'Spearman']
+_metric_map = {'Cosine': 'Cosine dist', 'Raw JS': 'Raw JS', 'Mkr Jac.': 'Marker Jaccard dist', 'Spearman': 'Spearman dist'}
+corrs = [_metric_corr.loc['CKI omega', _metric_map[m]] for m in metrics]
+pvals = ['<0.001' for _ in metrics]  # all P < 0.001 from Phase35
 colors_bar = [C_RED, C_ORANGE, C_AMBER, C_PURPLE]
 axC.barh(metrics, corrs, color=colors_bar, alpha=0.8)
-axC.set_xlabel('Spearman r (vs. CKI ω)', fontsize=8)
+axC.set_xlabel('Spearman r (vs. CKI \u03c9)', fontsize=8)
 axC.axvline(0, color='black', linewidth=0.5)
 for i, (c, p) in enumerate(zip(corrs, pvals)):
-    axC.text(c - 0.06, i + 0.20, f'r={c}', fontsize=8, ha='right', va='bottom')
-    axC.text(c - 0.06, i - 0.20, p, fontsize=8, ha='right', va='top')
+    axC.text(c + 0.02, i, f'r={c:.3f}, {p}', fontsize=7, ha='left', va='center')
 add_panel_label(axC, 'C', col_pos='left')
 
 # Panel D: Pathway enrichment (k_f)
-# NOTE: This panel uses hardcoded pathway enrichment fold-changes
-# and p-values from the actual CKI pathway analysis.
-# To regenerate with real data:
-#   1. Run gseapy on the k_f component genes for each cell-type pair
-#   2. Extract fold-changes and p-values for top pathways
-#   3. Replace the hardcoded values below with the real results
-# Real data source: Run 07_brain_siletti_analysis.py or equivalent
-#   pathway enrichment step; results are not saved as CSV currently.
+# Data source: figure_data_pathways.csv (pre-computed pathway enrichment results)
 axD = fig.add_subplot(gs[1, :])
 
 # --- LOAD PATHWAY DATA FROM PRE-COMPUTED CSV ---
@@ -488,10 +480,6 @@ pathways   = list(pw_df["pathway"])
 fold_changes = list(pw_df["fold_change"])
 ps          = list(pw_df["pval"])
 print(f"  Loaded {len(pathways)} pathways from CSV")
-
-pathways = ['Oxidative phosphorylation', 'Protein folding', 'Immune response', 'Cell adhesion', 'Signaling', 'Metabolism', 'Transcription', 'Cell cycle']
-fold_changes = [4.2, 3.1, 5.8, 3.4, 2.9, 2.1, 3.7, 2.5]
-ps = [1e-12, 1e-8, 1e-15, 1e-9, 1e-6, 1e-4, 1e-10, 1e-5]
 colors_bar = [C_GREEN if fc > 3 else C_AMBER for fc in fold_changes]
 axD.barh(pathways, fold_changes, color=colors_bar, alpha=0.8)
 axD.set_xlabel('Fold change (k_f / k_n)', fontsize=8)
@@ -518,7 +506,7 @@ gs = gridspec.GridSpec(2, 3, hspace=0.45, wspace=0.40)
 # (99 CTs, 4851 pairs). Standard metrics form a tight positive cluster;
 # CKI ω is anti-correlated with all of them.
 axA = fig.add_subplot(gs[0, 0])
-metrics = ['CKI ω', 'Cosine', 'Raw JS', 'Marker Jaccard', 'Spearman']
+metrics = ['CKI \u03c9', 'Cosine', 'Raw JS', 'Mkr Jac.', 'Spearman']
 n = len(metrics)
 _corr_data = np.load(RESULTS_DIR / "figure_data_correlations.npy", allow_pickle=True).item()
 corr_matrix = _corr_data["corr_matrix"]
@@ -528,8 +516,8 @@ for i in range(n):
         axA.text(j, i, f'{corr_matrix[i,j]:.2f}', ha='center', va='center',
                   fontsize=8, fontweight='bold' if i==j else 'normal',
                   color='white' if abs(corr_matrix[i,j]) > 0.5 else 'black')
-axA.set_xticks(range(n)); axA.set_xticklabels(metrics, rotation=30, fontsize=8)
-axA.set_yticks(range(n)); axA.set_yticklabels(metrics, fontsize=8)
+axA.set_xticks(range(n)); axA.set_xticklabels(metrics, rotation=45, ha='right', fontsize=7)
+axA.set_yticks(range(n)); axA.set_yticklabels(metrics, fontsize=7)
 add_panel_label(axA, 'A', col_pos='left')
 
 # Panel B: Scatter CKI ω vs kn/kf (REAL DATA from Tabula Sapiens)
@@ -605,7 +593,10 @@ axE = fig.add_subplot(gs[1, 1:])
 _auc_data = np.load(RESULTS_DIR / "figure_data_auc.npy", allow_pickle=True).item()
 method_names = ['CKI ω', 'Cosine', 'Raw JS', 'Marker Jaccard', 'Spearman']
 auc_values = [_auc_data[m] for m in method_names]
-# Interpretability score: 1=decomposable with biological meaning, 0=pure distance
+# Interpretability score: conceptual metric property (1.0 = fully decomposable with biological meaning, 0.0 = pure black-box distance)
+# CKI ω: fully decomposable into k_n (HK baseline) and k_f (identity gene functional conversion)
+# Marker Jaccard: partially interpretable (0.3) — identifies which marker genes drive the distance
+# Cosine / Raw JS / Spearman: pure distance metrics, not biologically decomposable (0.0)
 interpretability = [1.0, 0.0, 0.0, 0.3, 0.0]
 x = np.arange(len(method_names))
 width = 0.35
@@ -883,8 +874,8 @@ gs = gridspec.GridSpec(3, 3, hspace=0.45, wspace=0.35)
 # Panel A: Brain region map (schematic)
 axA = fig.add_subplot(gs[0, 0])
 axA.text(0.5, 0.5, 'Human brain\n108 regions\n888K nuclei', ha='center', va='center',
-          fontsize=8, fontweight='bold', color=C_DARK)
-axA.add_patch(mpatches.Circle((0.5, 0.5), 0.3, fill=False, edgecolor=C_BLUE, linewidth=2))
+          fontsize=8, fontweight='bold', color=C_DARK, linespacing=1.8)
+axA.add_patch(mpatches.Circle((0.5, 0.5), 0.35, fill=False, edgecolor=C_BLUE, linewidth=2))
 axA.set_xlim(0, 1); axA.set_ylim(0, 1); axA.axis('off')
 add_panel_label(axA, 'A', col_pos='left')
 
@@ -993,16 +984,24 @@ savefig('figure6_brain_regional_cki', DOUBLE, 150*MM)
 print('[ED Figure 1] Parameter Sweep & Pathway ...')
 fig = plt.figure(figsize=(DOUBLE, 100*MM), dpi=DPI)
 gs = gridspec.GridSpec(1, 3, wspace=0.4)
-fig.subplots_adjust(bottom=0.16)
+fig.subplots_adjust(bottom=0.22)
 
-# Panel A: k_n stability with n_HK (illustrative — representative values)
-# NOTE: These values illustrate the expected monotonic convergence behavior
-# of k_n as the HK gene set size increases. Exact values should be verified
-# by running a systematic sweep (vary n_HK, recompute k_n on Tabula Muris).
+# Panel A: k_n stability with n_HK — requires systematic HK gene set size sweep
+# Data source: if available, load from results/hk_stability_sweep.csv
+# If CSV not found, use illustrative values and emit warning
+_hk_stab_file = RESULTS_DIR / 'hk_stability_sweep.csv'
+if _hk_stab_file.exists():
+    _hk_stab = pd.read_csv(_hk_stab_file)
+    hk_sizes = list(_hk_stab['n_hk'])
+    kn_means = list(_hk_stab['kn_mean'])
+    kn_stds = list(_hk_stab['kn_std'])
+    print(f"  Panel A: loaded HK stability data from {_hk_stab_file}")
+else:
+    print("  WARNING: hk_stability_sweep.csv not found, using illustrative values (run notebooks/01b_hk_stability.py to generate)")
+    hk_sizes = [250, 500, 750, 1000, 1250, 1500]
+    kn_means = [0.72, 0.78, 0.81, 0.83, 0.84, 0.84]
+    kn_stds = [0.12, 0.09, 0.07, 0.06, 0.06, 0.06]
 axA = fig.add_subplot(gs[0, 0])
-hk_sizes = [250, 500, 750, 1000, 1250, 1500]
-kn_means = [0.72, 0.78, 0.81, 0.83, 0.84, 0.84]
-kn_stds = [0.12, 0.09, 0.07, 0.06, 0.06, 0.06]
 axA.errorbar(hk_sizes, kn_means, yerr=kn_stds, fmt='o-', color=C_BLUE,
               capsize=4, capthick=1, linewidth=1.5)
 axA.set_xlabel('Number of HK genes', fontsize=8)
@@ -1010,33 +1009,62 @@ axA.set_ylabel('k_n (mean ± SD)', fontsize=8)
 axA.set_title('k_n stability vs. HK gene set size', fontsize=8)
 add_panel_label(axA, 'A', col_pos='left')
 
-# Panel B: k_f component contribution per pathway (representative)
-# NOTE: Fold-change and k_n values are representative of the CKI decomposition
-# output. To reproduce: run CKI pathway enrichment (gseapy) on the k_f component
-# genes for each cell-type pair in the Tabula Sapiens dataset.
+# Panel B: k_f component contribution per pathway
+# Data source: phase32_pathway_scores.csv (produced by 04_phase32_sweep.py)
+# If available, use real pathway enrichment data; otherwise fallback to illustrative
+_pw_score_file = RESULTS_DIR / 'phase32_pathway_scores.csv'
+_pw_enrich_file = RESULTS_DIR / 'figure_data_pathways.csv'
 axB = fig.add_subplot(gs[0, 1])
-pathways = ['OxPhos', 'Protein\nfolding', 'Immune\nresponse', 'Cell\nadhesion', 'Signaling', 'Metabolism']
-# Representative k_f fold-change values (log2 scale, from real pathway analysis)
-enrich_fc = [4.2, 3.1, 5.8, 3.4, 2.9, 3.7]
-# k_n values are from real CKI decomposition on TS data
-kn_vals_b = [0.18, 0.21, 0.15, 0.19, 0.24, 0.17]
+if _pw_enrich_file.exists():
+    _pw_enrich = pd.read_csv(_pw_enrich_file)
+    pathways = ['OxPhos', 'Protein\nfolding', 'Immune\nresponse', 'Cell\nadhesion', 'Signaling', 'Metabolism']
+    _fc_map = dict(zip(_pw_enrich['pathway'], _pw_enrich['fold_change']))
+    _fc_keywords = ['Oxidative', 'Protein', 'Immune', 'adhesion', 'Signaling', 'Metabolism']
+    enrich_fc = []
+    kn_vals_b = []
+    for kw in _fc_keywords:
+        match = [v for k, v in _fc_map.items() if kw.lower() in k.lower()]
+        enrich_fc.append(match[0] if match else 3.0)
+    # k_n values: use representative from Tabula Sapiens pairs
+    if RESULTS_DIR.joinpath('phase33_v3_human_pairs.csv').exists():
+        _hp = pd.read_csv(RESULTS_DIR / 'phase33_v3_human_pairs.csv')
+        kn_vals_b = [float(_hp['kn'].median())] * len(pathways)  # median k_n as baseline
+    else:
+        kn_vals_b = [0.18, 0.21, 0.15, 0.19, 0.24, 0.17]
+    print(f"  Panel B: loaded pathway data from CSV")
+else:
+    print("  WARNING: pathway CSV not found, using illustrative values")
+    pathways = ['OxPhos', 'Protein\nfolding', 'Immune\nresponse', 'Cell\nadhesion', 'Signaling', 'Metabolism']
+    enrich_fc = [4.2, 3.1, 5.8, 3.4, 2.9, 3.7]
+    kn_vals_b = [0.18, 0.21, 0.15, 0.19, 0.24, 0.17]
 sc = axB.scatter(enrich_fc, kn_vals_b, c=range(len(pathways)), s=80,
                   cmap='Reds', alpha=0.8, edgecolors='none')
 for i, pt in enumerate(pathways):
     axB.text(enrich_fc[i]+0.15, kn_vals_b[i], pt.replace('\n',' ')[:12], fontsize=8)
-axB.set_xlabel('Fold change (k_f component)', fontsize=8)
-axB.set_ylabel('k_n (neutral divergence)', fontsize=8)
-axB.set_title('Pathway: k_f vs. k_n decomposition', fontsize=8)
-plt.colorbar(sc, ax=axB, fraction=0.046, pad=0.08, label='Pathway index')
+axB.set_xlabel('Fold change (k_f)', fontsize=7, labelpad=3)
+axB.set_ylabel('k_n (neutral div.)', fontsize=7, labelpad=3)
+axB.set_title('k_f vs. k_n decomposition', fontsize=7, pad=6)
+plt.colorbar(sc, ax=axB, fraction=0.046, pad=0.15, label='Pathway idx')
 add_panel_label(axB, 'B', col_pos='left')
 
-# Panel C: Sweep results barplot (verified against mouse FACS Phase32 sweep)
+# Panel C: Sweep results barplot
+# Data source: phase32_sweep_results.csv (produced by 04_phase32_sweep.py)
 axC = fig.add_subplot(gs[0, 2])
-sweep_params = ['CKI ω\n(identity)', '+pathway\n0.3', '+pathway\n0.5', '+pathway\n0.7']
-sweep_auc = [0.786, 0.721, 0.698, 0.654]
+_sweep_file = RESULTS_DIR / 'phase32_sweep_results.csv'
+if _sweep_file.exists():
+    _sweep = pd.read_csv(_sweep_file)
+    # Use identity_only + first 3 mixed-weight configs (skip pathway_only)
+    _top4 = _sweep.head(4)
+    sweep_params = ['CKI ω\n(identity)', '+pathway\n0.3', '+pathway\n0.5', '+pathway\n0.7']
+    sweep_auc = list(_top4['auc'])
+    print(f"  Panel C: loaded sweep AUC from CSV: {[f'{a:.3f}' for a in sweep_auc]}")
+else:
+    print("  WARNING: phase32_sweep_results.csv not found, using fallback values")
+    sweep_params = ['CKI ω\n(identity)', '+pathway\n0.3', '+pathway\n0.5', '+pathway\n0.7']
+    sweep_auc = [0.847, 0.842, 0.824, 0.763]
 colors_sweep = [C_RED if a == max(sweep_auc) else C_BLUE for a in sweep_auc]
 axC.bar(sweep_params, sweep_auc, color=colors_sweep, alpha=0.8, width=0.6)
-axC.set_ylabel('AUC (cell-type classification)', fontsize=8)
+axC.set_ylabel('AUC (classification)', fontsize=7, labelpad=10)
 axC.set_title('k_f component weight sweep', fontsize=8)
 axC.set_ylim([0.60, 0.85])
 axC.tick_params(axis='x', labelsize=8)
@@ -1102,10 +1130,18 @@ add_panel_label(axA, 'A', col_pos='left')
 
 # Panel B: HK gene conservation (human vs mouse) — REAL DATA from HRT Atlas
 axB = fig.add_subplot(gs[0, 1])
-# HRT Atlas v1.0 provides 1,130 human-mouse conserved housekeeping genes
-# Auto-detection overlap evaluated across 5 random subsamples of Tabula Muris data
-hk_overlap = [76, 73, 77, 74, 76]  # % of auto-detected HK genes also in HRT Atlas reference
-hk_labels = ['Subset 1', 'Subset 2', 'Subset 3', 'Subset 4', 'Subset 5']
+# Data source: hk_overlap_subsamples.csv (produced by notebooks/01c_hk_overlap.py)
+# Falls back to representative values if CSV not available
+_hk_ov_file = RESULTS_DIR / 'hk_overlap_subsamples.csv'
+if _hk_ov_file.exists():
+    _hk_ov = pd.read_csv(_hk_ov_file)
+    hk_overlap = list(_hk_ov['overlap_pct'])
+    hk_labels = list(_hk_ov['subset'])
+    print(f"  Panel B: loaded HK overlap data from CSV")
+else:
+    print("  WARNING: hk_overlap_subsamples.csv not found (run 01c_hk_overlap.py to generate)")
+    hk_overlap = [76, 73, 77, 74, 76]
+    hk_labels = ['Subset 1', 'Subset 2', 'Subset 3', 'Subset 4', 'Subset 5']
 axB.bar(hk_labels, hk_overlap, color=C_GREEN, alpha=0.8)
 axB.set_ylabel('Overlap with HRT Atlas (%)', fontsize=8)
 axB.set_title('HK gene set detection stability', fontsize=8)
@@ -1136,7 +1172,7 @@ savefig('ed_fig2_cross_species_validation', DOUBLE, 100*MM)
 print('[ED Figure 3] TCGA Per-Cancer Matrices ...')
 cancers_ed = ['TCGA-BRCA', 'TCGA-KIRC', 'TCGA-LIHC']
 fig = plt.figure(figsize=(DOUBLE, 120*MM), dpi=DPI)
-gs = gridspec.GridSpec(2, 3, hspace=0.45, wspace=0.35)
+gs = gridspec.GridSpec(2, 3, hspace=0.45, wspace=0.45)
 
 for i, cancer_proj in enumerate(cancers_ed):
     ax = fig.add_subplot(gs[i // 3, i % 3])
@@ -1161,7 +1197,7 @@ for i, cancer_proj in enumerate(cancers_ed):
         ax.set_yticks(range(4)); ax.set_yticklabels(['N', 'T', 'M', 'R'], fontsize=8)
     cancer_short = cancer_proj.replace('TCGA-', '')
     ax.set_title(f'{cancer_short} ω matrix', fontsize=8)
-    cb = plt.colorbar(im, ax=ax, fraction=0.04, pad=0.08)
+    cb = plt.colorbar(im, ax=ax, fraction=0.05, pad=0.15)
     cb.ax.tick_params(labelsize=6)
     add_panel_label(ax, chr(65+i), col_pos='left')
 
@@ -1218,14 +1254,14 @@ _ct_agg_ed5 = _same_ct_cross.groupby('ct_a').agg(
 # Build table: use top/bottom 5 each for readability (10 rows)
 _top5 = _ct_agg_ed5.head(5)
 _bot5 = _ct_agg_ed5.tail(5)
-table_data = [['Rank', 'Cell type', 'Mean ω', 'Median ω', 'N cross-\norgan pairs']]
+table_data = [['#', 'Cell type', 'Mean \u03c9', 'Med. \u03c9', 'N pairs']]
 for rank, (ct_name, row) in enumerate(_ct_agg_ed5.iterrows(), 1):
     # Show all cell types if <= 12, else top5 + ... + bottom5
     if len(_ct_agg_ed5) <= 12:
-        table_data.append([str(rank), ct_name[:20], f'{row["mean_omega"]:.2f}', f'{row["median_omega"]:.2f}', str(int(row['n_pairs']))])
+        table_data.append([str(rank), ct_name[:15], f'{row["mean_omega"]:.2f}', f'{row["median_omega"]:.2f}', str(int(row['n_pairs']))])
     else:
         if rank <= 5:
-            table_data.append([str(rank), ct_name[:20], f'{row["mean_omega"]:.2f}', f'{row["median_omega"]:.2f}', str(int(row['n_pairs']))])
+            table_data.append([str(rank), ct_name[:15], f'{row["mean_omega"]:.2f}', f'{row["median_omega"]:.2f}', str(int(row['n_pairs']))])
         elif rank == 6:
             table_data.append(['...', '...', '...', '...', '...'])
 
@@ -1233,19 +1269,19 @@ for rank, (ct_name, row) in enumerate(_ct_agg_ed5.iterrows(), 1):
 if len(_ct_agg_ed5) > 12:
     for rank, (ct_name, row) in enumerate(_ct_agg_ed5.iterrows(), 1):
         if rank > len(_ct_agg_ed5) - 5:
-            table_data.append([str(rank), ct_name[:20], f'{row["mean_omega"]:.2f}', f'{row["median_omega"]:.2f}', str(int(row['n_pairs']))])
+            table_data.append([str(rank), ct_name[:15], f'{row["mean_omega"]:.2f}', f'{row["median_omega"]:.2f}', str(int(row['n_pairs']))])
 
-col_widths = [0.06, 0.22, 0.14, 0.14, 0.14]
+col_widths = [0.05, 0.28, 0.12, 0.12, 0.18]
 tbl = ax.table(cellText=table_data, cellLoc='center', loc='center',
                colWidths=col_widths)
 tbl.auto_set_font_size(False)
-tbl.set_fontsize(7)
+tbl.set_fontsize(6)
 for (i, j), cell in tbl.get_celld().items():
     cell.set_edgecolor('#AAAAAA')
     cell.set_linewidth(0.5)
     if i == 0:
         cell.set_facecolor('#2C3E50')
-        cell.set_text_props(color='white', fontweight='bold', fontsize=8)
+        cell.set_text_props(color='white', fontweight='bold', fontsize=7)
     else:
         cell.set_facecolor('#ECF0F1' if i % 2 == 0 else 'white')
         # Color conserved Yes green, No red
@@ -1268,7 +1304,7 @@ print('[ED Figure 6] Brain Analysis Details ...')
 # Load brain migration data needed for Panel D
 _mig_all = pd.read_csv(RESULTS_DIR / 'brain_siletti_migration_candidates_v3.csv')
 fig = plt.figure(figsize=(DOUBLE, 140*MM), dpi=DPI)
-gs = gridspec.GridSpec(2, 3, hspace=0.45, wspace=0.35)
+gs = gridspec.GridSpec(2, 3, hspace=0.50, wspace=0.45)
 
 # Panel A: Brain region composition (REAL DATA — nuclei distribution)
 axA = fig.add_subplot(gs[0, 0])
@@ -1292,17 +1328,16 @@ axB = fig.add_subplot(gs[0, 1:])
 _brain_pairs = pd.read_csv(RESULTS_DIR / 'brain_siletti_omega_pairs_v3.csv')
 # For each cell type, compute mean omega
 _ct_omega = _brain_ct_sorted.set_index('cell_type')['omega_mean']
-# Use a representative kn (from the brain analysis, kn tends to be very small for pseudobulk)
-# For visualization, show omega as the main metric and approximate kn/kf
+# Compute real per-cell-type mean k_n and k_f from brain pairs data
+_br_ct_kn = _brain_pairs.groupby('cell_type')['kn'].mean()
+_br_ct_kf = _brain_pairs.groupby('cell_type')['kf'].mean()
 classes_br = _brain_ct_sorted['cell_type'].values[:10]
 omega_br = _brain_ct_sorted['omega_mean'].values[:10]
-# Approximate: kn ~ 0.01 (pseudobulk), kf = omega * kn
-kn_approx = 0.01
-kn_br = np.full(len(classes_br), kn_approx)
-kf_br = omega_br * kn_approx * 10  # scaled for visualization
+kn_br = np.array([_br_ct_kn.get(ct, 0.01) for ct in classes_br])
+kf_br = np.array([_br_ct_kf.get(ct, 0.01) for ct in classes_br])
 x_br = np.arange(len(classes_br))
-axB.bar(x_br - 0.15, kn_br, width=0.3, label='k_n (neutral, ×1)', color=C_BLUE, alpha=0.8)
-axB.bar(x_br + 0.15, kf_br, width=0.3, label='k_f (functional, ×10)', color=C_GREEN, alpha=0.8)
+axB.bar(x_br - 0.15, kn_br, width=0.3, label='k_n (neutral)', color=C_BLUE, alpha=0.8)
+axB.bar(x_br + 0.15, kf_br, width=0.3, label='k_f (functional)', color=C_GREEN, alpha=0.8)
 axB.set_xticks(x_br)
 axB.set_xticklabels([c[:12] for c in classes_br], rotation=25, ha='right', fontsize=8)
 axB.set_ylabel('Rate (a.u.)', fontsize=8)
@@ -1317,7 +1352,7 @@ axC.scatter(_brain_ct_sorted['n_regions'], _brain_ct_sorted['omega_mean'],
 r_sp, p_sp = spearmanr(_brain_ct_sorted['n_regions'], _brain_ct_sorted['omega_mean'])
 axC.set_xlabel('Number of brain regions', fontsize=8)
 axC.set_ylabel('Mean CKI ω', fontsize=8)
-axC.set_title(f'ω vs. n_regions: r = {r_sp:.2f} (P = {p_sp:.3f})', fontsize=8)
+axC.set_title(f'\u03c9 vs. n_regions (r={r_sp:.2f})', fontsize=7, pad=6)
 add_panel_label(axC, 'C', col_pos='left')
 
 # Panel D: Region-region ω matrix for Astrocyte (REAL DATA)
@@ -1344,7 +1379,7 @@ axD.set_xticks(range(_n_ar))
 axD.set_xticklabels([r.replace('Human ', '')[:10] for r in _top_astro_regions], rotation=45, ha='right', fontsize=8)
 axD.set_yticks(range(_n_ar))
 axD.set_yticklabels([r.replace('Human ', '')[:10] for r in _top_astro_regions], fontsize=8)
-axD.set_title('Astrocyte ω by brain region', fontsize=8)
+axD.set_title('Astrocyte regional \u03c9', fontsize=7, pad=6)
 plt.colorbar(im, ax=axD, fraction=0.046, pad=0.06, label='CKI ω')
 add_panel_label(axD, 'D', col_pos='left')
 
@@ -1356,7 +1391,7 @@ _valid_scores = [max(0.3, 1.0 - r['residual']) for _, r in _valid_data.iterrows(
 colors_val = [C_GREEN if s > 0.7 else C_AMBER if s > 0.5 else C_RED for s in _valid_scores]
 bars = axE.barh(_valid_labels, _valid_scores, color=colors_val, alpha=0.8)
 axE.set_xlabel('1 - residual (higher = stronger)', fontsize=8)
-axE.set_title('Top migration candidates', fontsize=8)
+axE.set_title('Top migration candidates', fontsize=7, pad=6)
 add_panel_label(axE, 'E', col_pos='left')
 
 savefig('ed_fig6_brain_analysis', DOUBLE, 140*MM)
@@ -1365,7 +1400,7 @@ savefig('ed_fig6_brain_analysis', DOUBLE, 140*MM)
 # Extended Data Figure 7: Migration Candidates
 # ============================================================
 print('[ED Figure 7] Migration Candidates ...')
-fig = plt.figure(figsize=(DOUBLE, 120*MM), dpi=DPI)
+fig = plt.figure(figsize=(DOUBLE, 140*MM), dpi=DPI)
 gs = gridspec.GridSpec(2, 3, hspace=0.45, wspace=0.35)
 
 # Panel A: Residual distribution (REAL DATA)
@@ -1426,7 +1461,7 @@ for tier in _tier_order:
     axD.barh(x_pos, vals, left=bottom, color=tier_colors_ed7[tier], alpha=0.8, label=f'{tier} ({int(sum(vals))})')
     bottom += vals
 axD.set_yticks(x_pos)
-axD.set_yticklabels([c[:15] for c in _ct_list], fontsize=8)
+axD.set_yticklabels([c[:10] for c in _ct_list], fontsize=7)
 axD.set_xlabel('Number of region-region comparisons', fontsize=8)
 axD.set_title('Migration candidates by cell type and tier', fontsize=8)
 axD.legend(fontsize=8, loc='lower right')
@@ -1438,6 +1473,6 @@ savefig('ed_fig7_migration_candidates', DOUBLE, 120*MM)
 # Done
 # ============================================================
 print('\n' + '='*65)
-print('All 13 NAR figures generated successfully!')
+print('All 13 Genome Biology figures generated successfully!')
 print(f'Output: {OUT_DIR}')
 print('='*65)

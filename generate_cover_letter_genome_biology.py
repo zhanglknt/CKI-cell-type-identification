@@ -113,11 +113,12 @@ def run():
         "Cell identity is fundamentally defined by its transcriptome. However, a "
         "standardized, assumption-free metric to quantify transcriptomic divergence "
         "between cell states has been lacking. Drawing inspiration from evolutionary "
-        "biology\u2019s Ka/Ks ratio, we propose CKI \u03c9 (Cell identity divergence index), "
+        "biology\u2019s Ka/Ks ratio, we propose CKI (Cell-state Kinetic Index), "
         "which decomposes Jensen\u2013Shannon divergence into two orthogonal components: "
-        "kn (variation within functional gene sets) and kf (variation within "
-        "housekeeping gene sets). The ratio \u03c9 = kf/kn provides a robust, "
-        "interpretable measure of how \u201cdifferent\u201d two cell types truly are.",
+        "k_n (neutral offset rate, from housekeeping gene expression) and k_f "
+        "(functional conversion rate, from identity gene expression). The ratio "
+        "\u03c9 = k_f/k_n provides a robust, interpretable measure of selective "
+        "transcriptomic remodeling.",
         doc,
     )
 
