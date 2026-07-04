@@ -1,0 +1,22 @@
+CKI Genome Biology Submission Package v15
+Built: 2026-07-04
+
+Contents:
+1. CKI_GenomeBiology_Manuscript_v1.docx - Main manuscript
+2. CKI_GenomeBiology_Cover_Letter_v2.docx - Cover letter
+3. CKI_Supplementary_Tables_v1.docx - Supplementary tables
+4. CKI_Reproducibility_Code_v6.zip - Reproducibility code and data
+5. CKI_Reproducibility_Guide_v1.docx - Reproducibility guide
+6. figure1_concept_pipeline.pdf
+7. figure2_calibration_tabula_muris.pdf
+8. figure3_orthogonal_information.pdf
+9. figure4_tcga_pancancer.pdf
+10. figure5_cross_organ_conservation.pdf
+11. figure6_brain_regional_cki.pdf
+12. ed_fig1_parameter_sweep_pathway.pdf
+13. ed_fig2_cross_species_validation.pdf
+14. ed_fig3_tcga_per_cancer.pdf
+15. ed_fig4_method_comparison_auc.pdf
+16. ed_fig5_cross_organ_table.pdf
+17. ed_fig6_brain_analysis.pdf
+18. ed_fig7_migration_candidates.pdf

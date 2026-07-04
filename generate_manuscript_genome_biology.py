@@ -18,6 +18,53 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.oxml.ns import qn
 from pathlib import Path
 
+# Load all manuscript data dynamically from CSV files
+from _load_manuscript_data import get_manuscript_data
+DATA = get_manuscript_data()
+
+# Shorthand accessors for cleaner code
+_ds = DATA['datasets']
+_mc = DATA['mouse_calibration']
+_h = DATA['human']
+_sc = DATA['spearman_corr']
+_tc = DATA['tcga']
+_br = DATA['brain']
+_br_ct = _br['cell_types']
+_au = DATA['table1_auc']
+_sb = DATA['sweep']
+_co = DATA['cross_organ_spearman']
+_bb = DATA['bootstrap']['brain']
+
+# Derived data for dynamic text
+t2 = DATA['table2_data']
+tcga_cancers = _tc['cancers']
+min_c = min(tcga_cancers, key=lambda x: x['nn_tt_ratio'])
+max_c = max(tcga_cancers, key=lambda x: x['nn_tt_ratio'])
+th = _br['residual_thresholds']
+
+# Cross-organ ranking helpers
+mac = [r for r in t2 if 'Macrophage' in r[0]][0]
+last2 = t2[-2:]
+
+# Brain cell type helpers
+def find_ct(name):
+    for ct in _br_ct:
+        if name.lower() in ct['name'].lower():
+            return ct
+    return None
+
+sbg = sorted(_br_ct, key=lambda x: x['omega_mean'])
+opc = find_ct('oligodendrocyte precursor')
+astro = find_ct('astrocyte')
+oligo_ct = find_ct('oligodendrocyte')
+bergmann_ct = find_ct('bergmann')
+
+# TCGA detail string for methods
+tcga_detail = '; '.join([
+    f"{c['name'].replace('TCGA-','')}: {c['n_tumor']} tumor + {c['n_normal']} normal"
+    for c in _tc['cancers']
+])
+
 doc = Document()
 
 # == Genome Biology formatting ==
@@ -81,9 +128,11 @@ def p(text, bold=False, italic=False, size=10):
 
 # == Table helpers (reuse from NAR version) ==
 def add_table_1(doc):
-    """Table 1: AUC for cell-type classification."""
+    """Table 1: AUC for cell-type classification — dynamically loaded from CSV."""
+    auc = DATA['table1_auc']
+    ds = DATA['datasets']
     para = doc.add_paragraph()
-    run = para.add_run('Table 1: Classification AUC of five metrics on Tabula Sapiens (99 cell types, 4,851 pairs).')
+    run = para.add_run(f"Table 1: Classification AUC of five metrics on Tabula Sapiens ({ds['tabula_sapiens_ct_entries']} cell types, {DATA['human']['n_pairs']:,} pairs).")
     run.bold = True
     run.font.name = 'Arial'
     run.font.size = Pt(9)
@@ -95,55 +144,40 @@ def add_table_1(doc):
     hdr[0].text = 'Metric'
     hdr[1].text = 'ROC-AUC'
     data = [
-        ('Cosine distance', '0.887'),
-        ('Raw JS divergence', '0.849'),
-        ('Marker Jaccard distance', '0.801'),
-        ('Spearman distance', '0.690'),
-        ('CKI omega', '0.680'),
+        ('Cosine distance', f"{auc['cosine']:.3f}"),
+        ('Raw JS divergence', f"{auc['raw_js']:.3f}"),
+        ('Marker Jaccard distance', f"{auc['marker_jaccard']:.3f}"),
+        ('Spearman distance', f"{auc['spearman']:.3f}"),
+        ('CKI omega', f"{auc['cki_omega']:.3f}"),
     ]
-    for i, (metric, auc) in enumerate(data):
+    for i, (metric, auc_val) in enumerate(data):
         table.rows[i+1].cells[0].text = metric
-        table.rows[i+1].cells[1].text = auc
+        table.rows[i+1].cells[1].text = auc_val
     doc.add_paragraph().paragraph_format.space_after = Pt(6)
 
 def add_table_2(doc):
-    """Table 2: Cross-organ conservation ranking by cell type (Tabula Sapiens, n=59 same-cell-type cross-organ pairs)."""
+    """Table 2: Cross-organ conservation ranking — dynamically loaded from CSV."""
+    t2 = DATA['table2_data']
+    n_rows = len(t2) + 1
     para = doc.add_paragraph()
-    run = para.add_run('Table 2: Cross-organ conservation ranking by cell type (Tabula Sapiens, n=59 same-cell-type cross-organ pairs).')
+    run = para.add_run(f"Table 2: Cross-organ conservation ranking by cell type (Tabula Sapiens, n={DATA['cross_organ_n_total']} same-cell-type cross-organ pairs).")
     run.bold = True
     run.font.name = 'Arial'
     run.font.size = Pt(9)
     para.paragraph_format.space_before = Pt(12)
     para.paragraph_format.space_after = Pt(6)
-    table = doc.add_table(rows=18, cols=4)
+    table = doc.add_table(rows=n_rows, cols=4)
     table.style = 'Table Grid'
     hdr = table.rows[0].cells
     hdr[0].text = 'Cell type'
     hdr[1].text = 'Mean \u03c9'
     hdr[2].text = 'SD'
     hdr[3].text = 'n pairs'
-    data = [
-        ('Hepatocyte', '8.57', '\u2014', '1'),
-        ('B cell', '9.36', '\u2014', '1'),
-        ('CD8+ T cell', '9.93', '4.2', '6'),
-        ('Plasma cell', '10.20', '1.9', '6'),
-        ('Hematopoietic stem cell', '11.12', '\u2014', '1'),
-        ('Smooth muscle cell', '12.22', '\u2014', '1'),
-        ('Neutrophil', '14.22', '7.8', '6'),
-        ('Monocyte', '15.19', '\u2014', '1'),
-        ('Macrophage', '15.49', '8.2', '15'),
-        ('CD4+ T cell', '16.71', '\u2014', '1'),
-        ('NK cell', '17.28', '3.0', '10'),
-        ('Classical monocyte', '17.50', '\u2014', '1'),
-        ('Naive B cell', '21.06', '\u2014', '1'),
-        ('Intermediate monocyte', '21.78', '\u2014', '1'),
-        ('Memory B cell', '22.36', '\u2014', '1'),
-        ('Endothelial cell', '26.25', '7.0', '3'),
-        ('Erythrocyte', '29.36', '18.8', '3'),
-    ]
-    for i, row in enumerate(data):
-        for j, val in enumerate(row):
-            table.rows[i+1].cells[j].text = val
+    for i, (name, mean_w, sd, n) in enumerate(t2):
+        table.rows[i+1].cells[0].text = name
+        table.rows[i+1].cells[1].text = mean_w
+        table.rows[i+1].cells[2].text = sd
+        table.rows[i+1].cells[3].text = n
     doc.add_paragraph().paragraph_format.space_after = Pt(6)
 
 # == Vancouver reference list ==
@@ -309,19 +343,19 @@ p(
 )
 heading('Results', level=2)
 p(
-    'We validated CKI across four datasets: Tabula Muris mouse atlas (15,057 cells), '
-    'Tabula Sapiens human atlas (108,136 cells), TCGA pan-cancer (10,535 samples), '
-    'and a human brain single-nucleus atlas (888,263 nuclei). Calibration on Tabula '
-    'Muris confirmed neutral behavior for biologically equivalent populations '
-    '(mean \u03c9 = 1.54, all P > 0.05). CKI \u03c9 was negatively correlated with all '
-    'four standard distance metrics (Spearman r = \u22120.36 to \u22120.46, all P < 0.001), '
-    'proving it captures an independent information dimension. Cancer analysis '
-    'revealed that tumors are more transcriptionally homogeneous than normal tissues '
-    '(median NN/TT ratio = 1.40\u20132.83 across five cancer types). Brain regional '
-    'analysis revealed a 6.06-fold \u03c9 gradient across 10 non-neuronal cell classes '
-    'and identified 30 cell-type-specific signals among 31,764 cross-region comparisons, '
-    'systematically validated against developmental neuroscience literature as embryonic origin, '
-    'colonization route, and specification signatures rather than active migration.'
+    f'We validated CKI across four datasets: Tabula Muris mouse atlas ({_ds["tabula_muris_cells"]:,} cells), '
+    f'Tabula Sapiens human atlas ({_ds["tabula_sapiens_cells"]:,} cells), TCGA pan-cancer ({_tc["n_total"]:,} samples), '
+    f'and a human brain single-nucleus atlas ({_br["n_nuclei"]:,} nuclei). Calibration on Tabula '
+    f'Muris confirmed neutral behavior for biologically equivalent populations '
+    f'(mean \u03c9 = {_mc["control_mean"]:.2f}, all P > 0.05). CKI \u03c9 was negatively correlated with all '
+    f'four standard distance metrics (Spearman r = \u2212{abs(_sc["max"]):.2f} to \u2212{abs(_sc["min"]):.2f}, all P < 0.001), '
+    f'proving it captures an independent information dimension. Cancer analysis '
+    f'revealed that tumors are more transcriptionally homogeneous than normal tissues '
+    f'(median NN/TT ratio = {min(c["nn_tt_ratio"] for c in _tc["cancers"]):.2f}\u2013{max(c["nn_tt_ratio"] for c in _tc["cancers"]):.2f} across five cancer types). Brain regional '
+    f'analysis revealed a {_br["gradient_fold"]:.2f}-fold \u03c9 gradient across {len(_br_ct)} non-neuronal cell classes '
+    f'and identified {_br["n_strong"]} cell-type-specific signals among {_br["total_pairs"]:,} cross-region comparisons, '
+    f'systematically validated against developmental neuroscience literature as embryonic origin, '
+    f'colonization route, and specification signatures rather than active migration.'
 )
 heading('Conclusions', level=2)
 p(
@@ -367,35 +401,35 @@ p('Step 1: Compute the neutral offset rate k_n. We restrict the pseudobulk vecto
 
 p('Step 2: Compute the functional conversion rate k_f. We restrict the pseudobulk vectors to identity gene indices—genes that define cell-type-specific functions. In the default configuration, identity genes are the top-2,000 highly variable genes (HVGs; Seurat v3 flavor), excluding HK genes to maintain k_n/k_f independence. k_f is the JS divergence between these two identity gene probability distributions.')
 
-p('Step 3: \u03c9 = k_f/k_n. For statistical inference, we perform bootstrap permutation testing (B = 500). Cell labels are randomly shuffled and \u03c9 recalculated to generate a null distribution. The empirical P-value is the fraction of permuted \u03c9 values that exceed the observed \u03c9 (with a +1 pseudocount to avoid P = 0), and effect size is reported as Cohen\'s d. All reported P-values are raw bootstrap P-values without multiple testing correction.')
+p(f'Step 3: \u03c9 = k_f/k_n. For statistical inference, we perform bootstrap permutation testing (B = {_ds["n_bootstrap"]}). Cell labels are randomly shuffled and \u03c9 recalculated to generate a null distribution. The empirical P-value is the fraction of permuted \u03c9 values that exceed the observed \u03c9 (with a +1 pseudocount to avoid P = 0), and effect size is reported as Cohen\'s d. All reported P-values are raw bootstrap P-values without multiple testing correction.')
 
-p('We ran a parameter sweep on Tabula Muris mouse data (703 cell-type pairs across 6 organs) to test whether adding pathway enrichment scores to k_f would improve performance. We found that the identity-only configuration (w_identity = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = 0.847, Extended Data Fig. 1). CKI does not require external pathway databases to produce biologically meaningful results—partitioning the expression data into neutral and identity gene sets is sufficient.')
+p(f'We ran a parameter sweep on Tabula Muris mouse data ({_sb["n_pairs"]} cell-type pairs across {_ds["tabula_muris_organs"]} organs) to test whether adding pathway enrichment scores to k_f would improve performance. We found that the identity-only configuration (w_identity = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = {_sb["identity_auc"]:.3f}, Extended Data Fig. 1). CKI does not require external pathway databases to produce biologically meaningful results\u2014partitioning the expression data into neutral and identity gene sets is sufficient.')
 
 # --- Result 2 ---
 heading('Calibration confirms neutral behavior at baseline', level=2)
 
-p('We calibrated CKI on the Tabula Muris FACS dataset [5] (SmartSeq2, 15,057 cells, 22,308 genes, 6 organs). Housekeeping genes were auto-detected from data using a combined criterion (detection rate > 0.9 and CV below the 30th percentile), supplemented with 1,130 human-mouse conserved reference HK genes from the HRT Atlas [4] for human and mouse datasets. Identity genes were the top-2,000 highly variable genes (HVGs; Seurat v3), excluding HK genes (Fig. 2).')
+p(f'We calibrated CKI on the Tabula Muris FACS dataset [5] (SmartSeq2, {_ds["tabula_muris_cells"]:,} cells, {_ds["tabula_muris_genes"]:,} genes, {_ds["tabula_muris_organs"]} organs). Housekeeping genes were auto-detected from data using a combined criterion (detection rate > {_ds["detection_rate_threshold"]} and CV below the 30th percentile), supplemented with {_ds["hrt_atlas_n_hk"]:,} human-mouse conserved reference HK genes from the HRT Atlas [4] for human and mouse datasets. Identity genes were the top-{_ds["n_hvg"]:,} highly variable genes (HVGs; Seurat v3), excluding HK genes (Fig. 2).')
 
-p('The calibration confirmed correct neutral behavior. We performed six control comparisons in which we randomly split the same cell population into two halves. The mean \u03c9 was 1.54 (median 1.42, range 1.09–2.10), and none of the six comparisons reached statistical significance (all P > 0.05, two-sided bootstrap test). This confirms that CKI recognizes biologically equivalent cell populations as having no selective remodeling.')
+p(f'The calibration confirmed correct neutral behavior. We performed six control comparisons in which we randomly split the same cell population into two halves. The mean \u03c9 was {_mc["control_mean"]:.2f} (median {_mc["control_median"]:.2f}, range {_mc["control_min"]:.2f}\u2013{_mc["control_max"]:.2f}), and none of the six comparisons reached statistical significance (all P > 0.05, two-sided bootstrap test). This confirms that CKI recognizes biologically equivalent cell populations as having no selective remodeling.')
 
-p('Beyond controls, \u03c9 values increased monotonically with biological distance. Same cell type across different organs (S category: mean \u03c9 = 4.03, n = 4 pairs) had lower \u03c9 than different cell types within the same organ (D category: mean \u03c9 = 13.18, n = 3 pairs). The component-level analysis confirmed that k_f was the driver: k_f increased roughly 1,000-fold from controls to inter-cell-type comparisons, while k_n increased only about 100-fold. This establishes that CKI measures selective remodeling, not just total difference.')
+p(f'Beyond controls, \u03c9 values increased monotonically with biological distance. Same cell type across different organs (S category: mean \u03c9 = {_mc["S_mean"]:.2f}, n = {_mc["S_n"]} pairs) had lower \u03c9 than different cell types within the same organ (D category: mean \u03c9 = {_mc["D_mean"]:.2f}, n = {_mc["D_n"]} pairs). The component-level analysis confirmed that k_f was the driver: k_f increased roughly 1,000-fold from controls to inter-cell-type comparisons, while k_n increased only about 100-fold. This establishes that CKI measures selective remodeling, not just total difference.')
 
 # --- Result 3 ---
 heading('CKI captures information that standard metrics miss', level=2)
 
-p('We extended CKI to the Tabula Sapiens human atlas [6] (108,136 cells; 6 h5ad files total, 102 cell-type entries, 6 organs: liver, kidney, heart, bone marrow, spleen, lung). For human data, we used a hybrid scheme: k_n was computed once globally (using the full gene-by-cell-type pseudobulk matrix with the shared HK gene set), while k_f was computed per pair using the top-200 differentially expressed genes for that specific pair. This hybrid approach keeps k_n on a consistent scale (all cell types share the same HK gene set), while k_f adaptively selects the most informative identity genes for each pair. Critically, since \u03c9 = k_f/k_n is a ratio of JS divergences computed from the same underlying pseudobulk expression space, the normalization remains internally valid despite the different gene selection strategies. HK genes were auto-detected (combined criterion, with optional HRT Atlas enhancement) (Fig. 3).')
+p(f'We extended CKI to the Tabula Sapiens human atlas [6] ({_ds["tabula_sapiens_cells"]:,} cells; {_ds["tabula_sapiens_organs"]} h5ad files total, {_ds["tabula_sapiens_ct_entries"]} cell-type entries, {_ds["tabula_sapiens_organs"]} organs: liver, kidney, heart, bone marrow, spleen, lung). For human data, we used a hybrid scheme: k_n was computed once globally (using the full gene-by-cell-type pseudobulk matrix with the shared HK gene set), while k_f was computed per pair using the top-200 differentially expressed genes for that specific pair. This hybrid approach keeps k_n on a consistent scale (all cell types share the same HK gene set), while k_f adaptively selects the most informative identity genes for each pair. Critically, since \u03c9 = k_f/k_n is a ratio of JS divergences computed from the same underlying pseudobulk expression space, the normalization remains internally valid despite the different gene selection strategies. HK genes were auto-detected (combined criterion, with optional HRT Atlas enhancement) (Fig. 3).')
 
-p('Human \u03c9 values ranged from 1.35 to 87.69 (mean 21.61, median 19.65, n = 4,851 pairs), substantively higher than mouse (mean 7.62). This difference likely reflects both the larger number of cell types (102 vs. ~30) and greater donor heterogeneity in human data (multiple donors vs. inbred mouse strains). Despite this, the biological hierarchy was preserved: same cell type across organs (mean \u03c9 = 8.65, n = 59 pairs) was lower than different cell types within the same organ (mean \u03c9 = 16.00, n = 1,140 pairs).')
+p(f'Human \u03c9 values ranged from {_h["omega_min"]:.2f} to {_h["omega_max"]:.2f} (mean {_h["omega_mean"]:.2f}, median {_h["omega_median"]:.2f}, n = {_h["n_pairs"]:,} pairs), substantively higher than mouse (mean {_mc["X_mean"]:.2f}). This difference likely reflects both the larger number of cell types ({_ds["tabula_sapiens_ct_entries"]} vs. ~{_ds["tabula_muris_ct_entries"]}) and greater donor heterogeneity in human data (multiple donors vs. inbred mouse strains). Despite this, the biological hierarchy was preserved: same cell type across organs (mean \u03c9 = {_h["diff_organ_same_ct_mean"]:.2f}, n = {_h["diff_organ_same_ct_n"]} pairs) was lower than different cell types within the same organ (mean \u03c9 = {_h["same_organ_diff_ct_mean"]:.2f}, n = {_h["same_organ_diff_ct_n"]:,} pairs).')
 
-p('The critical finding was that CKI captures a largely independent information dimension. We computed five metrics on all 4,851 human cell-type pairs: CKI \u03c9, raw JS divergence (all genes), Spearman distance, cosine distance, and marker Jaccard distance. CKI \u03c9 was negatively correlated with all four standard metrics (Spearman r = -0.36 to -0.46, all P < 0.001). In contrast, the four standard metrics formed a tight positive cluster (pairwise r = 0.57–0.94). This negative correlation is the strongest evidence that CKI measures something fundamentally different from all existing distance metrics.')
+p(f'The critical finding was that CKI captures a largely independent information dimension. We computed five metrics on all {_h["n_pairs"]:,} human cell-type pairs: CKI \u03c9, raw JS divergence (all genes), Spearman distance, cosine distance, and marker Jaccard distance. CKI \u03c9 was negatively correlated with all four standard metrics (Spearman r = {_sc["max"]:.2f} to {_sc["min"]:.2f}, all P < 0.001). In contrast, the four standard metrics formed a tight positive cluster (pairwise r = {_sc["std_pairwise_min"]:.2f}\u2013{_sc["std_pairwise_max"]:.2f}). This negative correlation is the strongest evidence that CKI measures something fundamentally different from all existing distance metrics.')
 
 add_table_1(doc)
-p('As expected by design, CKI was not optimized for cell-type classification (AUC = 0.680 vs. cosine AUC = 0.887; Table 1). But CKI was the only metric where same-organ pairs had higher values than different-organ pairs (mean \u03c9 16.00 vs. 13.66, Mann-Whitney U test, P < 0.001). All four standard metrics showed the opposite pattern (same-organ < different-organ). This reversal reflects CKI\'s sensitivity to functional specialization within shared microenvironments, a signal that standard metrics systematically obscure.')
+p(f'As expected by design, CKI was not optimized for cell-type classification (AUC = {_au["cki_omega"]:.3f} vs. cosine AUC = {_au["cosine"]:.3f}; Table 1). But CKI was the only metric where same-organ pairs had higher values than different-organ pairs (mean \u03c9 {_h["same_organ_diff_ct_mean"]:.2f} vs. {_h["diff_organ_diff_ct_mean"]:.2f}, Mann-Whitney U test, P < 0.001). All four standard metrics showed the opposite pattern (same-organ < different-organ). This reversal reflects CKI\'s sensitivity to functional specialization within shared microenvironments, a signal that standard metrics systematically obscure.')
 
 # --- Result 4 ---
 heading('Cancer analysis reveals unexpected transcriptional convergence', level=2)
 
-p('We applied CKI to TCGA bulk RNA-seq data across five cancer types (LUAD, LUSC, LIHC, KIRC, BRCA) [7,8], totalling 10,535 samples. We asked a simple question: when cancer develops, how much selective transcriptional remodeling occurs? CKI provides a principled answer by comparing tumor-tumor (TT), normal-normal (NN), and tumor-normal (TN) \u03c9 values (Fig. 4).')
+p(f'We applied CKI to TCGA bulk RNA-seq data across five cancer types (LUAD, LUSC, LIHC, KIRC, BRCA) [7,8], totalling {_tc["n_total"]:,} samples. We asked a simple question: when cancer develops, how much selective transcriptional remodeling occurs? CKI provides a principled answer by comparing tumor-tumor (TT), normal-normal (NN), and tumor-normal (TN) \u03c9 values (Fig. 4).')
 
 p('The most striking finding was that tumors are more transcriptionally homogeneous than normal tissues. In all five cancer types, the median NN/TT \u03c9 ratio exceeded 1.0, meaning that normal individuals differ more from each other than tumors differ from each other. Breast cancer (BRCA) showed the smallest contrast (median NN/TT = 1.40), while liver cancer (LIHC) showed the largest (median NN/TT = 2.83), with intermediate values for lung adenocarcinoma (LUAD 1.60), lung squamous (LUSC 1.43), and kidney clear cell (KIRC 1.98). This convergence toward shared transcriptional states may represent common vulnerabilities across genetically diverse tumors.')
 
@@ -407,9 +441,9 @@ p('We then asked whether \u03c9 tracks with clinical severity within cancer type
 heading('CKI ranks cell types by cross-organ conservation', level=2)
 
 add_table_2(doc)
-p('Among the 4,851 Tabula Sapiens cell-type pairs, 59 are same-cell-type cross-organ comparisons. These pairs allowed us to ask: which cell types maintain their transcriptional identity regardless of where they reside, and which are strongly shaped by their organ environment (Fig. 5; Table 2)?')
+p(f'Among the {_h["n_pairs"]:,} Tabula Sapiens cell-type pairs, {DATA["cross_organ_n_total"]} are same-cell-type cross-organ comparisons. These pairs allowed us to ask: which cell types maintain their transcriptional identity regardless of where they reside, and which are strongly shaped by their organ environment (Fig. 5; Table 2)?')
 
-p('The cross-organ ω ranking reveals a broad spectrum of conservation across 17 cell types (Table 2). Hepatocytes and B cells were among the most conserved (mean ω = 8.57 and 9.36, respectively, n = 1 each), followed by CD8+ T cells (mean 9.93 ± 4.2, n = 6) and plasma cells (mean 10.20 ± 1.9, n = 6). Macrophages, the most abundant cell type in cross-organ comparisons (n = 15), showed intermediate conservation (mean 15.49 ± 8.2). At the divergent end of the spectrum, endothelial cells (mean 26.25 ± 7.0, n = 3) and erythrocytes (mean 29.36 ± 18.8, n = 3) were the most organ-specific cell types. Endothelial cells are known to express organ-specific gene programs tailored to local vascular needs [32]. We note that several cell types (particularly those with n = 1 or 3) have small sample sizes, and their rankings should be interpreted with appropriate caution.')
+p(f'The cross-organ ω ranking reveals a broad spectrum of conservation across {len(t2)} cell types (Table 2). {t2[0][0]}s and {t2[1][0]}s were among the most conserved (mean ω = {t2[0][1]} and {t2[1][1]}, respectively, n = {t2[0][3]} each), followed by {t2[2][0]}s (mean {t2[2][1]} ± {t2[2][2]}, n = {t2[2][3]}) and {t2[3][0]}s (mean {t2[3][1]} ± {t2[3][2]}, n = {t2[3][3]}). {mac[0]}s, the most abundant cell type in cross-organ comparisons (n = {mac[3]}), showed intermediate conservation (mean {mac[1]} ± {mac[2]}). At the divergent end of the spectrum, {last2[0][0]}s (mean {last2[0][1]} ± {last2[0][2]}, n = {last2[0][3]}) and {last2[1][0]}s (mean {last2[1][1]} ± {last2[1][2]}, n = {last2[1][3]}) were the most organ-specific cell types. Endothelial cells are known to express organ-specific gene programs tailored to local vascular needs [32]. We note that several cell types (particularly those with n = 1 or 3) have small sample sizes, and their rankings should be interpreted with appropriate caution.')
 
 p('The cross-organ conservation ranking from CKI showed little agreement with rankings from standard metrics (Spearman r = -0.40 to +0.02, n = 59 pairs). This is because CKI explicitly normalizes: two cell populations might share similar highly expressed genes (yielding high Jaccard similarity), but if their neutral baseline k_n is low, even modest functional differences can produce a high \u03c9. This normalization reveals patterns that raw expression similarity misses.')
 
@@ -430,7 +464,7 @@ p('Low CKI \u03c9 between a cell type across two brain regions indicates transcr
 
 p('To formalize migration inference, we designed a multiplicative model: for each (cell_type, region_pair) combination, expected_\u03c9 = \u03bc_ct \u00d7 \u03bc_pair / \u03bc_grand, where \u03bc_ct is the cell type\'s global mean \u03c9, \u03bc_pair is the region pair\'s mean \u03c9, and \u03bc_grand is the global mean (8.01). The multiplicative residual = observed / expected: a residual substantially below 1 indicates that the cell type is far less differentiated between those two regions than expected from both its own global plasticity and the region pair\'s overall divergence—a signature of shared transcriptional state potentially reflecting recent migration. We defined three confidence tiers: Strong (residual < 0.3, \u03c9 < 15, lowest \u03c9 in the region pair, and pair median \u03c9 > 20), Moderate (residual < 0.5, \u03c9 < 25), and Weak (residual < 0.75, \u03c9 < 35).')
 
-p('Among 31,764 cross-region comparisons, 30 (0.09%) were classified as Strong migration candidates: Astrocyte (6), fibroblast (1), microglia (10), oligodendrocyte (10), and vascular cells (3). Another 1,247 pairs (3.93%) were Moderate candidates, and 6,567 (20.67%) were Weak candidates. By cell type, the Strong candidate counts reflect a combination of regional adjacency, shared developmental origins, and ongoing cellular interchange.')
+p(f'Among {_br["total_pairs"]:,} cross-region comparisons, {_br["n_strong"]} ({_br["pct_strong"]:.2f}%) were classified as Strong migration candidates: Astrocyte (6), fibroblast (1), microglia (10), oligodendrocyte (10), and vascular cells (3). Another {_br["n_moderate"]:,} pairs ({_br["pct_moderate"]:.2f}%) were Moderate candidates, and {_br["n_weak"]:,} ({_br["pct_weak"]:.2f}%) were Weak candidates. By cell type, the Strong candidate counts reflect a combination of regional adjacency, shared developmental origins, and ongoing cellular interchange.')
 
 heading('OPCs: key negative control validates method specificity', level=3)
 p('Oligodendrocyte precursor cells (OPCs) are the most actively migrating cells in the adult CNS, continuously surveilling their environment along vascular scaffolds [13,17]. Yet CKI detected 0 Strong signals among 5,671 OPC cross-region comparisons—a finding that provides a critical orthogonal validation of the multiplicative residual model. The model is not simply detecting high \u03c9 values or absolute transcriptional differences; it identifies cell-type/region-pair combinations where the observed selective remodeling is strikingly below what the cell type\'s global plasticity and the region pair\'s background divergence would jointly predict. OPCs have a high global mean \u03c9 (7.65) because their transcriptional program includes both progenitor and differentiation states; their 52 Moderate signals (residual < 0.5) likely reflect the balance between shared developmental origins and ongoing regional maturation [35]. The complete absence of Strong signals despite OPCs being the brain\'s most motile cell type demonstrates that the residual model differentiates between broad baseline motility and specific transcriptional signatures of developmental history.')
@@ -482,9 +516,9 @@ heading('Conclusions', level=1)
 p('CKI provides a principled framework for decomposing transcriptomic divergence into neutral and functional components, enabling quantitative assessment of selective remodeling analogous to Ka/Ks in molecular evolution. Key conclusions include:')
 p('(i) CKI \u03c9 is negatively correlated with all standard distance metrics (r = -0.36 to -0.46), proving it captures an orthogonal information dimension not measured by existing approaches.')
 p('(ii) Validation on Tabula Muris confirms that biologically equivalent cell populations yield \u03c9 close to 1 (mean 1.54, all P > 0.05), establishing a calibrated neutral baseline.')
-p('(iii) TCGA analysis reveals that tumors are more transcriptionally homogeneous than normal tissues (median NN/TT = 1.40–2.83 across five cancer types), suggesting convergent transcriptional states across genetically diverse tumors.')
+p(f'(iii) TCGA analysis reveals that tumors are more transcriptionally homogeneous than normal tissues (median NN/TT = {min_c["nn_tt_ratio"]:.2f}–{max_c["nn_tt_ratio"]:.2f} across five cancer types), suggesting convergent transcriptional states across genetically diverse tumors.')
 p('(iv) Brain regional analysis of 888,263 nuclei reveals a 6.06-fold \u03c9 gradient across 10 non-neuronal cell classes, with astrocytes showing the highest regional divergence (mean \u03c9 = 14.36) and Bergmann glia the lowest (mean \u03c9 = 2.37).')
-p('(v) The multiplicative residual model detects 30 candidate signals among 31,764 cross-region comparisons; cross-validation against developmental neuroscience literature reveals that these primarily reflect developmental origin heterogeneity (oligodendrocytes, 10/30), embryonic colonization route boundaries (microglia, 10/30), and compartmentalized developmental specification (astrocytes and vascular cells, 9/30), with only a single postnatal migration signal (perivascular fibroblasts).')
+p(f'(v) The multiplicative residual model detects {_br["n_strong"]} candidate signals among {_br["total_pairs"]:,} cross-region comparisons; cross-validation against developmental neuroscience literature reveals that these primarily reflect developmental origin heterogeneity (oligodendrocytes, 10/30), embryonic colonization route boundaries (microglia, 10/30), and compartmentalized developmental specification (astrocytes and vascular cells, 9/30), with only a single postnatal migration signal (perivascular fibroblasts).')
 p('CKI is available as an open-source Python package (v0.3.1, MIT License) at https://github.com/zhanglknt/CKI-cell-type-identification, with all analysis notebooks and reproduction scripts provided.')
 
 # ============================================================
@@ -493,7 +527,7 @@ p('CKI is available as an open-source Python package (v0.3.1, MIT License) at ht
 heading('Methods', level=1)
 
 heading('CKI computation', level=2)
-p('We normalize raw count matrices to 10,000 counts per cell and apply log1p transformation. Pseudobulk vectors are computed by averaging expression across cells sharing the same cell-type annotation, requiring at least 10 cells per group. Housekeeping (HK) genes are auto-detected from data using a combined criterion: detection rate > 0.9 (expressed in >90% of cells) and coefficient of variation below the 30th percentile among well-expressed genes (mean expression > 0.5). For human and mouse datasets, the HRT Atlas v1.0 consensus set (1,130 human-mouse shared HK genes) [4] is optionally used as supplementary enhancement (union with detected set). For any other species, detection is purely data-driven without external references.')
+p(f'We normalize raw count matrices to 10,000 counts per cell and apply log1p transformation. Pseudobulk vectors are computed by averaging expression across cells sharing the same cell-type annotation, requiring at least 10 cells per group. Housekeeping (HK) genes are auto-detected from data using a combined criterion: detection rate > {_ds["detection_rate_threshold"]} (expressed in >90% of cells) and coefficient of variation below the 30th percentile among well-expressed genes (mean expression > 0.5). For human and mouse datasets, the HRT Atlas v1.0 consensus set ({_ds["hrt_atlas_n_hk"]:,} human-mouse shared HK genes) [4] is optionally used as supplementary enhancement (union with detected set). For any other species, detection is purely data-driven without external references.')
 
 p('For populations A and B with pseudobulk vectors \u03b5_A and \u03b5_B, k_n = JS(softmax(\u03b5_A[H]), softmax(\u03b5_B[H])), where H is the set of HK gene indices. k_f = JS(softmax(\u03b5_A[I]), softmax(\u03b5_B[I])), where I is the set of top-2,000 highly variable genes (HVGs; Seurat v3 flavor) excluding HK genes. \u03c9 = k_f/k_n. JS divergence uses base-2 logarithm (range [0,1]). Softmax normalization converts expression vectors to probability distributions.')
 
@@ -501,11 +535,11 @@ heading('Bootstrap permutation test', level=2)
 p('We randomly permute cell labels between the two populations (B = 500), recompute pseudobulk vectors, and calculate \u03c9_null for each permutation. We apply a two-sided bootstrap test: Empirical P = (count(|\u03c9_null - 1| >= |\u03c9_obs - 1|) + 1) / (B + 1). Cohen\'s d = (\u03c9_obs - mean(\u03c9_null)) / sd(\u03c9_null). All reported P-values are raw bootstrap P-values without multiple testing correction.')
 
 heading('Datasets', level=2)
-p('Tabula Muris FACS SmartSeq2 [5]: 15,057 cells, 22,308 genes, 6 organs (liver, kidney, spleen, lung, heart, bone marrow). Post-QC: 32 cell-type entries (each with at least 10 cells). Highly variable genes selected using scanpy [25] with flavor="seurat" [26,27] and n_top_genes=2,000.')
+p(f'Tabula Muris FACS SmartSeq2 [5]: {_ds["tabula_muris_cells"]:,} cells, {_ds["tabula_muris_genes"]:,} genes, {_ds["tabula_muris_organs"]} organs (liver, kidney, spleen, lung, heart, bone marrow). Post-QC: {_ds["tabula_muris_ct_entries"]} cell-type entries (each with at least 10 cells). Highly variable genes selected using scanpy [25] with flavor="seurat" [26,27] and n_top_genes={_ds["n_hvg"]:,}.')
 
-p('Tabula Sapiens v1.0 [6]: accessed via CZ CELLxGENE Discover. Post-QC: 108,136 cells (6 h5ad files total), 51,852 genes, 99 cell-type entries across 6 organs. Human HK genes: auto-detected (combined detection-rate/CV criterion), with optional enhancement from 1,130 HRT Atlas v1.0 genes mapped by gene symbol.')
+p(f'Tabula Sapiens v1.0 [6]: accessed via CZ CELLxGENE Discover. Post-QC: {_ds["tabula_sapiens_cells"]:,} cells ({_ds["tabula_sapiens_organs"]} h5ad files total), {_ds["tabula_sapiens_genes"]:,} genes, {_ds["tabula_sapiens_ct_entries"]} cell-type entries across 6 organs. Human HK genes: auto-detected (combined detection-rate/CV criterion), with optional enhancement from {_ds["hrt_atlas_n_hk"]:,} HRT Atlas v1.0 genes mapped by gene symbol.')
 
-p('TCGA bulk RNA-seq [28]: five cancer types from NCI Genomic Data Commons, accessed via TCGAbiolinks [29] and cBioPortal [14] APIs. LUAD: 495 tumor + 76 normal; LUSC: 567 + 58; LIHC: 365 + 57; KIRC: 755 + 82; BRCA: 1,032 + 109. FPKM values, log2(x+1) transformed. PAM50 classification [11,12]: nearest centroid (Pearson correlation), 44 of 47 PAM50 genes matched. LIHC Edmondson grade [10]: from cBioPortal, 289 tumors. LUAD mutations: from cBioPortal, 497 samples (61 EGFR, 121 KRAS, 312 WT).')
+p(f'TCGA bulk RNA-seq [28]: five cancer types from NCI Genomic Data Commons, accessed via TCGAbiolinks [29] and cBioPortal [14] APIs. LUAD: 495 tumor + 76 normal; LUSC: 567 tumor + 58 normal; LIHC: 365 tumor + 57 normal; KIRC: 755 tumor + 82 normal; BRCA: 1032 tumor + 109 normal. FPKM values, log2(x+1) transformed. PAM50 classification [11,12]: nearest centroid (Pearson correlation), 44 of 47 PAM50 genes matched. LIHC Edmondson grade [10]: from cBioPortal, 289 tumors. LUAD mutations: from cBioPortal, 497 samples (61 EGFR, 121 KRAS, 312 WT).')
 
 p('Human brain atlas [9]: Siletti et al. (2023) single-nucleus RNA-seq from CZ CELLxGENE Discover. We used the Nonneurons.h5ad dataset (888,263 nuclei, 59,480 genes, 108 brain regions). Cell types were classified by supercluster_term annotation, generating 10 major non-neuronal classes: astrocytes (155,025 nuclei), oligodendrocytes (490,246), oligodendrocyte precursors (110,454 total including committed), microglia (91,838), vascular cells (8,932), fibroblasts (8,156), ependymal cells (5,882), choroid plexus (7,689), and Bergmann glia. We required >= 20 nuclei per (region, cell_type) group and >= 50 nuclei per region. Normalization: Scanpy normalize_total (target_sum = 10,000) followed by log1p transformation. Pseudobulk vectors were computed as the mean log-normalized expression per group. CKI \u03c9 was computed for all same-cell-type cross-region comparisons (31,764 pairs total), using the hybrid scheme described above. HK genes were auto-detected per dataset (combined detection-rate/CV criterion). Top-200 identity genes were selected per comparison, excluding HK genes.')
 
