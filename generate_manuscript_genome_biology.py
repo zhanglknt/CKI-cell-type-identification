@@ -107,7 +107,7 @@ def add_table_1(doc):
     doc.add_paragraph().paragraph_format.space_after = Pt(6)
 
 def add_table_2(doc):
-    """Table 2: Cross-organ conservation ranking."""
+    """Table 2: Cross-organ conservation ranking by cell type (Tabula Sapiens, n=59 same-cell-type cross-organ pairs)."""
     para = doc.add_paragraph()
     run = para.add_run('Table 2: Cross-organ conservation ranking by cell type (Tabula Sapiens, n=59 same-cell-type cross-organ pairs).')
     run.bold = True
@@ -115,7 +115,7 @@ def add_table_2(doc):
     run.font.size = Pt(9)
     para.paragraph_format.space_before = Pt(12)
     para.paragraph_format.space_after = Pt(6)
-    table = doc.add_table(rows=11, cols=4)
+    table = doc.add_table(rows=18, cols=4)
     table.style = 'Table Grid'
     hdr = table.rows[0].cells
     hdr[0].text = 'Cell type'
@@ -123,16 +123,23 @@ def add_table_2(doc):
     hdr[2].text = 'SD'
     hdr[3].text = 'n pairs'
     data = [
-        ('Macrophages', '9.84', '6.3', '15'),
-        ('T cells', '10.2', '5.8', '12'),
-        ('B cells', '11.5', '6.1', '10'),
-        ('NK cells', '12.1', '5.9', '8'),
-        ('Dendritic cells', '12.8', '6.5', '6'),
-        ('Mast cells', '13.2', '7.1', '4'),
-        ('Fibroblasts', '13.9', '6.8', '8'),
-        ('Epithelial cells', '14.5', '7.2', '10'),
-        ('Endothelial cells', '15.1', '7.5', '8'),
-        ('Erythrocytes', '16.9', '6.3', '3'),
+        ('Hepatocyte', '8.57', '\u2014', '1'),
+        ('B cell', '9.36', '\u2014', '1'),
+        ('CD8+ T cell', '9.93', '4.2', '6'),
+        ('Plasma cell', '10.20', '1.9', '6'),
+        ('Hematopoietic stem cell', '11.12', '\u2014', '1'),
+        ('Smooth muscle cell', '12.22', '\u2014', '1'),
+        ('Neutrophil', '14.22', '7.8', '6'),
+        ('Monocyte', '15.19', '\u2014', '1'),
+        ('Macrophage', '15.49', '8.2', '15'),
+        ('CD4+ T cell', '16.71', '\u2014', '1'),
+        ('NK cell', '17.28', '3.0', '10'),
+        ('Classical monocyte', '17.50', '\u2014', '1'),
+        ('Naive B cell', '21.06', '\u2014', '1'),
+        ('Intermediate monocyte', '21.78', '\u2014', '1'),
+        ('Memory B cell', '22.36', '\u2014', '1'),
+        ('Endothelial cell', '26.25', '7.0', '3'),
+        ('Erythrocyte', '29.36', '18.8', '3'),
     ]
     for i, row in enumerate(data):
         for j, val in enumerate(row):
@@ -362,7 +369,7 @@ p('Step 2: Compute the functional conversion rate k_f. We restrict the pseudobul
 
 p('Step 3: \u03c9 = k_f/k_n. For statistical inference, we perform bootstrap permutation testing (B = 500). Cell labels are randomly shuffled and \u03c9 recalculated to generate a null distribution. The empirical P-value is the fraction of permuted \u03c9 values that exceed the observed \u03c9 (with a +1 pseudocount to avoid P = 0), and effect size is reported as Cohen\'s d. All reported P-values are raw bootstrap P-values without multiple testing correction.')
 
-p('We ran a parameter sweep on Tabula Muris mouse data (703 cell-type pairs across 6 organs) to test whether adding pathway enrichment scores to k_f would improve performance. We found that the identity-only configuration (w_identity = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = 0.786, Extended Data Fig. 1). CKI does not require external pathway databases to produce biologically meaningful results—partitioning the expression data into neutral and identity gene sets is sufficient.')
+p('We ran a parameter sweep on Tabula Muris mouse data (703 cell-type pairs across 6 organs) to test whether adding pathway enrichment scores to k_f would improve performance. We found that the identity-only configuration (w_identity = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = 0.847, Extended Data Fig. 1). CKI does not require external pathway databases to produce biologically meaningful results—partitioning the expression data into neutral and identity gene sets is sufficient.')
 
 # --- Result 2 ---
 heading('Calibration confirms neutral behavior at baseline', level=2)
@@ -378,12 +385,12 @@ heading('CKI captures information that standard metrics miss', level=2)
 
 p('We extended CKI to the Tabula Sapiens human atlas [6] (108,136 cells; 6 h5ad files total, 102 cell-type entries, 6 organs: liver, kidney, heart, bone marrow, spleen, lung). For human data, we used a hybrid scheme: k_n was computed once globally (using the full gene-by-cell-type pseudobulk matrix with the shared HK gene set), while k_f was computed per pair using the top-200 differentially expressed genes for that specific pair. This hybrid approach keeps k_n on a consistent scale (all cell types share the same HK gene set), while k_f adaptively selects the most informative identity genes for each pair. Critically, since \u03c9 = k_f/k_n is a ratio of JS divergences computed from the same underlying pseudobulk expression space, the normalization remains internally valid despite the different gene selection strategies. HK genes were auto-detected (combined criterion, with optional HRT Atlas enhancement) (Fig. 3).')
 
-p('Human \u03c9 values ranged from 1.10 to 58.69 (mean 14.12, median 13.68, n = 4,851 pairs), substantively higher than mouse (mean 7.62). This difference likely reflects both the larger number of cell types (102 vs. ~30) and greater donor heterogeneity in human data (multiple donors vs. inbred mouse strains). Despite this, the biological hierarchy was preserved: same cell type across organs (mean \u03c9 = 8.65, n = 59 pairs) was lower than different cell types within the same organ (mean \u03c9 = 16.00, n = 1,140 pairs).')
+p('Human \u03c9 values ranged from 1.35 to 87.69 (mean 21.61, median 19.65, n = 4,851 pairs), substantively higher than mouse (mean 7.62). This difference likely reflects both the larger number of cell types (102 vs. ~30) and greater donor heterogeneity in human data (multiple donors vs. inbred mouse strains). Despite this, the biological hierarchy was preserved: same cell type across organs (mean \u03c9 = 8.65, n = 59 pairs) was lower than different cell types within the same organ (mean \u03c9 = 16.00, n = 1,140 pairs).')
 
 p('The critical finding was that CKI captures a largely independent information dimension. We computed five metrics on all 4,851 human cell-type pairs: CKI \u03c9, raw JS divergence (all genes), Spearman distance, cosine distance, and marker Jaccard distance. CKI \u03c9 was negatively correlated with all four standard metrics (Spearman r = -0.36 to -0.46, all P < 0.001). In contrast, the four standard metrics formed a tight positive cluster (pairwise r = 0.57–0.94). This negative correlation is the strongest evidence that CKI measures something fundamentally different from all existing distance metrics.')
 
 add_table_1(doc)
-p('As expected by design, CKI was not optimized for cell-type classification (AUC = 0.680 vs. cosine AUC = 0.887; Table 1). But CKI was the only metric where same-organ pairs had higher values than different-organ pairs (mean \u03c9 16.00 vs. 13.58, Mann-Whitney U test, P < 0.001). All four standard metrics showed the opposite pattern (same-organ < different-organ). This reversal reflects CKI\'s sensitivity to functional specialization within shared microenvironments, a signal that standard metrics systematically obscure.')
+p('As expected by design, CKI was not optimized for cell-type classification (AUC = 0.680 vs. cosine AUC = 0.887; Table 1). But CKI was the only metric where same-organ pairs had higher values than different-organ pairs (mean \u03c9 16.00 vs. 13.66, Mann-Whitney U test, P < 0.001). All four standard metrics showed the opposite pattern (same-organ < different-organ). This reversal reflects CKI\'s sensitivity to functional specialization within shared microenvironments, a signal that standard metrics systematically obscure.')
 
 # --- Result 4 ---
 heading('Cancer analysis reveals unexpected transcriptional convergence', level=2)
@@ -402,7 +409,7 @@ heading('CKI ranks cell types by cross-organ conservation', level=2)
 add_table_2(doc)
 p('Among the 4,851 Tabula Sapiens cell-type pairs, 59 are same-cell-type cross-organ comparisons. These pairs allowed us to ask: which cell types maintain their transcriptional identity regardless of where they reside, and which are strongly shaped by their organ environment (Fig. 5; Table 2)?')
 
-p('Immune cells were the most conserved. Macrophages showed the lowest cross-organ \u03c9 (mean 9.84 \u00b1 6.3, n = 15 organ pairs), followed by T cell subtypes (mean range 8–12, n = 3–10). These low \u03c9 values reflect shared lineage, function, and activation programs regardless of tissue residence. Structural cells were the most organ-specific: erythrocytes (6.90 \u00b1 6.3, n = 3) and endothelial cells (mean ~12, n = 8). Endothelial cells, in particular, are known to express organ-specific gene programs tailored to local vascular needs [32]. We note that erythrocyte and endothelial cell rankings are based on limited sample sizes (n = 3 and 8 organ pairs, respectively), and should be interpreted with appropriate caution.')
+p('The cross-organ ω ranking reveals a broad spectrum of conservation across 17 cell types (Table 2). Hepatocytes and B cells were among the most conserved (mean ω = 8.57 and 9.36, respectively, n = 1 each), followed by CD8+ T cells (mean 9.93 ± 4.2, n = 6) and plasma cells (mean 10.20 ± 1.9, n = 6). Macrophages, the most abundant cell type in cross-organ comparisons (n = 15), showed intermediate conservation (mean 15.49 ± 8.2). At the divergent end of the spectrum, endothelial cells (mean 26.25 ± 7.0, n = 3) and erythrocytes (mean 29.36 ± 18.8, n = 3) were the most organ-specific cell types. Endothelial cells are known to express organ-specific gene programs tailored to local vascular needs [32]. We note that several cell types (particularly those with n = 1 or 3) have small sample sizes, and their rankings should be interpreted with appropriate caution.')
 
 p('The cross-organ conservation ranking from CKI showed little agreement with rankings from standard metrics (Spearman r = -0.40 to +0.02, n = 59 pairs). This is because CKI explicitly normalizes: two cell populations might share similar highly expressed genes (yielding high Jaccard similarity), but if their neutral baseline k_n is low, even modest functional differences can produce a high \u03c9. This normalization reveals patterns that raw expression similarity misses.')
 
