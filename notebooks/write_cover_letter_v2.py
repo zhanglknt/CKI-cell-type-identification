@@ -132,7 +132,7 @@ run.font.size = Pt(12)
 run.font.name = "Times New Roman"
 run.bold = True
 run = p_why.add_run(
-    "(1) CKI provides a principled framework for interpreting transcriptomic divergence, directly analogous to the Ka/Ks framework that transformed molecular evolution; (2) the method is implemented as a fully open-source Python package (pip install cki), enabling immediate community adoption; (3) validation spans three data modalities (scRNA-seq, snRNA-seq, bulk RNA-seq) and four independent datasets; (4) the cancer and brain findings are of broad interest to NAR readers."
+    "(1) CKI provides a principled framework for interpreting transcriptomic divergence, directly analogous to the Ka/Ks framework that transformed molecular evolution; (2) the method is implemented as a fully open-source Python package (pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git), enabling immediate community adoption; (3) validation spans three data modalities (scRNA-seq, snRNA-seq, bulk RNA-seq) and four independent datasets; (4) the cancer and brain findings are of broad interest to NAR readers."
 )
 run.font.size = Pt(12)
 run.font.name = "Times New Roman"

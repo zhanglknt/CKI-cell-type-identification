@@ -96,7 +96,7 @@ set_para_font(p)
 # === 6: Validation overview ===
 p = doc.add_paragraph()
 add(p, "We validated CKI (v0.2.0, pip-installable: ", size=12)
-add(p, "pip install cki", italic=True, size=12)
+add(p, "pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git", italic=True, size=12)
 add(p, ") across four independent datasets: Tabula Muris (15,057 mouse cells, 38 cell types, 6 organs), Tabula Sapiens (108,136 human cells, 102 cell types, 6 organs), TCGA bulk RNA-seq (3,596 samples, 5 cancer types), and the Siletti et al. human brain atlas (888,263 non-neuronal nuclei, 10 cell classes, 108 regions).", size=12)
 set_para_font(p)
 
@@ -121,7 +121,7 @@ set_para_font(p)
 # === 10: Why NAR ===
 p = doc.add_paragraph()
 add(p, "Four reasons make this work a strong fit for Nucleic Acids Research:", bold=True, size=12)
-add(p, " (1) CKI provides a principled framework for interpreting transcriptomic divergence, directly analogous to the Ka/Ks framework that transformed molecular evolution; (2) the method is implemented as a fully open-source Python package (pip install cki), enabling immediate community adoption; (3) validation spans three data modalities (scRNA-seq, snRNA-seq, bulk RNA-seq) and four independent datasets; (4) the cancer and brain findings are of broad interest to NAR readers.", size=12)
+add(p, " (1) CKI provides a principled framework for interpreting transcriptomic divergence, directly analogous to the Ka/Ks framework that transformed molecular evolution; (2) the method is implemented as a fully open-source Python package (pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git), enabling immediate community adoption; (3) validation spans three data modalities (scRNA-seq, snRNA-seq, bulk RNA-seq) and four independent datasets; (4) the cancer and brain findings are of broad interest to NAR readers.", size=12)
 set_para_font(p)
 
 # === 11: Competing interests ===

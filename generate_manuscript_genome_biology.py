@@ -363,7 +363,8 @@ p(
     'pressure from transcriptomic data, complementing existing distance metrics with '
     'an orthogonal measure of functional remodeling. The method is available as an '
     'open-source Python package (v0.3.1, MIT License) at '
-    'https://github.com/zhanglknt/CKI-cell-type-identification.'
+    'https://github.com/zhanglknt/CKI-cell-type-identification '
+    '(install: pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.3.1).'
 )
 
 # ============================================================
@@ -519,7 +520,7 @@ p('(ii) Validation on Tabula Muris confirms that biologically equivalent cell po
 p(f'(iii) TCGA analysis reveals that tumors are more transcriptionally homogeneous than normal tissues (median NN/TT = {min_c["nn_tt_ratio"]:.2f}–{max_c["nn_tt_ratio"]:.2f} across five cancer types), suggesting convergent transcriptional states across genetically diverse tumors.')
 p('(iv) Brain regional analysis of 888,263 nuclei reveals a 6.06-fold \u03c9 gradient across 10 non-neuronal cell classes, with astrocytes showing the highest regional divergence (mean \u03c9 = 14.36) and Bergmann glia the lowest (mean \u03c9 = 2.37).')
 p(f'(v) The multiplicative residual model detects {_br["n_strong"]} candidate signals among {_br["total_pairs"]:,} cross-region comparisons; cross-validation against developmental neuroscience literature reveals that these primarily reflect developmental origin heterogeneity (oligodendrocytes, 10/30), embryonic colonization route boundaries (microglia, 10/30), and compartmentalized developmental specification (astrocytes and vascular cells, 9/30), with only a single postnatal migration signal (perivascular fibroblasts).')
-p('CKI is available as an open-source Python package (v0.3.1, MIT License) at https://github.com/zhanglknt/CKI-cell-type-identification, with all analysis notebooks and reproduction scripts provided.')
+p('CKI is available as an open-source Python package (v0.3.1, MIT License) at https://github.com/zhanglknt/CKI-cell-type-identification. It can be installed via pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.3.1, with all analysis notebooks and reproduction scripts provided.')
 
 # ============================================================
 # METHODS (must appear AFTER Conclusions for Genome Biology)
@@ -584,7 +585,7 @@ heading('Consent for publication', level=2)
 p('Not applicable.')
 
 heading('Availability of data and materials', level=2)
-p('Tabula Muris data: GEO accession GSE109774. Tabula Sapiens data: CZ CELLxGENE Discover (https://cellxgene.cziscience.com/). TCGA data: NCI Genomic Data Commons (https://portal.gdc.cancer.gov/). HRT Atlas (optional human/mouse HK reference): https://www.housekeeping.unicamp.br. Human brain atlas: CZ CELLxGENE Discover (collection ID as referenced in [9]). PAM50 centroids: from Parker et al. [11]. MSigDB Hallmark gene sets: from Liberzon et al. [34]. The CKI source code (v0.3.1, MIT License) is publicly available at https://github.com/zhanglknt/CKI-cell-type-identification (tag v0.3.1). A permanent archival copy has been deposited at Zenodo (DOI: 10.5281/zenodo.15670808). All analysis notebooks and processed data matrices are included in the Supplementary Materials.')
+p('Tabula Muris data: GEO accession GSE109774. Tabula Sapiens data: CZ CELLxGENE Discover (https://cellxgene.cziscience.com/). TCGA data: NCI Genomic Data Commons (https://portal.gdc.cancer.gov/). HRT Atlas (optional human/mouse HK reference): https://www.housekeeping.unicamp.br. Human brain atlas: CZ CELLxGENE Discover (collection ID as referenced in [9]). PAM50 centroids: from Parker et al. [11]. MSigDB Hallmark gene sets: from Liberzon et al. [34]. The CKI source code (v0.3.1, MIT License) is publicly available at https://github.com/zhanglknt/CKI-cell-type-identification (tag v0.3.1). Installation: pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.3.1. A permanent archival copy has been deposited at Zenodo (DOI: 10.5281/zenodo.15670808). All analysis notebooks and processed data matrices are included in the Supplementary Materials.')
 
 heading('Competing interests', level=2)
 p('The authors declare no competing interests.')

@@ -2,14 +2,20 @@
 
 A Ka/Ks-inspired framework for quantifying selective transcriptomic remodeling in single-cell RNA-seq data.
 
-[![PyPI](https://img.shields.io/badge/pypi-cki-1a2d5c)](https://pypi.org/project/cki/)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-CKI_cell_type_identification-181717)](https://github.com/zhanglknt/CKI-cell-type-identification)
 
 ## Installation
 
 ```bash
-pip install cki
+pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git
+```
+
+For a specific version (e.g., v0.3.1):
+
+```bash
+pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.3.1
 ```
 
 ## Quick Start (3 lines)

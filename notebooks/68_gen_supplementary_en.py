@@ -381,6 +381,7 @@ add_heading('Supplementary Data 1: Analysis Script Index', 2)
 add_para(
     'Complete analysis scripts used in this study are organized in the notebooks/ '
     'directory of the GitHub repository (github.com/zhanglknt/CKI-cell-type-identification). '
+    'The package can be installed via: pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git. '
     'Key scripts include: notebooks/20_main_analysis.py (core CKI pipeline), '
     'notebooks/21_tcga_analysis.py (TCGA pan-cancer analysis), '
     'notebooks/22_tabula_sapiens_analysis.py (Tabula Sapiens cross-organ analysis), '

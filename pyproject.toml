@@ -40,6 +40,8 @@ all = ["cki[analysis,pathway]"]
 
 [project.urls]
 Repository = "https://github.com/zhanglknt/CKI-cell-type-identification"
+Homepage = "https://github.com/zhanglknt/CKI-cell-type-identification"
+Issues = "https://github.com/zhanglknt/CKI-cell-type-identification/issues"
 
 [tool.setuptools]
 packages = ["cki", "cki.data"]
