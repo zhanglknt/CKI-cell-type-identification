@@ -1,11 +1,11 @@
-CKI Genome Biology Submission Package v15
-Built: 2026-07-04
+CKI Genome Biology Submission Package v16
+Built: 2026-07-06
 
 Contents:
 1. CKI_GenomeBiology_Manuscript_v1.docx - Main manuscript
 2. CKI_GenomeBiology_Cover_Letter_v2.docx - Cover letter
 3. CKI_Supplementary_Tables_v1.docx - Supplementary tables
-4. CKI_Reproducibility_Code_v6.zip - Reproducibility code and data
+4. CKI_Reproducibility_Code_v7.zip - Reproducibility code and data
 5. CKI_Reproducibility_Guide_v1.docx - Reproducibility guide
 6. figure1_concept_pipeline.pdf
 7. figure2_calibration_tabula_muris.pdf

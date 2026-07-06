@@ -6,6 +6,9 @@ Convert TCGA bulk data to AnnData, then run bootstrap_test for each cancer type.
 
 import sys, os, time, gzip
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from _paths import *
+PROBEMAP = PROBEMAP_FILE
+RESULTS = RESULTS_DIR
 
 import numpy as np
 import pandas as pd
@@ -15,12 +18,8 @@ from pathlib import Path
 from cki.bootstrap import bootstrap_test
 
 # === Config ===
-TCGA_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\tcga\tcga_RSEM_gene_tpm.gz")
-HK_FILE   = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\housekeeping\Human_Mouse_Common.csv")
-PROBEMAP  = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\tcga\probemap.tsv")
-RESULTS   = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
-RESULTS.mkdir(exist_ok=True)
-
+# TCGA_FILE, HK_FILE, PROBEMAP_FILE, RESULTS_DIR from _paths
+# PROBEMAP = PROBEMAP_FILE, RESULTS = RESULTS_DIR (aliases above)
 N_BOOTSTRAP = 100
 RANDOM_STATE = 42
 

@@ -7,6 +7,7 @@ Hierarchical clustering to validate omega recovers CT lineages.
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from _paths import *
 
 import numpy as np
 import pandas as pd
@@ -30,13 +31,8 @@ else:
 from cki.core import compute_omega
 
 # -- Config --
-DATA_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data")
-FACS_DIR = DATA_DIR / "FACS" / "FACS"
-HK_FILE  = DATA_DIR / "housekeeping" / "Human_Mouse_Common.csv"
-ANNOT_FILE = DATA_DIR / "annotations_FACS.csv"
-RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
-RESULTS_DIR.mkdir(exist_ok=True)
-
+# DATA_DIR, FACS_DIR, HK_FILE, RESULTS_DIR from _paths
+ANNOT_FILE = FACS_ANNOTATIONS  # from _paths
 TARGET_TISSUES = ["Liver", "Kidney", "Spleen", "Lung", "Heart", "Marrow"]
 RANDOM_SEED = 42
 MIN_CELLS_PER_CT = 10

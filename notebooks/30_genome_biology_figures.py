@@ -588,7 +588,7 @@ add_panel_label(axD, 'D', col_pos='left')
 
 # Panel E: Metric comparison — AUC and interpretability
 # Real data from Phase35 on Tabula Sapiens (99 CTs, 4851 pairs).
-# CKI ω has the lowest AUC but is the only decomposable metric.
+# CKI ω has lower AUC than cosine/JS but is decomposable into neutral (k_n) and functional (k_f) components.
 axE = fig.add_subplot(gs[1, 1:])
 _auc_data = np.load(RESULTS_DIR / "figure_data_auc.npy", allow_pickle=True).item()
 method_names = ['CKI ω', 'Cosine', 'Raw JS', 'Marker Jaccard', 'Spearman']

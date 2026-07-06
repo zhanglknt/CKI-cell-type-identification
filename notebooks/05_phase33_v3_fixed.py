@@ -7,6 +7,7 @@ CKI Phase 3.3 v3: Hybrid Omega (fixed k_n + per-pair k_f) — Memory-optimized
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from _paths import *
 
 import numpy as np
 import pandas as pd
@@ -22,12 +23,6 @@ from sklearn.metrics import roc_auc_score
 from cki.core import compute_omega, js_divergence
 
 # === Config ===
-TS_HUMAN_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\ts_human")
-HK_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\housekeeping\Human_Mouse_Common.csv")
-RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
-RESULTS_DIR.mkdir(exist_ok=True)
-
-TS_ORGANS = ["Liver", "Kidney", "Heart", "Bone_Marrow", "Spleen", "Lung"]
 RANDOM_SEED = 42
 MIN_CELLS_PER_CT = 10
 N_TOP_KF = 200  # per-pair top DE genes for k_f

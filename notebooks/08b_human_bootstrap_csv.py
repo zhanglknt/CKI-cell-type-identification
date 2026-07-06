@@ -7,12 +7,13 @@ Bootstrap mean omega for: same_organ, cross-organ, same_ct, cross-ct.
 
 import sys, os, time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from _paths import *
 
 import numpy as np
 import pandas as pd
 from pathlib import Path
 
-RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
+# RESULTS_DIR from _paths
 N_BOOTSTRAP = 1000
 RANDOM_STATE = 42
 
@@ -21,8 +22,8 @@ print("Human (Tabula Sapiens) CKI Bootstrap (B=1000, CSV-based)")
 print("=" * 60)
 
 # === Load data ===
-print("\nLoading phase33_v3_human_pairs.csv...")
-df = pd.read_csv(RESULTS_DIR / "phase33_v3_human_pairs.csv")
+print("\nLoading phase35_all_metrics_pairs.csv...")
+df = pd.read_csv(RESULTS_DIR / "phase35_all_metrics_pairs.csv")
 print(f"  Loaded: {df.shape[0]} pairs")
 print(f"  Columns: {df.columns.tolist()}")
 

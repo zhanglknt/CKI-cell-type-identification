@@ -8,9 +8,9 @@ ROOT = Path(__file__).resolve().parent
 RESULTS = ROOT / "results"
 FIGURES = RESULTS / "figures_final"
 
-VERSION = "v15"
-REPRO_VERSION = "v6"
-DATE_STR = "2026-07-04"
+VERSION = "v16"
+REPRO_VERSION = "v7"
+DATE_STR = datetime.now().strftime("%Y-%m-%d")
 
 # ================================================================
 # 1. Build Reproducibility Code zip
@@ -28,12 +28,15 @@ for f in (ROOT / "cki").rglob("*"):
 for f in (ROOT / "notebooks").glob("*.py"):
     repro_files.append(f)
 
-# data/ (only specific files, not h5ad)
+# data/ (small reference files only; raw .h5ad data >10 GB excluded)
 data_include = [
     "data/housekeeping/Human_Mouse_Common.csv",
     "data/tcga/probemap.tsv",
     "data/tcga/lihc_patient_clinical.json",
     "data/tcga/luad_egfr_kras_mutations.json",
+    "data/annotations_FACS.csv",
+    "data/metadata_FACS.csv",
+    "data/README_data.md",
 ]
 for p in data_include:
     f = ROOT / p
@@ -61,6 +64,7 @@ results_include_patterns = [
     "phase33_v3_human_pairs.csv",
     "phase35_all_metrics_pairs.csv",
     "phase35_cross_organ_conservation.csv",
+    "phase35_cross_organ_summary.csv",
     "phase35_metric_correlation.csv",
     "phase34_v2_summary.csv",
     "phase34_v2_all_pairs.csv",
@@ -94,6 +98,8 @@ for name in results_include_patterns:
 for name in ["generate_manuscript_genome_biology.py",
              "generate_cover_letter_genome_biology.py",
              "_load_manuscript_data.py",
+             "_paths.py",
+             "run_all.py",
              "pyproject.toml",
              "README.md"]:
     f = ROOT / name

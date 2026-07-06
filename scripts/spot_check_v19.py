@@ -95,7 +95,7 @@ if abs(wt_mean - 8.01) > 0.05: errors += 1
 # ============================================================
 print("\n--- 4. AUC ---")
 auc = np.load(RESULTS / "figure_data_auc.npy", allow_pickle=True).item()
-for k, exp_v in [("CKI \u03c9", 0.680), ("Cosine", 0.887)]:
+for k, exp_v in [("CKI \u03c9", 0.716), ("Cosine", 0.887)]:
     actual_v = auc.get(k)
     if actual_v is not None:
         match = abs(actual_v - exp_v) < 0.005
@@ -137,6 +137,46 @@ df_h = pd.read_csv(RESULTS / "phase33_v3_human_pairs.csv")
 n_human = len(df_h)
 print(f"  Pairs: {n_human} (claim: 5151)")
 if n_human != 5151: errors += 1
+
+# ============================================================
+# 7. Table 2: Cross-organ conservation summary
+# ============================================================
+print("\n--- 7. Table 2 Cross-organ ---")
+# Read aggregated summary (preferred) or compute from per-pair
+summary_file = RESULTS / "phase35_cross_organ_summary.csv"
+if summary_file.exists():
+    df_cs = pd.read_csv(summary_file, index_col=0)
+    expected_table2 = {
+        "b cell": (2.70, 1),
+        "neutrophil": (2.72, 6),
+        "plasma cell": (6.61, 6),
+        "erythrocyte": (6.90, 3),
+        "macrophage": (9.84, 15),
+        "endothelial cell": (15.09, 3),
+    }
+    for ct, (exp_mean, exp_n) in expected_table2.items():
+        if ct in df_cs.index:
+            row = df_cs.loc[ct]
+            match_m = abs(row["mean_omega"] - exp_mean) < 0.02
+            match_n = int(row["n_pairs"]) == exp_n
+            flags = []
+            if not match_m: errors += 1; flags.append(f"MEAN(exp={exp_mean})")
+            if not match_n: errors += 1; flags.append(f"N(exp={exp_n})")
+            status = "OK" if not flags else "MISMATCH: " + ", ".join(flags)
+            print(f"  {ct:<30}: mean={row['mean_omega']:.2f} n={int(row['n_pairs'])} [{status}]")
+        else:
+            print(f"  {ct:<30}: NOT FOUND!")
+            errors += 1
+    print(f"  Summary: {len(df_cs)} cell types, {int(df_cs['n_pairs'].sum())} total pairs (claim: 17 CTs, 59 pairs)")
+    if len(df_cs) != 17 or int(df_cs["n_pairs"].sum()) != 59:
+        errors += 1
+else:
+    # Fallback: aggregate from per-pair CSV
+    df_co = pd.read_csv(RESULTS / "phase35_cross_organ_conservation.csv")
+    agg = df_co.groupby("ct").agg(mean_omega=("omega", "mean"), n_pairs=("omega", "count"))
+    print(f"  Aggregated from per-pair CSV: {len(agg)} cell types, {len(df_co)} pairs (claim: 17 CTs, 59 pairs)")
+    if len(agg) != 17 or len(df_co) != 59:
+        errors += 1
 
 # ============================================================
 # FINAL

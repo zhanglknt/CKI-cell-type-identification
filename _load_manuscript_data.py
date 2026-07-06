@@ -72,12 +72,19 @@ def get_manuscript_data():
     # ================================================================
     # Table 2: Cross-organ conservation (aggregated from CSV)
     # ================================================================
-    df_co = pd.read_csv(RESULTS / "phase35_cross_organ_conservation.csv")
-    agg = df_co.groupby("ct").agg(
-        mean_omega=("omega", "mean"),
-        std_omega=("omega", "std"),
-        n_pairs=("omega", "count"),
-    ).sort_values("mean_omega")
+    # Prefer analysis-generated summary; fall back to per-pair CSV aggregation
+    summary_file = RESULTS / "phase35_cross_organ_summary.csv"
+    if summary_file.exists():
+        agg = pd.read_csv(summary_file, index_col=0).sort_values("mean_omega")
+        n_total = int(agg["n_pairs"].sum())
+    else:
+        df_co = pd.read_csv(RESULTS / "phase35_cross_organ_conservation.csv")
+        agg = df_co.groupby("ct").agg(
+            mean_omega=("omega", "mean"),
+            std_omega=("omega", "std"),
+            n_pairs=("omega", "count"),
+        ).sort_values("mean_omega")
+        n_total = len(df_co)
 
     # Friendly names mapping
     ct_name_map = {
@@ -108,7 +115,7 @@ def get_manuscript_data():
         n_str = str(int(row["n_pairs"]))
         d["table2_data"].append((name, mean_str, sd_str, n_str))
 
-    d["cross_organ_n_total"] = len(df_co)
+    d["cross_organ_n_total"] = n_total
 
     # ================================================================
     # Tabula Muris calibration (mouse_pilot_v2_key_values.csv)
@@ -316,9 +323,10 @@ def get_manuscript_data():
     # Between CKI and standard metrics on cross-organ pairs (n=59)
     # Computed from phase35_cross_organ_conservation.csv
     from scipy.stats import spearmanr as _spearmanr
+    df_co_spearman = pd.read_csv(RESULTS / "phase35_cross_organ_conservation.csv")
     d["cross_organ_spearman"] = {}
     for metric in ["js_raw", "spearman", "cosine", "marker_jaccard"]:
-        r, _ = _spearmanr(df_co["omega"], df_co[metric])
+        r, _ = _spearmanr(df_co_spearman["omega"], df_co_spearman[metric])
         d["cross_organ_spearman"][metric] = float(r)
 
     # ================================================================

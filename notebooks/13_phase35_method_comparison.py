@@ -20,6 +20,7 @@ Experiments:
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from _paths import *
 
 import numpy as np
 import pandas as pd
@@ -37,12 +38,6 @@ from sklearn.metrics import roc_auc_score, roc_curve
 from collections import Counter
 
 # === Config ===
-TS_HUMAN_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\ts_human")
-HK_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\housekeeping\Human_Mouse_Common.csv")
-RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
-RESULTS_DIR.mkdir(exist_ok=True)
-
-TS_ORGANS = ["Liver", "Kidney", "Heart", "Bone_Marrow", "Spleen", "Lung"]
 RANDOM_SEED = 42
 MIN_CELLS_PER_CT = 10
 N_TOP_KF = 200
@@ -176,13 +171,13 @@ spearman_mat = np.zeros((n_ct, n_ct))
 cosine_mat = np.zeros((n_ct, n_ct))
 marker_jaccard_mat = np.zeros((n_ct, n_ct))
 
-# Helper: ensure probability distribution (same as cki.utils)
+# Use CKI package's probability distribution and JS divergence (ensures consistency)
+from cki.utils import ensure_probability_distribution
+from cki.core import js_divergence
+
 def ensure_prob(x):
-    x = np.asarray(x, dtype=np.float64)
-    x = np.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0)
-    if np.sum(np.abs(x)) < 1e-12:
-        return np.ones(len(x)) / len(x)
-    return softmax(x)
+    """Use CKI package's ensure_probability_distribution for consistency."""
+    return ensure_probability_distribution(x)
 
 # Compute per-CT top marker genes (for Jaccard)
 print("  Computing per-CT marker gene sets...")
@@ -201,12 +196,12 @@ for i in range(n_ct):
         pb_i = ct_entries[i]["pb"]
         pb_j = ct_entries[j]["pb"]
 
-        # --- M1: CKI omega (Phase 3.3 v3 hybrid) ---
+        # --- M1: CKI omega (using CKI package's js_divergence for consistency) ---
         hk_i = pb_i[hk_global_idx]
         hk_j = pb_j[hk_global_idx]
         pi_hk = ensure_prob(hk_i)
         pj_hk = ensure_prob(hk_j)
-        kn_val = float(jensenshannon(pi_hk, pj_hk, base=2.0) ** 2)
+        kn_val = float(js_divergence(pi_hk, pj_hk))
 
         abs_diff = np.abs(pb_i - pb_j)
         non_hk_mask = np.ones(len(gene_names), dtype=bool)
@@ -218,13 +213,13 @@ for i in range(n_ct):
         top_idx = top_idx[np.argsort(abs_diff_non_hk[top_idx])[::-1]]
         pi_top = ensure_prob(pb_i[top_idx])
         pj_top = ensure_prob(pb_j[top_idx])
-        kf_val = float(jensenshannon(pi_top, pj_top, base=2.0) ** 2)
+        kf_val = float(js_divergence(pi_top, pj_top))
         omega_val = kf_val / kn_val if kn_val > 0 else float('inf')
 
-        # --- M2: Raw JS divergence (all genes) ---
+        # --- M2: Raw JS divergence (all genes, using CKI package) ---
         pi_all = ensure_prob(pb_i)
         pj_all = ensure_prob(pb_j)
-        js_raw_val = float(jensenshannon(pi_all, pj_all, base=2.0) ** 2)
+        js_raw_val = float(js_divergence(pi_all, pj_all))
 
         # --- M3: Spearman rank correlation ---
         rho_val, _ = spearmanr(pb_i, pb_j)
@@ -463,6 +458,18 @@ if len(same_ct_cross_organ_pairs) > 0:
     cons_df.to_csv(RESULTS_DIR / "phase35_cross_organ_conservation.csv", index=False)
     print("  Saved: phase35_cross_organ_conservation.csv")
 
+    # Aggregate per cell type: mean/SD/n for Table 2
+    cross_summary = cons_df.groupby("ct").agg(
+        mean_omega=("omega", "mean"),
+        std_omega=("omega", "std"),
+        n_pairs=("omega", "count"),
+    ).sort_values("mean_omega")
+    cross_summary.to_csv(RESULTS_DIR / "phase35_cross_organ_summary.csv")
+    print(f"  Saved: phase35_cross_organ_summary.csv ({len(cross_summary)} cell types)")
+    for ct, row in cross_summary.iterrows():
+        sd = f"{row['std_omega']:.2f}" if not pd.isna(row['std_omega']) else "—"
+        print(f"    {ct:<40} mean={row['mean_omega']:.2f}  SD={sd}  n={int(row['n_pairs'])}")
+
     # Per-metric ranking consistency
     print(f"\n  Ranking consistency across metrics (Spearman r on cross-organ pairs):")
     for m1_idx, m1_name in enumerate(metric_names):
@@ -690,10 +697,10 @@ Note: SAMap, SATURN, and CACIMAR require scRNA-seq raw data + protein language m
 {auc_table}
 
 **Key findings:**
-- **CKI omega achieves the highest AUC ({auc_results['CKI omega']:.3f})**, demonstrating that the k_n normalization improves biological signal separation
-- Raw JS (AUC={auc_results['Raw JS']:.3f}) performs well but loses ~{((auc_results['CKI omega'] - auc_results['Raw JS']) / auc_results['CKI omega'] * 100):.1f}% discriminative power without decomposition
-- Spearman dist (AUC={auc_results['Spearman dist']:.3f}) — rank-only information insufficient for CT identity
-- CKI omega > Raw JS > Cosine dist > Marker Jaccard > Spearman dist
+- Cosine distance achieves the highest AUC ({auc_results['Cosine dist']:.3f}), reflecting its effectiveness at capturing global expression patterns for cell-type identity
+- Raw JS (AUC={auc_results['Raw JS']:.3f}) and Marker Jaccard (AUC={auc_results['Marker Jaccard dist']:.3f}) provide strong classification performance
+- CKI omega (AUC={auc_results['CKI omega']:.3f}) trades classification power for functional specialization sensitivity, outperforming Spearman distance (AUC={auc_results['Spearman dist']:.3f})
+- Ranking: Cosine dist > Raw JS > Marker Jaccard > CKI omega > Spearman dist
 
 ---
 

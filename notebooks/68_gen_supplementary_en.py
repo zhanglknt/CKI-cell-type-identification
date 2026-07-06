@@ -118,7 +118,7 @@ add_para(
     '(e.g., ESM-2). These extensions use a weighted formulation: '
     'k_f = w1*JS(HVG) + w2*JS(pathway) + w3*JS(macro). Parameter sweep (Phase 3.2) '
     'showed that the pure identity gene configuration (w1=1.0, w2=w3=0.0) achieved '
-    'optimal cell type discrimination (AUC = 0.786); this was therefore adopted as '
+    'optimal cell type discrimination (AUC = 0.847); this was therefore adopted as '
     'the default scheme.'
 )
 
@@ -330,7 +330,7 @@ add_heading('Supplementary Table 1: Parameter Sweep Results', 2)
 add_para(
     'Phase 3.2 parameter sweep on Tabula Muris mouse data (n = 703 cell type pairs, '
     '6 organs). The pure identity gene configuration (w1 = 1.0, w2 = 0.0) achieved '
-    'optimal cell type discrimination (AUC = 0.786). Data file: '
+    'optimal cell type discrimination (AUC = 0.847). Data file: '
     'results/phase32_sweep_results.csv. Visualization: results/phase32_sweep_barplot.png.'
 )
 

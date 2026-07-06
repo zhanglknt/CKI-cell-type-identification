@@ -36,6 +36,7 @@ import sys, os, json, time, gzip, warnings
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from _paths import *
 
 import numpy as np
 import pandas as pd
@@ -56,14 +57,8 @@ np.random.seed(42)
 # ====================================================================
 # Config
 # ====================================================================
-TCGA_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\tcga\tcga_RSEM_gene_tpm.gz")
-HK_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\housekeeping\Human_Mouse_Common.csv")
-PROBEMAP_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\tcga\probemap.tsv")
-LIHC_CLINICAL_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\tcga\lihc_patient_clinical.json")
-LUAD_MUTATION_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\tcga\luad_egfr_kras_mutations.json")
-
-RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
-RESULTS_DIR.mkdir(exist_ok=True)
+LIHC_CLINICAL_FILE = DATA_DIR / "tcga" / "lihc_patient_clinical.json"
+LUAD_MUTATION_FILE = DATA_DIR / "tcga" / "luad_egfr_kras_mutations.json"
 
 N_TOP_KF = 200
 MAX_PAIRS_TT = 2000

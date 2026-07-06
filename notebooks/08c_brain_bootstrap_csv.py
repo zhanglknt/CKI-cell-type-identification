@@ -7,13 +7,14 @@ For each cell type, bootstrap the mean omega.
 
 import sys, os, time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from _paths import *
 
 import numpy as np
 import pandas as pd
 from pathlib import Path
 from scipy.stats import percentileofscore
 
-RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
+# RESULTS_DIR from _paths
 N_BOOTSTRAP = 1000
 RANDOM_STATE = 42
 

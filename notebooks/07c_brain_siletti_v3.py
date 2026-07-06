@@ -8,6 +8,7 @@ CKI v0.2.0 — global HK k_n + per-pair top-200 DE k_f (hybrid scheme)
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from _paths import *
 
 import numpy as np
 import pandas as pd
@@ -17,11 +18,7 @@ from cki.core import compute_omega, js_divergence
 from cki.gene_sets import genes_to_indices, load_reference_hk_genes
 
 # ===== Config =====
-SILETTI_PATH = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\brain\Nonneurons.h5ad")
-HK_FILE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\data\housekeeping\Human_Mouse_Common.csv")
-RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
-RESULTS_DIR.mkdir(exist_ok=True)
-
+SILETTI_PATH = BRAIN_FILE  # from _paths
 MIN_NUCLEI_PER_GROUP = 20
 MIN_NUCLEI_PER_REGION = 50
 N_TOP_KF = 200
