@@ -150,7 +150,7 @@ def run():
         "were used for writing assistance during manuscript preparation; all AI-generated "
         "text was reviewed and revised by the authors, who take full responsibility for "
         "the content. All data and code are publicly available: the CKI Python package "
-        "(v0.3.1, MIT License) is available at "
+        "(v0.3.2, MIT License) is available at "
         "https://github.com/zhanglknt/CKI-cell-type-identification with a permanent "
         "archival copy deposited at Zenodo (DOI: 10.5281/zenodo.15670808).",
         doc,
