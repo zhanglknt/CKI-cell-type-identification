@@ -10,7 +10,7 @@ import numpy as np
 def ensure_probability_distribution(
     x: np.ndarray,
     epsilon: float = 1e-9,
-    mode: str = "auto",
+    mode: str = "softmax",
 ) -> np.ndarray:
     """
     Normalize a vector to a valid probability distribution (sum = 1).
@@ -23,8 +23,8 @@ def ensure_probability_distribution(
         Small constant to avoid division by zero.
     mode : str
         How to convert to a probability distribution:
+        - "softmax": always use softmax (appropriate for log1p-transformed data). **Default.**
         - "auto": use softmax if any value is negative, otherwise normalize by sum.
-        - "softmax": always use softmax (appropriate for log1p-transformed data).
         - "normalize": normalize by sum, after clipping negatives to 0 (legacy behavior).
 
     Returns

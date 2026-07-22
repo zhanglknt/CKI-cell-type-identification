@@ -319,7 +319,7 @@ def detect_functional_genes(
     cell_type_col: Optional[str] = None,
     n_marker_per_cluster: int = 50,
     layer: Optional[str] = None,
-    flavor: str = "seurat",
+    flavor: str = "seurat_v3",
     batch_key: Optional[str] = None,
     groupby: Optional[str] = None,
     group_a: Optional[str] = None,
@@ -378,7 +378,7 @@ def detect_functional_genes(
     layer : Optional[str]
         Layer to use for HVG computation.
     flavor : str
-        HVG flavor for Scanpy: ``"seurat"``, ``"seurat_v3"``, ``"cell_ranger"``.
+        HVG flavor for Scanpy: ``"seurat_v3"`` (default), ``"seurat"``, ``"cell_ranger"``.
     batch_key : Optional[str]
         Batch key for batch-aware HVG selection.
     groupby : Optional[str]

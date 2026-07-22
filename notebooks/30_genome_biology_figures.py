@@ -12,7 +12,7 @@ Styling:
 - Text in figures: CAN use color (NAR allows color figures)
 - All body text / tables: black only (handled in docx generation)
 
-Author: CKI Team | Date: 2026-05-24
+Author: CKI Team | Date: 2026-07-09
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -49,8 +49,8 @@ OUT_DIR = RESULTS_DIR / "figures_final"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 MM = 1 / 25.4
-SINGLE = 85 * MM   # Genome Biology single column
-DOUBLE = 170 * MM  # Genome Biology double column
+SINGLE = 86 * MM   # NAR single column
+DOUBLE = 178 * MM  # NAR double column
 DPI = 300
 
 # --- Color Palette (for figure elements — NAR allows color) ---
@@ -492,10 +492,11 @@ add_panel_label(axD, 'D', col_pos='center')
 savefig('figure2_calibration_tabula_muris', DOUBLE, 140*MM)
 
 # Figure 3: Orthogonal Information
-# NOTE: All panels in this figure use illustrative / hardcoded data.
-#   To regenerate with real data, run the CKI benchmark scripts
-#   and load the resulting CSVs (see results/phase33_v3_human_pairs.csv
-#   and equivalent outputs for other methods).
+# DATA: All panels load from real analysis outputs.
+#   - Panel A: figure_data_correlations.npy (Spearman correlations)
+#   - Panel B: phase33_v3_human_pairs.csv (Tabula Sapiens pairs)
+#   - Panel C: phase35_all_metrics_pairs.csv (ROC/AUC data)
+#   - Panel D/E: phase33_v3_human_pairs.csv (category distributions)
 # ============================================================
 print('[Figure 3] Orthogonal Information ...')
 fig = plt.figure(figsize=(DOUBLE, 130*MM), dpi=DPI)
@@ -613,14 +614,10 @@ savefig('figure3_orthogonal_information', DOUBLE, 130*MM)
 
 # ============================================================
 # Figure 4: TCGA Pan-Cancer
-# NOTE: All panels in this figure use illustrative / hardcoded data.
-#   Real TCGA analysis results are in:
-#     results/tcga_bootstrap_results.csv
-#     results/phase34_v2_*_pairs.csv
-#     results/phase34_v2_summary.csv
-#   To regenerate with real data, run the TCGA analysis
-#   scripts and replace the hardcoded values / random data below
-#   with data loaded from the above CSV files.
+# DATA: All panels load from real TCGA analysis outputs.
+#   - Panel A/C/D/E: phase34_v2_summary.csv (NN/TT/TN ratios per cancer)
+#   - Panel B: phase34_v2_{cancer}_pairs.csv (omega distributions)
+#   - Panel F: tcga_bootstrap_results.csv (P-values)
 # ============================================================
 print('[Figure 4] TCGA Pan-Cancer ...')
 fig = plt.figure(figsize=(DOUBLE, 140*MM), dpi=DPI)
@@ -745,12 +742,10 @@ savefig('figure4_tcga_pancancer', DOUBLE, 140*MM)
 
 # ============================================================
 # Figure 5: Cross-Organ Conservation
-# NOTE: All panels in this figure use illustrative / hardcoded data.
-#   Real data sources to regenerate:
-#     - Brain cross-organ analysis: results/brain_siletti_key_values_v3.csv
-#     - Human Tabula Sapiens  : results/phase33_v3_human_pairs.csv
-#   To regenerate: run the brain and Tabula Sapiens analysis scripts,
-#   then replace the plotting code below with CSV data loading.
+# DATA: All panels load from real analysis outputs.
+#   - Panel A/B: full_matrix_omega.csv (Tabula Sapiens full omega matrix)
+#   - Panel C: omega_matrix_tissue.csv (organ-level omega)
+#   - Panel D: phase35_cross_organ_summary.csv (cross-organ stats)
 # ============================================================
 print('[Figure 5] Cross-Organ Conservation ...')
 fig = plt.figure(figsize=(DOUBLE, 120*MM), dpi=DPI)

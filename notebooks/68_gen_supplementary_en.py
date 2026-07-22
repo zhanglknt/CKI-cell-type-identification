@@ -2,10 +2,25 @@
 Generate English Supplementary Materials DOCX with continuous line numbers.
 Replaces the Chinese supplementary with English translation in Chinese-researcher style.
 """
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from _load_manuscript_data import get_manuscript_data
 from docx import Document
 from docx.shared import Pt, Cm, RGBColor
 from docx.oxml.ns import qn
 from lxml import etree
+
+# Load all manuscript data dynamically
+DATA = get_manuscript_data()
+_br = DATA['brain']
+
+# Load migration candidates for S4 top-5
+import pandas as pd
+_mig = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "brain_siletti_migration_candidates_v3.csv")
+_strong = _mig[_mig['tier'] == 'Strong'].sort_values('residual').head(5)
+_candidates = _mig[_mig['residual'] < 0.75]
 
 doc = Document()
 
@@ -15,7 +30,7 @@ font = style.font
 font.name = 'Arial'
 font.size = Pt(11)
 style.paragraph_format.space_after = Pt(6)
-style.paragraph_format.line_spacing = 1.5
+style.paragraph_format.line_spacing = 1.15
 
 # Page margins (NAR: 2.5cm)
 for sec in doc.sections:
@@ -346,35 +361,60 @@ add_para(
 add_para('')
 add_heading('Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data', 2)
 add_para(
-    'Complete results of CKI brain region analysis for non-neuronal cells from the '
-    'Siletti et al. (2023) human brain atlas, comprising 31,764 pairwise cross-region '
-    'comparisons across 10 cell types. Summary statistics for each cell type (omega mean, '
-    'median, SD, range, k_n and k_f components) are provided in Supplementary Table 3. '
-    'Raw data file: results/brain_region_omega.csv (31,764 rows). '
-    'Summary file: results/brain_region_summary.csv (10-row summary). '
-    'Analysis script: notebooks/27_brain_region_cki.py. '
-    'Figure generation: notebooks/28_gen_fig6.py. '
-    'Visualization output: results/figures_final/figure6_brain_regional_cki.png.'
+    f'Complete results of CKI brain region analysis for non-neuronal cells from the '
+    f'Siletti et al. (2023) human brain atlas, comprising {_br["total_pairs"]:,} pairwise cross-region '
+    f'comparisons across 10 cell types (n = {_br["n_nuclei"]:,} nuclei, {_br["n_regions"]} regions, '
+    f'{_br["n_genes"]:,} genes). Summary statistics for each cell type (omega mean, '
+    f'median, SD, range, k_n and k_f components) are provided in Supplementary Table 3. '
+    f'Raw data file: results/brain_siletti_omega_pairs_v3.csv ({_br["total_pairs"]:,} rows). '
+    f'Summary file: results/brain_siletti_ct_summary_v3.csv (10-row summary). '
+    f'Analysis script: notebooks/07c_brain_siletti_v3.py. '
+    f'Figure generation: notebooks/30_genome_biology_figures.py (Figure 6).'
 )
 
 add_para('')
 add_heading('Supplementary Table 4: Inter-regional Cell Migration Candidate Data', 2)
-add_para(
-    'Results of multiplicative model-based detection of potential inter-regional cell '
-    'migration candidates. Of the full 31,764 pairwise cross-region comparisons, 5,346 '
-    'pairs (16.83%) were classified as migration candidates: 213 strong signals '
-    '(residual < 0.3, omega < 15, within-pair rank = 1, pair median omega > 20), '
-    '1,294 medium signals (residual < 0.5, omega < 25), and 3,839 weak signals '
-    '(residual < 0.75, omega < 35). Top-5 strongest migration signals by cell type '
-    '(ranked by residual): OPC MoRF-MoEN vs. MoSR (omega = 1.19, residual = 0.033), '
-    'Astrocyte A23 vs. ITG (omega = 2.60, residual = 0.041), '
-    'Oligodendrocyte A23 vs. SN (omega = 4.53, residual = 0.063), '
-    'OPC GPi vs. PN (omega = 4.14, residual = 0.076), '
-    'Vascular A44-A45 vs. VA (omega = 1.75, residual = 0.083). '
-    'Complete candidate dataset: results/brain_migration/migration_candidates.csv '
-    '(5,346 rows). Analysis script: notebooks/29_brain_migration_detection.py. '
-    'Literature validation report: results/brain_migration/literature_validation_report.md.'
+
+# Build dynamic S4 text
+n_candidates = len(_candidates)
+pct_candidates = n_candidates / len(_mig) * 100
+n_strong = int(_br['n_strong'])
+n_moderate = int(_br['n_moderate'])
+n_weak = int(_br['n_weak'])
+pct_strong = float(_br['pct_strong'])
+pct_moderate = float(_br['pct_moderate'])
+pct_weak = float(_br['pct_weak'])
+
+# Build top-5 list
+top5_lines = []
+for i, (_, r) in enumerate(_strong.iterrows()):
+    top5_lines.append(
+        f'{r["cell_type"]} {r["region_a"]} vs. {r["region_b"]} '
+        f'(omega = {r["omega"]:.2f}, residual = {r["residual"]:.3f})'
+    )
+
+s4_text = (
+    f'Results of multiplicative model-based detection of potential inter-regional cell '
+    f'migration candidates. Of the {_br["total_pairs"]:,} total pairwise cross-region comparisons, '
+    f'{n_candidates:,} pairs ({pct_candidates:.1f}%) were classified as migration candidates '
+    f'(residual < 0.75): '
+    f'{n_strong} strong signals (residual < {DATA["brain"]["residual_thresholds"]["strong"]}, '
+    f'{pct_strong:.2f}%), '
+    f'{n_moderate:,} moderate signals (residual < {DATA["brain"]["residual_thresholds"]["moderate"]}, '
+    f'{pct_moderate:.2f}%), '
+    f'and {n_weak:,} weak signals (residual < {DATA["brain"]["residual_thresholds"]["weak"]}, '
+    f'{pct_weak:.2f}%). '
+    f'Top-5 strongest migration signals by cell type (ranked by residual): '
+    f'1) {top5_lines[0]}, '
+    f'2) {top5_lines[1]}, '
+    f'3) {top5_lines[2]}, '
+    f'4) {top5_lines[3]}, '
+    f'5) {top5_lines[4]}. '
+    f'Complete candidate dataset: results/brain_siletti_migration_candidates_v3.csv '
+    f'({n_candidates:,} rows). '
+    f'Analysis script: notebooks/07c_brain_siletti_v3.py.'
 )
+add_para(s4_text)
 
 add_para('')
 add_heading('Supplementary Data 1: Analysis Script Index', 2)
@@ -382,12 +422,11 @@ add_para(
     'Complete analysis scripts used in this study are organized in the notebooks/ '
     'directory of the GitHub repository (github.com/zhanglknt/CKI-cell-type-identification). '
     'The package can be installed via: pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git. '
-    'Key scripts include: notebooks/20_main_analysis.py (core CKI pipeline), '
-    'notebooks/21_tcga_analysis.py (TCGA pan-cancer analysis), '
-    'notebooks/22_tabula_sapiens_analysis.py (Tabula Sapiens cross-organ analysis), '
-    'notebooks/27_brain_region_cki.py (brain regional CKI analysis), '
-    'notebooks/29_brain_migration_detection.py (migration candidate detection), '
-    'and notebooks/30_nar_figures_final.py (NAR figure generation).'
+    'Key scripts include: notebooks/04_phase32_sweep.py (parameter sweep and calibration), '
+    'notebooks/06_phase34_v2.py (TCGA pan-cancer analysis), '
+    'notebooks/05_phase33_v3_fixed.py (Tabula Sapiens cross-organ analysis), '
+    'notebooks/07c_brain_siletti_v3.py (brain regional CKI analysis and migration candidate detection), '
+    'and notebooks/30_genome_biology_figures.py (figure generation).'
 )
 
 # ===== Add line numbers (continuous, every line) =====
@@ -398,7 +437,7 @@ for sec in doc.sections:
     ln_num.set(qn('w:start'), '1')
     ln_num.set(qn('w:restart'), 'continuous')
 
-out_path = 'results/NAR_Submission_Final/supplementary/CKI_NAR_Supplementary.docx'
+out_path = 'results/CKI_NAR_Supplementary.docx'
 doc.save(out_path)
 print(f'Saved: {out_path}')
 print(f'Paragraphs: {len(doc.paragraphs)}')
