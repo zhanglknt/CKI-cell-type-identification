@@ -104,14 +104,40 @@ def run():
     # ── Body ──
     add_para(
         "On behalf of my co-author, Dr. Xianming Wu (Chinese Institute for Brain "
-        "Research, Beijing), I am pleased to submit our manuscript, "
+        "Research, Beijing), I am pleased to submit our original research article, "
         "\u201cCKI: A Cell-state Kinetic Index for Quantifying Selective "
         "Transcriptomic Remodeling\u201d, for consideration for publication "
-        "in Nucleic Acids Research. CKI is a Ka/Ks-inspired metric that "
-        "decomposes transcriptomic divergence into neutral and functional "
-        "components, rigorously validated across human and mouse datasets. "
-        "We believe it aligns well with NAR\u2019s scope in computational "
-        "methods and genomic analysis.",
+        "in Nucleic Acids Research.",
+        doc,
+    )
+
+    add_para(
+        "Cell identity is fundamentally defined by its transcriptome. However, a "
+        "standardized, assumption-free metric to quantify transcriptomic divergence "
+        "between cell states has been lacking. Drawing inspiration from evolutionary "
+        "biology\u2019s Ka/Ks ratio, we propose CKI (Cell-state Kinetic Index), "
+        "which decomposes Jensen\u2013Shannon divergence into two orthogonal components: "
+        "k_n (neutral offset rate, from housekeeping gene expression) and k_f "
+        "(functional conversion rate, from identity gene expression). The ratio "
+        "\u03c9 = k_f/k_n provides a robust, interpretable measure of selective "
+        "transcriptomic remodeling. As a new computational method with rigorous "
+        "validation across multiple datasets, we believe CKI aligns well with "
+        "Nucleic Acids Research\u2019s scope in methods development and genomic analysis.",
+        doc,
+    )
+
+    add_para(
+        "We validated CKI \u03c9 across three dimensions: (1) orthogonal information\u2014"
+        "CKI \u03c9 captures an independent information dimension, showing negative "
+        "correlation with all four standard distance metrics (Spearman r = \u22120.36 "
+        "to \u22120.46, all P < 0.001), proving it measures something fundamentally "
+        "different from Cosine similarity, JS divergence, and other existing approaches; "
+        "(2) cross-species consistency\u2014mouse orthologs show strong correlation with "
+        "human CKI \u03c9, confirming evolutionary conservation; and (3) two biological "
+        "applications\u2014pan-cancer analysis revealing that tumors are more transcriptionally "
+        "homogeneous than normal tissues (median NN/TT ratio 1.40\u20132.83), and "
+        "brain regional analysis identifying 30 cell-type-specific developmental origin "
+        "signatures among 31,764 cross-region comparisons through a multiplicative residual model.",
         doc,
     )
 
@@ -124,20 +150,6 @@ def run():
         "responsibility. The CKI Python package (v0.3.2, MIT License) and all analysis "
         "code are publicly available at https://github.com/zhanglknt/CKI-cell-type-identification "
         "(permanent archive: Zenodo DOI: 10.5281/zenodo.15670808).",
-        doc,
-    )
-
-    add_para(
-        "I suggest the following potential reviewers (all are experts in single-cell "
-        "genomics, transcriptomic analysis, or computational biology):\n"
-        "1. Prof. Sarah A. Teichmann (Wellcome Sanger Institute, st9@sanger.ac.uk)\n"
-        "2. Prof. Peter V. Kharchenko (Harvard Medical School, peter_kharchenko@hms.harvard.edu)\n"
-        "3. Prof. Cole Trapnell (University of Washington, coletrap@uw.edu)\n"
-        "4. Prof. Lior Pachter (California Institute of Technology, lpachter@caltech.edu)\n"
-        "5. Prof. Guo-Cheng Yuan (Icahn School of Medicine at Mount Sinai, "
-        "guo-cheng.yuan@mssm.edu)\n"
-        "6. Prof. Martin Hemberg (Brigham and Women\u2019s Hospital / Harvard Medical "
-        "School, mhemberg@bwh.harvard.edu)",
         doc,
     )
 
