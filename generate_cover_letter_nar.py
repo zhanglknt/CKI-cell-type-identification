@@ -101,58 +101,29 @@ def run():
     # ── Salutation ──
     add_para("Dear Editors,", doc, space_after=6)
 
-    # ── Body paragraphs ──
+    # ── Body ──
     add_para(
         "On behalf of my co-author, Dr. Xianming Wu (Chinese Institute for Brain "
-        "Research, Beijing), I am pleased to submit our original research article, "
+        "Research, Beijing), I am pleased to submit our manuscript, "
         "\u201cCKI: A Cell-state Kinetic Index for Quantifying Selective "
         "Transcriptomic Remodeling\u201d, for consideration for publication "
-        "in Nucleic Acids Research.",
+        "in Nucleic Acids Research. CKI is a Ka/Ks-inspired metric that "
+        "decomposes transcriptomic divergence into neutral and functional "
+        "components, rigorously validated across human and mouse datasets. "
+        "We believe it aligns well with NAR\u2019s scope in computational "
+        "methods and genomic analysis.",
         doc,
     )
 
     add_para(
-        "Cell identity is fundamentally defined by its transcriptome. However, a "
-        "standardized, assumption-free metric to quantify transcriptomic divergence "
-        "between cell states has been lacking. Drawing inspiration from evolutionary "
-        "biology\u2019s Ka/Ks ratio, we propose CKI (Cell-state Kinetic Index), "
-        "which decomposes Jensen\u2013Shannon divergence into two orthogonal components: "
-        "k_n (neutral offset rate, from housekeeping gene expression) and k_f "
-        "(functional conversion rate, from identity gene expression). The ratio "
-        "\u03c9 = k_f/k_n provides a robust, interpretable measure of selective "
-        "transcriptomic remodeling. As a new computational method with rigorous "
-        "validation across multiple datasets, we believe CKI aligns well with "
-        "Nucleic Acids Research\u2019s scope in methods development and genomic analysis.",
-        doc,
-    )
-
-    add_para(
-        "We validated CKI \u03c9 across three dimensions: (1) orthogonal information\u2014"
-        "CKI \u03c9 captures an independent information dimension, showing negative "
-        "correlation with all four standard distance metrics (Spearman r = \u22120.36 "
-        "to \u22120.46, all P < 0.001), proving it measures something fundamentally "
-        "different from Cosine similarity, JS divergence, and other existing approaches; "
-        "(2) cross-species consistency\u2014mouse orthologs show strong correlation with "
-        "human CKI \u03c9, confirming evolutionary conservation; and (3) two biological "
-        "applications\u2014pan-cancer analysis revealing that tumors are more transcriptionally "
-        "homogeneous than normal tissues (median NN/TT ratio 1.40\u20132.83), and "
-        "brain regional analysis identifying 30 cell-type-specific developmental origin "
-        "signatures among 31,764 cross-region comparisons through a multiplicative residual model.",
-        doc,
-    )
-
-    add_para(
-        "Dr. Xianming Wu (first author) and I (corresponding author) have approved "
-        "the manuscript and declare no competing interests. "
-        "This work has not been published elsewhere and is not under consideration "
-        "by any other journal. This manuscript has not been previously submitted to "
-        "Nucleic Acids Research. Artificial intelligence tools (large language models) "
-        "were used for writing assistance during manuscript preparation; all AI-generated "
-        "text was reviewed and revised by the authors, who take full responsibility for "
-        "the content. All data and code are publicly available: the CKI Python package "
-        "(v0.3.2, MIT License) is available at "
-        "https://github.com/zhanglknt/CKI-cell-type-identification with a permanent "
-        "archival copy deposited at Zenodo (DOI: 10.5281/zenodo.15670808).",
+        "Both authors have approved the manuscript and declare no competing interests. "
+        "This work has not been published elsewhere, is not under consideration "
+        "by any other journal, and has not been previously submitted to "
+        "Nucleic Acids Research. AI tools (LLMs) were used for writing assistance; "
+        "all AI-generated text was reviewed and revised by the authors, who take full "
+        "responsibility. The CKI Python package (v0.3.2, MIT License) and all analysis "
+        "code are publicly available at https://github.com/zhanglknt/CKI-cell-type-identification "
+        "(permanent archive: Zenodo DOI: 10.5281/zenodo.15670808).",
         doc,
     )
 
