@@ -1,0 +1,69 @@
+CKI NAR Submission Package v20
+Built: 2026-08-01 00:13
+
+This package updates v19 with all Phase D expert review fixes
+(4 Critical + 19 Major issues, Task #705).
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (English, regenerated with Phase D fixes)
+2. CKI_NAR_Supplementary.docx - Supplementary materials (English, regenerated)
+3. CKI_NAR_Cover_Letter.docx - Cover letter (regenerated with wording fixes)
+4. CKI_NAR_Reproducibility_Guide.docx - Computational reproducibility guide (regenerated)
+5. Table1-2.docx - Standalone tables (from v18, unchanged)
+6. figure1.pdf through figure6.pdf - Main figures (from v18, unchanged)
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S7.pdf
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+
+Key changes in v20 (relative to v19):
+
+Phase D Critical Fixes (4 items):
+  C-B1: HK gene neutrality assumption - expanded Discussion with mechanistic
+        argument (synonymous sites are neutral; HK genes lack comparable argument;
+        positioned as practical proxy for neutrality)
+  C-B3: TCGA "convergence" interpretation - Results and Discussion rewritten as
+        exploratory analysis; 3 bulk-level confounders listed (cell composition,
+        peritumoral inflammation, RNA quality)
+  C-S4: Cross-organ sample size - added n<5 flag (Memory B n=1, Smooth muscle n=1),
+        recommended n>=5 for biological conclusions, bootstrap CIs referenced
+  C-S6: TCGA paired statistics - removed Mann-Whitney P-values (n=2-5 per cancer
+        type has minimum P~0.33, insufficient power); changed to descriptive only
+
+Phase D Major Fixes (19 items):
+  M-M1: New Limitation #14 - no synthetic ground-truth validation
+  M-M2/M-B2: Discussion - "did not quantitatively benchmark CKI against specialized methods"
+  M-M4: TCGA Results - 3 confounders explicitly listed (cell composition, peritumoral, RNA quality)
+  M-M5: New Limitation #15 - 6 parameters lack formal optimization (softmax, epsilon,
+        top-200 DE, HVG=2000, log-base 2, B=1000)
+  M-S1: Methods - one-sided test justification (directional hypothesis)
+  M-S2: New Limitation #13 - BH-FDR per-dataset, not comparable across datasets
+  M-S3: Cross-organ Spearman - bootstrap 95% CIs referenced (Supplementary Table S2)
+  M-S5/M-B4: PAM50/Edmondson - small subgroup caveats (Normal-like n=7, G4 n=11) +
+        proliferation confound + "exploratory in nature"
+  M-S6: Brain gradient - omega=8.01 vs 14.36 clarified (grand mean dominated by
+        low-omega cell types)
+  M-B1: Discussion - cross-species validation mentioned (Supplementary Fig. S2)
+  M-W1: Cover Letter - "orthogonal information" -> "independent information dimension"
+  M-W2: Cover Letter - "proving it measures" -> "demonstrating that it measures"
+  M-W3: Cover Letter - "confirmed baseline behavior" -> "empirical baseline for
+        equivalent populations"; "developmental origin signatures" -> "developmental signatures"
+  M-W4: Figure 5 legend - verified correct ("within Tabula Sapiens")
+  M-W5: Graphical Abstract - verified present
+  M-W6: Pair count - verified as 59 (cross_organ_n_total from data)
+  M-W7: Figure legends - added "Statistical conventions" paragraph
+
+New Supplementary Sections (3.8-3.11):
+  3.8 TCGA Exploratory Analysis Caveats (6 categories)
+  3.9 Cross-Organ Sample Size Considerations
+  3.10 One-Sided Permutation Test Justification
+  3.11 Parameter Justification (6 parameters)
+
+New Reproducibility Guide Content:
+  Section 5.5: Phase D Interpretation Corrections (14 items a-n)
+  Parameter table: 3 new rows (one-sided direction, TCGA paired, cross-organ min n)
+  Reproduction checklist: 5 new Phase D verification items
+
+Files NOT regenerated (unchanged from v19):
+  - Figures (f1-f6): no visual changes needed for text-only fixes
+  - Supplementary Figures (S1-S7): unchanged
+  - Graphical Abstract: unchanged
+  - Table1-2.docx: tables unchanged

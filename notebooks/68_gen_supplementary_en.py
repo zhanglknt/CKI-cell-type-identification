@@ -97,7 +97,7 @@ add_para(
     'the JS divergence is bounded in [0, 1]. This bound is important for interpreting '
     'omega: when both k_n and k_f approach 1, omega = k_f/k_n may still vary, '
     'and a small floor value (1e-4) is applied to k_n to prevent inflated omega from near-zero denominators. '
-    'are normalized to probability distributions via softmax normalization '
+    'Before computing JS divergence, both pseudobulk vectors are normalized to probability distributions via softmax normalization '
     '(p_i = exp(x_i)/\u03a3exp(x_j)).'
 )
 
@@ -278,6 +278,17 @@ add_para(
     'biologically meaningful comparisons, indicating large effects relative to '
     'the null distribution.'
 )
+add_para(
+    'Bootstrap confidence intervals (95% CI) for all key \u03c9 estimates were '
+    'computed by pair-level resampling with B=10,000 iterations. For each cell '
+    'type, observed pair-level \u03c9 values were resampled with replacement and the '
+    'median was computed; the 2.5th and 97.5th percentiles of the resulting '
+    'distribution define the 95% CI. Confidence interval widths scale inversely '
+    'with the number of contributing pairs: well-sampled cell types (e.g., '
+    'astrocytes, 4,489 pairs) yield narrow intervals ([14.14, 14.58]), whereas '
+    'cell types with fewer comparisons (e.g., Bergmann glia, 21 pairs) produce '
+    'wider intervals ([1.95, 2.90]).'
+)
 
 add_para('3.3 Multiple Testing Correction', bold=True)
 add_para(
@@ -296,6 +307,22 @@ add_para(
     'applied to the bootstrap P-values, and candidates passing FDR < 0.05 are '
     'reported as significant discoveries.'
 )
+add_para(
+    'Permutation-based validation of the multiplicative residual model was '
+    'performed using B=10,000 permutations. For each of the 31,764 brain '
+    'region pairs, cell type labels were randomly shuffled within region pairs '
+    'to construct a null distribution of residuals. Per-signal empirical '
+    'P-values were computed as P = (count(null_residual \u2264 observed_residual) + 1) '
+    '/ (B + 1). Benjamini-Hochberg FDR correction was applied across all 31,764 '
+    'pairs. Of the 30 Strong threshold-passing signals, 16 reached statistical '
+    'significance (P = 9.99 \u00d7 10\u207b\u2075, q = 2.75 \u00d7 10\u207b\u2074): '
+    'all 6 astrocyte and all 10 oligodendrocyte signals. The remaining 14 signals '
+    '(10 microglia, 1 fibroblast, 3 vascular) did not reach significance '
+    '(all P \u2265 0.76, q = 1.0), indicating they cannot be distinguished from '
+    'random label assignment and should be interpreted as exploratory findings. '
+    '(Supplementary Figure 8: \u03c9 distribution characterization; '
+    'Supplementary Figure 9: residual null distribution.)'
+)
 
 add_para('3.4 Reporting Conventions', bold=True)
 add_para(
@@ -304,8 +331,115 @@ add_para(
     '1.5x IQR (whiskers), with data points beyond the whiskers shown as outliers. '
     'All P-values from non-bootstrap tests are two-sided; bootstrap permutation '
     'P-values are one-sided (see SN 1.5). Correlation '
-    'coefficients (Spearman rho) are reported with P-values. Effect sizes (Cohen\'s d) are reported '
-    'for all significant omega comparisons.'
+    'coefficients (Spearman rho) are reported with P-values. Effect sizes (Cohen\'s d) '
+    'are reported as descriptive measures of magnitude; because the \u03c9 distribution '
+    'is right-skewed and non-normal (Shapiro-Wilk and D\u2019Agostino-Pearson tests reject '
+    'normality at P < 0.001 for all datasets), Cohen\'s d should be interpreted as a '
+    'non-parametric descriptive statistic rather than a parametric test result.'
+)
+
+add_para('3.5 Calibrated Omega Normalization', bold=True)
+add_para(
+    'The theoretical baseline omega = 1 (k_f = k_n) is never observed in practice because '
+    'highly variable gene (HVG) selection systematically inflates k_f relative to k_n. '
+    'Empirical calibration on split-half equivalent populations (mouse, n = 6) yielded a '
+    'mean omega = 6.67. We introduce calibrated omega: omega_cal = omega_obs / 6.67, which '
+    'rescales all values so that equivalent populations yield omega_cal ~ 1.0. Under this '
+    'calibration: mouse controls yield omega_cal = 1.00, brain global mean becomes omega_cal '
+    '= 1.20 (raw 8.01), and the most divergent brain cell type (astrocytes) yields omega_cal '
+    '= 2.15 (raw 14.36). Cell types with omega_cal < 1 (e.g., Bergmann glia, omega_cal = 0.36) '
+    'are more transcriptionally constrained between brain regions than the empirical baseline. '
+    'The calibrate_omega() function is available in the CKI package (cki.calibrate_omega). '
+    'Both raw and calibrated omega values are reported in all key results. (Supplementary Figure S12.)'
+)
+
+add_para('3.6 JS Divergence Dimensionality Invariance', bold=True)
+add_para(
+    'Because k_n is computed on ~1,130 housekeeping (HK) genes and k_f on 200-2,000 highly '
+    'variable genes (HVGs), we verified that JS divergence is not systematically biased by '
+    'gene set dimensionality. A simulation of 2,000 random Dirichlet distribution pairs '
+    'across dimensions ranging from 50 to 5,000 showed that mean JS divergence is effectively '
+    'constant across all dimensions tested (range: 0.155-0.159; ratio = 1.001 between d = 1,130 '
+    'and d = 2,000). This confirms that the systematic inflation of k_f relative to k_n '
+    '(omega = 6.67 for equivalent populations) arises from HVG selection bias (selecting genes '
+    'with high cross-cell variance) rather than from dimensional mismatch between the HK and '
+    'HVG gene sets. The calibrated omega (omega_cal = omega / 6.67) absorbs this bias into the '
+    'empirical baseline, and the permutation null distribution - constructed using the same gene '
+    'sets as the observed data - ensures internal consistency. (Supplementary Figure S10.)'
+)
+
+add_para('3.7 Pair-Specific k_n Variability', bold=True)
+add_para(
+    'In the hybrid scheme used for human and TCGA analyses, k_n is computed once globally '
+    '(constant across all pairs), which reduces omega to a scaled k_f ranking. For the brain '
+    'analysis, k_n was computed per-pair to capture region-specific baseline variation. '
+    'Analysis of per-pair k_n across 31,764 brain comparisons revealed substantial cross-pair '
+    'variability: overall k_n CV = 97.35% (mean = 0.0141, median = 0.0086), with per-cell-type '
+    'CVs ranging from 37.6% (committed oligodendrocyte precursors) to 81.4% (oligodendrocytes). '
+    'The Spearman correlation between omega computed with per-pair k_n and omega computed with '
+    'global k_n was only rho = -0.027 (P = 9.96 x 10^-7), confirming that pair-specific k_n '
+    'yields substantially different omega rankings than the global-kn simplification. This '
+    'justifies the per-pair k_n approach used for the brain analysis and highlights a limitation '
+    'of the hybrid scheme used for human/TCGA data. (Supplementary Figure S11.)'
+)
+
+add_para('3.8 TCGA Exploratory Analysis Caveats', bold=True)
+add_para(
+    'The TCGA pan-cancer analysis (Results Section: Cancer analysis) is exploratory in nature '
+    'due to several inherent limitations of bulk RNA-seq data. First, bulk RNA-seq confounds '
+    'cell-composition shifts (tumor purity, stromal infiltration, immune cell infiltration) '
+    'with genuine transcriptional divergence; the observed NN/TT > 1.0 pattern may partly '
+    'reflect shared cell-composition changes across tumors rather than true transcriptional '
+    'convergence. Second, peritumoral inflammation and desmoplastic reactions are shared '
+    'across tumors and could contribute to apparent convergence. Third, systematic RNA quality '
+    'differences between tumor and normal specimens may introduce technical bias. Fourth, '
+    'the paired tumor-normal analysis (n = 2-5 per cancer type) lacks statistical power for '
+    'formal hypothesis testing (minimum two-sided P approx 0.33 for n = 2); we therefore '
+    'report paired comparisons as descriptive statistics only. Fifth, PAM50 and Edmondson '
+    'stratification includes small subgroups (Normal-like n = 7; Edmondson G4 n = 11) whose '
+    'rankings are unreliable. Sixth, the PAM50 gradient (aggressive subtypes have lower omega) '
+    'may be driven by proliferative fraction differences rather than shared transcriptional '
+    'states. These caveats do not invalidate the descriptive findings but preclude causal '
+    'inference from bulk-level data alone.'
+)
+
+add_para('3.9 Cross-Organ Sample Size Considerations', bold=True)
+add_para(
+    'The cross-organ conservation ranking (Results Section: CKI ranks cell types by cross-organ '
+    'conservation) includes cell types with varying numbers of cross-organ pairs. Several cell '
+    'types have very few pairs (n = 1-3; e.g., Memory B cells n = 1, Smooth muscle n = 1), '
+    'making their mean omega estimates unreliable. We recommend interpreting rankings of cell '
+    'types with n < 5 as suggestive only. Bootstrap 95% confidence intervals for cell types '
+    'with n >= 5 are provided in Supplementary Table S2. The Spearman correlations between '
+    'CKI omega and standard metrics are reported with bootstrap 95% CIs (B = 10,000 resamples).'
+)
+
+add_para('3.10 One-Sided Permutation Test Justification', bold=True)
+add_para(
+    'All bootstrap P-values use a one-sided test: P = (count(omega_null >= omega_obs) + 1)/(B + 1). '
+    'The one-sided formulation is appropriate because our hypothesis is directional: we test '
+    'whether observed omega exceeds the null expectation (equivalent populations), not whether '
+    'it differs in either direction. A two-sided test would be appropriate if we were testing '
+    'for any departure from the null (either elevated or suppressed omega). However, the '
+    'biological questions addressed here (functional divergence exceeding baseline, Strong '
+    'migration candidates showing anomalously low omega) are inherently directional.'
+)
+
+add_para('3.11 Parameter Justification', bold=True)
+add_para(
+    'Key CKI parameters and their rationale: (1) Softmax normalization: converts expression '
+    'vectors to probability distributions for JS divergence computation; the softmax function '
+    'is a standard choice that preserves relative magnitude information while ensuring '
+    'non-negativity and sum-to-one. (2) Pseudocount epsilon = 1e-9: added to avoid log(0) in '
+    'JS divergence; the value is small enough to not affect results materially but large enough '
+    'to prevent numerical instability. (3) Top-200 DE genes for k_f (mouse): selected per pair '
+    'to adaptively capture the most informative identity genes; the parameter sweep (Phase 3.2) '
+    'tested N_HVG in {500, 1000, 2000, 3000, 5000} and found 2000 optimal for AUC. (4) HVG '
+    'count of 2,000 (human/brain): standard Scanpy default; Seurat flavor used for consistency '
+    'with the Scanpy ecosystem. (5) Log-base 2 for JS divergence: standard choice giving JS '
+    'range [0, 1]; the base does not affect omega = k_f/k_n since it cancels in the ratio. '
+    '(6) B = 1,000 for bootstrap: justified by adaptive permutation analysis showing minimum '
+    'P = 0.001 is well below BH thresholds for cell-type-level tests (Phase B).'
 )
 
 doc.add_page_break()

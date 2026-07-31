@@ -1,0 +1,34 @@
+dataset,group,n_pairs,omega_mean,ci_95_lower,ci_95_upper,ci_width
+Brain,Astrocyte,5778,14.3633,14.1379,14.5843,0.4464
+Brain,Fibroblast,3403,3.9861,3.9221,4.05,0.1278
+Brain,Microglia,5671,8.0241,7.8945,8.1569,0.2624
+Brain,Oligodendrocyte,5778,8.6598,8.5463,8.7757,0.2293
+Brain,Oligodendrocyte precursor,5671,7.6494,7.5449,7.7528,0.2079
+Brain,Vascular,3321,3.4045,3.3629,3.447,0.0842
+Brain,Committed oligodendrocyte precursor,1326,3.1668,3.0863,3.2465,0.1602
+Brain,Ependymal,780,4.1334,4.0126,4.2554,0.2428
+Brain,Bergmann glia,21,2.3716,1.9501,2.8965,0.9464
+Brain,Choroid plexus,15,4.7993,4.1232,5.5297,1.4065
+Mouse (all pairs),all,703,7.6222,7.3389,7.9185,0.5796
+Human (all pairs),all,5151,14.1184,13.9048,14.3318,0.427
+Mouse (pilot),C_control,6,1.5367,1.2243,1.873,0.6487
+Mouse (pilot),S_same_ct,4,4.0256,2.2527,5.6574,3.4047
+Mouse (pilot),D_diff_ct,3,13.1792,7.5824,23.7164,16.134
+Mouse (pilot),X_cross,2,7.0683,5.4431,8.6935,3.2504
+Human (per-CT),"cd4-positive, alpha-beta t cell",1,16.7105,,,
+Human (per-CT),"cd8-positive, alpha-beta t cell",6,9.9346,8.9837,10.8856,1.9018
+Human (per-CT),classical monocyte,1,17.5047,,,
+Human (per-CT),endothelial cell,3,26.2464,24.2299,28.2629,4.033
+Human (per-CT),hematopoietic stem cell,1,11.1219,,,
+Human (per-CT),erythrocyte,3,29.3597,27.4773,31.242,3.7647
+Human (per-CT),macrophage,15,15.4929,14.291,16.6948,2.4039
+Human (per-CT),intermediate monocyte,1,21.7813,,,
+Human (per-CT),naive b cell,1,21.0626,,,
+Human (per-CT),neutrophil,6,14.2157,12.9337,15.4978,2.564
+Human (per-CT),memory b cell,1,22.3612,,,
+Human (per-CT),monocyte,1,15.193,,,
+Human (per-CT),nk cell,10,17.2805,16.6217,17.9394,1.3177
+Human (per-CT),plasma cell,6,10.2019,8.119,12.2847,4.1656
+Human (per-CT),smooth muscle cell,1,12.2207,,,
+Human (per-CT),b cell,1,9.361,,,
+Human (per-CT),hepatocyte,1,8.5701,,,

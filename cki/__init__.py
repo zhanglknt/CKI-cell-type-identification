@@ -27,7 +27,7 @@ remodeling in single-cell RNA-seq data.
     print(result["omega"], result["kn"], result["kf"])
 """
 
-from .core import js_divergence, compute_kn, compute_kf, compute_omega, compute
+from .core import js_divergence, compute_kn, compute_kf, compute_omega, calibrate_omega, compute
 from .bootstrap import bootstrap_test, benjamini_hochberg, apply_fdr
 from .preprocess import pseudobulk, normalize_expression, select_hvg
 from .utils import ensure_probability_distribution
@@ -43,6 +43,7 @@ __all__ = [
     "compute_omega",
     "compute_kn",
     "compute_kf",
+    "calibrate_omega",
     "js_divergence",
     # Statistical testing
     "bootstrap_test",

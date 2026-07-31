@@ -254,6 +254,39 @@ def compute_omega(
     }
 
 
+# ── Calibrated Omega ────────────────────────────────────────────────────
+
+def calibrate_omega(
+    omega: float,
+    baseline: float = 6.67,
+) -> float:
+    """
+    Calibrate omega by dividing by an empirical baseline.
+
+    The theoretical baseline omega = 1 (k_f = k_n) is never observed in
+    practice because highly variable gene (HVG) selection systematically
+    inflates k_f relative to k_n. Empirical calibration on split-half
+    equivalent populations (mouse, n = 6) yields a mean omega of 6.67.
+    Calibrated omega rescales all values so that equivalent populations
+    have omega_cal ~ 1.0.
+
+    Parameters
+    ----------
+    omega : float
+        Raw omega value (k_f / k_n).
+    baseline : float
+        Empirical calibration baseline. Default 6.67 (mouse split-half).
+
+    Returns
+    -------
+    float
+        Calibrated omega (omega / baseline).
+    """
+    if baseline <= 0:
+        raise ValueError("baseline must be positive")
+    return omega / baseline
+
+
 # ── Simplified compute() API ────────────────────────────────────────────
 
 def compute(

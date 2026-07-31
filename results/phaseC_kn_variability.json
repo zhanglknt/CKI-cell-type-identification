@@ -1,0 +1,78 @@
+{
+  "brain_overall": {
+    "kn_mean": 0.014062395422894268,
+    "kn_std": 0.013690036024528776,
+    "kn_median": 0.0085934191980841,
+    "kn_min": 0.0003511118263114,
+    "kn_max": 0.1062151082114292,
+    "kn_cv": 0.9735209125353371,
+    "n_pairs": 31764
+  },
+  "per_cell_type": {
+    "Astrocyte": {
+      "kn_mean": 0.00782007549875703,
+      "kn_std": 0.005346484245139112,
+      "kn_cv": 0.6836870367797506,
+      "n_pairs": 5778
+    },
+    "Bergmann glia": {
+      "kn_mean": 0.04661592606132436,
+      "kn_std": 0.029738971292085376,
+      "kn_cv": 0.6379573207011495,
+      "n_pairs": 21
+    },
+    "Choroid plexus": {
+      "kn_mean": 0.01803513688239038,
+      "kn_std": 0.00715653876685111,
+      "kn_cv": 0.3968108927323306,
+      "n_pairs": 15
+    },
+    "Committed oligodendrocyte precursor": {
+      "kn_mean": 0.03442402036133061,
+      "kn_std": 0.012940415830477031,
+      "kn_cv": 0.37591239183129627,
+      "n_pairs": 1326
+    },
+    "Ependymal": {
+      "kn_mean": 0.027318102636333396,
+      "kn_std": 0.01673607948701096,
+      "kn_cv": 0.6126369649388377,
+      "n_pairs": 780
+    },
+    "Fibroblast": {
+      "kn_mean": 0.030601585620429,
+      "kn_std": 0.0141942178258138,
+      "kn_cv": 0.463839292573716,
+      "n_pairs": 3403
+    },
+    "Microglia": {
+      "kn_mean": 0.009409369210217537,
+      "kn_std": 0.005962699770999852,
+      "kn_cv": 0.633698140415727,
+      "n_pairs": 5671
+    },
+    "Oligodendrocyte": {
+      "kn_mean": 0.006112946382065347,
+      "kn_std": 0.004978205252623509,
+      "kn_cv": 0.8143708355154181,
+      "n_pairs": 5778
+    },
+    "Oligodendrocyte precursor": {
+      "kn_mean": 0.007330765887356754,
+      "kn_std": 0.00470644932429969,
+      "kn_cv": 0.6420133171101295,
+      "n_pairs": 5671
+    },
+    "Vascular": {
+      "kn_mean": 0.02977976309086721,
+      "kn_std": 0.014958973625083834,
+      "kn_cv": 0.5023201017227503,
+      "n_pairs": 3321
+    }
+  },
+  "omega_correlation": {
+    "spearman_rho": -0.027446907015952194,
+    "p_value": 9.95922107729373e-07,
+    "interpretation": "Spearman rho = -0.0274 (P = 9.96e-07) between per-pair omega and global-kn omega. k_n CV = 0.9735 (97.35%). k_n shows substantial cross-pair variability (CV >= 10%), indicating that pair-specific k_n matters for absolute omega values."
+  }
+}

@@ -116,7 +116,7 @@ def run():
         "standardized, assumption-free metric to quantify transcriptomic divergence "
         "between cell states has been lacking. Drawing inspiration from evolutionary "
         "biology\u2019s Ka/Ks ratio, we propose CKI (Cell-state Kinetic Index), "
-        "which decomposes Jensen\u2013Shannon divergence into two orthogonal components: "
+        "which decomposes Jensen\u2013Shannon divergence into two complementary components: "
         "k_n (baseline divergence rate, from housekeeping gene expression) and k_f "
         "(functional divergence rate, from identity gene expression). The ratio "
         "\u03c9 = k_f/k_n provides a robust, interpretable measure of selective "
@@ -127,16 +127,16 @@ def run():
     )
 
     add_para(
-        "We validated CKI \u03c9 across three dimensions: (1) orthogonal information\u2014"
-        "CKI \u03c9 captures an independent information dimension, showing negative "
+        "We validated CKI \u03c9 across three dimensions: (1) an independent information dimension\u2014"
+        "CKI \u03c9 captures information that standard metrics miss, showing negative "
         "correlation with all four standard distance metrics (Spearman r = \u22120.57 "
-        "to \u22120.38, all P < 0.001), proving it measures something fundamentally "
+        "to \u22120.38, all P < 0.001), demonstrating that it measures something fundamentally "
         "different from Cosine similarity, JS divergence, and other existing approaches; "
         "(2) cross-dataset consistency\u2014CKI \u03c9 rankings are reproducible across independent "
-        "datasets and parameter settings, with calibration confirming baseline behavior; and (3) two biological "
+        "datasets and parameter settings, with calibration establishing an empirical baseline for equivalent populations; and (3) two biological "
         "applications\u2014pan-cancer analysis revealing that tumors are more transcriptionally "
         "homogeneous than normal tissues (median NN/TT ratio 1.40\u20132.83), and "
-        "brain regional analysis identifying 30 cell-type-specific developmental origin "
+        "brain regional analysis identifying 30 cell-type-specific developmental "
         "signatures among 31,764 cross-region comparisons through a multiplicative residual model.",
         doc,
     )

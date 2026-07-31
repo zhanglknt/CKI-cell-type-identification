@@ -1,0 +1,239 @@
+{
+  "Brain": {
+    "n_tests": 10,
+    "B": 1000,
+    "min_resolvable_p": 0.000999000999000999,
+    "bh_threshold_rank1": 0.005,
+    "n_significant_fdr": 10,
+    "borderline_cases": [
+      {
+        "rank": 1,
+        "p_value": 0.000999,
+        "bh_threshold": 0.005,
+        "margin": 5.005005005005005
+      },
+      {
+        "rank": 2,
+        "p_value": 0.000999,
+        "bh_threshold": 0.01,
+        "margin": 10.01001001001001
+      },
+      {
+        "rank": 3,
+        "p_value": 0.000999,
+        "bh_threshold": 0.015000000000000003,
+        "margin": 15.015015015015017
+      },
+      {
+        "rank": 4,
+        "p_value": 0.000999,
+        "bh_threshold": 0.02,
+        "margin": 20.02002002002002
+      },
+      {
+        "rank": 5,
+        "p_value": 0.000999,
+        "bh_threshold": 0.025,
+        "margin": 25.025025025025023
+      },
+      {
+        "rank": 6,
+        "p_value": 0.000999,
+        "bh_threshold": 0.030000000000000006,
+        "margin": 30.030030030030034
+      },
+      {
+        "rank": 7,
+        "p_value": 0.000999,
+        "bh_threshold": 0.035,
+        "margin": 35.03503503503504
+      },
+      {
+        "rank": 8,
+        "p_value": 0.000999,
+        "bh_threshold": 0.04,
+        "margin": 40.04004004004004
+      },
+      {
+        "rank": 9,
+        "p_value": 0.000999,
+        "bh_threshold": 0.045,
+        "margin": 45.045045045045036
+      },
+      {
+        "rank": 10,
+        "p_value": 0.002997,
+        "bh_threshold": 0.05,
+        "margin": 16.68335001668335
+      }
+    ],
+    "sufficient": false,
+    "recommendation": "B=1,000 insufficient for 10 borderline cases"
+  },
+  "Human (per-CT)": {
+    "n_tests": 17,
+    "B": 1000,
+    "min_resolvable_p": 0.000999000999000999,
+    "bh_threshold_rank1": 0.0029411764705882353,
+    "n_significant_fdr": 16,
+    "borderline_cases": [
+      {
+        "rank": 1,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.0029411764705882353,
+        "margin": 2.9441176470591155
+      },
+      {
+        "rank": 2,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.0058823529411764705,
+        "margin": 5.888235294118231
+      },
+      {
+        "rank": 3,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.008823529411764707,
+        "margin": 8.832352941177348
+      },
+      {
+        "rank": 4,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.011764705882352941,
+        "margin": 11.776470588236462
+      },
+      {
+        "rank": 5,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.014705882352941176,
+        "margin": 14.720588235295578
+      },
+      {
+        "rank": 6,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.017647058823529415,
+        "margin": 17.664705882354696
+      },
+      {
+        "rank": 7,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.02058823529411765,
+        "margin": 20.60882352941381
+      },
+      {
+        "rank": 8,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.023529411764705882,
+        "margin": 23.552941176472924
+      },
+      {
+        "rank": 9,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.026470588235294117,
+        "margin": 26.49705882353204
+      },
+      {
+        "rank": 10,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.029411764705882353,
+        "margin": 29.441176470591156
+      },
+      {
+        "rank": 11,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.03235294117647059,
+        "margin": 32.385294117650275
+      },
+      {
+        "rank": 12,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.03529411764705883,
+        "margin": 35.32941176470939
+      },
+      {
+        "rank": 13,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.03823529411764706,
+        "margin": 38.27352941176851
+      },
+      {
+        "rank": 14,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.0411764705882353,
+        "margin": 41.21764705882762
+      },
+      {
+        "rank": 15,
+        "p_value": 0.0009990009990009,
+        "bh_threshold": 0.04411764705882353,
+        "margin": 44.16176470588674
+      },
+      {
+        "rank": 16,
+        "p_value": 0.0019980019980019,
+        "bh_threshold": 0.047058823529411764,
+        "margin": 23.552941176471744
+      }
+    ],
+    "sufficient": false,
+    "recommendation": "B=1,000 insufficient for 16 borderline cases"
+  },
+  "Mouse (pilot)": {
+    "n_tests": 15,
+    "B": 1000,
+    "min_resolvable_p": 0.000999000999000999,
+    "bh_threshold_rank1": 0.0033333333333333335,
+    "n_significant_fdr": 8,
+    "borderline_cases": [
+      {
+        "rank": 1,
+        "p_value": 0.0019960079840319,
+        "bh_threshold": 0.0033333333333333335,
+        "margin": 1.6700000000000303
+      },
+      {
+        "rank": 2,
+        "p_value": 0.0019960079840319,
+        "bh_threshold": 0.006666666666666667,
+        "margin": 3.3400000000000607
+      },
+      {
+        "rank": 3,
+        "p_value": 0.0019960079840319,
+        "bh_threshold": 0.010000000000000002,
+        "margin": 5.010000000000092
+      },
+      {
+        "rank": 4,
+        "p_value": 0.0019960079840319,
+        "bh_threshold": 0.013333333333333334,
+        "margin": 6.680000000000121
+      },
+      {
+        "rank": 5,
+        "p_value": 0.0019960079840319,
+        "bh_threshold": 0.016666666666666666,
+        "margin": 8.35000000000015
+      },
+      {
+        "rank": 6,
+        "p_value": 0.0019960079840319,
+        "bh_threshold": 0.020000000000000004,
+        "margin": 10.020000000000184
+      },
+      {
+        "rank": 7,
+        "p_value": 0.0019960079840319,
+        "bh_threshold": 0.023333333333333334,
+        "margin": 11.690000000000213
+      },
+      {
+        "rank": 8,
+        "p_value": 0.0019960079840319,
+        "bh_threshold": 0.02666666666666667,
+        "margin": 13.360000000000243
+      }
+    ],
+    "sufficient": false,
+    "recommendation": "B=1,000 insufficient for 8 borderline cases"
+  }
+}
