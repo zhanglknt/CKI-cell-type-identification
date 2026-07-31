@@ -3,7 +3,8 @@ CKI Mouse Pilot v2: Re-Validation with CKI v0.2.0
 ==================================================
 UPDATES:
 - Uses per-pair top-200 DE genes for k_f (hybrid scheme, not global HVG)
-- Uses TWO-SIDED bootstrap test: |null_omega - 1| >= |obs_omega - 1|
+- Uses ONE-SIDED bootstrap test: null_omega >= obs_omega
+- Applies Benjamini-Hochberg FDR correction (q_value)
 - Saves all results to CSV for manuscript traceability
 
 Control design: same tissue + same cell type, different mice -> expected omega ~1.0
@@ -17,6 +18,7 @@ import pandas as pd
 import scanpy as sc
 from pathlib import Path
 from cki.core import js_divergence
+from cki.bootstrap import benjamini_hochberg
 
 # ===== Config =====
 # DATA_DIR, FACS_DIR, HK_FILE, RESULTS_DIR from _paths
@@ -277,7 +279,7 @@ for comp in comparisons:
     kf_val = js_divergence(pb_a[top_global], pb_b[top_global])
     omega_obs = kf_val / kn_val if kn_val > 0 else float('inf')
     
-    # TWO-SIDED bootstrap
+    # ONE-SIDED bootstrap
     pooled = np.vstack([cells_a, cells_b])
     n_total = n_a + n_b
     rng = np.random.RandomState(RANDOM_SEED)
@@ -310,8 +312,8 @@ for comp in comparisons:
     if len(null_omega) == 0:
         p_value, null_mean, null_std, cohens_d = 1.0, np.nan, np.nan, np.nan
     else:
-        # TWO-SIDED: count(|null - 1| >= |obs - 1|)
-        p_value = (np.sum(np.abs(null_omega - 1) >= np.abs(omega_obs - 1)) + 1) / (len(null_omega) + 1)
+        # ONE-SIDED: count(null >= obs)
+        p_value = (np.sum(null_omega >= omega_obs) + 1) / (len(null_omega) + 1)
         null_mean = np.mean(null_omega)
         null_std = np.std(null_omega)
         cohens_d = (omega_obs - null_mean) / null_std if null_std > 1e-12 else 0.0
@@ -335,6 +337,12 @@ for comp in comparisons:
     })
 
 results_df = pd.DataFrame(results_list)
+
+# ===== 7b. Apply Benjamini-Hochberg FDR correction =====
+if len(results_df) > 0:
+    q_vals = benjamini_hochberg(results_df["p_value"].values)
+    results_df["q_value"] = [f"{q:.4e}" if pd.notna(q) else "N/A" for q in q_vals]
+    print(f"\n  FDR correction applied (BH). Significant (q<0.05): {(q_vals < 0.05).sum()}/{len(q_vals)}")
 
 # ===== 8. Summary by category =====
 print("\n" + "=" * 60)
