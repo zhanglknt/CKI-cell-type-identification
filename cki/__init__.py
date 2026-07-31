@@ -28,7 +28,7 @@ remodeling in single-cell RNA-seq data.
 """
 
 from .core import js_divergence, compute_kn, compute_kf, compute_omega, compute
-from .bootstrap import bootstrap_test
+from .bootstrap import bootstrap_test, benjamini_hochberg, apply_fdr
 from .preprocess import pseudobulk, normalize_expression, select_hvg
 from .utils import ensure_probability_distribution
 from .gene_sets import detect_housekeeping_genes, detect_functional_genes, genes_to_indices
@@ -46,6 +46,8 @@ __all__ = [
     "js_divergence",
     # Statistical testing
     "bootstrap_test",
+    "benjamini_hochberg",
+    "apply_fdr",
     # Preprocessing
     "pseudobulk",
     "normalize_expression",

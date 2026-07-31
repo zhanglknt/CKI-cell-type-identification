@@ -1,0 +1,47 @@
+CKI NAR Submission Package v18
+Built: 2026-07-28 21:59
+
+This package updates v17 with all 8 Critical issue fixes from the v17
+expert review, plus HK gene documentation alignment (#652) and complete
+bootstrap re-runs (B=1000 for all datasets).
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (English, regenerated)
+2. CKI_NAR_Supplementary.docx - Supplementary materials (English, regenerated)
+3. CKI_NAR_Cover_Letter.docx - Cover letter with 6 suggested reviewers
+4. CKI_NAR_Reproducibility_Guide.docx - Computational reproducibility guide (regenerated)
+5. Table1-2.docx - Standalone tables extracted from manuscript
+6. figure1.pdf through figure6.pdf - Main figures (Figure 4 updated with B=1000 P-values)
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S7.pdf - Supplementary figures
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract (300 DPI, NAR-compliant)
+
+Key fixes in v18 (relative to v17):
+
+Critical Issues (8/8 resolved):
+  C1: Bootstrap B=1000 for ALL datasets (mouse, human, TCGA, brain)
+      - All bootstrap scripts re-run with B=1000
+      - P-value formula: absolute deviation from omega=1
+      - Reproducibility guide parameter table updated
+  C2: HK genes loaded from HRT Atlas v1.0 reference (not auto-detected)
+      - 20 edits across 4 key documents (manuscript, supplementary, repro guide, Chinese)
+      - API description preserved: detect_housekeeping_genes(use_reference=False) is the
+        package default, but all reported analyses use HRT Atlas loaded directly
+  C3: TCGA 5 cancer types (not 6) in S3 legend
+  C4: Figure 5 legend: 17 cell types, 59 cross-organ pairs
+  C5: Algorithm 1 pseudocode: B=1,000 for all datasets
+  C6: FDR (Benjamini-Hochberg q_value) added to TCGA and brain bootstrap outputs
+      - FDR statement added to manuscript and supplementary text
+  C7: P-value anchor explanation: omega=1 (theoretical null) vs 1.54 (empirical calibration)
+  C8: S6/S7 supplementary figure PDFs generated and included
+
+Additional improvements:
+  - _load_manuscript_data.py: n_bootstrap 500->1000, q_value loading added
+  - All bootstrap P-values updated with B=1000 re-runs
+  - Figure 4 Panel D: TCGA significance stars updated with new P-values
+  - Mouse pilot bootstrap re-run with B=1000 (was B=500), q_value added
+  - TCGA bootstrap re-run with B=1000 (was B=100), now includes q_value
+  - Brain bootstrap re-run with B=1000 (was B=100), now includes q_value
+  - Human bootstrap re-run with q_value added
+  - CKI package code fix: detect_functional_genes() default flavor changed
+    from "seurat_v3" to "seurat" (requires raw counts; failed on log-transformed
+    TCGA data). Now consistent with analysis scripts and documentation.

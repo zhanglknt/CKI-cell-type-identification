@@ -1,0 +1,2 @@
+Table 1. Classification AUC of five metrics on Tabula Sapiens (99 cell types, 4,851 pairs).
+Table 2. Cross-organ conservation ranking by cell type (Tabula Sapiens, n=59 same-cell-type cross-organ pairs).

@@ -13,6 +13,8 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
+from cki.bootstrap import benjamini_hochberg
+
 # RESULTS_DIR from _paths
 N_BOOTSTRAP = 1000
 RANDOM_STATE = 42
@@ -62,8 +64,8 @@ for gname, gdf in groups.items():
     ci_lower = float(np.percentile(boot_means, 2.5))
     ci_upper = float(np.percentile(boot_means, 97.5))
 
-    # One-sided P-value: fraction of bootstrap means >= obs_mean
-    p_ge = (np.sum(boot_means >= obs_mean) + 1) / (N_BOOTSTRAP + 1)
+    # Two-sided P-value: |boot_mean - 1| >= |obs_mean - 1| (test against null omega=1)
+    p_ge = (np.sum(np.abs(boot_means - 1.0) >= np.abs(obs_mean - 1.0)) + 1) / (N_BOOTSTRAP + 1)
 
     all_results.append({
         "group": gname,
@@ -100,7 +102,8 @@ for b in range(N_BOOTSTRAP):
 boot_ratios = np.array(boot_ratios)
 ci_lower_r = float(np.percentile(boot_ratios, 2.5))
 ci_upper_r = float(np.percentile(boot_ratios, 97.5))
-p_ratio = (np.sum(boot_ratios >= obs_ratio) + 1) / (N_BOOTSTRAP + 1)
+# Two-sided P-value: |boot_ratio - 1| >= |obs_ratio - 1| (test against null ratio=1)
+p_ratio = (np.sum(np.abs(boot_ratios - 1.0) >= np.abs(obs_ratio - 1.0)) + 1) / (N_BOOTSTRAP + 1)
 
 print(f"  Cross/same organ omega ratio: {obs_ratio:.2f}, 95% CI [{ci_lower_r:.2f}, {ci_upper_r:.2f}]")
 
@@ -119,6 +122,14 @@ all_results.append({
 print("\n" + "=" * 60)
 print("Results:")
 print("=" * 60)
+
+df_out = pd.DataFrame(all_results)
+
+# Apply Benjamini-Hochberg FDR correction
+p_numeric = np.array([float(r["p_ge_obs"]) for r in all_results])
+q_vals = benjamini_hochberg(p_numeric)
+for i, r in enumerate(all_results):
+    r["q_value"] = f"{q_vals[i]:.4e}"
 
 df_out = pd.DataFrame(all_results)
 print("\n" + df_out.to_string(index=False))

@@ -278,8 +278,8 @@ genes_filtered = [g for g, keep in zip(genes, keep_genes) if keep]
 print(f"  After mean >= 0.5 filter: {len(genes_filtered)} genes")
 
 # Log2 transform (clip negative RSEM values to 0 first)
-expr_log = np.log2(np.maximum(expr_matrix, 0) + 0.001)
-print(f"  Applied log2(max(TPM, 0) + 0.001)")
+expr_log = np.log2(np.maximum(expr_matrix, 0) + 1)
+print(f"  Applied log2(max(TPM, 0) + 1)")
 
 # ====================================================================
 # 3. Build sample metadata
@@ -698,7 +698,7 @@ report = f"""# CKI Phase 3.4 Report: TCGA Tumor Perturbation
 ## Overview
 - Data: UCSC Xena TCGA RSEM gene TPM (pan-cancer bulk RNA-seq)
 - Method: Phase 3.3 v3 hybrid omega (global k_n + per-pair k_f, n={N_TOP_KF})
-- Normalization: log2(TPM + 0.001)
+- Normalization: log2(TPM + 1)
 - HK genes: {len(hk_idx)} human HK genes mapped to expression matrix
 - Genes after filtering: {len(genes_filtered)} (mean TPM >= 0.5)
 - Samples loaded: {len(wanted_cols)}

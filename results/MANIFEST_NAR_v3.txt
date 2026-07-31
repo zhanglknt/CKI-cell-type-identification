@@ -1,0 +1,14 @@
+CKI NAR Submission Package v3
+Built: 2026-07-22
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (8,796 words, 37 references)
+   - All Critical issues fixed (C1-C5): text corruption, FDR correction, HK stability, omega ratio stability, TCGA bulk/pseudobulk, OPCs circular reasoning
+   - All Major issues fixed (M2-M5): Strong signal validation, method comparison fairness, literature coverage, bootstrap sufficiency
+   - All Minor issues fixed (m2): parameter selection justification
+2. CKI_NAR_Cover_Letter.docx - Cover letter with reviewer suggestions
+3. CKI_NAR_Supplementary.docx - Supplementary materials
+4. CKI_NAR_Reproducibility_Guide.docx - Reproducibility guide
+5. CKI_Reproducibility_Code_v7.zip - Reproducibility code and data (205 files)
+6-11. Main figures (figure1-6.pdf)
+12-18. Extended data figures (ed_fig1-7.pdf)

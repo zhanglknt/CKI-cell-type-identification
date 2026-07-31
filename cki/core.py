@@ -97,10 +97,7 @@ def compute_kn(
     p = pb_a[hk_idx_arr]
     q = pb_b[hk_idx_arr]
 
-    p_dist = ensure_probability_distribution(p)
-    q_dist = ensure_probability_distribution(q)
-
-    return alpha * js_divergence(p_dist, q_dist)
+    return alpha * js_divergence(p, q)
 
 
 # ── k_f: Functional Conversion Rate ─────────────────────────────────────
@@ -152,16 +149,12 @@ def compute_kf(
         id_idx_arr = np.array(identity_indices)
         p_id = pb_a[id_idx_arr]
         q_id = pb_b[id_idx_arr]
-        p_id_dist = ensure_probability_distribution(p_id)
-        q_id_dist = ensure_probability_distribution(q_id)
-        js_id = js_divergence(p_id_dist, q_id_dist)
+        js_id = js_divergence(p_id, q_id)
 
     # Pathway component (optional)
     js_pathway = 0.0
     if pathway_a is not None and pathway_b is not None and w2 > 0:
-        p_pw = ensure_probability_distribution(pathway_a)
-        q_pw = ensure_probability_distribution(pathway_b)
-        js_pathway = js_divergence(p_pw, q_pw)
+        js_pathway = js_divergence(pathway_a, pathway_b)
 
     return w1 * js_id + w2 * js_pathway
 
@@ -235,19 +228,13 @@ def compute_omega(
 
     if len(hk_indices) > 0:
         hk_arr = np.array(hk_indices)
-        delta_hk = js_divergence(
-            ensure_probability_distribution(pb_a[hk_arr]),
-            ensure_probability_distribution(pb_b[hk_arr]),
-        )
+        delta_hk = js_divergence(pb_a[hk_arr], pb_b[hk_arr])
     else:
         delta_hk = 0.0
 
     if len(identity_indices) > 0:
         id_arr = np.array(identity_indices)
-        delta_identity = js_divergence(
-            ensure_probability_distribution(pb_a[id_arr]),
-            ensure_probability_distribution(pb_b[id_arr]),
-        )
+        delta_identity = js_divergence(pb_a[id_arr], pb_b[id_arr])
     else:
         delta_identity = 0.0
 

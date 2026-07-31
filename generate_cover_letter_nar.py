@@ -117,8 +117,8 @@ def run():
         "between cell states has been lacking. Drawing inspiration from evolutionary "
         "biology\u2019s Ka/Ks ratio, we propose CKI (Cell-state Kinetic Index), "
         "which decomposes Jensen\u2013Shannon divergence into two orthogonal components: "
-        "k_n (neutral offset rate, from housekeeping gene expression) and k_f "
-        "(functional conversion rate, from identity gene expression). The ratio "
+        "k_n (baseline divergence rate, from housekeeping gene expression) and k_f "
+        "(functional divergence rate, from identity gene expression). The ratio "
         "\u03c9 = k_f/k_n provides a robust, interpretable measure of selective "
         "transcriptomic remodeling. As a new computational method with rigorous "
         "validation across multiple datasets, we believe CKI aligns well with "
@@ -129,11 +129,11 @@ def run():
     add_para(
         "We validated CKI \u03c9 across three dimensions: (1) orthogonal information\u2014"
         "CKI \u03c9 captures an independent information dimension, showing negative "
-        "correlation with all four standard distance metrics (Spearman r = \u22120.36 "
-        "to \u22120.46, all P < 0.001), proving it measures something fundamentally "
+        "correlation with all four standard distance metrics (Spearman r = \u22120.57 "
+        "to \u22120.38, all P < 0.001), proving it measures something fundamentally "
         "different from Cosine similarity, JS divergence, and other existing approaches; "
-        "(2) cross-species consistency\u2014mouse orthologs show strong correlation with "
-        "human CKI \u03c9, confirming evolutionary conservation; and (3) two biological "
+        "(2) cross-dataset consistency\u2014CKI \u03c9 rankings are reproducible across independent "
+        "datasets and parameter settings, with calibration confirming baseline behavior; and (3) two biological "
         "applications\u2014pan-cancer analysis revealing that tumors are more transcriptionally "
         "homogeneous than normal tissues (median NN/TT ratio 1.40\u20132.83), and "
         "brain regional analysis identifying 30 cell-type-specific developmental origin "
@@ -147,9 +147,28 @@ def run():
         "by any other journal, and has not been previously submitted to "
         "Nucleic Acids Research. AI tools (LLMs) were used for writing assistance; "
         "all AI-generated text was reviewed and revised by the authors, who take full "
-        "responsibility. The CKI Python package (v0.3.2, MIT License) and all analysis "
+        "responsibility. The CKI Python package (v0.3.1, MIT License) and all analysis "
         "code are publicly available at https://github.com/zhanglknt/CKI-cell-type-identification "
         "(permanent archive: Zenodo DOI: 10.5281/zenodo.15670808).",
+        doc,
+    )
+
+    add_para(
+        "We suggest the following potential reviewers with relevant expertise: "
+        "(1) Prof. Fabian Theis, Helmholtz Munich "
+        "(fabian.theis@helmholtz-munich.de); "
+        "(2) Prof. Sarah Teichmann, Wellcome Sanger Institute "
+        "(st1@sanger.ac.uk); "
+        "(3) Prof. Joshua Welch, University of Michigan "
+        "(jdwlch@umich.edu); "
+        "(4) Prof. Itai Yanai, NYU Grossman School of Medicine "
+        "(itai.yanai@nyulangone.org); "
+        "(5) Prof. Zemin Zhang, Peking University "
+        "(zeminzhang@pku.edu.cn); "
+        "(6) Prof. Xiaowo Wang, Tsinghua University "
+        "(xww@tsinghua.edu.cn). "
+        "None of the suggested reviewers have recent collaborations or conflicts "
+        "of interest with the authors.",
         doc,
     )
 

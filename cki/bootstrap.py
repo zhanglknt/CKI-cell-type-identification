@@ -2,9 +2,10 @@
 CKI Bootstrap Testing
 ======================
 Permutation-based statistical testing for CKI omega significance.
+Includes Benjamini-Hochberg FDR correction for multiple comparisons.
 """
 
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
 from tqdm import tqdm
@@ -12,6 +13,96 @@ from anndata import AnnData
 
 from .core import compute_omega
 from .gene_sets import detect_housekeeping_genes, detect_functional_genes
+
+
+def benjamini_hochberg(p_values: Union[np.ndarray, list]) -> np.ndarray:
+    """
+    Benjamini-Hochberg procedure for FDR correction.
+
+    Adjusts P-values for multiple comparisons, controlling the
+    false discovery rate at the level of the original P-values.
+
+    Parameters
+    ----------
+    p_values : array-like
+        Array of P-values to correct.
+
+    Returns
+    -------
+    ndarray
+        BH-adjusted P-values (q-values), same length as input.
+
+    Example
+    -------
+    >>> p = [0.01, 0.04, 0.03, 0.20, 0.001]
+    >>> q = benjamini_hochberg(p)
+    >>> print(q)  # [0.025, 0.0667, 0.05, 0.25, 0.005]
+    """
+    p = np.asarray(p_values, dtype=float)
+    n = len(p)
+    if n == 0:
+        return np.array([], dtype=float)
+    if n == 1:
+        return p.copy()
+
+    # Sort P-values
+    order = np.argsort(p)
+    ranked = p[order]
+
+    # BH adjustment: q_i = p_i * n / rank_i
+    adjusted = ranked * n / np.arange(1, n + 1)
+
+    # Enforce monotonicity from largest to smallest
+    adjusted = np.minimum.accumulate(adjusted[::-1])[::-1]
+
+    # Cap at 1.0
+    adjusted = np.minimum(adjusted, 1.0)
+
+    # Unsort to original order
+    result = np.empty(n, dtype=float)
+    result[order] = adjusted
+    return result
+
+
+def apply_fdr(
+    p_values: Union[np.ndarray, list],
+    method: str = "bh",
+) -> np.ndarray:
+    """
+    Apply multiple testing correction to a set of P-values.
+
+    Parameters
+    ----------
+    p_values : array-like
+        Array of P-values to correct.
+    method : str
+        Correction method: "bh" (Benjamini-Hochberg, default)
+        or "bonferroni".
+
+    Returns
+    -------
+    ndarray
+        Adjusted P-values (q-values).
+
+    Example
+    -------
+    >>> from cki import apply_fdr
+    >>> p_vals = [0.001, 0.02, 0.03, 0.5]
+    >>> q_vals = apply_fdr(p_vals)
+    >>> print(q_vals)
+    """
+    p = np.asarray(p_values, dtype=float)
+    method = method.lower().strip()
+
+    if method in ("bh", "benjamini-hochberg", "fdr", "fdr_bh"):
+        return benjamini_hochberg(p)
+    elif method == "bonferroni":
+        return np.minimum(p * len(p), 1.0)
+    else:
+        raise ValueError(
+            f"Unknown correction method: '{method}'. "
+            "Use 'bh' (Benjamini-Hochberg) or 'bonferroni'."
+        )
 
 
 def bootstrap_test(
@@ -235,10 +326,11 @@ def bootstrap_test(
 
     null_omega = np.array(null_omega)
 
-    # 5. Compute statistics (two-sided test: |null-1| >= |obs-1|)
-    obs_dist = abs(obs_result["omega"] - 1.0)
-    null_dists = np.abs(null_omega - 1.0)
-    p_value = (np.sum(null_dists >= obs_dist) + 1) / (len(null_omega) + 1)
+    # 5. Compute statistics (one-sided permutation test)
+    # Tests whether observed omega exceeds the null distribution built from
+    # randomly permuted cell labels. The null distribution represents omega
+    # values expected under random group assignment.
+    p_value = (np.sum(null_omega >= obs_result["omega"]) + 1) / (len(null_omega) + 1)
     null_mean = float(np.mean(null_omega))
     null_std = float(np.std(null_omega))
     cohens_d = (

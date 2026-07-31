@@ -55,8 +55,8 @@ for ct in sorted(df["cell_type"].unique()):
     ci_lower = float(np.percentile(boot_means, 2.5))
     ci_upper = float(np.percentile(boot_means, 97.5))
     
-    # P-value: fraction of bootstrap means >= obs_mean (one-sided)
-    p_value = (np.sum(boot_means >= obs_mean) + 1) / (N_BOOTSTRAP + 1)
+    # Two-sided P-value: |boot_mean - 1| >= |obs_mean - 1| (test against null omega=1)
+    p_value = (np.sum(np.abs(boot_means - 1.0) >= np.abs(obs_mean - 1.0)) + 1) / (N_BOOTSTRAP + 1)
     
     all_results.append({
         "cell_type": ct,
@@ -66,10 +66,10 @@ for ct in sorted(df["cell_type"].unique()):
         "omega_std": round(obs_std, 4),
         "ci_95_lower": round(ci_lower, 4),
         "ci_95_upper": round(ci_upper, 4),
-        "p_value": f"{p_value:.4e}",
+        "p_value": float(p_value),
     })
 
-# === Save ===
+# === Apply Benjamini-Hochberg FDR ===
 print("\n" + "=" * 60)
 print("Results:")
 print("=" * 60)
@@ -77,6 +77,11 @@ print("=" * 60)
 df_out = pd.DataFrame(all_results)
 # Sort by omega_mean descending
 df_out = df_out.sort_values("omega_mean", ascending=False)
+
+# Benjamini-Hochberg FDR
+from cki.bootstrap import benjamini_hochberg
+df_out["q_value"] = benjamini_hochberg(df_out["p_value"].values)
+
 print(df_out.to_string(index=False))
 df_out.to_csv(RESULTS_DIR / "brain_bootstrap_results.csv", index=False)
 

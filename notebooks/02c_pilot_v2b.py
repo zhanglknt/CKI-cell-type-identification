@@ -21,7 +21,7 @@ from cki.gene_sets import genes_to_indices
 # DATA_DIR, FACS_DIR, HK_FILE, RESULTS_DIR from _paths
 ANNOT_FILE = FACS_ANNOTATIONS  # from _paths
 TARGET_TISSUES = ["Liver", "Kidney", "Spleen", "Lung", "Heart", "Marrow"]
-N_BOOTSTRAP = 500
+N_BOOTSTRAP = 1000
 RANDOM_SEED = 42
 MIN_CELLS_PER_CT = 10
 N_TOP_KF = 200

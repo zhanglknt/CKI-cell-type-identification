@@ -216,7 +216,7 @@ def load_cancer_data(cancer, tumor_ids, normal_ids):
     genes = [g for g, k in zip(gene_names, keep) if k]
     
     # log2 transform
-    expr_log = np.log2(np.maximum(expr, 0) + 0.001)
+    expr_log = np.log2(np.maximum(expr, 0) + 1)
     
     # Map HK genes
     gene_ens = [g.split(".")[0] for g in genes]
@@ -518,7 +518,7 @@ report = f"""# CKI Phase 3.4 v2 Report: TCGA Tumor Perturbation (Per-Cancer Load
 ## Overview
 - Data: UCSC Xena TCGA RSEM gene TPM (pan-cancer bulk RNA-seq)
 - Method: Phase 3.3 v3 hybrid omega (global k_n + per-pair k_f, n={N_TOP_KF})
-- Normalization: log2(TPM + 0.001)
+- Normalization: log2(TPM + 1)
 - Analysis time: {elapsed:.0f}s
 
 ## Summary

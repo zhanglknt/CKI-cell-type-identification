@@ -47,11 +47,11 @@ def get_manuscript_data():
         "tabula_sapiens_cells": 108136,
         "tabula_sapiens_organs": 6,
         "tabula_sapiens_genes": 51852,
-        "tabula_sapiens_ct_entries": 99,
+        "tabula_sapiens_ct_entries": 102,
         "brain_regions": 108,
         "hrt_atlas_n_hk": 1130,
         "n_hvg": 2000,
-        "n_bootstrap": 500,
+        "n_bootstrap": 1000,
         "detection_rate_threshold": 0.9,
         "random_seed": 42,
     }
@@ -140,6 +140,7 @@ def get_manuscript_data():
     # ================================================================
     d["human"] = {
         "n_pairs": len(df_all),
+        "n_pairs_total": 5151,  # C(102,2) — full omega matrix; method comparison used 4851
         "omega_min": float(df_all["omega"].min()),
         "omega_max": float(df_all["omega"].max()),
         "omega_mean": float(df_all["omega"].mean()),
@@ -303,6 +304,7 @@ def get_manuscript_data():
         d["bootstrap"]["tcga"][row["Cancer"]] = {
             "omega": float(row["omega"]),
             "p_value": float(row["p_value"]),
+            "q_value": float(row.get("q_value", row["p_value"])) if "q_value" in tb.columns else float(row["p_value"]),
             "cohens_d": float(row["cohens_d"]),
         }
 
@@ -312,9 +314,13 @@ def get_manuscript_data():
         d["bootstrap"]["brain"][row["cell_type"]] = {
             "n_pairs": int(row["n_pairs"]),
             "omega_mean": float(row["omega_mean"]),
-            "omega_median": float(row["omega_median"]),
+            "omega_max": float(row["omega_max"]),
             "omega_std": float(row["omega_std"]),
             "p_value": float(row["p_value"]),
+            "null_mean": float(row["null_mean"]),
+            "null_std": float(row["null_std"]),
+            "cohens_d": float(row["cohens_d"]),
+            "q_value": float(row.get("q_value", row["p_value"])) if "q_value" in bb.columns else float(row["p_value"]),
         }
 
     # ================================================================

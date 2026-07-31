@@ -189,7 +189,7 @@ def load_cancer_expression(cancer, sample_dict, header_line):
         header_line: TCGA file header (list of column names)
 
     Returns:
-        expr_log: samples x genes (log2(TPM + 0.001))
+        expr_log: samples x genes (log2(TPM + 1))
         hk_arr: array of HK gene indices
         sample_list: list of sample IDs (same order as rows)
         genes: list of gene Ensembl IDs
@@ -266,7 +266,7 @@ def load_cancer_expression(cancer, sample_dict, header_line):
     genes = [g for g, k in zip(gene_names, keep) if k]
 
     # log2 transform
-    expr_log = np.log2(np.maximum(expr, 0) + 0.001)
+    expr_log = np.log2(np.maximum(expr, 0) + 1)
 
     # Map HK genes
     gene_ens = [g.split(".")[0] for g in genes]

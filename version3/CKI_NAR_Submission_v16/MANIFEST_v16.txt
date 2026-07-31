@@ -1,0 +1,27 @@
+CKI NAR Submission Package v16
+Built: 2026-07-27
+
+This package contains the final NAR submission materials after resolving all
+P0 Critical contradictions identified in the v15 expert review (4 reviewers).
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (English)
+2. CKI_NAR_Supplementary.docx - Supplementary materials (English)
+3. CKI_NAR_Cover_Letter.docx - Cover letter with 6 suggested reviewers
+4. CKI_NAR_Reproducibility_Guide.docx - Computational reproducibility guide
+5. Table1-2.docx - Standalone tables extracted from manuscript
+6. figure1.pdf through figure6.pdf - Main figures
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S5.pdf - Supplementary figures
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract (300 DPI, NAR-compliant)
+
+Key fixes in v16:
+- Unified terminology: baseline/functional divergence rate throughout all documents
+- Corrected bootstrap scope: B=500 only for mouse pilot; descriptive statistics for human/TCGA/brain
+- Fixed TCGA log2 transformation: log2(TPM + 0.001)
+- Corrected software versions: Python 3.13.12, CKI v0.3.1
+- Added k_f selection-bias discussion and TOST calibration note in manuscript
+- Updated Graphical Abstract: arrow placement, step labels, balanced layout, readable text
+- Reproducibility Guide synchronized with manuscript/supplementary methods
+
+Note: Figure PDFs are reused from the v15 high-quality set. The current
+figures_final/ copies in the working directory are low-quality placeholders.

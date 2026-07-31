@@ -38,7 +38,7 @@ RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
 RESULTS_DIR.mkdir(exist_ok=True)
 
 TARGET_TISSUES = ["Liver", "Kidney", "Spleen", "Lung", "Heart", "Marrow"]
-N_BOOTSTRAP = 500
+N_BOOTSTRAP = 1000
 RANDOM_SEED = 42
 MIN_CELLS_PER_CT = 10  # per (tissue, cell_type, mouse_group)
 

@@ -166,7 +166,7 @@ def load_cancer_matrix(cancer, proj_tumor, proj_normal):
     keep = gene_means >= 0.5
     expr = expr[:, keep]
     genes = [g for g, k in zip(gene_names, keep) if k]
-    expr_log = np.log2(np.maximum(expr, 0) + 0.001)
+    expr_log = np.log2(np.maximum(expr, 0) + 1)
     
     gene_ens = [g.split(".")[0] for g in genes]
     ens_to_idx = {e: i for i, e in enumerate(gene_ens)}

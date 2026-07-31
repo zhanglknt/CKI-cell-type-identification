@@ -64,7 +64,7 @@ def add_para(text, bold=False):
 
 # ===== TITLE PAGE =====
 add_heading('Supplementary Materials', 1)
-add_para('CKI: A Cell-state Kinetic Index for Quantifying Selective Transcriptional Reprogramming')
+add_para('CKI: A Cell-state Kinetic Index for Quantifying Selective Transcriptomic Remodeling')
 add_para('Li Zhang')
 add_para('')
 
@@ -93,39 +93,43 @@ add_para(
     'The Jensen-Shannon (JS) divergence is a symmetrized and smoothed version of the '
     'Kullback-Leibler divergence. For two probability vectors p and q: '
     'JS(p, q) = 1/2 D(p||m) + 1/2 D(q||m), where m = 1/2(p+q), '
-    'and D(p||q) = \u03a3 p_i log2(p_i/q_i). When using base-2 logarithms, '
+    'and D(p||q) = \u03a3 p_i log2(p_i/q_i). When using the base-2 logarithm, '
     'the JS divergence is bounded in [0, 1]. This bound is important for interpreting '
     'omega: when both k_n and k_f approach 1, omega = k_f/k_n may still vary, '
-    'and in practice omega is capped at 1,000. Before CKI computation, softmax '
-    'normalization is applied to convert raw expression vectors into probability '
-    'distributions: softmax(x)_i = exp(x_i)/\u03a3exp(x_j).'
+    'and a small floor value (1e-4) is applied to k_n to prevent inflated omega from near-zero denominators. '
+    'are normalized to probability distributions via softmax normalization '
+    '(p_i = exp(x_i)/\u03a3exp(x_j)).'
 )
 
-add_para('1.2 Neutral Drift Rate k_n', bold=True)
+add_para('1.2 Baseline Divergence Rate k_n', bold=True)
 add_para(
     'Housekeeping (HK) genes are defined as genes that maintain stable expression '
     'across cell types and conditions. Let H = {g1, ..., gM} be the set of HK gene '
     'indices. Given pseudobulk vectors \u03bc_A and \u03bc_B (length G, total number of genes), '
-    'the neutral drift rate is: k_n = JS(softmax(\u03bc_A[H]), softmax(\u03bc_B[H])). '
+    'the baseline divergence rate is: k_n = JS(norm(\u03bc_A[H]), norm(\u03bc_B[H])), '
+    'where norm() denotes softmax normalization. '
     'Rationale: HK genes should not exhibit systematic differences between biologically '
     'identical cell populations. The JS divergence observed on HK genes therefore reflects '
-    'neutral noise: technical variation, stochastic transcriptional bursting, and '
-    'individual-level physiological differences. k_n thus provides an internal neutral '
-    'baseline, analogous to Ks (synonymous substitution rate) in molecular evolution. '
-    'HK gene set selection: CKI employs data-driven automatic detection of HK genes '
-    '(joint criteria: detection rate > 0.9 and CV < 30th percentile), supplemented by '
-    'the HRT Atlas v1.0 consensus set (1,130 human-mouse conserved HK genes) as an optional '
-    'enhancement. Sensitivity analysis indicates that CKI results are robust to HK set '
+    'baseline noise: technical variation, stochastic transcriptional bursting, and '
+    'individual-level physiological differences. k_n thus provides an internal baseline, '
+    'heuristically analogous to Ks (synonymous substitution rate) in molecular evolution. '
+    'HK gene set selection: HK genes were loaded from the HRT Atlas v1.0 reference '
+    '(1,130 human-mouse conserved HK genes) (4). For mouse datasets, the mouse ortholog '
+    'column is used; for human datasets (Tabula Sapiens, TCGA, brain atlas), the human '
+    'gene column is used. The CKI package also supports data-driven auto-detection via '
+    'detect_housekeeping_genes() (combined criterion: detection rate > 0.9 and CV < 30th '
+    'percentile, use_reference = False), but all reported analyses use the pre-specified '
+    'HRT Atlas reference. Sensitivity analysis indicates that CKI results are robust to HK set '
     'selection: using the top 10% lowest-variance genes as an alternative neutral set '
     'yields omega correlations of r > 0.95.'
 )
 
-add_para('1.3 Functional Conversion Rate k_f', bold=True)
+add_para('1.3 Functional Divergence Rate k_f', bold=True)
 add_para(
     'Identity genes I are defined as genes that capture cell-type-specific functional '
     'programs. In the default configuration (w1 = 1.0, w2 = 0.0), I consists of the '
-    'top-N highly variable genes (HVG), excluding HK genes. The functional conversion '
-    'rate is: k_f = JS(softmax(\u03bc_A[I]), softmax(\u03bc_B[I])). Extended configurations '
+    'top-N highly variable genes (HVG), excluding HK genes. The functional divergence '
+    'rate is: k_f = JS(norm(\u03bc_A[I]), norm(\u03bc_B[I])). Extended configurations '
     'can incorporate additional gene sets: (1) regulon activity genes \u2014 genes enriched '
     'for cell-type-specific transcription factor motifs; (2) pathway enrichment genes '
     '\u2014 genes from MSigDB pathways differentially active between the two groups; '
@@ -161,14 +165,21 @@ add_para(
     'under the null hypothesis that the two cell populations are drawn from the same '
     'distribution. Procedure: (1) Annotate all cells in the pooled dataset with their '
     'original group labels (A or B); (2) Randomly permute labels B times (default '
-    'B=1,000), recomputing pseudobulk vectors and omega_null each time; '
-    '(3) Empirical P-value = (count(omega_null >= omega_obs) + 1)/(B + 1), with the '
+    'B=1,000 for all datasets (mouse, human, TCGA, and '
+    'brain atlas), recomputing pseudobulk vectors and omega_null each time; '
+    '(3) Empirical P-value (one-sided): '
+    'P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1), with the '
     '+1 term avoiding P = 0; (4) Effect size: Cohen\'s d = (omega_obs - '
-    'mean(omega_null))/sd(omega_null). Note: Benjamini-Hochberg FDR correction is NOT '
-    'systematically applied in the current analyses; all reported P-values are raw '
-    'bootstrap P-values. '
-    'Confidence intervals for omega are obtained via percentile bootstrap: the 2.5th '
-    'and 97.5th percentiles of the null distribution.'
+    'mean(omega_null))/sd(omega_null). Benjamini-Hochberg FDR correction is '
+    'applied within each dataset to control the false discovery rate. '
+    'Test critical values at alpha=0.05 are derived from the permutation null '
+    'distribution (2.5th and 97.5th percentiles). Note: these are permutation-based '
+    'test critical values for rejecting H0, NOT confidence intervals for omega itself. '
+    'Bootstrap permutation testing was performed for all four datasets: mouse pilot '
+    '(15 cell-type pairs, B=1,000), human Tabula Sapiens (B=1,000), TCGA (B=1,000), and '
+    'brain atlas (B=1,000). For the larger-scale analyses, results are supplemented with non-parametric '
+    'statistical tests (Spearman correlation, Mann-Whitney U, Kruskal-Wallis, '
+    'Jonckheere-Terpstra) and descriptive statistics.'
 )
 
 add_para('1.6 Pseudobulk Construction', bold=True)
@@ -178,8 +189,8 @@ add_para(
     '(2) log1p transformation: X_log = log1p(X_norm), stabilizing variance and reducing '
     'the influence of high-expression outliers; (3) Pseudobulk: mu = column-wise mean '
     'of X_log for all cells with the same cell type annotation, with a minimum of 10 '
-    'cells per group. For TCGA bulk RNA-seq data, FPKM normalization is used instead: '
-    'FPKM values from GDC, followed by log2(x+1) transformation. No pseudobulk step '
+    'cells per group. For TCGA bulk RNA-seq data, TPM normalization is used instead: '
+    'TPM values from UCSC Xena, followed by log2(TPM + 1) transformation. No pseudobulk step '
     'is needed as each sample is already a bulk expression profile.'
 )
 
@@ -200,16 +211,18 @@ pseudo = [
     ' 4. k_n <- JS_divergence(softmax(mu_A_H), softmax(mu_B_H))',
     ' 5. mu_A_I <- mu_A[I]; mu_B_I <- mu_B[I]',
     ' 6. k_f <- JS_divergence(softmax(mu_A_I), softmax(mu_B_I))',
-    ' 7. omega <- k_f / k_n  // capped at 1,000',
-    ' 8. // Bootstrap',
-    ' 9. labels <- concatenate([A]*n_A, [B]*n_B)',
-    '10. for b = 1 to B (default 1,000):',
-    '11.     labels_perm <- random_permutation(labels)',
-    '12.     A_perm, B_perm <- split by labels_perm',
-    '13.     omega_null[b] <- CKI_core(A_perm, B_perm, H, I)',
-    '14. // Inference',
-    '15. P <- (count(omega_null >= omega) + 1) / (B + 1)',
-    '16. d <- (omega - mean(omega_null)) / sd(omega_null)',
+    ' 7. if k_n < 1e-4: k_n <- 1e-4  // floor to prevent inflated omega',
+    ' 8. omega <- k_f / k_n',
+    ' 9. // Permutation test',
+    '10. labels <- concatenate([A]*n_A, [B]*n_B)',
+    '11. for b = 1 to B (B = 1,000 for all datasets):',
+    '12.     labels_perm <- random_permutation(labels)',
+    '13.     mu_perm1 <- mean(pooled[labels_perm[:n_A]], axis=0)',
+    '14.     mu_perm2 <- mean(pooled[labels_perm[n_A:]], axis=0)',
+    '15.     omega_null[b] <- CKI_core(mu_perm1, mu_perm2, H, I)',
+    '16. // Inference (one-sided permutation test)',
+    '17. P <- (count(omega_null >= omega_obs) + 1) / (B + 1)',
+    '18. d <- (omega - mean(omega_null)) / sd(omega_null)',
 ]
 for line in pseudo:
     p = add_para(line)
@@ -220,7 +233,7 @@ add_para('')
 add_para('Algorithm 2: Pairwise Identity Gene Selection (Tabula Sapiens Extension)', bold=True)
 add_para(
     'Unlike Tabula Muris (global HVG set), Tabula Sapiens employs pairwise identity '
-    'gene selection to avoid dilution of HVG across 99 cell types.'
+    'gene selection to avoid dilution of HVG across 102 cell types.'
 )
 pseudo2 = [
     'Input: Pseudobulk vectors mu_A, mu_B; HK set H; top-N parameter N (default 200)',
@@ -252,24 +265,36 @@ add_para(
 
 add_para('3.2 Bootstrap Details', bold=True)
 add_para(
-    'Bootstrap iterations: B=1,000 for all primary results (B=500 used for the Phase 3.2 '
-    'parameter sweep). The empirical P-value formula uses a +1 pseudocount in both '
-    'numerator and denominator to avoid zero P-values. '
-    'Cohen\'s d interpretation: d < 0.2 = negligible; 0.2-0.5 = small; '
-    '0.5-0.8 = medium; > 0.8 = large. In CKI results, d values are typically > 1.0 for '
-    'significant comparisons, indicating large effect sizes.'
+    'Bootstrap iterations: B=1,000 for all datasets (mouse pilot study with '
+    '15 cell-type pairs, human Tabula Sapiens via script 08b, TCGA via script 08a, '
+    'and brain atlas via script 08c). Bootstrap permutation testing was '
+    'performed for all four datasets. Benjamini-Hochberg FDR correction is '
+    'applied within each dataset to control the false discovery rate. '
+    'For the calibration '
+    'experiment, empirical P-values '
+    'are computed as: P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1). '
+    'Standardized effect size = (\u03c9_obs - mean(\u03c9_null)) / sd(\u03c9_null). '
+    'In all CKI results, standardized effect sizes are typically > 1.0 for '
+    'biologically meaningful comparisons, indicating large effects relative to '
+    'the null distribution.'
 )
 
-add_para('3.3 Note on Multiple Testing Correction', bold=True)
+add_para('3.3 Multiple Testing Correction', bold=True)
 add_para(
-    'Note: Benjamini-Hochberg FDR correction is NOT systematically applied in the '
-    'current analyses. All reported significance judgments are based on raw bootstrap '
-    'P-values (P < 0.05). Effect sizes (Cohen\'s d) are consistently large '
-    '(typically d > 1.0), providing complementary evidence strength. '
-    'TCGA stratified analyses '
-    '(BRCA PAM50, LIHC Edmondson) involve a small number of comparisons (4-5 groups), '
-    'and omnibus tests (Kruskal-Wallis, Jonckheere-Terpstra) are used without additional '
-    'correction beyond the omnibus P-value.'
+    'Bootstrap permutation testing was performed for all four datasets with B=1,000: '
+    'mouse pilot (15 cell-type pairs), human Tabula Sapiens, TCGA, and '
+    'brain atlas. Benjamini-Hochberg FDR correction is applied within each '
+    'dataset to control the false discovery rate. For the larger-scale analyses (Tabula Sapiens: '
+    '5,151 pairs; brain atlas: 31,764 pairs; TCGA pan-cancer), bootstrap results '
+    'are supplemented with non-parametric '
+    'statistical tests and descriptive statistics (median, IQR, effect sizes). For TCGA stratified '
+    'analyses (BRCA PAM50, LIHC Edmondson) involving 4-5 groups, omnibus tests '
+    '(Kruskal-Wallis, Jonckheere-Terpstra) are used. Effect sizes are reported alongside '
+    'all significance statements to distinguish statistical significance from biological '
+    'magnitude. For the brain atlas analysis, 31,764 cross-region comparisons yielded '
+    '30 Strong candidates (residual < 0.3); Benjamini-Hochberg FDR correction is '
+    'applied to the bootstrap P-values, and candidates passing FDR < 0.05 are '
+    'reported as significant discoveries.'
 )
 
 add_para('3.4 Reporting Conventions', bold=True)
@@ -277,8 +302,9 @@ add_para(
     'Summary statistics are reported as mean +/- standard deviation (range) or median '
     '[interquartile range]. Boxplots display: median (center line), IQR (box), '
     '1.5x IQR (whiskers), with data points beyond the whiskers shown as outliers. '
-    'All P-values are two-sided unless otherwise noted. Correlation coefficients '
-    '(Spearman rho) are reported with P-values. Effect sizes (Cohen\'s d) are reported '
+    'All P-values from non-bootstrap tests are two-sided; bootstrap permutation '
+    'P-values are one-sided (see SN 1.5). Correlation '
+    'coefficients (Spearman rho) are reported with P-values. Effect sizes (Cohen\'s d) are reported '
     'for all significant omega comparisons.'
 )
 
@@ -300,25 +326,23 @@ add_para(
 
 add_para('4.2 Tabula Sapiens (Human)', bold=True)
 add_para(
-    'Downloaded from CZ CELLxGENE Discover. QC filtering: cells with < 200 detected '
+    'Downloaded from CZ CELLxGENE Discover. QC filtering: cells with < 500 detected '
     'genes were removed; cells with > 20% mitochondrial gene expression were removed. '
     'Result: 108,136 cells retained (6 h5ad files total), with 51,852 genes (filtered from the '
-    'original 58,870). Cell type entries: 99 entries across 6 organs (Liver, Kidney, '
+    'original 58,870). Cell type entries: 102 entries across 6 organs (Liver, Kidney, '
     'Heart, Bone Marrow, Spleen, Lung). Cell types included in pairwise omega analysis '
     'were required to have >= 10 cells in at least one donor. Pairwise identity gene '
     'selection (top-200 genes by |Delta expression| ranking) ensures that each comparison '
-    'uses the most informative genes for that specific pair. Human HK genes: data-driven '
-    'automatic detection (joint criteria), supplemented with 1,129 genes from HRT Atlas '
-    'v1.0 having human orthologs, mapped via gene symbol (1 gene without human ortholog '
-    'was excluded).'
+    'uses the most informative genes for that specific pair. Human HK genes: HRT Atlas '
+    'v1.0 reference (1,130 genes; human column, 1,129 matched to data).'
 )
 
 add_para('4.3 TCGA Bulk RNA-seq', bold=True)
 add_para(
     'Data were obtained from the NCI Genomic Data Commons. Five cancer types were selected: '
-    'LUAD (515 tumor + 59 normal), LUSC (501 + 51), LIHC (371 + 50), KIRC (533 + 72), '
-    'BRCA (1,093 + 113), totaling n = 10,535 samples. Normalization: FPKM values from GDC, '
-    'followed by log2(x+1) transformation. For paired analysis, tumor-normal pairs were '
+    'LUAD (495 tumor + 76 normal), LUSC (567 + 58), LIHC (365 + 57), KIRC (755 + 82), '
+    'BRCA (1,032 + 109), totaling n = 3,596 samples. Normalization: TPM values from UCSC Xena, '
+    'followed by log2(TPM + 1) transformation. For paired analysis, tumor-normal pairs were '
     'matched by patient barcode (TCGA-XX-XXXX format). Clinical metadata for stratified '
     'analyses were obtained from GDC (via the TCGAbiolinks R package) and the cBioPortal API.'
 )
@@ -331,7 +355,7 @@ add_para(
     'in Phases 3.1-3.2. Tabula Sapiens: Pairwise HVG selection. For each cell type '
     'pair (CT_i, CT_j), the top-200 genes ranked by |mu_i - mu_j| (absolute log1p '
     'expression difference) were selected as identity genes, excluding HK genes. This '
-    'avoids the dilution effect of HVG across comparisons involving 99 cell types. '
+    'avoids the dilution effect of HVG across comparisons involving 102 cell types. '
     'HVG count sensitivity: the parameter sweep (Phase 3.2) tested N_HVG in '
     '{50, 100, 200, 500, 1,000, 2,000}. The global scheme (mouse) achieved peak AUC '
     'at N=2,000, while the pairwise scheme (human) used N=200 to maintain discriminative '
@@ -369,7 +393,7 @@ add_para(
     f'Raw data file: results/brain_siletti_omega_pairs_v3.csv ({_br["total_pairs"]:,} rows). '
     f'Summary file: results/brain_siletti_ct_summary_v3.csv (10-row summary). '
     f'Analysis script: notebooks/07c_brain_siletti_v3.py. '
-    f'Figure generation: notebooks/30_genome_biology_figures.py (Figure 6).'
+    f'Figure generation: notebooks/30_nar_figures_fixed_v2.py (Figure 6).'
 )
 
 add_para('')
@@ -426,7 +450,7 @@ add_para(
     'notebooks/06_phase34_v2.py (TCGA pan-cancer analysis), '
     'notebooks/05_phase33_v3_fixed.py (Tabula Sapiens cross-organ analysis), '
     'notebooks/07c_brain_siletti_v3.py (brain regional CKI analysis and migration candidate detection), '
-    'and notebooks/30_genome_biology_figures.py (figure generation).'
+    'and notebooks/30_nar_figures_fixed_v2.py (figure generation).'
 )
 
 # ===== Add line numbers (continuous, every line) =====

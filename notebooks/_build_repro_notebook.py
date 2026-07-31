@@ -84,7 +84,7 @@ except ImportError:
 RANDOM_SEED = 42
 N_TOP_KF = 200          # top-N DE genes for per-pair k_f
 MIN_CELLS_PER_CT = 10   # min cells per cell type (mouse/human)
-N_BOOTSTRAP = 500       # bootstrap iterations (mouse pilot only)
+N_BOOTSTRAP = 1000      # bootstrap iterations (unified across all datasets)
 EPSILON = 1e-9          # tiny epsilon for bootstrap null
 
 np.random.seed(RANDOM_SEED)
@@ -981,7 +981,7 @@ def load_cancer_data(cancer, tumor_ids, normal_ids):
     keep = gene_means >= 0.5
     expr = expr[:, keep]
     genes = [g for g, k in zip(gene_names_tcga, keep) if k]
-    expr_log = np.log2(np.maximum(expr, 0) + 0.001)
+    expr_log = np.log2(np.maximum(expr, 0) + 1)
     
     gene_ens = [g.split('.')[0] for g in genes]
     ens_to_idx_local = {ens: i for i, ens in enumerate(gene_ens)}

@@ -319,7 +319,7 @@ def load_cancer_data(cancer, tumor_ids, normal_ids):
     keep = gene_means >= 0.5
     expr = expr[:, keep]
     genes = [g for g, k in zip(gene_names, keep) if k]
-    expr_log = np.log2(np.maximum(expr, 0) + 0.001)
+    expr_log = np.log2(np.maximum(expr, 0) + 1)
     
     gene_ens = [g.split(".")[0] for g in genes]
     ens_to_idx_local = {ens: i for i, ens in enumerate(gene_ens)}

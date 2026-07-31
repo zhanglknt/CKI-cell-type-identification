@@ -15,12 +15,12 @@ import pandas as pd
 from anndata import AnnData
 from pathlib import Path
 
-from cki.bootstrap import bootstrap_test
+from cki.bootstrap import bootstrap_test, benjamini_hochberg
 
 # === Config ===
 # TCGA_FILE, HK_FILE, PROBEMAP_FILE, RESULTS_DIR from _paths
 # PROBEMAP = PROBEMAP_FILE, RESULTS = RESULTS_DIR (aliases above)
-N_BOOTSTRAP = 100
+N_BOOTSTRAP = 1000
 RANDOM_STATE = 42
 
 TARGET = ["TCGA-LUAD", "TCGA-LUSC", "TCGA-LIHC", "TCGA-KIRC", "TCGA-BRCA"]
@@ -117,7 +117,7 @@ print(f"  Found {len(sample_info)} samples across {len(TARGET)} projects")
 
 # === Build per-cancer AnnData and run bootstrap ===
 print("\n" + "=" * 60)
-print("Running bootstrap for each TCGA cancer type (B=100)...")
+print("Running bootstrap for each TCGA cancer type (B=1000)...")
 print("=" * 60)
 
 all_results = []
@@ -189,7 +189,7 @@ for cancer in TARGET:
     print(f"  Genes (filtered, mean>=0.5): {len(genes)}")
     
     # log2 transform
-    expr_log = np.log2(np.maximum(expr, 0) + 0.001)
+    expr_log = np.log2(np.maximum(expr, 0) + 1)
     
     # Map HK genes
     gene_ens = [g.split(".")[0] for g in genes]
@@ -256,6 +256,15 @@ print("Saving results...")
 print("=" * 60)
 
 df = pd.DataFrame(all_results)
+
+# Apply Benjamini-Hochberg FDR correction (only for rows with p_value)
+if "p_value" in df.columns:
+    valid_mask = df["p_value"].notna() & (df["p_value"] != "")
+    if valid_mask.sum() > 0:
+        p_numeric = df.loc[valid_mask, "p_value"].astype(float).values
+        q_vals = benjamini_hochberg(p_numeric)
+        df.loc[valid_mask, "q_value"] = [f"{q:.4e}" for q in q_vals]
+
 print("\n" + df.to_string(index=False))
 df.to_csv(RESULTS / "tcga_bootstrap_results.csv", index=False)
 

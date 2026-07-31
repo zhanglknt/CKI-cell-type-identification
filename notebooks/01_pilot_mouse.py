@@ -40,7 +40,7 @@ RESULTS_DIR = Path(r"C:\Users\KnightZ\Desktop\细胞受选择\results")
 RESULTS_DIR.mkdir(exist_ok=True)
 
 TARGET_TISSUES = ["Liver", "Kidney", "Spleen", "Lung", "Heart", "Marrow"]
-N_BOOTSTRAP = 500  # reduced for pilot speed
+N_BOOTSTRAP = 1000  # unified B=1000 for all datasets
 RANDOM_SEED = 42
 MIN_CELLS_PER_TYPE = 20
 MIN_GENES_PER_CELL = 500
