@@ -1,8 +1,10 @@
 CKI NAR Submission Package v20
 Built: 2026-08-01 00:13
+Updated: 2026-07-30 22:39 (review fixes, Task #708)
 
 This package updates v19 with all Phase D expert review fixes
-(4 Critical + 19 Major issues, Task #705).
+(4 Critical + 19 Major issues, Task #705), plus 7 review fixes
+from Task #707-#708.
 
 Contents:
 1. CKI_NAR_Manuscript.docx - Main manuscript (English, regenerated with Phase D fixes)
@@ -67,3 +69,18 @@ Files NOT regenerated (unchanged from v19):
   - Supplementary Figures (S1-S7): unchanged
   - Graphical Abstract: unchanged
   - Table1-2.docx: tables unchanged
+
+Review Fixes (Task #707-#708, 7 issues found and fixed):
+  R1: Manuscript Introduction - "orthogonal information dimension" ->
+      "independent information dimension" (consistency with Abstract/Results/Cover Letter)
+  R2: Manuscript Methods - TCGA paired comparisons: removed "Mann-Whitney U test",
+      replaced with descriptive statistics justification (consistency with Results C-S6 fix)
+  R3: Manuscript Limitations - astrocyte pair count 4,489 -> 5,778 (C(108,2) = 5,778)
+  R4: Manuscript Statistical conventions - added "two-sided" for non-parametric tests
+      (consistency with Supplementary SN 3.4)
+  R5: Cover Letter - fixed dangling modifier ("we believe CKI aligns" -> "CKI aligns")
+  R6: Supplementary - astrocyte pair count 4,489 -> 5,778 (same as R3)
+  R7: Repro Guide - "omega ~ 1" -> "empirical baseline omega ~ 6.67"
+      (consistency with calibration baseline)
+  R8: Repro Guide - method comparison "4,851 pairs (subset, 300 excluded)" ->
+      "all 5,151 cell-type pairs" (consistency with manuscript)

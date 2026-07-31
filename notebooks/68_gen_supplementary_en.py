@@ -285,7 +285,7 @@ add_para(
     'median was computed; the 2.5th and 97.5th percentiles of the resulting '
     'distribution define the 95% CI. Confidence interval widths scale inversely '
     'with the number of contributing pairs: well-sampled cell types (e.g., '
-    'astrocytes, 4,489 pairs) yield narrow intervals ([14.14, 14.58]), whereas '
+    'astrocytes, 5,778 pairs) yield narrow intervals ([14.14, 14.58]), whereas '
     'cell types with fewer comparisons (e.g., Bergmann glia, 21 pairs) produce '
     'wider intervals ([1.95, 2.90]).'
 )

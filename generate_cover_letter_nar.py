@@ -121,7 +121,7 @@ def run():
         "(functional divergence rate, from identity gene expression). The ratio "
         "\u03c9 = k_f/k_n provides a robust, interpretable measure of selective "
         "transcriptomic remodeling. As a new computational method with rigorous "
-        "validation across multiple datasets, we believe CKI aligns well with "
+        "validation across multiple datasets, CKI aligns well with "
         "Nucleic Acids Research\u2019s scope in methods development and genomic analysis.",
         doc,
     )
