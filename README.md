@@ -5,6 +5,34 @@ A Ka/Ks-inspired framework for quantifying selective transcriptomic remodeling i
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-CKI_cell_type_identification-181717)](https://github.com/zhanglknt/CKI-cell-type-identification)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxx)
+
+## Overview
+
+CKI (Cell-state Kinetic Index) operationalizes the Ka/Ks concept from molecular evolution at the single-cell transcriptomic level. By decomposing gene expression into housekeeping (neutral) and functional (identity) components and computing their Jensen-Shannon divergence ratio, CKI quantifies transcriptomic selection pressure between any two cell populations.
+
+## Key Findings
+
+CKI was validated on four independent datasets totaling millions of cells:
+
+| Dataset | Pairs | Result | P-value |
+|---|---|---|---|
+| Mouse (Tabula Muris) | 703 | 8/15 cell types significant | FDR < 0.05 |
+| Human (Tabula Sapiens) | 5,151 | 15/16 cell types significant | P = 9.99e-04 |
+| TCGA (BRCA/LIHC/LUAD) | — | Exploratory convergence analysis | Descriptive |
+| Brain (Siletti Atlas) | 31,764 | 10/10 cell types significant | P < 0.01, FDR < 0.05 |
+
+### Brain Regional Analysis Highlights
+
+| Cell Type | omega | null mean | Cohen's d | P |
+|---|---|---|---|---|
+| Astrocyte | 76.20 | 12.58 | 321.85 | 9.99e-04 |
+| Oligodendrocyte | 41.73 | 10.59 | 234.42 | 9.99e-04 |
+| Choroid plexus | 33.97 | 14.89 | 9.32 | 9.99e-04 |
+| Microglia | 13.54 | 8.98 | 34.22 | 9.99e-04 |
+| Bergmann glia | 11.17 | 8.75 | 6.46 | 2.997e-03 |
+
+All 10 brain cell types show significant regional differentiation gradients (one-sided permutation test, B = 1,000, BH FDR correction).
 
 ## Installation
 
@@ -94,15 +122,22 @@ print(f"omega={boot['omega']:.4f}, P={boot['p_value']:.4f}")
 
 ```
 omega = k_f / k_n
+omega_cal = omega / 6.67  (empirically calibrated)
 
-omega < 0.5    Convergent / Purifying selection
-omega ~ 0.5–1.5  Neutral range
-omega > 1.5    Divergent / Positive selection
+omega_cal < 0.75    Purifying selection (constrained)
+omega_cal ~ 0.75-1.5  Neutral range
+omega_cal > 1.5    Positive selection (divergent)
 ```
 
-## Citation
+Calibration against split-half controls of equivalent populations yields an empirical baseline of omega = 6.67 (not the theoretical ideal of 1.0), reflecting systematic inflation from HVG gene selection. The `calibrate_omega()` function rescales all values so that equivalent populations yield omega_cal ~ 1.0.
 
-Li Zhang. *CKI: A Ka/Ks-inspired metric for quantifying transcriptomic selection pressure in single-cell data.* Submitted to Genome Biology (2026).
+## Statistical Testing
+
+All bootstrap tests use one-sided permutation testing (B = 1,000) with Benjamini-Hochberg FDR correction applied within each dataset. The null distribution is built by randomly shuffling cell labels and recalculating omega. Empirical P-values: P = (count(omega_null >= omega_obs) + 1)/(B + 1).
+
+## Publication
+
+Li Zhang. *CKI: A Ka/Ks-inspired metric for quantifying transcriptomic selection pressure in single-cell data.* Submitted to Nucleic Acids Research (2026).
 
 ## License
 
