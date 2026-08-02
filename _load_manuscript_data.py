@@ -249,6 +249,8 @@ def get_manuscript_data():
         "pct_moderate": float(bk["pct_moderate"]),
         "pct_weak": float(bk["pct_weak"]),
         "global_mean": float(bk.get("global_mean", 8.01)),
+        "n_significant": int(bk.get("n_significant", 16)),
+        "n_non_significant": int(bk.get("n_non_significant", 14)),
     }
 
     # Brain cell type summary

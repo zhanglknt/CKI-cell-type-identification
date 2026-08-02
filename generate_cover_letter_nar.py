@@ -150,7 +150,7 @@ def run():
         "responsibility. The CKI Python package (v0.3.1, MIT License) and all analysis "
         "code are publicly available at https://github.com/zhanglknt/CKI-cell-type-identification "
         "(permanent archive: Zenodo DOI: 10.5281/zenodo.15670808). "
-        "The CKI package is implemented in Python (≥3.9) and runs on Linux, macOS, and Windows. "
+        "The CKI package is implemented in Python (≥3.10) and runs on Linux, macOS, and Windows. "
         "Dependencies include scanpy, scipy, numpy, and pandas (see repository for full requirements).",
         doc,
     )

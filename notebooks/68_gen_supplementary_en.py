@@ -114,7 +114,7 @@ add_para(
     'individual-level physiological differences. k_n thus provides an internal baseline, '
     'heuristically analogous to Ks (synonymous substitution rate) in molecular evolution. '
     'HK gene set selection: HK genes were loaded from the HRT Atlas v1.0 reference '
-    '(1,130 human-mouse conserved HK genes) (4). For mouse datasets, the mouse ortholog '
+    '(1,130 human-mouse conserved HK genes) (13). For mouse datasets, the mouse ortholog '
     'column is used; for human datasets (Tabula Sapiens, TCGA, brain atlas), the human '
     'gene column is used. The CKI package also supports data-driven auto-detection via '
     'detect_housekeeping_genes() (combined criterion: detection rate > 0.9 and CV < 30th '
