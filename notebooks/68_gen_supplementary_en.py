@@ -64,7 +64,7 @@ def add_para(text, bold=False):
 
 # ===== TITLE PAGE =====
 add_heading('Supplementary Materials', 1)
-add_para('CKI: A Cell-state Kinetic Index for Quantifying Selective Transcriptomic Remodeling')
+add_para('CKI: A Cell-state Kinetic Index for Quantifying Baseline-Normalized Transcriptomic Remodeling')
 add_para('Li Zhang')
 add_para('')
 
@@ -120,7 +120,7 @@ add_para(
     'detect_housekeeping_genes() (combined criterion: detection rate > 0.9 and CV < 30th '
     'percentile, use_reference = False), but all reported analyses use the pre-specified '
     'HRT Atlas reference. Sensitivity analysis indicates that CKI results are robust to HK set '
-    'selection: using the top 10% lowest-variance genes as an alternative neutral set '
+    'selection: using the top 10% lowest-variance genes as an alternative constrained set '
     'yields omega correlations of r > 0.95.'
 )
 
@@ -144,12 +144,12 @@ add_para(
 add_para('1.4 Omega Ratio and Its Interpretation', bold=True)
 add_para(
     'omega = k_f/k_n. Interpretation follows a Ka/Ks analogy: '
-    'omega ~ 1: the observed transcriptomic difference is consistent with neutral '
-    'expectation, with no evidence of selective reprogramming; '
-    'omega >> 1: functional divergence exceeds neutral drift, indicating evidence of '
-    'selective transcriptional reprogramming; '
+    'omega ~ 1: the observed transcriptomic difference is consistent with baseline '
+    'expectation, with no evidence of functional reprogramming; '
+    'omega >> 1: functional divergence exceeds baseline drift, indicating evidence of '
+    'functional transcriptional reprogramming beyond baseline; '
     'omega << 1: functional constraint, the two groups are more similar in functional '
-    'genes than expected from neutral drift (rare in practice). '
+    'genes than expected from baseline drift (rare in practice). '
     'The Ka/Ks analogy is structurally similar but mathematically non-equivalent. '
     'Key differences: (1) Ka/Ks operates on sequence alignments with explicit codon '
     'models, while CKI operates on continuous expression vectors; (2) the neutral '
@@ -169,7 +169,7 @@ add_para(
     'brain atlas), recomputing pseudobulk vectors and omega_null each time; '
     '(3) Empirical P-value (one-sided): '
     'P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1), with the '
-    '+1 term avoiding P = 0; (4) Effect size: Cohen\'s d = (omega_obs - '
+    '+1 term avoiding P = 0; (4) Effect size: SES = (omega_obs - '
     'mean(omega_null))/sd(omega_null). Benjamini-Hochberg FDR correction is '
     'applied within each dataset to control the false discovery rate. '
     'Test critical values at alpha=0.05 are derived from the permutation null '
@@ -202,7 +202,7 @@ add_para('Algorithm 1: CKI Core Computation', bold=True)
 add_para(
     'Input: Two cell populations A and B (expression matrices), HK gene set H, '
     'identity gene set I (default top-N HVG excluding H). '
-    'Output: omega, P-value, Cohen\'s d, null distribution.'
+    'Output: omega, P-value, SES, null distribution.'
 )
 pseudo = [
     ' 1. X_A, X_B <- library-normalize and log1p-transform A and B',
@@ -232,7 +232,7 @@ for line in pseudo:
 add_para('')
 add_para('Algorithm 2: Pairwise Identity Gene Selection (Tabula Sapiens Extension)', bold=True)
 add_para(
-    'Unlike Tabula Muris (global HVG set), Tabula Sapiens employs pairwise identity '
+    'Unlike the Tabula Muris full pairwise matrix (global HVG set for Fig. 2), Tabula Sapiens and all pilot analyses (mouse calibration, human, TCGA, brain) employ pairwise identity '
     'gene selection to avoid dilution of HVG across 102 cell types.'
 )
 pseudo2 = [
@@ -302,26 +302,26 @@ add_para(
     'analyses (BRCA PAM50, LIHC Edmondson) involving 4-5 groups, omnibus tests '
     '(Kruskal-Wallis, Jonckheere-Terpstra) are used. Effect sizes are reported alongside '
     'all significance statements to distinguish statistical significance from biological '
-    'magnitude. For the brain atlas analysis, 31,764 cross-region comparisons yielded '
-    '30 Strong candidates (residual < 0.3); Benjamini-Hochberg FDR correction is '
-    'applied to the bootstrap P-values, and candidates passing FDR < 0.05 are '
-    'reported as significant discoveries.'
+    'magnitude. For the brain atlas analysis, 31,764 cross-region comparisons yielded 30 Strong candidates (residual < 0.3). Per-signal empirical P-values were computed via permutation testing (B = 10,000); however, 36.3% of signals (11,541/31,764) reached the empirical P-value floor (P = 9.99 \u00d7 10\u207b\u2075), precluding meaningful Benjamini-Hochberg FDR correction. We therefore report unadjusted permutation P-values and interpret significance descriptively: 16 of 30 Strong-tier candidates reached the P-value floor (no null permutation exceeded the observed residual in 10,000 shuffles), while 14 signals showed no evidence of departure (all P \u2265 0.76).'
 )
 add_para(
     'Permutation-based validation of the multiplicative residual model was '
-    'performed using B=10,000 permutations. For each of the 31,764 brain '
+    'performed using B = 10,000 permutations. For each of the 31,764 brain '
     'region pairs, cell type labels were randomly shuffled within region pairs '
     'to construct a null distribution of residuals. Per-signal empirical '
     'P-values were computed as P = (count(null_residual \u2264 observed_residual) + 1) '
-    '/ (B + 1). Benjamini-Hochberg FDR correction was applied across all 31,764 '
-    'pairs. Of the 30 Strong threshold-passing signals, 16 reached statistical '
-    'significance (P = 9.99 \u00d7 10\u207b\u2075, q = 2.75 \u00d7 10\u207b\u2074): '
-    'all 6 astrocyte and all 10 oligodendrocyte signals. The remaining 14 signals '
-    '(10 microglia, 1 fibroblast, 3 vascular) did not reach significance '
-    '(all P \u2265 0.76, q = 1.0), indicating they cannot be distinguished from '
-    'random label assignment and should be interpreted as exploratory findings. '
-    '(Supplementary Figure 8: \u03c9 distribution characterization; '
-    'Supplementary Figure 9: residual null distribution.)'
+    '/ (B + 1). Of the 31,764 signals, 11,541 (36.3%) reached the empirical '
+    'P-value floor (P = 9.99 \u00d7 10\u207b\u2075) of the B = 10,000 permutation test, '
+    'precluding meaningful Benjamini-Hochberg FDR correction. We therefore '
+    'interpret the permutation results descriptively: among the 30 Strong-tier '
+    'candidates, 16 signals (6 astrocytes, 10 oligodendrocytes) reached the '
+    'P-value floor, indicating strong evidence of deviation from the '
+    'multiplicative null model, while 14 signals (10 microglia, 1 fibroblast, '
+    '3 vascular) showed no evidence of departure (P \u2265 0.76). Per-signal '
+    'tests are not independent (the same cell type or region pair appears in '
+    'multiple comparisons); we restrict biological interpretation to the 30 '
+    'predefined Strong candidates. (Supplementary Figure 8: \u03c9 distribution '
+    'characterization; Supplementary Figure 9: residual null distribution.)'
 )
 
 add_para('3.4 Reporting Conventions', bold=True)
@@ -331,10 +331,10 @@ add_para(
     '1.5x IQR (whiskers), with data points beyond the whiskers shown as outliers. '
     'All P-values from non-bootstrap tests are two-sided; bootstrap permutation '
     'P-values are one-sided (see SN 1.5). Correlation '
-    'coefficients (Spearman rho) are reported with P-values. Effect sizes (Cohen\'s d) '
+    'coefficients (Spearman rho) are reported with P-values. Effect sizes (standardized effect size, SES = (\u03c9_obs \u2212 \u03bc_null) / \u03c3_null) '
     'are reported as descriptive measures of magnitude; because the \u03c9 distribution '
     'is right-skewed and non-normal (Shapiro-Wilk and D\u2019Agostino-Pearson tests reject '
-    'normality at P < 0.001 for all datasets), Cohen\'s d should be interpreted as a '
+    'normality at P < 0.001 for all datasets), SES should be interpreted as a '
     'non-parametric descriptive statistic rather than a parametric test result.'
 )
 
@@ -363,9 +363,14 @@ add_para(
     'and d = 2,000). This confirms that the systematic inflation of k_f relative to k_n '
     '(omega = 6.67 for equivalent populations) arises from HVG selection bias (selecting genes '
     'with high cross-cell variance) rather than from dimensional mismatch between the HK and '
-    'HVG gene sets. The calibrated omega (omega_cal = omega / 6.67) absorbs this bias into the '
-    'empirical baseline, and the permutation null distribution - constructed using the same gene '
-    'sets as the observed data - ensures internal consistency. (Supplementary Figure S10.)'
+    'HVG gene sets. We note that this simulation addresses dimensionality per se (random '
+    'probability vectors of different lengths) but does not simulate the variance-based '
+    'gene selection mechanism that generates the \u03c9 inflation. A more complete validation '
+    'would test whether the inflation magnitude scales with the stringency of variance '
+    'filtering rather than gene count. The calibrated omega (omega_cal = omega / 6.67) '
+    'absorbs this bias into the empirical baseline, and the permutation null distribution '
+    '- constructed using the same gene sets as the observed data - ensures internal '
+    'consistency. (Supplementary Figure S10.)'
 )
 
 add_para('3.7 Pair-Specific k_n Variability', bold=True)

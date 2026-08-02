@@ -92,7 +92,7 @@ def run():
 
     # ── Title (centered, bold) ──
     add_para(
-        "CKI: A Cell-state Kinetic Index for Quantifying Selective "
+        "CKI: A Cell-state Kinetic Index for Quantifying Baseline-Normalized "
         "Transcriptomic Remodeling",
         doc, space_after=12, align=WD_ALIGN_PARAGRAPH.CENTER,
         bold=True, size=13,
@@ -105,7 +105,7 @@ def run():
     add_para(
         "On behalf of my co-author, Dr. Xianming Wu (Chinese Institute for Brain "
         "Research, Beijing), I am pleased to submit our original research article, "
-        "\u201cCKI: A Cell-state Kinetic Index for Quantifying Selective "
+        "\u201cCKI: A Cell-state Kinetic Index for Quantifying Baseline-Normalized "
         "Transcriptomic Remodeling\u201d, for consideration for publication "
         "in Nucleic Acids Research.",
         doc,
@@ -119,7 +119,7 @@ def run():
         "which decomposes Jensen\u2013Shannon divergence into two complementary components: "
         "k_n (baseline divergence rate, from housekeeping gene expression) and k_f "
         "(functional divergence rate, from identity gene expression). The ratio "
-        "\u03c9 = k_f/k_n provides a robust, interpretable measure of selective "
+        "\u03c9 = k_f/k_n provides a robust, interpretable measure of baseline-normalized "
         "transcriptomic remodeling. As a new computational method with rigorous "
         "validation across multiple datasets, CKI aligns well with "
         "Nucleic Acids Research\u2019s scope in methods development and genomic analysis.",
@@ -149,7 +149,9 @@ def run():
         "all AI-generated text was reviewed and revised by the authors, who take full "
         "responsibility. The CKI Python package (v0.3.1, MIT License) and all analysis "
         "code are publicly available at https://github.com/zhanglknt/CKI-cell-type-identification "
-        "(permanent archive: Zenodo DOI: 10.5281/zenodo.15670808).",
+        "(permanent archive: Zenodo DOI: 10.5281/zenodo.15670808). "
+        "The CKI package is implemented in Python (≥3.9) and runs on Linux, macOS, and Windows. "
+        "Dependencies include scanpy, scipy, numpy, and pandas (see repository for full requirements).",
         doc,
     )
 
