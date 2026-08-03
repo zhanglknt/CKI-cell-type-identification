@@ -1,0 +1,18 @@
+include pyproject.toml
+include README.md
+include LICENSE
+recursive-include cki *.py *.csv
+recursive-exclude cki_env *
+recursive-exclude census_env *
+recursive-exclude __pycache__ *
+recursive-exclude _build *
+recursive-exclude node_modules *
+recursive-exclude data *
+recursive-exclude dist *
+recursive-exclude build *
+recursive-exclude results *
+recursive-exclude notebooks *
+recursive-exclude scripts *
+recursive-exclude * __pycache__
+recursive-exclude * *.pyc
+global-exclude *.pyc *.pyo __pycache__
