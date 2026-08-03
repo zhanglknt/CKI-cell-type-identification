@@ -94,7 +94,7 @@ doc = Document()
 # == NAR formatting: single-spaced, Arial 11pt ==
 style = doc.styles['Normal']
 style.font.name = 'Arial'
-style.font.size = Pt(20)
+style.font.size = Pt(11)
 style.font.color.rgb = RGBColor(0,0,0)
 style.paragraph_format.line_spacing = 1.15  # single spacing
 style.paragraph_format.space_after = Pt(0)
@@ -122,7 +122,7 @@ def heading(text, level=1):
     for run in p.runs:
         run.font.name = 'Arial'
         set_black(run)
-        run.font.size = Pt([16, 14, 12][level-1])
+        run.font.size = Pt([14, 12, 11][level-1])
         rPr = run._element.get_or_add_rPr()
         for old in rPr.findall(qn('w:b')):
             rPr.remove(old)
@@ -261,7 +261,7 @@ def ref_p_nar(text):
     para.paragraph_format.space_after = Pt(3)
     for run in para.runs:
         run.font.name = 'Arial'
-        run.font.size = Pt(22)
+        run.font.size = Pt(10)
         set_black(run)
     return para
 
@@ -273,14 +273,15 @@ t.alignment = WD_ALIGN_PARAGRAPH.CENTER
 for run in t.runs:
     run.font.name = 'Arial'
     run.font.color.rgb = RGBColor(0,0,0)
-    run.font.size = Pt(1)
+    run.font.size = Pt(16)
+    run.bold = True
 
 # Running title (NAR requirement: ≤50 characters)
 rt = doc.add_paragraph()
 rt.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = rt.add_run('Running title: CKI: Baseline-Normalized Divergence Index')
 run.font.name = 'Arial'
-run.font.size = Pt(22)
+run.font.size = Pt(10)
 set_black(run)
 
 sub = doc.add_paragraph()
@@ -289,7 +290,7 @@ sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
 # Xianming Wu (first author)
 run = sub.add_run('Xianming Wu')
 run.font.name = 'Arial'
-run.font.size = Pt(21)
+run.font.size = Pt(14)
 set_black(run)
 for ch in ['1']:
     r = sub.add_run(ch)
@@ -303,7 +304,7 @@ sub.add_run(', ')
 # Li Zhang (corresponding author)
 run = sub.add_run('Li Zhang')
 run.font.name = 'Arial'
-run.font.size = Pt(21)
+run.font.size = Pt(14)
 set_black(run)
 for ch in ['1', '2', '*']:
     r = sub.add_run(ch)
@@ -317,24 +318,24 @@ auth = doc.add_paragraph()
 auth.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run1 = auth.add_run('1')
 run1.font.name = 'Arial'
-run1.font.size = Pt(22)
+run1.font.size = Pt(10)
 set_black(run1)
 set_superscript(run1)
 run2 = auth.add_run('Chinese Institute for Brain Research, Beijing, China')
 run2.font.name = 'Arial'
-run2.font.size = Pt(22)
+run2.font.size = Pt(10)
 set_black(run2)
 
 auth2 = doc.add_paragraph()
 auth2.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run3 = auth2.add_run('2')
 run3.font.name = 'Arial'
-run3.font.size = Pt(22)
+run3.font.size = Pt(10)
 set_black(run3)
 set_superscript(run3)
 run4 = auth2.add_run('Institute of Blood Transfusion, Chinese Academy of Medical Sciences & Peking Union Medical College, Chengdu, China')
 run4.font.name = 'Arial'
-run4.font.size = Pt(22)
+run4.font.size = Pt(10)
 set_black(run4)
 
 # Correspondence
@@ -343,7 +344,7 @@ cor.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = cor.add_run('* To whom correspondence should be addressed. Email: knightz@pumc.edu.cn')
 run.font.name = 'Arial'
 set_black(run)
-run.font.size = Pt(22)
+run.font.size = Pt(10)
 
 # ORCID
 orcid = doc.add_paragraph()
@@ -392,7 +393,7 @@ kw.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = kw.add_run('Keywords: cell-state divergence, housekeeping genes, Jensen-Shannon decomposition, transcriptomic remodeling, single-cell genomics')
 run.font.name = 'Arial'
 set_black(run)
-run.font.size = Pt(22)
+run.font.size = Pt(10)
 
 # ============================================================
 # INTRODUCTION (NAR: "Introduction" instead of "Background")
