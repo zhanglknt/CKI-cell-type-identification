@@ -596,7 +596,7 @@ p('We thank the Tabula Muris Consortium, Tabula Sapiens Consortium, TCGA Researc
 # AUTHOR CONTRIBUTIONS (NAR: required, CRediT recommended)
 # ============================================================
 heading('Author contributions', level=1)
-p('X.W. and L.Z. conceived the study and designed the computational framework. L.Z. developed the CKI algorithm, performed all analyses, and prepared all figures. X.W. contributed to data curation, validation, and manuscript writing. Both authors read and approved the final manuscript.')
+p('L.Z. conceived the study, developed the CKI algorithm, performed all analyses, and wrote the manuscript. X.W. contributed to data analysis and manuscript revision. Both authors read and approved the final manuscript.')
 
 # ============================================================
 # FUNDING

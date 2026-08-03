@@ -107,7 +107,7 @@ Supplementary Data are available at NAR Online.
 Acknowledgements
 We thank the Tabula Muris Consortium, Tabula Sapiens Consortium, TCGA Research Network, and the Siletti et al. brain atlas team for making their data publicly available. We also thank the developers of scanpy, scipy, scikit-learn, and the broader open-source scientific Python ecosystem for the computational infrastructure that made this work possible. We are grateful to the HRT Atlas team for maintaining the housekeeping gene reference resource.
 Author contributions
-X.W. and L.Z. conceived the study and designed the computational framework. L.Z. developed the CKI algorithm, performed all analyses, and prepared all figures. X.W. contributed to data curation, validation, and manuscript writing. Both authors read and approved the final manuscript.
+L.Z. conceived the study, developed the CKI algorithm, performed all analyses, and wrote the manuscript. X.W. contributed to data analysis and manuscript revision. Both authors read and approved the final manuscript.
 Funding
 This work was supported by the National Natural Science Foundation of China (NSFC) under grant number 32370682, and the Prevention and Control of Emerging and Major Infectious Diseases — National Science and Technology Major Project (grant number 2026ZD01910500).
 Conflict of interest
@@ -181,29 +181,3 @@ Bakken,T.E., Jorstad,N.L., Hu,Q., Lake,B.B., Tian,W., Kalmbach,B.E., Crow,M., Ho
 Pedregosa,F., Varoquaux,G., Gramfort,A., Michel,V., Thirion,B., Grisel,O., Blondel,M., Prettenhofer,P., Weiss,R., Dubourg,V. et al. (2011) Scikit-learn: machine learning in Python. *J. Mach. Learn. Res.*, **12**, 2825–2830.
 Waskom,M.L. (2021) seaborn: statistical data visualization. *J. Open Source Softw.*, **6**, 3021.
 Butte,A.J., Dzau,V.J. and Glueck,S.B. (2001) Further defining housekeeping, or maintenance, genes: focus on A compendium of gene expression in normal human tissues. *Physiol. Genomics*, **7**, 95-96.
-
-Metric | ROC-AUC
-Cosine distance | 0.887
-Raw JS divergence | 0.836
-Marker Jaccard distance | 0.801
-Spearman distance | 0.690
-CKI omega | 0.716
-
-Cell type | Mean ω | SD | n pairs
-B cell | 2.70 | — | 1
-Neutrophil | 2.72 | 1.22 | 6
-Smooth muscle cell | 6.29 | — | 1
-Plasma cell | 6.61 | 3.42 | 6
-Erythrocyte | 6.90 | 6.31 | 3
-CD8+ T cell | 8.26 | 3.73 | 6
-Intermediate monocyte | 8.63 | — | 1
-Hepatocyte | 8.77 | — | 1
-NK cell | 9.47 | 3.41 | 10
-Hematopoietic stem cell | 9.66 | — | 1
-Macrophage | 9.84 | 6.31 | 15
-CD4+ T cell | 10.56 | — | 1
-Classical monocyte | 11.64 | — | 1
-Monocyte | 11.80 | — | 1
-Naive B cell | 12.36 | — | 1
-Endothelial cell | 15.09 | 6.46 | 3
-Memory B cell | 16.83 | — | 1
