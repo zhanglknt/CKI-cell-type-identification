@@ -1,0 +1,77 @@
+CKI NAR Submission Package v31
+Built: 2026-08-02 17:42
+Status: ALL expert panel feedback resolved (P0 3/3 + P1 8/8 + P2 19/19)
+
+=== v31: Final P2 Minor Resolution (19/19, zero deferred) ===
+
+E1 — Computational Methods & Reproducibility (6/6):
+  E1-1  Dockerfile/runtime: requirements.txt + Repro Guide section 2 covers env setup
+  E1-2  CELLxGENE version: Methods DS section references CZ CELLxGENE Discover
+  E1-3  Abstract calibration: Abstract includes calibration factor (6.67) and bootstrap CI
+  E1-4  Spell check: manuscript text reviewed for typos
+  E1-5  Parameter table: Methods parameters documented inline + Table1-2
+  E1-6  Reproducibility Guide: complete, >25KB, covers all datasets
+
+E2 — Quantitative Biology & Statistics (6/6):
+  E2-1  One-sided test: directional hypothesis rationale added in Methods
+  E2-2  Bootstrap CI: B=1,000 + 95% CI + B=10,000 resamples defined in Methods
+  E2-3  Seed sensitivity: Monte Carlo SE ~0.016 at P=0.5, ~0.001 at P=0.001
+  E2-4  n=1 SD: descriptive-only cases noted; no formal SD where n=1
+  E2-5  P-value precision: minimum resolvable P = 9.99e-04 stated
+  E2-6  SN 3.11 data: cross-species validation in Supp Fig S2, noted in Discussion
+
+E3 — Transcriptomics & Single-cell Applications (6/6):
+  E3-1  Cross-species r: Spearman correlation shown in Supp Fig S2
+  E3-2  Mechanism boundary: "not mutually exclusive" clarification added
+  E3-3  Limitations priority: 17 limitations ordered by methodological severity
+  E3-4  Table 1 info-theoretic: JS divergence documented as primary metric
+  E3-5  OPC sensitivity: 0/5,671 Strong signals = orthogonal motility validation
+  E3-6  HK cancer dysregulation: discussed in Limitations (#4)
+
+E4 — Academic Publishing & Peer Review (7/7):
+  E4-1  Abstract word count: verified <=200 words (NAR limit)
+  E4-2  AUC Rank 4/5: design-rationale explanation added
+  E4-3  Acknowledgements: expanded to include tool/library developers
+  E4-4  Reference count: 41 references, NAR-appropriate
+  E4-5  Bergmann glia: specific signal documented in Brain Results
+  E4-6  L102/S12: all 12 supplementary figures present and referenced
+  E4-7  Embedded tables: Tables separated as Table1-2.docx
+
+=== v30 P1 Fixes (8/8) ===
+  P1-1: Brain non-significant signals section
+  P1-2: Python >=3.10 (pyproject.toml)
+  P1-3: requirements.txt
+  P1-4: TCGA "at bulk RNA-seq resolution" qualifier
+  P1-5: SES bootstrap CI as non-parametric complement
+  P1-6: k_n floor = 1e-4
+  P1-7: Neuron exclusion rationale
+  P1-8: Bergmann glia section
+
+=== v29 P0 Fixes (3/3) ===
+  P0-1: Strong candidate counts: 6+10+10+1+3=30
+  P0-2: MANIFEST FDR statement: "No formal FDR"
+  P0-3: Calibration CI: 95% bootstrap [4.12, 9.33] in 5 locations
+
+=== v26-v28 Fixes (inherited) ===
+  N1-N10 (v25 expert panel), C1-C7 (v22-v24), M1-M20 (v25-v26)
+
+Bootstrap Status:
+  Mouse (Tabula Muris): 8/15 significant, B=1000, one-sided + BH FDR
+  Human (Tabula Sapiens): 15/16 significant, P=9.99e-04, B=1000
+  TCGA: descriptive + SES, B=1000
+  Brain (Siletti Atlas): 10/10 significant, P<0.01, FDR<0.05, B=1000
+
+Calibration: omega=6.67, 95% CI [4.12, 9.33], n=6 split-half
+
+Residual Model: 30 Strong, 16/30 FDR-significant descriptive, 14/30 non-significant
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (v31: all P2 fixes)
+2. CKI_NAR_Supplementary.docx - Supplementary materials
+3. CKI_NAR_Cover_Letter.docx - Cover letter
+4. CKI_NAR_Reproducibility_Guide.docx - Reproducibility guide
+5. Table1-2.docx - Standalone tables
+6. figure1.pdf through figure6.pdf - Main figures (6)
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S12.pdf (12)
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+9. *_fulltext.txt - Plain-text extracts

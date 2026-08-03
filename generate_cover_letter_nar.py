@@ -136,8 +136,8 @@ def run():
         "datasets and parameter settings, with calibration establishing an empirical baseline for equivalent populations; and (3) two biological "
         "applications\u2014pan-cancer analysis revealing that tumors are more transcriptionally "
         "homogeneous than normal tissues (median NN/TT ratio 1.40\u20132.83), and "
-        "brain regional analysis identifying 30 cell-type-specific developmental "
-        "signatures among 31,764 cross-region comparisons through a multiplicative residual model.",
+        "brain regional analysis identifying 30 threshold-passing candidates (16 statistically significant) "
+        "among 31,764 cross-region comparisons through a multiplicative residual model.",
         doc,
     )
 

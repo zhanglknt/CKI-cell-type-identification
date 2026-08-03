@@ -1,0 +1,65 @@
+{
+  "method": "GPD tail extrapolation (Peaks-Over-Threshold)",
+  "description": "For signals with null_le_count=0 (saturated P-value), fits a Generalized Pareto Distribution to the K=500 smallest null residuals and extrapolates the P-value below the B=10,000 empirical floor.",
+  "parameters": {
+    "B_permutations": 10000,
+    "K_tail": 500,
+    "random_seed": 42
+  },
+  "data": {
+    "n_total_pairs": 31764,
+    "mu_grand": 8.0068,
+    "n_cell_types": 10,
+    "n_region_pairs": 5778
+  },
+  "evt_fitting": {
+    "n_saturated": 11541,
+    "n_evt_success": 11541,
+    "n_evt_fallback_nodata": 0,
+    "n_evt_fallback_badfit": 0
+  },
+  "overall_significance": {
+    "evt": {
+      "p_lt_1e2": 11556,
+      "p_lt_1e3": 11546,
+      "p_lt_1e4": 11541,
+      "p_lt_1e5": 11529,
+      "fdr_lt_005": 11556,
+      "fdr_lt_001": 11556
+    },
+    "empirical": {
+      "fdr_lt_005": 11556
+    }
+  },
+  "strong_tier": {
+    "n": 30,
+    "evt_fdr_lt_005": 16,
+    "evt_p_min": 1e-300,
+    "evt_p_max": 1.0,
+    "evt_q_min": 2.7698e-300,
+    "evt_q_max": 1.0,
+    "emp_fdr_lt_005": 16
+  },
+  "strong_tier_by_ct": {
+    "Astrocyte": {
+      "n": 6,
+      "evt_fdr_lt_005": 6
+    },
+    "Fibroblast": {
+      "n": 1,
+      "evt_fdr_lt_005": 0
+    },
+    "Microglia": {
+      "n": 10,
+      "evt_fdr_lt_005": 0
+    },
+    "Oligodendrocyte": {
+      "n": 10,
+      "evt_fdr_lt_005": 10
+    },
+    "Vascular": {
+      "n": 3,
+      "evt_fdr_lt_005": 0
+    }
+  }
+}

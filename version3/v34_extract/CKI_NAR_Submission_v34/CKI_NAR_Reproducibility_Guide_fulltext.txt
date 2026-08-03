@@ -1,0 +1,328 @@
+Supplementary Methods:
+CKI Computational Reproducibility Guide
+Xianming Wu1, Li Zhang1,2,*
+1 Institute of Blood Transfusion, Chinese Academy of Medical Sciences & Peking Union Medical College, Chengdu, China
+2 Chinese Institute for Brain Research, Beijing, China
+* Correspondence: knightz@pumc.edu.cn
+1. Software Environment
+1.1 Python and Core Packages (verified environment)
+Python:              3.13.12  (MSC v.1944 64 bit, AMD64)
+numpy:               2.4.6
+scipy:               1.17.1
+scanpy:              1.10.4
+pandas:              2.3.3
+matplotlib:          3.10.9
+scikit-learn:        1.8.0
+python-docx:         1.2.0
+1.2 CKI Package
+Version: 0.3.1 (editable install from project root)
+Repository: https://github.com/zhanglknt/CKI-cell-type-identification
+Install (editable, recommended):
+cd <project_root>
+pip install -e .
+Install (fixed dependencies):
+pip install -r requirements.txt
+1.3 System Requirements
+Operating system:    Windows 10/11 x64 (also tested Linux x86_64)
+Memory:              >= 32 GB RAM (TCGA matrix ~10 GB peak)
+Disk space:          >= 5 GB (for TPM data and intermediates)
+Network:             Internet for data downloads and cBioPortal API
+1.4 Data Dependencies
+The cloned repository includes the HRT Atlas reference file at cki/data/hrt_atlas.csv (1,130 HK genes; available as optional enhancement via use_reference=True). External data downloads required (detailed in each analysis section):
+TCGA TPM:     https://toil-xena-hub.s3.us-east-1.amazonaws.com/download/tcga_RSEM_gene_tpm.gz (~3.2 GB)
+TCGA probeMap: https://toil-xena-hub.s3.us-east-1.amazonaws.com/download/probeMap%2Fhugo_gencode_good_hg38_v22comp12%2Fgencode.v22.annotation.genes.probeMap (~1.5 MB)
+LIHC clinical: cBioPortal API (lihc_tcga) - bundled in data/tcga/
+LUAD mutations: cBioPortal API (luad_tcga) - bundled in data/tcga/
+BRCA PAM50:    cBioPortal API (brca_tcga_pub) - fetched live by script
+All analyses use random seed 42 throughout.
+2. CKI Algorithm Definition
+CKI decomposes transcriptomic divergence into two components:
+omega = k_f / k_n
+where:
+k_n  = JS(p_HK_A || p_HK_B)       ... baseline divergence rate
+k_f  = JS(p_ID_A || p_ID_B)       ... functional divergence rate
+and JS(P || Q) is the Jensen-Shannon divergence (base-2 logarithm, range [0, 1]):
+M        = 0.5 * (P + Q)
+JS(P||Q) = 0.5 * KL(P||M) + 0.5 * KL(Q||M)
+where KL(P||M) = sum_i [ P_i * log2(P_i / M_i) ]  for P_i > 0
+Both k_n and k_f use the same computational pipeline: (1) subset the pseudobulk expression vector to the relevant gene indices; (2) apply softmax normalization to convert expression values into a probability distribution:  p_i = exp(x_i) / sum_j exp(x_j); (3) compute JS divergence between the two resulting distributions. This internal consistency (same metric, same normalization, same underlying expression space) ensures omega is self-calibrated.
+2.1 Parameter Summary
+All parameters used in the reported analyses:
+The above parameters, when used with the exact random seed and gene selection procedures described in subsequent sections, should reproduce all values reported in the manuscript. See Section 6 for output file locations and Section 7 for a step-by-step verification checklist.
+3. Gene Set Selection
+3.1 Housekeeping Genes (for k_n)
+In all reported analyses, housekeeping (HK) genes were loaded from
+the HRT Atlas v1.0 reference (Hounkpe et al., NAR 2021) via the file
+data/housekeeping/Human_Mouse_Common.csv (1,130 human-mouse conserved
+HK genes; identical to cki/data/hrt_atlas.csv).
+
+For each dataset, HK genes were loaded as follows:
+  Tabula Muris (mouse):   HRT Atlas mouse genes (column 0),
+  Tabula Sapiens (human): HRT Atlas human genes (column 1),
+  TCGA (human):           HRT Atlas human genes (column 1),
+  Siletti Brain (human):  HRT Atlas human genes (column 1).
+
+The CKI package also supports data-driven auto-detection via
+detect_housekeeping_genes() (detection rate > 0.9, CV < 30th
+percentile, "combined" method; use_reference=False by default),
+but this was NOT used in the reported analyses.
+3.2 Identity Genes (for k_f)
+Identity (functional) genes are defined as:
+Default (CKI): top-2,000 highly variable genes (HVGs; Scanpy seurat flavor), with HK genes explicitly excluded to maintain k_n/k_f independence (adapted to min(2000, 0.8 * n_total_genes)).
+Hybrid mode: global k_n computed once with shared HK gene set; per-pair k_f uses the top-200 differentially expressed genes (ranked by |mean_diff| between the two groups), excluding HK genes.
+The default mode (global HVG 2,000) is used for the Tabula Muris full pairwise matrix (03_full_matrix.py, 703 pairs, Fig. 2 heatmap). The hybrid mode (per-pair top-200 DE) is used for Tabula Muris pilot analyses (calibration controls + validation, 02b_pilot_v2.py), Tabula Sapiens (human), and TCGA analyses, using a common global k_n scale (shared HK gene set) with per-pair k_f. The brain atlas analysis also uses per-pair top-200 DE genes for k_f, but unlike the other datasets, uses per-pair k_n (computed separately for each cell-type/region pair from the same HK gene set) rather than a global k_n; this is because brain k_n exhibits substantial cross-pair variability (CV = 97.35%) that is poorly captured by a global mean. The parameter sweep (Supplementary Figure 1) confirmed that the identity-only configuration (w1 = 1.0, w2 = 0.0) achieves the best cell-type discrimination without external pathway databases.
+4. Data Sources & Preprocessing
+4.1 Tabula Muris (Mouse) — Result 2 (Fig. 2)
+Dataset:    Tabula Muris FACS (Schaum et al., Nature 2018)
+Source:     https://github.com/czbiohub-sf/tabula-muris (raw data; GEO accession GSE109774 provides the processed version used in this study)
+Technology: SmartSeq2
+Data used:  15,057 cells, 22,308 genes, 6 organs (Liver, Kidney, Spleen, Lung, Heart, Marrow)
+Processing:
+  1. Load per-tissue count matrices (FACS/tissue-counts.csv).
+  2. Intersect to common gene set across all tissues.
+  3. Normalize: sc.pp.normalize_total(target_sum=1e4), then log1p.
+  4. Pseudobulk: mean expression per cell-type annotation.
+  5. Filter: cell types with < 10 cells excluded.
+  6. Compute global k_n on all cell-type pseudobulks (shared HK set).
+  7. Compute per-pair k_f with top-200 DE genes (ranked by |mean_diff|, HK excluded).
+  8. Bootstrap: n = 1,000 permutations, one-sided test (P = (count(ω_null ≥ ω_obs) + 1)/(B + 1)).
+Controls: Six random-split comparisons (same cell population divided into two halves) tested baseline behavior (empirical baseline omega ~ 6.67).
+Total pairs: 703 cell-type pairs across 6 organs.
+4.2 Tabula Sapiens (Human) — Result 3 (Fig. 3)
+Dataset:    Tabula Sapiens (Jones et al., Science 2022)
+Source:     https://github.com/czbiohub-sf/tabula-sapiens (raw data; CZ CELLxGENE Discover provides the processed version used in this study)
+Technology: 10x Genomics (3′ and 5′ assays)
+Data used:  108,136 cells (6 h5ad files total), 102 cell-type entries, 6 organs (Liver, Kidney, Heart, Bone Marrow, Spleen, Lung)
+Processing:
+  1. Load per-organ h5ad files (TS_{Organ}.h5ad; e.g., TS_Liver.h5ad, TS_Kidney.h5ad, etc.).
+  2. Intersect to common gene set across all 6 organs.
+  3. Within each organ: filter cells with < 500 genes, then normalize: sc.pp.normalize_total(target_sum=1e4), log1p.
+  4. Pseudobulk: mean expression per cell_type_ontology_term_id.
+  5. Global k_n: JS divergence on full pseudobulk matrix with shared HK set.
+  6. Per-pair k_f: top-200 DE genes (ranked by absolute mean difference), HK genes excluded.
+  7. Full pairwise omega computed for all 5,151 cell-type pairs.
+Method comparison: Spearman rank correlation computed between CKI omega and four standard metrics on all 5,151 cell-type pairs:raw JS divergence (all genes), Spearman distance (1 - Spearman r), cosine distance (1 - cosine similarity), marker Jaccard distance (1 - intersection/union of top-200 marker genes per cell type). Classification AUC from cell-type pair classification task (same-type vs. different-type) computed with sklearn.metrics.roc_auc_score.
+4.3 TCGA (Human Cancer) — Result 4 (Fig. 4)
+Dataset:    TCGA Pan-Cancer (Hutter & Zenklusen, Cell 2018; Liu et al., Cell 2018)
+Source:     UCSC Xena (https://xenabrowser.net/), file: tcga_RSEM_gene_tpm.gz
+Data used:  3,596 samples (from 10,535 raw TCGA samples after filtering) across 5 cancer types: LUAD, LUSC, LIHC, KIRC, BRCA
+Processing:
+  1. Filter: gene-level mean expression > 1 TPM within each cancer type (per-cancer independent filtering).
+  2. log2(TPM + 1) transformation.
+  3. Pseudobulk: mean expression per sample.
+  4. Sample pairs drawn from: tumor-tumor (TT), normal-normal (NN), tumor-normal (TN). Maximum 2,000 random TT and TN pairs each.
+  5. Global k_n computed once per cancer type using shared HK genes.
+  6. Per-pair k_f with top-200 DE genes (ranked by |mean_diff|).
+  7. NN/TT ratio computed as mean(omega_NN) / mean(omega_TT) per cancer type.
+Clinical stratification:
+  LIHC Edmondson grade: G1 (n=39), G2 (n=133), G3 (n=105), G4 (n=11). Jonckheere-Terpstra trend test.
+  BRCA PAM50 subtype: Basal-like (n=97), HER2 (n=55), LumA (n=224), LumB (n=123), Normal-like (n=7). Kruskal-Wallis test.
+  LUAD mutation: EGFR (n=61), KRAS (n=120), WT (n=311). Kruskal-Wallis test.
+4.4 Siletti Brain Atlas (Human) — Results 5 & 6 (Fig. 5 & 6)
+Dataset:    Siletti et al. (Science 2023)
+Source:     https://github.com/linnarsson-lab/snRNA_brain_atlas (raw data; CZ CELLxGENE Discover provides the processed version used in this study, collection ID as referenced in Siletti et al., Science 2023)
+Technology: snRNA-seq (10x Genomics)
+Data used:  888,263 non-neuronal nuclei, 108 brain regions, 10 cell classes
+Processing:
+  1. Load Nonneurons.h5ad in backed mode (backed='r') for memory efficiency.
+  2. Map gene symbols from var["Gene"]; match HK genes from HRT Atlas (1,130 human genes) to gene symbol column.
+  3. Group by (cell_type, brain_region). Filter groups with < 20 nuclei.
+  4. Build pseudobulk vectors: raw count means per (ct, region) group, then normalize_total (target_sum=1e4) and log1p at the pseudobulk level.
+  5. Compute omega for all same-cell-type cross-region pairs (31,764 pairs total).
+  6. Organize omega values per cell type and per region pair.
+Cross-organ conservation (Fig. 5): Subset of 59 same-cell-type cross-organ pairs from Tabula Sapiens data. Ranked by mean omega per cell type.
+Migration detection model (multiplicative):
+For each (cell_type, region_pair) combination:
+expected_omega = mu_ct * mu_pair / mu_grand
+where mu_ct = cell type’s global mean omega, mu_pair = region pair’s mean omega, mu_grand = global mean (8.01).
+residual = observed_omega / expected_omega
+Confidence tiers:
+  Strong:   residual < 0.3, omega < 15, lowest omega in region pair.
+  Moderate: residual < 0.5, omega < 25.
+  Weak:     residual < 0.75, omega < 35.
+5. Statistical Testing
+5.1 Bootstrap Permutation Test
+For each cell-type pair comparison, the null hypothesis H0: no functional divergence beyond baseline is tested via permutation:
+  1. Pool all cells from groups A and B.
+  2. For each of B iterations (B = 1,000 for all datasets):
+     a. Randomly permute cell labels.
+     b. Split into two groups of original sizes.
+     c. Recompute pseudobulks and omega.
+  3. Null distribution = {omega_perm[1], ..., omega_perm[B]}.
+  4. P-value (one-sided permutation test):
+p = (count(omega_null >= omega_obs) + 1) / (B + 1)
+  5. Effect size: SES = (omega_obs - mean_null) / std_null.
+  6. Test critical values at alpha=0.05: [percentile(null, 2.5), percentile(null, 97.5)]. Note: these are permutation-based test critical values for rejecting H0, NOT confidence intervals for omega itself.
+5.2 Notes on Execution
+Benjamini-Hochberg FDR correction is applied to the bootstrap P-values within each dataset. The q-value column in the bootstrap output CSV files (tcga_bootstrap_results.csv, human_bootstrap_results.csv, brain_bootstrap_results.csv) provides the FDR-adjusted significance. The BH procedure is implemented in cki/bootstrap.py:benjamini_hochberg().
+5.3 Phase B Statistical Upgrades
+Three additional statistical analyses were performed to address reviewer concerns (Phase B):
+
+  a. Adaptive permutation analysis (C-S1):
+     Script: notebooks/09_phaseB_statistical_upgrades.py
+     Verified that B=1,000 is sufficient because bootstrap tests are at the cell-type level (10 brain, 17 human, 15 mouse), not the pair level. The minimum resolvable P-value (1/1001 = 9.99e-4) is well below the BH threshold for the top-ranked test in each dataset.
+
+  b. Bootstrap confidence intervals (C-S2):
+     Script: notebooks/09_phaseB_statistical_upgrades.py
+     95% CIs computed by pair-level resampling (B=10,000) for all key omega estimates. Output: results/phaseB_bootstrap_cis.csv.
+
+  c. Permutation null for residual model (C-S3):
+     Script: notebooks/09b_phaseB_residual_pervisign.py
+     For each of 31,764 brain region pairs, cell type labels were shuffled B=10,000 times. Per-signal empirical P-values: P = (count(null_residual <= observed) + 1)/(B+1). 11,541 signals (36.3%) reached the empirical P-value floor (P=9.99e-5), precluding meaningful BH-FDR correction. We therefore interpret permutation results descriptively: among the 30 Strong-tier candidates, 16 signals (6 astrocytes, 10 oligodendrocytes) reached the P-value floor indicating strong evidence of deviation from the multiplicative null model, while 14 signals (P>=0.76) showed no evidence of departure. Per-signal tests are not independent; interpretation is restricted to the 30 predefined Strong candidates. Output: results/phaseB_residual_pervisign.csv, results/phaseB_residual_null.json.
+
+  d. Omega distribution characterization (C-S5):
+     Script: notebooks/09_phaseB_statistical_upgrades.py
+     Computed skewness, kurtosis, and normality tests (Shapiro-Wilk, D'Agostino-Pearson) for all datasets. All omega distributions are right-skewed and non-normal. SES reported as descriptive measure. Output: results/phaseB_omega_distribution.json.
+5.4 Phase C Methodological Reinforcement
+Three methodological analyses were performed to address reviewer concerns (Phase C):
+
+  a. Calibrated omega normalization (C-M1):
+     Script: notebooks/09c_phaseC_methodological.py
+     Calibrated omega: omega_cal = omega / 6.67 (empirical baseline from mouse split-half, n=6). Rescales all values so equivalent populations yield omega_cal ~ 1.0. Brain global mean: 8.01 -> 1.20; astrocytes: 14.36 -> 2.15; Bergmann glia: 2.37 -> 0.36. Function: cki.calibrate_omega(). Output: results/phaseC_calibration.json, results/phaseC_calibrated_omega_brain.csv.
+
+  b. JS divergence dimensionality invariance (C-M2):
+     Script: notebooks/09c_phaseC_methodological.py
+     Simulation of 2,000 random Dirichlet distribution pairs across dimensions 50-5,000. Mean JS divergence is effectively constant (0.155-0.159; ratio=1.001 between d=1,130 and d=2,000), confirming that k_f inflation arises from HVG selection bias, not dimensional mismatch. Output: results/phaseC_dimensionality.json, results/phaseC_dimensionality_simulation.csv.
+
+  c. Pair-specific k_n variability (C-M3):
+     Script: notebooks/09c_phaseC_methodological.py
+     Per-pair k_n across 31,764 brain comparisons: CV=97.35% (mean=0.0141, median=0.0086). Spearman rho between per-pair omega and global-kn omega = -0.027 (P=9.96e-7), confirming pair-specific k_n yields substantially different rankings. Justifies per-pair k_n approach for brain analysis. Output: results/phaseC_kn_variability.json, results/phaseC_kn_stats.csv, results/phaseC_omega_pair_vs_global.csv.
+5.5 Phase D Interpretation Corrections
+Text revisions were made to address 4 Critical and 19 Major reviewer concerns about biological interpretation and statistical caution (Phase D). No new scripts or data files were generated; all changes are in the manuscript, supplementary, and cover letter generators:
+
+  a. HK gene neutrality (C-B1): Expanded Discussion to acknowledge that HK genes lack mechanistic neutrality argument (unlike synonymous sites in Ka/Ks), and that sensitivity analysis (r > 0.95) is a practical but not mechanistic proxy.
+
+  b. TCGA convergence reframing (C-B3, M-M4): TCGA Results reframed as exploratory; added explicit confounders (cell composition, peritumoral inflammation, RNA quality). Discussion paragraph rewritten to present alternative explanations.
+
+  c. TCGA paired analysis (C-S6): Removed formal Mann-Whitney P-value from paired comparisons (n=2-5 per cancer type); now reported as descriptive statistics only.
+
+  d. Cross-organ sample size (C-S4, M-B5): Expanded Results to flag cell types with n<5 (Memory B n=1, Smooth muscle n=1); recommend n>=5 for biological conclusions; bootstrap CIs referenced.
+
+  e. PAM50/Edmondson subgroups (M-S5, M-B4): Added caveats about small subgroups (Normal-like n=7, Edmondson G4 n=11) and proliferation confound in Results and Discussion.
+
+  f. One-sided test justification (M-S1): Added rationale to Methods (directional hypothesis: omega exceeding null expectation).
+
+  g. Method comparison limitation (M-M2, M-B2): Acknowledged in Discussion that CKI was not quantitatively benchmarked against SAMap/SATURN/CACIMAR.
+
+  h. BH-FDR per-dataset (M-S2): Added as Limitation #13 (significance thresholds not comparable across datasets).
+
+  i. Simulation ground truth (M-M1): Added as Limitation #14 (no synthetic data validation with known ground-truth signals).
+
+  j. Parameter justification (M-M5): Added as Limitation #15 and Supplementary Note 3.11 (softmax, epsilon, top-200 DE, HVG count, log-base 2, B=1000).
+
+  k. omega 8.01 vs 14.36 (M-S6): Clarified in Results that grand mean is lower because it is dominated by cell types with many pairs and low omega.
+
+  l. Cross-species analysis (M-B1): Added mention in Discussion that preliminary cross-species validation was performed (Supplementary Fig. S2).
+
+  m. Cover Letter fixes (M-W1, M-W2, M-W3): Removed 'orthogonal' overclaim, changed 'confirmed baseline behavior' to 'empirical baseline', changed 'developmental origin signatures' to 'developmental signatures'.
+
+  n. Figure legends (M-W7): Added unified 'Statistical conventions' paragraph after supplementary figure legends.
+6. Output Files
+All results are written to results/:
+
+    Mouse (02c_pilot_v2b.py):
+      results/mouse_pilot_v2b_results.csv        # omega per pair
+      results/mouse_pilot_v2b_key_values.csv   # k_n, k_f, omega per comparison
+
+    Human (05_phase33_v3_fixed.py):
+      results/phase33_v3_human_omega.csv        # omega matrix (cell-types x cell-types)
+      results/phase33_v3_human_kn.csv           # k_n matrix
+      results/phase33_v3_human_kf.csv          # k_f matrix
+      results/phase33_v3_human_pairs.csv       # long-form pair list with omega
+
+    TCGA (06_phase34_v2.py):
+      results/phase34_v2_all_pairs.csv          # all TT/NN/TN pairs with omega
+      results/phase34_v2_summary.csv           # per-cancer summary statistics
+      results/phase34_v2_{cancer}_pair.csv  # per-cancer pair files
+
+    Brain (07c_brain_siletti_v3.py):
+      results/brain_siletti_omega_pairs_v3.csv        # all region-pair omega values
+      results/brain_siletti_ct_summary_v3.csv          # per-cell-type mean omega
+      results/brain_siletti_key_values_v3.csv          # per-cell-type global summary
+      results/brain_siletti_migration_candidates_v3.csv # migration candidate list
+
+    Bootstrap (08a/08b/08c):
+      results/tcga_bootstrap_results.csv           # TCGA bootstrap P-values (B=1000)
+      results/human_bootstrap_results.csv          # Human bootstrap P-values (B=1000)
+      results/brain_bootstrap_results.csv          # Brain bootstrap P-values (B=1000)
+
+    Phase B Statistical Upgrades (09_phaseB_statistical_upgrades.py, 09b_phaseB_residual_pervisign.py):
+      results/phaseB_adaptive_analysis.json         # Adaptive permutation analysis (C-S1)
+      results/phaseB_bootstrap_cis.csv             # Bootstrap 95% CIs for omega (C-S2)
+      results/phaseB_omega_distribution.json       # Distribution characterization (C-S5)
+      results/phaseB_residual_null.json            # Permutation null summary (C-S3)
+      results/phaseB_residual_pervisign.csv        # Empirical per-signal P-values (31,764 rows) (C-S3)
+      results/figures_final/ed_fig8_omega_distribution.pdf  # Distribution figure
+      results/figures_final/ed_fig9_residual_null.pdf      # Residual null figure
+
+    Phase C Methodological Reinforcement (09c_phaseC_methodological.py):
+      results/phaseC_calibration.json             # Calibrated omega summary (C-M1)
+      results/phaseC_calibrated_omega_brain.csv   # Calibrated omega per brain pair (C-M1)
+      results/phaseC_calibrated_cis.csv           # Calibrated bootstrap CIs (C-M1)
+      results/phaseC_dimensionality.json          # Dimensionality invariance (C-M2)
+      results/phaseC_dimensionality_simulation.csv # JS vs dimension (C-M2)
+      results/phaseC_kn_variability.json         # k_n variability analysis (C-M3)
+      results/phaseC_kn_stats.csv                # Per-cell-type k_n stats (C-M3)
+      results/phaseC_omega_pair_vs_global.csv    # Per-pair vs global k_n omega (C-M3)
+      results/figures_final/ed_fig10_dimensionality.pdf   # Dimensionality figure
+      results/figures_final/ed_fig11_kn_variability.pdf   # k_n variability figure
+      results/figures_final/ed_fig12_calibrated_omega.pdf # Calibrated omega figure
+
+Figure scripts: notebooks/30_nar_figures_fixed_v2.py
+7. Reproducibility Checklist
+[✓] Install CKI v0.3.1: pip install -e .
+[✓] Verify random seed = 42 in all scripts.
+[✓] Verify HK gene source: HRT Atlas v1.0 reference (data/housekeeping/Human_Mouse_Common.csv), loaded directly for all datasets.
+[✓] Verify identity gene parameters: HVG seurat flavor, n=2000, HK excluded.
+[✓] Verify bootstrap iterations: 1000 (mouse, main), 1000 (human, 08b), 1000 (TCGA, 08a), 1000 (brain, 08c).
+[✓] Verify normalization: CP10k + log1p.
+[✓] Verify softmax normalization before JS divergence.
+[✓] Verify epsilon = 1e-9 in omega computation.
+[✓] Verify one-sided bootstrap permutation test with pseudocount +1 (P = (count(ω_null ≥ ω_obs) + 1)/(B + 1)).
+[✓] For human/TCGA/brain: verify per-pair k_f uses top-200 DE genes.
+[✓] For brain: verify min_cells_per_group = 20.
+[✓] Note: Benjamini-Hochberg FDR correction is applied within each dataset. FDR-adjusted q-values are available in the bootstrap output CSV files. (Section 5.2)
+[✓] Phase B: Verify bootstrap CIs (B=10,000) in results/phaseB_bootstrap_cis.csv. (Section 5.3)
+[✓] Phase B: Verify permutation null (B=10,000) in results/phaseB_residual_pervisign.csv (descriptive P-values, FDR not applicable). (Section 5.3)
+[✓] Phase B: Verify omega distribution characterization in results/phaseB_omega_distribution.json. (Section 5.3)
+[✓] Phase C: Verify calibrated omega (omega/6.67) in results/phaseC_calibration.json. (Section 5.3)
+[✓] Phase C: Verify dimensionality invariance in results/phaseC_dimensionality.json (ratio ~1.001). (Section 5.3)
+[✓] Phase C: Verify k_n variability (CV=97.35%) in results/phaseC_kn_variability.json. (Section 5.3)
+[✓] Phase C: Verify calibrate_omega() function in cki/core.py is importable.
+[✓] Phase D: Verify TCGA paired analysis has no formal P-value (descriptive only). (Section 5.5)
+[✓] Phase D: Verify cross-organ ranking flags n<5 cell types. (Section 5.5)
+[✓] Phase D: Verify one-sided test justification in Methods. (Section 5.5)
+[✓] Phase D: Verify Cover Letter does not use 'orthogonal' or 'confirmed baseline behavior'. (Section 5.5)
+[✓] Phase D: Verify figure legends include 'Statistical conventions' paragraph. (Section 5.5)
+
+By following this guide with the exact parameter configurations above, readers should obtain numerically identical results to those reported in the manuscript. Minor floating-point differences (±1e-6) may occur due to hardware differences in transcendental function evaluation (exp, log) but will not affect any biological conclusions.
+
+Parameter | Value | Used in
+Random seed | 42 | all analyses
+HK source | HRT Atlas v1.0 (loaded directly) | all datasets
+HK use_reference | N/A (loaded directly, not via API) | all datasets
+HRT Atlas file | data/housekeeping/Human_Mouse_Common.csv (used) | all
+Number of HVGs | 2,000 (global, for k_f; Fig. 2 heatmap only) | mouse full matrix
+Pilot k_f genes | 200 (per-pair DE, |mean_diff|) | mouse pilot calibration
+Per-pair DE genes (k_f) | 200 | human, TCGA, brain
+Bootstrap iterations | 1000 (one-sided) | mouse pilot (main analysis)
+Bootstrap iterations | 1000 (one-sided) | human (script 08b)
+Bootstrap iterations | 1000 (one-sided) | TCGA (script 08a)
+Bootstrap iterations | 1000 (one-sided) | brain (script 08c)
+k_n scaling (alpha) | 1.0 | all analyses
+k_n floor (minimum) | 1e-4 | all analyses
+k_f weight (w1) | 1.0 | all analyses
+Pathway weight (w2) | 0.0 | all analyses
+Normalization target | 1e4 (CP10k) | all analyses
+Min cells per group | 10 | mouse, human
+Min cells per group | 20 | brain
+Epsilon (omega ratio) | 1e-9 | all analyses
+Bootstrap CI iterations | 10000 (pair-level resampling) | Phase B (C-S2)
+Permutation null iterations | 10000 (per-signal P-values) | Phase B (C-S3)
+Permutation null P-values | Unadjusted (descriptive, FDR not applicable) | Phase B (C-S3)
+Calibrated omega baseline | 6.67 (mouse split-half, n=6) | Phase C (C-M1)
+Dimensionality simulation trials | 2000 per dimension | Phase C (C-M2)
+k_n computation mode | per-pair (brain), global (mouse pilot/human/TCGA) | Phase C (C-M3)
+One-sided test direction | omega_null >= omega_obs | Phase D (M-S1)
+TCGA paired analysis | Descriptive only (no formal test) | Phase D (C-S6)
+Cross-organ min n for ranking | n >= 5 recommended | Phase D (C-S4)

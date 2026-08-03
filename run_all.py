@@ -17,7 +17,10 @@ Execution order (independent groups run in parallel):
     Group E (Bootstrap):           08a_tcga, 08b_human, 08c_brain
     Group F (Method comparison):   13_phase35
     ── wait for all ──
-    Post:                          precompute_figure_data, spot_check
+    Phase 4 (Phase B upgrades):    09_phaseB, 09b_residual
+    Phase 5 (Phase C methodological): 09c_phaseC
+    Phase 6 (Figures):             30_genome_biology_figures
+    Phase 7 (Collect):             _collect_submission_figures
 
 Prerequisites:
     1. Install cki: pip install -e .
@@ -292,6 +295,55 @@ def main():
         print(f"  {color('SKIP', Color.YELLOW)}: spot_check_v19.py not found")
     
     # ================================================================
+    # Phase 4: Phase B Statistical Upgrades
+    # ================================================================
+    print(f"\n{color('[Phase 4] Phase B Statistical Upgrades', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+    
+    group_phase_b = [
+        ("PhaseB Stats",       "09_phaseB_statistical_upgrades.py"),
+        ("PhaseB Residual",    "09b_phaseB_residual_pervisign.py"),
+    ]
+    if not run_group("Phase B", group_phase_b, False, 60):
+        all_groups_ok = False
+
+    # ================================================================
+    # Phase 5: Phase C Methodological Reinforcement
+    # ================================================================
+    print(f"\n{color('[Phase 5] Phase C Methodological Reinforcement', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+    
+    group_phase_c = [
+        ("PhaseC Method",      "09c_phaseC_methodological.py"),
+    ]
+    if not run_group("Phase C", group_phase_c, False, 30):
+        all_groups_ok = False
+
+    # ================================================================
+    # Phase 6: Figure Generation
+    # ================================================================
+    print(f"\n{color('[Phase 6] Figure Generation', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+    
+    ok, _, _ = run_script("Main + Supp Figures", "notebooks/30_genome_biology_figures.py", 30)
+    if not ok:
+        all_groups_ok = False
+
+    # ================================================================
+    # Phase 7: Collect Submission Figures
+    # ================================================================
+    print(f"\n{color('[Phase 7] Collect Submission Figures', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+    
+    collector = ROOT / "_collect_submission_figures.py"
+    if collector.exists():
+        ok, _, _ = run_script("Collect Figures", "_collect_submission_figures.py", 2)
+        if not ok:
+            all_groups_ok = False
+    else:
+        print(f"  {color('SKIP', Color.YELLOW)}: _collect_submission_figures.py not found")
+    
+    # ================================================================
     # Summary
     # ================================================================
     elapsed = time.time() - t_start
@@ -303,9 +355,12 @@ def main():
         print(color(f"PIPELINE COMPLETE — All steps passed ({mins}m {secs}s)", Color.GREEN + Color.BOLD))
         print()
         print("Next steps:")
-        print("  1. Generate figures:      python notebooks/30_genome_biology_figures.py")
-        print("  2. Generate manuscript:   python generate_manuscript_genome_biology.py")
-        print("  3. Build packages:        python _build_packages.py")
+        print("  1. Generate manuscript:   python generate_manuscript_nar.py")
+        print("  2. Generate supplementary: python notebooks/68_gen_supplementary_en.py")
+        print("  3. Generate cover letter: python generate_cover_letter_nar.py")
+        print("  4. Generate repro guide:  node notebooks/100_gen_reproducibility_docx.js")
+        print("  5. Extract tables:        python notebooks/_extract_table1_2.py")
+        print("  6. Build v32 package:     python 99_build_nar_v32.py")
     else:
         print(color(f"PIPELINE FAILED — Some steps failed ({mins}m {secs}s)", Color.RED + Color.BOLD))
         print("Check the output above for FAIL markers.")

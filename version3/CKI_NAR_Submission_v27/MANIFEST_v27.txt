@@ -1,0 +1,59 @@
+CKI NAR Submission Package v27
+Built: 2026-08-02 13:04
+
+Key Addition from v26: N5 Reference Renumbering (first-citation order)
+
+N5 Fix (New in v27 — ~1h):
+  - All 106 in-text citation instances renumbered to follow first-appearance order
+  - _refs_nar list reordered (41 refs: 39 cited + 2 uncited placed at end)
+  - Supplementary citation (HRT Atlas) updated: old (4) → new (13)
+  - Cover letter and Repro Guide: no citation references, no changes needed
+
+P0 Fixes (inherited from v26, v25 expert panel N1-N4):
+  N1 — Supplementary title: "Selective" → "Baseline-Normalized" (line 67)
+  N2 — Global cleanup: "Cohen's d" → "SES" (7 residues across 3 docs)
+  N3 — Table 1: 99→102 cell types, 4,851→5,151 pairs (regenerated)
+  N4 — Figure legends: "neutral" → "constrained"/"baseline" (Fig 1-3, 5 occurrences)
+  N8 — Limitations: duplicate "Seventh" → "Eleventh"
+
+P1 Fixes (inherited from v26, v25 expert panel N6-N9):
+  N6 — Repro Guide Section 3.2: brain k_n clarified as per-pair
+  N7 — Supplementary SN 3.3: EVT GPD fit diagnostics reference added
+  N9 — Brain PMI discussion expanded (regional heterogeneity, cell-type RNA stability)
+
+Deferred:
+  N10 — Python version consistency (minor, 3 places)
+
+All Critical Issues (C1-C7) Resolved (inherited from v24-v26):
+  C1: BH-FDR q-value description (EVT, m=31,764)
+  C2: k_n floor parameter table (1e-4)
+  C3: Mouse k_f scheme (hybrid vs global HVG)
+  C4: HK constrained baseline terminology
+  C5: OPC internal consistency check
+  C6: Title wording
+  C7: NAR formatting (Keywords/Running Title/OS)
+
+20 Major Issues (M1-M20) Resolved (inherited from v25-v26):
+  M5: "Cohen's d" → "SES" — complete (N2 fix)
+  All other M1-M20 fixes intact
+
+Bootstrap Status (all 4 datasets):
+  Mouse (Tabula Muris): 8/15 significant, B=1000, one-sided + BH FDR
+  Human (Tabula Sapiens): 15/16 significant, P=9.99e-04, B=1000
+  TCGA (BRCA/LIHC/LUAD): descriptive + SES, B=1000
+  Brain (Siletti Atlas): 10/10 significant, P<0.01, FDR<0.05, B=1000
+
+Residual Model (Brain):
+  30 Strong candidates, BH-FDR across 31,764 EVT-extrapolated P-values
+  16/30 significant (FDR<0.05): 6 astrocyte + 10 oligodendrocyte
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (fresh, N1/N2/N4/N5/N8/N9)
+2. CKI_NAR_Supplementary.docx - Supplementary materials (fresh, N1/N2/N5/N7)
+3. CKI_NAR_Cover_Letter.docx - Cover letter (fresh, N1)
+4. CKI_NAR_Reproducibility_Guide.docx - Computational reproducibility guide (fresh, N2/N6)
+5. Table1-2.docx - Standalone tables (fresh, N3)
+6. figure1.pdf through figure6.pdf - Main figures (unchanged)
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S7.pdf
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+9. *_fulltext.txt - Plain-text extracts for reference verification

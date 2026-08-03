@@ -546,7 +546,7 @@ Abstract: 195 words (NAR <=200)
 === v31: Final P2 Minor Resolution (19/19, zero deferred, inherited) ===
 
 E1 — Computational Methods & Reproducibility (6/6):
-  E1-1  Dockerfile/runtime: requirements.txt + Repro Guide section 2 covers env setup
+  E1-1  Dockerfile/runtime: requirements.txt + Repro Guide section 1 covers env setup
   E1-2  CELLxGENE version: Methods DS section references CZ CELLxGENE Discover
   E1-3  Abstract calibration: Abstract includes calibration factor (6.67) and bootstrap CI
   E1-4  Spell check: manuscript text reviewed for typos
@@ -604,7 +604,7 @@ Bootstrap Status:
 
 Calibration: omega=6.67, 95% CI [4.12, 9.33], n=6 split-half
 
-Residual Model: 30 Strong, 16/30 FDR-significant descriptive, 14/30 non-significant
+Residual Model: 30 Strong, 16/30 P-value floor (descriptive), 14/30 non-significant
 
 Contents:
 1. CKI_NAR_Manuscript.docx - Main manuscript (v32: abstract 195 words + all P2 fixes)

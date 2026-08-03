@@ -1,0 +1,45 @@
+CKI NAR Submission Package v19
+Built: 2026-07-31 15:51
+
+This package updates v18 with text-wide contradiction fixes (#691-#694)
+and brain bootstrap v3 results.
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (English, regenerated)
+2. CKI_NAR_Supplementary.docx - Supplementary materials (English, regenerated)
+3. CKI_NAR_Cover_Letter.docx - Cover letter with 6 suggested reviewers
+4. CKI_NAR_Reproducibility_Guide.docx - Computational reproducibility guide
+5. Table1-2.docx - Standalone tables (from v18, unchanged)
+6. figure1.pdf through figure6.pdf - Main figures (from v18)
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S7.pdf
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+
+Key changes in v19 (relative to v18):
+
+Text-Wide Contradiction Fixes (#691-#694):
+  - P-value formula: two-sided (|omega_null - 1|) -> one-sided (omega_null >= omega_obs)
+    Fixed in: manuscript (3 locations), supplementary (2 locations),
+    reproducibility guide (5 locations)
+  - FDR contradiction resolved: "FDR correction is not applied" -> 
+    "Benjamini-Hochberg FDR correction is applied" (repro guide line 421)
+  - Omega baseline: "yield omega close to 1 (baseline behavior)" ->
+    "yield omega above 1 (empirical calibration baseline 6.67)"
+    (manuscript Introduction + Results)
+  - "Striking" language removed: 3 instances replaced with 
+    "notable", "pronounced", "substantially"
+  - Statistical reporting: removed contradictory "All P-values are
+    two-sided unless otherwise specified" statement
+  - Supplementary Algorithm 1 consistency: B=1000 (was B=500)
+
+Bootstrap v3 Updates:
+  - Brain bootstrap re-run with one-sided P-value formula
+    (pseudobulk-level permutation, B=1000)
+  - All 10 cell types significant (P < 0.01, FDR < 0.05)
+  - _load_manuscript_data.py updated for new CSV columns
+  - Brain data loaded dynamically from brain_bootstrap_results.csv
+
+Files NOT regenerated (unchanged from v18):
+  - Figures (f1-f6): no visual changes needed for text-only fixes
+  - Supplementary Figures (S1-S7): unchanged
+  - Graphical Abstract: unchanged
+  - Table1-2.docx: tables unchanged

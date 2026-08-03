@@ -320,8 +320,8 @@ add_para(
     '3 vascular) showed no evidence of departure (P \u2265 0.76). Per-signal '
     'tests are not independent (the same cell type or region pair appears in '
     'multiple comparisons); we restrict biological interpretation to the 30 '
-    'predefined Strong candidates. (Supplementary Figure 8: \u03c9 distribution '
-    'characterization; Supplementary Figure 9: residual null distribution.)'
+    'predefined Strong candidates. (Supplementary Figure S8: \u03c9 distribution '
+    'characterization; Supplementary Figure S9: residual null distribution.)'
 )
 
 add_para('3.4 Reporting Conventions', bold=True)
@@ -444,7 +444,7 @@ add_para(
     'with the Scanpy ecosystem. (5) Log-base 2 for JS divergence: standard choice giving JS '
     'range [0, 1]; the base does not affect omega = k_f/k_n since it cancels in the ratio. '
     '(6) B = 1,000 for bootstrap: justified by adaptive permutation analysis showing minimum '
-    'P = 0.001 is well below BH thresholds for cell-type-level tests (Phase B).'
+    'P = 9.99 \u00d7 10\u207b\u2074 (= 1/(B+1) = 1/1001) is well below BH thresholds for cell-type-level tests (Phase B).'
 )
 
 doc.add_page_break()

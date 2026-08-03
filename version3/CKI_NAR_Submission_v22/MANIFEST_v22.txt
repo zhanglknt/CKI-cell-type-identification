@@ -1,0 +1,46 @@
+CKI NAR Submission Package v22
+Built: 2026-08-01 12:57
+
+This package incorporates the C2 fix from the v20 expert panel review:
+- C2: k_n floor (minimum) = 1e-4 added to Section 6 Parameter Summary
+  in the reproducibility guide
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (English, fresh)
+2. CKI_NAR_Supplementary.docx - Supplementary materials (English, fresh)
+3. CKI_NAR_Cover_Letter.docx - Cover letter (fresh)
+4. CKI_NAR_Reproducibility_Guide.docx - Computational reproducibility guide (fresh)
+5. Table1-2.docx - Standalone tables (unchanged from v21)
+6. figure1.pdf through figure6.pdf - Main figures (unchanged from v21)
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S7.pdf
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+
+Bootstrap Status (all 4 datasets):
+  Mouse (Tabula Muris): 8/15 significant, B=1000, one-sided + BH FDR
+  Human (Tabula Sapiens): 15/16 significant, P=9.99e-04, B=1000
+  TCGA (BRCA/LIHC/LUAD): descriptive omega + Cohen's d, B=1000
+  Brain (Siletti Atlas): 10/10 significant, P<0.01, FDR<0.05, B=1000
+
+Changes from v21:
+  - C2 fix: k_n floor (minimum) = 1e-4 added to reproducibility guide parameter table
+  - All 4 DOCX files regenerated fresh
+
+Phase D Critical Fixes (4 items, inherited from v20):
+  C-B1: HK gene neutrality assumption - expanded Discussion
+  C-B3: TCGA "convergence" - rewritten as exploratory
+  C-S4: Cross-organ sample size - added n<5 flag
+  C-S6: TCGA paired statistics - descriptive only
+
+Phase D Major Fixes (19 items, inherited from v20)
+Phase B Statistical Upgrades (inherited from v20)
+Phase C Methodological Reinforcement (inherited from v20)
+Phase A Text Polish (inherited from v20)
+
+v20 Review Fixes (7 items, Task #707-#709, inherited):
+  1. "orthogonal" -> "independent information dimension"
+  2. TCGA paired: removed Mann-Whitney U
+  3. astrocyte: 4,489 -> 5,778 pairs
+  4. Added "two-sided" non-parametric test declaration
+  5. Cover Letter: dangling modifier fix
+  6. Supplementary: astrocyte 4,489 -> 5,778
+  7. Repro Guide: omega~1 -> empirical baseline ~6.67

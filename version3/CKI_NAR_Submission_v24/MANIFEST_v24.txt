@@ -1,0 +1,50 @@
+CKI NAR Submission Package v24
+Built: 2026-08-01 16:27
+
+Phase 2 Fix: C1 BH-FDR q-value validation (from v23 expert panel review)
+
+C1 — Residual Model Permutation P-values:
+  - REMOVED: All EVT (Extreme Value Theory) / GPD tail extrapolation claims
+  - REMOVED: All BH-FDR q-values for residual model (m=31,764, B=10,000)
+  - REPLACED WITH: Honest reporting of unadjusted permutation P-values
+  - 16/30 Strong signals reach P=9.99e-5 floor (P-value floor, not FDR-controlled)
+  - Added explicit limitation: FDR inapplicable due to P-value floor saturation (36.3%)
+  - All 4 DOCX files regenerated with C1 fixes
+
+Inherited from v23 (Phase 1):
+  - C7: NAR formatting (Keywords after Abstract, OS field, Running title)
+  - C6: Title wording verified (no "Selective" occurrences)
+
+Inherited from v22:
+  - C2 fix: k_n floor (minimum) = 1e-4 in reproducibility guide parameter table
+
+Inherited from v20:
+  - Phase D Critical Fixes (C-B1, C-B3, C-S4, C-S6)
+  - Phase D Major Fixes (19 items)
+  - Phase B/C/A fixes
+  - v20 Review Fixes (7 items, Task #707-#709)
+
+Remaining Critical Issues (3):
+  C3: Mouse k_n scheme description
+  C4: HK gene neutrality biological foundation
+  C5: OPC negative control validation
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (English, C1 fixes)
+2. CKI_NAR_Supplementary.docx - Supplementary materials (English, C1 fixes)
+3. CKI_NAR_Cover_Letter.docx - Cover letter (fresh)
+4. CKI_NAR_Reproducibility_Guide.docx - Reproducibility guide (C1 fixes)
+5. Table1-2.docx - Standalone tables
+6. figure1.pdf through figure6.pdf - Main figures
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S7.pdf
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+
+Bootstrap Status (all 4 datasets):
+  Mouse (Tabula Muris): 8/15 significant, B=1000, one-sided + BH FDR
+  Human (Tabula Sapiens): 15/16 significant, B=1000
+  TCGA (BRCA/LIHC/LUAD): descriptive, B=1000
+  Brain (Siletti Atlas): 10/10 significant, B=1000
+
+Residual Model (Brain, 31,764 pairs):
+  30 Strong candidates | 16 reached P=9.99e-5 floor (no FDR)
+  6 astrocyte + 10 oligodendrocyte | 14 not significant (P>=0.76)

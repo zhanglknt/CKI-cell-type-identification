@@ -1,0 +1,113 @@
+CKI NAR Submission Package v30
+Built: 2026-08-02 15:59
+
+Key Additions from v29: P1 Fixes (8 items) + P2 Fixes (4 items)
+
+=== P1 Fixes (All 8 Resolved in v30) ===
+
+P1-1 — Brain Non-Significant Signals Section (inherited from earlier):
+  Dedicated section "Threshold-passing but non-significant signals" added to
+  Brain Results, clarifying 14/30 Strong candidates that pass the EVT-defined
+  dispersion threshold but are not statistically significant.
+
+P1-2 — Python >=3.10 Confirmed:
+  pyproject.toml: requires-python = ">=3.10" (already present in v29)
+  Confirmed consistent with Cover Letter and Data Availability Statement.
+
+P1-3 — requirements.txt Confirmed:
+  Exists with all required dependencies (already present in v29).
+
+P1-4 — TCGA "at bulk RNA-seq resolution" Qualifier (NEW in v30):
+  Problem: TCGA conclusion "tumors appeared more transcriptionally homogeneous"
+  could be misinterpreted as single-cell resolution finding.
+  Fix: Added "at bulk RNA-seq resolution" qualifier in TCGA Results paragraph.
+
+P1-5 — SES Non-Parametric Alternative:
+  Bootstrap CI already present as non-parametric complement to SES.
+  No additional code changes needed.
+
+P1-6 — k_n Floor = 1e-4 (inherited):
+  Already mentioned in Limitations section.
+
+P1-7 — Neuron Exclusion Rationale (inherited):
+  Already present in Brain Methods.
+
+P1-8 — Bergmann Glia Section (inherited):
+  Already present in Brain Results.
+
+=== P2 Minor Fixes (4/19 Resolved in v30) ===
+
+E4-2 — AUC Rank 4/5 Explanation (NEW in v30):
+  Added explanation: CKI ranks 4th of 5 methods (above Spearman) — expected
+  because CKI down-weights shared HK patterns to isolate functional divergence.
+
+E3-2 — Mechanism Boundary Clarification (NEW in v30):
+  Added: "These mechanisms are not mutually exclusive; a given cell-type/region
+  pair signal may involve overlapping processes."
+
+E4-6 — Expanded Acknowledgements (NEW in v30):
+  Added thanks to scanpy/scipy/scikit-learn developers and HRT Atlas team.
+
+E2-3 — Seed Sensitivity Note (NEW in v30):
+  Added Monte Carlo standard error justification: with B=1,000 permutations,
+  ~0.016 at P=0.5 and ~0.001 at P=0.001, making seed variation negligible.
+
+=== Remaining P2 Items (~15, Deferred) ===
+  E1: Dockerfile/runtime, CELLxGENE version, abstract calibration concept,
+      spell check, parameter table position
+  E2: One-sided test gap, bootstrap CI definition, P-value precision,
+      SN 3.11 data clarification
+  E3: Cross-species r value, limitations priority,
+      Table 1 info-theoretic methods, OPC sensitivity,
+      HK cancer dysregulation
+  E4: Abstract word count, reference count, Bergmann/L102 truncation,
+      embedded tables
+
+=== All v29 Fixes Inherited ===
+
+P0-1 — Strong Candidate Count Correction:
+  Astrocyte: 8->6, Oligodendrocyte: 22->10, Microglia: 22->10,
+  Fibroblast: 3->1, Vascular: 3 (unchanged). Total: 30.
+
+P0-2 — MANIFEST FDR Statement Unification:
+  "No formal FDR (P-value floor saturation at 9.99e-05; see MS Section 4.4)"
+
+P0-3 — Calibration Factor Bootstrap CI:
+  95% CI [4.12, 9.33] from n=6 split-half control values.
+  Present in 5 locations: Abstract, Introduction, Discussion, Limitations (x2).
+
+N10 — Python Version Consistency:
+  Data Availability: >=3.10, Methods: 3.13.12, Cover Letter: >=3.10.
+
+N5 — Reference Reordering:
+  106 in-text citations, 41 refs renumbered by first-appearance order.
+
+=== All v26-v28 Fixes Inherited ===
+  N1-N4 (v25 expert panel P0), N6-N9 (v25 expert panel P1)
+  C1-C7 (v22-v24 Critical), M1-M20 (v25-v26 Major)
+
+Bootstrap Status (all 4 datasets):
+  Mouse (Tabula Muris): 8/15 significant, B=1000, one-sided + BH FDR
+  Human (Tabula Sapiens): 15/16 significant, P=9.99e-04, B=1000
+  TCGA (BRCA/LIHC/LUAD): descriptive + SES, B=1000
+  Brain (Siletti Atlas): 10/10 significant, P<0.01, FDR<0.05, B=1000
+
+Calibration:
+  Empirical omega baseline: 6.67 (95% bootstrap CI [4.12, 9.33], n=6 split-half)
+
+Residual Model (Brain):
+  30 Strong candidates, permutation-based descriptive validation (B=10,000)
+  No formal FDR (P-value floor saturation at 9.99e-05)
+  16/30 at permutation P-value floor: 6 astrocyte + 10 oligodendrocyte
+  14/30 not significant (P>=0.76): 10 microglia + 1 fibroblast + 3 vascular
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (v30: P1-4 + P2 E4-2/E3-2/E4-6/E2-3)
+2. CKI_NAR_Supplementary.docx - Supplementary materials
+3. CKI_NAR_Cover_Letter.docx - Cover letter
+4. CKI_NAR_Reproducibility_Guide.docx - Computational reproducibility guide
+5. Table1-2.docx - Standalone tables
+6. figure1.pdf through figure6.pdf - Main figures
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S12.pdf
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+9. *_fulltext.txt - Plain-text extracts for reference verification
