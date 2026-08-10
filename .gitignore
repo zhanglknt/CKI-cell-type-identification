@@ -24,130 +24,195 @@ cki_env/
 node_modules/
 _build/
 
-# Data (large files)
+# Data (large files, not on GitHub)
 data/FACS.zip
 data/FACS/
 data/brain/
 data/tcga/
 data/ts_human/
 data/housekeeping/
+data/annotations_FACS.csv
+data/metadata_FACS.csv
 
-# Unpacked/auto-generated
-思路_unpacked/
+# Large archives
+CKI_Data_Full.zip
 
 # Temp files
-push_log.txt
-push_result.txt
 nul
 *.tmp
 *.bak
+push_log.txt
+push_result.txt
+.playwright-cli/
 
-# Unpacked docx (temporary unpack output)
-unpacked_*/
-results/unpacked_*/
+# Non-project docs
+CKI算法优化思路.pptx
+思路.docx
 
-# Generated PDF/PNG (large binaries, generated from scripts)
-results/figures_pdf/
+# ============================================================
+# Non-core files excluded from GitHub
+# ============================================================
+
+# Submission packages (all versions)
+version3/
+
+# Build scripts
+99_build_nar_*.py
+
+# Manuscript generation scripts
+generate_cover_letter_nar.py
+generate_manuscript_nar.py
+
+# Internal reference data
+_final_refs.json
+_ref_authors_results.json
+
+# All results/ except key verification files (already tracked)
+results/*.csv
+results/*.npy
 results/*.npz
-
-# ============================================================
-# Genome Biology SUBMISSION MATERIALS — DO NOT SYNC TO GITHUB
-# (未投稿，严格保密)
-# ============================================================
-# Manuscript, Cover Letter, Combined PDF
-results/CKI_GenomeBiology_Manuscript*.docx
-results/CKI_GenomeBiology_Cover_Letter*.docx
-results/CKI_GenomeBiology_Submission*.zip
-results/CKI_Reproducibility_Code*.zip
-results/CKI_Reproducibility_Guide*.docx
-results/CKI_Reproducibility.ipynb
-results/GenomeBiology_Submission/
-
-# All GB figures (PNG + PDF) in figures_final
-results/figures_final/figure*.pdf
-results/figures_final/figure*.png
-results/figures_final/ed_fig*.pdf
-results/figures_final/ed_fig*.png
-
-# Usage guides
-results/figures_final/usage_guide_*
-
-# PPT lecture slides
-results/figures_final/CKI_Lecture_*.pptx
-results/figures_final/slide3_images/
-
-# Submission generation scripts (reveal strategy)
-generate_manuscript_genome_biology.py
-generate_cover_letter_genome_biology.py
-generate_combined_pdf.py
-notebooks/30_genome_biology_figures.py
-notebooks/32_generate_usage_guide_html.py
-notebooks/16_gen_chinese_docx.py
-notebooks/4*_fix_ppt*.py
-notebooks/99_rebuild_submission*.py
-notebooks/100_*.js
-
-# Old submission packages / temp dirs
+results/*.png
+results/*.pdf
+results/*.docx
+results/*.zip
+results/*.md
+results/*.txt
+results/*.json
+results/*.log
+results/figures_final/
+results/figures_v2/
 results/NAR_Submission_*/
 results/NAR_*.zip
 results/GenomeBiology_Submission/
+results/CKI_Reproducibility.ipynb
 
-# Large data archives
-CKI_Data_Full.zip
+# Temp/helper scripts
+scripts/
 
-# Old version artifacts in results/ (keep only v2/v3 in figures_final)
-results/*_v1.*
-results/*_v4.*
-results/*_v5.*
-results/*_v6.*
-results/figures_final/*_v0.*
-results/figures_final/*_v1.*
-results/figures_final/*_v8.*
-results/figures_final/*_v9.*
-results/figures_final/*_v10.*
-results/figures_final/*_v11.*
-results/figures_final/*_v12.*
-results/figures_final/verify_*.*
-results/figures_final/_test.*
-results/figures_final/_test_*
-results/figures_final/test.*
-
-# Temp unpack / intermediate render dirs in figures_final
-results/figures_final/_preview/
-results/figures_final/_tmp_*/
-results/figures_final/slide*/
-
-# Temporary/docx working files
-results/~* results/\$*~
-*.tmp *.bak *.~*
-~$*.pptx ~$*.docx
-**/~$*
-
-# Playwright / browser temp
-.playwright-cli/
-
-# Phase debug notebooks (ephemeral)
-notebooks/phase*/
-notebooks/*debug* notebooks/*Debug*
-notebooks/06b_* notebooks/06c_*
-notebooks/07_* notebooks/08* notebooks/09_* notebooks/10* notebooks/11* notebooks/12_*
-notebooks/15_* notebooks/17_* notebooks/18_* notebooks/19_* notebooks/20_* notebooks/21_* notebooks/22_*
-notebooks/27_* notebooks/28_* notebooks/29_*
-notebooks/31_nar_usage* notebooks/32_*render* notebooks/32_*ORIG* notebooks/32_*v5*
-
-# Old PPT / script leftovers
-*.pptx.bak ppt_scripts/
-zz_builder.py _check_*.py build_*.py create_*.js
-fix_*.py
-
-# User-created docs (not version-controlled)
-CKI_*.md
-CKI算法优化思路.pptx
-思路.docx
-修订说明.docx
-
-# Data (large files)
-data/annotations_FACS.csv
-data/metadata_FACS.csv
-results/*.npz
-results/CKI_NAR_*.docx
+# Non-core notebooks (ephemeral fix/build/audit/verify scripts)
+notebooks/05_phase33.py
+notebooks/05_phase33_v2.py
+notebooks/05_phase33_v3.py
+notebooks/05b_phase33_diagnose.py
+notebooks/05c_phase33_diag_light.py
+notebooks/07b_brain_siletti_v2.py
+notebooks/07d_brain_siletti_v4.py
+notebooks/08c_brain_bootstrap_v2.py
+notebooks/08c_brain_bootstrap_v2_test.py
+notebooks/08c_brain_bootstrap_v3.py
+notebooks/08c_brain_bootstrap_v3_test.py
+notebooks/08c_debug_extraction.py
+notebooks/08c_test_extraction_speed.py
+notebooks/09c_phaseB_residual_evt.py
+notebooks/05_phase33_human.py
+notebooks/06_phase34_tcga.py
+notebooks/08b_human_bootstrap_v2.py
+notebooks/08c_brain_bootstrap.py
+notebooks/100_fix_docx.py
+notebooks/101_fix_js.py
+notebooks/101_fix_js_v2.py
+notebooks/101_fix_js_v3.py
+notebooks/102_patch_docx_v2.py
+notebooks/103_fix_docx_v2.py
+notebooks/104_fix_docx_v3.py
+notebooks/105_md_to_docx.py
+notebooks/105_md_to_docx_v2.py
+notebooks/106_simple_md_to_docx.py
+notebooks/107_build_docx_minimal.py
+notebooks/107_minimal_md_to_docx.py
+notebooks/30_genome_biology_figures.py
+notebooks/44_fix_s17_text.py
+notebooks/48_redesign_s17_brain.py
+notebooks/49_redesign_s17_logic.py
+notebooks/50_restructure_s15_17_three_part_narrative.py
+notebooks/50_restructure_s15_17_v2.py
+notebooks/51_fix_terminology_and_s15_17_layout.py
+notebooks/52_rebalance_s15_17.py
+notebooks/53_redraw_s15_17_wide.py
+notebooks/54_gene_sets_and_rebalance.py
+notebooks/55_species_and_resize.py
+notebooks/56_fix_s16_s2.py
+notebooks/57_fix_s16_s2_data.py
+notebooks/58_fix_overlaps.py
+notebooks/59_comprehensive_fix.py
+notebooks/60_rebuild_pptx_clean.py
+notebooks/61_fix_slide16_rebuild.py
+notebooks/62_fix_s18_s19_png.py
+notebooks/63_split_s2.py
+notebooks/63b_fix_slide23_spTree.py
+notebooks/64_fix_s3_spacing.py
+notebooks/65_fix_s3_overlap.py
+notebooks/65b_render_s3_png.py
+notebooks/66_organize_submission.py
+notebooks/67_generate_supplementary_pdf.py
+notebooks/68_gen_supplementary_en.py
+notebooks/69_generate_graphical_abstract_nar.py
+notebooks/70_gen_supp_pdf.py
+notebooks/70b_gen_manuscript_pdf.py
+notebooks/71_fix_abstract.py
+notebooks/99_add_figure_citations.py
+notebooks/99_build_nar_v16.py
+notebooks/99_build_zip_v6.py
+notebooks/99_rebuild_submission_v11.py
+notebooks/99_rebuild_submission_v12.py
+notebooks/99_rebuild_submission_v13.py
+notebooks/99_trace_check.py
+notebooks/99_trace_figures.py
+notebooks/99_trace_figures_v2.py
+notebooks/99_trace_figures_v3.py
+notebooks/99_trace_figures_v4.py
+notebooks/99a_fix_epsilon.py
+notebooks/99b_validate_epsilon_impact.py
+notebooks/_55_partc.py
+notebooks/_build_repro_notebook.py
+notebooks/_check_gene_map.py
+notebooks/_check_siletti.py
+notebooks/_check_tcga_samples.py
+notebooks/_check_var_names.py
+notebooks/_compute_phase35_auc.py
+notebooks/_ed_fig1_clean.py
+notebooks/_ed_fig2_clean.py
+notebooks/_ed_fig3_clean.py
+notebooks/_ed_fig4_clean.py
+notebooks/_ed_fig5_clean.py
+notebooks/_ed_fig6_clean.py
+notebooks/_ed_fig7_clean.py
+notebooks/_extract_refs.py
+notebooks/_fig1_clean.py
+notebooks/_fig2_clean.py
+notebooks/_fig3_clean.py
+notebooks/_fig4_clean.py
+notebooks/_fig5_clean.py
+notebooks/_fig6_clean.py
+notebooks/_fix_manuscript_lines.py
+notebooks/_gen_ed_fig3_data.py
+notebooks/_gen_supp_fig_s6_s7.py
+notebooks/_insert_part3b.py
+notebooks/_pubmed_verify_report.txt
+notebooks/_refs_extracted.txt
+notebooks/_test_cki_input.py
+notebooks/_test_cki_input2.py
+notebooks/_test_cki_input3.py
+notebooks/_verify_crossref.py
+notebooks/_verify_pubmed.py
+notebooks/_verify_pubmed2.py
+notebooks/_verify_pubmed_v3.py
+notebooks/_verify_remaining.py
+notebooks/add_section33_to_docx.py
+notebooks/apply_v2_fix.py
+notebooks/audit_v11.py
+notebooks/build_combined_notebook.py
+notebooks/patch_figures_script.py
+notebooks/split_usage_guide.py
+notebooks/update_ms_v6_bootstrap.py
+notebooks/write_cover_letter_v2.py
+notebooks/write_cover_letter_v2_clean.py
+notebooks/write_cover_letter_v3.py
+notebooks/.matplotlib/
+notebooks/100_gen_reproducibility_docx.js
+notebooks/16_gen_chinese_docx.py
+notebooks/32_generate_usage_guide_html.py
+notebooks/3*_fix_ppt*.py
+notebooks/4*_fix_ppt*.py
+notebooks/99_rebuild_submission_v14.py
+notebooks/fix_*.py

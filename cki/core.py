@@ -33,7 +33,7 @@ def js_divergence(p: np.ndarray, q: np.ndarray) -> float:
     Returns
     -------
     float
-        JS divergence value in [0, 1] (using base-2 log, range [0, 1]).
+        JS divergence value (using natural log).
     """
     p = ensure_probability_distribution(p)
     q = ensure_probability_distribution(q)
@@ -44,13 +44,13 @@ def js_divergence(p: np.ndarray, q: np.ndarray) -> float:
     kl_pm = 0.0
     mask_p = p > 0
     if mask_p.any():
-        kl_pm = np.sum(p[mask_p] * np.log2(p[mask_p] / m[mask_p]))
+        kl_pm = np.sum(p[mask_p] * np.log(p[mask_p] / m[mask_p]))
 
     # KL(Q || M)
     kl_qm = 0.0
     mask_q = q > 0
     if mask_q.any():
-        kl_qm = np.sum(q[mask_q] * np.log2(q[mask_q] / m[mask_q]))
+        kl_qm = np.sum(q[mask_q] * np.log(q[mask_q] / m[mask_q]))
 
     return float(0.5 * kl_pm + 0.5 * kl_qm)
 
@@ -177,9 +177,6 @@ def compute_omega(
 
     omega = k_f / k_n, analogous to Ka/Ks in molecular evolution.
 
-    When k_n is very small (< 1e-4), a lower bound is applied to avoid
-    inflated omega values, following the Discussion in the manuscript.
-
     - omega < 1: Purifying selection (conserved transcriptome)
     - omega = 1: Neutral drift
     - omega > 1: Positive selection (divergent transcriptome)
@@ -238,12 +235,7 @@ def compute_omega(
     else:
         delta_identity = 0.0
 
-    # Use lower-bound k_n threshold to avoid inflated omega (see Discussion)
-    kn_min = 1e-4  # lower bound on k_n
-    if kn < kn_min:
-        omega = kf / kn_min
-    else:
-        omega = kf / kn
+    omega = kf / kn if kn > 0 else float('inf')  # kn=0 → omega=∞ (consistent with Ka/Ks)
 
     return {
         "omega": omega,
