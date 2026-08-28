@@ -55,13 +55,19 @@ Source: `results/brain_bs_null_ct_test.csv` (class-level tests),
 ## Installation
 
 ```bash
+pip install cki-bio
+```
+
+Or install directly from GitHub (development version):
+
+```bash
 pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git
 ```
 
-For a specific version (e.g., v0.4.1):
+Note: the PyPI distribution name is `cki-bio`, but the Python import name remains `cki`:
 
-```bash
-pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.4.1
+```python
+import cki
 ```
 
 Or build the Docker image (see `Dockerfile` in the repository root):
