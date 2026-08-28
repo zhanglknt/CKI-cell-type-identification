@@ -2,7 +2,7 @@
 
 A Ka/Ks-inspired framework for quantifying baseline-normalized transcriptomic remodeling in single-cell RNA-seq data.
 
-[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-CKI_cell_type_identification-181717)](https://github.com/zhanglknt/CKI-cell-type-identification)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20405458.svg)](https://doi.org/10.5281/zenodo.20405458)
