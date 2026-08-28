@@ -37,7 +37,8 @@ FIGURES_DIR.mkdir(exist_ok=True)
 # Config
 # ============================================================
 B_BOOTSTRAP_CI = 10000       # bootstrap iterations for CIs
-B_PERM_NULL = 10000           # permutations for residual null
+# C-S3 now uses the block-shuffle null matrices from 08d (B=1,000),
+# reloaded from results/brain_bs_null_pairs_<CT>.npy
 RANDOM_SEED = 42
 rng = np.random.RandomState(RANDOM_SEED)
 
@@ -119,8 +120,11 @@ print("=" * 60)
 all_cis = []
 
 # --- Brain ---
+# Authoritative source: block-shuffle observed pairs (08d/08e), matching the
+# manuscript's per-class statistics (e.g. Astrocyte omega = 76.83, n = 5,778).
+# The legacy brain_siletti_omega_pairs_v3.csv pipeline is superseded.
 print("\n  Loading brain omega pairs...")
-brain_pairs = pd.read_csv(RESULTS_DIR / "brain_siletti_omega_pairs_v3.csv")
+brain_pairs = pd.read_csv(RESULTS_DIR / "brain_bs_null_observed_pairs.csv")
 for ct in brain_pairs["cell_type"].unique():
     ct_omegas = brain_pairs[brain_pairs["cell_type"] == ct]["omega"].values
     if len(ct_omegas) < 5:
@@ -165,10 +169,13 @@ all_cis.append({
 print(f"    Mouse all pairs: ω={np.mean(mouse_vals):.2f} "
       f"[{np.percentile(boot_means, 2.5):.2f}, {np.percentile(boot_means, 97.5):.2f}]")
 
-# --- Human (phase33 v3 matrix) ---
-print("\n  Loading human omega matrix...")
-human_mat = pd.read_csv(RESULTS_DIR / "phase33_v3_human_omega.csv", index_col=0)
-human_vals = human_mat.values[np.triu_indices_from(human_mat.values, k=1)]
+# --- Human (phase35 analyzed pairs) ---
+# Authoritative source: the phase35 analyzed pairs (n = 4,851), matching the
+# human omega statistics reported in the manuscript. The legacy
+# phase33_v3_human_omega.csv matrix is superseded.
+print("\n  Loading human omega pairs...")
+human_vals = pd.read_csv(
+    RESULTS_DIR / "phase35_all_metrics_pairs.csv")["omega"].values
 human_vals = human_vals[human_vals > 0]
 boot_means = np.array([
     np.mean(rng.choice(human_vals, size=len(human_vals), replace=True))
@@ -207,34 +214,9 @@ for category in mouse_bs["category"].unique():
         "ci_width": round(float(np.percentile(boot_means, 97.5) - np.percentile(boot_means, 2.5)), 4),
     })
 
-# --- Human per-CT ---
-print("\n  Loading human per-CT results...")
-for _, row in human_bs.iterrows():
-    # Human per-CT has obs_mean as the point estimate
-    obs_mean = row["obs_mean"]
-    null_mean = row["null_mean"]
-    null_std = row["null_std"]
-    n_pairs = int(row["n_pairs"])
-    # CI from null distribution (already computed in bootstrap)
-    # But we need CI of the observed estimate, not the null
-    # Use the null_std to approximate: if n_pairs > 1, we can estimate SE
-    if n_pairs > 1:
-        # Use null distribution's std as proxy for variability
-        se_approx = null_std  # conservative: null std is typically smaller than obs std
-        ci_lo = obs_mean - 1.96 * se_approx
-        ci_hi = obs_mean + 1.96 * se_approx
-    else:
-        ci_lo = float('nan')
-        ci_hi = float('nan')
-    all_cis.append({
-        "dataset": "Human (per-CT)",
-        "group": row["ct"],
-        "n_pairs": n_pairs,
-        "omega_mean": round(obs_mean, 4),
-        "ci_95_lower": round(ci_lo, 4) if not np.isnan(ci_lo) else None,
-        "ci_95_upper": round(ci_hi, 4) if not np.isnan(ci_hi) else None,
-        "ci_width": round(ci_hi - ci_lo, 4) if not np.isnan(ci_lo) else None,
-    })
+# NOTE: Human per-CT rows were REMOVED (v37 review R3-C3): the previous block
+# wrote null_std x 1.96 approximations, which are not bootstrap CIs, and no
+# downstream consumer (loader / manuscript / supplementary) referenced them.
 
 ci_df = pd.DataFrame(all_cis)
 ci_df.to_csv(RESULTS_DIR / "phaseB_bootstrap_cis.csv", index=False)
@@ -249,11 +231,18 @@ print("=" * 60)
 
 dist_results = {}
 
+# Authoritative omega sources (unified with the C-S2 CI sections above):
+#   - Brain: block-shuffle null observed pairs (08d/08e), matching main-text stats
+#   - Human: phase35 analyzed pairs, matching the human omega statistics reported
+#     in the manuscript (n=4,851 pairs)
+brain_bs_obs = brain_pairs
+human_p35_vals = human_vals
+
 # Collect all omega distributions
 distributions = {
-    "Brain (per-pair)": brain_pairs["omega"].values,
+    "Brain (per-pair)": brain_bs_obs["omega"].values,
     "Mouse (all pairs)": mouse_vals,
-    "Human (all pairs)": human_vals,
+    "Human (analyzed pairs)": human_p35_vals,
 }
 
 for name, vals in distributions.items():
@@ -315,16 +304,10 @@ print(f"\n  Saved: results/phaseB_omega_distribution.json")
 # --- Generate distribution plots ---
 print("\n  Generating distribution plots...")
 
-# Set NAR-compliant font sizes
-plt.rcParams.update({
-    'font.size': 8,
-    'axes.labelsize': 8,
-    'axes.titlesize': 9,
-    'xtick.labelsize': 7,
-    'ytick.labelsize': 7,
-    'legend.fontsize': 7,
-    'figure.dpi': 300,
-})
+# Shared publication style (presentation only)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _fig_style as st
+st.apply_style()
 
 fig, axes = plt.subplots(3, 3, figsize=(7.0, 7.0))
 
@@ -333,36 +316,40 @@ for i, (name, vals) in enumerate(distributions.items()):
 
     # Row 1: Histogram
     ax = axes[0, i]
-    ax.hist(vals, bins=50, density=True, alpha=0.7, color='steelblue',
-            edgecolor='white', linewidth=0.3)
-    ax.set_title(name, fontsize=8)
+    ax.hist(vals, bins=50, density=True, alpha=0.85, color=st.C_BLUE,
+            edgecolor='white', linewidth=0.4)
+    ax.set_title(name, fontsize=8, fontweight='bold', pad=3)
     ax.set_xlabel('ω', fontsize=7)
     ax.set_ylabel('Density', fontsize=7)
+    st.despine(ax)
+    st.subtle_grid(ax, axis='y')
 
     # Row 2: Q-Q plot (normal)
     ax = axes[1, i]
     stats.probplot(vals, dist="norm", plot=ax)
-    ax.set_title(f'Q-Q (Normal)', fontsize=8)
+    ax.set_title('Q-Q (Normal)', fontsize=8, fontweight='bold', pad=3)
     ax.set_xlabel('Theoretical', fontsize=7)
     ax.set_ylabel('Sample', fontsize=7)
-    ax.get_lines()[0].set_color('steelblue')
+    ax.get_lines()[0].set_color(st.C_BLUE)
     ax.get_lines()[0].set_markersize(1.5)
-    ax.get_lines()[1].set_color('crimson')
+    ax.get_lines()[1].set_color(st.C_RED)
     ax.get_lines()[1].set_linewidth(0.8)
+    st.despine(ax)
 
     # Row 3: Q-Q plot (log-normal)
     ax = axes[2, i]
     log_vals = np.log(vals)
     stats.probplot(log_vals, dist="norm", plot=ax)
-    ax.set_title(f'Q-Q (Log-Normal)', fontsize=8)
+    ax.set_title('Q-Q (Log-Normal)', fontsize=8, fontweight='bold', pad=3)
     ax.set_xlabel('Theoretical', fontsize=7)
     ax.set_ylabel('Sample (log ω)', fontsize=7)
-    ax.get_lines()[0].set_color('darkorange')
+    ax.get_lines()[0].set_color(st.C_ORANGE)
     ax.get_lines()[0].set_markersize(1.5)
-    ax.get_lines()[1].set_color('crimson')
+    ax.get_lines()[1].set_color(st.C_RED)
     ax.get_lines()[1].set_linewidth(0.8)
+    st.despine(ax)
 
-plt.tight_layout(pad=0.5)
+plt.tight_layout(pad=0.8)
 out_path = FIGURES_DIR / "ed_fig8_omega_distribution.pdf"
 plt.savefig(out_path, dpi=300, bbox_inches='tight')
 plt.savefig(str(out_path).replace('.pdf', '.png'), dpi=300, bbox_inches='tight')
@@ -371,96 +358,103 @@ print(f"  Saved: {out_path}")
 
 # ============================================================
 # C-S3: Null distribution for multiplicative residual model
+# (block-shuffle null from 08d/08e; B=1,000 permutations shuffling
+#  sample/library blocks across regions. This supersedes the earlier
+#  CT-label permutation within region pairs, which was anti-conservative
+#  because per-pair shuffling ignores the block structure of 10x libraries.)
 # ============================================================
 print("\n" + "=" * 60)
-print(f"C-S3: Null distribution for residual model (B={B_PERM_NULL:,})")
+print("C-S3: Null distribution for residual model (block-shuffle null)")
 print("=" * 60)
 
-# Load brain omega pairs
-print("  Loading brain omega pairs...")
-df = brain_pairs.copy()
-print(f"  Total pairs: {len(df):,}, Cell types: {df['cell_type'].nunique()}")
+# Observed pairs + tiers from the authoritative block-shuffle pipeline
+print("  Loading brain block-shuffle observed pairs...")
+bs_pairs = pd.read_csv(RESULTS_DIR / "brain_bs_null_observed_pairs.csv")
+n_total = len(bs_pairs)
+B_PERM_NULL = 1000  # block-shuffle permutations (as in 08d)
 
-# Compute observed residuals
-mu_grand = df["omega"].mean()
-mu_ct = df.groupby("cell_type")["omega"].mean().to_dict()
-# mu_pair: mean omega for each region pair (across all cell types)
-mu_pair = df.groupby(["region_a", "region_b"])["omega"].mean().to_dict()
+obs_strong = int((bs_pairs["tier"] == "Strong").sum())
+obs_moderate = int((bs_pairs["tier"] == "Moderate").sum())
+obs_weak = int((bs_pairs["tier"] == "Weak").sum())
+print(f"  Total pairs: {n_total:,}, Cell types: {bs_pairs['cell_type'].nunique()}")
+print(f"\n  Observed tier counts (08d definitions, exclusive tiers):")
+print(f"    Strong (res<0.3, ω<15, lowest-in-pair): {obs_strong}")
+print(f"    Moderate (res<0.5, ω<25): {obs_moderate}")
+print(f"    Weak (res<0.75, ω<35): {obs_weak}")
 
-df["mu_ct"] = df["cell_type"].map(mu_ct)
-df["mu_pair"] = df.apply(
-    lambda r: mu_pair.get((r["region_a"], r["region_b"]), mu_grand), axis=1
-)
-df["expected_omega"] = df["mu_ct"] * df["mu_pair"] / mu_grand
-df["residual"] = df["omega"] / df["expected_omega"]
+# Assemble the block-shuffle null omega matrix (n_pairs x B), aligned to
+# bs_pairs row order via each CT's pair_idx into its null matrix
+print(f"\n  Assembling null matrix ({n_total:,} x {B_PERM_NULL})...")
+null_mat = np.empty((n_total, B_PERM_NULL), dtype=np.float32)
+for ct, sub in bs_pairs.groupby("cell_type", sort=False):
+    npy_path = RESULTS_DIR / f"brain_bs_null_pairs_{ct.replace(' ', '_')}.npy"
+    null = np.load(npy_path)
+    assert null.shape == (len(sub), B_PERM_NULL), (ct, null.shape, len(sub))
+    null_mat[sub.index.values, :] = null[sub["pair_idx"].values, :]
+print("  All CT null matrices loaded.")
 
-# Observed tiers
-obs_strong = df[(df["residual"] < 0.3) & (df["omega"] < 15)]
-obs_moderate = df[(df["residual"] < 0.5) & (df["omega"] < 25)]
-obs_weak = df[(df["residual"] < 0.75) & (df["omega"] < 35)]
+# Group structures for the multiplicative residual model
+ct_id = pd.factorize(bs_pairs["cell_type"])[0]
+n_ct = int(ct_id.max()) + 1
+ct_sizes = np.bincount(ct_id, minlength=n_ct).astype(float)
+rp_id = pd.factorize(
+    list(zip(bs_pairs["region_a"], bs_pairs["region_b"])))[0]
+n_rp = int(rp_id.max()) + 1
+rp_sizes = np.bincount(rp_id, minlength=n_rp).astype(float)
 
-print(f"\n  Observed (before 'lowest ω in pair' filter):")
-print(f"    Strong (res<0.3, ω<15): {len(obs_strong)}")
-print(f"    Moderate (res<0.5, ω<25): {len(obs_moderate)}")
-print(f"    Weak (res<0.75, ω<35): {len(obs_weak)}")
-
-# Permutation null: shuffle cell_type labels within each region pair
-print(f"\n  Running {B_PERM_NULL:,} permutations (shuffle CT labels within region pairs)...")
-
-# Pre-index: for each region pair, get the row indices
-pair_groups = df.groupby(["region_a", "region_b"]).indices
-pair_keys = list(pair_groups.keys())
-pair_indices = [pair_groups[k] for k in pair_keys]
-
-# Extract arrays for speed
-omegas = df["omega"].values
-ct_labels = df["cell_type"].values
-n_total = len(df)
+# Precompute the sort order for lowest-in-pair (group min across CTs per
+# region pair); rp_id does not change across permutations
+w_order = np.argsort(rp_id, kind="stable")
+rp_sorted = rp_id[w_order]
+rp_offsets = np.concatenate(([0], np.where(np.diff(rp_sorted) != 0)[0] + 1))
+sorted_gid = np.repeat(np.arange(n_rp), np.diff(np.append(rp_offsets, n_total)))
 
 null_strong_counts = np.zeros(B_PERM_NULL, dtype=int)
 null_moderate_counts = np.zeros(B_PERM_NULL, dtype=int)
 null_weak_counts = np.zeros(B_PERM_NULL, dtype=int)
-null_residuals_sample = []  # sample for histogram
+null_residuals_sample = []
 
 t0 = time.time()
 for b in range(B_PERM_NULL):
-    # Shuffle CT labels within each region pair
-    perm_ct = ct_labels.copy()
-    for idx_array in pair_indices:
-        if len(idx_array) > 1:
-            perm_ct[idx_array] = rng.permutation(perm_ct[idx_array])
+    w = null_mat[:, b].astype(np.float64)
+    mu_grand_b = w.mean()
+    mu_ct_b = np.bincount(ct_id, weights=w, minlength=n_ct) / ct_sizes
+    mu_pair_b = np.bincount(rp_id, weights=w, minlength=n_rp) / rp_sizes
+    expected = mu_ct_b[ct_id] * mu_pair_b[rp_id] / mu_grand_b
+    residuals = w / expected
 
-    # Compute permuted mu_ct
-    perm_df = pd.DataFrame({"ct": perm_ct, "omega": omegas})
-    perm_mu_ct = perm_df.groupby("ct")["omega"].mean().to_dict()
-    perm_mu_ct_arr = np.array([perm_mu_ct[c] for c in perm_ct])
+    # lowest-in-pair under the null (min omega across CTs per region pair)
+    w_sorted = w[w_order]
+    rp_min = np.minimum.reduceat(w_sorted, rp_offsets)
+    lowest_sorted = w_sorted <= rp_min[sorted_gid]
+    lowest = np.empty(n_total, dtype=bool)
+    lowest[w_order] = lowest_sorted
 
-    # mu_pair stays the same (region pair means don't change)
-    mu_pair_arr = df["mu_pair"].values
-    expected = perm_mu_ct_arr * mu_pair_arr / mu_grand
-    residuals = omegas / expected
+    strong_mask = (residuals < 0.3) & (w < 15) & lowest
+    moderate_mask = (residuals < 0.5) & (w < 25) & ~strong_mask
+    weak_mask = (residuals < 0.75) & (w < 35) & ~strong_mask & ~moderate_mask
 
-    # Count tiers
-    null_strong_counts[b] = np.sum((residuals < 0.3) & (omegas < 15))
-    null_moderate_counts[b] = np.sum((residuals < 0.5) & (omegas < 25))
-    null_weak_counts[b] = np.sum((residuals < 0.75) & (omegas < 35))
+    null_strong_counts[b] = int(strong_mask.sum())
+    null_moderate_counts[b] = int(moderate_mask.sum())
+    null_weak_counts[b] = int(weak_mask.sum())
 
     # Sample residuals for histogram (every 100th iteration)
     if b % 100 == 0:
-        null_residuals_sample.extend(residuals[np.random.choice(len(residuals), 1000, replace=False)].tolist())
+        null_residuals_sample.extend(
+            residuals[rng.choice(n_total, 1000, replace=False)].tolist()
+        )
 
-    if (b + 1) % 1000 == 0:
+    if (b + 1) % 200 == 0:
         elapsed = time.time() - t0
         eta = elapsed / (b + 1) * (B_PERM_NULL - b - 1)
         print(f"    Iter {b+1}/{B_PERM_NULL}, "
               f"strong={np.mean(null_strong_counts[:b+1]):.1f}, "
-              f"moderate={np.mean(null_moderate_counts[:b+1]):.1f}, "
               f"elapsed={elapsed:.0f}s, ETA={eta:.0f}s")
 
-# Compute P-values
-n_obs_strong = len(obs_strong)
-n_obs_moderate = len(obs_moderate)
-n_obs_weak = len(obs_weak)
+# Compute P-values (one-sided upper: excess of tier candidates vs null)
+n_obs_strong = obs_strong
+n_obs_moderate = obs_moderate
+n_obs_weak = obs_weak
 
 p_strong = (np.sum(null_strong_counts >= n_obs_strong) + 1) / (B_PERM_NULL + 1)
 p_moderate = (np.sum(null_moderate_counts >= n_obs_moderate) + 1) / (B_PERM_NULL + 1)
@@ -479,6 +473,7 @@ for i, idx in enumerate(sorted_idx):
     q_sorted[idx] = q_vals[idx]
 
 residual_null_results = {
+    "null_type": "block_shuffle (10x library / sample_id blocks, as in 08d)",
     "observed": {
         "strong": int(n_obs_strong),
         "moderate": int(n_obs_moderate),
@@ -514,7 +509,7 @@ residual_null_results = {
     },
     "B": B_PERM_NULL,
     "n_total_pairs": int(n_total),
-    "mu_grand": round(float(mu_grand), 4),
+    "mu_grand": round(float(bs_pairs["omega"].mean()), 4),
 }
 
 print(f"\n  Results:")
@@ -547,28 +542,53 @@ null_counts_df.to_csv(RESULTS_DIR / "phaseB_residual_null_counts.csv", index=Fal
 print(f"\n  Saved: results/phaseB_residual_null.json + CSVs")
 
 # --- Generate residual null plot ---
+# Matches the S9 caption: distribution of multiplicative residuals under
+# block-shuffle permutation (B=1,000), compared against observed residuals
+# for Strong-tier candidates.
 print("\n  Generating residual null distribution plot...")
 
-fig, axes = plt.subplots(1, 3, figsize=(7.0, 2.5))
+null_res_arr = np.asarray(null_residuals_sample, dtype=float)
+obs_res = bs_pairs["residual"].values
+strong_res = bs_pairs.loc[bs_pairs["tier"] == "Strong", "residual"].values
 
-tier_names = ["Strong", "Moderate", "Weak"]
-tier_obs = [n_obs_strong, n_obs_moderate, n_obs_weak]
-tier_nulls = [null_strong_counts, null_moderate_counts, null_weak_counts]
-tier_pvals = [p_strong, p_moderate, p_weak]
-tier_colors = ['crimson', 'darkorange', 'steelblue']
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.6))
 
-for i, (name, obs, null, pval, color) in enumerate(
-    zip(tier_names, tier_obs, tier_nulls, tier_pvals, tier_colors)):
+# Panel A: overall null vs observed residual distributions
+lo, hi = 0.0, float(np.percentile(np.concatenate([null_res_arr, obs_res]), 99.5))
+bins_common = np.linspace(lo, hi, 60)
+ax1.hist(null_res_arr, bins=bins_common, density=True, alpha=0.45,
+         color=st.C_BLUE, edgecolor='white', linewidth=0.4,
+         label="Block-shuffle null (B=1,000)")
+ax1.hist(obs_res, bins=bins_common, density=True, histtype="step",
+         lw=1.2, color=st.C_DARK, label="Observed")
+ax1.set_xlabel("Multiplicative residual", fontsize=7)
+ax1.set_ylabel("Density", fontsize=7)
+ax1.set_title(f"All pairs (n = {n_total:,})", fontsize=8,
+              fontweight='bold', pad=3)
+ax1.legend(fontsize=7, frameon=True, framealpha=0.9, edgecolor='#BDC3C7',
+           borderpad=0.4, labelspacing=0.3)
+st.despine(ax1)
+st.subtle_grid(ax1, axis='y')
 
-    ax = axes[i]
-    ax.hist(null, bins=40, density=True, alpha=0.6, color=color, edgecolor='white', linewidth=0.3)
-    ax.axvline(obs, color='black', linestyle='--', linewidth=1.5, label=f'Observed = {obs}')
-    ax.set_title(f'{name}\nP = {pval:.1e}', fontsize=8)
-    ax.set_xlabel('Count', fontsize=7)
-    ax.set_ylabel('Density', fontsize=7)
-    ax.legend(fontsize=6)
+# Panel B: lower tail with Strong-tier candidates
+bins_tail = np.linspace(lo, 0.8, 60)
+ax2.hist(null_res_arr, bins=bins_tail, density=True, alpha=0.45,
+         color=st.C_BLUE, edgecolor='white', linewidth=0.4,
+         label="Block-shuffle null (B=1,000)")
+for r in strong_res:
+    ax2.axvline(r, color=st.C_RED, lw=0.8, alpha=0.7)
+ax2.plot([], [], color=st.C_RED, lw=0.8,
+         label=f"Strong candidates (n={len(strong_res)})")
+ax2.set_xlabel("Multiplicative residual", fontsize=7)
+ax2.set_ylabel("Density", fontsize=7)
+ax2.set_title("Lower tail: Strong-tier candidates", fontsize=8,
+              fontweight='bold', pad=3)
+ax2.legend(fontsize=7, frameon=True, framealpha=0.9, edgecolor='#BDC3C7',
+           borderpad=0.4, labelspacing=0.3)
+st.despine(ax2)
+st.subtle_grid(ax2, axis='y')
 
-plt.tight_layout(pad=0.5)
+plt.tight_layout(pad=0.8)
 out_path = FIGURES_DIR / "ed_fig9_residual_null.pdf"
 plt.savefig(out_path, dpi=300, bbox_inches='tight')
 plt.savefig(str(out_path).replace('.pdf', '.png'), dpi=300, bbox_inches='tight')
@@ -593,12 +613,16 @@ C-S1 (Adaptive permutation):
 C-S2 (Bootstrap CIs):
   - Computed 95% bootstrap CIs for all key ω estimates
   - Brain: 10 cell types, CI widths reflect pair count
-  - Mouse/Human: aggregate + per-category CIs
+  - Mouse/Human: aggregate + mouse per-category CIs
+  - Sources: brain_bs_null_observed_pairs.csv / phase35_all_metrics_pairs.csv
+    (supersede the legacy v3/phase33 matrices)
+  - Human (per-CT) pseudo-CI rows removed (R3-C3)
 
 C-S3 (Residual null distribution):
-  - B=10,000 permutations of CT labels within region pairs
-  - Empirical P-values for Strong/Moderate/Weak tiers
+  - Block-shuffle null (B=1,000; 10x library/sample_id blocks, from 08d)
+  - Empirical P-values for Strong/Moderate/Weak tier counts
   - BH-FDR correction across 3 tests
+  - Supersedes the anti-conservative CT-label permutation
 
 C-S5 (Distribution characterization):
   - All ω distributions are right-skewed (positive skewness)

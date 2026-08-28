@@ -114,6 +114,9 @@ def get_manuscript_data():
         sd_str = _fmt(row["std_omega"]) if not pd.isna(row["std_omega"]) else "\u2014"
         n_str = str(int(row["n_pairs"]))
         d["table2_data"].append((name, mean_str, sd_str, n_str))
+    # Rank well-sampled cell types (n >= 5 pairs) first by mean_omega;
+    # sparsely sampled (n < 5) are grouped below (stable sort keeps mean order)
+    d["table2_data"].sort(key=lambda r: 0 if int(r[3]) >= 5 else 1)
 
     d["cross_organ_n_total"] = n_total
 
@@ -135,12 +138,41 @@ def get_manuscript_data():
         "X_n": int(mk["X_cross_n"]),
     }
 
+    # Component-level fold changes (control -> D / X) from pilot per-pair results
+    _pilot = pd.read_csv(RESULTS / "mouse_pilot_v2_results.csv")
+    _pg = _pilot.groupby("category")[["kn", "kf"]].mean()
+    d["mouse_calibration"]["kn_fold_D"] = float(_pg.loc["D_diff_ct", "kn"] / _pg.loc["C_control", "kn"])
+    d["mouse_calibration"]["kn_fold_X"] = float(_pg.loc["X_cross", "kn"] / _pg.loc["C_control", "kn"])
+    d["mouse_calibration"]["kf_fold_D"] = float(_pg.loc["D_diff_ct", "kf"] / _pg.loc["C_control", "kf"])
+    d["mouse_calibration"]["kf_fold_X"] = float(_pg.loc["X_cross", "kf"] / _pg.loc["C_control", "kf"])
+    # Category-level component means (for in-text reporting)
+    d["mouse_calibration"]["kn_mean_ctrl"] = float(_pg.loc["C_control", "kn"])
+    d["mouse_calibration"]["kn_mean_D"] = float(_pg.loc["D_diff_ct", "kn"])
+    d["mouse_calibration"]["kn_mean_X"] = float(_pg.loc["X_cross", "kn"])
+    d["mouse_calibration"]["kf_mean_ctrl"] = float(_pg.loc["C_control", "kf"])
+    d["mouse_calibration"]["kf_mean_D"] = float(_pg.loc["D_diff_ct", "kf"])
+    d["mouse_calibration"]["kf_mean_X"] = float(_pg.loc["X_cross", "kf"])
+
+    # Pilot bootstrap 95% CIs for S/D categories (small-n uncertainty)
+    _pbc = pd.read_csv(RESULTS / "phaseB_bootstrap_cis.csv")
+    for _g, _k in [("S_same_ct", "S"), ("D_diff_ct", "D")]:
+        _r = _pbc[_pbc["group"] == _g].iloc[0]
+        d["mouse_calibration"][f"{_k}_ci_lower"] = float(_r["ci_95_lower"])
+        d["mouse_calibration"][f"{_k}_ci_upper"] = float(_r["ci_95_upper"])
+
     # ================================================================
     # Human Tabula Sapiens statistics (phase35_all_metrics_pairs.csv)
     # ================================================================
+    # Cell-type entries analyzed: unique organ|ct entries surviving the pairwise
+    # filters (>=20 cells per entry, a donor with >=10 cells, 'unknown' excluded);
+    # C(n,2) must equal the pair count.
+    _entries = set(zip(df_all["organ_i"], df_all["ct_i"])) | set(
+        zip(df_all["organ_j"], df_all["ct_j"])
+    )
     d["human"] = {
         "n_pairs": len(df_all),
-        "n_pairs_total": 5151,  # C(102,2) — full omega matrix; method comparison used 4851
+        "n_pairs_total": len(df_all),  # method-comparison pairs = C(n_ct_analyzed, 2)
+        "n_ct_analyzed": len(_entries),
         "omega_min": float(df_all["omega"].min()),
         "omega_max": float(df_all["omega"].max()),
         "omega_mean": float(df_all["omega"].mean()),
@@ -158,6 +190,12 @@ def get_manuscript_data():
     d["human"]["diff_organ_same_ct_mean"] = float(hb_diff_organ["omega_mean"])
     d["human"]["diff_organ_same_ct_n"] = int(hb_diff_organ["n_pairs"])
     d["human"]["diff_organ_diff_ct_mean"] = float(hb_diff_organ_diff["omega_mean"])
+    d["human"]["diff_organ_diff_ct_n"] = int(hb_diff_organ_diff["n_pairs"])
+    # All different-organ pairs combined (same-ct + diff-ct cross-organ)
+    _pall = pd.read_csv(RESULTS / "phase35_all_metrics_pairs.csv")
+    _do = _pall[~_pall["same_organ"]]
+    d["human"]["diff_organ_all_mean"] = float(_do["omega"].mean())
+    d["human"]["diff_organ_all_n"] = int(len(_do))
 
     # ================================================================
     # Spearman correlations (phase35_metric_correlation.csv)
@@ -229,45 +267,144 @@ def get_manuscript_data():
         })
 
     # ================================================================
-    # Brain analysis (brain_siletti_ct_summary_v3.csv + key_values)
+    # Brain analysis — prefer block-shuffle re-analysis (08d/08e, C1 fix,
+    # softmax-standard omega) over the legacy normalize-standard key_values_v3
     # ================================================================
     bk = pd.read_csv(RESULTS / "brain_siletti_key_values_v3.csv").iloc[0]
-    d["brain"] = {
-        "n_nuclei": int(bk["n_nuclei"]),
-        "n_regions": int(d["datasets"]["brain_regions"]),
-        "n_genes": int(bk["n_genes"]),
-        "total_pairs": int(bk["total_pairs"]),
-        "gradient_fold": float(bk["gradient_fold"]),
-        "gradient_lowest_ct": bk["gradient_lowest_ct"],
-        "gradient_lowest_omega": float(bk["gradient_lowest_omega"]),
-        "gradient_highest_ct": bk["gradient_highest_ct"],
-        "gradient_highest_omega": float(bk["gradient_highest_omega"]),
-        "n_strong": int(bk["n_strong"]),
-        "n_moderate": int(bk["n_moderate"]),
-        "n_weak": int(bk["n_weak"]),
-        "pct_strong": float(bk["pct_strong"]),
-        "pct_moderate": float(bk["pct_moderate"]),
-        "pct_weak": float(bk["pct_weak"]),
-        "global_mean": float(bk.get("global_mean", 8.01)),
-        "n_significant": int(bk.get("n_significant", 16)),
-        "n_non_significant": int(bk.get("n_non_significant", 14)),
-    }
+    _obs_csv = RESULTS / "brain_bs_null_observed_pairs.csv"
+    _ct_csv = RESULTS / "brain_bs_null_ct_test.csv"
+    if _obs_csv.exists() and _ct_csv.exists():
+        _obs = pd.read_csv(_obs_csv)
+        _ct = pd.read_csv(_ct_csv)
+        _low = _ct.loc[_ct["omega_mean"].idxmin()]
+        _high = _ct.loc[_ct["omega_mean"].idxmax()]
+        _tiers = _obs["tier"].value_counts()
+        _n_tot = int(len(_obs))
+        _n_strong = int(_tiers.get("Strong", 0))
+        _n_mod = int(_tiers.get("Moderate", 0))
+        _n_weak = int(_tiers.get("Weak", 0))
+        d["brain"] = {
+            "source": "blockshuffle",
+            "n_nuclei": int(_ct["n_cells"].sum()),
+            "n_nuclei_dataset": int(bk["n_nuclei"]),
+            "n_regions": int(d["datasets"]["brain_regions"]),
+            "n_genes": int(bk["n_genes"]),
+            "total_pairs": _n_tot,
+            "gradient_fold": float(_high["omega_mean"] / _low["omega_mean"]),
+            "gradient_lowest_ct": _low["cell_type"],
+            "gradient_lowest_omega": float(_low["omega_mean"]),
+            "gradient_lowest_std": float(_low["omega_std"]),
+            "gradient_lowest_pairs": int(_low["n_pairs"]),
+            "gradient_lowest_regions": int(_low["n_regions"]),
+            "gradient_highest_ct": _high["cell_type"],
+            "gradient_highest_omega": float(_high["omega_mean"]),
+            "gradient_highest_std": float(_high["omega_std"]),
+            "gradient_highest_pairs": int(_high["n_pairs"]),
+            "gradient_highest_regions": int(_high["n_regions"]),
+            "n_strong": _n_strong,
+            "n_moderate": _n_mod,
+            "n_weak": _n_weak,
+            "pct_strong": 100.0 * _n_strong / _n_tot,
+            "pct_moderate": 100.0 * _n_mod / _n_tot,
+            "pct_weak": 100.0 * _n_weak / _n_tot,
+            "global_mean": float(_obs["omega"].mean()),
+        }
+        _res_csv = RESULTS / "brain_bs_null_results.csv"
+        if _res_csv.exists():
+            _res = pd.read_csv(_res_csv)
+            _sp = _res[_res["tier"] == "Strong"]
+            d["brain"]["n_significant"] = int((_sp["p_perm"] < 0.05).sum())
+            d["brain"]["n_non_significant"] = int(len(_sp) - (_sp["p_perm"] < 0.05).sum())
+            d["brain"]["strong_p05_by_ct"] = _sp[_sp["p_perm"] < 0.05]["cell_type"].value_counts().to_dict()
+            d["brain"]["strong_by_ct"] = _sp["cell_type"].value_counts().to_dict()
+            d["brain"]["min_q_fdr"] = float(_res["q_fdr"].min())
+        else:
+            d["brain"]["n_significant"] = 0
+            d["brain"]["n_non_significant"] = _n_strong
+    else:
+        d["brain"] = {
+            "source": "legacy",
+            "n_nuclei": int(bk["n_nuclei"]),
+            "n_regions": int(d["datasets"]["brain_regions"]),
+            "n_genes": int(bk["n_genes"]),
+            "total_pairs": int(bk["total_pairs"]),
+            "gradient_fold": float(bk["gradient_fold"]),
+            "gradient_lowest_ct": bk["gradient_lowest_ct"],
+            "gradient_lowest_omega": float(bk["gradient_lowest_omega"]),
+            "gradient_highest_ct": bk["gradient_highest_ct"],
+            "gradient_highest_omega": float(bk["gradient_highest_omega"]),
+            "n_strong": int(bk["n_strong"]),
+            "n_moderate": int(bk["n_moderate"]),
+            "n_weak": int(bk["n_weak"]),
+            "pct_strong": float(bk["pct_strong"]),
+            "pct_moderate": float(bk["pct_moderate"]),
+            "pct_weak": float(bk["pct_weak"]),
+            "global_mean": float(bk.get("global_mean", 8.01)),
+            "n_significant": int(bk.get("n_significant", 16)),
+            "n_non_significant": int(bk.get("n_non_significant", 14)),
+        }
 
-    # Brain cell type summary
-    ct_df = pd.read_csv(RESULTS / "brain_siletti_ct_summary_v3.csv")
+    # ================================================================
+    # Brain block-shuffle null (C1) — results if available, fallback otherwise
+    # ================================================================
+    bs = {"available": False}
+    bs_csv = RESULTS / "brain_bs_null_results.csv"
+    if bs_csv.exists():
+        try:
+            _bs = pd.read_csv(bs_csv)
+            bs = {
+                "available": True,
+                "n_pairs": int(len(_bs)),
+                "n_q_lt_05": int((_bs["q_fdr"] < 0.05).sum()),
+                "n_q_lt_10": int((_bs["q_fdr"] < 0.10).sum()),
+                "n_p_lt_05": int((_bs["p_perm"] < 0.05).sum()),
+                "n_p_lt_01": int((_bs["p_perm"] < 0.01).sum()),
+                "n_p_high_lt_05": int((_bs["p_perm_high"] < 0.05).sum()),
+                "pct_p_high_lt_05": float((_bs["p_perm_high"] < 0.05).mean() * 100),
+                "n_strong": int((_bs["tier"] == "Strong").sum()),
+                "strong_q_lt_05": int(((_bs["tier"] == "Strong") & (_bs["q_fdr"] < 0.05)).sum()),
+                "strong_q_lt_10": int(((_bs["tier"] == "Strong") & (_bs["q_fdr"] < 0.10)).sum()),
+                "strong_p_lt_05": int(((_bs["tier"] == "Strong") & (_bs["p_perm"] < 0.05)).sum()),
+                "moderate_q_lt_05": int(((_bs["tier"] == "Moderate") & (_bs["q_fdr"] < 0.05)).sum()),
+                "weak_q_lt_05": int(((_bs["tier"] == "Weak") & (_bs["q_fdr"] < 0.05)).sum()),
+                "B": None,
+            }
+            _man = RESULTS / "brain_bs_null_fdr_manifest.json"
+            if _man.exists():
+                import json as _json
+                bs["B"] = _json.loads(_man.read_text()).get("B")
+        except Exception as _e:  # noqa: BLE001 — fallback must never crash manuscript
+            bs = {"available": False}
+    d["brain"]["bs_null"] = bs
+
+    # Brain cell type summary (from block-shuffle re-analysis if available)
+    if _obs_csv.exists() and _ct_csv.exists():
+        _ct_min = _obs.groupby("cell_type")["omega"].min()
+        _ct_max = _obs.groupby("cell_type")["omega"].max()
+        ct_df = _ct
+    else:
+        _ct_min = _ct_max = None
+        ct_df = pd.read_csv(RESULTS / "brain_siletti_ct_summary_v3.csv")
     d["brain"]["cell_types"] = []
     for _, row in ct_df.iterrows():
-        d["brain"]["cell_types"].append({
-            "name": row["cell_type"],
+        _name = row["cell_type"]
+        entry = {
+            "name": _name,
             "n_regions": int(row["n_regions"]),
             "n_pairs": int(row["n_pairs"]),
-            "n_nuclei": int(row["n_nuclei"]),
+            "n_nuclei": int(row["n_cells"]),
             "omega_mean": float(row["omega_mean"]),
             "omega_median": float(row["omega_median"]),
             "omega_std": float(row["omega_std"]),
-            "omega_min": float(row["omega_min"]),
-            "omega_max": float(row["omega_max"]),
-        })
+            "p_value": float(row.get("p_value", float("nan"))),
+        }
+        if _ct_min is not None:
+            entry["omega_min"] = float(_ct_min[_name])
+            entry["omega_max"] = float(_ct_max[_name])
+        else:
+            entry["omega_min"] = float(row["omega_min"])
+            entry["omega_max"] = float(row["omega_max"])
+        d["brain"]["cell_types"].append(entry)
 
     # ================================================================
     # Brain migration/residual thresholds (from Methods section)

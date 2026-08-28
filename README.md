@@ -40,10 +40,17 @@ All 10 brain cell types show significant regional differentiation gradients (one
 pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git
 ```
 
-For a specific version (e.g., v0.3.1):
+For a specific version (e.g., v0.4.0):
 
 ```bash
-pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.3.1
+pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.4.0
+```
+
+Or build the Docker image (see `Dockerfile` in the repository root):
+
+```bash
+docker build -t cki:0.4.0 .
+docker run --rm cki:0.4.0
 ```
 
 ## Quick Start (3 lines)

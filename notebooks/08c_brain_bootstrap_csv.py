@@ -55,8 +55,8 @@ for ct in sorted(df["cell_type"].unique()):
     ci_lower = float(np.percentile(boot_means, 2.5))
     ci_upper = float(np.percentile(boot_means, 97.5))
     
-    # Two-sided P-value: |boot_mean - 1| >= |obs_mean - 1| (test against null omega=1)
-    p_value = (np.sum(np.abs(boot_means - 1.0) >= np.abs(obs_mean - 1.0)) + 1) / (N_BOOTSTRAP + 1)
+    # One-sided P-value: boot_mean >= obs_mean (H0: no cross-region signal), +1 pseudocount
+    p_value = (np.sum(boot_means >= obs_mean) + 1) / (N_BOOTSTRAP + 1)
     
     all_results.append({
         "cell_type": ct,

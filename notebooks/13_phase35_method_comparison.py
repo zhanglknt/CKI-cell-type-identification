@@ -32,7 +32,6 @@ import matplotlib.font_manager as fm
 from pathlib import Path
 from scipy.cluster.hierarchy import linkage, dendrogram, leaves_list
 from scipy.spatial.distance import squareform, jensenshannon
-from scipy.special import softmax
 from scipy.stats import spearmanr
 from sklearn.metrics import roc_auc_score, roc_curve
 from collections import Counter
@@ -171,13 +170,11 @@ spearman_mat = np.zeros((n_ct, n_ct))
 cosine_mat = np.zeros((n_ct, n_ct))
 marker_jaccard_mat = np.zeros((n_ct, n_ct))
 
-# Use CKI package's probability distribution and JS divergence (ensures consistency)
-from cki.utils import ensure_probability_distribution
+# CKI package's js_divergence applies softmax normalization internally
+# (ensure_probability_distribution). Pass RAW log1p vectors directly — do NOT
+# pre-normalize, since softmax is not idempotent (double softmax flattens the
+# distribution, inflating omega ~30x).
 from cki.core import js_divergence
-
-def ensure_prob(x):
-    """Use CKI package's ensure_probability_distribution for consistency."""
-    return ensure_probability_distribution(x)
 
 # Compute per-CT top marker genes (for Jaccard)
 print("  Computing per-CT marker gene sets...")
@@ -196,12 +193,10 @@ for i in range(n_ct):
         pb_i = ct_entries[i]["pb"]
         pb_j = ct_entries[j]["pb"]
 
-        # --- M1: CKI omega (using CKI package's js_divergence for consistency) ---
+        # --- M1: CKI omega (single softmax inside js_divergence, matching 08b) ---
         hk_i = pb_i[hk_global_idx]
         hk_j = pb_j[hk_global_idx]
-        pi_hk = ensure_prob(hk_i)
-        pj_hk = ensure_prob(hk_j)
-        kn_val = float(js_divergence(pi_hk, pj_hk))
+        kn_val = float(js_divergence(hk_i, hk_j))
 
         abs_diff = np.abs(pb_i - pb_j)
         non_hk_mask = np.ones(len(gene_names), dtype=bool)
@@ -211,15 +206,11 @@ for i in range(n_ct):
         top_n = min(N_TOP_KF, non_hk_mask.sum())
         top_idx = np.argpartition(abs_diff_non_hk, -top_n)[-top_n:]
         top_idx = top_idx[np.argsort(abs_diff_non_hk[top_idx])[::-1]]
-        pi_top = ensure_prob(pb_i[top_idx])
-        pj_top = ensure_prob(pb_j[top_idx])
-        kf_val = float(js_divergence(pi_top, pj_top))
+        kf_val = float(js_divergence(pb_i[top_idx], pb_j[top_idx]))
         omega_val = kf_val / kn_val if kn_val > 0 else float('inf')
 
-        # --- M2: Raw JS divergence (all genes, using CKI package) ---
-        pi_all = ensure_prob(pb_i)
-        pj_all = ensure_prob(pb_j)
-        js_raw_val = float(js_divergence(pi_all, pj_all))
+        # --- M2: Raw JS divergence (all genes, single softmax inside) ---
+        js_raw_val = float(js_divergence(pb_i, pb_j))
 
         # --- M3: Spearman rank correlation ---
         rho_val, _ = spearmanr(pb_i, pb_j)

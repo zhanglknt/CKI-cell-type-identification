@@ -319,16 +319,10 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-plt.rcParams.update({
-    "font.size": 8,
-    "font.family": "Arial",
-    "axes.labelsize": 8,
-    "axes.titlesize": 9,
-    "xtick.labelsize": 7,
-    "ytick.labelsize": 7,
-    "legend.fontsize": 7,
-    "figure.dpi": 300,
-})
+# Shared publication style (presentation only)
+sys.path.insert(0, str(Path(__file__).parent))
+import _fig_style as st
+st.apply_style()
 
 FIG_DIR = RESULTS_DIR / "figures_final"
 FIG_DIR.mkdir(exist_ok=True)
@@ -336,27 +330,35 @@ FIG_DIR.mkdir(exist_ok=True)
 # --- Figure 1: Dimensionality simulation ---
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.8))
 
-ax1.errorbar(dim_df["dimension"], dim_df["mean_js"], 
-             yerr=dim_df["std_js"], fmt="o-", color="#2c3e50", 
-             capsize=3, markersize=4, linewidth=1)
-ax1.axvline(1130, color="#e74c3c", linestyle="--", alpha=0.7, label="HK genes (1,130)")
-ax1.axvline(2000, color="#3498db", linestyle="--", alpha=0.7, label="HVG (2,000)")
+ax1.errorbar(dim_df["dimension"], dim_df["mean_js"],
+             yerr=dim_df["std_js"], fmt="o-", color=st.C_BLUE,
+             ecolor=st.C_LIGHT_BLUE, elinewidth=0.8,
+             capsize=3, markersize=4, linewidth=1.1)
+ax1.axvline(1130, color=st.C_RED, linestyle="--", alpha=0.8, linewidth=1.0,
+            label="HK genes (1,130)")
+ax1.axvline(2000, color=st.C_TEAL, linestyle="--", alpha=0.8, linewidth=1.0,
+            label="HVG (2,000)")
 ax1.set_xlabel("Dimensionality (number of genes)")
 ax1.set_ylabel("JS divergence (mean +/- SD)")
 ax1.set_title("A. JS divergence vs dimensionality")
-ax1.legend(framealpha=0.9)
+ax1.legend(frameon=True, framealpha=0.9, edgecolor='#BDC3C7',
+           borderpad=0.4, labelspacing=0.3)
 ax1.set_xscale("log")
+st.despine(ax1)
+st.subtle_grid(ax1, axis='y')
 
 # Ratio plot
 ax2.plot(dim_df["dimension"], dim_df["mean_js"] / dim_df[dim_df["dimension"]==1130]["mean_js"].values[0],
-         "s-", color="#27ae60", markersize=4, linewidth=1)
-ax2.axhline(1.0, color="gray", linestyle=":", alpha=0.5)
+         "s-", color=st.C_GREEN, markersize=4, linewidth=1.1)
+ax2.axhline(1.0, color=st.C_GRAY, linestyle=":", alpha=0.6, linewidth=1.0)
 ax2.set_xlabel("Dimensionality (number of genes)")
 ax2.set_ylabel("JS / JS(d=1130)")
 ax2.set_title("B. Dimensionality ratio (relative to HK gene set)")
 ax2.set_xscale("log")
+st.despine(ax2)
+st.subtle_grid(ax2, axis='y')
 
-plt.tight_layout()
+plt.tight_layout(pad=0.8)
 plt.savefig(FIG_DIR / "ed_fig10_dimensionality.pdf", bbox_inches="tight")
 plt.savefig(FIG_DIR / "ed_fig10_dimensionality.png", bbox_inches="tight", dpi=300)
 plt.close()
@@ -367,60 +369,90 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.8))
 
 # k_n distribution
 cell_types = kn_stats.sort_values("kn_mean")
-colors = plt.cm.Set2(np.linspace(0, 1, len(cell_types)))
-ax1.barh(range(len(cell_types)), cell_types["kn_mean"].values, 
-         xerr=cell_types["kn_std"].values, color=colors, capsize=2, height=0.7)
+ct_palette = [st.C_BLUE, st.C_TEAL, st.C_GREEN, st.C_AMBER, st.C_ORANGE,
+              st.C_RED, st.C_PURPLE, st.C_STEEL, st.C_GRAY, st.C_BLUE]
+colors = ct_palette[:len(cell_types)]
+ax1.barh(range(len(cell_types)), cell_types["kn_mean"].values,
+         xerr=cell_types["kn_std"].values, color=colors,
+         error_kw=dict(ecolor=st.C_DARK, elinewidth=0.6, capsize=2),
+         height=0.7, edgecolor='white', linewidth=0.5)
 ax1.set_yticks(range(len(cell_types)))
-ax1.set_yticklabels([ct[:20] for ct in cell_types["cell_type"]], fontsize=6)
+ax1.set_yticklabels([ct[:20] for ct in cell_types["cell_type"]], fontsize=7)
 ax1.set_xlabel("k_n (mean +/- SD)")
 ax1.set_title("A. Per-pair k_n by cell type (brain)")
+st.despine(ax1)
+st.subtle_grid(ax1, axis='x')
 
 # Omega: per-pair vs global-kn scatter
 sample = brain_df.sample(min(5000, len(brain_df)), random_state=42)
-ax2.scatter(sample["omega_global_kn"], sample["omega"], s=2, alpha=0.3, color="#2c3e50")
+ax2.scatter(sample["omega_global_kn"], sample["omega"], s=2, alpha=0.3,
+            color=st.C_BLUE, edgecolors='none')
 max_val = max(sample["omega_global_kn"].max(), sample["omega"].max())
-ax2.plot([0, max_val], [0, max_val], "r--", alpha=0.5, label="y=x")
+ax2.plot([0, max_val], [0, max_val], "--", color=st.C_RED, alpha=0.7,
+         linewidth=1.0, label="y=x")
 ax2.set_xlabel("omega (global k_n)")
 ax2.set_ylabel("omega (per-pair k_n)")
 ax2.set_title(f"B. Per-pair vs global k_n omega (rho={rho:.3f})")
-ax2.legend(fontsize=6)
+ax2.legend(fontsize=7, frameon=True, framealpha=0.9, edgecolor='#BDC3C7',
+           borderpad=0.4)
+st.despine(ax2)
+st.subtle_grid(ax2, axis='both')
 
-plt.tight_layout()
+plt.tight_layout(pad=0.8)
 plt.savefig(FIG_DIR / "ed_fig11_kn_variability.pdf", bbox_inches="tight")
 plt.savefig(FIG_DIR / "ed_fig11_kn_variability.png", bbox_inches="tight", dpi=300)
 plt.close()
 print("  Saved ed_fig11_kn_variability.pdf/png")
 
 # --- Figure 3: Calibrated omega ---
+# Authoritative brain omega source: block-shuffle null pipeline (08d/08e).
+# NOTE: brain_df / brain_ct (v3 files) are kept for the C-M3 k_n analysis
+# (kn/kf columns exist only in the v3 pairs file); the figure below uses
+# the block-shuffle observed pairs to match the main-text brain statistics.
+brain_bs = pd.read_csv(RESULTS_DIR / "brain_bs_null_observed_pairs.csv")
+brain_bs["omega_cal"] = brain_bs["omega"] / OMEGA_BASELINE
+brain_bs_ct = (
+    brain_bs.groupby("cell_type")["omega"].mean().rename("omega_mean").reset_index()
+)
+
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.8))
 
-# Raw vs calibrated omega for brain
-brain_ct_sorted = brain_ct.sort_values("omega_mean")
+# Raw vs calibrated omega for brain (block-shuffle authoritative values)
+brain_ct_sorted = brain_bs_ct.sort_values("omega_mean")
 y_pos = np.arange(len(brain_ct_sorted))
-ax1.barh(y_pos - 0.15, brain_ct_sorted["omega_mean"].values, height=0.3, 
-         color="#3498db", alpha=0.8, label="Raw omega")
+ax1.barh(y_pos - 0.15, brain_ct_sorted["omega_mean"].values, height=0.3,
+         color=st.C_BLUE, alpha=0.85, label="Raw omega",
+         edgecolor='white', linewidth=0.5)
 ax1.barh(y_pos + 0.15, brain_ct_sorted["omega_mean"].values / OMEGA_BASELINE, height=0.3,
-         color="#e74c3c", alpha=0.8, label="Calibrated omega")
-ax1.axvline(6.67, color="#3498db", linestyle="--", alpha=0.5)
-ax1.axvline(1.0, color="#e74c3c", linestyle="--", alpha=0.5)
+         color=st.C_RED, alpha=0.85, label="Calibrated omega",
+         edgecolor='white', linewidth=0.5)
+ax1.axvline(6.67, color=st.C_BLUE, linestyle="--", alpha=0.7, linewidth=1.0)
+ax1.axvline(1.0, color=st.C_RED, linestyle="--", alpha=0.7, linewidth=1.0)
 ax1.set_yticks(y_pos)
-ax1.set_yticklabels([ct[:20] for ct in brain_ct_sorted["cell_type"]], fontsize=6)
+ax1.set_yticklabels([ct[:20] for ct in brain_ct_sorted["cell_type"]], fontsize=7)
 ax1.set_xlabel("omega")
 ax1.set_title("A. Raw vs calibrated omega (brain)")
-ax1.legend(fontsize=6)
+ax1.legend(fontsize=7, frameon=True, framealpha=0.9, edgecolor='#BDC3C7',
+           borderpad=0.4)
+st.despine(ax1)
+st.subtle_grid(ax1, axis='x')
 
-# Calibrated omega distribution
-ax2.hist(brain_df["omega_cal"].values, bins=100, color="#2c3e50", alpha=0.7, density=True)
-ax2.axvline(1.0, color="#e74c3c", linestyle="--", linewidth=1.5, label="Calibration baseline")
-ax2.axvline(brain_df["omega_cal"].mean(), color="#f39c12", linestyle="-", linewidth=1.5, 
-            label=f"Mean={brain_df['omega_cal'].mean():.2f}")
+# Calibrated omega distribution (block-shuffle authoritative values)
+ax2.hist(brain_bs["omega_cal"].values, bins=100, color=st.C_BLUE, alpha=0.8,
+         density=True, edgecolor='white', linewidth=0.3)
+ax2.axvline(1.0, color=st.C_RED, linestyle="--", linewidth=1.5, label="Calibration baseline")
+ax2.axvline(brain_bs["omega_cal"].mean(), color=st.C_AMBER, linestyle="-", linewidth=1.5,
+            label=f"Mean={brain_bs['omega_cal'].mean():.2f}")
 ax2.set_xlabel("Calibrated omega (omega / 6.67)")
 ax2.set_ylabel("Density")
 ax2.set_title("B. Calibrated omega distribution (brain)")
-ax2.legend(fontsize=6)
+ax2.legend(fontsize=7, frameon=True, framealpha=0.9, edgecolor='#BDC3C7',
+           borderpad=0.4)
 ax2.set_xlim(0, 8)
+st.despine(ax2)
+st.subtle_grid(ax2, axis='y')
 
-plt.tight_layout()
+plt.tight_layout(pad=0.8)
 plt.savefig(FIG_DIR / "ed_fig12_calibrated_omega.pdf", bbox_inches="tight")
 plt.savefig(FIG_DIR / "ed_fig12_calibrated_omega.png", bbox_inches="tight", dpi=300)
 plt.close()

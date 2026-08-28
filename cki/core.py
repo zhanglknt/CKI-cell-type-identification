@@ -171,14 +171,21 @@ def compute_omega(
     alpha: float = 1.0,
     w1: float = 1.0,
     w2: float = 0.0,
+    kn_floor: float = 0.0,
 ) -> Dict[str, float]:
     """
     Compute the Cell-state Kinetic Index (omega) between two pseudobulk samples.
 
     omega = k_f / k_n, analogous to Ka/Ks in molecular evolution.
 
-    When k_n is very small (< 1e-4), a lower bound is applied to avoid
-    inflated omega values, following the Discussion in the manuscript.
+    By default (``kn_floor=0``) only a positivity guard is applied: if
+    k_n is numerically zero, omega is returned as ``inf``. An optional
+    lower bound on the denominator can be enabled via ``kn_floor``
+    (e.g. ``kn_floor=1e-4``); when k_n falls below this value, omega is
+    computed as ``k_f / kn_floor`` instead. The manuscript analyses use
+    the positivity guard only for the single-cell datasets (mouse,
+    Tabula Sapiens, brain), and an explicit ``kn_floor=1e-4`` for the
+    TCGA bulk RNA-seq analysis (see Methods).
 
     - omega < 1: Purifying selection (conserved transcriptome)
     - omega = 1: Neutral drift
@@ -204,6 +211,10 @@ def compute_omega(
         Weight for identity gene component in k_f. Default 1.0.
     w2 : float
         Weight for pathway component in k_f. Default 0.0.
+    kn_floor : float
+        Optional lower bound on k_n (denominator). Default 0.0 disables
+        the bound (positivity guard only, matching the single-cell
+        analyses in the manuscript).
 
     Returns
     -------
@@ -238,10 +249,13 @@ def compute_omega(
     else:
         delta_identity = 0.0
 
-    # Use lower-bound k_n threshold to avoid inflated omega (see Discussion)
-    kn_min = 1e-4  # lower bound on k_n
-    if kn < kn_min:
-        omega = kf / kn_min
+    # Denominator handling: optional lower bound on k_n (kn_floor > 0)
+    # or positivity guard only (kn_floor = 0, the default, matching the
+    # single-cell analyses in the manuscript).
+    if kn_floor > 0 and kn < kn_floor:
+        omega = kf / kn_floor
+    elif kn <= 0.0:
+        omega = float("inf")
     else:
         omega = kf / kn
 

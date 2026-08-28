@@ -286,7 +286,7 @@ for cancer in usable:
     for idx, (i, j) in enumerate(tt_pairs):
         p1, p2 = expr_log[t_idx[i], :], expr_log[t_idx[j], :]
         id_idx = select_top_diff(p1, p2, hk_arr, N_TOP_KF)
-        r = compute_omega(p1, p2, hk_arr, id_idx, w1=1.0, w2=0.0)
+        r = compute_omega(p1, p2, hk_arr, id_idx, w1=1.0, w2=0.0, kn_floor=1e-4)
         omega_tt[i, j] = r["omega"]
         omega_tt[j, i] = r["omega"]
         tt_details.append({"pair_type": "TT", "cancer": cancer, "omega": r["omega"], "kn": r["kn"], "kf": r["kf"]})
@@ -302,7 +302,7 @@ for cancer in usable:
         for j in range(i + 1, n_n):
             p1, p2 = expr_log[n_idx[i], :], expr_log[n_idx[j], :]
             id_idx = select_top_diff(p1, p2, hk_arr, N_TOP_KF)
-            r = compute_omega(p1, p2, hk_arr, id_idx, w1=1.0, w2=0.0)
+            r = compute_omega(p1, p2, hk_arr, id_idx, w1=1.0, w2=0.0, kn_floor=1e-4)
             omega_nn[i, j] = r["omega"]
             omega_nn[j, i] = r["omega"]
             nn_details.append({"pair_type": "NN", "cancer": cancer, "omega": r["omega"], "kn": r["kn"], "kf": r["kf"]})
@@ -321,7 +321,7 @@ for cancer in usable:
     for idx, (i, j) in enumerate(tn_pairs):
         p1, p2 = expr_log[t_idx[i], :], expr_log[n_idx[j], :]
         id_idx = select_top_diff(p1, p2, hk_arr, N_TOP_KF)
-        r = compute_omega(p1, p2, hk_arr, id_idx, w1=1.0, w2=0.0)
+        r = compute_omega(p1, p2, hk_arr, id_idx, w1=1.0, w2=0.0, kn_floor=1e-4)
         omega_tn[i, j] = r["omega"]
         tn_details.append({"pair_type": "TN", "cancer": cancer, "omega": r["omega"], "kn": r["kn"], "kf": r["kf"]})
         if (idx + 1) % 500 == 0:

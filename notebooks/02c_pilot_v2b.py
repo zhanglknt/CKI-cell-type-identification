@@ -4,7 +4,7 @@ CKI Mouse Pilot v2b: Re-Validation - FIXED for memory
 FIX: Do NOT call detect_housekeeping_genes() on full matrix.
       Load HRT Atlas reference directly for mouse HK genes.
 Uses CKI v0.2.0 hybrid scheme (global HK k_n + per-pair top-200 DE k_f).
-Uses TWO-SIDED bootstrap test.
+Uses ONE-SIDED bootstrap test: P = (count(null_omega >= omega_obs) + 1) / (B + 1).
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -282,7 +282,7 @@ for comp in comparisons:
     kf_val = js_divergence(pb_a[top_global], pb_b[top_global])
     omega_obs = kf_val / kn_val if kn_val > 0 else float('inf')
     
-    # TWO-SIDED bootstrap
+    # ONE-SIDED bootstrap
     pooled = np.vstack([cells_a, cells_b])
     n_total = n_a + n_b
     rng = np.random.RandomState(RANDOM_SEED)
@@ -313,8 +313,8 @@ for comp in comparisons:
     if len(null_omega) == 0:
         p_value, null_mean, null_std, cohens_d = 1.0, np.nan, np.nan, np.nan
     else:
-        # TWO-SIDED: count(|null - 1| >= |obs - 1|)
-        p_value = (np.sum(np.abs(null_omega - 1) >= np.abs(omega_obs - 1)) + 1) / (len(null_omega) + 1)
+        # ONE-SIDED: count(null >= obs), +1 pseudocount avoids P=0
+        p_value = (np.sum(null_omega >= omega_obs) + 1) / (len(null_omega) + 1)
         null_mean = np.mean(null_omega)
         null_std = np.std(null_omega)
         cohens_d = (omega_obs - null_mean) / null_std if null_std > 1e-12 else 0.0
