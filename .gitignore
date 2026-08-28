@@ -86,6 +86,26 @@ results/NAR_*.zip
 results/GenomeBiology_Submission/
 results/CKI_Reproducibility.ipynb
 
+# Whitelist: processed data matrices cited in README / manuscript Data Availability
+!results/full_matrix_pairs.csv
+!results/mouse_pilot_v2b_results.csv
+!results/phase35_all_metrics_pairs.csv
+!results/human_bootstrap_per_ct_results.csv
+!results/tcga_bootstrap_results.csv
+!results/phase34_v2_all_pairs.csv
+!results/phase34_v2_TCGA-BRCA_pairs.csv
+!results/phase34_v2_TCGA-KIRC_pairs.csv
+!results/phase34_v2_TCGA-LIHC_pairs.csv
+!results/phase34_v2_TCGA-LUAD_pairs.csv
+!results/phase34_v2_TCGA-LUSC_pairs.csv
+!results/brain_bs_null_ct_test.csv
+!results/brain_bs_null_observed_pairs.csv
+!results/brain_bs_null_results.csv
+!results/brain_bs_null_summary.txt
+!results/brain_bs_null_fdr_manifest.json
+
+# Whitelist: v38 analysis / figure notebooks cited in the reproducibility guide (moved to end of file)
+
 # Temp/helper scripts
 scripts/
 
@@ -211,8 +231,25 @@ notebooks/write_cover_letter_v3.py
 notebooks/.matplotlib/
 notebooks/100_gen_reproducibility_docx.js
 notebooks/16_gen_chinese_docx.py
+# Whitelist: v38 analysis / figure notebooks cited in the reproducibility guide
 notebooks/32_generate_usage_guide_html.py
 notebooks/3*_fix_ppt*.py
 notebooks/4*_fix_ppt*.py
 notebooks/99_rebuild_submission_v14.py
 notebooks/fix_*.py
+
+# Whitelist: v38 analysis / figure notebooks cited in the reproducibility guide (must be last)
+!notebooks/_v38_biology_addenda.py
+!notebooks/_v38_fig4e_tcga_matrix.py
+!notebooks/_v38_statistical_addenda.py
+!notebooks/_fig4_clean.py
+!notebooks/_fig6_clean.py
+!notebooks/_ed_fig2_clean.py
+!notebooks/_ed_fig5_clean.py
+!notebooks/_gen_supp_fig_s6_s7.py
+!notebooks/08b_human_bootstrap_v2.py
+!notebooks/08c_brain_bootstrap_v3.py
+!notebooks/30_genome_biology_figures.py
+!notebooks/68_gen_supplementary_en.py
+!notebooks/69_generate_graphical_abstract_nar.py
+!notebooks/100_gen_reproducibility_docx.js

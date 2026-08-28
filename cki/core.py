@@ -1,7 +1,7 @@
 """
 CKI Core Computation
 =====================
-Core functions for computing the Cell-state Kinetic Index (omega)
+Core functions for computing the Cell-type Identity Index (omega)
 and its components: k_n (neutral offset rate), k_f (functional conversion rate),
 and Jensen-Shannon divergence.
 """
@@ -159,7 +159,7 @@ def compute_kf(
     return w1 * js_id + w2 * js_pathway
 
 
-# ── omega: Cell-state Kinetic Index ─────────────────────────────────────
+# ── omega: Cell-type Identity Index ─────────────────────────────────────
 
 def compute_omega(
     pseudobulk_a: np.ndarray,
@@ -174,7 +174,7 @@ def compute_omega(
     kn_floor: float = 0.0,
 ) -> Dict[str, float]:
     """
-    Compute the Cell-state Kinetic Index (omega) between two pseudobulk samples.
+    Compute the Cell-type Identity Index (omega) between two pseudobulk samples.
 
     omega = k_f / k_n, analogous to Ka/Ks in molecular evolution.
 
@@ -187,9 +187,13 @@ def compute_omega(
     Tabula Sapiens, brain), and an explicit ``kn_floor=1e-4`` for the
     TCGA bulk RNA-seq analysis (see Methods).
 
-    - omega < 1: Purifying selection (conserved transcriptome)
-    - omega = 1: Neutral drift
-    - omega > 1: Positive selection (divergent transcriptome)
+    omega is a heuristic index of identity-gene divergence relative to
+    housekeeping-gene divergence, not a formal measure of Darwinian
+    selection. Interpretation should be anchored in the empirical
+    distribution of omega (see the calibrated baseline in
+    ``calibrate_omega``), not in the theoretical value omega = 1:
+    in practice omega > 1 for nearly all comparisons because HVG-based
+    identity-gene selection inflates k_f relative to k_n.
 
     Parameters
     ----------
@@ -220,7 +224,7 @@ def compute_omega(
     -------
     dict
         Keys:
-        - ``omega``: Cell-state Kinetic Index (k_f / k_n)
+        - ``omega``: Cell-type Identity Index (k_f / k_n)
         - ``kn``: Neutral offset rate
         - ``kf``: Functional conversion rate
         - ``delta_hk``: JS divergence on HK genes
@@ -283,6 +287,13 @@ def calibrate_omega(
     equivalent populations (mouse, n = 6) yields a mean omega of 6.67.
     Calibrated omega rescales all values so that equivalent populations
     have omega_cal ~ 1.0.
+
+    .. warning::
+       The default baseline 6.67 is derived from the mouse split-half
+       calibration and is NOT transferable across datasets. Dataset-
+       internal baselines differ (brain split-half 12.29; Tabula Sapiens
+       7.67), and calibration must be recomputed within the dataset under
+       analysis.
 
     Parameters
     ----------

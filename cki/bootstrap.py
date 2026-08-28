@@ -144,8 +144,18 @@ def bootstrap_test(
     """
     Bootstrap permutation test for CKI omega significance.
 
-    Tests the null hypothesis that omega = 1 (no selective remodeling)
-    by permuting cell labels between the two groups.
+    Tests whether the observed omega exceeds the null distribution
+    obtained by randomly permuting group (cell) labels between the two
+    groups — i.e., a test of label exchangeability, NOT of the point
+    hypothesis omega = 1 (under the permutation null the median omega
+    sits near the empirical calibration baseline, ~6.67 for equivalent
+    populations, not 1).
+
+    Note: the HK and identity gene sets are resolved once (before the
+    permutation loop) and held fixed across all permutations. Analyses
+    that re-select per-pair identity genes at every permutation use
+    dataset-specific pipelines outside this function (see the
+    analysis notebooks).
 
     **Minimal usage**::
 

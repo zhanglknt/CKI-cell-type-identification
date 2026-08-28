@@ -1,8 +1,8 @@
 """
-CKI: Cell-state Kinetic Index
+CKI: Cell-type Identity Index
 ==============================
-A Ka/Ks-inspired framework for quantifying selective transcriptomic
-remodeling in single-cell RNA-seq data.
+A Ka/Ks-inspired framework for quantifying baseline-normalized
+transcriptomic remodeling in single-cell RNA-seq data.
 
 **Minimal usage**::
 
@@ -34,7 +34,7 @@ from .utils import ensure_probability_distribution
 from .gene_sets import detect_housekeeping_genes, detect_functional_genes, genes_to_indices
 from .species import get_species_config, load_reference_hk_genes, list_supported_species
 
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 
 __all__ = [
     # High-level API

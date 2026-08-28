@@ -1,0 +1,57 @@
+============================================================
+Brain block-shuffle null (C1) — FDR summary
+============================================================
+B = 1000 permutations (block = 10x library / sample_id)
+Total pairs = 31764
+
+All pairs (BH-FDR over all brain pairs):
+  q < 0.05 : 0
+  q < 0.10 : 0
+  p < 0.05 (raw) : 938
+
+By tier:
+  Strong    n=    55  q<0.05:     0  q<0.10:     0  p<0.05:    37
+  Moderate  n=  2120  q<0.05:     0  q<0.10:     0  p<0.05:   379
+  Weak      n=  6149  q<0.05:     0  q<0.10:     0  p<0.05:   324
+
+Strong candidates surviving FDR:
+  (none at q<0.05)
+
+Strong candidates with raw p<0.05 (hypothesis-generating):
+  Astrocyte                           Human A19                           Human AON                           omega=  14.790 residual=0.214 p=0.0170 q=0.9494
+  Astrocyte                           Human MoRF-MoEN                     Human MoSR                          omega=  10.822 residual=0.258 p=0.0040 q=0.9494
+  Committed oligodendrocyte precursor Human LP                            Human MTG                           omega=  10.781 residual=0.272 p=0.0090 q=0.9494
+  Committed oligodendrocyte precursor Human M1C                           Human Pul                           omega=  11.079 residual=0.286 p=0.0160 q=0.9494
+  Committed oligodendrocyte precursor Human M1C                           Human SI                            omega=  10.452 residual=0.285 p=0.0100 q=0.9494
+  Committed oligodendrocyte precursor Human M1C                           Human SN-RN                         omega=   9.989 residual=0.285 p=0.0050 q=0.9494
+  Committed oligodendrocyte precursor Human MN                            Human SN-RN                         omega=  11.333 residual=0.273 p=0.0230 q=0.9494
+  Committed oligodendrocyte precursor Human PnRF                          Human SN-RN                         omega=  11.165 residual=0.206 p=0.0140 q=0.9494
+  Committed oligodendrocyte precursor Human PnRF                          Human SpC                           omega=  10.490 residual=0.262 p=0.0330 q=0.9494
+  Committed oligodendrocyte precursor Human Pul                           Human SN-RN                         omega=  11.251 residual=0.252 p=0.0200 q=0.9494
+  Committed oligodendrocyte precursor Human SEP                           Human SN-RN                         omega=  11.018 residual=0.231 p=0.0080 q=0.9494
+  Committed oligodendrocyte precursor Human SI                            Human SN-RN                         omega=   9.389 residual=0.220 p=0.0020 q=0.9494
+  Committed oligodendrocyte precursor Human SI                            Human STH                           omega=   9.442 residual=0.261 p=0.0130 q=0.9494
+  Committed oligodendrocyte precursor Human SN                            Human SN-RN                         omega=  10.534 residual=0.267 p=0.0070 q=0.9494
+  Ependymal                           Human CA1U                          Human SEP                           omega=   7.359 residual=0.281 p=0.0060 q=0.9494
+  Fibroblast                          Human CA1U                          Human SN                            omega=   8.495 residual=0.291 p=0.0200 q=0.9494
+  Fibroblast                          Human GPi                           Human Sub                           omega=   8.756 residual=0.286 p=0.0090 q=0.9494
+  Oligodendrocyte                     Human A24                           Human A5-A7                         omega=   9.980 residual=0.239 p=0.0160 q=0.9494
+  Oligodendrocyte                     Human A35-36                        Human SI                            omega=   9.702 residual=0.279 p=0.0160 q=0.9494
+  Oligodendrocyte                     Human A43                           Human HTHpo                         omega=   7.179 residual=0.261 p=0.0010 q=0.9494
+  Oligodendrocyte                     Human FI                            Human SN                            omega=   9.526 residual=0.289 p=0.0050 q=0.9494
+  Oligodendrocyte precursor           Human A13                           Human LEC                           omega=   8.811 residual=0.286 p=0.0020 q=0.9494
+  Oligodendrocyte precursor           Human A19                           Human LEC                           omega=   8.748 residual=0.234 p=0.0060 q=0.9494
+  Oligodendrocyte precursor           Human A19                           Human PAG                           omega=   9.943 residual=0.252 p=0.0400 q=0.9494
+  Oligodendrocyte precursor           Human A1C                           Human Idg                           omega=   8.428 residual=0.281 p=0.0050 q=0.9494
+  Oligodendrocyte precursor           Human A24                           Human GPe                           omega=   9.119 residual=0.295 p=0.0090 q=0.9494
+  Oligodendrocyte precursor           Human A5-A7                         Human GPi                           omega=   9.288 residual=0.226 p=0.0150 q=0.9494
+  Oligodendrocyte precursor           Human A5-A7                         Human IO                            omega=   9.342 residual=0.267 p=0.0180 q=0.9494
+  Oligodendrocyte precursor           Human CA2U-CA3U                     Human LP                            omega=   7.644 residual=0.286 p=0.0010 q=0.9494
+  Oligodendrocyte precursor           Human CA2U-CA3U                     Human LP-VPL                        omega=   7.122 residual=0.254 p=0.0010 q=0.9494
+  Oligodendrocyte precursor           Human MN                            Human TF                            omega=   9.191 residual=0.245 p=0.0110 q=0.9494
+  Oligodendrocyte precursor           Human MTG                           Human TF                            omega=   9.448 residual=0.282 p=0.0060 q=0.9494
+  Oligodendrocyte precursor           Human MoAN                          Human TF                            omega=   9.911 residual=0.284 p=0.0420 q=0.9494
+  Oligodendrocyte precursor           Human PB                            Human TF                            omega=   8.631 residual=0.294 p=0.0020 q=0.9494
+  Oligodendrocyte precursor           Human RN                            Human TF                            omega=   8.323 residual=0.292 p=0.0020 q=0.9494
+  Oligodendrocyte precursor           Human SEP                           Human TF                            omega=   9.936 residual=0.227 p=0.0340 q=0.9494
+  Oligodendrocyte precursor           Human SI                            Human TF                            omega=   8.872 residual=0.222 p=0.0040 q=0.9494

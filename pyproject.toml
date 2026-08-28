@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cki"
-version = "0.4.0"
-description = "Cell-state Kinetic Index: A Ka/Ks-inspired framework for quantifying selective transcriptomic remodeling"
+version = "0.4.1"
+description = "Cell-type Identity Index: A Ka/Ks-inspired framework for quantifying baseline-normalized transcriptomic remodeling"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [

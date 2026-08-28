@@ -1,0 +1,8 @@
+{
+  "script": "08e_brain_blockshuffle_results.py",
+  "B": 1000,
+  "n_pairs_total": 31764,
+  "n_q<0.05": 0,
+  "n_q<0.10": 0,
+  "n_p<0.05": 938
+}

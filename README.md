@@ -1,15 +1,15 @@
-# CKI: Cell-state Kinetic Index
+# CKI: Cell-type Identity Index
 
-A Ka/Ks-inspired framework for quantifying selective transcriptomic remodeling in single-cell RNA-seq data.
+A Ka/Ks-inspired framework for quantifying baseline-normalized transcriptomic remodeling in single-cell RNA-seq data.
 
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-CKI_cell_type_identification-181717)](https://github.com/zhanglknt/CKI-cell-type-identification)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxx)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20405458.svg)](https://doi.org/10.5281/zenodo.20405458)
 
 ## Overview
 
-CKI (Cell-state Kinetic Index) operationalizes the Ka/Ks concept from molecular evolution at the single-cell transcriptomic level. By decomposing gene expression into housekeeping (neutral) and functional (identity) components and computing their Jensen-Shannon divergence ratio, CKI quantifies transcriptomic selection pressure between any two cell populations.
+CKI (Cell-type Identity Index) operationalizes the Ka/Ks concept from molecular evolution at the single-cell transcriptomic level. By decomposing gene expression into housekeeping (neutral) and functional (identity) components and computing their Jensen-Shannon divergence ratio, CKI quantifies baseline-normalized transcriptomic divergence between any two cell populations.
 
 ## Key Findings
 
@@ -18,21 +18,39 @@ CKI was validated on four independent datasets totaling millions of cells:
 | Dataset | Pairs | Result | P-value |
 |---|---|---|---|
 | Mouse (Tabula Muris) | 703 | 8/15 cell types significant | FDR < 0.05 |
-| Human (Tabula Sapiens) | 5,151 | 15/16 cell types significant | P = 9.99e-04 |
-| TCGA (BRCA/LIHC/LUAD) | — | Exploratory convergence analysis | Descriptive |
-| Brain (Siletti Atlas) | 31,764 | 10/10 cell types significant | P < 0.01, FDR < 0.05 |
+| Human (Tabula Sapiens) | 4,851 | 16/17 cell types significant | P = 9.99e-04 |
+| TCGA (BRCA/KIRC/LIHC/LUAD/LUSC) | — | Exploratory convergence analysis | Descriptive |
+| Brain (Siletti Atlas) | 31,764 | 8/10 cell classes significant; 0/31,764 pairs survive FDR | Block-shuffle null, B = 1,000 |
+
+Sources: mouse — `results/full_matrix_pairs.csv` (703 pairs) and
+`results/mouse_pilot_v2b_results.csv` (8/15 pilot comparisons pass BH q < 0.05);
+human — `results/phase35_all_metrics_pairs.csv` (4,851 analyzed pairs) and
+`results/human_bootstrap_per_ct_results.csv` (16 of 17 cell types at BH
+q < 0.05; hepatocyte not significant); TCGA — `results/phase34_v2_*_pairs.csv`
+(five cancer types) and `results/tcga_bootstrap_results.csv` (per-cancer
+bootstrap, all P > 0.9 — hence reported as exploratory/descriptive).
 
 ### Brain Regional Analysis Highlights
 
-| Cell Type | omega | null mean | Cohen's d | P |
-|---|---|---|---|---|
-| Astrocyte | 76.20 | 12.58 | 321.85 | 9.99e-04 |
-| Oligodendrocyte | 41.73 | 10.59 | 234.42 | 9.99e-04 |
-| Choroid plexus | 33.97 | 14.89 | 9.32 | 9.99e-04 |
-| Microglia | 13.54 | 8.98 | 34.22 | 9.99e-04 |
-| Bergmann glia | 11.17 | 8.75 | 6.46 | 2.997e-03 |
+Class-level results under the block-shuffle null (B = 1,000; block = 10x library / sample_id):
 
-All 10 brain cell types show significant regional differentiation gradients (one-sided permutation test, B = 1,000, BH FDR correction).
+| Cell Type | omega (mean) | null mean | SES | P |
+|---|---|---|---|---|
+| Astrocyte | 76.83 | 46.74 | 15.85 | 9.99e-04 |
+| Oligodendrocyte | 42.22 | 27.45 | 12.71 | 9.99e-04 |
+| Choroid plexus | 33.97 | 41.93 | -0.77 | 0.761 (n.s.) |
+| Microglia | 13.50 | 10.96 | 12.13 | 9.99e-04 |
+| Bergmann glia | 11.17 | 10.03 | 2.03 | 0.034 |
+
+Eight of ten non-neuronal classes show significant regional differentiation under the
+block-shuffle permutation null (one-sided upper-tail class-level test, B = 1,000;
+Bergmann glia borderline at one-sided q = 0.034; choroid plexus not significant, n = 15 pairs).
+For the per-pair migration-candidate screen (31,764 pairs, one-sided lower-tail),
+no pair survives Benjamini-Hochberg FDR correction (minimum q = 0.949); the 55
+Strong-tier candidates (37 with raw P < 0.05) are hypothesis-generating signals only.
+Source: `results/brain_bs_null_ct_test.csv` (class-level tests),
+`results/brain_bs_null_results.csv` and `results/brain_bs_null_summary.txt`
+(per-pair screen and FDR summary).
 
 ## Installation
 
@@ -40,17 +58,17 @@ All 10 brain cell types show significant regional differentiation gradients (one
 pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git
 ```
 
-For a specific version (e.g., v0.4.0):
+For a specific version (e.g., v0.4.1):
 
 ```bash
-pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.4.0
+pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git@v0.4.1
 ```
 
 Or build the Docker image (see `Dockerfile` in the repository root):
 
 ```bash
-docker build -t cki:0.4.0 .
-docker run --rm cki:0.4.0
+docker build -t cki:0.4.1 .
+docker run --rm cki:0.4.1
 ```
 
 ## Quick Start (3 lines)
@@ -131,12 +149,12 @@ print(f"omega={boot['omega']:.4f}, P={boot['p_value']:.4f}")
 omega = k_f / k_n
 omega_cal = omega / 6.67  (empirically calibrated)
 
-omega_cal < 0.75    Purifying selection (constrained)
-omega_cal ~ 0.75-1.5  Neutral range
-omega_cal > 1.5    Positive selection (divergent)
+omega_cal < 0.75    Below calibration range (relative constraint)
+omega_cal ~ 0.75-1.5  Calibration range (equivalent populations)
+omega_cal > 1.5    Above calibration range (divergent transcriptome)
 ```
 
-Calibration against split-half controls of equivalent populations yields an empirical baseline of omega = 6.67 (not the theoretical ideal of 1.0), reflecting systematic inflation from HVG gene selection. The `calibrate_omega()` function rescales all values so that equivalent populations yield omega_cal ~ 1.0.
+Calibration against split-half controls of equivalent populations yields an empirical baseline of omega = 6.67 (not the theoretical ideal of 1.0), reflecting systematic inflation from HVG gene selection. The `calibrate_omega()` function rescales all values so that equivalent populations yield omega_cal ~ 1.0. omega is a heuristic index of identity-gene divergence relative to housekeeping-gene divergence, not a formal measure of Darwinian selection. The 6.67 baseline is dataset-internal (mouse split-half); brain split-half calibration yields 12.29 and Tabula Sapiens 7.67, so the factor is not transferable across datasets.
 
 ## Statistical Testing
 
@@ -144,8 +162,34 @@ All bootstrap tests use one-sided permutation testing (B = 1,000) with Benjamini
 
 ## Publication
 
-Li Zhang. *CKI: A Ka/Ks-inspired metric for quantifying transcriptomic selection pressure in single-cell data.* Submitted to Nucleic Acids Research (2026).
+Li Zhang. *CKI: A Cell-type Identity Index for Quantifying Baseline-Normalized Transcriptomic Remodeling.* Submitted to Nucleic Acids Research (2026).
 
-## License
+## License & Citation
 
-MIT
+**Code.** The CKI source code and analysis notebooks are released under the
+[MIT License](LICENSE) (Copyright (c) 2026 CKI contributors).
+
+**Data.** Analysis outputs and processed data matrices distributed with this
+repository and in the Zenodo archive are licensed under
+[Creative Commons Attribution 4.0 International (CC-BY-4.0)](https://creativecommons.org/licenses/by/4.0/).
+Underlying source data are governed by their original licenses and are not
+redistributed under the CC-BY-4.0 grant:
+
+- Tabula Muris — original data (Schaum et al., 2018), available via GEO
+  (GSE109774) under the Tabula Muris data-use terms;
+- Tabula Sapiens — available via CZ CELLxGENE Discover under its
+  data-use policy;
+- Siletti et al. (2023) human brain atlas — available via CZ CELLxGENE
+  Discover under its data-use policy;
+- TCGA — genomic data made available through the NCI Genomic Data Commons
+  under the TCGA data-use policies;
+- HRT Atlas v1.0 housekeeping gene reference — see
+  https://www.housekeeping.unicamp.br for its terms.
+
+**Citation.** If you use CKI, please cite:
+
+> Li Zhang. *CKI: A Cell-type Identity Index for Quantifying Baseline-Normalized
+> Transcriptomic Remodeling.* Submitted to Nucleic Acids
+> Research (2026). Zenodo, DOI: [10.5281/zenodo.20405458](https://doi.org/10.5281/zenodo.20405458).
+
+Concept DOI (all versions): [10.5281/zenodo.20405458](https://doi.org/10.5281/zenodo.20405458).
