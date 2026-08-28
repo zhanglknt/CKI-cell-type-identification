@@ -55,16 +55,10 @@ Source: `results/brain_bs_null_ct_test.csv` (class-level tests),
 ## Installation
 
 ```bash
-pip install cki-bio
-```
-
-Or install directly from GitHub (development version):
-
-```bash
 pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git
 ```
 
-Note: the PyPI distribution name is `cki-bio`, but the Python import name remains `cki`:
+The Python import name is `cki`:
 
 ```python
 import cki
