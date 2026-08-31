@@ -74,8 +74,8 @@ import cki
 Or build the Docker image (see `Dockerfile` in the repository root):
 
 ```bash
-docker build -t cki:0.4.2 .
-docker run --rm cki:0.4.2
+docker build -t cki:0.4.3 .
+docker run --rm cki:0.4.3
 ```
 
 ## Quick Start (3 lines)

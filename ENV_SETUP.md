@@ -1,7 +1,7 @@
 # CKI 复现环境设置与数据来源
 
-> **适用版本**: CKI v0.4.1+
-> **最后更新**: 2026-08-10
+> **适用版本**: CKI v0.4.3+
+> **最后更新**: 2026-08-31
 > **配套 Notebook**: `CKI_Reproducibility.ipynb`
 
 ---
@@ -47,7 +47,7 @@ pip install -e ".[all]"
 ```python
 import cki
 from cki.core import js_divergence, compute_omega
-print(f"CKI version: {cki.__version__}")  # 应输出 >= 0.4.1
+print(f"CKI version: {cki.__version__}")  # 应输出 >= 0.4.3
 ```
 
 ---
@@ -277,5 +277,5 @@ grep -n "log2\|kn_min" cki/core.py
 ## 8. 参考信息
 
 - **CKI GitHub**: https://github.com/zhanglknt/CKI-cell-type-identification
-- **CKI 版本**: v0.4.1（代码与发布一致）
+- **CKI 版本**: v0.4.3（代码与发布一致）
 - **关键提交**: cki/core.py 使用 base-2 log（`np.log2`，与稿件一致），支持可选 `kn_floor`（默认 0，仅正性保护；TCGA 分析用 1e-4）
