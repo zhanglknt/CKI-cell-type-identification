@@ -142,9 +142,9 @@ def main():
     # -----------------------------------------------------------------------
     # Title
     # -----------------------------------------------------------------------
-    ax.text(3.25, 8.90, 'CKI: A Cell-type Identity Index',
+    ax.text(3.25, 8.90, 'CKI: a Ka/Ks-inspired index',
             fontsize=17, fontweight='bold', color=C_TEXT, ha='center', va='top')
-    ax.text(3.25, 8.68, 'Quantifying baseline-normalized transcriptomic divergence from expression distributions',
+    ax.text(3.25, 8.68, 'Quantifying functional cell-type divergence, normalized to the housekeeping baseline',
             fontsize=8.5, color=C_SUBTEXT, ha='center', va='top')
 
     # -----------------------------------------------------------------------

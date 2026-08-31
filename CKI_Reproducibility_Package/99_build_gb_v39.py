@@ -904,9 +904,10 @@ def verify_v38_text_revisions(v: Verifier):
     # --- de-Kinetic rename ---
     v.check(not re.search(r'[Kk]inetic', all_docs),
             "T1 'Kinetic' removed from all four documents")
-    v.check(bool(re.search(r'CKI: A Cell-type Identity Index', t)) and
-            bool(re.search(r'CKI: A Cell-type Identity Index', cl)),
-            "T2 new title (Cell-type Identity Index) in MS + CL")
+    v.check(bool(re.search(r'CKI: a Ka/Ks-inspired index for quantifying functional', t)) and
+            bool(re.search(r'CKI: a Ka/Ks-inspired index for quantifying functional', cl)) and
+            bool(re.search(r'CKI: a Ka/Ks-inspired index for quantifying functional', s)),
+            "T2 new title (Ka/Ks-inspired index) in MS + CL + Supp")
     v.check('CKI (Cell-type Identity Index)' in t and
             'CKI (Cell-type Identity Index)' in cl,
             "T3 CKI expansion renamed in MS + CL")

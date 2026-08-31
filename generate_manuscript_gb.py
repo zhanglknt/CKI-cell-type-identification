@@ -292,7 +292,7 @@ def ref_p_nar(text):
 # ============================================================
 # TITLE PAGE
 # ============================================================
-t = doc.add_heading('CKI: A Cell-type Identity Index for Quantifying Baseline-Normalized Divergence', level=0)
+t = doc.add_heading('CKI: a Ka/Ks-inspired index for quantifying functional cell-type divergence in single-cell transcriptomics', level=0)
 t.alignment = WD_ALIGN_PARAGRAPH.CENTER
 for run in t.runs:
     run.font.name = 'Arial'

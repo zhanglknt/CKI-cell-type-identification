@@ -118,7 +118,7 @@ def add_para(text, bold=False):
 
 # ===== TITLE PAGE =====
 add_heading('Supplementary Materials', 1)
-add_para('CKI: A Cell-type Identity Index for Quantifying Baseline-Normalized Divergence')
+add_para('CKI: a Ka/Ks-inspired index for quantifying functional cell-type divergence in single-cell transcriptomics')
 add_para('Xianming Wu (1), Li Zhang (1,2,*)')
 add_para('(1) Chinese Institute for Brain Research, Beijing, China')
 add_para('(2) Institute of Blood Transfusion, Chinese Academy of Medical Sciences & '
