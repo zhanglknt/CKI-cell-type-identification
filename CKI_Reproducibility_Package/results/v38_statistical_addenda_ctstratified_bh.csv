@@ -1,0 +1,11 @@
+cell_type,n_pairs,min_q,n_q<0.05,n_q<0.10
+Bergmann glia,21,0.042,4,8
+Astrocyte,5778,0.2816,0,0
+Microglia,5671,0.3284,0,0
+Oligodendrocyte,5778,0.481,0,0
+Committed oligodendrocyte precursor,1326,0.6623,0,0
+Oligodendrocyte precursor,5671,0.6665,0,0
+Choroid plexus,15,0.7642,0,0
+Fibroblast,3403,0.8564,0,0
+Vascular,3321,0.9275,0,0
+Ependymal,780,0.9884,0,0

@@ -1,0 +1,88 @@
+================================================================
+1. Loading second background: Tabula Muris FACS Skin
+   (124 MB CSV)
+   Background cell type 'keratinocyte stem cell': 1371 cells
+   Loaded: 1371 cells x 23433 genes (5s)
+   HK genes matched in data: 1064
+   Kept gene set: 6064 (HK=1064, non-HK=5000)
+   Functional module: 200 non-HK genes (seeds: [42, 137, 2024])
+
+2. Running simulation grid (identical to notebook 45)
+  baseline                 delta=0.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  signal                   delta=0.125 eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  signal                   delta=0.125 eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=137
+  signal                   delta=0.125 eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=2024
+  signal                   delta=0.25  eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  signal                   delta=0.25  eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=137
+  signal                   delta=0.25  eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=2024
+  signal                   delta=0.5   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  signal                   delta=0.5   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=137
+  signal                   delta=0.5   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=2024
+  signal                   delta=1.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  signal                   delta=1.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=137
+  signal                   delta=1.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=2024
+  signal                   delta=2.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  signal                   delta=2.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=137
+  signal                   delta=2.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=2024
+  neutral_hk               delta=0.0   eta=0.25  eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  neutral_hk               delta=0.0   eta=0.5   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  neutral_hk               delta=0.0   eta=1.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  neutral_global           delta=0.0   eta=0.0   eps=0.3  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  neutral_global           delta=0.0   eta=0.0   eps=1.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  confounded               delta=0.5   eta=0.25  eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  confounded               delta=0.5   eta=0.5   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  confounded               delta=0.5   eta=1.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=200 seed=42
+  dropout                  delta=0.25  eta=0.0   eps=0.0  dropout=0.3  depth=1.0  nB=200 m=200 seed=42
+  depth                    delta=0.25  eta=0.0   eps=0.0  dropout=0.0  depth=0.5  nB=200 m=200 seed=42
+  imbalance                delta=0.25  eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=50 m=200 seed=42
+  dropout                  delta=1.0   eta=0.0   eps=0.0  dropout=0.3  depth=1.0  nB=200 m=200 seed=42
+  depth                    delta=1.0   eta=0.0   eps=0.0  dropout=0.0  depth=0.5  nB=200 m=200 seed=42
+  imbalance                delta=1.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=50 m=200 seed=42
+  module_size              delta=1.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=50 seed=42
+  module_size              delta=1.0   eta=0.0   eps=0.0  dropout=0.0  depth=1.0  nB=200 m=500 seed=42
+   Done: 1750 replicates (81s)
+
+3. Analysis
+   Null thresholds (95th percentile): {'omega': 14.10994, 'k_f': 0.0159, 'k_n': 0.00129, 'k_total': 0.00167, 'cosine': 0.00723, 'kf_over_kt': 11.1505}
+
+4. Side-by-side comparison with background 1 (Marrow B cell)
+  Saved side-by-side: results/groundtruth_simulation_background2.csv
+
+================================================================
+KEY RESULTS (background 2: Skin keratinocyte stem cell)
+================================================================
+
+Monotonicity vs injected delta (Spearman):
+  omega        rho=+1.000  p=0.00e+00
+  k_f          rho=+1.000  p=0.00e+00
+  k_n          rho=+0.429  p=3.97e-01
+  k_total      rho=+1.000  p=0.00e+00
+  cosine       rho=+1.000  p=0.00e+00
+  kf_over_kt   rho=-1.000  p=0.00e+00
+
+Type-I error (should be ~0.05):
+  neutral_hk: omega=0.000, k_f=0.027, k_n=0.947, k_total=0.780, cosine=0.787, kf_over_kt=0.000
+  neutral_global: omega=0.080, k_f=0.080, k_n=0.080, k_total=0.100, cosine=0.080, kf_over_kt=0.080
+
+Power (detection rate by delta):
+  delta |      omega        k_f        k_n    k_total     cosine kf_over_kt
+  0.125 |      0.060      0.073      0.080      0.107      0.093      0.067
+  0.250 |      0.067      0.040      0.087      0.127      0.147      0.013
+  0.500 |      0.180      0.147      0.100      0.520      0.367      0.000
+  1.000 |      0.913      0.927      0.100      1.000      1.000      0.000
+  2.000 |      0.993      1.000      0.140      1.000      1.000      0.000
+
+AUC signal vs neutral:
+  omega=0.908, k_f=0.859, k_n=0.207, k_total=0.649, cosine=0.608, kf_over_kt=0.539
+  background-1 published: omega=0.804, k_f=0.716, k_n=0.213, k_total=0.640, cosine=0.584, kf_over_kt=0.437
+
+Module-size sensitivity (delta=1.0):
+  m=  50: omega_mean= 13.700  k_f_mean=0.01514  power(omega)=0.46  power(cosine)=0.32
+  m= 200: omega_mean= 19.137  k_f_mean=0.02100  power(omega)=0.91  power(cosine)=1.00
+  m= 500: omega_mean=  8.248  k_f_mean=0.00921  power(omega)=0.06  power(cosine)=1.00
+
+Outputs written:
+  C:\Users\KnightZ\Desktop\细胞受选择\results\groundtruth_simulation_background2_raw.csv
+  C:\Users\KnightZ\Desktop\细胞受选择\results\groundtruth_simulation_background2_summary.csv
+  C:\Users\KnightZ\Desktop\细胞受选择\results\groundtruth_simulation_background2_metrics.json
+  C:\Users\KnightZ\Desktop\细胞受选择\results\groundtruth_simulation_background2.csv

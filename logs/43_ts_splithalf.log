@@ -1,0 +1,89 @@
+============================================================
+Loading TS human data (phase35 pipeline)...
+============================================================
+  Liver: 5007 cells
+  Kidney: 9641 cells
+  Heart: 11505 cells
+  Bone_Marrow: 12297 cells
+  Spleen: 34004 cells
+  Lung: 35682 cells
+  Pooled: 107399 cells x 51852 genes
+  HK genes: 1129
+  Liver|hepatocyte: n=1491, split-half omega=11.40
+  Liver|macrophage: n=1379, split-half omega=7.42
+  Liver|monocyte: n=605, split-half omega=7.38
+  Liver|endothelial cell of hepatic sinusoid: n=341, split-half omega=8.27
+  Liver|endothelial cell: n=267, split-half omega=7.14
+  Liver|nk cell: n=231, split-half omega=7.43
+  Liver|t cell: n=126, split-half omega=7.21
+  Kidney|kidney epithelial cell: n=8290, split-half omega=8.67
+  Kidney|b cell: n=340, split-half omega=6.82
+  Kidney|macrophage: n=318, split-half omega=6.46
+  Kidney|cd8-positive, alpha-beta t cell: n=238, split-half omega=6.62
+  Kidney|cd4-positive helper t cell: n=181, split-half omega=6.71
+  Kidney|nk cell: n=131, split-half omega=7.06
+  Heart|cardiac muscle cell: n=7204, split-half omega=7.82
+  Heart|cardiac endothelial cell: n=2665, split-half omega=7.33
+  Heart|hepatocyte: n=1086, split-half omega=6.88
+  Heart|fibroblast of cardiac tissue: n=250, split-half omega=7.68
+  Heart|smooth muscle cell: n=222, split-half omega=7.92
+  Bone_Marrow|cd24 neutrophil: n=2106, split-half omega=9.34
+  Bone_Marrow|cd4-positive, alpha-beta t cell: n=833, split-half omega=6.98
+  Bone_Marrow|monocyte: n=557, split-half omega=6.20
+  Bone_Marrow|cd8-positive, alpha-beta t cell: n=439, split-half omega=6.44
+  Bone_Marrow|granulocyte: n=454, split-half omega=8.92
+  Bone_Marrow|plasma cell: n=365, split-half omega=7.57
+  Bone_Marrow|erythroid progenitor: n=334, split-half omega=8.62
+  Bone_Marrow|nk cell: n=345, split-half omega=6.96
+  Bone_Marrow|hematopoietic stem cell: n=256, split-half omega=7.52
+  Bone_Marrow|nampt neutrophil: n=381, split-half omega=10.04
+  Bone_Marrow|memory b cell: n=160, split-half omega=7.85
+  Bone_Marrow|myeloid progenitor: n=177, split-half omega=14.03
+  Bone_Marrow|macrophage: n=157, split-half omega=6.63
+  Spleen|memory b cell: n=2774, split-half omega=6.79
+  Spleen|neutrophil: n=3814, split-half omega=10.22
+  Spleen|classical monocyte: n=2959, split-half omega=7.06
+  Spleen|cd8-positive, alpha-beta memory t cell: n=2756, split-half omega=6.66
+  Spleen|plasma cell: n=1814, split-half omega=7.09
+  Spleen|nk cell: n=1239, split-half omega=7.09
+  Spleen|cd4-positive, alpha-beta memory t cell: n=1042, split-half omega=6.47
+  Spleen|macrophage: n=522, split-half omega=6.84
+  Spleen|naive thymus-derived cd4-positive, alpha-beta t cell: n=661, split-half omega=6.69
+  Spleen|naive b cell: n=566, split-half omega=6.84
+  Spleen|type i nk t cell: n=589, split-half omega=7.03
+  Spleen|naive thymus-derived cd8-positive, alpha-beta t cell: n=378, split-half omega=6.64
+  Spleen|endothelial cell: n=310, split-half omega=8.84
+  Spleen|mature nk t cell: n=426, split-half omega=6.82
+  Spleen|regulatory t cell: n=145, split-half omega=6.67
+  Spleen|intermediate monocyte: n=100, split-half omega=7.73
+  Lung|macrophage: n=8568, split-half omega=8.46
+  Lung|type ii pneumocyte: n=4091, split-half omega=8.93
+  Lung|basal cell: n=2136, split-half omega=8.06
+  Lung|classical monocyte: n=1103, split-half omega=6.84
+  Lung|club cell: n=983, split-half omega=7.61
+  Lung|non-classical monocyte: n=848, split-half omega=6.96
+  Lung|capillary endothelial cell: n=804, split-half omega=7.77
+  Lung|respiratory goblet cell: n=479, split-half omega=8.25
+  Lung|basophil: n=494, split-half omega=6.92
+  Lung|lung ciliated cell: n=315, split-half omega=10.92
+  Lung|capillary aerocyte: n=506, split-half omega=7.61
+  Lung|cd8-positive, alpha-beta t cell: n=393, split-half omega=6.63
+  Lung|cd4-positive, alpha-beta t cell: n=381, split-half omega=6.50
+  Lung|vein endothelial cell: n=370, split-half omega=7.52
+  Lung|lung microvascular endothelial cell: n=462, split-half omega=7.48
+  Lung|adventitial cell: n=271, split-half omega=7.83
+  Lung|alveolar fibroblast: n=167, split-half omega=7.40
+  Lung|dendritic cell: n=278, split-half omega=7.63
+  Lung|intermediate monocyte: n=252, split-half omega=6.83
+  Lung|pericyte cell: n=192, split-half omega=7.99
+  Lung|type i pneumocyte: n=147, split-half omega=8.48
+  Lung|endothelial cell of artery: n=103, split-half omega=7.27
+  Lung|neutrophil: n=136, split-half omega=9.42
+  Lung|cd4-positive alpha-beta t cell: n=132, split-half omega=6.55
+
+============================================================
+TS split-half baseline (population-level, n=71 populations): mean omega = 7.67, 95% bootstrap CI [7.39, 8.00]
+Mouse SmartSeq2 reference: 6.67 [4.12, 9.33]
+============================================================
+Saved -> results/reviewer_ts_splithalf_populations.csv
+DONE.

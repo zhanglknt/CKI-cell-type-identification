@@ -1,0 +1,127 @@
+============================================================
+1. Loading HK genes...
+2. Opening Siletti (backed h5py)...
+  Shape: (888263, 59480)
+3. Global gene means (HVG selection, same as 08d)...
+  Done in 165s
+  HK matched: 1115; reduced set: 6115 genes
+  CTs: 10: ['Astrocyte', 'Bergmann glia', 'Choroid plexus', 'Committed oligodendrocyte precursor', 'Ependymal', 'Fibroblast', 'Microglia', 'Oligodendrocyte', 'Oligodendrocyte precursor', 'Vascular']
+
+  --- Astrocyte (108 regions, 5778 pairs) ---
+    Extracted 155025 cells (263M nnz, 15s)
+    Split-half (3 regions x 50 splits): mean omega=12.665
+
+  --- Bergmann glia (7 regions, 21 pairs) ---
+    Extracted 7965 cells (14M nnz, 1s)
+    Split-half (3 regions x 50 splits): mean omega=8.876
+
+  --- Choroid plexus (6 regions, 15 pairs) ---
+    Extracted 7643 cells (21M nnz, 1s)
+    Split-half (3 regions x 50 splits): mean omega=15.387
+
+  --- Committed oligodendrocyte precursor (52 regions, 1326 pairs) ---
+    Extracted 4118 cells (7M nnz, 37s)
+    Split-half (3 regions x 50 splits): mean omega=17.457
+
+  --- Ependymal (40 regions, 780 pairs) ---
+    Extracted 5779 cells (10M nnz, 2s)
+    Split-half (3 regions x 50 splits): mean omega=10.384
+
+  --- Fibroblast (83 regions, 3403 pairs) ---
+    Extracted 8897 cells (11M nnz, 1s)
+    Split-half (3 regions x 50 splits): mean omega=13.612
+
+  --- Microglia (107 regions, 5671 pairs) ---
+    Extracted 91826 cells (102M nnz, 7s)
+    Split-half (3 regions x 50 splits): mean omega=9.322
+
+  --- Oligodendrocyte (108 regions, 5778 pairs) ---
+    Extracted 490246 cells (822M nnz, 89s)
+    Split-half (3 regions x 50 splits): mean omega=10.704
+
+  --- Oligodendrocyte precursor (107 regions, 5671 pairs) ---
+    Extracted 105723 cells (203M nnz, 13s)
+    Split-half (3 regions x 50 splits): mean omega=10.370
+
+  --- Vascular (82 regions, 3321 pairs) ---
+    Extracted 9586 cells (11M nnz, 1s)
+    Split-half (3 regions x 50 splits): mean omega=13.017
+
+Saved 31764 pairs -> C:\Users\KnightZ\Desktop\细胞受选择\results\reviewer_brain_pair_kf_kn.csv
+
+============================================================
+Per-CT aggregation
+============================================================
+
+Grand mean k_n (all pairs, all CTs) = 0.0022
+                          cell_type  n_pairs  kf_mean  kn_mean  kn_cv  omega_mean_perpair_kn  omega_mean_08d  omega_mean_global_kn  omega_mean_ct_kn
+                          Astrocyte     5778    0.033    0.000  0.922                 76.827          76.827                15.521            68.965
+                    Oligodendrocyte     5778    0.010    0.000  1.973                 42.223          42.223                 4.748            37.222
+                     Choroid plexus       15    0.018    0.001  0.627                 33.967          33.967                 8.519            19.805
+Committed oligodendrocyte precursor     1326    0.203    0.007  0.395                 30.574          30.574                94.175            30.458
+          Oligodendrocyte precursor     5671    0.007    0.000  0.599                 22.559          22.559                 3.334            19.649
+                          Ependymal      780    0.047    0.003  0.423                 14.522          14.522                21.585            13.739
+                         Fibroblast     3403    0.074    0.006  0.474                 13.991          13.991                34.459            13.207
+                          Microglia     5671    0.016    0.001  0.696                 13.495          13.495                 7.547            12.365
+                           Vascular     3321    0.084    0.007  0.490                 12.597          12.597                39.150            11.750
+                      Bergmann glia       21    0.027    0.003  0.564                 11.170          11.170                12.634             9.896
+
+============================================================
+Ordering consistency (Spearman rho between per-CT means)
+============================================================
+                                    omega (per-pai  omega (global   omega (pair-me  omega (CT-leve        k_f only        k_n only
+omega (per-pair kn)                          1.000          -0.212          -0.212           0.988          -0.212          -0.588
+omega (global kn)                           -0.212           1.000           1.000          -0.139           1.000           0.891
+omega (pair-mean, global kn)                -0.212           1.000           1.000          -0.139           1.000           0.891
+omega (CT-level kn)                          0.988          -0.139          -0.139           1.000          -0.139          -0.527
+k_f only                                    -0.212           1.000           1.000          -0.139           1.000           0.891
+k_n only                                    -0.588           0.891           0.891          -0.527           0.891           1.000
+
+============================================================
+Gradient extremes (Astrocyte / Bergmann glia)
+============================================================
+  omega (per-pair kn)       : 76.827 / 11.170 = 6.88x
+  omega (global kn)         : 15.521 / 12.634 = 1.23x
+  omega (CT-level kn)       : 68.965 / 9.896 = 6.97x
+  k_f only                  : 0.033 / 0.027 = 1.23x
+  k_n only                  : 0.000 / 0.003 = 0.18x
+
+============================================================
+Split-half calibration (brain, scheme-matched to 08d pipeline)
+============================================================
+                          cell_type      region     omega
+                          Astrocyte  Human CA1U 13.539350
+                          Astrocyte  Human CbDN 11.510611
+                          Astrocyte   Human GPi 12.945099
+                      Bergmann glia   Human CBL  8.787139
+                      Bergmann glia   Human CBV  8.964556
+                     Choroid plexus  Human MoAN 14.192077
+                     Choroid plexus  Human MoSR 16.066385
+                     Choroid plexus   Human SEP 15.903242
+Committed oligodendrocyte precursor Human HTHso 18.675941
+Committed oligodendrocyte precursor    Human La 15.048419
+Committed oligodendrocyte precursor   Human VLN 18.647212
+                          Ependymal  Human CA1U 10.879187
+                          Ependymal  Human MoAN 10.745812
+                          Ependymal   Human SEP  9.526704
+                         Fibroblast Human CM-Pf 14.864231
+                         Fibroblast    Human LG 13.438033
+                         Fibroblast   Human SEP 12.534594
+                          Microglia   Human GPe  9.351596
+                          Microglia   Human GPi  9.233361
+                          Microglia    Human SN  9.380399
+                    Oligodendrocyte   Human GPe 10.756458
+                    Oligodendrocyte    Human SN 10.549004
+                    Oligodendrocyte Human SN-RN 10.807473
+          Oligodendrocyte precursor  Human A35r 10.127911
+          Oligodendrocyte precursor  Human CA1U 10.306282
+          Oligodendrocyte precursor  Human PnRF 10.675722
+                           Vascular  Human A35r 10.515075
+                           Vascular   Human CBV 11.973731
+                           Vascular   Human Pul 16.562548
+
+  Brain split-half baseline: mean omega = 12.29 (95% bootstrap CI [12.12, 12.47], n = 1450 splits, 29 populations)
+  Mouse SmartSeq2 reference (manuscript): 6.67 [4.12, 9.33]
+
+Saved -> results/reviewer_kn_estimator_consistency.csv
+DONE.

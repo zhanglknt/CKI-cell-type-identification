@@ -1,0 +1,12 @@
+metric,AUC,pair_boot_CI_low,pair_boot_CI_high,cluster_boot_CI_low,cluster_boot_CI_high,analysis,CI_low,CI_high
+CKI omega,0.6797,0.609,0.745,0.54,0.804,Table1_phase35,,
+Raw JS,0.8488,0.795,0.895,0.739,0.926,Table1_phase35,,
+Spearman dist,0.6904,0.617,0.762,0.533,0.828,Table1_phase35,,
+Cosine dist,0.8865,0.838,0.925,0.786,0.947,Table1_phase35,,
+Marker Jaccard dist,0.8007,0.737,0.856,0.657,0.9,Table1_phase35,,
+omega,0.804,,,,,groundtruth_sim,0.777,0.831
+k_f,0.716,,,,,groundtruth_sim,0.681,0.748
+k_n,0.213,,,,,groundtruth_sim,0.186,0.239
+k_total,0.64,,,,,groundtruth_sim,0.621,0.658
+cosine,0.584,,,,,groundtruth_sim,0.562,0.604
+kf_over_kt,0.437,,,,,groundtruth_sim,0.416,0.458

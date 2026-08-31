@@ -1,0 +1,360 @@
+============================================================
+1. Loading HK genes from HRT Atlas...
+  HRT Atlas: 1129 human HK genes
+
+2. Opening Siletti (backed h5py)...
+  Shape: (888263, 59480)
+  Matched HK genes: 1115
+
+3. Computing global gene means (keep-set selection)...
+  Means computed in 184s
+  Reduced set: 6115 genes (HK=1115 + HVG=5000)
+  S1 fixed panel: 2000 genes (top-2000 by global mean)
+
+4. Filtering groups...
+  Groups passing: 700 | CTs: 10
+
+============================================================
+5. Per-CT observed (4 schemes) + S2 block-shuffle null (B=200)
+============================================================
+
+  --- Astrocyte (108 regions, 5778 pairs) ---
+      Extraction chunk 5/8 (100000/155025 sorted cells)
+    Extracted 155025 cells x 6115 genes (263M nnz, 18s)
+    Blocks (samples): 606
+    omega_s0: mean=76.827 median=70.586
+    omega_s1: mean=11.409 median=10.409
+    omega_s2: mean=61.772 median=53.335
+    omega_s3: mean=9.268 median=8.507
+    kn: mean=4.856e-04
+    null iter 20/200, elapsed=20s, ETA=182s
+    null iter 40/200, elapsed=41s, ETA=165s
+    null iter 60/200, elapsed=62s, ETA=145s
+    null iter 80/200, elapsed=83s, ETA=124s
+    null iter 100/200, elapsed=103s, ETA=103s
+    null iter 120/200, elapsed=123s, ETA=82s
+    null iter 140/200, elapsed=144s, ETA=62s
+    null iter 160/200, elapsed=164s, ETA=41s
+    null iter 180/200, elapsed=184s, ETA=20s
+    null iter 200/200, elapsed=204s, ETA=0s
+    S2 null: obs_mean=61.772, null_mean=35.917, p=0.00498, SES=15.69
+    CT done in 228s
+
+  --- Bergmann glia (7 regions, 21 pairs) ---
+    Extracted 7965 cells x 6115 genes (14M nnz, 1s)
+    Blocks (samples): 42
+    omega_s0: mean=11.170 median=10.006
+    omega_s1: mean=1.434 median=1.243
+    omega_s2: mean=5.883 median=5.026
+    omega_s3: mean=1.431 median=1.305
+    kn: mean=2.755e-03
+    null iter 20/200, elapsed=0s, ETA=1s
+    null iter 40/200, elapsed=0s, ETA=1s
+    null iter 60/200, elapsed=0s, ETA=1s
+    null iter 80/200, elapsed=0s, ETA=1s
+    null iter 100/200, elapsed=1s, ETA=1s
+    null iter 120/200, elapsed=1s, ETA=0s
+    null iter 140/200, elapsed=1s, ETA=0s
+    null iter 160/200, elapsed=1s, ETA=0s
+    null iter 180/200, elapsed=1s, ETA=0s
+    null iter 200/200, elapsed=1s, ETA=0s
+    S2 null: obs_mean=5.883, null_mean=4.957, p=0.09950, SES=1.50
+    CT done in 2s
+
+  --- Choroid plexus (6 regions, 15 pairs) ---
+    Extracted 7643 cells x 6115 genes (21M nnz, 1s)
+    Blocks (samples): 22
+    omega_s0: mean=33.967 median=18.770
+    omega_s1: mean=3.624 median=2.399
+    omega_s2: mean=28.813 median=14.758
+    omega_s3: mean=3.533 median=2.365
+    kn: mean=9.282e-04
+    null iter 20/200, elapsed=0s, ETA=1s
+    null iter 40/200, elapsed=0s, ETA=1s
+    null iter 60/200, elapsed=0s, ETA=0s
+    null iter 80/200, elapsed=0s, ETA=0s
+    null iter 100/200, elapsed=0s, ETA=0s
+    null iter 120/200, elapsed=0s, ETA=0s
+    null iter 140/200, elapsed=0s, ETA=0s
+    null iter 160/200, elapsed=1s, ETA=0s
+    null iter 180/200, elapsed=1s, ETA=0s
+    null iter 200/200, elapsed=1s, ETA=0s
+    S2 null: obs_mean=28.813, null_mean=37.891, p=0.74129, SES=-0.78
+    CT done in 2s
+
+  --- Committed oligodendrocyte precursor (52 regions, 1326 pairs) ---
+    Extracted 4118 cells x 6115 genes (7M nnz, 47s)
+    Blocks (samples): 317
+    omega_s0: mean=30.574 median=29.600
+    omega_s1: mean=7.718 median=7.829
+    omega_s2: mean=21.572 median=21.569
+    omega_s3: mean=5.894 median=5.963
+    kn: mean=6.672e-03
+    null iter 20/200, elapsed=5s, ETA=46s
+    null iter 40/200, elapsed=10s, ETA=42s
+    null iter 60/200, elapsed=15s, ETA=36s
+    null iter 80/200, elapsed=21s, ETA=31s
+    null iter 100/200, elapsed=26s, ETA=26s
+    null iter 120/200, elapsed=31s, ETA=20s
+    null iter 140/200, elapsed=36s, ETA=15s
+    null iter 160/200, elapsed=41s, ETA=10s
+    null iter 180/200, elapsed=46s, ETA=5s
+    null iter 200/200, elapsed=52s, ETA=0s
+    S2 null: obs_mean=21.572, null_mean=14.610, p=0.00498, SES=8.52
+    CT done in 101s
+
+  --- Ependymal (40 regions, 780 pairs) ---
+    Extracted 5779 cells x 6115 genes (10M nnz, 1s)
+    Blocks (samples): 146
+    omega_s0: mean=14.522 median=13.613
+    omega_s1: mean=2.284 median=2.159
+    omega_s2: mean=8.083 median=7.354
+    omega_s3: mean=1.970 median=1.889
+    kn: mean=3.390e-03
+    null iter 20/200, elapsed=3s, ETA=26s
+    null iter 40/200, elapsed=6s, ETA=23s
+    null iter 60/200, elapsed=9s, ETA=20s
+    null iter 80/200, elapsed=12s, ETA=18s
+    null iter 100/200, elapsed=15s, ETA=15s
+    null iter 120/200, elapsed=18s, ETA=12s
+    null iter 140/200, elapsed=20s, ETA=9s
+    null iter 160/200, elapsed=23s, ETA=6s
+    null iter 180/200, elapsed=26s, ETA=3s
+    null iter 200/200, elapsed=29s, ETA=0s
+    S2 null: obs_mean=8.083, null_mean=6.488, p=0.00498, SES=4.62
+    CT done in 32s
+
+  --- Fibroblast (83 regions, 3403 pairs) ---
+    Extracted 8897 cells x 6115 genes (11M nnz, 1s)
+    Blocks (samples): 470
+    omega_s0: mean=13.991 median=12.909
+    omega_s1: mean=2.022 median=1.840
+    omega_s2: mean=8.160 median=7.146
+    omega_s3: mean=1.865 median=1.723
+    kn: mean=5.630e-03
+    null iter 20/200, elapsed=13s, ETA=115s
+    null iter 40/200, elapsed=25s, ETA=101s
+    null iter 60/200, elapsed=38s, ETA=89s
+    null iter 80/200, elapsed=51s, ETA=77s
+    null iter 100/200, elapsed=64s, ETA=64s
+    null iter 120/200, elapsed=77s, ETA=52s
+    null iter 140/200, elapsed=90s, ETA=39s
+    null iter 160/200, elapsed=103s, ETA=26s
+    null iter 180/200, elapsed=116s, ETA=13s
+    null iter 200/200, elapsed=130s, ETA=0s
+    S2 null: obs_mean=8.160, null_mean=6.904, p=0.00498, SES=5.24
+    CT done in 134s
+
+  --- Microglia (107 regions, 5671 pairs) ---
+    Extracted 91826 cells x 6115 genes (102M nnz, 7s)
+    Blocks (samples): 596
+    omega_s0: mean=13.495 median=12.075
+    omega_s1: mean=1.672 median=1.451
+    omega_s2: mean=7.982 median=6.497
+    omega_s3: mean=1.587 median=1.421
+    kn: mean=1.317e-03
+    null iter 20/200, elapsed=21s, ETA=190s
+    null iter 40/200, elapsed=42s, ETA=169s
+    null iter 60/200, elapsed=64s, ETA=149s
+    null iter 80/200, elapsed=85s, ETA=128s
+    null iter 100/200, elapsed=106s, ETA=106s
+    null iter 120/200, elapsed=127s, ETA=84s
+    null iter 140/200, elapsed=147s, ETA=63s
+    null iter 160/200, elapsed=167s, ETA=42s
+    null iter 180/200, elapsed=187s, ETA=21s
+    null iter 200/200, elapsed=208s, ETA=0s
+    S2 null: obs_mean=7.982, null_mean=5.586, p=0.00498, SES=14.26
+    CT done in 220s
+
+  --- Oligodendrocyte (108 regions, 5778 pairs) ---
+      Extraction chunk 5/25 (100000/490246 sorted cells)
+      Extraction chunk 10/25 (200000/490246 sorted cells)
+      Extraction chunk 15/25 (300000/490246 sorted cells)
+      Extraction chunk 20/25 (400000/490246 sorted cells)
+      Extraction chunk 25/25 (490246/490246 sorted cells)
+    Extracted 490246 cells x 6115 genes (822M nnz, 103s)
+    Blocks (samples): 606
+    omega_s0: mean=42.223 median=37.573
+    omega_s1: mean=6.251 median=5.421
+    omega_s2: mean=37.061 median=31.733
+    omega_s3: mean=4.957 median=4.363
+    kn: mean=2.752e-04
+    null iter 20/200, elapsed=22s, ETA=198s
+    null iter 40/200, elapsed=43s, ETA=172s
+    null iter 60/200, elapsed=64s, ETA=150s
+    null iter 80/200, elapsed=85s, ETA=128s
+    null iter 100/200, elapsed=107s, ETA=107s
+    null iter 120/200, elapsed=128s, ETA=85s
+    null iter 140/200, elapsed=149s, ETA=64s
+    null iter 160/200, elapsed=170s, ETA=43s
+    null iter 180/200, elapsed=192s, ETA=21s
+    null iter 200/200, elapsed=213s, ETA=0s
+    S2 null: obs_mean=37.061, null_mean=22.480, p=0.00498, SES=11.29
+    CT done in 341s
+
+  --- Oligodendrocyte precursor (107 regions, 5671 pairs) ---
+      Extraction chunk 5/6 (100000/105723 sorted cells)
+    Extracted 105723 cells x 6115 genes (203M nnz, 13s)
+    Blocks (samples): 604
+    omega_s0: mean=22.559 median=17.377
+    omega_s1: mean=3.198 median=2.513
+    omega_s2: mean=14.813 median=9.431
+    omega_s3: mean=2.878 median=2.326
+    kn: mean=3.662e-04
+    null iter 20/200, elapsed=22s, ETA=194s
+    null iter 40/200, elapsed=44s, ETA=176s
+    null iter 60/200, elapsed=68s, ETA=158s
+    null iter 80/200, elapsed=93s, ETA=139s
+    null iter 100/200, elapsed=120s, ETA=120s
+    null iter 120/200, elapsed=146s, ETA=97s
+    null iter 140/200, elapsed=172s, ETA=74s
+    null iter 160/200, elapsed=199s, ETA=50s
+    null iter 180/200, elapsed=225s, ETA=25s
+    null iter 200/200, elapsed=249s, ETA=0s
+    S2 null: obs_mean=14.813, null_mean=9.676, p=0.00498, SES=6.58
+    CT done in 269s
+
+  --- Vascular (82 regions, 3321 pairs) ---
+    Extracted 9586 cells x 6115 genes (11M nnz, 1s)
+    Blocks (samples): 464
+    omega_s0: mean=12.597 median=11.544
+    omega_s1: mean=1.993 median=1.761
+    omega_s2: mean=6.790 median=5.454
+    omega_s3: mean=1.888 median=1.696
+    kn: mean=7.190e-03
+    null iter 20/200, elapsed=15s, ETA=131s
+    null iter 40/200, elapsed=29s, ETA=115s
+    null iter 60/200, elapsed=42s, ETA=98s
+    null iter 80/200, elapsed=54s, ETA=82s
+    null iter 100/200, elapsed=67s, ETA=67s
+    null iter 120/200, elapsed=79s, ETA=52s
+    null iter 140/200, elapsed=91s, ETA=39s
+    null iter 160/200, elapsed=103s, ETA=26s
+    null iter 180/200, elapsed=116s, ETA=13s
+    null iter 200/200, elapsed=128s, ETA=0s
+    S2 null: obs_mean=6.790, null_mean=5.268, p=0.00498, SES=7.87
+    CT done in 132s
+
+6. Saving pairs + per-CT table...
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\fixed_panel_ablation_pairs.csv (31764 pairs)
+  Saved: fixed_panel_ablation_ct.csv
+
+7. Validating S0 against reported brain_bs_null_observed_pairs.csv ...
+  Matched 31764/31764 pairs with reference
+  max |omega_s0 - omega_ref| = 2.849e-12, mean = 3.800e-14
+
+8. Summary statistics...
+{
+  "B_perm_s2_null": 200,
+  "n_pairs": 31764,
+  "n_cts": 10,
+  "panel_sizes": {
+    "s0_perpair": 200,
+    "s1_fixed": 2000,
+    "s2_loo": 200,
+    "s3_all": 5000
+  },
+  "spearman_pair_s0_vs_s1": {
+    "rho": 0.9583126811175358,
+    "p": 0.0
+  },
+  "spearman_pair_s0_vs_s2": {
+    "rho": 0.9637024539307573,
+    "p": 0.0
+  },
+  "spearman_pair_s0_vs_s3": {
+    "rho": 0.9585200611046396,
+    "p": 0.0
+  },
+  "spearman_ctmean_s0_vs_s1": {
+    "rho": 0.9515151515151514,
+    "p": 2.279854920641689e-05
+  },
+  "spearman_ctmean_s0_vs_s2": {
+    "rho": 0.9878787878787878,
+    "p": 9.307459988955516e-08
+  },
+  "spearman_ctmean_s0_vs_s3": {
+    "rho": 0.9272727272727272,
+    "p": 0.00011203450639397583
+  },
+  "grand_mean_s0": 32.56486223164165,
+  "grand_mean_s1": 4.887625550395799,
+  "grand_mean_s2": 24.748534275272316,
+  "grand_mean_s3": 4.078852679971105,
+  "astro_mean_s0": 76.82676000201486,
+  "bergmann_mean_s0": 11.169857723673905,
+  "astro_over_bergmann_s0": 6.878042845539986,
+  "astro_mean_s1": 11.408771968378597,
+  "bergmann_mean_s1": 1.4336809696223038,
+  "astro_over_bergmann_s1": 7.957678319036474,
+  "astro_mean_s2": 61.77152190122543,
+  "bergmann_mean_s2": 5.882693339913125,
+  "astro_over_bergmann_s2": 10.50055107957364,
+  "astro_mean_s3": 9.267725141442389,
+  "bergmann_mean_s3": 1.4308217418252522,
+  "astro_over_bergmann_s3": 6.477204581487459,
+  "kf_ratio_s0_over_s1": {
+    "median": 7.013907315151473,
+    "q25": 6.307349488374875,
+    "q75": 7.931955451333272
+  },
+  "kf_ratio_s0_over_s2": {
+    "median": 1.6380587244094735,
+    "q25": 1.2687002089017465,
+    "q75": 2.1565947019998557
+  },
+  "kf_ratio_s0_over_s3": {
+    "median": 7.908329738269621,
+    "q25": 7.118386351323268,
+    "q75": 8.634264448685347
+  },
+  "tier_counts": {
+    "s0": {
+      "None": 23440,
+      "Weak": 6149,
+      "Moderate": 2120,
+      "Strong": 55
+    },
+    "s1": {
+      "None": 22191,
+      "Weak": 6508,
+      "Moderate": 2965,
+      "Strong": 100
+    },
+    "s2": {
+      "None": 20373,
+      "Weak": 5211,
+      "Moderate": 4865,
+      "Strong": 1315
+    },
+    "s3": {
+      "None": 23041,
+      "Weak": 6583,
+      "Moderate": 2103,
+      "Strong": 37
+    }
+  },
+  "tier_candidate_jaccard_vs_s0": {
+    "s1": {
+      "n_s0": 2175,
+      "n_scheme": 3065,
+      "intersection": 1811,
+      "jaccard": 0.5281423155438904
+    },
+    "s2": {
+      "n_s0": 2175,
+      "n_scheme": 6180,
+      "intersection": 2111,
+      "jaccard": 0.3380845611787316
+    },
+    "s3": {
+      "n_s0": 2175,
+      "n_scheme": 2140,
+      "intersection": 1531,
+      "jaccard": 0.5499281609195402
+    }
+  }
+}
+
+Done! Total time: 1648s

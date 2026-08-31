@@ -102,6 +102,13 @@ CT_LABEL = {
     'Vascular': 'Vascular',
 }
 
+# Oligodendrocyte-lineage cell types used for Strong-candidate coloring
+OL_LINEAGE = {
+    'Oligodendrocyte precursor',
+    'Committed oligodendrocyte precursor',
+    'Oligodendrocyte',
+}
+
 
 # ================================================================
 # SUPPLEMENTARY FIGURE S6: Brain regional analysis details
@@ -427,10 +434,13 @@ def generate_s7():
                 for _, r in top10.iterrows()]
     res_vals = top10['residual'].values
     omega_vals = top10['omega'].values
+    is_ol = top10['cell_type'].isin(OL_LINEAGE).values
+    # OL-lineage vs non-OL coloring (OL: 50/55 Strong; hypergeometric P=4.5e-15)
+    bar_colors_c = np.where(is_ol, C_PURPLE, C_RED)
     y_pos = np.arange(len(labels_c))
 
-    bars = axC.barh(y_pos, res_vals, color=C_PURPLE, alpha=0.85, height=0.65,
-                    edgecolor='white', linewidth=0.5)
+    bars = axC.barh(y_pos, res_vals, color=bar_colors_c, alpha=0.85,
+                    height=0.65, edgecolor='white', linewidth=0.5)
     axC.set_yticks(y_pos)
     axC.set_yticklabels(labels_c, fontsize=SMALL_SIZE)
     axC.set_xlabel('Multiplicative residual', fontsize=SMALL_SIZE, labelpad=2)
@@ -440,6 +450,27 @@ def generate_s7():
         axC.text(val + 0.005, bar.get_y() + bar.get_height() / 2,
                   f'{val:.3f} ($\\omega$={om:.1f})', va='center',
                   fontsize=SMALL_SIZE, color=C_DARK)
+    # OL-lineage legend
+    from matplotlib.patches import Patch as _Patch
+    n_ol_all = int(strong_df['cell_type'].isin(OL_LINEAGE).sum())
+    legend_patches_c = [
+        _Patch(facecolor=C_PURPLE, edgecolor='white', linewidth=0.5,
+               label=f'OL-lineage (n={n_ol_all} of {len(strong_df)} Strong)'),
+        _Patch(facecolor=C_RED, edgecolor='white', linewidth=0.5,
+               label=f'non-OL (n={len(strong_df) - n_ol_all})'),
+    ]
+    axC.legend(handles=legend_patches_c, fontsize=SMALL_SIZE, frameon=True,
+               framealpha=0.9, edgecolor='#BDC3C7', loc='lower right',
+               borderpad=0.4, handlelength=1.4, labelspacing=0.3)
+    # Enrichment annotation (one line, in-figure caption)
+    # Updated 2026-08-30 for corrected extraction: 12/39 Strong, fold=0.77, P=0.92 (no enrichment)
+    axC.text(0.98, 0.045,
+             f'OL-lineage: {n_ol_all}/{len(strong_df)} Strong '
+             f'(fold=0.77,\nhypergeometric P = 0.92; no enrichment)',
+             transform=axC.transAxes, fontsize=SMALL_SIZE, color=C_DARK,
+             ha='right', va='bottom',
+             bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
+                       edgecolor=C_GRAY, linewidth=0.5, alpha=0.92))
     axC.spines[['top', 'right']].set_visible(False)
     axC.tick_params(labelsize=SMALL_SIZE, pad=2)
     axC.invert_yaxis()

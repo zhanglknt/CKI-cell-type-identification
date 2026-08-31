@@ -144,7 +144,7 @@ def main():
     # -----------------------------------------------------------------------
     ax.text(3.25, 8.90, 'CKI: A Cell-type Identity Index',
             fontsize=17, fontweight='bold', color=C_TEXT, ha='center', va='top')
-    ax.text(3.25, 8.68, 'Quantifying selective transcriptomic remodeling from expression distributions',
+    ax.text(3.25, 8.68, 'Quantifying baseline-normalized transcriptomic divergence from expression distributions',
             fontsize=8.5, color=C_SUBTEXT, ha='center', va='top')
 
     # -----------------------------------------------------------------------

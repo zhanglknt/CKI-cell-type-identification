@@ -1,0 +1,17 @@
+dataset,group,n_pairs,omega_mean,ci_95_lower,ci_95_upper,ci_width
+Brain,Astrocyte,5778,82.7482,81.5578,83.8886,2.3309
+Brain,Bergmann glia,21,13.5551,11.3107,16.1352,4.8244
+Brain,Choroid plexus,15,37.7561,31.401,46.8259,15.4249
+Brain,Committed oligodendrocyte precursor,1326,28.8387,28.1763,29.5161,1.3398
+Brain,Ependymal,780,22.9769,22.2896,23.6895,1.3999
+Brain,Fibroblast,3403,18.183,17.8612,18.5115,0.6503
+Brain,Microglia,5671,24.3098,23.9965,24.638,0.6414
+Brain,Oligodendrocyte,5778,37.0544,36.6519,37.4634,0.8115
+Brain,Oligodendrocyte precursor,5671,40.6183,40.1061,41.1395,1.0335
+Brain,Vascular,3321,13.5585,13.3952,13.72,0.3248
+Human (all pairs),all,4851,21.6135,21.3174,21.9097,0.5923
+Mouse (all pairs),all,703,5.7087,5.3016,6.1423,0.8407
+Mouse (pilot),C_control,6,6.6729,4.24,9.24,5.00
+Mouse (pilot),S_same_ct,4,21.3058,11.3961,35.6967,24.3006
+Mouse (pilot),D_diff_ct,3,43.1921,30.0907,61.7153,31.6247
+Mouse (pilot),X_cross,2,27.3058,22.9649,31.6467,8.6818

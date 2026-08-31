@@ -222,7 +222,7 @@ axD.errorbar(cancers, effect_sizes,
              elinewidth=0.9, markersize=5.5,
              markerfacecolor=C_BLUE, markeredgecolor='white',
              markeredgewidth=0.7, zorder=3)
-axD.set_ylabel("Cohen's d (tumor vs. normal)", fontsize=MID_SIZE, labelpad=2)
+axD.set_ylabel("Standardized effect size (SES)", fontsize=MID_SIZE, labelpad=2)
 axD.tick_params(labelsize=SMALL_SIZE)
 axD.set_ylim(0.3, 1.4)
 st.subtle_grid(axD)

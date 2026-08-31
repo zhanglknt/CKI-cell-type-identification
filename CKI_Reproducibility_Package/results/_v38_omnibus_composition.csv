@@ -1,0 +1,11 @@
+cell_type,observed_strong,expected_from_share
+Astrocyte,3,7.09
+Bergmann glia,0,0.03
+Choroid plexus,0,0.02
+Committed oligodendrocyte precursor,1,1.63
+Ependymal,2,0.96
+Fibroblast,6,4.18
+Microglia,16,6.96
+Oligodendrocyte,10,7.09
+Oligodendrocyte precursor,1,6.96
+Vascular,0,4.08

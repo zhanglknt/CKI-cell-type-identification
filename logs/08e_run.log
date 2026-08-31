@@ -1,0 +1,42 @@
+C:\Users\KnightZ\Desktop\细胞受选择\notebooks\08e_brain_blockshuffle_results.py:42: RuntimeWarning: divide by zero encountered in scalar divide
+  val = p[i] * n / rank
+============================================================
+Brain block-shuffle null: results processing
+============================================================
+Loaded 31764 observed pairs
+  Astrocyte: 5778 pairs, B=1000, P range [0.0010, 1.0000]
+  Bergmann glia: 21 pairs, B=1000, P range [0.0010, 0.9620]
+  Choroid plexus: 15 pairs, B=1000, P range [0.0010, 0.9231]
+  Committed oligodendrocyte precursor: 1326 pairs, B=1000, P range [0.0010, 1.0000]
+  Ependymal: 780 pairs, B=1000, P range [0.0010, 1.0000]
+  Fibroblast: 3403 pairs, B=1000, P range [0.0010, 1.0000]
+  Microglia: 5671 pairs, B=1000, P range [0.0010, 0.9990]
+  Oligodendrocyte: 5778 pairs, B=1000, P range [0.0010, 1.0000]
+  Oligodendrocyte precursor: 5671 pairs, B=1000, P range [0.0010, 1.0000]
+  Vascular: 3321 pairs, B=1000, P range [0.0010, 1.0000]
+
+------------------------------------------------------------
+FDR outcome by tier (all 31,764 brain pairs)
+------------------------------------------------------------
+  Strong    n=    55  q<0.05:     0  q<0.10:     0  p<0.05:     0
+  Moderate  n=  2120  q<0.05:     0  q<0.10:     0  p<0.05:     0
+  Weak      n=  6149  q<0.05:     0  q<0.10:     0  p<0.05:    30
+
+------------------------------------------------------------
+Per-CT FDR summary
+------------------------------------------------------------
+                          cell_type  n_pairs  q<0.05  q<0.10  p<0.05  p<0.01    min_q
+                          Astrocyte     5778       0       0    1349     515 0.390514
+                      Bergmann glia       21       0       0       4       3 0.390514
+                     Choroid plexus       15       0       0       1       1 0.390514
+Committed oligodendrocyte precursor     1326       0       0     200      63 0.390514
+                          Ependymal      780       0       0     114      23 0.390514
+                         Fibroblast     3403       0       0     362     111 0.390514
+                          Microglia     5671       0       0    1155     512 0.390514
+                    Oligodendrocyte     5778       0       0    1269     579 0.390514
+          Oligodendrocyte precursor     5671       0       0    1096     453 0.390514
+                           Vascular     3321       0       0     603     262 0.390514
+
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\brain_bs_null_results.csv
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\brain_bs_null_summary.txt
+Done!

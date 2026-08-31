@@ -1,0 +1,11 @@
+cell_type,n_pairs,p_one_sided,q_BH_one_sided,p_two_sided,q_BH_two_sided,p_fixed_panel,q_BH_fixed_panel
+Astrocyte,5778,0.001,0.01,0.002,0.02,0.005,0.0166
+Oligodendrocyte precursor,5671,0.002,0.01,0.004,0.02,0.005,0.0166
+Choroid plexus,15,0.5664,0.8092,1.0,1.0,0.5622,0.8031
+Oligodendrocyte,5778,0.8831,0.998,1.0,1.0,0.8756,0.9729
+Committed oligodendrocyte precursor,1326,0.005,0.0167,0.01,0.0333,0.005,0.0166
+Microglia,5671,0.9041,0.998,1.0,1.0,0.796,0.9729
+Ependymal,780,0.0749,0.1499,0.1499,0.2997,0.1642,0.2736
+Fibroblast,3403,0.03,0.0749,0.0599,0.1499,0.0199,0.0498
+Vascular,3321,0.1149,0.1915,0.2298,0.383,0.0348,0.0697
+Bergmann glia,21,0.998,0.998,1.0,1.0,0.9801,0.9801

@@ -1,0 +1,5 @@
+ts_split_half_mean_omega	7.6708
+ts_split_half_ci95	[7.3898, 7.9975]
+n_populations	71
+B_per_population	50
+min_pop_cells	100

@@ -87,7 +87,7 @@ def extract_csr_from_backed(h5_path, cell_indices, keep_global, n_genes_total,
                 chunk_keep = np.array([], dtype=bool)
                 chunk_data = np.array([], dtype=X['data'].dtype)
             for ci in range(cs, ce):
-                orig_pos = int(unsort[ci])
+                orig_pos = int(sort_order[ci])   # FIX (was unsort[ci])
                 g_row = int(sorted_cells[ci])
                 r_start = int(indptr_full[g_row]) - d_start
                 r_end = int(indptr_full[g_row + 1]) - d_start
@@ -101,7 +101,7 @@ def extract_csr_from_backed(h5_path, cell_indices, keep_global, n_genes_total,
                     new_idx_list[orig_pos] = chunk_mapped[r_start:r_end][km]
 
     cell_nnz_orig = np.zeros(n_cells, dtype=np.int64)
-    cell_nnz_orig[unsort] = cell_nnz_sorted
+    cell_nnz_orig[sort_order] = cell_nnz_sorted   # FIX (was unsort)
     new_indptr = np.zeros(n_cells + 1, dtype=np.int64)
     np.cumsum(cell_nnz_orig, out=new_indptr[1:])
     nnz = int(new_indptr[-1])
@@ -410,8 +410,14 @@ def main():
     if len(ok) >= 3:
         r, p = spearmanr(ok['omega_mean_within_donor'], ok['omega_mean_pooled'])
         print(f"\n  Spearman corr(within-donor mean, pooled mean) = {r:.3f} (P = {p:.2g}, n={len(ok)})")
-        print(f"  Pooled gradient extremes: Astrocyte/Bergmann glia = "
-              f"{76.83/11.17:.2f}x")
+        # Gradient extremes computed from the (corrected) pooled means
+        try:
+            _a = float(ok.loc[ok['cell_type'] == 'Astrocyte', 'omega_mean_pooled'].iloc[0])
+            _b = float(ok.loc[ok['cell_type'] == 'Bergmann glia', 'omega_mean_pooled'].iloc[0])
+            print(f"  Pooled gradient extremes: Astrocyte/Bergmann glia = "
+                  f"{_a/_b:.2f}x")
+        except (KeyError, IndexError):
+            print("  Pooled gradient extremes: cell type not found")
         if 'Astrocyte' in set(ok['cell_type']):
             a = ok.loc[ok['cell_type'] == 'Astrocyte', 'omega_mean_within_donor'].iloc[0]
             print(f"  Astrocyte within-donor mean = {a:.2f}")

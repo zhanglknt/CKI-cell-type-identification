@@ -1,0 +1,144 @@
+============================================================
+1. Loading HK genes from HRT Atlas...
+  HRT Atlas: 1129 human HK genes
+
+2. Opening Siletti (backed h5py)...
+  Shape: (888263, 59480)
+  Donors: [np.str_('H18.30.001'), np.str_('H18.30.002'), np.str_('H19.30.001'), np.str_('H19.30.002')]
+  Matched HK genes: 1115
+
+3. Computing global gene means (HVG selection)...
+  Means computed in 229s
+  Reduced set: 6115 genes (HK=1115 + HVG=5000)
+
+4. Filtering groups...
+  Groups passing: 700 | CTs: 10
+    Astrocyte: 108 regions, 5778 pairs
+    Bergmann glia: 7 regions, 21 pairs
+    Choroid plexus: 6 regions, 15 pairs
+    Committed oligodendrocyte precursor: 52 regions, 1326 pairs
+    Ependymal: 40 regions, 780 pairs
+    Fibroblast: 83 regions, 3403 pairs
+    Microglia: 107 regions, 5671 pairs
+    Oligodendrocyte: 108 regions, 5778 pairs
+    Oligodendrocyte precursor: 107 regions, 5671 pairs
+    Vascular: 82 regions, 3321 pairs
+
+============================================================
+5. Top-donor share diagnostic (B=1000, metadata level)
+============================================================
+  Major regions: 108 | libraries: 606 | donors: 4
+  Observed per-region top-donor share (nuclei-weighted): median=0.607 (mean=0.656)
+  Observed per-region top-donor share (library-count): median=0.437 (mean=0.532)
+    diag iter 200/1000
+    diag iter 400/1000
+    diag iter 600/1000
+    diag iter 800/1000
+    diag iter 1000/1000
+  FREE shuffle:   top-donor share median (nuclei) = 0.663 [0.619, 0.710] | (libraries) = 0.500 [0.500, 0.500]
+  STRATIFIED:     top-donor share median (nuclei) = 0.643 [0.600, 0.684] | (libraries) = 0.437 [0.437, 0.437]
+  Saved -> results/v38_topdonor_share_null.csv
+
+============================================================
+6. Per-CT nulls with FIXED extraction (B=1000, free + donor-stratified)
+============================================================
+
+  --- Astrocyte (108 regions, 5778 pairs) ---
+      Extraction chunk 5/8 (100000/155025 sorted cells)
+    Extracted 155025 cells x 6115 genes (263M nnz, 17s)
+    Blocks (samples): 606 | donors: 4 | shufflable blocks: 598
+    [validation] fast vs scalar observed omegas: max|diff|=6.679e-12
+    Observed (corrected): mean=82.748, median=73.366, std=44.975 (1.7s)
+    Iter 100/1000, elapsed=175s, ETA=1573s
+    Iter 200/1000, elapsed=351s, ETA=1403s
+    Iter 300/1000, elapsed=522s, ETA=1219s
+    Iter 400/1000, elapsed=697s, ETA=1045s
+    Iter 500/1000, elapsed=868s, ETA=868s
+    Iter 600/1000, elapsed=1043s, ETA=695s
+    Iter 700/1000, elapsed=1220s, ETA=523s
+    Iter 800/1000, elapsed=1395s, ETA=349s
+    Iter 900/1000, elapsed=1569s, ETA=174s
+    Iter 1000/1000, elapsed=1742s, ETA=0s
+    Identity stratified permutations (degenerate): 0/1000
+    FREE null:  mean=68.357, sd=2.192, p=0.0010, SES=6.57
+    STRAT null: mean=68.632, sd=2.093, p=0.0010, SES=6.74
+
+  --- Bergmann glia (7 regions, 21 pairs) ---
+    Extracted 7965 cells x 6115 genes (14M nnz, 1s)
+    Blocks (samples): 42 | donors: 3 | shufflable blocks: 42
+    Observed (corrected): mean=13.555, median=12.234, std=5.583 (0.0s)
+    Iter 100/1000, elapsed=1s, ETA=6s
+    Iter 200/1000, elapsed=1s, ETA=5s
+    Iter 300/1000, elapsed=2s, ETA=4s
+    Iter 400/1000, elapsed=2s, ETA=4s
+    Iter 500/1000, elapsed=3s, ETA=3s
+    Iter 600/1000, elapsed=4s, ETA=2s
+    Iter 700/1000, elapsed=4s, ETA=2s
+    Iter 800/1000, elapsed=5s, ETA=1s
+    Iter 900/1000, elapsed=5s, ETA=1s
+    Iter 1000/1000, elapsed=6s, ETA=0s
+    Identity stratified permutations (degenerate): 0/1000
+    FREE null:  mean=21.936, sd=2.912, p=0.9970, SES=-2.88
+    STRAT null: mean=21.512, sd=2.873, p=0.9990, SES=-2.77
+
+  --- Choroid plexus (6 regions, 15 pairs) ---
+    Extracted 7643 cells x 6115 genes (21M nnz, 1s)
+    Blocks (samples): 22 | donors: 3 | shufflable blocks: 22
+    Observed (corrected): mean=37.756, median=33.153, std=15.406 (0.0s)
+    Iter 100/1000, elapsed=0s, ETA=4s
+    Iter 200/1000, elapsed=1s, ETA=3s
+    Iter 300/1000, elapsed=1s, ETA=3s
+    Iter 400/1000, elapsed=2s, ETA=3s
+    Iter 500/1000, elapsed=2s, ETA=2s
+    Iter 600/1000, elapsed=3s, ETA=2s
+    Iter 700/1000, elapsed=3s, ETA=1s
+    Iter 800/1000, elapsed=3s, ETA=1s
+    Iter 900/1000, elapsed=4s, ETA=0s
+    Iter 1000/1000, elapsed=4s, ETA=0s
+    Identity stratified permutations (degenerate): 0/1000
+    FREE null:  mean=38.854, sd=6.891, p=0.5594, SES=-0.16
+    STRAT null: mean=36.073, sd=6.602, p=0.4086, SES=0.25
+
+  --- Committed oligodendrocyte precursor (52 regions, 1326 pairs) ---
+    Extracted 4118 cells x 6115 genes (7M nnz, 43s)
+    Blocks (samples): 317 | donors: 4 | shufflable blocks: 314
+    Observed (corrected): mean=28.839, median=26.697, std=12.507 (0.2s)
+    Iter 100/1000, elapsed=42s, ETA=377s
+    Iter 200/1000, elapsed=85s, ETA=341s
+    Iter 300/1000, elapsed=128s, ETA=300s
+    Iter 400/1000, elapsed=172s, ETA=258s
+    Iter 500/1000, elapsed=214s, ETA=214s
+    Iter 600/1000, elapsed=256s, ETA=171s
+    Iter 700/1000, elapsed=298s, ETA=128s
+    Iter 800/1000, elapsed=340s, ETA=85s
+    Iter 900/1000, elapsed=381s, ETA=42s
+    Iter 1000/1000, elapsed=422s, ETA=0s
+    Identity stratified permutations (degenerate): 0/1000
+    FREE null:  mean=26.381, sd=0.928, p=0.0040, SES=2.65
+    STRAT null: mean=26.854, sd=0.946, p=0.0130, SES=2.10
+
+  --- Ependymal (40 regions, 780 pairs) ---
+    Extracted 5779 cells x 6115 genes (10M nnz, 1s)
+    Blocks (samples): 146 | donors: 3 | shufflable blocks: 146
+    Observed (corrected): mean=22.977, median=21.315, std=10.139 (0.1s)
+    Iter 100/1000, elapsed=24s, ETA=218s
+    Iter 200/1000, elapsed=49s, ETA=194s
+    Iter 300/1000, elapsed=75s, ETA=174s
+    Iter 400/1000, elapsed=100s, ETA=150s
+    Iter 500/1000, elapsed=126s, ETA=126s
+    Iter 600/1000, elapsed=151s, ETA=100s
+    Iter 700/1000, elapsed=175s, ETA=75s
+    Iter 800/1000, elapsed=199s, ETA=50s
+    Iter 900/1000, elapsed=223s, ETA=25s
+    Iter 1000/1000, elapsed=246s, ETA=0s
+    Identity stratified permutations (degenerate): 0/1000
+Traceback (most recent call last):
+  File "c:\Users\KnightZ\Desktop\细胞受选择\notebooks\48_donor_stratified_null.py", line 763, in <module>
+    main()
+    ~~~~^^
+  File "c:\Users\KnightZ\Desktop\细胞受选择\notebooks\48_donor_stratified_null.py", line 670, in main
+    np.save(free_npy, free_null)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KnightZ\Desktop\细胞受选择\cki_env\Lib\site-packages\numpy\lib\_npyio_impl.py", line 568, in save
+    file_ctx = open(file, "wb")
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\KnightZ\\Desktop\\细胞受选择\\results\\v48_free_null_pairs_Ependymal.npy'

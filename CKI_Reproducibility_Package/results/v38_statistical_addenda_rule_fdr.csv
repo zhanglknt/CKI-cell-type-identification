@@ -1,0 +1,5 @@
+selection rule,R_obs,null mean Vbar,null max,FDR_emp=Vbar/R,P(null count >= R)
+Strong 规则 (residual<0.3 & ω<15 & lowest-in-pair),39,148.3,298,3.802,1.0
+Moderate 规则 (residual<0.5 & ω<25),1171,1900.3,2444,1.623,1.0
+Weak 规则 (residual<0.75 & ω<35),5381,6107.6,6725,1.135,1.0
+Strong ∧ raw p<0.05（稿件报告的 31 个候选）,31,131.2,270,4.234,1.0
