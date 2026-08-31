@@ -43,7 +43,7 @@ def get_manuscript_data():
         "tabula_muris_cells": 15057,
         "tabula_muris_organs": 6,
         "tabula_muris_genes": 22308,
-        "tabula_muris_ct_entries": 32,
+        "tabula_muris_ct_entries": 38,
         "tabula_sapiens_cells": 108136,
         "tabula_sapiens_organs": 6,
         "tabula_sapiens_genes": 51852,

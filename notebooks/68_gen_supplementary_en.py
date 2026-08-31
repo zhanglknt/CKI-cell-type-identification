@@ -60,18 +60,21 @@ _norm_mouse_p = float(stats.shapiro(pd.read_csv(
 _norm_mouse_skew = float(stats.skew(pd.read_csv(
     Path(__file__).resolve().parent.parent / "results" / "mouse_pilot_v2_results.csv")['omega']))
 
-# Bootstrap 95% CIs for the median (pair-level resampling, B = 10,000) — examples for SN3.2
-_rng = np.random.default_rng(42)
+# Bootstrap 95% CIs for the class-mean omega (pair-level resampling, B = 10,000)
+# Round-8 fix (E3-M2): report the mean CIs shipped in phaseB_bootstrap_cis.csv
+# (the file accompanying the submission) rather than median CIs recomputed
+# inline, so SN 3.2 matches the shipped artifact and the mean-based reporting
+# used throughout the manuscript.
+_pb_cis = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "phaseB_bootstrap_cis.csv")
 
 
-def _median_ci(values, B=10000):
-    v = np.asarray(values, dtype=float)
-    meds = np.array([np.median(_rng.choice(v, size=len(v), replace=True)) for _ in range(B)])
-    return float(np.median(v)), float(np.percentile(meds, 2.5)), float(np.percentile(meds, 97.5))
+def _mean_ci_from_file(group):
+    row = _pb_cis[(_pb_cis['dataset'] == 'Brain') & (_pb_cis['group'] == group)].iloc[0]
+    return float(row['omega_mean']), float(row['ci_95_lower']), float(row['ci_95_upper'])
 
 
-_ci_astro = _median_ci(_obs[_obs['cell_type'] == 'Astrocyte']['omega'])
-_ci_berg = _median_ci(_obs[_obs['cell_type'] == 'Bergmann glia']['omega'])
+_ci_astro = _mean_ci_from_file('Astrocyte')
+_ci_berg = _mean_ci_from_file('Bergmann glia')
 
 doc = Document()
 
@@ -116,7 +119,11 @@ def add_para(text, bold=False):
 # ===== TITLE PAGE =====
 add_heading('Supplementary Materials', 1)
 add_para('CKI: A Cell-type Identity Index for Quantifying Baseline-Normalized Divergence')
-add_para('Li Zhang')
+add_para('Xianming Wu (1), Li Zhang (1,2,*)')
+add_para('(1) Chinese Institute for Brain Research, Beijing, China')
+add_para('(2) Institute of Blood Transfusion, Chinese Academy of Medical Sciences & '
+         'Peking Union Medical College, Chengdu, China')
+add_para('(*) Corresponding author')
 add_para('')
 
 add_heading('Table of Contents', 2)
@@ -125,10 +132,10 @@ toc = [
     'Supplementary Note 2: CKI Algorithm Pseudocode',
     'Supplementary Note 3: Statistical Testing Details',
     'Supplementary Note 4: Dataset Quality Control and Filtering Criteria',
-    'Supplementary Table 1: Parameter Sweep Results (Phase 3.2)',
-    'Supplementary Table 2: Cross-Organ Conservation Data (Phase 3.5)',
-    'Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data',
-    'Supplementary Table 4: Inter-regional Region-Associated Candidate Data',
+    'Table S1: Parameter Sweep Results (Phase 3.2)',
+    'Table S2: Cross-Organ Conservation Data (Phase 3.5)',
+    'Table S3: Human Brain Non-neuronal Cell Regional CKI Data',
+    'Table S4: Inter-regional Region-Associated Candidate Data',
     'Supplementary Data 1: Complete Analysis Script Index',
 ]
 for item in toc:
@@ -172,7 +179,7 @@ add_para(
     'individual-level physiological differences. k_n thus provides an internal baseline, '
     'heuristically analogous to Ks (synonymous substitution rate) in molecular evolution. '
     'HK gene set selection: HK genes were loaded from the HRT Atlas v1.0 reference '
-    '(1,130 human-mouse conserved HK genes) (13). For mouse datasets, the mouse ortholog '
+    '(1,130 human-mouse conserved HK genes) [13]. For mouse datasets, the mouse ortholog '
     'column is used; for human datasets (Tabula Sapiens, TCGA, brain atlas), the human '
     'gene column is used. The CKI package also supports data-driven auto-detection via '
     'detect_housekeeping_genes() (combined criterion: detection rate > 0.9 and CV < 30th '
@@ -215,11 +222,11 @@ add_para(
     'models, while CKI operates on continuous expression vectors; (2) the neutral '
     'reference in Ka/Ks has a mechanistic basis in the genetic code (synonymous changes '
     'are assumed neutral), whereas HK genes in CKI are empirically defined; (3) Ka/Ks '
-    'uses explicit evolutionary models (e.g., PAML), while CKI uses empirical bootstrap '
+    'uses explicit evolutionary models (e.g., PAML), while CKI uses empirical permutation '
     'inference.'
 )
 
-add_para('1.5 Bootstrap Permutation Test', bold=True)
+add_para('1.5 Permutation Test', bold=True)
 add_para(
     'Statistical inference is performed by generating a null distribution of omega '
     'under the null hypothesis that the group labels are exchangeable between the two '
@@ -230,7 +237,7 @@ add_para(
     'permutation rather than label permutation; pseudobulk vectors and omega_null are '
     'recomputed each time, with the top-N identity genes re-selected on the permuted '
     'pseudobulks in the mouse, human, and brain pipelines, while the TCGA per-cancer '
-    'bootstrap holds a fixed HVG panel across permutations (anti-conservative relative '
+    'permutation test holds a fixed HVG panel across permutations (anti-conservative relative '
     'to re-selection); '
     '(3) Empirical P-value (one-sided): '
     'P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1), with the '
@@ -299,7 +306,7 @@ add_para(
     'Note: the released bootstrap_test() API resolves H and I once and holds them fixed '
     'across permutations; the reported mouse, human, and brain analyses re-select I at '
     'every permutation as shown in line 14, and the brain analysis uses a library-level '
-    'block-shuffle null instead of label permutation (see 1.5 Bootstrap Permutation Test).'
+    'block-shuffle null instead of label permutation (see 1.5 Permutation Test).'
 )
 add_para('')
 add_para('Algorithm 2: Pairwise Identity Gene Selection (Tabula Sapiens Extension)', bold=True)
@@ -330,18 +337,18 @@ add_para(
     '(two-sided) for independent comparisons between two groups; Kruskal-Wallis test '
     'for multi-group comparisons (e.g., BRCA PAM50 subtypes); Jonckheere-Terpstra trend '
     'test for ordered categorical variables (e.g., LIHC Edmondson grade); Spearman rank '
-    'correlation for correlations between metrics; Bootstrap permutation test (B=1,000) '
+    'correlation for correlations between metrics; Permutation test (B=1,000) '
     'for CKI omega significance inference; ROC-AUC for cell type classification '
     'performance assessment.'
 )
 
-add_para('3.2 Bootstrap Details', bold=True)
+add_para('3.2 Permutation Test and Bootstrap CI Details', bold=True)
 add_para(
-    'Bootstrap iterations: B=1,000 for all datasets (mouse pilot study with '
+    'Permutation iterations: B=1,000 for all datasets (mouse pilot study with '
     '15 cell-type pairs, human Tabula Sapiens via script 08b, TCGA via script 08a, '
     'and brain atlas via scripts 08d-08e, which implement the block-shuffle null). '
-    'Bootstrap permutation testing was '
-    'performed for all four datasets. Benjamini-Hochberg FDR correction is '
+    'Permutation testing was performed '
+    'for all four datasets. Benjamini-Hochberg FDR correction is '
     'applied within each dataset to control the false discovery rate. '
     'For the calibration '
     'experiment, empirical P-values '
@@ -355,7 +362,7 @@ add_para(
     'Bootstrap confidence intervals (95% CI) for all key \u03c9 estimates were '
     'computed by pair-level resampling with B=10,000 iterations. For each cell '
     'type, observed pair-level \u03c9 values were resampled with replacement and the '
-    'median was computed; the 2.5th and 97.5th percentiles of the resulting '
+    'mean was computed; the 2.5th and 97.5th percentiles of the resulting '
     'distribution define the 95% CI. A region-clustered block bootstrap (B = 2,000; the 108 '
     'regions resampled with replacement, all statistics recomputed per resample) yields wider, '
     'cluster-aware intervals for landscape-level quantities: gradient 6.10 [5.55, 9.63], '
@@ -363,15 +370,15 @@ add_para(
     'Confidence interval widths scale inversely '
     'with the number of contributing pairs: well-sampled cell types (e.g., '
     f'astrocytes, 5,778 pairs) yield narrow intervals ([{_ci_astro[1]:.2f}, {_ci_astro[2]:.2f}], '
-    f'median {_ci_astro[0]:.2f}), whereas cell types with fewer comparisons '
+    f'mean {_ci_astro[0]:.2f}), whereas cell types with fewer comparisons '
     f'(e.g., Bergmann glia, 21 pairs) produce wider intervals '
-    f'([{_ci_berg[1]:.2f}, {_ci_berg[2]:.2f}], median {_ci_berg[0]:.2f}).'
+    f'([{_ci_berg[1]:.2f}, {_ci_berg[2]:.2f}], mean {_ci_berg[0]:.2f}).'
 )
 
 add_para('3.3 Multiple Testing Correction', bold=True)
 _bs = _br['bs_null']
 add_para(
-    'Bootstrap permutation testing was performed for all four datasets with B=1,000: '
+    'Permutation testing was performed for all four datasets with B=1,000: '
     'mouse pilot (15 cell-type pairs), human Tabula Sapiens, TCGA, and '
     'brain atlas. Benjamini-Hochberg FDR correction is applied within each '
     'dataset to control the false discovery rate, with the number of tests '
@@ -379,7 +386,7 @@ add_para(
     f'atlas, {_h["n_ct_analyzed"]} of 102 cell-type entries passed the pairwise-analysis filters '
     f'(at least 20 cells per entry and a donor with at least 10 cells), yielding '
     f'C({_h["n_ct_analyzed"]}, 2) = {_h["n_pairs_total"]:,} pairs; for the brain atlas, 31,764 '
-    'same-cell-type cross-region pairs were tested. For the larger-scale analyses, bootstrap results '
+    'same-cell-type cross-region pairs were tested. For the larger-scale analyses, permutation results '
     'are supplemented with non-parametric '
     'statistical tests and descriptive statistics (median, IQR, effect sizes). For TCGA stratified '
     'analyses (BRCA PAM50, LIHC Edmondson) involving 4-5 groups, omnibus tests '
@@ -430,8 +437,8 @@ add_para(
     'the P-value floor) because per-pair shuffling ignores the block structure of 10x libraries; that '
     'implementation was superseded by the block-shuffle null reported here. Per-signal tests are not '
     'independent (the same cell type or region pair appears in multiple comparisons); interpretation is '
-    'therefore restricted to the predefined Strong tier. (Supplementary Figure S8: \u03c9 distribution '
-    'characterization; Supplementary Figure S9: block-shuffle null distribution for the residual model.)'
+    'therefore restricted to the predefined Strong tier. (Figure S8: \u03c9 distribution '
+    'characterization; Figure S9: block-shuffle null distribution for the residual model.)'
 )
 
 add_para('3.4 Reporting Conventions', bold=True)
@@ -439,7 +446,7 @@ add_para(
     'Summary statistics are reported as mean +/- standard deviation (range) or median '
     '[interquartile range]. Boxplots display: median (center line), IQR (box), '
     '1.5x IQR (whiskers), with data points beyond the whiskers shown as outliers. '
-    'All P-values from non-bootstrap tests are two-sided; bootstrap permutation '
+    'All P-values from non-permutation tests are two-sided; permutation '
     'P-values are one-sided (see SN 1.5). Correlation '
     'coefficients (Spearman rho) are reported with P-values. Effect sizes (standardized effect size, SES = (\u03c9_obs \u2212 \u03bc_null) / \u03c3_null) '
     'are reported as descriptive measures of magnitude; because the \u03c9 distribution '
@@ -483,7 +490,7 @@ add_para(
     'the Tabula Sapiens dataset but not to the brain atlas, and omega_cal should be treated as a '
     'dataset-relative quantity rather than a universal constant. '
     'The calibrate_omega() function is available in the CKI package (cki.calibrate_omega). '
-    'Both raw and calibrated omega values are reported in all key results. (Supplementary Figure S12.)'
+    'Both raw and calibrated omega values are reported in all key results. (Figure S12.)'
 )
 
 add_para('3.6 JS Divergence Dimensionality Invariance', bold=True)
@@ -503,7 +510,7 @@ add_para(
     'filtering rather than gene count. The calibrated omega (omega_cal = omega / 6.67) '
     'absorbs this bias into the empirical baseline, and the permutation null distribution '
     '- constructed using the same gene sets as the observed data - ensures internal '
-    'consistency. (Supplementary Figure S10.)'
+    'consistency. (Figure S10.)'
 )
 
 add_para('3.7 Pair-Specific k_n Variability', bold=True)
@@ -519,10 +526,10 @@ add_para(
     'As a sensitivity analysis, we contrasted this per-pair k_n estimator with a global-k_n '
     'variant (k_n computed once from the full gene-by-cell-type pseudobulk matrix): the Spearman '
     f'correlation between the resulting omega rankings was only \u03c1 = {_kn_rho:.3f} (P = {_kn_rho_p:.2e}), so the '
-    'global-k_n simplification would preserve only ~3% of the variance in omega orderings '
-    '(\u03c1\u00b2 \u2248 0.03). This justifies the per-pair k_n approach used throughout and '
+    'global-k_n simplification would preserve only ~2% of the variance in omega orderings '
+    '(\u03c1\u00b2 \u2248 0.02). This justifies the per-pair k_n approach used throughout and '
     'highlights that fine-grained omega orderings should be interpreted with the estimator '
-    'choice in mind. (Supplementary Figure S11.)'
+    'choice in mind. (Figure S11.)'
 )
 
 add_para('3.8 TCGA Exploratory Analysis Caveats', bold=True)
@@ -552,19 +559,23 @@ add_para(
     'types have very few pairs (n = 1-3; e.g., Memory B cells n = 1, Smooth muscle n = 1), '
     'making their mean omega estimates unreliable. We recommend interpreting rankings of cell '
     'types with n < 5 as suggestive only. Bootstrap 95% confidence intervals for cell types '
-    'with n >= 5 are provided in Supplementary Table S2. The Spearman correlations between '
+    'with n >= 5 are provided in Table S2. The Spearman correlations between '
     'CKI omega and standard metrics are reported with bootstrap 95% CIs (B = 10,000 resamples).'
 )
 
 add_para('3.10 One-Sided Permutation Test Justification', bold=True)
 add_para(
-    'All bootstrap P-values use a one-sided test: P = (count(omega_null >= omega_obs) + 1)/(B + 1). '
+    'All permutation P-values use a one-sided test: P = (count(omega_null >= omega_obs) + 1)/(B + 1). '
     'The one-sided formulation is appropriate because our hypothesis is directional: we test '
     'whether observed omega exceeds the null expectation (equivalent populations), not whether '
     'it differs in either direction. A two-sided test would be appropriate if we were testing '
     'for any departure from the null (either elevated or suppressed omega). However, the '
     'biological questions addressed here (functional divergence exceeding baseline, Strong '
-    'region-associated candidates showing anomalously low omega) are inherently directional.'
+    'region-associated candidates showing anomalously low omega) are inherently directional. '
+    'One exception: the brain per-pair candidate screen uses the one-sided lower-tail '
+    'formula P = (count(omega_null <= omega_obs) + 1)/(B + 1), because region-associated '
+    'candidates are defined by anomalously low omega; the complementary upper-tail '
+    'P-value is computed for every pair and both tails are reported.'
 )
 
 add_para('3.11 Parameter Justification', bold=True)
@@ -575,13 +586,19 @@ add_para(
     'relative magnitude information while ensuring non-negativity and sum-to-one. '
     '(2) Pseudocount epsilon = 1e-9: added to avoid log(0) in '
     'JS divergence; the value is small enough to not affect results materially but large enough '
-    'to prevent numerical instability. (3) Top-200 DE genes for k_f (mouse): selected per pair '
-    'to adaptively capture the most informative identity genes; the parameter sweep (Phase 3.2) '
-    'tested N_HVG in {500, 1000, 2000, 3000, 5000} and found 2000 optimal for AUC. (4) HVG '
-    'count of 2,000 (human/brain): standard Scanpy default; Seurat flavor used for consistency '
-    'with the Scanpy ecosystem. (5) Log-base 2 for JS divergence: standard choice giving JS '
+    'to prevent numerical instability. (3) Identity-gene sets for k_f: two schemes are used '
+    '\u2014 a global panel of the top-2,000 highly variable genes (HVGs; Seurat flavor, HK '
+    'excluded) for the Tabula Muris full pairwise matrix, and per-pair top-200 DE genes '
+    '(ranked by absolute mean difference, HK excluded) for the mouse pilot, Tabula '
+    'Sapiens, TCGA, and brain analyses; the Phase 3.2 sweep varied the identity/pathway '
+    'weighting at the fixed 2,000-HVG panel and found the identity-only configuration '
+    'optimal for AUC (Table S1). (4) Gene-set sizes by dataset: 2,000 HVGs '
+    '(Scanpy default) for the mouse matrix; the brain pipeline retains the top-5,000 '
+    'non-HK genes by global mean expression; a diagnostic HVG-size sweep on Tabula '
+    'Sapiens (N_HVG in {2,000, 5,000, 10,000, 20,000}; notebooks/05b_phase33_diagnose.py) '
+    'informed these choices. (5) Log-base 2 for JS divergence: standard choice giving JS '
     'range [0, 1]; the base does not affect omega = k_f/k_n since it cancels in the ratio. '
-    '(6) B = 1,000 for bootstrap: justified by adaptive permutation analysis showing minimum '
+    '(6) B = 1,000 for permutation: justified by adaptive permutation analysis showing minimum '
     'P = 9.99 \u00d7 10\u207b\u2074 (= 1/(B+1) = 1/1001) is well below BH thresholds for cell-type-level tests (Phase B).'
 )
 
@@ -601,8 +618,8 @@ add_para(
     'cosine distance, and k_f/k_total. Signal scenarios used three independent module draws '
     '(seeds 42, 137, 2024). Detection thresholds were the 95th percentile of 200 baseline '
     'replicates (pure cell resampling) per metric, so type-I error and power refer to a '
-    'common nominal 5% level. 1,750 replicates total; script: '
-    'notebooks/45_groundtruth_simulation.py (runtime about 1 minute).'
+    'common nominal 5% level. 1,750 replicates per background; scripts: '
+    'notebooks/45_groundtruth_simulation.py (marrow B cells) and notebooks/49_groundtruth_sim_background2.py (skin keratinocyte stem cells; runtime about 1 minute each).'
 )
 add_para(
     'Type-I error under neutral perturbation. Under pure HK drift (eta = 0.25-1, pooled), '
@@ -624,8 +641,8 @@ add_para(
     '0.000, raw JS 0.140, cosine 0.100. delta = 1: omega 0.000 (all three module seeds), '
     'k_f 0.013, raw JS 0.993, cosine 0.667. delta = 2: omega 0.133 (per-seed 0.12-0.16), '
     'k_f 0.153, raw JS 1.000, cosine 1.000. The omega detection floor is structural: the '
-    'per-pair top-200 selection saturates with noise under the null (median null k_f = '
-    '0.029), so weak module shifts do not lift k_f above the selection floor, and omega '
+    'per-pair top-200 selection saturates with noise under the null (median baseline k_f = '
+    '0.025), so weak module shifts do not lift k_f above the selection floor, and omega '
     'inherits this as an upper-bound estimator. The baseline omega distribution on this '
     'background (mean 11.6, 95th percentile 20.8) reproduces the scale of the brain-internal '
     'split-half calibration baseline (9.73), supporting external validity.'
@@ -641,13 +658,27 @@ add_para(
     'Discrimination and robustness. ROC AUC for separating functional (delta >= 0.25) from '
     'neutral (HK drift or global overdispersion) replicates: omega 0.804 > k_f 0.716 > '
     'raw JS 0.640 > cosine 0.584 > k_f/k_total 0.437 > k_n 0.213. Under a fourfold '
-    'cell-count imbalance (n_B = 50, delta = 1), omega changed by -27% (9.15 versus 12.46) '
-    'while k_f inflated by +81% and cosine by +103%; 30% dropout and a twofold depth '
+    'cell-count imbalance (n_B = 50, delta = 1), omega changed by -32% (8.47 versus 12.46) '
+    'while k_f inflated by +67% and cosine by +108%; 30% dropout and a twofold depth '
     'difference produced no systematic shift in omega. Module-size sensitivity at '
     'delta = 1: m = 50 (omega mean 11.99), m = 200 (12.46), m = 500 (7.31; large modules '
     'shift total library composition, which leaks into k_n and suppresses omega). '
     'Interpretation: omega is a specificity-first screen; its construction rejects neutral '
     'drift, at the cost of bounded power for weak-to-moderate functional signals.'
+)
+
+add_para(
+    'Second-background replication. The entire design was repeated in Tabula Muris FACS skin '
+    'keratinocyte stem cells (1,371 cells; script notebooks/49_groundtruth_sim_background2.py; '
+    'results/groundtruth_simulation_background2*.csv) with identical grids, module seeds, group '
+    'sizes, and code path. Type-I error under pure HK drift: omega 0.000, versus 0.780 for raw '
+    'JS and 0.787 for cosine (both more inflated than in the marrow background); under global '
+    'overdispersion noise: omega 0.080, k_f 0.080. AUCs: omega 0.908 > k_f 0.859 > raw JS 0.649 '
+    '> cosine 0.608 > k_f/k_total 0.539 > k_n 0.207 (identical ordering to the marrow '
+    'background). Detection power at delta = 1: omega 0.913, k_f 0.927, raw JS 1.000; at '
+    'delta = 2: omega 0.993. Under the fourfold cell-count imbalance (n_B = 50, delta = 1), '
+    'k_f retained higher power than omega (0.98-1.00 versus 0.04-0.20 at delta = 0.25 and '
+    'delta = 1).'
 )
 
 add_para('3.13 Fixed Gene-Panel Ablation', bold=True)
@@ -677,10 +708,12 @@ add_para(
     'strongly in transcriptionally constrained classes. Under the S2-matched '
     'block-shuffle null, astrocytes, OPCs and committed OPCs reached the permutation floor '
     '(P = 0.005); fibroblasts remained significant (P = 0.020, versus 0.030 '
-    'reported); vascular cells retained significance (P = 0.035, versus 0.115 '
-    'reported); ependymal cells were not significant (P = 0.164); and the remaining '
+    'reported); vascular cells reached significance (P = 0.035, versus 0.115 '
+    'reported, non-significant under the primary null); ependymal cells were not significant (P = 0.164); and the remaining '
     'classes stayed clearly non-significant (microglia P = 0.796, oligodendrocytes '
-    'P = 0.876, choroid plexus P = 0.562, Bergmann glia P = 0.980).'
+    'P = 0.876, choroid plexus P = 0.562, Bergmann glia P = 0.980). The four primary '
+    'classes are stable across all three null variants; ependymal and vascular '
+    'appear only under one variant each and are not claimed.'
 )
 add_para(
     'Circularity inflation and scale. On the same pairs, the circular panel '
@@ -701,7 +734,7 @@ add_para(
 add_para('3.14 Region Glossary (Siletti et al. Dissection Nomenclature)', bold=True)
 add_para(
     'All brain-region abbreviations used in the manuscript follow the dissection '
-    'nomenclature of the Siletti et al. atlas (12), which is derived from the adult '
+    'nomenclature of the Siletti et al. atlas [12], which is derived from the adult '
     'human brain structural ontology of Ding et al. We extract the ROI-to-dissection '
     'mapping verbatim from the dataset metadata (data/brain/Nonneurons.h5ad, obs '
     'roi and dissection fields; script notebooks/_v38_region_glossary.py, output '
@@ -709,7 +742,7 @@ add_para(
     'text: A13, caudal intermediate orbital gyrus (orbitofrontal cortex); A14, gyrus '
     'rectus (medial orbitofrontal cortex); A38, temporopolar area; A40, supramarginal '
     'gyrus; A43, parietal operculum (gustatory cortex); A46, middle frontal gyrus; '
-    'A5-A7, posterosuperior parietal cortex; TF, temporal area TF of the '
+    'A5-A7, posterosuperior parietal cortex; AON, anterior olfactory nucleus; TF, temporal area TF of the '
     'occipitotemporal (fusiform) gyrus; Pro, area prostriata; Cla, claustrum; '
     'LG, lateral geniculate nucleus; MG, medial geniculate nuclei; LP, lateral '
     'posterior nucleus; Pul, pulvinar; VA, ventral anterior nucleus; MD, '
@@ -744,9 +777,10 @@ add_para(
     'to ensure high per-cell gene detection. QC filtering: cells with < 500 detected '
     'genes were removed; cells with > 10% mitochondrial gene expression were removed; '
     'genes detected in < 3 cells were removed. Result: 15,057 cells x 22,308 genes '
-    '(post-QC). Cell type annotation: 32 cell type entries with >= 10 cells per group '
+    '(post-QC). Cell type annotation: 38 cell type entries (each with at least 20 '
+    'cells in total and at least one mouse contributing at least 10 cells) '
     'were retained for pseudobulk construction, spanning 6 organs (Liver, Kidney, '
-    'Spleen, Lung, Heart, Bone Marrow).'
+    'Spleen, Lung, Heart, Bone Marrow), yielding C(38, 2) = 703 analyzed pairs.'
 )
 
 add_para('4.2 Tabula Sapiens (Human)', bold=True)
@@ -783,16 +817,18 @@ add_para(
     'pair (CT_i, CT_j), the top-200 genes ranked by |mu_i - mu_j| (absolute log1p '
     'expression difference) were selected as identity genes, excluding HK genes. This '
     'avoids the dilution effect of HVG across comparisons involving 102 cell types. '
-    'HVG count sensitivity: the parameter sweep (Phase 3.2) tested N_HVG in '
-    '{50, 100, 200, 500, 1,000, 2,000}. The global scheme (mouse) achieved peak AUC '
-    'at N=2,000, while the pairwise scheme (human) used N=200 to maintain discriminative '
+    'HVG count sensitivity: the Phase 3.2 sweep varied the identity/pathway weighting '
+    'at a fixed global panel of 2,000 HVGs (Table S1); no N_HVG grid was '
+    'run on the mouse matrix. A diagnostic HVG-size sweep on Tabula Sapiens tested '
+    'N_HVG in {2,000, 5,000, 10,000, 20,000} (notebooks/05b_phase33_diagnose.py). '
+    'The pairwise scheme (human) uses N = 200 per-pair genes to maintain discriminative '
     'power with computational efficiency.'
 )
 
 doc.add_page_break()
 
 # ===== Supplementary Tables =====
-add_heading('Supplementary Table 1: Parameter Sweep Results', 2)
+add_heading('Table S1: Parameter Sweep Results', 2)
 add_para(
     f'Phase 3.2 parameter sweep on Tabula Muris mouse data (n = 703 cell type pairs, '
     f'6 organs). The pure identity gene configuration (w1 = 1.0, w2 = 0.0) achieved '
@@ -801,7 +837,7 @@ add_para(
 )
 
 add_para('')
-add_heading('Supplementary Table 2: Cross-Organ Conservation Data', 2)
+add_heading('Table S2: Cross-Organ Conservation Data', 2)
 add_para(
     'Complete dataset of 59 same-cell-type cross-organ pairs in Tabula Sapiens, '
     'including omega, Jensen-Shannon divergence, Spearman distance, Cosine distance, '
@@ -810,13 +846,13 @@ add_para(
 )
 
 add_para('')
-add_heading('Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data', 2)
+add_heading('Table S3: Human Brain Non-neuronal Cell Regional CKI Data', 2)
 add_para(
     f'Complete results of CKI brain region analysis for non-neuronal cells from the '
     f'Siletti et al. (2023) human brain atlas, comprising {_br["total_pairs"]:,} pairwise cross-region '
     f'comparisons across 10 cell types (n = {_br["n_nuclei"]:,} nuclei, {_br["n_regions"]} regions, '
     f'{_br["n_genes"]:,} genes). Summary statistics for each cell type (omega mean, '
-    f'median, SD, range, k_n and k_f components) are provided in Supplementary Table 3. '
+    f'median, SD, range, k_n and k_f components) are provided in Table S3. '
     f'Raw data file: results/brain_bs_null_observed_pairs.csv ({_br["total_pairs"]:,} rows, '
     f'block-shuffle re-analysis pipeline). '
     f'Summary file: results/brain_bs_null_ct_test.csv (10-row summary). '
@@ -825,7 +861,7 @@ add_para(
 )
 
 add_para('')
-add_heading('Supplementary Table 4: Inter-regional Region-Associated Candidate Data', 2)
+add_heading('Table S4: Inter-regional Region-Associated Candidate Data', 2)
 
 # Build dynamic S4 text
 n_candidates = len(_candidates)
@@ -851,12 +887,12 @@ s4_text = (
     f'Results of multiplicative model-based detection of candidate inter-regional cell '
     f'region-association signals (block-shuffle re-analysis pipeline). Of the {_br["total_pairs"]:,} total pairwise cross-region comparisons, '
     f'{n_candidates:,} pairs ({pct_candidates:.1f}%) were classified as threshold-passing candidates '
-    f'(residual < 0.75): '
-    f'{n_strong} strong signals (residual < {DATA["brain"]["residual_thresholds"]["strong"]}, '
+    f'(residual < 0.75), with full tier definitions: '
+    f'{n_strong} Strong signals (residual < {DATA["brain"]["residual_thresholds"]["strong"]}, omega < 15, and the lowest omega in the region pair; '
     f'{pct_strong:.2f}%), '
-    f'{n_moderate:,} moderate signals (residual < {DATA["brain"]["residual_thresholds"]["moderate"]}, '
+    f'{n_moderate:,} Moderate signals (residual < {DATA["brain"]["residual_thresholds"]["moderate"]}, omega < 25; '
     f'{pct_moderate:.2f}%), '
-    f'and {n_weak:,} weak signals (residual < {DATA["brain"]["residual_thresholds"]["weak"]}, '
+    f'and {n_weak:,} Weak signals (residual < {DATA["brain"]["residual_thresholds"]["weak"]}, omega < 35; '
     f'{pct_weak:.2f}%). '
     f'Under the block-shuffle permutation null (B = {_bs["B"]:,}), {_br.get("n_significant", 31)} of the {n_strong} '
     f'Strong candidates showed raw one-sided P < 0.05, but none survived Benjamini-Hochberg '

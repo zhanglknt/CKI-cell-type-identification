@@ -228,6 +228,11 @@ print("C-M3: Pair-Specific k_n Variability")
 print("=" * 60)
 
 # Analyze k_n variability across all brain pairs
+# Round-8 fix (E3-M1): use the authoritative post-fix per-pair k_f/k_n data
+# (block-shuffle pipeline; omega matches brain_bs_null_observed_pairs.csv
+# to 6.4e-13). The v3 file loaded above is pre-fix legacy and is kept only
+# for the superseded C-M1 calibrated-omega outputs.
+brain_df = pd.read_csv(RESULTS_DIR / "reviewer_brain_pair_kf_kn.csv")
 kn_stats = brain_df.groupby("cell_type")["kn"].agg([
     ("kn_mean", "mean"),
     ("kn_std", "std"),
@@ -406,9 +411,11 @@ print("  Saved ed_fig11_kn_variability.pdf/png")
 
 # --- Figure 3: Calibrated omega ---
 # Authoritative brain omega source: block-shuffle null pipeline (08d/08e).
-# NOTE: brain_df / brain_ct (v3 files) are kept for the C-M3 k_n analysis
-# (kn/kf columns exist only in the v3 pairs file); the figure below uses
-# the block-shuffle observed pairs to match the main-text brain statistics.
+# NOTE: brain_df was reloaded in C-M3 from reviewer_brain_pair_kf_kn.csv
+# (post-fix, authoritative); the calibrated-omega C-M1 outputs above are
+# superseded and intentionally still derive from the v3 legacy file via
+# brain_bs below. The figure uses the block-shuffle observed pairs to match
+# the main-text brain statistics.
 brain_bs = pd.read_csv(RESULTS_DIR / "brain_bs_null_observed_pairs.csv")
 brain_bs["omega_cal"] = brain_bs["omega"] / OMEGA_BASELINE
 brain_bs_ct = (

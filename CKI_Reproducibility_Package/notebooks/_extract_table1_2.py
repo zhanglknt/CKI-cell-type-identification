@@ -8,7 +8,10 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "results" / "CKI_Manuscript.docx"
+# Round-8 fix (E4): prefer the Genome Biology manuscript docx (freshly built,
+# contains the 'CKI ω' header after the Round-7 fix); fall back to the NAR docx.
+_GB = ROOT / "results" / "CKI_Manuscript_GB.docx"
+SRC = _GB if _GB.exists() else ROOT / "results" / "CKI_Manuscript.docx"
 OUT = ROOT / "results" / "Table1-2.docx"
 
 
