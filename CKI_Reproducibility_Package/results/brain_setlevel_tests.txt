@@ -1,0 +1,34 @@
+Set-level coherence checks (post-hoc; NOT FDR-controlled discovery)
+======================================================================
+Input: results\brain_bs_null_results.csv  (m = 31764 region pairs, B = 1000 block-shuffle null)
+Overall raw p<0.05: 1960/31764 = 6.17%
+
+[S1_global_enrichment] Strong-tier pairs with raw p<0.05: 31/39 (79.5%) vs overall 1960/31764 (6.2%); hypergeometric enrichment
+    effect = 0.7949    P = 9.57e-31
+
+[S2_dose_response_CA] Raw p<0.05 rate by tier: Unclassified 603/25173 (2.4%); Weak 909/5381 (16.9%); Moderate 417/1171 (35.6%); Strong 31/39 (79.5%); Cochran-Armitage trend z=61.02
+    effect = 61.02    P = 0
+
+[S2_strong_vs_rest_MWU] Strong raw p_perm stochastically smaller than rest; MWU U=44292
+    effect = 4.429e+04    P = 5.3e-24
+
+[S2_strong_vs_rest_KS] KS two-sample on raw p_perm; D=0.846
+    effect = 0.8461    P = 4.89e-32
+
+[S3_OL_thalamic_endpoint] Mature-OL Strong candidates with thalamic-relay endpoint: 6/10 (60%) vs base rate 1122/5778 (19.4%); hypergeometric enrichment
+    effect = 0.6    P = 0.00542
+
+[S3_OL_TF_endpoint] Mature-OL Strong candidates with temporal-fusiform (TF) endpoint: 4/10 (40%) vs base rate 107/5778 (1.9%); hypergeometric enrichment
+    effect = 0.4    P = 2.14e-05
+
+[S3_OL_thalamotemporal] Mature-OL Strong candidates with thalamo-temporal axis endpoint (thalamic relay ∪ STH ∪ TF): 9/10 (90%) vs base rate 1313/5778 (22.7%); hypergeometric enrichment
+    effect = 0.9    P = 1.26e-05
+
+Mature-oligodendrocyte Strong candidates (n=10):
+  A13–MG, A13–STH, A38–LP, GPe–TF, LP–TF, MG–Pro, MG–TF, MoRF-MoEN–PN, Pul–VA, STH–TF
+
+Interpretation guardrails:
+  - These are post-hoc coherence checks in a single dataset; the tier
+    variable and the axis definition were chosen after inspecting the
+    data. They support 'the signal is not random noise' but do not
+    substitute for pair-level FDR control (min q = 0.520).

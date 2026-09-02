@@ -410,6 +410,10 @@ const doc = new Document({
       p("  d. Omega distribution characterization (C-S5):"),
       p("     Script: notebooks/09_phaseB_statistical_upgrades.py"),
       p("     Computed skewness, kurtosis, and normality tests (Shapiro-Wilk, D'Agostino-Pearson) for all datasets. All omega distributions are right-skewed and non-normal. SES reported as descriptive measure. Output: results/phaseB_omega_distribution.json."),
+      p(""),
+      p("  e. Post-hoc coherence checks (v40):"),
+      p("     Scripts: notebooks/72_brain_setlevel_tests.py, notebooks/73_tcga_composition_check.py"),
+      p("     Brain set-level checks: raw-P enrichment by effect tier (Strong 31/39 at raw P < 0.05 = 79.5% versus 6.2% overall, hypergeometric P = 9.6e-31; Cochran-Armitage dose-response z = 61.0) and thalamo-temporal axis enrichment among the 10 mature-oligodendrocyte Strong candidates (9/10 versus a 22.7% base rate, hypergeometric P = 1.3e-5). These are post-hoc coherence checks, not FDR-controlled discovery. TCGA composition check: 25,306 sample-labelled NN/TT pairs regenerated with the per-cancer pipeline (TT capped at 2,000 per cancer type, all NN pairs, seed 42); the TT/NN median k_n ratio (2.18-3.70x) replicates exactly, composition deltas are larger in TT pairs and correlate with k_n (Spearman rho = 0.21-0.46), but adjusting for the three lineage-marker composition deltas attenuates the tumor-pair coefficient by only 6% pooled. Output: results/brain_setlevel_tests.csv, results/brain_setlevel_tests.txt, results/tcga_composition_check.csv, results/tcga_composition_check.txt, results/tcga_composition_pairs.csv."),
 
       heading("5.4 Phase C Methodological Reinforcement", 3),
       p("Three methodological analyses were performed to address reviewer concerns (Phase C):"),

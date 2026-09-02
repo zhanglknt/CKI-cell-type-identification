@@ -1,0 +1,22 @@
+test_id,description,effect,p_value
+C1_kn_reversal_TCGA-LUAD,median k_n NN=0.00186 TT=0.00485 ratio(TT/NN)=2.61x,2.6054233940641383,0.0
+C1_kn_reversal_TCGA-LUSC,median k_n NN=0.00197 TT=0.00498 ratio(TT/NN)=2.53x,2.5338956115950237,2.6709171450264118e-197
+C1_kn_reversal_TCGA-LIHC,median k_n NN=0.00352 TT=0.00767 ratio(TT/NN)=2.18x,2.179602265730477,3.863928269107952e-92
+C1_kn_reversal_TCGA-KIRC,median k_n NN=0.00140 TT=0.00517 ratio(TT/NN)=3.70x,3.702892782758171,0.0
+C1_kn_reversal_TCGA-BRCA,median k_n NN=0.00171 TT=0.00477 ratio(TT/NN)=2.79x,2.787828646931046,0.0
+C3_dcomp_TT_gt_NN_immune,|Delta immune|: TT median=0.885 NN median=0.639,1.3854297399520874,0.0
+C3_dcomp_TT_gt_NN_stromal,|Delta stromal|: TT median=0.804 NN median=0.549,1.4632612466812134,0.0
+C3_dcomp_TT_gt_NN_epithelial,|Delta epithelial|: TT median=0.406 NN median=0.285,1.4219316244125366,0.0
+C3_dcomp_TT_gt_NN_overall,|Delta overall|: TT median=0.813 NN median=0.610,1.3325716257095337,0.0
+C4_ols_TCGA-LUAD,"log k_n ~ ...: TT coef +1.0864 (P=0.0e+00) -> +1.0701 (P=0.0e+00) after composition covariates; attenuation 2%; R2 0.384->0.476; d_imm P=2.2e-59, d_str P=1.5e-24, d_epi P=8.7e-04",0.015003032085798895,0.0
+C4_ols_TCGA-LUSC,"log k_n ~ ...: TT coef +0.8520 (P=1.6e-295) -> +0.8174 (P=0.0e+00) after composition covariates; attenuation 4%; R2 0.309->0.491; d_imm P=6.1e-65, d_str P=1.7e-54, d_epi P=4.5e-43",0.04057842201396422,0.0
+C4_ols_TCGA-LIHC,"log k_n ~ ...: TT coef +0.5667 (P=1.4e-112) -> +0.3448 (P=1.7e-45) after composition covariates; attenuation 39%; R2 0.132->0.283; d_imm P=1.3e-01, d_str P=3.1e-60, d_epi P=3.4e-67",0.39162702117035375,1.6775197552290418e-45
+C4_ols_TCGA-KIRC,"log k_n ~ ...: TT coef +1.1939 (P=0.0e+00) -> +0.9167 (P=3.0e-305) after composition covariates; attenuation 23%; R2 0.404->0.478; d_imm P=5.7e-37, d_str P=1.9e-37, d_epi P=1.1e-45",0.23217555684385716,2.990963258861874e-305
+C4_ols_TCGA-BRCA,"log k_n ~ ...: TT coef +0.9995 (P=0.0e+00) -> +1.1180 (P=0.0e+00) after composition covariates; attenuation -12%; R2 0.270->0.422; d_imm P=1.1e-17, d_str P=1.8e-10, d_epi P=3.3e-269",-0.118636894633807,0.0
+C4_ols_pooled,"log k_n ~ ...: TT coef +1.0506 (P=0.0e+00) -> +0.9909 (P=0.0e+00) after composition covariates; attenuation 6%; R2 0.320->0.415; d_imm P=3.5e-145, d_str P=1.7e-127, d_epi P=0.0e+00",0.056775030873680965,0.0
+C5_spearman_kn_dcomp_TT_TCGA-LUAD,rho=0.356 (n=2000),0.3563450405862601,6.032776910591891e-61
+C5_spearman_kn_dcomp_TT_TCGA-LUSC,rho=0.278 (n=2000),0.2784685476171369,6.090263043567312e-37
+C5_spearman_kn_dcomp_TT_TCGA-LIHC,rho=0.285 (n=2000),0.2854774510834709,8.145612470648809e-39
+C5_spearman_kn_dcomp_TT_TCGA-KIRC,rho=0.464 (n=2000),0.46438626077071,1.5731471495841802e-107
+C5_spearman_kn_dcomp_TT_TCGA-BRCA,rho=0.213 (n=2000),0.21317962429490606,5.486558123903185e-22
+C5_spearman_kn_dcomp_TT_pooled,rho=0.377 (n=10000),0.3765221385171283,0.0
