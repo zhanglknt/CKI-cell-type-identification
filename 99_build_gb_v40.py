@@ -374,6 +374,22 @@ def verify_v40_additions(v: Verifier):
     v.check(len(_c1) == 5 and all(2.0 <= float(r.effect) <= 4.0 for _, r in _c1.iterrows()),
             "V40-D all five C1 TT/NN k_n ratios in [2, 4]")
 
+    # Single-version package: zip contains DOCX only (no txt duplicates),
+    # GA as PDF only (no png/svg), and all five DOCX deliverables present.
+    if V38_ZIP.exists():
+        with zipfile.ZipFile(V38_ZIP) as _z:
+            _names = _z.namelist()
+        v.check(not any(n.endswith("_fulltext.txt") for n in _names),
+                "V40-E no plain-text extracts in zip (Word-only documents)")
+        v.check(not any(n.endswith(("CKI_graphical_abstract.png", "CKI_graphical_abstract.svg"))
+                        for n in _names),
+                "V40-F GA png/svg absent from zip (PDF only)")
+        _docx = {n.rsplit("/", 1)[-1] for n in _names if n.endswith(".docx")}
+        v.check(_docx == {"CKI_Manuscript.docx", "CKI_Supplementary.docx",
+                          "CKI_Cover_Letter.docx", "CKI_Reproducibility_Guide.docx",
+                          "Table1-2.docx"},
+                "V40-G exactly the five DOCX deliverables in zip")
+
 
 def verify_files(v: Verifier):
     print(f"\n{'─'*50}")
@@ -1447,9 +1463,13 @@ decision guide); all v39 content otherwise unchanged.
     set-level enrichment; 5.2 TCGA composition contribution) added;
     supplementary TOC updated; Repro Guide 5.3(e) documents both new
     scripts and their outputs.
+  - Single-version packaging: documents ship as DOCX only (the plain-text
+    extracts remain build-verification artifacts, excluded from the zip);
+    the Graphical Abstract ships as PDF only (png/svg sources stay in
+    results/figures_final/).
   - New build assertions: verify_v40_additions (24 text checks + 7
     artifact-existence checks + 4 numeric cross-checks against the
-    source CSVs). All v39 checks retained.
+    source CSVs + 3 zip single-version checks). All v39 checks retained.
 
 === v38 Changes (v37 peer-review fixes) ===
   - P0 extract_csr_from_backed() row-allocation fix (v38.1): the backed-
@@ -1608,17 +1628,28 @@ Contents:
 5. Table1-2.docx - Standalone parameter tables
 6. figure1.pdf through figure6.pdf - Main figures
 7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S12.pdf - Supplementary figures
-8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
-9. *_fulltext.txt - Plain-text extracts
+8. CKI_graphical_abstract.pdf - Graphical Abstract (PDF only; png/svg
+   source files remain in results/figures_final/)
+9. (Plain-text extracts of the DOCX files are generated for build
+   verification but excluded from this package: single-version,
+   Word-only deliverables.)
 """
     with open(WORK_DIR / "MANIFEST_v40.txt", "w", encoding="utf-8") as f:
         f.write(manifest)
 
     # 4. ZIP
     print(f"\n[4] Creating ZIP...")
+    # Single-version package: documents ship as DOCX only (no plain-text
+    # extracts); Graphical Abstract ships as PDF only (no png/svg copies).
+    ZIP_EXCLUDE = (
+        lambda fn: fn.endswith("_fulltext.txt")
+        or fn in ("CKI_graphical_abstract.png", "CKI_graphical_abstract.svg")
+    )
     with zipfile.ZipFile(V38_ZIP, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(WORK_DIR):
             for fn in sorted(files):
+                if ZIP_EXCLUDE(fn):
+                    continue
                 fp = Path(root) / fn
                 zf.write(fp, f"CKI_Submission_v40/{fn}")
 
