@@ -132,6 +132,7 @@ toc = [
     'Supplementary Note 2: CKI Algorithm Pseudocode',
     'Supplementary Note 3: Statistical Testing Details',
     'Supplementary Note 4: Dataset Quality Control and Filtering Criteria',
+    'Supplementary Note 5: Post-hoc Coherence Checks (Brain Set-Level Enrichment and TCGA Composition Sensitivity)',
     'Table S1: Parameter Sweep Results (Phase 3.2)',
     'Table S2: Cross-Organ Conservation Data (Phase 3.5)',
     'Table S3: Human Brain Non-neuronal Cell Regional CKI Data',
@@ -823,6 +824,70 @@ add_para(
     'N_HVG in {2,000, 5,000, 10,000, 20,000} (notebooks/05b_phase33_diagnose.py). '
     'The pairwise scheme (human) uses N = 200 per-pair genes to maintain discriminative '
     'power with computational efficiency.'
+)
+
+doc.add_page_break()
+
+# ===== SN5: Post-hoc coherence checks =====
+add_heading('Supplementary Note 5: Post-hoc Coherence Checks (Brain Set-Level Enrichment and TCGA Composition Sensitivity)', 2)
+
+add_para('5.1 Brain set-level enrichment of the block-shuffle signal (post-hoc)', bold=True)
+add_para(
+    'Under the block-shuffle null (B = 1,000; m = 31,764 region pairs) no individual '
+    'candidate survives Benjamini-Hochberg correction (minimum q = 0.520), and the '
+    'manuscript accordingly presents the 39 Strong candidates as hypothesis-generating. '
+    'Two post-hoc set-level checks ask whether the raw-P signal is nonetheless '
+    'structured rather than diffuse. First, raw-P enrichment is strongly tier-dependent: '
+    'raw P < 0.05 occurs in 31 of 39 Strong-tier pairs (79.5%), 417 of 1,171 Moderate '
+    '(35.6%), 909 of 5,381 Weak (16.9%), and 603 of 25,173 unclassified pairs (2.4%), '
+    'versus 6.2% overall; the Strong-tier excess is significant under a hypergeometric '
+    'test (P = 9.6 x 10^-31), the dose-response across tiers is monotone '
+    '(Cochran-Armitage trend z = 61.0), and the Strong-tier raw P-values are '
+    'stochastically smaller than all other pairs (Mann-Whitney P = 5.3 x 10^-24; '
+    'Kolmogorov-Smirnov D = 0.846, P = 4.9 x 10^-32). Second, the 10 mature-oligodendrocyte '
+    'Strong candidates concentrate on a thalamo-temporal axis: a thalamic-relay endpoint '
+    '(conservative set: MG, LG, LP, LP-VPL, Pul, VPL, VA, MD, MD-Re, CM-Pf, CM) occurs in '
+    '6 of 10 candidates versus a 19.4% base rate among all 5,778 mature-oligodendrocyte '
+    'pairs (hypergeometric P = 0.005), a temporal-fusiform (TF) endpoint in 4 of 10 versus '
+    '1.9% (P = 2.1 x 10^-5), and the combined axis (thalamic relay, subthalamic nucleus, '
+    'or TF endpoint) in 9 of 10 versus 22.7% (P = 1.3 x 10^-5). These are post-hoc checks '
+    'in a single dataset, with the tier variable and the axis definition chosen after '
+    'inspecting the data; they support the interpretation that the signal is not random '
+    'noise, but they do not substitute for pair-level FDR control. Script: '
+    'notebooks/72_brain_setlevel_tests.py; results: results/brain_setlevel_tests.csv '
+    'and results/brain_setlevel_tests.txt.'
+)
+
+add_para('5.2 TCGA composition-contribution check for the NN/TT k_n reversal', bold=True)
+add_para(
+    'The TCGA analysis reports that normal-normal (NN) pairs have systematically lower '
+    'k_n than tumor-tumor (TT) pairs (median TT/NN ratio 2.2-3.7x across the five '
+    'cancer types). Because bulk tumor samples differ in cellular composition, this '
+    'reversal could in principle be a purity artifact. We therefore regenerated '
+    'sample-labelled NN/TT pairs with the per-cancer pipeline of the main analysis '
+    '(per-cancer gene loading and mean TPM >= 0.5 filtering, log2(TPM+1), HRT Atlas HK '
+    'genes, top-200 abs-diff identity genes, kn_floor = 1 x 10^-4, seed 42; TT capped at '
+    '2,000 pairs per cancer type, all NN pairs; 25,306 pairs in total) and scored each '
+    'sample for three lineage marker panels: immune (CD3D, CD3E, CD8A, GZMB, NKG7, MS4A1, '
+    'CD79A), stromal (COL1A1, COL1A2, DCN, LUM, FAP, VIM), and epithelial (EPCAM, KRT8, '
+    'KRT18, KRT19), as the mean log2(TPM+1) over mapped panel genes, z-scored within '
+    'each cancer type. The reversal replicates exactly (median TT/NN k_n ratio 2.18, '
+    '2.53, 2.18, 3.70, and 2.79 for LUAD, LUSC, LIHC, KIRC, and BRCA; all '
+    'Mann-Whitney P < 10^-90). Composition differences are real and directional: the '
+    'median |Delta z| between pair members is 1.33-1.46-fold larger for TT than NN pairs '
+    'across the three panels (all P < 10^-300), and within TT pairs k_n correlates with '
+    'the overall composition difference (Spearman rho = 0.21-0.46 per cancer type; '
+    'pooled rho = 0.377, P < 10^-300). However, composition explains only a minority of '
+    'the reversal: in OLS regressions of log k_n on pair type plus the three composition '
+    'deltas, the tumor-pair coefficient attenuates by only 6% pooled (per cancer type: '
+    '2%, 4%, 39%, 23%, and -12%; i.e., BRCA strengthens slightly), even though the '
+    'composition covariates are themselves highly significant (pooled R-squared 0.32 to '
+    '0.42). The residual TT-versus-NN k_n difference is therefore not primarily a '
+    'marker-panel composition artifact; plausible contributors include tumor-specific '
+    'housekeeping-gene dysregulation and RNA-quality differences, and single-cell or '
+    'deconvolution-based validation remains necessary. Script: '
+    'notebooks/73_tcga_composition_check.py; results: results/tcga_composition_check.csv, '
+    'results/tcga_composition_check.txt, and results/tcga_composition_pairs.csv.'
 )
 
 doc.add_page_break()
