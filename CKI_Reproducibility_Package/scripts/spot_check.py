@@ -115,12 +115,16 @@ ts_txt = (RESULTS / "reviewer_ts_splithalf_summary.txt").read_text()
 check("TS split-half mean", round(float(re.search(r"ts_split_half_mean_omega\s+([\d.]+)", ts_txt).group(1)), 2), 7.67, tol=0.005)
 
 # ============================================================
-# 8. Human pairs count (phase33)
-#    Manuscript: 5,151 cell-type pairs (102 cell types)
+# 8. Human pairs count (phase35 analyzed pairs)
+#    Manuscript: 4,851 analyzed cell-type pairs (C(99, 2));
+#    the phase33_v3 export (5,151 rows, 102 classes) is the
+#    pre-analysis inventory, superseded as a manuscript number
 # ============================================================
 print("\n--- 8. Human Tabula Sapiens pairs ---")
-df_h = pd.read_csv(RESULTS / "phase33_v3_human_pairs.csv")
-check("human pairs", len(df_h), 5151)
+df_h = pd.read_csv(RESULTS / "phase35_all_metrics_pairs.csv")
+check("human analyzed pairs (phase35)", len(df_h), 4851)
+df_inv = pd.read_csv(RESULTS / "phase33_v3_human_pairs.csv")
+check("phase33 inventory rows (102 classes)", len(df_inv), 5151)
 
 # ============================================================
 # 9. Kang IFN-beta demonstration (kang_ifnb_demo_summary.json)

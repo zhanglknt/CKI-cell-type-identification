@@ -1,0 +1,42 @@
+k_f-only ordering control (P1-3)
+============================================================
+
+PART A: Cross-organ (Tabula Sapiens)
+n pairs = 59, n CTs = 17 (well-sampled 5)
+Per-pair Spearman(omega, k_f): r = 0.435 (P = 5.67e-04)
+Per-CT Spearman(mean omega, mean k_f): r = 0.233 (P = 0.368)
+Per-CT Spearman(mean omega, mean k_n): r = -0.309 (P = 0.228)
+Well-sampled Spearman(omega, k_f): r = 0.100
+Well-sampled Spearman(omega, k_n): r = -0.400
+Extremes by omega: {'most_conserved': 'hepatocyte', 'most_divergent': 'erythrocyte'}
+Extremes by k_f:   {'most_conserved': 'cd8-positive, alpha-beta t cell', 'most_divergent': 'intermediate monocyte'}
+Extremes by k_f (well-sampled): {'most_conserved': 'cd8-positive, alpha-beta t cell', 'most_divergent': 'neutrophil'}
+
+PART B: TCGA severity strata
+
+TCGA-LIHC
+  G1               n=  39  omega=   73.54  k_f=  0.4997  k_n=0.008650
+  G2               n= 133  omega=   66.99  k_f=  0.4961  k_n=0.009612
+  G3               n= 105  omega=   66.15  k_f=  0.5200  k_n=0.009944
+  G4               n=  11  omega=   66.18  k_f=  0.5320  k_n=0.011159
+  omega: Jonckheere-Terpstra P=0.000e+00
+  kf: Jonckheere-Terpstra P=1.058e-12
+  kn: Jonckheere-Terpstra P=0.000e+00
+
+TCGA-BRCA
+  Basal-like       n=  97  omega=   97.83  k_f=  0.5362  k_n=0.006095
+  HER2-enriched    n=  55  omega=  103.13  k_f=  0.5132  k_n=0.005631
+  Luminal A        n= 224  omega=  123.38  k_f=  0.4789  k_n=0.004855
+  Luminal B        n= 123  omega=  116.60  k_f=  0.5066  k_n=0.004964
+  Normal-like      n=   7  omega=   90.51  k_f=  0.4301  k_n=0.007030
+  omega: Kruskal-Wallis P=7.911e-10
+  kf: Kruskal-Wallis P=1.305e-11
+  kn: Kruskal-Wallis P=1.253e-10
+
+TCGA-LUAD
+  WT               n= 311  omega=  100.47  k_f=  0.4828  k_n=0.006270
+  EGFR             n=  61  omega=  107.00  k_f=  0.4720  k_n=0.005475
+  KRAS             n= 120  omega=  118.05  k_f=  0.4971  k_n=0.005195
+  omega: Kruskal-Wallis P=2.084e-06
+  kf: Kruskal-Wallis P=1.502e-02
+  kn: Kruskal-Wallis P=3.206e-04

@@ -49,8 +49,10 @@ print("=" * 60)
 print("C-S1: Adaptive permutation — B=1,000 sufficiency analysis")
 print("=" * 60)
 
-# Load bootstrap results for each dataset
-brain_bs = pd.read_csv(RESULTS_DIR / "brain_bootstrap_results.csv")
+# Load bootstrap results for each dataset (brain file holds pre-fix values and
+# has been moved to results/superseded/ per the v42 P0-6 consolidation; this
+# C-S1 diagnostic reproduces the original pre-fix analysis unchanged)
+brain_bs = pd.read_csv(RESULTS_DIR / "superseded" / "brain_bootstrap_results.csv")
 human_bs = pd.read_csv(RESULTS_DIR / "human_bootstrap_per_ct_results.csv")
 mouse_bs = pd.read_csv(RESULTS_DIR / "mouse_pilot_v2b_results.csv")
 

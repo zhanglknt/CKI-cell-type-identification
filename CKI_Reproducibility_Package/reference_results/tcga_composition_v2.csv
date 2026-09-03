@@ -1,0 +1,23 @@
+test_id,description,effect,p_value
+C3_dcomp_TT_gt_NN_myeloid,|Delta myeloid|: TT median=0.749 NN median=0.747,1.002851074798896,0.9899358067139148
+C3_dcomp_TT_gt_NN_overall3,|Delta overall3|: TT median=0.813 NN median=0.610,1.332571459274231,1.1211196136551153e-151
+C3_dcomp_TT_gt_NN_overall4,|Delta overall4|: TT median=0.834 NN median=0.673,1.2392925914919406,9.393594662485915e-77
+C4_attenuation_TCGA-LUAD,TT coef +1.0864 -> 3-panel +1.0701 (att +1.5%) -> 4-panel(+myeloid) +1.1089 (att -2.1%),-0.020708576857158434,
+C4_attenuation_TCGA-LUSC,TT coef +0.8520 -> 3-panel +0.8174 (att +4.1%) -> 4-panel(+myeloid) +0.9242 (att -8.5%),-0.08475169311436237,
+C4_attenuation_TCGA-LIHC,TT coef +0.5667 -> 3-panel +0.3448 (att +39.2%) -> 4-panel(+myeloid) +0.3761 (att +33.6%),0.3364360431759935,
+C4_attenuation_TCGA-KIRC,TT coef +1.1939 -> 3-panel +0.9167 (att +23.2%) -> 4-panel(+myeloid) +0.9590 (att +19.7%),0.19676445317559776,
+C4_attenuation_TCGA-BRCA,TT coef +0.9995 -> 3-panel +1.1180 (att -11.9%) -> 4-panel(+myeloid) +1.1396 (att -14.0%),-0.14018870967301078,
+C4_attenuation_pooled,TT coef +1.0506 -> 3-panel +0.9909 (att +5.7%) -> 4-panel(+myeloid) +1.0556 (att -0.5%),-0.004772801481059963,
+C5_spearman_kn_dcomp4_TT_pooled,rho(4-panel)=0.387 (n=10000),0.3867087332070873,0.0
+C5_spearman_kn_dcomp4_TT_TCGA-LUAD,rho(4-panel)=0.358 (n=2000),0.358060420015105,1.4757066268605918e-61
+C5_spearman_kn_dcomp4_TT_TCGA-LUSC,rho(4-panel)=0.287 (n=2000),0.28680329070082267,3.551288641852729e-39
+C5_spearman_kn_dcomp4_TT_TCGA-LIHC,rho(4-panel)=0.250 (n=2000),0.25036448209112055,5.817331588349908e-30
+C5_spearman_kn_dcomp4_TT_TCGA-KIRC,rho(4-panel)=0.519 (n=2000),0.5185927326481832,4.228424920941807e-138
+C5_spearman_kn_dcomp4_TT_TCGA-BRCA,rho(4-panel)=0.233 (n=2000),0.23319940029985006,4.1705787889103e-26
+BOOT_attenuation_pooled_4panel,"median -0.4%, 95% CI [-3.2%, +2.6%] (B=200, sample-level cluster bootstrap)",-0.003906127041043539,
+BOOT_attenuation_pooled_3panel,"median +5.5%, 95% CI [+2.7%, +8.7%] (B=200)",0.055266755598222916,
+BOOT_attenuation_TCGA-LUAD_4panel,"median -2.3%, 95% CI [-7.6%, +4.8%]",-0.023074631754867347,
+BOOT_attenuation_TCGA-LUSC_4panel,"median -9.7%, 95% CI [-28.4%, +6.7%]",-0.09708491142705544,
+BOOT_attenuation_TCGA-LIHC_4panel,"median +33.5%, 95% CI [+23.0%, +46.9%]",0.33514441658926747,
+BOOT_attenuation_TCGA-KIRC_4panel,"median +19.6%, 95% CI [+14.6%, +25.7%]",0.19631546432297625,
+BOOT_attenuation_TCGA-BRCA_4panel,"median -14.0%, 95% CI [-23.2%, -5.7%]",-0.1403912865248933,

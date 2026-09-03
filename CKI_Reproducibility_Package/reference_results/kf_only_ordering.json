@@ -1,0 +1,312 @@
+{
+  "part_a": {
+    "n_pairs": 59,
+    "n_ct": 17,
+    "n_ct_well_sampled": 5,
+    "spearman_pair_omega_kf": {
+      "r": 0.43547632963179433,
+      "p": 0.00056651258362716
+    },
+    "spearman_ct_omega_kf": {
+      "r": 0.232843137254902,
+      "p": 0.368459654854376
+    },
+    "spearman_ct_omega_kn": {
+      "r": -0.3088235294117647,
+      "p": 0.22778565332325174
+    },
+    "spearman_wellsampled_omega_kf": {
+      "r": 0.09999999999999999,
+      "p": 0.8728885715695384
+    },
+    "spearman_wellsampled_omega_kn": {
+      "r": -0.39999999999999997,
+      "p": 0.5046315754686912
+    },
+    "extremes_by_omega": {
+      "most_conserved": "hepatocyte",
+      "most_divergent": "erythrocyte"
+    },
+    "extremes_by_kf": {
+      "most_conserved": "cd8-positive, alpha-beta t cell",
+      "most_divergent": "intermediate monocyte"
+    },
+    "extremes_by_kf_wellsampled": {
+      "most_conserved": "cd8-positive, alpha-beta t cell",
+      "most_divergent": "neutrophil"
+    },
+    "sanity_max_delta_vs_phase35": 3.552713678800501e-15,
+    "per_ct": [
+      {
+        "ct": "hepatocyte",
+        "n_pairs": 1,
+        "mean_omega": 8.570095581771694,
+        "mean_kf": 0.12654681883149124,
+        "mean_kn": 0.014766091885912226,
+        "well_sampled": false
+      },
+      {
+        "ct": "b cell",
+        "n_pairs": 1,
+        "mean_omega": 9.361019298679116,
+        "mean_kf": 0.054396614070393645,
+        "mean_kn": 0.005810971255883349,
+        "well_sampled": false
+      },
+      {
+        "ct": "cd8-positive, alpha-beta t cell",
+        "n_pairs": 6,
+        "mean_omega": 9.934637737517894,
+        "mean_kf": 0.03657957675047783,
+        "mean_kn": 0.004536476872904941,
+        "well_sampled": true
+      },
+      {
+        "ct": "plasma cell",
+        "n_pairs": 6,
+        "mean_omega": 10.201852644396025,
+        "mean_kf": 0.11683431349732822,
+        "mean_kn": 0.012018384561679009,
+        "well_sampled": true
+      },
+      {
+        "ct": "hematopoietic stem cell",
+        "n_pairs": 1,
+        "mean_omega": 11.121931829419841,
+        "mean_kf": 0.07881892315571887,
+        "mean_kn": 0.0070868014985693666,
+        "well_sampled": false
+      },
+      {
+        "ct": "smooth muscle cell",
+        "n_pairs": 1,
+        "mean_omega": 12.220701350323528,
+        "mean_kf": 0.1664249002304528,
+        "mean_kn": 0.013618277336107792,
+        "well_sampled": false
+      },
+      {
+        "ct": "neutrophil",
+        "n_pairs": 6,
+        "mean_omega": 14.215749426598018,
+        "mean_kf": 0.12104758114669197,
+        "mean_kn": 0.011728317220085605,
+        "well_sampled": true
+      },
+      {
+        "ct": "monocyte",
+        "n_pairs": 1,
+        "mean_omega": 15.192958511749932,
+        "mean_kf": 0.07590022625165804,
+        "mean_kn": 0.004995750247916383,
+        "well_sampled": false
+      },
+      {
+        "ct": "macrophage",
+        "n_pairs": 15,
+        "mean_omega": 15.492895244082364,
+        "mean_kf": 0.10847848460799521,
+        "mean_kn": 0.007341345589090775,
+        "well_sampled": true
+      },
+      {
+        "ct": "cd4-positive, alpha-beta t cell",
+        "n_pairs": 1,
+        "mean_omega": 16.71048331805287,
+        "mean_kf": 0.051804499459268176,
+        "mean_kn": 0.0031001197555609967,
+        "well_sampled": false
+      },
+      {
+        "ct": "nk cell",
+        "n_pairs": 10,
+        "mean_omega": 17.28052275623328,
+        "mean_kf": 0.07955870495147734,
+        "mean_kn": 0.004511347960864956,
+        "well_sampled": true
+      },
+      {
+        "ct": "classical monocyte",
+        "n_pairs": 1,
+        "mean_omega": 17.50473616015987,
+        "mean_kf": 0.051422629296151504,
+        "mean_kn": 0.002937640923328368,
+        "well_sampled": false
+      },
+      {
+        "ct": "naive b cell",
+        "n_pairs": 1,
+        "mean_omega": 21.062589651574168,
+        "mean_kf": 0.0835019512998881,
+        "mean_kn": 0.00396446746013719,
+        "well_sampled": false
+      },
+      {
+        "ct": "intermediate monocyte",
+        "n_pairs": 1,
+        "mean_omega": 21.781299252589477,
+        "mean_kf": 0.2747014985179493,
+        "mean_kn": 0.012611804986118599,
+        "well_sampled": false
+      },
+      {
+        "ct": "memory b cell",
+        "n_pairs": 1,
+        "mean_omega": 22.361170863569043,
+        "mean_kf": 0.03840646593872443,
+        "mean_kn": 0.0017175516511658377,
+        "well_sampled": false
+      },
+      {
+        "ct": "endothelial cell",
+        "n_pairs": 3,
+        "mean_omega": 26.24637796675464,
+        "mean_kf": 0.20052360855278284,
+        "mean_kn": 0.007646663139387743,
+        "well_sampled": false
+      },
+      {
+        "ct": "erythrocyte",
+        "n_pairs": 3,
+        "mean_omega": 29.359679224257835,
+        "mean_kf": 0.2241414705496446,
+        "mean_kn": 0.009000215760284815,
+        "well_sampled": false
+      }
+    ]
+  },
+  "part_b": {
+    "strata": {
+      "TCGA-LIHC": {
+        "G1": {
+          "n": 39,
+          "omega_mean": 73.54183081950166,
+          "kf_mean": 0.49970289012754193,
+          "kn_mean": 0.008649899755096507
+        },
+        "G2": {
+          "n": 133,
+          "omega_mean": 66.98836224129646,
+          "kf_mean": 0.4960845138752786,
+          "kn_mean": 0.009611504283356486
+        },
+        "G3": {
+          "n": 105,
+          "omega_mean": 66.14833957507268,
+          "kf_mean": 0.5199601669982223,
+          "kn_mean": 0.009944127859367049
+        },
+        "G4": {
+          "n": 11,
+          "omega_mean": 66.18362765470744,
+          "kf_mean": 0.5320112371954874,
+          "kn_mean": 0.011158851469939744
+        },
+        "tests": {
+          "omega": {
+            "test": "Jonckheere-Terpstra",
+            "stat": 11884.0,
+            "p": 0.0
+          },
+          "kf": {
+            "test": "Jonckheere-Terpstra",
+            "stat": 15768.0,
+            "p": 1.0580425424677742e-12
+          },
+          "kn": {
+            "test": "Jonckheere-Terpstra",
+            "stat": 14251.0,
+            "p": 0.0
+          }
+        }
+      },
+      "TCGA-BRCA": {
+        "Basal-like": {
+          "n": 97,
+          "omega_mean": 97.82819446804146,
+          "kf_mean": 0.536242139227569,
+          "kn_mean": 0.006095101686205285
+        },
+        "HER2-enriched": {
+          "n": 55,
+          "omega_mean": 103.13065735318452,
+          "kf_mean": 0.5132475968792352,
+          "kn_mean": 0.005630625227970038
+        },
+        "Luminal A": {
+          "n": 224,
+          "omega_mean": 123.37552081890867,
+          "kf_mean": 0.47894132384615556,
+          "kn_mean": 0.004855207730769996
+        },
+        "Luminal B": {
+          "n": 123,
+          "omega_mean": 116.59585166993854,
+          "kf_mean": 0.5065645668119932,
+          "kn_mean": 0.004963779351142877
+        },
+        "Normal-like": {
+          "n": 7,
+          "omega_mean": 90.50983840556344,
+          "kf_mean": 0.4300781256146225,
+          "kn_mean": 0.007029929121375139
+        },
+        "tests": {
+          "omega": {
+            "test": "Kruskal-Wallis",
+            "stat": 48.36763568922265,
+            "p": 7.91084596260476e-10
+          },
+          "kf": {
+            "test": "Kruskal-Wallis",
+            "stat": 56.88925911430351,
+            "p": 1.3051500320566282e-11
+          },
+          "kn": {
+            "test": "Kruskal-Wallis",
+            "stat": 52.19932560902794,
+            "p": 1.2532114423960535e-10
+          }
+        }
+      },
+      "TCGA-LUAD": {
+        "WT": {
+          "n": 311,
+          "omega_mean": 100.46854094060579,
+          "kf_mean": 0.48283996959066894,
+          "kn_mean": 0.006270030965987257
+        },
+        "EGFR": {
+          "n": 61,
+          "omega_mean": 106.99526355026836,
+          "kf_mean": 0.4720016832833435,
+          "kn_mean": 0.0054751910366509825
+        },
+        "KRAS": {
+          "n": 120,
+          "omega_mean": 118.04667258243897,
+          "kf_mean": 0.4971232839768306,
+          "kn_mean": 0.005194802083995148
+        },
+        "tests": {
+          "omega": {
+            "test": "Kruskal-Wallis",
+            "stat": 26.162638688711695,
+            "p": 2.0837959649595943e-06
+          },
+          "kf": {
+            "test": "Kruskal-Wallis",
+            "stat": 8.396667768826092,
+            "p": 0.015020582009737053
+          },
+          "kn": {
+            "test": "Kruskal-Wallis",
+            "stat": 16.090606471398587,
+            "p": 0.0003206041941453365
+          }
+        }
+      }
+    },
+    "sanity_max_delta_vs_published_severity": 0.0
+  }
+}

@@ -1,0 +1,6 @@
+brain_split_half_mean_omega	9.7261
+brain_split_half_ci95	[9.0271, 10.5310]
+n_splits	1450
+n_populations	29
+B_per_population	50
+min_region_cells	200

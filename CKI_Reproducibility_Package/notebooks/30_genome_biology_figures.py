@@ -1308,8 +1308,10 @@ plt.close()
 print('[ED Figure 6] Brain Analysis Details ...')
 # Load brain migration data needed for Panel D (authoritative block-shuffle results)
 _mig_all = pd.read_csv(RESULTS_DIR / 'brain_bs_null_results.csv')
-# Nuclei counts per cell class (version-independent)
-_brain_ct_nuclei = pd.read_csv(RESULTS_DIR / 'brain_siletti_ct_summary_v3.csv')
+# Nuclei counts per cell class (version-independent; the file lives in
+# results/superseded/ because its omega columns are pre-v38.1 — only the
+# n_nuclei column is consumed here, and it matches the shipped figures)
+_brain_ct_nuclei = pd.read_csv(RESULTS_DIR / 'superseded' / 'brain_siletti_ct_summary_v3.csv')
 # Per-class ω stats from the authoritative block-shuffle results
 _ed6_ct = (_mig_all.groupby('cell_type')
            .agg(omega_mean=('omega', 'mean'),

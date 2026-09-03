@@ -1,0 +1,49 @@
+{
+  "B_perm": 1000,
+  "strong_rule": "residual < 0.3, null omega < 15, lowest-in-pair",
+  "note": "Strong rule re-evaluated on each block-shuffle permutation (same specification as the microglia composition addendum S1b); hit counts are tallied among the surviving mature-oligodendrocyte pairs per permutation.",
+  "n_surv_mean": 43.677,
+  "n_surv_percentiles": [
+    20.0,
+    42.0,
+    79.0
+  ],
+  "tests": {
+    "thalamic_relay": {
+      "label": "thalamic-relay endpoint",
+      "observed_hits": 6,
+      "observed_candidates": 10,
+      "null_mean_hits": 6.58,
+      "null_max_hits": 47,
+      "p_hits": 0.47652347652347654,
+      "null_mean_survivors": 43.677,
+      "null_mean_rate": 0.1494517868894638,
+      "p_rate": 0.004995004995004995,
+      "uniform_draw_null_mean": 1.94621
+    },
+    "TF": {
+      "label": "temporal-fusiform (TF) endpoint",
+      "observed_hits": 4,
+      "observed_candidates": 10,
+      "null_mean_hits": 1.511,
+      "null_max_hits": 27,
+      "p_hits": 0.12887112887112886,
+      "null_mean_survivors": 43.677,
+      "null_mean_rate": 0.03441527993683555,
+      "p_rate": 0.001998001998001998,
+      "uniform_draw_null_mean": 0.18576
+    },
+    "thalamotemporal": {
+      "label": "thalamo-temporal axis (thalamic relay U STH U TF)",
+      "observed_hits": 9,
+      "observed_candidates": 10,
+      "null_mean_hits": 8.493,
+      "null_max_hits": 47,
+      "p_hits": 0.37962037962037964,
+      "null_mean_survivors": 43.677,
+      "null_mean_rate": 0.193041781726763,
+      "p_rate": 0.000999000999000999,
+      "uniform_draw_null_mean": 2.27037
+    }
+  }
+}

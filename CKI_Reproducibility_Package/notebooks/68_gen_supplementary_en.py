@@ -59,17 +59,37 @@ _pc_bmin, _pc_bmax = _pc_base['baseline_popmean'].min(), _pc_base['baseline_popm
 _pc_bmin_ct = _pc_base['baseline_popmean'].idxmin()
 _pc_bmax_ct = _pc_base['baseline_popmean'].idxmax()
 _pc_grad = _pc['gradient']['per_class']
-_pc_grad_ci = _pc['gradient']['per_class_ci95']
+# P1-2 (blind-review round 1, E1-M2): joint region-clustered bootstrap values from
+# notebooks/81_perclass_uncertainty.py (numerator region-clustered, denominator
+# two-stage split-half resampling); the i.i.d.-numerator CIs in
+# perclass_calibration.json are anti-conservative and superseded.
+_pc_unc = json.loads((Path(__file__).resolve().parent.parent / "results" / "perclass_uncertainty.json").read_text())
+_pc_unc_df = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "perclass_uncertainty.csv").set_index('cell_type')
+_kfo = json.loads((Path(__file__).resolve().parent.parent / "results" / "kf_only_ordering.json").read_text())
+_kfo_sev = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "kf_only_severity.csv")
+_pc_grad_ci = _pc_unc['gradient']['joint_region_clustered_ci']
+_pc_grad_ci_old = _pc['gradient']['per_class_ci95']
 _pc_astro = float(_pc_cal.loc['Astrocyte', 'omega_cal_class'])
-_pc_astro_ci = [float(_pc_cal.loc['Astrocyte', 'omega_cal_class_lo']),
-                float(_pc_cal.loc['Astrocyte', 'omega_cal_class_hi'])]
+_pc_astro_ci = [float(_pc_unc_df.loc['Astrocyte', 'omega_cal_class_lo']),
+                float(_pc_unc_df.loc['Astrocyte', 'omega_cal_class_hi'])]
 _pc_bg = float(_pc_cal.loc['Bergmann glia', 'omega_cal_class'])
-_pc_bg_ci = [float(_pc_cal.loc['Bergmann glia', 'omega_cal_class_lo']),
-             float(_pc_cal.loc['Bergmann glia', 'omega_cal_class_hi'])]
-_pc_bg_rc = [float(_pc_cal.loc['Bergmann glia', 'omega_rc_lo']),
-             float(_pc_cal.loc['Bergmann glia', 'omega_rc_hi'])]
+_pc_bg_ci = [float(_pc_unc_df.loc['Bergmann glia', 'omega_cal_class_lo']),
+             float(_pc_unc_df.loc['Bergmann glia', 'omega_cal_class_hi'])]
+_pc_bg_nreg = int(_pc_unc_df.loc['Bergmann glia', 'n_baseline_regions'])
+_pc_bg_base_ci = [float(_pc_unc_df.loc['Bergmann glia', 'baseline_two_stage_lo']),
+                  float(_pc_unc_df.loc['Bergmann glia', 'baseline_two_stage_hi'])]
+_pc_astro_base_ci = [float(_pc_unc_df.loc['Astrocyte', 'baseline_two_stage_lo']),
+                     float(_pc_unc_df.loc['Astrocyte', 'baseline_two_stage_hi'])]
+_pc_n_div_joint = _pc_unc['n_divergent_joint']
+_pc_bg_rc = [8.49, 19.52]  # canonical published BG region-clustered CI
+# (class-level CI list, _v38_statistical_addenda.py, B = 2,000); the per-class
+# calibration script's independent re-run ([9.09, 19.35]) is a bootstrap
+# resampling wobble of the same estimator -- use one value package-wide.
 _pc_bg_base = float(_pc_cal.loc['Bergmann glia', 'baseline_class'])
-_pc_n_div = _pc['classification']['n_divergent']
+_pc_n_div = dict(_pc['classification']['n_divergent'])
+# under the canonical [8.49, 19.52] interval the BG class-mean CI includes its
+# own baseline 9.08, so per-class divergence is 9/10 (BG borderline), not 10/10
+_pc_n_div['per_class'] = 9
 
 # Normality tests on the current-pipeline omega distributions
 _norm_brain_p = float(stats.normaltest(_obs['omega'])[1])
@@ -513,20 +533,33 @@ add_para(
     f'{_pc_bmax/_pc_bmin:.2f}-fold spread, and the split-half k_f floor itself varies roughly '
     '40-fold across classes (from 0.0001 in oligodendrocytes to 0.020 in committed '
     'oligodendrocyte precursors), so the equivalent-population expectation is a class-specific '
-    'quantity in both components rather than a single atlas-wide constant. Under per-class '
+    'quantity in both components rather than a single atlas-wide constant; each class '
+    'baseline rests on only 2-3 split-half populations (50 splits per population), so the '
+    'calibrated levels carry non-trivial denominator uncertainty (two-stage 95% CIs span, '
+    f'for example, [{_pc_astro_base_ci[0]:.2f}, {_pc_astro_base_ci[1]:.2f}] for astrocytes and '
+    f'[{_pc_bg_base_ci[0]:.2f}, {_pc_bg_base_ci[1]:.2f}] for Bergmann glia, the latter from only '
+    f'{_pc_bg_nreg} populations). Under per-class '
     f'baselines the astrocyte-to-Bergmann-glia gradient is {_pc_grad:.2f} (95% CI '
-    f'[{_pc_grad_ci[0]:.2f}, {_pc_grad_ci[1]:.2f}]), essentially unchanged from the raw 6.10 '
+    f'[{_pc_grad_ci[0]:.2f}, {_pc_grad_ci[1]:.2f}] under a joint region-clustered bootstrap '
+    'that resamples region pairs and split-half populations together, propagating both '
+    'sources of calibration uncertainty; the narrower i.i.d.-numerator CI '
+    f'[{_pc_grad_ci_old[0]:.2f}, {_pc_grad_ci_old[1]:.2f}] ignores within-region correlation '
+    'and is anti-conservative), essentially unchanged from the raw 6.10 '
     'because the two classes\u2019 own baselines nearly coincide (9.26 vs 9.08), while the calibrated '
     f'levels compress: astrocytes yield omega_cal = {_pc_astro:.1f} (95% CI '
     f'[{_pc_astro_ci[0]:.1f}, {_pc_astro_ci[1]:.1f}]) and Bergmann glia omega_cal = {_pc_bg:.2f} '
-    f'(95% CI [{_pc_bg_ci[0]:.2f}, {_pc_bg_ci[1]:.2f}]). Bergmann glia is therefore borderline '
+    f'(joint 95% CI [{_pc_bg_ci[0]:.2f}, {_pc_bg_ci[1]:.2f}], which no longer excludes 1). Bergmann glia is therefore borderline '
     f'against its own class baseline (region-clustered CI [{_pc_bg_rc[0]:.2f}, {_pc_bg_rc[1]:.2f}] '
-    f'versus baseline {_pc_bg_base:.2f}): under per-class baselines '
+    f'versus baseline {_pc_bg_base:.2f}; the class contributes only 7 regions, so the interval\u2019s '
+    'lower edge is itself sensitive to bootstrap resampling): under per-class baselines '
     f'{_pc_n_div["per_class"]} of 10 classes have region-clustered class-mean CIs excluding their '
     'own baselines (versus '
     f'{_pc_n_div["brain_global"]} of 10 under the single brain-wide baseline and '
-    f'{_pc_n_div["mouse"]} of 10 under the mouse-derived factor), but the Bergmann-glia excess is '
-    'small (+49%) and rests on only 21 pairs across 7 intra-cerebellar regions, so we read it as '
+    f'{_pc_n_div["mouse"]} of 10 under the mouse-derived factor), and under the joint '
+    'region-clustered bootstrap of the calibrated ratio (notebooks/81_perclass_uncertainty.py, '
+    f'B = 5,000) {_pc_n_div_joint} of 10 classes have joint 95% CIs excluding 1, with Bergmann glia the '
+    'borderline exception under both internal calibrations; its excess is small (+49%) and '
+    'rests on only 21 pairs across 7 intra-cerebellar regions, so we read it as '
     '"at, or marginally above, its own expectation" rather than clear divergence. Because a shared '
     'calibration constant cancels in any ratio of class means, external calibration changes the '
     'levels (astrocytes 12.41 under mouse-derived versus 8.51 under brain-internal) but not the '
@@ -888,19 +921,92 @@ add_para(
     '1.8-3.4 versus donor-drift 0.9-2.7). AUC (perturbation versus '
     'donor-drift): omega 0.551-0.922, k_f 0.743-1.000, raw JS 0.792-1.000. '
     'The permutation test reached raw P < 0.05 in 15 of 37 donor-level '
-    'tests. The components explain the metric ordering: IFN-beta '
+    'tests (no multiplicity correction; under the global null roughly '
+    'two of 37 tests would cross raw P < 0.05, so the aggregate excess '
+    'is informative while individual tests are not). The components are '
+    'consistent with the metric ordering: IFN-beta '
     'stimulation raises median k_n 1.2-5.7-fold above the donor-drift '
-    'level (ACTB and GAPDH fall roughly 40% in stimulated cells) while '
+    'level (ACTB and GAPDH fall roughly 40% in stimulated cells, a '
+    'magnitude consistent with the anchor mechanism but not separable '
+    'from the lane effect) while '
     'raising median k_f 1.6-6.8-fold, so the ratio partially cancels the '
     'signal; in CD14+ monocytes, where the k_n rise is largest (5.7-fold), '
-    'the omega AUC falls to 0.551 while k_f retains 0.984. This '
-    'empirically confirms the anchor-visibility boundary: perturbations '
+    'the omega AUC falls to 0.551 while k_f retains 0.984. Within the '
+    'lane-confounded design this supports the '
+    'anchor-visibility boundary: perturbations '
     'that touch the housekeeping anchor deflate omega, and k_f-only with '
     'a design-matched null is the more honest statistic in that regime '
     '(Fig. S13). '
     'Script: notebooks/79_kang_ifnb_demo.py; outputs: '
     'results/kang_ifnb_demo_pairs.csv (709 pairs), '
     'results/kang_ifnb_demo_summary.json.'
+)
+
+add_para('3.16 k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)', bold=True)
+add_para(
+    'Purpose. Two ordering claims in the manuscript rest on the ratio '
+    '\u03c9 = k_f / k_n: the cross-organ conservation ranking of cell types '
+    '(Table 2 / Fig. 5) and the TCGA clinical-severity gradients (Edmondson '
+    'grade, PAM50, LUAD mutation strata). This note reports the control in '
+    'which each ordering is recomputed using k_f alone (and k_n alone), with '
+    'the identical pipeline otherwise, to separate functional-divergence '
+    'signal from denominator effects.'
+)
+_a = _kfo['part_a']
+add_para(
+    f"Cross-organ ranking (Tabula Sapiens). The exact phase-3.5 pipeline "
+    f"(largest-donor pseudobulks, per-pair top-200 non-HK gene selection) was "
+    f"re-run on the {_a['n_pairs']} same-cell-type cross-organ pairs across "
+    f"{_a['n_ct']} cell types; it reproduces the published per-cell-type mean "
+    f"\u03c9 values to within {_a['sanity_max_delta_vs_phase35']:.1e}. "
+    f"Agreement between the \u03c9 and k_f orderings is weak at the cell-type "
+    f"level: Spearman r = {_a['spearman_ct_omega_kf']['r']:.2f} "
+    f"(P = {_a['spearman_ct_omega_kf']['p']:.2f}, n = {_a['n_ct']}), and "
+    f"r = {_a['spearman_wellsampled_omega_kf']['r']:.2f} "
+    f"(P = {_a['spearman_wellsampled_omega_kf']['p']:.2f}) among the "
+    f"{_a['n_ct_well_sampled']} well-sampled types (n \u2265 5 pairs); "
+    f"per-pair agreement is moderate (r = {_a['spearman_pair_omega_kf']['r']:.2f}, "
+    f"P = 5.7 \u00d7 10\u207b\u2074, n = {_a['n_pairs']}). "
+    f"Mean \u03c9 correlates negatively with mean k_n "
+    f"(r = {_a['spearman_ct_omega_kn']['r']:.2f}, "
+    f"P = {_a['spearman_ct_omega_kn']['p']:.2f}). "
+    f"CD8+ T cells are the most conserved well-sampled type under both "
+    f"\u03c9 and k_f, and the divergent end is directionally consistent "
+    f"(endothelial cells and erythrocytes carry the highest mean k_f among "
+    f"multi-pair types), but the middle of the ordering does not reproduce: "
+    f"NK cells rank most divergent under \u03c9 yet second-most conserved "
+    f"under k_f among well-sampled types. The cross-organ ranking is "
+    f"therefore a composite of functional divergence and baseline "
+    f"differences, not a pure k_f ordering. Full per-cell-type table: "
+    f"results/kf_only_ordering.csv."
+)
+add_para(
+    'TCGA severity gradients (per-tumor mean of intratumoral TT pairs; '
+    'identical loading, filtering, and pair subsampling as the published '
+    'analysis, which is reproduced exactly across all 12 published strata). '
+    'LIHC Edmondson grade: \u03c9 decreases with grade, but k_f increases '
+    '(mean k_f 0.500, 0.496, 0.520, 0.532 for G1\u2013G4; Jonckheere '
+    'P = 1.1 \u00d7 10\u207b\u00b9\u00b2) and k_n increases in parallel '
+    '(0.0087 \u2192 0.0112), so the direction of the \u03c9 gradient is a '
+    'denominator effect. BRCA PAM50: the subtype ordering largely reverses '
+    'under k_f-only (Luminal A lowest mean k_f, 0.479; Basal-like highest, '
+    '0.536; Kruskal-Wallis P = 1.3 \u00d7 10\u207b\u00b9\u00b9), consistent '
+    'with the lowest mean k_n in Luminal A (0.0049) and the highest in '
+    'Basal-like (0.0061); the \u03c9 heterogeneity gradient is therefore '
+    'predominantly a baseline effect. LUAD mutation strata: the contrast '
+    'persists under k_f-only (Kruskal-Wallis P = 0.015), with KRAS-mutant '
+    'tumors highest in both \u03c9 (118.1) and k_f (0.497) and wild-type '
+    'intermediate (0.483), while the EGFR elevation above wild-type visible '
+    'in \u03c9 (107.0 vs 100.5) is not present in k_f (EGFR lowest, 0.472); '
+    'k_n is lowest in EGFR-mutant tumors (0.0055), so that part of the '
+    '\u03c9 contrast is denominator-driven. These k_f-only controls are '
+    'post-hoc; the P-values reported here (three severity analyses '
+    'crossed with three metrics) are nominal and carry no multiplicity '
+    'correction, matching the exploratory framing of the severity '
+    'analysis in the main text. '
+    'Script: notebooks/83_kf_only_ordering.py; outputs: '
+    'results/kf_only_ordering.csv, results/kf_only_ordering.json, '
+    'results/kf_only_severity.csv, results/kf_only_ordering.txt.'
 )
 
 doc.add_page_break()
@@ -1061,17 +1167,34 @@ add_para(
     'hypergeometric tests (P = 0.005, 2.1 x 10^-5, and 1.3 x 10^-5 respectively) assume '
     'independent draws and are reported for reference only; a permutation test that '
     'instead resamples candidate sets of size 10 from the same 5,778-pair pool, thereby '
-    'preserving the pool\u2019s endpoint co-occurrence structure, gives P = 1.0 x 10^-5 '
+    'preserving the pool\u2019s endpoint co-occurrence structure, gives P = 1.005 x 10^-5 '
     'for the thalamic-relay endpoint and P \u2264 1 x 10^-5 for the TF and combined-axis '
     'endpoints (B = 100,000; null mean hit counts 1.95, 0.19, and 2.27 respectively; '
-    'the observed 4 and 9 hits equal or exceed the null maximum). These are post-hoc '
+    'the observed 4 and 9 hits equal or exceed the null maximum). A selection-rule-'
+    'matched null, at the same specification as the microglia composition check '
+    '(the Strong rule re-evaluated on each block-shuffle permutation, B = 1,000; '
+    'notebooks/82_axis_rule_matched_null.py), qualifies these values: the rule-matched '
+    'null generates more survivors than observed (mean 43.7 per permutation, 95% '
+    '[20, 79], versus 10 observed; this expectation applies to the '
+    'mature-oligodendrocyte pool of 5,778 pairs, whereas the 148.3 figure quoted '
+    'above refers to the full 31,764-pair screen\u2014the two survivor expectations '
+    'are computed on different pools and are not directly comparable), so absolute hit counts are not extreme '
+    '(thalamic-relay 6 versus a null mean of 6.58, P = 0.48; TF 4 versus 1.51, '
+    'P = 0.13; combined axis 9 versus 8.49, P = 0.38); the concentration is '
+    'significant at the level of the per-candidate hit rate (observed 0.60/0.40/0.90 '
+    'versus null mean rates 0.149/0.034/0.193; P = 0.005, 0.002, and 0.001). The '
+    'uniform-draw permutation treats the candidates as a size-10 uniform subset of '
+    'the pool and does not model the selection rule; the rule-matched rate test is '
+    'the design-matched comparison, and the claim it supports is axis concentration '
+    'of the surviving candidates, not an axis excess of candidates. These are post-hoc '
     'checks in a single dataset, with the tier variable and the axis definition chosen '
     'after inspecting the data, and all P-values are nominal with no multiplicity '
     'adjustment; they support the interpretation that the signal is not random '
     'noise, but they do not substitute for pair-level FDR control. Scripts: '
-    'notebooks/72_brain_setlevel_tests.py and notebooks/78_axis_permutation_test.py; '
+    'notebooks/72_brain_setlevel_tests.py, notebooks/78_axis_permutation_test.py, '
+    'and notebooks/82_axis_rule_matched_null.py; '
     'results: results/brain_setlevel_tests.csv, results/brain_setlevel_tests.txt, '
-    'and results/axis_permutation_test.txt.'
+    'results/axis_permutation_test.txt, and results/axis_rule_matched_null.txt.'
 )
 
 add_para('5.2 TCGA composition-contribution check for the NN/TT k_n reversal', bold=True)
@@ -1115,7 +1238,11 @@ add_para(
     'multiplicities, and the weighted OLS is recomputed; this respects the dependence '
     'structure that each sample contributes to many pairs (the naive pair-level '
     'standard errors, which treat 25,306 pairs as independent, overstate precision '
-    'and are not used for inference). Per-cancer four-panel attenuation is strongly '
+    'and are not used for inference); at B = 200 resamples the Monte-Carlo error '
+    'of an endpoint of the resampling distribution is roughly 1-2 percentage '
+    'points, small relative to the reported interval widths, and the pooled '
+    '[-3.2%, +2.6%] interval is interpreted only as excluding large pooled '
+    'attenuation, not as a precise point estimate. Per-cancer four-panel attenuation is strongly '
     'heterogeneous: LUAD -2.3% (95% CI [-7.6%, +4.8%]), LUSC -9.7% ([-28.4%, +6.7%]), '
     'LIHC +33.5% ([+23.0%, +46.9%]), KIRC +19.6% ([+14.6%, +25.7%]), and BRCA -14.0% '
     '([-23.2%, -5.7%]), so composition covariates absorb a substantial share of the '
