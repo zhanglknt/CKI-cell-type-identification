@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-run_all.py — Complete reproducibility pipeline for CKI Genome Biology manuscript.
+run_all.py — Complete reproducibility pipeline for CKI Genome Biology manuscript (v40+).
 
 Usage:
     python run_all.py              # Run everything (default)
@@ -9,18 +9,37 @@ Usage:
     python run_all.py --verify-only # Only run spot-check verification
 
 Execution order (independent groups run in parallel):
-    Group A (Tabula Muris FACS):   01b_hk, 01c_hk, 01_tissue, 02b, 02c, 03_full, 04_sweep
-    Group B (Tabula Sapiens):      05_phase33_fixed
-    Group C (TCGA):                06_phase34_v2, 07_clinical
-    Group D (Brain):               07c_brain_siletti
-    ── wait for all ──
-    Group E (Bootstrap):           08a_tcga, 08b_human, 08c_brain
-    Group F (Method comparison):   13_phase35
-    ── wait for all ──
-    Phase 4 (Phase B upgrades):    09_phaseB, 09b_residual
+    Phase 1 (independent, parallel):
+        A (Tabula Muris FACS):  01b_hk, 01c_hk, 01_tissue, 02b, 02c, 03_full, 04_sweep
+        B (Tabula Sapiens):     05_phase33_fixed
+        C (TCGA):               06_phase34_v2, 07_clinical
+        D (Brain):              07c_brain_siletti
+        F (Method comparison):  13_phase35
+    Phase 2 (permutation tests; depend on Phase 1):
+        E: 08a_tcga (TCGA permutation), 08b_human_bootstrap_v2 (cell-level
+           permutation; supersedes broken 08b_human_bootstrap_csv.py),
+           08c_brain_bootstrap_v3 (pseudobulk-level permutation)
+        Then, sequentially for brain: 08d_brain_blockshuffle_null ->
+           08e_brain_blockshuffle_results (block-shuffle null; the
+           authoritative source of all brain per-pair / cell-type statistics)
+    Phase 3 (post-processing): precompute_figure_data, spot_check
+    Phase 4 (Phase B upgrades):   09_phaseB, 09b_residual
     Phase 5 (Phase C methodological): 09c_phaseC
-    Phase 6 (Figures):             30_genome_biology_figures
-    Phase 7 (Collect):             _collect_submission_figures
+    Phase 6 (reviewer-fix & v40 statistical analyses; depend on 08d/08e
+             and Phase 1 outputs):
+        Brain (heavy):   41_within_donor, 42_kn_estimators,
+                         46_fixed_panel_ablation, 48_donor_stratified_null
+        Brain (CSV):     38_lineage_enrichment, 39_tier_sensitivity,
+                         72_brain_setlevel_tests
+        Split-half:      43_ts_splithalf, 44_fix_phaseB_cis
+        Simulations:     45_groundtruth_simulation, 49_groundtruth_background2
+        TCGA:            73_tcga_composition_check
+    Phase 7 (Figures):  30_genome_biology_figures
+    Phase 8 (Collect):  _collect_submission_figures
+
+Note on verification: scripts/spot_check.py provides a quick numerical
+sanity check only; the comprehensive 285-assertion verification of the
+submission package is performed by 99_build_gb_v40.py.
 
 Prerequisites:
     1. Install cki: pip install -e .
@@ -65,7 +84,7 @@ def run_script(name, path, timeout_mins=30):
     if not script.exists():
         print(f"  {color('MISSING', Color.RED)}: {path}")
         return False, 0, f"File not found: {script}"
-    
+
     t0 = time.time()
     try:
         result = subprocess.run(
@@ -99,10 +118,13 @@ def run_script(name, path, timeout_mins=30):
 
 def run_group(name, scripts, parallel=True, timeout_mins=30):
     """Run a group of scripts, optionally in parallel."""
+    if not scripts:
+        print(f"\n{color(f'[{name}] SKIPPED (no scripts selected)', Color.YELLOW)}")
+        return True
     header = f"[{name}] ({len(scripts)} scripts)"
     print(f"\n{color(header, Color.BOLD + Color.CYAN)}")
     print("-" * 60)
-    
+
     if parallel and len(scripts) > 1:
         with ThreadPoolExecutor(max_workers=min(len(scripts), 4)) as ex:
             futures = {
@@ -158,7 +180,7 @@ def main():
 
     # --- Step 0: Check prerequisites ---
     print(color("[Step 0] Checking prerequisites...", Color.BOLD + Color.CYAN))
-    
+
     # Check cki package
     try:
         import cki
@@ -167,7 +189,7 @@ def main():
         print(f"  {color('ERROR: cki not installed. Run: pip install -e .', Color.RED)}")
         if not args.dry_run:
             sys.exit(1)
-    
+
     # Check raw data
     data_checks = [
         (ROOT / "data" / "ts_human" / "TS_Liver.h5ad", "Tabula Sapiens Liver"),
@@ -184,13 +206,13 @@ def main():
         else:
             size_mb = path.stat().st_size / 1e6
             print(f"  {color('OK', Color.GREEN)}: {desc} ({size_mb:.1f} MB)")
-    
+
     if args.dry_run:
         print(f"\n{color('Dry run complete. No scripts executed.', Color.YELLOW)}")
         return
-    
+
     if args.verify_only:
-        run_group("Verify", [("Spot Check", "scripts/spot_check_v19.py")])
+        run_group("Verify", [("Spot Check", "scripts/spot_check.py")])
         return
 
     # ================================================================
@@ -198,7 +220,7 @@ def main():
     # ================================================================
     print(f"\n{color('[Phase 1] Independent analysis groups', Color.BOLD + Color.CYAN)}")
     print("=" * 60)
-    
+
     # Group A: Tabula Muris FACS
     group_a = [
         ("HK Stability",       "01b_hk_stability.py"),
@@ -209,30 +231,30 @@ def main():
         ("Full Matrix",        "03_full_matrix.py"),
         ("Sweep",              "04_phase32_sweep.py"),
     ]
-    
+
     # Group B: Tabula Sapiens
     group_b = [
         ("Phase33 Human",      "05_phase33_v3_fixed.py"),
     ]
-    
+
     # Group C: TCGA
     group_c = [
         ("Phase34 TCGA",       "06_phase34_v2.py"),
         ("Clinical",           "07_phase34_clinical.py"),
     ]
-    
+
     # Group D: Brain
     group_d = [
         ("Brain Siletti",      "07c_brain_siletti_v3.py"),
     ]
-    
+
     # Method comparison (runs independently — reads raw data)
     group_f = [
         ("Method Comparison",  "13_phase35_method_comparison.py"),
     ]
-    
+
     all_groups_ok = True
-    
+
     # Run A, B, C, D, F in parallel (each group internally parallel)
     with ThreadPoolExecutor(max_workers=4) as ex:
         futures = {
@@ -240,66 +262,82 @@ def main():
             ex.submit(run_group, "B: Tabula Sapiens", group_b, False, 20): "B",
             ex.submit(run_group, "F: Method Comparison", group_f, False, 15): "F",
         }
-        
+
         if not args.skip_tcga:
             futures[ex.submit(run_group, "C: TCGA", group_c, False, 30): "C"]
         else:
             print(f"\n{color('[C: TCGA] SKIPPED (--skip-tcga)', Color.YELLOW)}")
-        
+
         if not args.skip_brain:
             futures[ex.submit(run_group, "D: Brain", group_d, False, 120): "D"]
         else:
             print(f"\n{color('[D: Brain] SKIPPED (--skip-brain)', Color.YELLOW)}")
-        
+
         for f in as_completed(futures):
             label = futures[f]
             ok = f.result()
             if not ok:
                 all_groups_ok = False
             print(f"  {color('Group ' + label + ' COMPLETE', Color.GREEN if ok else Color.RED)}")
-    
+
     # ================================================================
-    # Phase 2: Bootstrap (depends on Phase 1 outputs)
+    # Phase 2: Permutation tests (depends on Phase 1 outputs)
     # ================================================================
-    print(f"\n{color('[Phase 2] Bootstrap analysis', Color.BOLD + Color.CYAN)}")
+    print(f"\n{color('[Phase 2] Permutation tests (08a/08b/08c)', Color.BOLD + Color.CYAN)}")
     print("=" * 60)
-    
+
     group_e_scripts = []
     if not args.skip_tcga:
-        group_e_scripts.append(("TCGA Bootstrap",    "08a_tcga_bootstrap.py"))
-    group_e_scripts.append(("Human Bootstrap",  "08b_human_bootstrap_csv.py"))
+        group_e_scripts.append(("TCGA Permutation",   "08a_tcga_bootstrap.py"))
+    group_e_scripts.append(("Human Permutation",  "08b_human_bootstrap_v2.py"))
     if not args.skip_brain:
-        group_e_scripts.append(("Brain Bootstrap",   "08c_brain_bootstrap_csv.py"))
-    
-    if not run_group("E: Bootstrap", group_e_scripts, not args.sequential, 15):
+        group_e_scripts.append(("Brain Permutation",  "08c_brain_bootstrap_v3.py"))
+
+    if not run_group("E: Permutation", group_e_scripts, not args.sequential, 20):
         all_groups_ok = False
-    
+
+    # Brain block-shuffle null: 08d (heavy) -> 08e (post-processing).
+    # This is the authoritative statistical source for all brain per-pair
+    # and cell-type results reported in the manuscript.
+    if not args.skip_brain:
+        print(f"\n{color('[Phase 2b] Brain block-shuffle null (08d -> 08e)', Color.BOLD + Color.CYAN)}")
+        print("=" * 60)
+        ok, _, _ = run_script("Block-Shuffle Null", "08d_brain_blockshuffle_null.py", 180)
+        if not ok:
+            all_groups_ok = False
+        else:
+            ok, _, _ = run_script("Block-Shuffle Results", "08e_brain_blockshuffle_results.py", 10)
+            if not ok:
+                all_groups_ok = False
+    else:
+        print(f"\n{color('[Phase 2b] Brain block-shuffle SKIPPED (--skip-brain)', Color.YELLOW)}")
+
     # ================================================================
     # Phase 3: Post-processing & Verification
     # ================================================================
     print(f"\n{color('[Phase 3] Post-processing & Verification', Color.BOLD + Color.CYAN)}")
     print("=" * 60)
-    
+
     # Precompute figure data (reads all CSVs)
     ok, _, _ = run_script("Figure Data", "notebooks/precompute_figure_data.py", 5)
     if not ok:
         all_groups_ok = False
-    
-    # Spot check
-    spot_check = ROOT / "scripts" / "spot_check_v19.py"
+
+    # Spot check (quick sanity check only; full verification: 99_build_gb_v40.py)
+    spot_check = ROOT / "scripts" / "spot_check.py"
     if spot_check.exists():
-        ok, _, _ = run_script("Spot Check", "scripts/spot_check_v19.py", 5)
+        ok, _, _ = run_script("Spot Check", "scripts/spot_check.py", 5)
         if not ok:
             all_groups_ok = False
     else:
-        print(f"  {color('SKIP', Color.YELLOW)}: spot_check_v19.py not found")
-    
+        print(f"  {color('SKIP', Color.YELLOW)}: spot_check.py not found")
+
     # ================================================================
     # Phase 4: Phase B Statistical Upgrades
     # ================================================================
     print(f"\n{color('[Phase 4] Phase B Statistical Upgrades', Color.BOLD + Color.CYAN)}")
     print("=" * 60)
-    
+
     group_phase_b = [
         ("PhaseB Stats",       "09_phaseB_statistical_upgrades.py"),
         ("PhaseB Residual",    "09b_phaseB_residual_pervisign.py"),
@@ -312,7 +350,7 @@ def main():
     # ================================================================
     print(f"\n{color('[Phase 5] Phase C Methodological Reinforcement', Color.BOLD + Color.CYAN)}")
     print("=" * 60)
-    
+
     group_phase_c = [
         ("PhaseC Method",      "09c_phaseC_methodological.py"),
     ]
@@ -320,21 +358,75 @@ def main():
         all_groups_ok = False
 
     # ================================================================
-    # Phase 6: Figure Generation
+    # Phase 6: Reviewer-fix & v40 statistical analyses
+    # (depend on 08d/08e block-shuffle outputs and Phase 1 results)
     # ================================================================
-    print(f"\n{color('[Phase 6] Figure Generation', Color.BOLD + Color.CYAN)}")
+    print(f"\n{color('[Phase 6] Reviewer-fix & v40 statistical analyses', Color.BOLD + Color.CYAN)}")
     print("=" * 60)
-    
+
+    if not args.skip_brain:
+        # Heavy brain analyses (raw-data-level, need 08d outputs)
+        group_rev_brain = [
+            ("Within-Donor",      "41_reviewer_fix_within_donor.py"),
+            ("k_n Estimators",    "42_reviewer_fix_kn_estimators.py"),
+            ("Fixed-Panel Ablation", "46_fixed_panel_ablation.py"),
+            ("Donor-Stratified Null", "48_donor_stratified_null.py"),
+        ]
+        if not run_group("R1: Brain reviewer-fix (heavy)", group_rev_brain, not args.sequential, 120):
+            all_groups_ok = False
+
+        # CSV-level analyses (need 08e output brain_bs_null_results.csv)
+        group_rev_csv = [
+            ("Lineage Enrichment", "38_reviewer_fix_lineage_enrichment.py"),
+            ("Tier Sensitivity",   "39_reviewer_fix_tier_sensitivity.py"),
+            ("Brain Set-Level",    "72_brain_setlevel_tests.py"),
+        ]
+        if not run_group("R2: Brain reviewer-fix (CSV)", group_rev_csv, not args.sequential, 15):
+            all_groups_ok = False
+    else:
+        print(f"\n{color('[R1/R2: Brain reviewer-fix] SKIPPED (--skip-brain)', Color.YELLOW)}")
+
+    # Split-half & CI calibration (need 08d + 13 + 02c outputs)
+    group_rev_sh = [
+        ("TS Split-Half",     "43_reviewer_fix_ts_splithalf.py"),
+        ("PhaseB CI Fix",     "44_fix_phaseB_cis.py"),
+    ]
+    if not run_group("R3: Split-half & CIs", group_rev_sh, not args.sequential, 60):
+        all_groups_ok = False
+
+    # Ground-truth simulations (mouse background)
+    group_rev_sim = [
+        ("Ground-Truth Sim",  "45_groundtruth_simulation.py"),
+        ("Ground-Truth BG2",  "49_groundtruth_sim_background2.py"),
+    ]
+    if not run_group("R4: Ground-truth simulations", group_rev_sim, not args.sequential, 60):
+        all_groups_ok = False
+
+    # TCGA composition sanity check
+    if not args.skip_tcga:
+        if not run_group("R5: TCGA composition", [
+            ("TCGA Composition",  "73_tcga_composition_check.py"),
+        ], False, 60):
+            all_groups_ok = False
+    else:
+        print(f"\n{color('[R5: TCGA composition] SKIPPED (--skip-tcga)', Color.YELLOW)}")
+
+    # ================================================================
+    # Phase 7: Figure Generation
+    # ================================================================
+    print(f"\n{color('[Phase 7] Figure Generation', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+
     ok, _, _ = run_script("Main + Supp Figures", "notebooks/30_genome_biology_figures.py", 30)
     if not ok:
         all_groups_ok = False
 
     # ================================================================
-    # Phase 7: Collect Submission Figures
+    # Phase 8: Collect Submission Figures
     # ================================================================
-    print(f"\n{color('[Phase 7] Collect Submission Figures', Color.BOLD + Color.CYAN)}")
+    print(f"\n{color('[Phase 8] Collect Submission Figures', Color.BOLD + Color.CYAN)}")
     print("=" * 60)
-    
+
     collector = ROOT / "_collect_submission_figures.py"
     if collector.exists():
         ok, _, _ = run_script("Collect Figures", "_collect_submission_figures.py", 2)
@@ -342,31 +434,31 @@ def main():
             all_groups_ok = False
     else:
         print(f"  {color('SKIP', Color.YELLOW)}: _collect_submission_figures.py not found")
-    
+
     # ================================================================
     # Summary
     # ================================================================
     elapsed = time.time() - t_start
     mins = int(elapsed // 60)
     secs = int(elapsed % 60)
-    
+
     print(f"\n{color('=' * 60, Color.BOLD)}")
     if all_groups_ok:
         print(color(f"PIPELINE COMPLETE — All steps passed ({mins}m {secs}s)", Color.GREEN + Color.BOLD))
         print()
         print("Next steps:")
-        print("  1. Generate manuscript:   python generate_manuscript_nar.py")
+        print("  1. Generate manuscript:     python generate_manuscript_gb.py")
         print("  2. Generate supplementary: python notebooks/68_gen_supplementary_en.py")
-        print("  3. Generate cover letter: python generate_cover_letter_nar.py")
-        print("  4. Generate repro guide:  node notebooks/100_gen_reproducibility_docx.js")
-        print("  5. Extract tables:        python notebooks/_extract_table1_2.py")
-        print("  6. Build v32 package:     python 99_build_nar_v32.py")
+        print("  3. Generate cover letter:  python generate_cover_letter_nar.py")
+        print("  4. Generate repro guide:   node notebooks/100_gen_reproducibility_docx.js")
+        print("  5. Extract tables:         python notebooks/_extract_table1_2.py")
+        print("  6. Verify & build package: python 99_build_gb_v40.py  (285-assertion verification)")
     else:
         print(color(f"PIPELINE FAILED — Some steps failed ({mins}m {secs}s)", Color.RED + Color.BOLD))
         print("Check the output above for FAIL markers.")
-    
+
     print(color("=" * 60, Color.BOLD))
-    
+
     sys.exit(0 if all_groups_ok else 1)
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Supplementary Figure S6 and S7 for NAR submission.
+"""Generate Supplementary Figure S6 and S8 for NAR submission.
 
 S6: Brain regional analysis details (5 panels: A-E)
   (A) Cell type nuclei counts per brain region
@@ -8,7 +8,7 @@ S6: Brain regional analysis details (5 panels: A-E)
   (D) Region-region omega matrix for astrocytes
   (E) Top region-associated candidates by tier
 
-S7: Developmental signature detection (4 panels: A-D)
+S8: Developmental signature detection (4 panels: A-D)
   (A) Multiplicative residual distribution for all 31,764 cross-region pairs
   (B) Strong candidate counts by cell type
   (C) Top 10 Strong candidates ranked by multiplicative residual
@@ -100,6 +100,13 @@ CT_LABEL = {
     'Oligodendrocyte': 'ODC',
     'Oligodendrocyte precursor': 'OPC',
     'Vascular': 'Vascular',
+}
+
+# Oligodendrocyte-lineage cell types used for Strong-candidate coloring
+OL_LINEAGE = {
+    'Oligodendrocyte precursor',
+    'Committed oligodendrocyte precursor',
+    'Oligodendrocyte',
 }
 
 
@@ -306,7 +313,7 @@ def generate_s6():
     out_png = OUT_DIR / 'Supplementary_Figure_S6.png'
     fig.savefig(out_pdf, dpi=DPI, facecolor='white',
                 bbox_inches='tight', pad_inches=0.02,
-                metadata={'Creator': 'CKI NAR Supplementary Figures'})
+                metadata={'Creator': 'CKI GB Supplementary Figures'})
     fig.savefig(out_png, dpi=DPI, facecolor='white',
                 bbox_inches='tight', pad_inches=0.02)
     plt.close(fig)
@@ -316,10 +323,10 @@ def generate_s6():
 
 
 # ================================================================
-# SUPPLEMENTARY FIGURE S7: Developmental signature detection
+# SUPPLEMENTARY FIGURE S8: Developmental signature detection
 # ================================================================
 def generate_s7():
-    print('[Supplementary Figure S7] Developmental signature detection ...')
+    print('[Supplementary Figure S8] Developmental signature detection ...')
     bs, _, _ = load_data()
 
     FIG_H = 120 * MM
@@ -427,10 +434,13 @@ def generate_s7():
                 for _, r in top10.iterrows()]
     res_vals = top10['residual'].values
     omega_vals = top10['omega'].values
+    is_ol = top10['cell_type'].isin(OL_LINEAGE).values
+    # OL-lineage vs non-OL coloring (OL: 50/55 Strong; hypergeometric P=4.5e-15)
+    bar_colors_c = np.where(is_ol, C_PURPLE, C_RED)
     y_pos = np.arange(len(labels_c))
 
-    bars = axC.barh(y_pos, res_vals, color=C_PURPLE, alpha=0.85, height=0.65,
-                    edgecolor='white', linewidth=0.5)
+    bars = axC.barh(y_pos, res_vals, color=bar_colors_c, alpha=0.85,
+                    height=0.65, edgecolor='white', linewidth=0.5)
     axC.set_yticks(y_pos)
     axC.set_yticklabels(labels_c, fontsize=SMALL_SIZE)
     axC.set_xlabel('Multiplicative residual', fontsize=SMALL_SIZE, labelpad=2)
@@ -440,6 +450,27 @@ def generate_s7():
         axC.text(val + 0.005, bar.get_y() + bar.get_height() / 2,
                   f'{val:.3f} ($\\omega$={om:.1f})', va='center',
                   fontsize=SMALL_SIZE, color=C_DARK)
+    # OL-lineage legend
+    from matplotlib.patches import Patch as _Patch
+    n_ol_all = int(strong_df['cell_type'].isin(OL_LINEAGE).sum())
+    legend_patches_c = [
+        _Patch(facecolor=C_PURPLE, edgecolor='white', linewidth=0.5,
+               label=f'OL-lineage (n={n_ol_all} of {len(strong_df)} Strong)'),
+        _Patch(facecolor=C_RED, edgecolor='white', linewidth=0.5,
+               label=f'non-OL (n={len(strong_df) - n_ol_all})'),
+    ]
+    axC.legend(handles=legend_patches_c, fontsize=SMALL_SIZE, frameon=True,
+               framealpha=0.9, edgecolor='#BDC3C7', loc='lower right',
+               borderpad=0.4, handlelength=1.4, labelspacing=0.3)
+    # Enrichment annotation (one line, in-figure caption)
+    # Updated 2026-08-30 for corrected extraction: 12/39 Strong, fold=0.77, P=0.92 (no enrichment)
+    axC.text(0.98, 0.045,
+             f'OL-lineage: {n_ol_all}/{len(strong_df)} Strong '
+             f'(fold=0.77,\nhypergeometric P = 0.92; no enrichment)',
+             transform=axC.transAxes, fontsize=SMALL_SIZE, color=C_DARK,
+             ha='right', va='bottom',
+             bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
+                       edgecolor=C_GRAY, linewidth=0.5, alpha=0.92))
     axC.spines[['top', 'right']].set_visible(False)
     axC.tick_params(labelsize=SMALL_SIZE, pad=2)
     axC.invert_yaxis()
@@ -493,17 +524,17 @@ def generate_s7():
              fontsize=LABEL_SIZE, fontweight='bold', va='bottom', ha='right')
 
     # ---- Save ----
-    out_pdf = OUT_DIR / 'Supplementary_Figure_S7.pdf'
-    out_png = OUT_DIR / 'Supplementary_Figure_S7.png'
+    out_pdf = OUT_DIR / 'Supplementary_Figure_S8.pdf'
+    out_png = OUT_DIR / 'Supplementary_Figure_S8.png'
     fig.savefig(out_pdf, dpi=DPI, facecolor='white',
                 bbox_inches='tight', pad_inches=0.02,
-                metadata={'Creator': 'CKI NAR Supplementary Figures'})
+                metadata={'Creator': 'CKI GB Supplementary Figures'})
     fig.savefig(out_png, dpi=DPI, facecolor='white',
                 bbox_inches='tight', pad_inches=0.02)
     plt.close(fig)
     print(f'  -> {out_pdf.name}')
     print(f'  -> {out_png.name}')
-    print('  S7 DONE.')
+    print('  S8 DONE.')
 
 
 # ================================================================
@@ -512,4 +543,4 @@ def generate_s7():
 if __name__ == '__main__':
     generate_s6()
     generate_s7()
-    print('\nAll supplementary figures S6/S7 generated successfully.')
+    print('\nAll supplementary figures S6/S8 generated successfully.')

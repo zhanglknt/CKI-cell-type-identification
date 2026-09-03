@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Supplementary Figure S6 and S7 for NAR submission.
+"""Generate Supplementary Figure S6 and S8 for NAR submission.
 
 S6: Brain regional analysis details (5 panels: A-E)
   (A) Cell type nuclei counts per brain region
@@ -8,7 +8,7 @@ S6: Brain regional analysis details (5 panels: A-E)
   (D) Region-region omega matrix for astrocytes
   (E) Top region-associated candidates by tier
 
-S7: Developmental signature detection (4 panels: A-D)
+S8: Developmental signature detection (4 panels: A-D)
   (A) Multiplicative residual distribution for all 31,764 cross-region pairs
   (B) Strong candidate counts by cell type
   (C) Top 10 Strong candidates ranked by multiplicative residual
@@ -313,7 +313,7 @@ def generate_s6():
     out_png = OUT_DIR / 'Supplementary_Figure_S6.png'
     fig.savefig(out_pdf, dpi=DPI, facecolor='white',
                 bbox_inches='tight', pad_inches=0.02,
-                metadata={'Creator': 'CKI NAR Supplementary Figures'})
+                metadata={'Creator': 'CKI GB Supplementary Figures'})
     fig.savefig(out_png, dpi=DPI, facecolor='white',
                 bbox_inches='tight', pad_inches=0.02)
     plt.close(fig)
@@ -323,10 +323,10 @@ def generate_s6():
 
 
 # ================================================================
-# SUPPLEMENTARY FIGURE S7: Developmental signature detection
+# SUPPLEMENTARY FIGURE S8: Developmental signature detection
 # ================================================================
 def generate_s7():
-    print('[Supplementary Figure S7] Developmental signature detection ...')
+    print('[Supplementary Figure S8] Developmental signature detection ...')
     bs, _, _ = load_data()
 
     FIG_H = 120 * MM
@@ -524,17 +524,17 @@ def generate_s7():
              fontsize=LABEL_SIZE, fontweight='bold', va='bottom', ha='right')
 
     # ---- Save ----
-    out_pdf = OUT_DIR / 'Supplementary_Figure_S7.pdf'
-    out_png = OUT_DIR / 'Supplementary_Figure_S7.png'
+    out_pdf = OUT_DIR / 'Supplementary_Figure_S8.pdf'
+    out_png = OUT_DIR / 'Supplementary_Figure_S8.png'
     fig.savefig(out_pdf, dpi=DPI, facecolor='white',
                 bbox_inches='tight', pad_inches=0.02,
-                metadata={'Creator': 'CKI NAR Supplementary Figures'})
+                metadata={'Creator': 'CKI GB Supplementary Figures'})
     fig.savefig(out_png, dpi=DPI, facecolor='white',
                 bbox_inches='tight', pad_inches=0.02)
     plt.close(fig)
     print(f'  -> {out_pdf.name}')
     print(f'  -> {out_png.name}')
-    print('  S7 DONE.')
+    print('  S8 DONE.')
 
 
 # ================================================================
@@ -543,4 +543,4 @@ def generate_s7():
 if __name__ == '__main__':
     generate_s6()
     generate_s7()
-    print('\nAll supplementary figures S6/S7 generated successfully.')
+    print('\nAll supplementary figures S6/S8 generated successfully.')

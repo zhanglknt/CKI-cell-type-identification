@@ -224,7 +224,7 @@ def main():
     ax.add_patch(box_omega)
     ax.text(3.25, y_omega + 0.08, r'$\omega = k_f / k_n$', fontsize=20, color=C_PURPLE, ha='center', va='center',
             fontweight='bold')
-    ax.text(3.25, y_omega - 0.15, r'$\omega > 1 \rightarrow$ selection exceeds drift', fontsize=8, color=C_PURPLE,
+    ax.text(3.25, y_omega - 0.15, r'$\omega > 1 \rightarrow$ divergence exceeds neutral baseline', fontsize=8, color=C_PURPLE,
             ha='center', va='center')
 
     # -----------------------------------------------------------------------
@@ -238,7 +238,7 @@ def main():
     ax.add_patch(circ)
     theta = np.linspace(0.2, 1.7 * np.pi, 50)
     ax.plot(2.65 + 0.12 * np.cos(theta), y_boot + 0.12 * np.sin(theta), color=C_GOLD, lw=1.5)
-    ax.text(2.65, y_boot - 0.30, 'Bootstrap test', fontsize=7, color=C_TEXT, ha='center', va='top')
+    ax.text(2.65, y_boot - 0.30, 'Permutation test', fontsize=7, color=C_TEXT, ha='center', va='top')
 
     draw_arrow(ax, 2.88, y_boot, 3.55, y_boot, color=C_SUBTEXT, lw=1.1)
 

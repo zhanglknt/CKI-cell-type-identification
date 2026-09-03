@@ -265,3 +265,95 @@ def test_benjamini_hochberg():
     q = benjamini_hochberg([0.01, 0.04, 0.03, 0.20, 0.001])
     assert q[4] <= q[0] <= q[2] <= q[1] <= q[3]
     assert np.all(q >= 0) and np.all(q <= 1)
+
+
+# ── 7. bootstrap_test gene re-selection modes ─────────────────────────
+
+def test_bootstrap_test_reselect_default():
+    """Default mode reproduces the manuscript procedure: k_f re-selected
+    per pair (observed value AND every permutation), HK set fixed.
+    Observed k_f must equal the hand-computed top-N |Δ pseudobulk| rule."""
+    from cki import bootstrap_test
+
+    adata, _ = _make_toy_adata()
+    res = bootstrap_test(
+        adata,
+        species="mouse",
+        groupby="group",
+        group_a="A",
+        group_b="B",
+        hk_genes=["G0", "G1"],
+        n_reselect_genes=3,
+        n_bootstrap=20,
+        random_state=42,
+        verbose=False,
+    )
+    assert res["reselect_identity"] is True
+    assert "re-selected" in res["gene_selection"]
+
+    # hand check observed k_f: top-3 |Δ| non-HK genes = G7, G8, G9
+    X = np.asarray(adata.X)
+    mu_a = X[adata.obs["group"] == "A"].mean(axis=0)
+    mu_b = X[adata.obs["group"] == "B"].mean(axis=0)
+    kf_genes = np.argsort(-np.abs(mu_a - mu_b))[:3]
+    assert sorted(kf_genes) == [7, 8, 9]
+    kn_hand = _js_hand(mu_a[[0, 1]], mu_b[[0, 1]])
+    kf_hand = _js_hand(mu_a[kf_genes], mu_b[kf_genes])
+    assert res["kn"] == pytest.approx(kn_hand, rel=1e-6)
+    assert res["kf"] == pytest.approx(kf_hand, rel=1e-6)
+    assert res["omega"] == pytest.approx(kf_hand / kn_hand, rel=1e-6)
+    assert 0.0 <= res["p_value"] <= 1.0
+    assert len(res["null_distribution"]) == 20
+
+
+def test_bootstrap_test_fixed_legacy_and_explicit():
+    """reselect_identity=False gives the legacy fixed-set null; explicit
+    functional_genes always pin a fixed set even with the default flag."""
+    from cki import bootstrap_test
+
+    adata, _ = _make_toy_adata()
+
+    legacy = bootstrap_test(
+        adata, species="mouse", groupby="group",
+        group_a="A", group_b="B",
+        hk_genes=["G0", "G1"],
+        reselect_identity=False,
+        n_bootstrap=10, random_state=1, verbose=False,
+    )
+    assert legacy["reselect_identity"] is False
+    assert "fixed" in legacy["gene_selection"]
+
+    explicit = bootstrap_test(
+        adata, species="mouse", groupby="group",
+        group_a="A", group_b="B",
+        hk_genes=["G0", "G1"],
+        functional_genes=["G2", "G3", "G4"],  # explicit -> pinned fixed
+        n_bootstrap=10, random_state=1, verbose=False,
+    )
+    assert explicit["reselect_identity"] is False
+    assert "explicit" in explicit["gene_selection"]
+
+    # legacy and explicit nulls share the seed but differ from reselect
+    reselect = bootstrap_test(
+        adata, species="mouse", groupby="group",
+        group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=10, random_state=1, verbose=False,
+    )
+    assert reselect["reselect_identity"] is True
+    assert reselect["kf"] != explicit["kf"]
+
+
+def test_bootstrap_test_reselect_rejects_pathway():
+    """Pathway component is incompatible with reselection mode."""
+    from cki import bootstrap_test
+
+    adata, _ = _make_toy_adata()
+    with pytest.raises(ValueError, match="reselect_identity"):
+        bootstrap_test(
+            adata, species="mouse", groupby="group",
+            group_a="A", group_b="B",
+            hk_genes=["G0", "G1"],
+            pathway_a=np.zeros(10), pathway_b=np.zeros(10),
+            n_bootstrap=2, verbose=False,
+        )

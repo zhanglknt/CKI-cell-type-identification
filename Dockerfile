@@ -1,10 +1,10 @@
-# Dockerfile for the CKI package (v0.4.3)
+# Dockerfile for the CKI package (v0.4.4)
 # ----------------------------------------------------------------------------
 # Builds a minimal container with the CKI package installed, so that the
 # analyses in the manuscript can be reproduced in a controlled environment.
 #
-# Build:    docker build -t cki:0.4.3 .
-# Verify:   docker run --rm cki:0.4.3
+# Build:    docker build -t cki:0.4.4 .
+# Verify:   docker run --rm cki:0.4.4
 #
 # The base image tracks the Python version used for the reported analyses
 # (3.14.4). The container image provides the package and its dependencies;

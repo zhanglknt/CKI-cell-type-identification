@@ -74,8 +74,8 @@ import cki
 Or build the Docker image (see `Dockerfile` in the repository root):
 
 ```bash
-docker build -t cki:0.4.3 .
-docker run --rm cki:0.4.3
+docker build -t cki:0.4.4 .
+docker run --rm cki:0.4.4
 ```
 
 ## Quick Start (3 lines)
@@ -145,10 +145,12 @@ from cki import bootstrap_test
 boot = bootstrap_test(
     adata, species="human",
     groupby="cell_type", group_a="T_cell", group_b="B_cell",
-    n_iterations=1000,
+    n_bootstrap=1000,
 )
 print(f"omega={boot['omega']:.4f}, P={boot['p_value']:.4f}")
 ```
+
+By default (`reselect_identity=True`) the test reproduces the procedure reported in the paper: the HK (k_n) gene set is resolved once and held fixed, while the k_f gene set is re-selected at every permutation from the permuted pseudobulks (top `n_reselect_genes=200` non-HK genes by |Δ pseudobulk|), so the null incorporates the gene-selection step. Pass `reselect_identity=False` for the legacy fixed-gene-set null (faster, but anti-conservative relative to the re-selection null); explicitly supplied `functional_genes` / `identity_indices` always pin a fixed gene set. For block-structured data (cells correlated within libraries/samples) use `block_shuffle_test` instead.
 
 ## Interpretation
 
@@ -165,7 +167,7 @@ Calibration against split-half controls of equivalent populations yields an empi
 
 ## Statistical Testing
 
-All bootstrap tests use one-sided permutation testing (B = 1,000) with Benjamini-Hochberg FDR correction applied within each dataset. The null distribution is built by randomly shuffling cell labels and recalculating omega. Empirical P-values: P = (count(omega_null >= omega_obs) + 1)/(B + 1).
+All bootstrap tests use one-sided permutation testing (B = 1,000) with Benjamini-Hochberg FDR correction applied within each dataset. The null distribution is built by randomly shuffling cell labels and recalculating omega, with the k_f gene set re-selected at every permutation under the same per-pair rule as the observed value (`reselect_identity=True`, the package default). Empirical P-values: P = (count(omega_null >= omega_obs) + 1)/(B + 1).
 
 ## Publication
 

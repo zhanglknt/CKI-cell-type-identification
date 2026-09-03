@@ -168,7 +168,7 @@ fig.text(0.746, 0.895, 'C', fontsize=LABEL_SIZE, fontweight='bold',
          va='bottom', ha='right')
 
 # ---- Caption ----
-fig.text(0.5, 0.03, 'Extended Data Figure 2. Cross-species validation of CKI.',
+fig.text(0.5, 0.03, 'Supplementary Figure S10. Cross-species validation of CKI.',
          ha='center', fontsize=BODY_SIZE, fontweight='bold')
 
 # ---- Save ----
@@ -179,7 +179,7 @@ fig.savefig(out_png, dpi=DPI, facecolor='white',
             bbox_inches=None, pad_inches=0.04)
 fig.savefig(out_pdf, dpi=DPI, facecolor='white',
             bbox_inches=None, pad_inches=0.04,
-            metadata={'Creator': 'CKI NAR Extended Data Figures'})
+            metadata={'Creator': 'CKI GB Supplementary Figures'})
 
 print(f'Saved: {out_png}')
 print(f'Saved: {out_pdf}')

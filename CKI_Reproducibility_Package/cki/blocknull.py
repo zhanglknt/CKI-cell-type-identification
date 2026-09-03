@@ -22,8 +22,10 @@ permutation also preserves the observed per-group block-count multiset.
 
 This construction is the authoritative null for the manuscript's brain
 analysis. For the mouse / Tabula Sapiens calibration analyses the paper
-uses the simpler per-cell label permutation with a *fixed* gene set,
-exposed as :func:`cki.bootstrap.bootstrap_test`.
+uses per-cell label permutation with per-pair k_f re-selection, exposed
+as :func:`cki.bootstrap.bootstrap_test` (``reselect_identity=True``,
+the default); the TCGA analysis instead holds a fixed global identity
+panel (``reselect_identity=False``).
 
 The implementation here is a thin in-memory wrapper: the expression
 matrix for the cells of the two groups is densified once. For atlas-scale
@@ -93,6 +95,7 @@ def block_shuffle_test(
     layer: Optional[str] = None,
     n_permutations: int = 1000,
     random_state: int = 42,
+    tail: str = "upper",
     verbose: bool = True,
 ) -> dict:
     """Block-shuffle permutation test for CKI omega (manuscript brain null).
@@ -112,8 +115,10 @@ def block_shuffle_test(
     manuscript's brain-atlas analysis (blocks = ``sample_id``; see
     ``notebooks/08d_brain_blockshuffle_null.py`` for the atlas-scale
     streaming implementation across many regions). For the mouse / human
-    calibration analyses the paper instead uses per-cell label permutation
-    with a fixed gene set, exposed as :func:`cki.bootstrap.bootstrap_test`.
+    calibration analyses the paper instead uses per-cell label
+    permutation with per-pair k_f re-selection, exposed as
+    :func:`cki.bootstrap.bootstrap_test` (``reselect_identity=True``,
+    the default).
 
     Parameters
     ----------
@@ -153,6 +158,11 @@ def block_shuffle_test(
         Number of block-shuffle permutations. Default 1000.
     random_state : int
         Random seed for reproducibility.
+    tail : str
+        Which tail to test: ``"upper"`` (default; observed omega exceeds
+        the null — the manuscript's class-level usage), ``"lower"``
+        (observed omega is anomalously low — the manuscript's per-pair
+        screening for constrained pairs), or ``"two-sided"``.
     verbose : bool
         If True, print a summary line.
 
@@ -161,8 +171,11 @@ def block_shuffle_test(
     dict
         - ``omega``, ``kn``, ``kf``: observed values (k_f from the
           per-pair re-selected gene set)
-        - ``p_value``: one-sided permutation P-value
-          (observed omega vs the block-shuffle null)
+        - ``p_value``: permutation P-value for the selected tail,
+          computed as (n_extreme + 1) / (n_permutations + 1) —
+          permutations whose omega is NaN are retained in the
+          denominator (counted as non-extreme), matching the
+          (B + 1) formula stated in the manuscript
         - ``null_mean``, ``null_std``: null distribution summary
         - ``null_distribution``: full null omega values (list)
         - ``n_blocks``, ``n_permutations``: run metadata
@@ -294,9 +307,23 @@ def block_shuffle_test(
             "All block-shuffle permutations produced invalid omega values."
         )
 
-    p_value = (
-        (np.sum(null_omega >= obs["omega"]) + 1) / (len(null_omega) + 1)
-    )
+    # P-value: (n_extreme + 1) / (n_permutations + 1). NaN-producing
+    # permutations stay in the denominator (counted as non-extreme), so
+    # the formula matches the manuscript's (B + 1) convention exactly.
+    tail = str(tail).lower().strip()
+    if tail not in ("upper", "lower", "two-sided"):
+        raise ValueError("tail must be 'upper', 'lower', or 'two-sided'.")
+    n_extreme = {
+        "upper": int(np.sum(null_omega >= obs["omega"])),
+        "lower": int(np.sum(null_omega <= obs["omega"])),
+    }
+    p_one = {k: (v + 1) / (n_permutations + 1) for k, v in n_extreme.items()}
+    if tail == "upper":
+        p_value = p_one["upper"]
+    elif tail == "lower":
+        p_value = p_one["lower"]
+    else:
+        p_value = min(1.0, 2.0 * min(p_one["upper"], p_one["lower"]))
     null_mean = float(np.mean(null_omega))
     null_std = float(np.std(null_omega))
 

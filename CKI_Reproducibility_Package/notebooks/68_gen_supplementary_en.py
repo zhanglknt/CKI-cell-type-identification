@@ -51,6 +51,26 @@ _ts = dict(kv.split(None, 1) for kv in (ln.strip() for ln in _ts_txt.splitlines(
 _ts_sh_mean = float(_ts['ts_split_half_mean_omega'])
 _ts_sh_ci = [float(x) for x in _ts['ts_split_half_ci95'].strip('[]').split(',')]
 
+# Per-class split-half calibration (reviewer E1-M4/E2-M5; notebook 76)
+_pc = json.loads((Path(__file__).resolve().parent.parent / "results" / "perclass_calibration.json").read_text())
+_pc_base = pd.DataFrame(_pc['baselines']).set_index('cell_type')
+_pc_cal = pd.DataFrame(_pc['calibration']).set_index('cell_type')
+_pc_bmin, _pc_bmax = _pc_base['baseline_popmean'].min(), _pc_base['baseline_popmean'].max()
+_pc_bmin_ct = _pc_base['baseline_popmean'].idxmin()
+_pc_bmax_ct = _pc_base['baseline_popmean'].idxmax()
+_pc_grad = _pc['gradient']['per_class']
+_pc_grad_ci = _pc['gradient']['per_class_ci95']
+_pc_astro = float(_pc_cal.loc['Astrocyte', 'omega_cal_class'])
+_pc_astro_ci = [float(_pc_cal.loc['Astrocyte', 'omega_cal_class_lo']),
+                float(_pc_cal.loc['Astrocyte', 'omega_cal_class_hi'])]
+_pc_bg = float(_pc_cal.loc['Bergmann glia', 'omega_cal_class'])
+_pc_bg_ci = [float(_pc_cal.loc['Bergmann glia', 'omega_cal_class_lo']),
+             float(_pc_cal.loc['Bergmann glia', 'omega_cal_class_hi'])]
+_pc_bg_rc = [float(_pc_cal.loc['Bergmann glia', 'omega_rc_lo']),
+             float(_pc_cal.loc['Bergmann glia', 'omega_rc_hi'])]
+_pc_bg_base = float(_pc_cal.loc['Bergmann glia', 'baseline_class'])
+_pc_n_div = _pc['classification']['n_divergent']
+
 # Normality tests on the current-pipeline omega distributions
 _norm_brain_p = float(stats.normaltest(_obs['omega'])[1])
 _norm_human_p = float(stats.shapiro(pd.read_csv(
@@ -354,10 +374,7 @@ add_para(
     'For the calibration '
     'experiment, empirical P-values '
     'are computed as: P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1). '
-    'Standardized effect size = (\u03c9_obs - mean(\u03c9_null)) / sd(\u03c9_null). '
-    'In all CKI results, standardized effect sizes are typically > 1.0 for '
-    'biologically meaningful comparisons, indicating large effects relative to '
-    'the null distribution.'
+    'Standardized effect size = (\u03c9_obs - mean(\u03c9_null)) / sd(\u03c9_null).'
 )
 add_para(
     'Bootstrap confidence intervals (95% CI) for all key \u03c9 estimates were '
@@ -438,7 +455,7 @@ add_para(
     'the P-value floor) because per-pair shuffling ignores the block structure of 10x libraries; that '
     'implementation was superseded by the block-shuffle null reported here. Per-signal tests are not '
     'independent (the same cell type or region pair appears in multiple comparisons); interpretation is '
-    'therefore restricted to the predefined Strong tier. (Figure S8: \u03c9 distribution '
+    'therefore restricted to the predefined Strong tier. (Figure S11: \u03c9 distribution '
     'characterization; Figure S9: block-shuffle null distribution for the residual model.)'
 )
 
@@ -490,8 +507,34 @@ add_para(
     'mouse-derived CI [4.24, 9.24], so the mouse-derived calibration factor is transferable to '
     'the Tabula Sapiens dataset but not to the brain atlas, and omega_cal should be treated as a '
     'dataset-relative quantity rather than a universal constant. '
+    'A single brain-wide baseline also averages over marked between-class heterogeneity: '
+    f'class-specific split-half baselines derived from the same 29 split-half populations range from '
+    f'{_pc_bmin:.2f} ({_pc_bmin_ct.lower()}) to {_pc_bmax:.2f} ({_pc_bmax_ct.lower()}), a '
+    f'{_pc_bmax/_pc_bmin:.2f}-fold spread, and the split-half k_f floor itself varies roughly '
+    '40-fold across classes (from 0.0001 in oligodendrocytes to 0.020 in committed '
+    'oligodendrocyte precursors), so the equivalent-population expectation is a class-specific '
+    'quantity in both components rather than a single atlas-wide constant. Under per-class '
+    f'baselines the astrocyte-to-Bergmann-glia gradient is {_pc_grad:.2f} (95% CI '
+    f'[{_pc_grad_ci[0]:.2f}, {_pc_grad_ci[1]:.2f}]), essentially unchanged from the raw 6.10 '
+    'because the two classes\u2019 own baselines nearly coincide (9.26 vs 9.08), while the calibrated '
+    f'levels compress: astrocytes yield omega_cal = {_pc_astro:.1f} (95% CI '
+    f'[{_pc_astro_ci[0]:.1f}, {_pc_astro_ci[1]:.1f}]) and Bergmann glia omega_cal = {_pc_bg:.2f} '
+    f'(95% CI [{_pc_bg_ci[0]:.2f}, {_pc_bg_ci[1]:.2f}]). Bergmann glia is therefore borderline '
+    f'against its own class baseline (region-clustered CI [{_pc_bg_rc[0]:.2f}, {_pc_bg_rc[1]:.2f}] '
+    f'versus baseline {_pc_bg_base:.2f}): under per-class baselines '
+    f'{_pc_n_div["per_class"]} of 10 classes have region-clustered class-mean CIs excluding their '
+    'own baselines (versus '
+    f'{_pc_n_div["brain_global"]} of 10 under the single brain-wide baseline and '
+    f'{_pc_n_div["mouse"]} of 10 under the mouse-derived factor), but the Bergmann-glia excess is '
+    'small (+49%) and rests on only 21 pairs across 7 intra-cerebellar regions, so we read it as '
+    '"at, or marginally above, its own expectation" rather than clear divergence. Because a shared '
+    'calibration constant cancels in any ratio of class means, external calibration changes the '
+    'levels (astrocytes 12.41 under mouse-derived versus 8.51 under brain-internal) but not the '
+    'gradient ratio; only class-specific baselines move the ratio, and then only slightly. We '
+    'therefore recommend per-class split-half calibration whenever within-dataset class '
+    'contrasts are the target, and treat omega_cal as dataset- and class-relative throughout. '
     'The calibrate_omega() function is available in the CKI package (cki.calibrate_omega). '
-    'Both raw and calibrated omega values are reported in all key results. (Figure S12.)'
+    'Both raw and calibrated omega values are reported in all key results. (Figure S2.)'
 )
 
 add_para('3.6 JS Divergence Dimensionality Invariance', bold=True)
@@ -511,7 +554,7 @@ add_para(
     'filtering rather than gene count. The calibrated omega (omega_cal = omega / 6.67) '
     'absorbs this bias into the empirical baseline, and the permutation null distribution '
     '- constructed using the same gene sets as the observed data - ensures internal '
-    'consistency. (Figure S10.)'
+    'consistency. (Figure S12.)'
 )
 
 add_para('3.7 Pair-Specific k_n Variability', bold=True)
@@ -530,7 +573,7 @@ add_para(
     'global-k_n simplification would preserve only ~2% of the variance in omega orderings '
     '(\u03c1\u00b2 \u2248 0.02). This justifies the per-pair k_n approach used throughout and '
     'highlights that fine-grained omega orderings should be interpreted with the estimator '
-    'choice in mind. (Figure S11.)'
+    'choice in mind. (Figure S7.)'
 )
 
 add_para('3.8 TCGA Exploratory Analysis Caveats', bold=True)
@@ -679,7 +722,40 @@ add_para(
     'background). Detection power at delta = 1: omega 0.913, k_f 0.927, raw JS 1.000; at '
     'delta = 2: omega 0.993. Under the fourfold cell-count imbalance (n_B = 50, delta = 1), '
     'k_f retained higher power than omega (0.98-1.00 versus 0.04-0.20 at delta = 0.25 and '
-    'delta = 1).'
+    'delta = 1). Both backgrounds are Tabula Muris FACS samples of the same platform, so the '
+    'replication establishes robustness across tissues and library depths within that platform, '
+    'not across platforms.'
+)
+
+add_para(
+    'Adversarial circularity scenarios. The neutral-drift null above places the null '
+    'perturbation on HK genes, which is the same anchoring assumption that CKI itself '
+    'makes; the type-I and AUC advantages above are therefore conditional on that '
+    'assumption rather than evidence for it. Two adversarial scenarios quantify the '
+    'consequences (script notebooks/75_sim_circularity_scenarios.py; results: '
+    'results/sim_circularity_*.csv; same background, gene set, six-metric code path, '
+    'and baseline null thresholds as above; three module seeds per scenario, 50 '
+    'replicates each). S1, functional-on-HK: a functional module of 200 genes was '
+    'drawn from the HK genes themselves and shifted by 2^delta (delta = 0.25, 0.5, 1, '
+    '2; 600 replicates). omega detected none of these signals (rate 0.000 at every '
+    'delta, all seeds), because an HK-located shift inflates k_n while k_f stays at '
+    'the selection floor, driving omega down, away from its upper tail; k_n itself '
+    'fires at 0.61 for delta = 0.25 and 1.00 thereafter, and the unnormalized metrics '
+    'detect the signal at moderate-to-strong magnitude (k_total 0.06/0.11/0.95/1.00 '
+    'and cosine 0.06/0.10/0.85/1.00 across the delta grid). CKI is thus structurally '
+    'blind to functional signal located on the anchor genes - an unavoidable property '
+    'of any HK-anchored normalization, and the mirror image of its claimed advantage. '
+    'S2, neutral-on-nonHK: neutral drift (2^eta, eta = 0.25, 0.5, 1) was instead '
+    'placed on a module of non-HK genes (450 replicates), i.e., drift on the wrong side '
+    'of the anchor. omega remained at or below the nominal level (type-I error 0.020, '
+    '0.007, 0.007 across the eta grid), whereas k_total false-positived at 0.060, '
+    '0.147, and 1.000 and cosine at 0.060, 0.100, and 0.673. omega therefore trades a '
+    'structural blind spot for HK-located signal for strong specificity against '
+    'non-HK drift: it is conservative by construction, and its discrimination '
+    'advantage holds exactly when functional signal lies off the anchor and drift on '
+    'the anchor is neutral. Users whose perturbations of interest include '
+    'housekeeping genes (e.g., metabolic reprogramming) should use unnormalized '
+    'metrics alongside omega.'
 )
 
 add_para('3.13 Fixed Gene-Panel Ablation', bold=True)
@@ -693,7 +769,9 @@ add_para(
     'with the highest global mean expression; S2, a leave-pair-out panel in which the '
     'top-200 genes for a pair are selected by the mean absolute difference over all '
     'other region pairs of the same cell type (adaptive but not circular for the '
-    'tested pair); S3, all 5,000 non-HK genes of the keep set (no selection). The '
+    'tested pair; note that S2 is not fully independent either, because the panel '
+    'still aggregates regional-effect genes from the other region pairs of the '
+    'same cell type); S3, all 5,000 non-HK genes of the keep set (no selection). The '
     'reference implementation reproduced the reported landscape exactly (maximum '
     'per-pair omega difference 6.4e-13 over 31,764 pairs). A scheme-matched '
     'block-shuffle null (B = 200) was rerun under S2. Script: '
@@ -708,7 +786,7 @@ add_para(
     'non-circular adaptive panel, because non-circular panels deflate omega more '
     'strongly in transcriptionally constrained classes. Under the S2-matched '
     'block-shuffle null, astrocytes, OPCs and committed OPCs reached the permutation floor '
-    '(P = 0.005); fibroblasts remained significant (P = 0.020, versus 0.030 '
+    '(P \u2264 1/(B + 1) = 0.005); fibroblasts remained significant (P = 0.020, versus 0.030 '
     'reported); vascular cells reached significance (P = 0.035, versus 0.115 '
     'reported, non-significant under the primary null); ependymal cells were not significant (P = 0.164); and the remaining '
     'classes stayed clearly non-significant (microglia P = 0.796, oligodendrocytes '
@@ -769,6 +847,62 @@ add_para(
     'results/v38_region_glossary.csv in the reproducibility package.'
 )
 
+add_para('3.15 Real Perturbation Demonstration (Kang et al. IFN-beta PBMC)', bold=True)
+add_para(
+    'Purpose and dataset. To test omega on a real perturbation with known '
+    'ground truth, we re-analyzed the droplet arm of Kang et al. 2018 '
+    '(GEO: GSE96583): peripheral blood mononuclear cells from eight donors, '
+    'split into control and 6-hour IFN-beta-stimulated conditions and '
+    'captured in two 10x lanes (lane 2.1 control, 14,619 cells; lane 2.2 '
+    'stimulated, 14,446 cells), with donor assignment by genetic '
+    'demultiplexing provided by the original authors. Singlets with '
+    'annotated cell types were retained (24,413 cells across six cell '
+    'types; Megakaryocytes excluded; Dendritic cells dropped for '
+    'insufficient per-group cells). Ensembl gene identifiers were mapped '
+    'to HGNC symbols via the HGNC custom download; 23,503 unique symbols '
+    'and 1,099 HRT Atlas housekeeping genes were matched.'
+)
+add_para(
+    'Design. Pseudobulks were computed per (donor, condition) from raw '
+    'counts, normalized to 10,000 counts per pseudobulk, and log1p-'
+    'transformed. Two comparison classes were defined: the perturbation '
+    'class (stimulated versus control within donor, 4-8 pairs per cell '
+    'type) and the donor-drift class (donor versus donor within '
+    'condition, 10-56 pairs per cell type); a split-half baseline (six '
+    'random half-splits per group) anchored the calibrated scale. All '
+    'metrics used the per-pair top-200 DE hybrid scheme (k_n on the HK '
+    'set, k_f on the top-200 non-HK genes by absolute mean difference, '
+    're-selected per pair). Significance of the within-donor perturbation '
+    'effect used condition-label permutation within donor (B = 1,000; '
+    'genes re-selected at every permutation; one-sided upper tail). Class '
+    'separability was summarized as the exact rank AUC of each metric '
+    'within each cell type. Because all control cells sit in one lane and '
+    'all stimulated cells in the other, the condition effect is '
+    'confounded with lane; donor-drift pairs are within-lane, so the '
+    'comparison across metrics is internally consistent but the design '
+    'does not separate condition from capture effects.'
+)
+add_para(
+    'Results. Median omega: stimulated-control 19.3-33.4, donor-donor '
+    '9.9-25.7, split-half 6.7-18.9 (omega_cal for the perturbation class '
+    '1.8-3.4 versus donor-drift 0.9-2.7). AUC (perturbation versus '
+    'donor-drift): omega 0.551-0.922, k_f 0.743-1.000, raw JS 0.792-1.000. '
+    'The permutation test reached raw P < 0.05 in 15 of 37 donor-level '
+    'tests. The components explain the metric ordering: IFN-beta '
+    'stimulation raises median k_n 1.2-5.7-fold above the donor-drift '
+    'level (ACTB and GAPDH fall roughly 40% in stimulated cells) while '
+    'raising median k_f 1.6-6.8-fold, so the ratio partially cancels the '
+    'signal; in CD14+ monocytes, where the k_n rise is largest (5.7-fold), '
+    'the omega AUC falls to 0.551 while k_f retains 0.984. This '
+    'empirically confirms the anchor-visibility boundary: perturbations '
+    'that touch the housekeeping anchor deflate omega, and k_f-only with '
+    'a design-matched null is the more honest statistic in that regime '
+    '(Fig. S13). '
+    'Script: notebooks/79_kang_ifnb_demo.py; outputs: '
+    'results/kang_ifnb_demo_pairs.csv (709 pairs), '
+    'results/kang_ifnb_demo_summary.json.'
+)
+
 doc.add_page_break()
 add_heading('Supplementary Note 4: Dataset Quality Control and Filtering Criteria', 2)
 
@@ -826,6 +960,73 @@ add_para(
     'power with computational efficiency.'
 )
 
+add_para('4.5 Kang et al. IFN-beta PBMC (Perturbation Demonstration)', bold=True)
+add_para(
+    'Downloaded from GEO (GSE96583; Kang et al. 2018, Nature Biotechnology). '
+    'The droplet arm was used: two 10x Genomics lanes from eight donors, '
+    'lane 2.1 control (14,619 cells) and lane 2.2 IFN-beta-stimulated '
+    '(14,446 cells, 6-hour stimulation), with donor assignment by genetic '
+    'demultiplexing (demuxlet) provided by the original authors. QC '
+    'filtering: only droplets annotated as singlets with a cell-type label '
+    'were retained; Megakaryocytes were excluded; cell types with fewer '
+    'than 50 cells in any (donor, condition) group were dropped '
+    '(Dendritic cells). Result: 24,413 cells across six cell types '
+    '(B cells, CD4 T, CD8 T, NK, CD14+ monocytes, FCGR3A+ monocytes). '
+    'Ensembl gene identifiers were mapped to HGNC symbols via the HGNC '
+    'custom download (23,503 unique symbols), and 1,099 HRT Atlas '
+    'housekeeping genes were matched. Because all control cells reside in '
+    'one lane and all stimulated cells in the other, condition and lane '
+    'are confounded; this is disclosed in Note 3.15 and does not affect '
+    'the within-metric class comparison.'
+)
+
+add_para('4.6 Pseudo-Region Negative Control (Block-Shuffle Null Calibration)', bold=True)
+add_para(
+    'Purpose. To isolate the calibration of the brain block-shuffle null '
+    'from the regional structure it is designed to test, every region\u2019s '
+    'libraries were split uniformly at random into two halves (seed = '
+    '20260903), producing two "pseudo-regions" per region per cell type; '
+    'the identical block-shuffle test (same gene model of HRT Atlas HK '
+    'genes + top-5000 non-HK HVG; same filters: minimum 20 nuclei per '
+    '(region, cell type), minimum 50 nuclei per region, and at least two '
+    'libraries in the group; B = 1,000 permutations; identical one-sided '
+    '(B+1) P-value formulae) was re-run on the 127,756 pseudo-pairs '
+    'across the ten non-neuronal cell types. Pairs formed between the two '
+    'halves of the same real region are "same-origin" (n = 700); all '
+    'others are "cross-origin" (n = 127,056), the direct analogue of the '
+    'real cross-region pairs.'
+)
+add_para(
+    'Results. Cross-origin pseudo-pairs gave near-nominal marginal tail '
+    'rates (5.79% lower tail and 6.87% upper tail at P < 0.05, versus the '
+    '5% nominal level), closely matching the real analysis (6.17% lower, '
+    '7.90% upper). Same-origin pairs showed a 37.6% lower-tail rate '
+    '(263/700), demonstrating within-region library similarity, and a '
+    'suppressed upper-tail rate (2.0%). Kolmogorov-Smirnov tests against '
+    'U(0,1) reject exact uniformity (cross-origin D = 0.065/0.064 for the '
+    'lower/upper tail; P approximately 0 at n = 127,056, which detects '
+    'minute deviations), and binomial tail tests quantify the practical '
+    'magnitude: an excess of ~0.8-1.9 percentage points over nominal '
+    '(binom P = 9.2e-37 and 6.8e-185). The QQ plots are shown in '
+    'Additional file 1: Fig. S14.'
+)
+add_para(
+    'Interpretation. Because the random split destroys regional structure '
+    'but preserves within-region library grouping (donor, dissection, and '
+    'batch effects tied to each region), the closeness of the pseudo-pair '
+    'and real-pair marginal rates demonstrates that the mild '
+    'over-dispersion of the per-pair P-values arises from library-level '
+    'grouping shared by both designs, not from a null-width mismatch '
+    'driven by real regional structure. The 37.6% same-origin rate '
+    'confirms that the test retains full power where within-region '
+    'similarity exists. The small excess of the real over the pseudo '
+    'marginal rates (0.4 and 1.0 percentage points in the lower and upper '
+    'tails) is the marginal signature of the true regional biology. '
+    'Script: notebooks/77_pseudoregion_control.py; outputs: '
+    'results/pseudoregion_control_summary.json, '
+    'results/pseudoregion_control_pairs.csv.'
+)
+
 doc.add_page_break()
 
 # ===== SN5: Post-hoc coherence checks =====
@@ -836,8 +1037,14 @@ add_para(
     'Under the block-shuffle null (B = 1,000; m = 31,764 region pairs) no individual '
     'candidate survives Benjamini-Hochberg correction (minimum q = 0.520), and the '
     'manuscript accordingly presents the 39 Strong candidates as hypothesis-generating. '
-    'Two post-hoc set-level checks ask whether the raw-P signal is nonetheless '
-    'structured rather than diffuse. First, raw-P enrichment is strongly tier-dependent: '
+    'A structural caveat applies to everything below: the tier variable '
+    '(residual < 0.3, omega < 15, lowest-in-pair) and the per-pair permutation '
+    'P-values are both monotone functions of the same observed and null omega '
+    'values, so the tier-graded raw-P enrichment is partly guaranteed by '
+    'construction; the set-level statistics below quantify the pattern rather than '
+    'provide independent evidence for it. Two post-hoc set-level checks ask whether '
+    'the raw-P signal is nonetheless structured rather than diffuse. First, raw-P '
+    'enrichment is strongly tier-dependent: '
     'raw P < 0.05 occurs in 31 of 39 Strong-tier pairs (79.5%), 417 of 1,171 Moderate '
     '(35.6%), 909 of 5,381 Weak (16.9%), and 603 of 25,173 unclassified pairs (2.4%), '
     'versus 6.2% overall; the Strong-tier excess is significant under a hypergeometric '
@@ -848,14 +1055,23 @@ add_para(
     'Strong candidates concentrate on a thalamo-temporal axis: a thalamic-relay endpoint '
     '(conservative set: MG, LG, LP, LP-VPL, Pul, VPL, VA, MD, MD-Re, CM-Pf, CM) occurs in '
     '6 of 10 candidates versus a 19.4% base rate among all 5,778 mature-oligodendrocyte '
-    'pairs (hypergeometric P = 0.005), a temporal-fusiform (TF) endpoint in 4 of 10 versus '
-    '1.9% (P = 2.1 x 10^-5), and the combined axis (thalamic relay, subthalamic nucleus, '
-    'or TF endpoint) in 9 of 10 versus 22.7% (P = 1.3 x 10^-5). These are post-hoc checks '
-    'in a single dataset, with the tier variable and the axis definition chosen after '
-    'inspecting the data; they support the interpretation that the signal is not random '
-    'noise, but they do not substitute for pair-level FDR control. Script: '
-    'notebooks/72_brain_setlevel_tests.py; results: results/brain_setlevel_tests.csv '
-    'and results/brain_setlevel_tests.txt.'
+    'pairs, a temporal-fusiform (TF) endpoint in 4 of 10 versus 1.9%, and the combined '
+    'axis (thalamic relay, subthalamic nucleus, or TF endpoint) in 9 of 10 versus 22.7%. '
+    'Because the candidates share endpoints (MG appears in three pairs, TF in four), the '
+    'hypergeometric tests (P = 0.005, 2.1 x 10^-5, and 1.3 x 10^-5 respectively) assume '
+    'independent draws and are reported for reference only; a permutation test that '
+    'instead resamples candidate sets of size 10 from the same 5,778-pair pool, thereby '
+    'preserving the pool\u2019s endpoint co-occurrence structure, gives P = 1.0 x 10^-5 '
+    'for the thalamic-relay endpoint and P \u2264 1 x 10^-5 for the TF and combined-axis '
+    'endpoints (B = 100,000; null mean hit counts 1.95, 0.19, and 2.27 respectively; '
+    'the observed 4 and 9 hits equal or exceed the null maximum). These are post-hoc '
+    'checks in a single dataset, with the tier variable and the axis definition chosen '
+    'after inspecting the data, and all P-values are nominal with no multiplicity '
+    'adjustment; they support the interpretation that the signal is not random '
+    'noise, but they do not substitute for pair-level FDR control. Scripts: '
+    'notebooks/72_brain_setlevel_tests.py and notebooks/78_axis_permutation_test.py; '
+    'results: results/brain_setlevel_tests.csv, results/brain_setlevel_tests.txt, '
+    'and results/axis_permutation_test.txt.'
 )
 
 add_para('5.2 TCGA composition-contribution check for the NN/TT k_n reversal', bold=True)
@@ -868,26 +1084,57 @@ add_para(
     '(per-cancer gene loading and mean TPM >= 0.5 filtering, log2(TPM+1), HRT Atlas HK '
     'genes, top-200 abs-diff identity genes, kn_floor = 1 x 10^-4, seed 42; TT capped at '
     '2,000 pairs per cancer type, all NN pairs; 25,306 pairs in total) and scored each '
-    'sample for three lineage marker panels: immune (CD3D, CD3E, CD8A, GZMB, NKG7, MS4A1, '
-    'CD79A), stromal (COL1A1, COL1A2, DCN, LUM, FAP, VIM), and epithelial (EPCAM, KRT8, '
-    'KRT18, KRT19), as the mean log2(TPM+1) over mapped panel genes, z-scored within '
-    'each cancer type. The reversal replicates exactly (median TT/NN k_n ratio 2.18, '
+    'sample for four lineage marker panels: immune (CD3D, CD3E, CD8A, GZMB, NKG7, '
+    'MS4A1, CD79A), myeloid (CD68, CD163, LST1, FCGR3A, C1QA), stromal (COL1A1, '
+    'COL1A2, DCN, LUM, FAP, VIM), and epithelial (EPCAM, KRT8, KRT18, KRT19), as the '
+    'mean log2(TPM+1) over mapped panel genes, z-scored within each cancer type; the '
+    'myeloid panel was added in a second revision because the initial three-panel '
+    'check omitted myeloid markers despite myeloid infiltration being a known feature '
+    'of tumors. The reversal replicates exactly (median TT/NN k_n ratio 2.18, '
     '2.53, 2.18, 3.70, and 2.79 for LUAD, LUSC, LIHC, KIRC, and BRCA; all '
     'Mann-Whitney P < 10^-90). Composition differences are real and directional: the '
-    'median |Delta z| between pair members is 1.33-1.46-fold larger for TT than NN pairs '
-    'across the three panels (all P < 10^-300), and within TT pairs k_n correlates with '
-    'the overall composition difference (Spearman rho = 0.21-0.46 per cancer type; '
-    'pooled rho = 0.377, P < 10^-300). However, composition explains only a minority of '
-    'the reversal: in OLS regressions of log k_n on pair type plus the three composition '
-    'deltas, the tumor-pair coefficient attenuates by only 6% pooled (per cancer type: '
-    '2%, 4%, 39%, 23%, and -12%; i.e., BRCA strengthens slightly), even though the '
-    'composition covariates are themselves highly significant (pooled R-squared 0.32 to '
-    '0.42). The residual TT-versus-NN k_n difference is therefore not primarily a '
-    'marker-panel composition artifact; plausible contributors include tumor-specific '
-    'housekeeping-gene dysregulation and RNA-quality differences, and single-cell or '
-    'deconvolution-based validation remains necessary. Script: '
-    'notebooks/73_tcga_composition_check.py; results: results/tcga_composition_check.csv, '
-    'results/tcga_composition_check.txt, and results/tcga_composition_pairs.csv.'
+    'median |Delta z| between pair members is 1.33-1.46-fold larger for TT than NN '
+    'pairs across the original three panels (all P < 10^-300), and with the myeloid '
+    'panel included the overall four-panel |Delta z| is still 1.24-fold larger for TT '
+    'pairs (median 0.834 vs 0.673; P = 9 x 10^-77); notably, the myeloid |Delta z| '
+    'itself does not differ between TT and NN pairs (median 0.749 vs 0.747, ratio '
+    '1.003, P = 0.99), so myeloid composition shifts are not preferentially a '
+    'tumor-pair phenomenon in these data. Within TT pairs, k_n correlates with the '
+    'overall four-panel composition difference (Spearman rho = 0.23-0.52 per cancer '
+    'type; pooled rho = 0.387, P < 10^-300; three-panel pooled rho = 0.377). '
+    'In OLS regressions of log k_n on pair type plus the composition deltas, the '
+    'tumor-pair coefficient attenuation depends materially on the panel: the original '
+    'three-panel model attenuated the coefficient by +5.7% pooled (95% CI [+2.7%, '
+    '+8.7%]; per cancer type +2%, +4%, +39%, +23%, and -12%), whereas the four-panel '
+    'model including the myeloid markers attenuates it by -0.5% pooled (95% CI '
+    '[-3.2%, +2.6%]; median -0.4%), i.e., the pooled tumor-pair coefficient is '
+    'essentially unchanged after composition adjustment. All regression uncertainty '
+    'intervals are sample-level cluster bootstraps (B = 200): within each cancer type, '
+    'tumor and normal samples are resampled with replacement, a pair is retained when '
+    'both members are drawn, weighted by the product of the two members resampling '
+    'multiplicities, and the weighted OLS is recomputed; this respects the dependence '
+    'structure that each sample contributes to many pairs (the naive pair-level '
+    'standard errors, which treat 25,306 pairs as independent, overstate precision '
+    'and are not used for inference). Per-cancer four-panel attenuation is strongly '
+    'heterogeneous: LUAD -2.3% (95% CI [-7.6%, +4.8%]), LUSC -9.7% ([-28.4%, +6.7%]), '
+    'LIHC +33.5% ([+23.0%, +46.9%]), KIRC +19.6% ([+14.6%, +25.7%]), and BRCA -14.0% '
+    '([-23.2%, -5.7%]), so composition covariates absorb a substantial share of the '
+    'tumor-pair coefficient in LIHC and KIRC but not in the other cancer types, and '
+    'the pooled near-zero estimate masks this heterogeneity. Two caveats bound the '
+    'interpretation. First, marker panels are noisy proxies for true cellular '
+    'composition (classical measurement error attenuates the covariate coefficients), '
+    'so these attenuation estimates are lower bounds on the true composition '
+    'contribution; the pooled excess of tumor-pair k_n is not fully explained by a '
+    'noisy marker-panel proxy, but neither can a marker-panel regression exclude '
+    'composition as the driver. Second, the per-cancer heterogeneity itself (from '
+    '-14% to +34%) argues against a single universal explanation. Plausible '
+    'contributors to the residual include tumor-specific housekeeping-gene '
+    'dysregulation and RNA-quality differences, and single-cell or '
+    'deconvolution-based validation remains necessary. Scripts: '
+    'notebooks/73_tcga_composition_check.py (three-panel) and '
+    'notebooks/74_tcga_composition_v2.py (four-panel + cluster bootstrap); results: '
+    'results/tcga_composition_check.{csv,txt}, results/tcga_composition_pairs.csv, and '
+    'results/tcga_composition_v2.{csv,txt}.'
 )
 
 doc.add_page_break()

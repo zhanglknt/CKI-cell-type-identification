@@ -1,0 +1,42 @@
+{
+  "B": 100000,
+  "seed": 20260903,
+  "results": {
+    "thalamic_relay": {
+      "label": "thalamic-relay endpoint",
+      "observed_hits": 6,
+      "n_candidates": 10,
+      "pool_base_rate": 0.19418483904465214,
+      "pool_hits": 1122,
+      "pool_n": 5778,
+      "perm_p": 1.005439945600544e-05,
+      "perm_null_mean": 1.94621,
+      "perm_null_max": 8,
+      "hypergeom_p_reference": 0.005422181224756749
+    },
+    "TF": {
+      "label": "temporal-fusiform (TF) endpoint",
+      "observed_hits": 4,
+      "n_candidates": 10,
+      "pool_base_rate": 0.018518518518518517,
+      "pool_hits": 107,
+      "pool_n": 5778,
+      "perm_p": 1.0000399996000041e-05,
+      "perm_null_mean": 0.18576,
+      "perm_null_max": 4,
+      "hypergeom_p_reference": 2.1431948518342803e-05
+    },
+    "thalamotemporal": {
+      "label": "thalamo-temporal axis endpoint (thalamic relay U STH U TF)",
+      "observed_hits": 9,
+      "n_candidates": 10,
+      "pool_base_rate": 0.22724125995154032,
+      "pool_hits": 1313,
+      "pool_n": 5778,
+      "perm_p": 1e-05,
+      "perm_null_mean": 2.27037,
+      "perm_null_max": 9,
+      "hypergeom_p_reference": 1.2600314092140653e-05
+    }
+  }
+}

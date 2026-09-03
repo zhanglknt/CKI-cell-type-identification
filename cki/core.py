@@ -291,9 +291,9 @@ def calibrate_omega(
     .. warning::
        The default baseline 6.67 is derived from the mouse split-half
        calibration and is NOT transferable across datasets. Dataset-
-       internal baselines differ (brain split-half 12.29; Tabula Sapiens
-       7.67), and calibration must be recomputed within the dataset under
-       analysis.
+       internal baselines differ (brain split-half 9.73 [9.03, 10.53];
+       Tabula Sapiens 7.67 [7.39, 8.00]), and calibration must be
+       recomputed within the dataset under analysis.
 
     Parameters
     ----------

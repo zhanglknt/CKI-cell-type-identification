@@ -78,19 +78,19 @@ FIGURE_MAP = {
     "figure4": "figure4_tcga_pancancer",
     "figure5": "figure5_cross_organ_conservation",
     "figure6": "figure6_brain_regional_cki",
-    # Supplementary figures
+    # Supplementary figures (renumbered by first-citation order, P1-6)
     "Supplementary_Figure_S1": "ed_fig1_parameter_sweep_pathway",
-    "Supplementary_Figure_S2": "ed_fig2_cross_species_validation",
-    "Supplementary_Figure_S3": "ed_fig3_tcga_per_cancer",
-    "Supplementary_Figure_S4": "ed_fig4_method_comparison_auc",
+    "Supplementary_Figure_S2": "ed_fig12_calibrated_omega",
+    "Supplementary_Figure_S3": "ed_fig4_method_comparison_auc",
+    "Supplementary_Figure_S4": "ed_fig3_tcga_per_cancer",
     "Supplementary_Figure_S5": "ed_fig5_cross_organ_table",
     "Supplementary_Figure_S6": "Supplementary_Figure_S6",
-    "Supplementary_Figure_S7": "Supplementary_Figure_S7",
-    "Supplementary_Figure_S8": "ed_fig8_omega_distribution",
+    "Supplementary_Figure_S7": "ed_fig11_kn_variability",
+    "Supplementary_Figure_S8": "Supplementary_Figure_S8",
     "Supplementary_Figure_S9": "ed_fig9_residual_null",
-    "Supplementary_Figure_S10": "ed_fig10_dimensionality",
-    "Supplementary_Figure_S11": "ed_fig11_kn_variability",
-    "Supplementary_Figure_S12": "ed_fig12_calibrated_omega",
+    "Supplementary_Figure_S10": "ed_fig2_cross_species_validation",
+    "Supplementary_Figure_S11": "ed_fig8_omega_distribution",
+    "Supplementary_Figure_S12": "ed_fig10_dimensionality",
 }
 
 

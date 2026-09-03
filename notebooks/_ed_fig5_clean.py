@@ -145,7 +145,7 @@ fig.legend(handles=legend_elements, loc='lower right',
 
 # ---- Caption ----
 fig.text(0.5, 0.030,
-         'Extended Data Figure 5. Cross-organ conservation raw data: '
+         'Supplementary Figure S5. Cross-organ conservation raw data: '
          f'{len(co)} same-cell-type cross-organ pairs (Tabula Sapiens).\n'
          '(A) Mean \u03c9 per cell type (error bars: SD where n \u2265 2; '
          'Table 2 ordering: n \u2265 5 ranked by mean \u03c9, left of divider). '
@@ -160,7 +160,7 @@ fig.savefig(out_png, dpi=DPI, facecolor='white',
             bbox_inches='tight', pad_inches=0.02)
 fig.savefig(out_pdf, dpi=DPI, facecolor='white',
             bbox_inches='tight', pad_inches=0.02,
-            metadata={'Creator': 'CKI NAR Extended Data Figures'})
+            metadata={'Creator': 'CKI GB Supplementary Figures'})
 
 print(f'Saved: {out_png}')
 print(f'Saved: {out_pdf}')

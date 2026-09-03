@@ -380,10 +380,11 @@ legend_patches = [
 axD.legend(handles=legend_patches, fontsize=SMALL_SIZE, frameon=False,
            loc='lower right', ncol=1)
 
-# OL-lineage enrichment annotation
+# OL-lineage annotation (aligned with manuscript Section "Results":
+# 12/39 candidates vs 40.2% OL share; fold enrichment 0.77, P = 0.92)
 axD.text(0.98, 0.96,
          f'{n_strong_ol}/{tier_counts["Strong"]} Strong are OL-lineage\n'
-         'hypergeometric P = 4.5e-15',
+         'fold enrichment 0.77, P = 0.92 (no enrichment)',
          transform=axD.transAxes, fontsize=SMALL_SIZE - 0.5,
          color=C_DARK, ha='right', va='top',
          bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
