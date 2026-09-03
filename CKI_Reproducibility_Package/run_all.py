@@ -244,8 +244,12 @@ def main():
     ]
 
     # Group D: Brain
+    # 07c (v3) regenerates the superseded v3 intermediates consumed by
+    # 08c; 07d (v4) is the current per-pair source described in the
+    # Reproducibility Guide Section 4.4 (both kept in the package).
     group_d = [
-        ("Brain Siletti",      "07c_brain_siletti_v3.py"),
+        ("Brain Siletti v4",   "07d_brain_siletti_v4.py"),
+        ("Brain Siletti v3",   "07c_brain_siletti_v3.py"),
     ]
 
     # Method comparison (runs independently — reads raw data)

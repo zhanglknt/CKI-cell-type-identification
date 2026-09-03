@@ -9,7 +9,7 @@ they must be downloaded from the public sources below.
 
 | Dataset | Source | Notes |
 |---------|--------|-------|
-| Tabula Muris (FACS) | https://tabula-muris.ds.czbiohub.com/ | Public download; also on figshare / Zenodo |
+| Tabula Muris (FACS) | https://github.com/czbiohub-sf/tabula-muris (data also mirrored on figshare) | Public download; also on figshare / Zenodo |
 | Tabula Sapiens | https://tabula-sapiens-portal.ds.czbiohub.org/ | Public download (~58.9 GB, 6 h5ad files) |
 | Siletti et al. brain atlas (Nonneurons + Neurons) | CELLxGENE: https://cellxgene.cziscience.com/ | See Siletti et al., Science 2023 for collection links |
 | TCGA bulk RNA-seq (TPM) | UCSC Xena (https://xenabrowser.net/) / GDC https://portal.gdc.cancer.gov/ | Bulk TPM matrices for the five analyzed cancers |
@@ -21,7 +21,7 @@ Processed outputs (pseudobulk matrices, omega pair matrices, figure source
 data) are archived in the repository under `results/` and in the Zenodo
 record (concept DOI: 10.5281/zenodo.20405458), and in the GitHub release:
 
-**https://github.com/zhanglknt/CKI-cell-type-identification/releases/tag/v0.4.2**
+**https://github.com/zhanglknt/CKI-cell-type-identification/releases/tag/v0.4.6**
 
 ## Analysis notebooks
 

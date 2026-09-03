@@ -180,7 +180,7 @@ def get_manuscript_data():
     }
 
     # Human bootstrap for comparison categories
-    hb = pd.read_csv(RESULTS / "human_bootstrap_results.csv")
+    hb = pd.read_csv(RESULTS / "superseded" / "human_bootstrap_results.csv")  # moved in v42 P0-6
     hb_same_organ = hb[hb["group"] == "same_organ_diff_ct"].iloc[0]
     hb_diff_organ = hb[hb["group"] == "diff_organ_same_ct"].iloc[0]
     hb_diff_organ_diff = hb[hb["group"] == "diff_organ_diff_ct"].iloc[0]
@@ -270,7 +270,7 @@ def get_manuscript_data():
     # Brain analysis — prefer block-shuffle re-analysis (08d/08e, C1 fix,
     # softmax-standard omega) over the legacy normalize-standard key_values_v3
     # ================================================================
-    bk = pd.read_csv(RESULTS / "brain_siletti_key_values_v3.csv").iloc[0]
+    bk = pd.read_csv(RESULTS / "superseded" / "brain_siletti_key_values_v3.csv").iloc[0]  # moved in v42 P0-6
     _obs_csv = RESULTS / "brain_bs_null_observed_pairs.csv"
     _ct_csv = RESULTS / "brain_bs_null_ct_test.csv"
     if _obs_csv.exists() and _ct_csv.exists():
@@ -384,7 +384,7 @@ def get_manuscript_data():
         ct_df = _ct
     else:
         _ct_min = _ct_max = None
-        ct_df = pd.read_csv(RESULTS / "brain_siletti_ct_summary_v3.csv")
+        ct_df = pd.read_csv(RESULTS / "superseded" / "brain_siletti_ct_summary_v3.csv")  # moved in v42 P0-6
     d["brain"]["cell_types"] = []
     for _, row in ct_df.iterrows():
         _name = row["cell_type"]
@@ -448,7 +448,7 @@ def get_manuscript_data():
         }
 
     # Brain bootstrap
-    bb = pd.read_csv(RESULTS / "brain_bootstrap_results.csv")
+    bb = pd.read_csv(RESULTS / "superseded" / "brain_bootstrap_results.csv")  # moved in v42 P0-6
     for _, row in bb.iterrows():
         d["bootstrap"]["brain"][row["cell_type"]] = {
             "n_pairs": int(row["n_pairs"]),
