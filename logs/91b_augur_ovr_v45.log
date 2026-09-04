@@ -1,0 +1,26 @@
+======================================================================
+Analysis D sensitivity: binary one-vs-rest Augur vs CKI ranking
+======================================================================
+
+[1] Loading obs (backed)...
+    sampled nuclei: 33036
+
+[2] Per-class binary one-vs-rest Augur-style scoring...
+    Astrocyte                                     regions=107 meanOvR-AUC=0.7031 (225s)
+    Bergmann glia                                 regions=  7 meanOvR-AUC=0.6906 (60s)
+    Choroid plexus                                regions=  6 meanOvR-AUC=0.7646 (70s)
+    Committed oligodendrocyte precursor           regions= 52 meanOvR-AUC=0.6980 (99s)
+    Ependymal                                     regions= 40 meanOvR-AUC=0.7105 (93s)
+    Fibroblast                                    regions= 83 meanOvR-AUC=0.5858 (173s)
+    Microglia                                     regions=107 meanOvR-AUC=0.6173 (166s)
+    Oligodendrocyte                               regions=107 meanOvR-AUC=0.6231 (153s)
+    Oligodendrocyte precursor                     regions=107 meanOvR-AUC=0.6387 (164s)
+    Vascular                                      regions= 82 meanOvR-AUC=0.6161 (119s)
+
+[3] Spearman vs CKI ...
+    OvR Augur vs CKI omega : rho = +0.4424, P = 0.2004
+    OvR Augur vs CKI k_f   : rho = +0.5636, P = 0.08972
+    OvR Augur vs CKI k_n   : rho = -0.2364, P = 0.5109
+
+[4] Wrote C:\Users\KnightZ\Desktop\细胞受选择\results\augur_ovr_sensitivity_v45.json
+Done in 1324s

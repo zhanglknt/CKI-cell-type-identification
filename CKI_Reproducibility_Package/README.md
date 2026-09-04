@@ -74,8 +74,8 @@ import cki
 Or build the Docker image (see `Dockerfile` in the repository root):
 
 ```bash
-docker build -t cki:0.4.7 .
-docker run --rm cki:0.4.7
+docker build -t cki:0.4.8 .
+docker run --rm cki:0.4.8
 ```
 
 ## Quick Start (3 lines)
@@ -94,6 +94,16 @@ result = compute(
     groupby="cell_type", group_a="T_cell", group_b="B_cell",
 )
 print(f"omega = {result['omega']:.4f}")
+```
+
+**Manuscript reproduction:** the package defaults (`func_method="hvg"`, `n_top_genes=2000`, data-driven HK detection) differ from the scheme reported in the manuscript. Pass `preset="manuscript"` to force the reported configuration (`func_method="pairwise_absdiff"`, `n_top_genes=200`, `use_reference_hk=True` with the HRT Atlas reference set):
+
+```python
+result = compute(
+    adata, species="human",
+    groupby="cell_type", group_a="T_cell", group_b="B_cell",
+    preset="manuscript",
+)
 ```
 
 ## Functional Gene Modes
@@ -137,10 +147,12 @@ result = compute_omega(pb_a, pb_b, hk_idx, func_idx)
 print(result["omega"], result["kn"], result["kf"])
 ```
 
-## Bootstrap
+## Permutation test
+
+Despite the historical name, `bootstrap_test` is a **label-permutation test** (not bootstrap resampling): the null distribution is built by randomly permuting group labels between the two groups. `permutation_test` is an alias for the same function.
 
 ```python
-from cki import bootstrap_test
+from cki import bootstrap_test  # == permutation_test
 
 boot = bootstrap_test(
     adata, species="human",
@@ -149,6 +161,8 @@ boot = bootstrap_test(
 )
 print(f"omega={boot['omega']:.4f}, P={boot['p_value']:.4f}")
 ```
+
+The result key `null_ci_95` is the central 95% range of the permutation **null** distribution — not a confidence interval for omega (the legacy key `ci_95` is retained as a deprecated alias). The permutation test operates in a window of ~50–200 cells per donor per condition; power collapses for large pseudobulks (n ≳ 500 cells per group), and the function warns in that regime (see manuscript Note 3.19).
 
 By default (`reselect_identity=True`) the test reproduces the procedure reported in the paper: the HK (k_n) gene set is resolved once and held fixed, while the k_f gene set is re-selected at every permutation from the permuted pseudobulks (top `n_reselect_genes=200` non-HK genes by |Δ pseudobulk|), so the null incorporates the gene-selection step. Pass `reselect_identity=False` for the legacy fixed-gene-set null (faster, but anti-conservative relative to the re-selection null); explicitly supplied `functional_genes` / `identity_indices` always pin a fixed gene set. For block-structured data (cells correlated within libraries/samples) use `block_shuffle_test` instead.
 

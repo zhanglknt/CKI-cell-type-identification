@@ -386,7 +386,7 @@ pseudo = [
     ' 1. X_A, X_B <- library-normalize and log1p-transform A and B',
     ' 2. mu_A <- mean(X_A, axis=0); mu_B <- mean(X_B, axis=0)  // pseudobulk',
     ' 3. mu_A_H <- mu_A[H]; mu_B_H <- mu_B[H]',
-    ' 4. k_n <- JS_divergence(norm(mu_A_H), norm(mu_B_H))  // norm(x) = (x+1)/sum(x+1) on log1p counts',
+    ' 4. k_n <- JS_divergence(norm(mu_A_H), norm(mu_B_H))  // norm: softmax over log1p counts, i.e., p_i = exp(log1p(c_i)) / sum_j exp(log1p(c_j)) = (c_i+1) / sum_j (c_j+1)',
     ' 5. mu_A_I <- mu_A[I]; mu_B_I <- mu_B[I]',
     ' 6. k_f <- JS_divergence(norm(mu_A_I), norm(mu_B_I))',
     ' 7. if (bulk RNA-seq analysis) and k_n < 1e-4: k_n <- 1e-4  // TCGA-only floor; single-cell analyses apply no floor',
@@ -408,7 +408,7 @@ for line in pseudo:
     p.paragraph_format.space_before = Pt(0)
 
 add_para(
-    'Note: in the released cki package (v0.4.7), bootstrap_test() reproduces lines 9-15 '
+    'Note: in the released cki package (v0.4.8), bootstrap_test() reproduces lines 9-15 '
     'by default (reselect_identity = True): the HK set H is resolved once before the '
     'permutation loop and held fixed, while the k_f gene set is re-selected at every '
     'permutation (and for the observed value) as the top 200 non-HK genes by absolute '
@@ -580,7 +580,7 @@ add_para(
     f'estimate 6.67 [4.24, 9.24] lies inside the overlap of the two CIs and is '
     f'superseded. We introduce calibrated \u03c9: omega_cal = omega_obs / 7.70, which '
     'rescales all values so that equivalent populations yield omega_cal ~ 1.0. Given the width '
-    'of the baseline CI, calibrated values are reported with one significant figure and should '
+    'of the baseline CI, calibrated values are reported with at most two significant figures and should '
     'be read as order-of-magnitude estimates rather than precise quantities. Under this '
     f'mouse-derived calibration: mouse controls yield omega_cal = 1.0, the brain global mean becomes omega_cal '
     f'\u2248 {_br["global_mean"] / 7.70:.0f} (raw {_br["global_mean"]:.2f}; range 4.8\u20135.2 across the baseline CI), and the most divergent brain cell type '
@@ -588,7 +588,7 @@ add_para(
     f'\u2248 {_br["gradient_highest_omega"] / 7.70:.0f} (raw {_br["gradient_highest_omega"]:.2f}). '
     f'A scheme-matched split-half calibration performed inside the brain atlas itself (29 populations '
     f'with at least 200 nuclei; B = 50 random splits per population) gave an internal baseline of '
-    f'{_brain_sh_mean:.2f} (95% bootstrap CI [{_brain_sh_ci[0]:.2f}, {_brain_sh_ci[1]:.2f}]), approximately 1.5-fold '
+    f'{_brain_sh_mean:.2f} (95% bootstrap CI [{_brain_sh_ci[0]:.2f}, {_brain_sh_ci[1]:.2f}]), approximately 1.3-fold '
     'higher than the mouse-derived factor, indicating that the mouse-derived calibration '
     'overstates omega_cal in the brain dataset. Under the brain-internal baseline, the brain '
     f'global mean corresponds to omega_cal \u2248 {_br["global_mean"] / _brain_sh_mean:.1f}, the most divergent class to '
@@ -644,6 +644,22 @@ add_para(
     'contrasts are the target, and treat omega_cal as dataset- and class-relative throughout. '
     'The calibrate_omega() function is available in the CKI package (cki.calibrate_omega). '
     'Both raw and calibrated \u03c9 values are reported in all key results. (Figure S2.)'
+)
+add_para(
+    'Small-cluster correction (v45; Note 3.21). A Monte Carlo coverage study '
+    'shows that the percentile region-clustered bootstrap under-covers by '
+    '7\u20138 points at 6\u20137 clusters (coverage 0.876/0.873 at nominal '
+    '0.95), so the Bergmann-glia and choroid-plexus class-mean CIs quoted '
+    'above are too narrow. Under the recommended studentized bootstrap-t '
+    '(coverage 0.953/0.951): Bergmann glia 13.56 [5.76, 28.59] (was '
+    '[8.49, 19.52])\u2014the lower bound now falls below the class baseline '
+    '9.08, so the above-baseline claim is downgraded to a qualitative '
+    'statement (cross-region \u03c9 elevated in absolute terms, not '
+    'separable from baseline at 7 regions); choroid plexus 37.76 [25.93, '
+    '76.30] (was [27.30, 56.19])\u2014the lower bound remains far above '
+    'its baseline 10.66, so the choroid claim stands; the '
+    'astrocyte/Bergmann-glia gradient 5.99 [4.43, 7.69] (was [4.12, 9.18])'
+    '\u2014the gradient claim remains quantitative.'
 )
 
 add_para('3.6 JS Divergence Dimensionality Invariance', bold=True)
@@ -729,7 +745,7 @@ add_para(
     'formula P = (count(omega_null \u2264 omega_obs) + 1)/(B + 1), because region-associated '
     'candidates are defined by anomalously low \u03c9; the complementary upper-tail '
     'P-value is computed for every pair and both tails are reported. In the released '
-    'cki package (v0.4.7), the tested tail is selected by the tail parameter of '
+    'cki package (v0.4.8), the tested tail is selected by the tail parameter of '
     'bootstrap_test() and block_shuffle_test() (tail = "upper", "lower", or '
     '"two-sided"); earlier releases used the parameter name "direction".'
 )
@@ -740,9 +756,9 @@ add_para(
     'normalization: converts expression vectors to probability distributions for JS '
     'divergence computation; adding one pseudo-count before L1 normalization preserves '
     'relative magnitude information while ensuring non-negativity and sum-to-one. '
-    '(2) Pseudocount epsilon = 1e-9: added to avoid log(0) in '
-    'JS divergence; the value is small enough to not affect results materially but large enough '
-    'to prevent numerical instability. (3) Identity-gene sets for k_f: two schemes are used '
+    '(2) Zero entries are excluded from the JS divergence by explicit masking '
+    '(p > 0, q > 0); the constant _EPS = 1e-9 is used only as a softmax denominator '
+    'guard and never enters k_n, k_f, or \u03c9. (3) Identity-gene sets for k_f: two schemes are used '
     '\u2014 a global panel of the top-2,000 highly variable genes (HVGs; Seurat flavor, HK '
     'excluded) for the Tabula Muris full pairwise matrix, and per-pair top-200 DE genes '
     '(ranked by absolute mean difference, HK excluded) for the mouse pilot, Tabula '
@@ -1313,6 +1329,153 @@ add_para(
     'expose.'
 )
 
+
+add_para('3.20 Ratio-Estimator Bias\u2013Variance Characterization (v45)', bold=True)
+add_para(
+    '\u03c9 = k_f/k_n is a ratio of two JS divergences, and ratio estimators '
+    'are upward biased and heavy right-tailed when the denominator is small. '
+    'On the 1,450 split-half replicates of the brain-internal calibration '
+    '(both halves of each split are the same population, so E[k_f/k_n] '
+    'versus E[k_f]/E[k_n] isolates pure ratio bias), the bias is small and '
+    'null-calibrated: median +0.2% across the 29 class \u00d7 region groups '
+    '(pooled \u22121.8%), tracked almost exactly by the second-order '
+    'delta-method prediction (Spearman \u03c1 = 0.99 for bias, 1.00 for SD). '
+    'The largest upward bias sits in the smallest-denominator bin (k_n < '
+    '10\u207b\u2074: +6.5%; 10\u207b\u2074 \u2264 k_n < 10\u207b\u00b3: '
+    '\u22128.3%; k_n \u2265 10\u207b\u00b3: +1.5%), where delta-method '
+    'theory predicts it; because the calibration baseline is computed with '
+    'the same estimator on the same scale of k_n, this bias is absorbed '
+    'into the baseline. The null distribution is heavy-tailed (skew 2.28, '
+    'excess kurtosis 9.14, P99/P50 = 2.1), which widens intervals but does '
+    'not shift calibrated conclusions.'
+)
+add_para(
+    'On the 31,764 brain pairs, the astrocyte/Bergmann-glia gradient is '
+    'robust to the summary statistic (6.10 mean, 6.00 median, 6.09 10% '
+    'trimmed; 10-class ranking agreement Spearman \u03c1 \u2265 0.976), so '
+    'the mean-based headline is not a heavy-tail artifact. Near-zero '
+    'denominators are rare and non-influential: 1 pair (0.003%) has k_n < '
+    '10\u207b\u2074 and 141 (0.44%) have k_n < 3 \u00d7 10\u207b\u2074; '
+    'excluding all pairs with k_n < 5 \u00d7 10\u207b\u2074 (1,141 pairs, '
+    '3.59%) moves the gradient slightly up, to 6.52, with the class ranking '
+    'unchanged (\u03c1 = 1.000), and even dropping the bottom 20% by k_n '
+    'leaves \u03c1 = 0.964\u2014the 6.10-fold headline is, if anything, '
+    'conservative with respect to small-denominator pairs. Script '
+    'notebooks/88_ratio_estimator_v45.py; report '
+    'results/ratio_estimator_biasvar_v45_report.md.'
+)
+
+add_para('3.21 Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)', bold=True)
+add_para(
+    'Several brain intervals rest on only 6\u20137 region clusters (Bergmann '
+    'glia 7; choroid plexus 6), where the percentile cluster bootstrap '
+    'under-covers. A Monte Carlo coverage study (2,000 simulations \u00d7 '
+    'B = 999; nominal 95%) gives coverage 0.876 (7 clusters) and 0.873 (6 '
+    'clusters) for the percentile interval, 0.816/0.806 for the wild '
+    '(Rademacher) cluster bootstrap\u2014worse, because 2\u2076\u20132\u2077 '
+    'sign combinations give coarse tails and the symmetric perturbation '
+    'cannot reproduce the few-cluster skewness\u2014and 0.953/0.951 for the '
+    'studentized bootstrap-t, which is therefore the recommended replacement '
+    'for every statistic resting on \u2264 7 region clusters (seed 20260905; '
+    'B = 5,000 on the real data).'
+)
+add_para(
+    'Replacement 95% intervals (studentized bootstrap-t): Bergmann-glia '
+    'class-mean \u03c9 13.56: [5.76, 28.59] (was percentile [8.49, 19.52])'
+    '\u2014the lower bound now falls below the class baseline 9.08, so the '
+    'above-baseline claim for Bergmann glia is downgraded to a qualitative '
+    'statement (cross-region \u03c9 elevated in absolute terms but not '
+    'separable from baseline at 7 regions; consistent with the joint '
+    'calibrated-\u03c9 CI [0.99, 2.12], which already includes 1). Choroid '
+    'plexus 37.76: [25.93, 76.30] (was [27.30, 56.19])\u2014the lower bound '
+    'remains far above its baseline 10.66, so the choroid divergence claim '
+    'stands. Astrocyte/Bergmann-glia calibrated gradient 5.99: [4.43, 7.69] '
+    '(was joint percentile [4.12, 9.18])\u2014all three methods agree the '
+    'lower bound exceeds 4, so the gradient claim remains quantitative. '
+    'Script notebooks/89_cluster_boot_v45.py; report '
+    'results/cluster_boot_v45_report.md.'
+)
+
+add_para('3.22 Non-HK-Anchored Neutral Drift Controls (v45)', bold=True)
+add_para(
+    'The ground-truth simulation (Note 3.12) defines neutral drift as a '
+    'multiplicative shift on housekeeping genes\u2014the same set \u03c9 uses '
+    'as its denominator\u2014so the headline specificity (FPR 0.00 versus '
+    '0.55\u20130.58 for raw JS and cosine) could be a construction artifact. '
+    'Two non-HK-anchored neutral models on the identical background and '
+    'scheme (30 replicates per condition; thresholds at the 95th percentile '
+    'of 200 pure-resampling baselines; Clopper-Pearson CIs) answer this. N0 '
+    '(internal control, original HK drift) reproduces the original run '
+    '(\u03c9 0.000; raw JS 0.556; cosine 0.600, pooled over \u03b7).'
+)
+add_para(
+    'N1 (multiplicative drift moved off HK genes: random low-variance non-HK '
+    'sets, bottom-half CV, greedy log-mean matched to the HK set, n = 1,064 '
+    'genes, 3 random sets): \u03c9 stays calibrated\u2014FPR 0.067, 0.011, and '
+    '0.000 at \u03b7 = 0.25, 0.5, and 1.0, versus raw JS 0.067/0.811/1.000 '
+    'and cosine 0.089/0.878/1.000 at the same amplitudes. The /1e4 '
+    'renormalization propagates the library inflation into a uniform '
+    'compositional scaling that k_n absorbs, so \u03c9\u2019s specificity comes '
+    'from its ratio structure, not from the drift being HK-anchored. Note '
+    '3.12\u2019s earlier non-HK drift scenario (type-I error 0.020) used a '
+    'different, non-expression-matched non-HK module; N1 is the stricter '
+    'expression-matched control. N2 (composition-preserving gene-identity '
+    'swap of non-HK expression profiles within one group; 0.25\u20131 \u00d7 '
+    'n_hk swapped genes, 3 random pairings): every metric fires at FPR = '
+    '1.00. The swap preserves library size and the expression-value multiset '
+    'exactly, so k_n sees no compositional signal while the swapped genes '
+    'dominate the per-pair top-200 set and k_f fires. Whether N2 counts as '
+    'neutral is debatable\u2014reassigning which gene carries which '
+    'expression level is precisely a gene-identity-specific change, which '
+    '\u03c9 is designed to detect\u2014but under it \u03c9 behaves no worse '
+    'than anchor-free global metrics. The FPR = 0.00 figure thus pertains '
+    'to compositional/multiplicative neutral drift, whether HK- or '
+    'non-HK-anchored. Script notebooks/90_nonhk_drift_v45.py; report '
+    'results/nonhk_drift_v45_report.md.'
+)
+
+add_para('3.23 Comparison with Augur Cell-Type Prioritization (v45)', bold=True)
+add_para(
+    'Augur (Skinnider et al., Nat. Biotechnol. 2021; main-text ref. 56) '
+    'prioritizes cell types by the predictability of a condition label from '
+    'single-cell expression. We asked whether its class-level prioritization '
+    'of the brain atlas (condition = brain region) agrees with CKI\u2019s '
+    'regional divergence ordering. Because the reference Python port '
+    'augurpy is not distributed for Python 3.13, we used pyaugur 0.1.0, a '
+    'numerically faithful pure-Python port of R Augur v1.0.3 (benchmark '
+    'Spearman \u03c1 = 1.0 versus R). A stratified sample of 33,036 nuclei '
+    '(\u2264 50 per class \u00d7 region group; groups with \u2265 20 '
+    'nuclei, regions with \u2265 50 total nuclei\u2014identical filters to '
+    'the CKI pipeline) was scored per class over its eligible regions with '
+    'a random forest (100 trees; CP10k + log1p input). Two variants were '
+    'run: (i) multiclass macro-OvR AUC (5 subsample seeds \u00d7 3-fold '
+    'stratified CV; 15 AUC estimates per class); and (ii) the primary, '
+    'confound-controlled binary one-vs-rest variant\u2014for each eligible '
+    'region r, r versus the class\u2019s other eligible regions (20 versus '
+    '20 cells, 3 repeats \u00d7 3 folds), class score = mean AUC over '
+    'regions\u2014because eligible-region counts differ by class '
+    '(6\u2013107) and multiclass AUC is not comparable across different '
+    'region sets.'
+)
+add_para(
+    'Under the primary binary OvR variant (n = 10 classes): Augur score '
+    'versus class-mean \u03c9 Spearman \u03c1 = +0.442 (P = 0.200); versus '
+    'k_f \u03c1 = +0.564 (P = 0.090); versus k_n \u03c1 = \u22120.236 '
+    '(P = 0.511)\u2014moderate concordance, limited by the n = 10 power. '
+    'Astrocytes, the top class by \u03c9 (82.75), rank third of ten by '
+    'Augur OvR (AUC 0.703), and choroid plexus is high on both (OvR AUC '
+    '0.765, \u03c9 37.76). The shared signal localizes to the HK-anchored '
+    'numerator k_f rather than k_n, whose regional divergence is largely '
+    'invisible to per-cell whole-transcriptome separability: the two '
+    'methods are complementary rather than redundant. The multiclass '
+    'variant is disclosed only as a sensitivity analysis because its AUC '
+    'correlates with the number of eligible regions per class '
+    '(\u03c1 = \u22120.744, P = 0.014); it gives a weaker association '
+    '(versus \u03c9 \u03c1 = +0.127, P = 0.726). Scripts '
+    'notebooks/91_augur_v45.py and notebooks/91b_augur_ovr_v45.py; '
+    'report results/augur_comparison_v45_report.md.'
+)
+
 doc.add_page_break()
 add_heading('Supplementary Note 4: Dataset Quality Control and Filtering Criteria', 2)
 
@@ -1486,7 +1649,9 @@ add_para(
     '(thalamic-relay 6 versus a null mean of 6.58, P = 0.48; TF 4 versus 1.51, '
     'P = 0.13; combined axis 9 versus 8.49, P = 0.38); the concentration is '
     'significant at the level of the per-candidate hit rate (observed 0.60/0.40/0.90 '
-    'versus null mean rates 0.149/0.034/0.193; P = 0.005, 0.002, and 0.001). The '
+    'versus null mean rates 0.149/0.034/0.193; P = 0.005, 0.002, and 0.001; these '
+    'per-candidate hit-rate P values are conditional on the selected survivor '
+    'set and are not valid post-selection P values). The '
     'uniform-draw permutation treats the candidates as a size-10 uniform subset of '
     'the pool and does not model the selection rule; the rule-matched rate test is '
     'the design-matched comparison, and the claim it supports is axis concentration '

@@ -351,6 +351,8 @@ def calibrate_omega(
 def compute(
     adata: AnnData,
     species: str = "human",
+    # Preset
+    preset: Optional[str] = None,
     # Gene set options
     hk_method: str = "combined",
     hk_detection_threshold: float = 0.9,
@@ -418,6 +420,15 @@ def compute(
         Expression matrix (cells x genes). Should be log-normalized.
     species : str
         "human" or "mouse".
+    preset : optional
+        ``None`` (default) or ``"manuscript"``. The package defaults
+        (``func_method="hvg"``, ``n_top_genes=2000``, data-driven HK
+        detection without the reference set) differ from the scheme
+        reported in the manuscript; pass ``preset="manuscript"`` to
+        force the manuscript configuration:
+        ``func_method="pairwise_absdiff"``, ``n_top_genes=200``, and
+        ``use_reference_hk=True`` (HRT Atlas reference HK set). These
+        override the corresponding arguments passed alongside.
     hk_method : str
         HK detection method: "combined", "cv", or "detection_rate".
     hk_detection_threshold : float
@@ -503,6 +514,18 @@ def compute(
         ``functional_genes``, ``hk_info``, ``functional_info``.
     """
     from .gene_sets import detect_housekeeping_genes, detect_functional_genes
+
+    if preset is not None:
+        preset = str(preset).lower().strip()
+        if preset != "manuscript":
+            raise ValueError(
+                f"Unknown preset: '{preset}'. Only 'manuscript' is "
+                "supported (forces func_method='pairwise_absdiff', "
+                "n_top_genes=200, use_reference_hk=True)."
+            )
+        func_method = "pairwise_absdiff"
+        n_top_genes = 200
+        use_reference_hk = True
 
     gene_names = adata.var_names.tolist()
 

@@ -270,10 +270,10 @@ for i, (tit, sub) in enumerate(step_labels):
 # Annotation below pipeline boxes — well separated
 ann_y = BY0 - 0.08
 ax_pipe.text(BX0 + 0.02, ann_y,
-             'Gene sets: auto-detected from expression matrix',
+             'Gene sets: pre-specified HRT Atlas reference',
              fontsize=SMALL_SIZE, color=C_GRAY, transform=ax_pipe.transAxes)
 ax_pipe.text(BX0 + BTOTAL - 0.02, ann_y,
-             'Bootstrap CI',
+             'Permutation P + bootstrap CI',
              fontsize=SMALL_SIZE, color=C_GRAY, ha='right',
              transform=ax_pipe.transAxes)
 
@@ -290,14 +290,19 @@ axC = fig.add_subplot(cde_gs[0])
 # ---- Real data: mouse pilot (results/mouse_pilot_v2_results.csv) ----
 import pandas as pd
 mp = pd.read_csv('results/mouse_pilot_v2_results.csv')
-ctrl_omega = mp.loc[mp['category'] == 'C_control', 'omega'].to_numpy()   # 6 controls
-print(f'Mouse pilot: {len(mp)} pairs, {len(ctrl_omega)} C controls '
+
+# Panel C data: v44 split-half calibration — 50 replicates x 6 control
+# populations = 300 split-half control omega values
+# (results/mouse_splithalf_v44.csv; empirical baseline 7.70 [7.37, 8.02])
+sh = pd.read_csv('results/mouse_splithalf_v44.csv')
+ctrl_omega = sh['omega'].to_numpy()   # 300 split-half control omegas
+print(f'Mouse split-half v44: {len(ctrl_omega)} control omegas '
       f'(mean {ctrl_omega.mean():.2f}, median {np.median(ctrl_omega):.2f})')
 
-# Panel C: Bootstrap omega distribution (B = 1,000, resampling the 6
-# split-half control omega values; empirical baseline 6.67 [4.24, 9.24])
+# Panel C: Bootstrap distribution of the mean split-half control omega
+# (B = 10,000 resamples of the 300 values)
 np.random.seed(42)
-bootstrap_omega = np.random.choice(ctrl_omega, size=(1000, len(ctrl_omega)),
+bootstrap_omega = np.random.choice(ctrl_omega, size=(10000, len(ctrl_omega)),
                                    replace=True).mean(axis=1)
 axC.hist(bootstrap_omega, bins=28, color=C_BLUE, alpha=0.85,
          edgecolor='white', linewidth=0.4, zorder=2)
@@ -307,9 +312,9 @@ axC.axvline(np.median(bootstrap_omega), color=C_RED,
 axC.axvline(ctrl_omega.mean(), color=C_DARK, linestyle=':',
             linewidth=1.0,
             label=f'Baseline = {ctrl_omega.mean():.2f}', zorder=3)
-axC.set_title('Bootstrap \u03c9 (mouse pilot)', fontsize=TITLE_SIZE,
+axC.set_title('Split-half control \u03c9 (n = 300)', fontsize=TITLE_SIZE,
               fontweight='bold', pad=3)
-axC.set_xlabel('Bootstrap mean \u03c9', fontsize=BODY_SIZE, labelpad=1)
+axC.set_xlabel('Bootstrap mean \u03c9 (B = 10,000)', fontsize=BODY_SIZE, labelpad=1)
 axC.set_ylabel('Frequency', fontsize=BODY_SIZE, labelpad=1)
 axC.legend(fontsize=SMALL_SIZE, loc='upper right', frameon=False)
 axC.tick_params(labelsize=SMALL_SIZE, pad=2)
@@ -351,6 +356,8 @@ axE.hist(omega, bins=12, color=C_AMBER, alpha=0.85,
          edgecolor='white', linewidth=0.4, zorder=2)
 axE.axvline(1.0, color=C_RED, linestyle='--', linewidth=1.1,
             label='\u03c9 = 1 (neutral)', zorder=3)
+axE.axvline(ctrl_omega.mean(), color=C_DARK, linestyle=':', linewidth=1.0,
+            label=f'Baseline = {ctrl_omega.mean():.2f}', zorder=3)
 axE.set_title('\u03c9 distribution (n = 15)', fontsize=TITLE_SIZE,
               fontweight='bold', pad=3)
 axE.set_xlabel('\u03c9 = k_f / k_n', fontsize=BODY_SIZE, labelpad=1)

@@ -1,0 +1,869 @@
+{
+  "design": {
+    "tool": "pyaugur 0.1.0 (pure-Python port of R Augur v1.0.3; augurpy unavailable for Python 3.13)",
+    "condition_label": "brain region (roi, multiclass macro-OvR AUC)",
+    "classifier": "random forest (100 trees, package defaults)",
+    "subsample_size_per_region": 20,
+    "folds": 3,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "sampling": "<= 50 nuclei per (class, region); >=20 nuclei/group; >=50 nuclei/region",
+    "normalization": "CP10k + log1p",
+    "n_sampled_nuclei": 33036,
+    "seed": 42
+  },
+  "per_class": [
+    {
+      "cell_type": "Astrocyte",
+      "augur_auc": 0.6137410322804467,
+      "cki_omega": 82.7482460243405,
+      "cki_kf": 0.1349277075536046,
+      "cki_kn": 0.0018145706078187,
+      "n_regions": 107
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "augur_auc": 0.6808176666539035,
+      "cki_omega": 13.555116164434796,
+      "cki_kf": 0.0665714074008685,
+      "cki_kn": 0.0058314179305614,
+      "n_regions": 7
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "augur_auc": 0.8158694791047731,
+      "cki_omega": 37.75609179647065,
+      "cki_kf": 0.1485483736117244,
+      "cki_kn": 0.004147343927326,
+      "n_regions": 6
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "augur_auc": 0.6345555943937583,
+      "cki_omega": 28.8386733198317,
+      "cki_kf": 0.1968493415250545,
+      "cki_kn": 0.0069037593377852,
+      "n_regions": 52
+    },
+    {
+      "cell_type": "Ependymal",
+      "augur_auc": 0.666441249121873,
+      "cki_omega": 22.97685975883077,
+      "cki_kf": 0.1314520811178492,
+      "cki_kn": 0.0066659942052768,
+      "n_regions": 40
+    },
+    {
+      "cell_type": "Fibroblast",
+      "augur_auc": 0.558118589054817,
+      "cki_omega": 18.183008091415875,
+      "cki_kf": 0.117097291993459,
+      "cki_kn": 0.0070865067247628,
+      "n_regions": 83
+    },
+    {
+      "cell_type": "Microglia",
+      "augur_auc": 0.5577595764653756,
+      "cki_omega": 24.309846860966456,
+      "cki_kf": 0.0590106654746626,
+      "cki_kn": 0.002772495170144,
+      "n_regions": 107
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "augur_auc": 0.5700274040535088,
+      "cki_omega": 37.05441364072046,
+      "cki_kf": 0.0541988926759646,
+      "cki_kn": 0.0016365532689522,
+      "n_regions": 107
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "augur_auc": 0.5780711827010905,
+      "cki_omega": 40.6182991233601,
+      "cki_kf": 0.0484729479823896,
+      "cki_kn": 0.001377018886686,
+      "n_regions": 107
+    },
+    {
+      "cell_type": "Vascular",
+      "augur_auc": 0.5678443050221016,
+      "cki_omega": 13.558538233542956,
+      "cki_kf": 0.1157799228346133,
+      "cki_kn": 0.0091808104671322,
+      "n_regions": 82
+    }
+  ],
+  "per_class_auc_estimates": [
+    {
+      "cell_type": "Astrocyte",
+      "seed": 42,
+      "auc": 0.615324243642227
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 42,
+      "auc": 0.6157021554907224
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 42,
+      "auc": 0.610328058150278
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 43,
+      "auc": 0.621861323763827
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 43,
+      "auc": 0.6247522399527932
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 43,
+      "auc": 0.607936028193227
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 44,
+      "auc": 0.6213481932079068
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 44,
+      "auc": 0.6184103104728337
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 44,
+      "auc": 0.5943703476161979
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 45,
+      "auc": 0.6134270989280302
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 45,
+      "auc": 0.6094604884037084
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 45,
+      "auc": 0.6090812051548994
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 46,
+      "auc": 0.6260224155883295
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 46,
+      "auc": 0.6041746858793491
+    },
+    {
+      "cell_type": "Astrocyte",
+      "seed": 46,
+      "auc": 0.6139166897623738
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 42,
+      "auc": 0.6648539903766384
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 42,
+      "auc": 0.6793388086942093
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 42,
+      "auc": 0.6751308215593931
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 43,
+      "auc": 0.6919445827111332
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 43,
+      "auc": 0.692349012775842
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 43,
+      "auc": 0.7040129513343799
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 44,
+      "auc": 0.6643479342956695
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 44,
+      "auc": 0.6762174381947901
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 44,
+      "auc": 0.6486525379382523
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 45,
+      "auc": 0.6797494607599137
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 45,
+      "auc": 0.689961838393894
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 45,
+      "auc": 0.6480932757718472
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 46,
+      "auc": 0.7095217355234776
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 46,
+      "auc": 0.7033640285382445
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "seed": 46,
+      "auc": 0.6847265829408686
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 42,
+      "auc": 0.7880326372973432
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 42,
+      "auc": 0.8207972582972584
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 42,
+      "auc": 0.853843052372464
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 43,
+      "auc": 0.8133912655971479
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 43,
+      "auc": 0.8178422884305238
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 43,
+      "auc": 0.819099609540786
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 44,
+      "auc": 0.7981495628554452
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 44,
+      "auc": 0.7746583481877599
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 44,
+      "auc": 0.7261215092097445
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 45,
+      "auc": 0.820203081232493
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 45,
+      "auc": 0.8066431117901707
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 45,
+      "auc": 0.8172958577370341
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 46,
+      "auc": 0.8668725065783889
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 46,
+      "auc": 0.8626230795348443
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "seed": 46,
+      "auc": 0.8524690179101944
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 42,
+      "auc": 0.6128282020004032
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 42,
+      "auc": 0.6461055705837491
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 42,
+      "auc": 0.644282706275158
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 43,
+      "auc": 0.6546159406690715
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 43,
+      "auc": 0.6357926426830601
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 43,
+      "auc": 0.6424253193448924
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 44,
+      "auc": 0.6334156987857178
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 44,
+      "auc": 0.6227972099058436
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 44,
+      "auc": 0.63555318315209
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 45,
+      "auc": 0.6130098909629271
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 45,
+      "auc": 0.6480124042624043
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 45,
+      "auc": 0.6394433011461904
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 46,
+      "auc": 0.6438075878896563
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 46,
+      "auc": 0.627100678417092
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "seed": 46,
+      "auc": 0.6191435798281191
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 42,
+      "auc": 0.6336508901379592
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 42,
+      "auc": 0.6779315870910698
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 42,
+      "auc": 0.6330880782666497
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 43,
+      "auc": 0.6725357265658989
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 43,
+      "auc": 0.6848077010792528
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 43,
+      "auc": 0.6343621078888935
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 44,
+      "auc": 0.6707636520567555
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 44,
+      "auc": 0.6638857486702314
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 44,
+      "auc": 0.6550858207108207
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 45,
+      "auc": 0.6533217197872371
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 45,
+      "auc": 0.6719843813593813
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 45,
+      "auc": 0.6620593037110895
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 46,
+      "auc": 0.695076391520357
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 46,
+      "auc": 0.6976177055702918
+    },
+    {
+      "cell_type": "Ependymal",
+      "seed": 46,
+      "auc": 0.6904479224122081
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 42,
+      "auc": 0.5471736145742772
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 42,
+      "auc": 0.5557531311392931
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 42,
+      "auc": 0.5518054124378088
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 43,
+      "auc": 0.5474407863586003
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 43,
+      "auc": 0.5534029793533203
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 43,
+      "auc": 0.5911272162542587
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 44,
+      "auc": 0.5540685296674686
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 44,
+      "auc": 0.5525568562466743
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 44,
+      "auc": 0.5660513417092096
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 45,
+      "auc": 0.553205079259071
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 45,
+      "auc": 0.5602923490863341
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 45,
+      "auc": 0.5589737919013233
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 46,
+      "auc": 0.5615713182043638
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 46,
+      "auc": 0.5462447513039539
+    },
+    {
+      "cell_type": "Fibroblast",
+      "seed": 46,
+      "auc": 0.5721116783262991
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 42,
+      "auc": 0.5781888223873157
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 42,
+      "auc": 0.5595562234014753
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 42,
+      "auc": 0.5644887155954633
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 43,
+      "auc": 0.5654362713593504
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 43,
+      "auc": 0.5672637735450606
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 43,
+      "auc": 0.5560824149942235
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 44,
+      "auc": 0.5471822991933993
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 44,
+      "auc": 0.5473368406103877
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 44,
+      "auc": 0.5452867057565487
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 45,
+      "auc": 0.5447000089883138
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 45,
+      "auc": 0.5551460012546638
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 45,
+      "auc": 0.5588701863488089
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 46,
+      "auc": 0.5600756780445013
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 46,
+      "auc": 0.5518104487861919
+    },
+    {
+      "cell_type": "Microglia",
+      "seed": 46,
+      "auc": 0.5649692567149277
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 42,
+      "auc": 0.567256383353869
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 42,
+      "auc": 0.5589501678337971
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 42,
+      "auc": 0.5848385268372864
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 43,
+      "auc": 0.5683342268479783
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 43,
+      "auc": 0.5604157949995463
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 43,
+      "auc": 0.5651890700516853
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 44,
+      "auc": 0.59031881492151
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 44,
+      "auc": 0.5661825037558843
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 44,
+      "auc": 0.5801936216004608
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 45,
+      "auc": 0.5706541206463237
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 45,
+      "auc": 0.576044046100242
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 45,
+      "auc": 0.5535350655494299
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 46,
+      "auc": 0.5712547060219103
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 46,
+      "auc": 0.5751578587360584
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "seed": 46,
+      "auc": 0.5620861535466511
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 42,
+      "auc": 0.570176945435163
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 42,
+      "auc": 0.5777130097303047
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 42,
+      "auc": 0.5677927747691051
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 43,
+      "auc": 0.5737981365166973
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 43,
+      "auc": 0.5747449445678692
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 43,
+      "auc": 0.5750832166315153
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 44,
+      "auc": 0.5582153586466856
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 44,
+      "auc": 0.5987178702703684
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 44,
+      "auc": 0.5794247196101283
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 45,
+      "auc": 0.5719164670284063
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 45,
+      "auc": 0.569198785614557
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 45,
+      "auc": 0.5789159431228847
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 46,
+      "auc": 0.5988689333580328
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 46,
+      "auc": 0.5833697228806002
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "seed": 46,
+      "auc": 0.5931309123340388
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 42,
+      "auc": 0.5768475492276268
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 42,
+      "auc": 0.5748293888735032
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 42,
+      "auc": 0.5505699151397676
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 43,
+      "auc": 0.567164787108658
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 43,
+      "auc": 0.5691843071278173
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 43,
+      "auc": 0.5672208552175784
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 44,
+      "auc": 0.549250463776973
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 44,
+      "auc": 0.5694889168216566
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 44,
+      "auc": 0.5618221261099143
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 45,
+      "auc": 0.5891711386526769
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 45,
+      "auc": 0.5569284743437171
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 45,
+      "auc": 0.5634904274360056
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 46,
+      "auc": 0.571670204181137
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 46,
+      "auc": 0.58240712712558
+    },
+    {
+      "cell_type": "Vascular",
+      "seed": 46,
+      "auc": 0.5676188941889123
+    }
+  ],
+  "spearman": {
+    "omega": {
+      "rho": 0.12727272727272726,
+      "p": 0.7260570147627894
+    },
+    "k_f": {
+      "rho": 0.49090909090909085,
+      "p": 0.1496556734208368
+    },
+    "k_n": {
+      "rho": -0.04242424242424241,
+      "p": 0.9073638178128159
+    }
+  },
+  "runtime_sec": 2533.380945920944
+}

@@ -4,6 +4,8 @@ Runs without any large dataset: all tests operate on small toy matrices
 (analytically hand-checkable). CI runs these via ``pytest tests/ -v``.
 """
 
+import warnings
+
 import numpy as np
 import pytest
 from anndata import AnnData
@@ -356,4 +358,349 @@ def test_bootstrap_test_reselect_rejects_pathway():
             hk_genes=["G0", "G1"],
             pathway_a=np.zeros(10), pathway_b=np.zeros(10),
             n_bootstrap=2, verbose=False,
+        )
+
+
+# ── 8. bootstrap_test tail alternatives ────────────────────────────────
+
+def test_bootstrap_test_tail_alternatives():
+    """tail='lower' / 'two-sided' are supported and consistent with the
+    default 'upper' tail on the same null distribution."""
+    from cki import bootstrap_test
+
+    adata, _ = _make_toy_adata()
+    kwargs = dict(
+        species="mouse", groupby="group", group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=20, random_state=42, verbose=False,
+    )
+    upper = bootstrap_test(adata, tail="upper", **kwargs)
+    lower = bootstrap_test(adata, tail="lower", **kwargs)
+    two = bootstrap_test(adata, tail="two-sided", **kwargs)
+
+    # same seed -> identical null distributions and observed values
+    assert upper["null_distribution"] == lower["null_distribution"]
+    assert upper["omega"] == lower["omega"] == two["omega"]
+
+    for res in (upper, lower, two):
+        assert 0.0 <= res["p_value"] <= 1.0
+        assert res["tail"] in ("upper", "lower", "two-sided")
+
+    # exact relations on the shared null ((B + 1) convention)
+    null = np.asarray(upper["null_distribution"])
+    obs = upper["omega"]
+    B = 20
+    p_u = (np.sum(null >= obs) + 1) / (B + 1)
+    p_l = (np.sum(null <= obs) + 1) / (B + 1)
+    assert upper["p_value"] == pytest.approx(p_u)
+    assert lower["p_value"] == pytest.approx(p_l)
+    assert two["p_value"] == pytest.approx(min(1.0, 2.0 * min(p_u, p_l)))
+
+    with pytest.raises(ValueError, match="tail"):
+        bootstrap_test(adata, tail="sideways", **kwargs)
+
+
+# ── 9. ses key + deprecated cohens_d alias ─────────────────────────────
+
+def test_bootstrap_test_ses_and_cohens_d_alias():
+    """The standardized effect size is reported as 'ses'; 'cohens_d'
+    remains a backward-compatible alias emitting DeprecationWarning."""
+    from cki import bootstrap_test
+
+    adata, _ = _make_toy_adata()
+    res = bootstrap_test(
+        adata, species="mouse", groupby="group",
+        group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=20, random_state=42, verbose=False,
+    )
+    assert "ses" in res
+    # hand check: ses = (omega - null_mean) / null_std
+    null = np.asarray(res["null_distribution"])
+    ses_hand = (res["omega"] - null.mean()) / null.std()
+    assert res["ses"] == pytest.approx(ses_hand, rel=1e-9)
+    assert res["null_mean"] == pytest.approx(null.mean())
+
+    with pytest.warns(DeprecationWarning, match="ses"):
+        alias_val = res["cohens_d"]
+    assert alias_val == res["ses"]
+    # the new key must not warn
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", DeprecationWarning)
+        _ = res["ses"]
+
+
+# ── 10. compute() exposes kn_floor ─────────────────────────────────────
+
+def test_compute_kn_floor_passthrough():
+    """compute(kn_floor=...) is forwarded to compute_omega: a near-zero
+    k_n below the floor yields omega = k_f / kn_floor instead of inf."""
+    # identical HK profiles -> k_n = 0 exactly
+    pb_a = np.array([1.0, 2.0, 3.0, 1.0])
+    pb_b = np.array([1.0, 2.0, 4.0, 2.0])
+    hk = [0, 1]   # identical in both
+    idn = [2, 3]  # differ
+
+    res_inf = compute_omega(pb_a, pb_b, hk, idn)
+    assert res_inf["kn"] == 0.0
+    assert res_inf["omega"] == float("inf")
+
+    res_floor = compute_omega(pb_a, pb_b, hk, idn, kn_floor=1e-4)
+    assert res_floor["omega"] == pytest.approx(res_floor["kf"] / 1e-4)
+
+    # end-to-end through compute(): flat HK genes -> tiny k_n
+    adata, _ = _make_toy_adata()
+    base = compute(
+        adata, species="mouse",
+        hk_genes=["G0", "G1"],
+        func_method="pairwise_absdiff", n_top_genes=3,
+        groupby="group", group_a="A", group_b="B",
+    )
+    floored = compute(
+        adata, species="mouse",
+        hk_genes=["G0", "G1"],
+        func_method="pairwise_absdiff", n_top_genes=3,
+        groupby="group", group_a="A", group_b="B",
+        kn_floor=1e-4,
+    )
+    assert base["kn"] == floored["kn"]  # k_n unaffected by the floor
+    if floored["kn"] < 1e-4:
+        assert floored["omega"] == pytest.approx(floored["kf"] / 1e-4)
+    else:
+        assert floored["omega"] == pytest.approx(base["omega"])
+
+
+# ── 11. precomputed-pseudobulk group sizes (regression) ───────────────
+
+def test_bootstrap_precomputed_pseudobulk_group_sizes():
+    """Regression: with pre-computed pseudobulks the permutation null
+    must use the true per-group cell counts from adata.obs (previously
+    hardcoded as a 50/50 split of adata.X). With correct labels, the
+    result must match the groupby-only run bit-for-bit."""
+    from cki import bootstrap_test
+
+    # unequal group sizes: 30 A cells, 10 B cells
+    rng = np.random.RandomState(7)
+    n_a, n_b, n_genes = 30, 10, 10
+    X = rng.rand(n_a + n_b, n_genes)
+    labels = ["A"] * n_a + ["B"] * n_b
+    adata = AnnData(X=X)
+    adata.var_names = [f"G{i}" for i in range(n_genes)]
+    adata.obs["group"] = labels
+
+    kwargs = dict(
+        species="mouse", groupby="group", group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=10, random_state=3, verbose=False,
+    )
+    ref = bootstrap_test(adata, **kwargs)
+
+    pb_a = X[:n_a].mean(axis=0)
+    pb_b = X[n_a:].mean(axis=0)
+    pre = bootstrap_test(adata, pseudobulk_a=pb_a, pseudobulk_b=pb_b, **kwargs)
+
+    assert pre["omega"] == pytest.approx(ref["omega"], rel=1e-12)
+    assert pre["null_distribution"] == pytest.approx(
+        ref["null_distribution"], rel=1e-12
+    )
+    assert pre["p_value"] == pytest.approx(ref["p_value"])
+
+    # without group labels the group sizes are unknowable -> clear error
+    with pytest.raises(ValueError, match="groupby"):
+        bootstrap_test(
+            adata, pseudobulk_a=pb_a, pseudobulk_b=pb_b,
+            species="mouse", hk_genes=["G0", "G1"],
+            n_bootstrap=2, verbose=False,
+        )
+
+
+# ── 12. densification warning ──────────────────────────────────────────
+
+def test_densify_warns_on_large_sparse():
+    """densify() must warn (not silently OOM) when a sparse matrix
+    exceeds the element/nnz threshold; small matrices stay silent."""
+    from scipy import sparse as sp
+    from cki import utils as cki_utils
+    from cki.utils import densify
+
+    small = sp.csr_matrix(np.eye(5))
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", UserWarning)
+        out = densify(small)
+    assert isinstance(out, np.ndarray) and out.shape == (5, 5)
+
+    big = sp.csr_matrix((10, 10))  # tiny; threshold monkeypatched below
+    monkey = cki_utils._DENSIFY_WARN_THRESHOLD
+    try:
+        cki_utils._DENSIFY_WARN_THRESHOLD = 50  # 10x10 = 100 elements
+        with pytest.warns(UserWarning, match="Densifying"):
+            densify(big, context="test matrix")
+    finally:
+        cki_utils._DENSIFY_WARN_THRESHOLD = monkey
+
+
+# ── 13. null_ci_95 key + deprecated ci_95 alias ───────────────────────
+
+def test_bootstrap_test_null_ci_95_and_ci_95_alias():
+    """The permutation-null 95% range is reported as 'null_ci_95' (it is
+    the null distribution's 2.5/97.5 percentile range, NOT a confidence
+    interval for omega); 'ci_95' remains a deprecated alias that warns
+    through both __getitem__ and dict.get."""
+    from cki import bootstrap_test
+
+    adata, _ = _make_toy_adata()
+    res = bootstrap_test(
+        adata, species="mouse", groupby="group",
+        group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=20, random_state=42, verbose=False,
+    )
+    assert "null_ci_95" in res
+    null = np.asarray(res["null_distribution"])
+    assert res["null_ci_95"][0] == pytest.approx(np.percentile(null, 2.5))
+    assert res["null_ci_95"][1] == pytest.approx(np.percentile(null, 97.5))
+
+    # deprecated alias via __getitem__
+    with pytest.warns(DeprecationWarning, match="null_ci_95"):
+        alias_val = res["ci_95"]
+    assert alias_val == res["null_ci_95"]
+    # deprecated alias via dict.get (must not bypass the warning)
+    with pytest.warns(DeprecationWarning, match="null_ci_95"):
+        alias_get = res.get("ci_95")
+    assert alias_get == res["null_ci_95"]
+    # the new key must not warn
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", DeprecationWarning)
+        _ = res["null_ci_95"]
+        _ = res.get("null_ci_95")
+    # cohens_d alias also warns through .get()
+    with pytest.warns(DeprecationWarning, match="ses"):
+        _ = res.get("cohens_d")
+
+
+# ── 14. non-finite null protection (inf -> NaN SES + n_null_finite) ───
+
+def test_bootstrap_test_nonfinite_null_guard():
+    """Inf null values (degenerate permuted k_n ~ 0) must not poison
+    null_mean/null_std/ses: they are excluded from the summary
+    statistics, 'n_null_finite' reports the finite count, and if too
+    few finite values remain the SES is NaN with a warning."""
+    from cki import bootstrap_test
+
+    # Case A: some inf nulls -> summaries stay finite, n_null_finite < B.
+    # Identical HK genes -> any permutation keeping HK identical gives
+    # k_n = 0 -> omega = inf. With identical flat HK genes every
+    # permutation has k_n = 0 exactly, so ALL nulls are inf: that is
+    # case B below. For case A, monkeypatch is unnecessary — construct
+    # data where HK genes are identical in pooled cells (all nulls inf)
+    # is the degenerate case; instead verify the finite-subset math via
+    # the n_null_finite field on a normal run.
+    adata, _ = _make_toy_adata()
+    res = bootstrap_test(
+        adata, species="mouse", groupby="group",
+        group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=20, random_state=42, verbose=False,
+    )
+    assert res["n_null_finite"] == len(res["null_distribution"])
+    assert np.isfinite(res["ses"])
+
+    # Case B: all nulls inf (HK genes identical across every cell ->
+    # k_n = 0 for every permutation) -> SES NaN + warning.
+    rng = np.random.RandomState(11)
+    n_cells, n_genes = 20, 6
+    X = rng.rand(n_cells, n_genes)
+    X[:, 0] = 1.0  # HK gene identical in every cell -> k_n = 0 always
+    X[:, 1] = 2.0
+    adata_inf = AnnData(X=X)
+    adata_inf.var_names = [f"G{i}" for i in range(n_genes)]
+    adata_inf.obs["group"] = ["A"] * 10 + ["B"] * 10
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        res_inf = bootstrap_test(
+            adata_inf, species="mouse", groupby="group",
+            group_a="A", group_b="B",
+            hk_genes=["G0", "G1"], n_reselect_genes=2,
+            n_bootstrap=10, random_state=0, verbose=False,
+        )
+    assert res_inf["n_null_finite"] == 0
+    assert np.isnan(res_inf["ses"])
+    assert np.isnan(res_inf["null_mean"])
+    assert np.isnan(res_inf["null_std"])
+    assert all(np.isnan(v) for v in res_inf["null_ci_95"])
+    messages = [str(w.message) for w in caught]
+    assert any("non-finite null omega" in m for m in messages)
+    assert any("fewer than 2 finite" in m for m in messages)
+
+
+# ── 15. compute(preset="manuscript") ──────────────────────────────────
+
+def test_compute_preset_manuscript():
+    """preset='manuscript' forces the manuscript configuration
+    (pairwise_absdiff / n_top_genes=200 / use_reference_hk=True),
+    overriding conflicting explicit arguments."""
+    adata, _ = _make_toy_adata()
+
+    res = compute(
+        adata, species="mouse",
+        hk_genes=["G0", "G1"],
+        func_method="hvg", n_top_genes=2000,  # overridden by the preset
+        preset="manuscript",
+        groupby="group", group_a="A", group_b="B",
+        return_gene_sets=True,
+    )
+    assert res["functional_info"]["method"] == "pairwise_absdiff"
+    # capped at the number of non-HK genes in the toy data (8)
+    assert len(res["functional_genes"]) == min(200, 8)
+    assert np.isfinite(res["omega"])
+
+    # reference values match an explicit manuscript-style call
+    ref = compute(
+        adata, species="mouse",
+        hk_genes=["G0", "G1"],
+        func_method="pairwise_absdiff", n_top_genes=200,
+        groupby="group", group_a="A", group_b="B",
+    )
+    assert res["omega"] == pytest.approx(ref["omega"], rel=1e-12)
+
+    with pytest.raises(ValueError, match="preset"):
+        compute(
+            adata, species="mouse",
+            hk_genes=["G0", "G1"],
+            preset="nonsense",
+            groupby="group", group_a="A", group_b="B",
+        )
+
+
+# ── 16. large-n operating-window warning ──────────────────────────────
+
+def test_bootstrap_test_large_group_window_warning():
+    """Groups with >500 cells trigger a UserWarning about the CKI
+    operating window (~50-200 cells per donor per condition)."""
+    from cki import bootstrap_test
+
+    rng = np.random.RandomState(13)
+    n_a, n_b, n_genes = 501, 600, 10
+    X = rng.rand(n_a + n_b, n_genes)
+    adata = AnnData(X=X)
+    adata.var_names = [f"G{i}" for i in range(n_genes)]
+    adata.obs["group"] = ["A"] * n_a + ["B"] * n_b
+
+    with pytest.warns(UserWarning, match="operating window"):
+        bootstrap_test(
+            adata, species="mouse", groupby="group",
+            group_a="A", group_b="B",
+            hk_genes=["G0", "G1"], n_reselect_genes=3,
+            n_bootstrap=2, random_state=0, verbose=False,
+        )
+
+    # small groups stay silent
+    adata_small, _ = _make_toy_adata()
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", UserWarning)
+        bootstrap_test(
+            adata_small, species="mouse", groupby="group",
+            group_a="A", group_b="B",
+            hk_genes=["G0", "G1"], n_reselect_genes=3,
+            n_bootstrap=2, random_state=0, verbose=False,
         )

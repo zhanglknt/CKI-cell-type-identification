@@ -160,6 +160,13 @@ def get_manuscript_data():
         d["mouse_calibration"][f"{_k}_ci_lower"] = float(_r["ci_95_lower"])
         d["mouse_calibration"][f"{_k}_ci_upper"] = float(_r["ci_95_upper"])
 
+    # Observed per-category omega ranges (v45: replace bootstrap CIs in text;
+    # n = 2-4 pairs per category, so ranges are the honest summary)
+    for _g, _k in [("S_same_ct", "S"), ("D_diff_ct", "D"), ("X_cross", "X")]:
+        _w = _pilot.loc[_pilot["category"] == _g, "omega"]
+        d["mouse_calibration"][f"{_k}_min"] = float(_w.min())
+        d["mouse_calibration"][f"{_k}_max"] = float(_w.max())
+
     # ================================================================
     # Human Tabula Sapiens statistics (phase35_all_metrics_pairs.csv)
     # ================================================================

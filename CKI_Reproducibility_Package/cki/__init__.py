@@ -28,14 +28,14 @@ transcriptomic remodeling in single-cell RNA-seq data.
 """
 
 from .core import js_divergence, compute_kn, compute_kf, compute_omega, calibrate_omega, compute
-from .bootstrap import bootstrap_test, benjamini_hochberg, apply_fdr
+from .bootstrap import bootstrap_test, permutation_test, benjamini_hochberg, apply_fdr
 from .blocknull import block_shuffle_test
 from .preprocess import pseudobulk, normalize_expression, select_hvg
 from .utils import ensure_probability_distribution
 from .gene_sets import detect_housekeeping_genes, detect_functional_genes, genes_to_indices
 from .species import get_species_config, load_reference_hk_genes, list_supported_species
 
-__version__ = "0.4.7"
+__version__ = "0.4.8"
 
 __all__ = [
     # High-level API
@@ -48,6 +48,7 @@ __all__ = [
     "js_divergence",
     # Statistical testing
     "bootstrap_test",
+    "permutation_test",
     "block_shuffle_test",
     "benjamini_hochberg",
     "apply_fdr",

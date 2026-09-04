@@ -21,25 +21,49 @@ from .utils import densify
 class _BootstrapResult(dict):
     """Result dict for :func:`bootstrap_test`.
 
-    Provides the deprecated ``cohens_d`` key as a backward-compatible
-    alias for ``ses`` (standardized effect size), emitting a
-    :class:`DeprecationWarning` on access. The statistic was never a
-    Cohen's d (there is no second-sample pooled standard deviation);
-    it is a standardized effect size of the observed omega relative to
-    the permutation null distribution.
+    Provides two deprecated backward-compatible aliases, each emitting
+    a :class:`DeprecationWarning` on access:
+
+    - ``cohens_d`` -> ``ses`` (standardized effect size). The statistic
+      was never a Cohen's d (there is no second-sample pooled standard
+      deviation); it is a standardized effect size of the observed
+      omega relative to the permutation null distribution.
+    - ``ci_95`` -> ``null_ci_95``. The interval is the 2.5/97.5
+      percentile range of the permutation *null* distribution, NOT a
+      confidence interval for the observed omega.
+
+    ``dict.get`` is overridden so the aliases warn through the
+    ``.get()`` path as well (plain ``dict.get`` would bypass the
+    ``__getitem__`` interception).
     """
 
+    _ALIASES = {
+        "cohens_d": (
+            "ses",
+            "'cohens_d' is deprecated and will be removed in a "
+            "future release; the statistic is a standardized effect "
+            "size (SES), not a Cohen's d. Use result['ses'] instead.",
+        ),
+        "ci_95": (
+            "null_ci_95",
+            "'ci_95' is deprecated and will be removed in a future "
+            "release; the interval is the 2.5/97.5 percentile range "
+            "of the permutation null distribution, not a confidence "
+            "interval for omega. Use result['null_ci_95'] instead.",
+        ),
+    }
+
     def __getitem__(self, key):
-        if key == "cohens_d":
-            warnings.warn(
-                "'cohens_d' is deprecated and will be removed in a "
-                "future release; the statistic is a standardized effect "
-                "size (SES), not a Cohen's d. Use result['ses'] instead.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-            key = "ses"
+        if key in self._ALIASES:
+            canonical, message = self._ALIASES[key]
+            warnings.warn(message, DeprecationWarning, stacklevel=2)
+            key = canonical
         return super().__getitem__(key)
+
+    def get(self, key, default=None):
+        if key in self._ALIASES:
+            return self[key]
+        return super().get(key, default)
 
 
 def benjamini_hochberg(p_values: Union[np.ndarray, list]) -> np.ndarray:
@@ -173,7 +197,13 @@ def bootstrap_test(
     verbose: bool = True,
 ) -> dict:
     """
-    Bootstrap permutation test for CKI omega significance.
+    Permutation test for CKI omega significance.
+
+    Despite the historical name (``bootstrap_test``), this is a
+    **label-permutation test**, not a bootstrap resampling procedure:
+    the null distribution is built by randomly permuting group (cell)
+    labels between the two groups. :func:`permutation_test` is an
+    alias for this function.
 
     Tests whether the observed omega exceeds the null distribution
     obtained by randomly permuting group (cell) labels between the two
@@ -300,7 +330,18 @@ def bootstrap_test(
           ``(omega - null_mean) / null_std``. (This was previously
           reported under the misnomer ``cohens_d``; the old key is
           retained as a deprecated alias.)
-        - ``ci_95``: 95% confidence interval [lower, upper]
+        - ``null_ci_95``: central 95% range [2.5th, 97.5th percentile]
+          of the permutation null distribution. This is NOT a
+          confidence interval for the observed omega (the permutation
+          null is a distribution of omega values under random label
+          assignment, not a sampling distribution of the estimate).
+          (This was previously reported under the misnomer ``ci_95``;
+          the old key is retained as a deprecated alias.)
+        - ``n_null_finite``: number of finite null omega values used
+          for ``null_mean`` / ``null_std`` / ``ses`` / ``null_ci_95``
+          (non-finite null values, e.g. ``inf`` from a degenerate
+          k_n ~ 0, are excluded from those summary statistics; the
+          full raw distribution is kept in ``null_distribution``)
         - ``null_distribution``: full null omega distribution (list)
         - ``gene_selection``: description of the k_f gene-set handling
           used (per-pair re-selection vs fixed)
@@ -437,6 +478,16 @@ def bootstrap_test(
             "or (groupby, group_a, group_b)."
         )
 
+    if n_a > 500 or n_b > 500:
+        warnings.warn(
+            "permutation-test power collapses for large pseudobulks "
+            f"(n ≳ 500 cells per group; got n_a={n_a}, n_b={n_b}); "
+            "CKI operating window is ~50–200 cells per donor per "
+            "condition (see manuscript Note 3.19)",
+            UserWarning,
+            stacklevel=2,
+        )
+
     # 3. Compute observed omega
     hk_arr = list(hk_indices)
     if use_reselect:
@@ -501,21 +552,56 @@ def bootstrap_test(
         p_value = p_one["lower"]
     else:
         p_value = min(1.0, 2.0 * min(p_one["upper"], p_one["lower"]))
-    null_mean = float(np.mean(null_omega))
-    null_std = float(np.std(null_omega))
-    # Standardized effect size (SES) of the observed omega relative to
-    # the null distribution. NOTE: this is NOT a Cohen's d (there is no
-    # second-sample pooled SD); it was previously misreported under the
-    # key "cohens_d", which is retained as a deprecated alias.
-    ses = (
-        (obs_result["omega"] - null_mean) / null_std
-        if null_std > 1e-12
-        else 0.0
-    )
-    ci_95 = [
-        float(np.percentile(null_omega, 2.5)),
-        float(np.percentile(null_omega, 97.5)),
-    ]
+    # Guard against non-finite null values: a degenerate permuted
+    # k_n ~ 0 yields omega = inf, which would poison null_mean /
+    # null_std (and hence the SES) with inf/NaN. Summary statistics
+    # are computed on the finite subset only; the raw distribution
+    # (including non-finite values) is preserved in
+    # ``null_distribution`` and still drives the p-value above.
+    null_finite = null_omega[np.isfinite(null_omega)]
+    n_null_finite = int(null_finite.size)
+    if n_null_finite < null_omega.size:
+        warnings.warn(
+            f"{null_omega.size - n_null_finite} non-finite null omega "
+            "value(s) (e.g. inf from a degenerate k_n ~ 0) excluded "
+            "from null_mean/null_std/ses/null_ci_95; see "
+            "'n_null_finite' in the result.",
+            UserWarning,
+            stacklevel=2,
+        )
+
+    if n_null_finite >= 2:
+        null_mean = float(np.mean(null_finite))
+        null_std = float(np.std(null_finite))
+        # Standardized effect size (SES) of the observed omega relative
+        # to the null distribution. NOTE: this is NOT a Cohen's d
+        # (there is no second-sample pooled SD); it was previously
+        # misreported under the key "cohens_d", which is retained as a
+        # deprecated alias.
+        ses = (
+            (obs_result["omega"] - null_mean) / null_std
+            if null_std > 1e-12
+            else 0.0
+        )
+        # Central 95% range of the permutation NULL distribution —
+        # NOT a confidence interval for omega. Previously reported
+        # under the misnomer "ci_95" (retained as a deprecated alias).
+        null_ci_95 = [
+            float(np.percentile(null_finite, 2.5)),
+            float(np.percentile(null_finite, 97.5)),
+        ]
+    else:
+        warnings.warn(
+            f"fewer than 2 finite null omega values "
+            f"({n_null_finite}); null_mean/null_std/ses/null_ci_95 "
+            "are NaN.",
+            UserWarning,
+            stacklevel=2,
+        )
+        null_mean = float("nan")
+        null_std = float("nan")
+        ses = float("nan")
+        null_ci_95 = [float("nan"), float("nan")]
 
     if verbose:
         print(
@@ -548,12 +634,16 @@ def bootstrap_test(
         null_mean=null_mean,
         null_std=null_std,
         ses=ses,
-        # Backward-compatible alias for "ses" (access emits a
-        # DeprecationWarning via _BootstrapResult.__getitem__).
-        cohens_d=ses,
-        ci_95=ci_95,
+        null_ci_95=null_ci_95,
+        n_null_finite=n_null_finite,
         null_distribution=null_omega.tolist(),
         n_bootstrap=len(null_omega),
         gene_selection=gene_selection,
         reselect_identity=use_reselect,
     )
+
+
+# Descriptive alias: bootstrap_test is a label-permutation test, not a
+# bootstrap resampling procedure. The historical name is kept for
+# backward compatibility.
+permutation_test = bootstrap_test

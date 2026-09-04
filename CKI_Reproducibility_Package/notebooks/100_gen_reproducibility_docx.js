@@ -180,7 +180,7 @@ const doc = new Document({
       p("Document-build dependencies (python-docx 1.2.0, python-pptx, lxml, reportlab, and related packages) are NOT required for any analysis; they are listed separately under 'Document generation' in requirements.txt and are needed only to rebuild the manuscript, supplementary notes, and this guide."),
 
       heading("1.2 CKI Package", 3),
-      p("Version: 0.4.7 (editable install from project root)"),
+      p("Version: 0.4.8 (editable install from project root)"),
       p("Repository: https://github.com/zhanglknt/CKI-cell-type-identification"),
       p("Install (editable, recommended):"),
       code("cd <project_root>"),
@@ -679,7 +679,7 @@ const doc = new Document({
       p(""),
       p("Figure scripts: notebooks/30_genome_biology_figures.py"),
       heading("7. Reproducibility Checklist", 2),
-      p("[\u2713] Install CKI v0.4.7: pip install -e ."),
+      p("[\u2713] Install CKI v0.4.8: pip install -e ."),
       p("[\u2713] Verify Python 3.14.4 environment (Section 1.1)."),
       p("[\u2713] Verify random seed = 42 in all analysis scripts (fixed exceptions: notebooks 77/78/79 use seed 20260903)."),
       p("[\u2713] Verify HK gene source: HRT Atlas v1.0 reference (cki/data/hrt_atlas.csv, shipped; analysis scripts read the byte-identical downloaded copy data/housekeeping/Human_Mouse_Common.csv), loaded directly for all datasets."),

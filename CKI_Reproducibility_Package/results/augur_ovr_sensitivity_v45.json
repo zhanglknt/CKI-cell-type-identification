@@ -1,0 +1,3587 @@
+{
+  "design": {
+    "variant": "binary one-vs-rest per region (Augur-style; pyaugur select_variance + sklearn RF 100 trees, mtry=2, 3-fold stratified CV x 3 repeats)",
+    "sampling": "identical to 91_augur_v45.py (seed 42)",
+    "subsample_per_task": "20 vs 20 cells",
+    "class_score": "mean AUC over the class's eligible regions"
+  },
+  "per_class": [
+    {
+      "cell_type": "Astrocyte",
+      "augur_ovr_auc": 0.7030679353776816,
+      "cki_omega": 82.7482460243405,
+      "cki_kf": 0.1349277075536046,
+      "cki_kn": 0.0018145706078187
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "augur_ovr_auc": 0.6905841701760068,
+      "cki_omega": 13.555116164434796,
+      "cki_kf": 0.0665714074008685,
+      "cki_kn": 0.0058314179305614
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "augur_ovr_auc": 0.7645502645502646,
+      "cki_omega": 37.75609179647065,
+      "cki_kf": 0.1485483736117244,
+      "cki_kn": 0.004147343927326
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "augur_ovr_auc": 0.698016599802314,
+      "cki_omega": 28.8386733198317,
+      "cki_kf": 0.1968493415250545,
+      "cki_kn": 0.0069037593377852
+    },
+    {
+      "cell_type": "Ependymal",
+      "augur_ovr_auc": 0.7104780801209373,
+      "cki_omega": 22.97685975883077,
+      "cki_kf": 0.1314520811178492,
+      "cki_kn": 0.0066659942052768
+    },
+    {
+      "cell_type": "Fibroblast",
+      "augur_ovr_auc": 0.5858194683495889,
+      "cki_omega": 18.183008091415875,
+      "cki_kf": 0.117097291993459,
+      "cki_kn": 0.0070865067247628
+    },
+    {
+      "cell_type": "Microglia",
+      "augur_ovr_auc": 0.6172886600122915,
+      "cki_omega": 24.309846860966456,
+      "cki_kf": 0.0590106654746626,
+      "cki_kn": 0.002772495170144
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "augur_ovr_auc": 0.6230617896171969,
+      "cki_omega": 37.05441364072046,
+      "cki_kf": 0.0541988926759646,
+      "cki_kn": 0.0016365532689522
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "augur_ovr_auc": 0.6387105205529772,
+      "cki_omega": 40.6182991233601,
+      "cki_kf": 0.0484729479823896,
+      "cki_kn": 0.001377018886686
+    },
+    {
+      "cell_type": "Vascular",
+      "augur_ovr_auc": 0.6160887119075272,
+      "cki_omega": 13.558538233542956,
+      "cki_kf": 0.1157799228346133,
+      "cki_kn": 0.0091808104671322
+    }
+  ],
+  "per_region": [
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A13",
+      "auc": 0.6551398337112624
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A14",
+      "auc": 0.8382464096749811
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A19",
+      "auc": 0.5527210884353742
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A1C",
+      "auc": 0.5553665910808767
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A23",
+      "auc": 0.6381330309901737
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A24",
+      "auc": 0.5650037792894936
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A25",
+      "auc": 0.6543839758125473
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A29-A30",
+      "auc": 0.8036659108087679
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A32",
+      "auc": 0.653061224489796
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A35-A36",
+      "auc": 0.6434240362811792
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A35r",
+      "auc": 0.7229780801209372
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A38",
+      "auc": 0.7229780801209373
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A40",
+      "auc": 0.6914210128495842
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A43",
+      "auc": 0.6455026455026456
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A44-A45",
+      "auc": 0.562358276643991
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A46",
+      "auc": 0.6456916099773243
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human A5-A7",
+      "auc": 0.6660997732426304
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human ANC",
+      "auc": 0.5846560846560847
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human AON",
+      "auc": 0.5980725623582765
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human BL",
+      "auc": 0.5701058201058201
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human BM",
+      "auc": 0.8284202569916856
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human BNST",
+      "auc": 0.6218820861678005
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA1-3",
+      "auc": 0.7847694633408919
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA1C-CA3C",
+      "auc": 0.5956160241874527
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA1R-CA2R",
+      "auc": 0.7430083144368859
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA1R-CA2R-CA3R",
+      "auc": 0.6676114890400604
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA1U",
+      "auc": 0.6158352229780802
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA1U-CA2U-CA3U",
+      "auc": 0.7893046107331821
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA2U-CA3U",
+      "auc": 0.7250566893424036
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA3R",
+      "auc": 0.6696900982615268
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CA4C-DGC",
+      "auc": 0.5602796674225246
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CBL",
+      "auc": 0.8065003779289492
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CBV",
+      "auc": 0.7874149659863945
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CEN",
+      "auc": 0.9143990929705215
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CM",
+      "auc": 0.6715797430083145
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CM-Pf",
+      "auc": 0.5956160241874529
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CMN",
+      "auc": 0.6831065759637188
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CaB",
+      "auc": 0.7038926681783825
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CbDN",
+      "auc": 0.7658730158730158
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Cla",
+      "auc": 0.6989795918367346
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human CoA",
+      "auc": 0.832010582010582
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.5982615268329554
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human DGU-CA4Upy",
+      "auc": 0.685374149659864
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human DTg",
+      "auc": 0.8760393046107331
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human ETH",
+      "auc": 0.7054043839758125
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human FI",
+      "auc": 0.6332199546485261
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human GPe",
+      "auc": 0.594671201814059
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human GPi",
+      "auc": 0.8433484504913076
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Gpe",
+      "auc": 0.8134920634920636
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human HTHma",
+      "auc": 0.6778155706727136
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human HTHma-HTHtub",
+      "auc": 0.8488284202569917
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human HTHpo",
+      "auc": 0.596938775510204
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human HTHpo-HTHso",
+      "auc": 0.8100907029478458
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human HTHso",
+      "auc": 0.7938397581254724
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human HTHso-HTHtub",
+      "auc": 0.7356386999244141
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human HTHtub",
+      "auc": 0.7280801209372638
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human IC",
+      "auc": 0.6388888888888888
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human IO",
+      "auc": 0.7919501133786848
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human ITG",
+      "auc": 0.7683295540438398
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Idg",
+      "auc": 0.6077097505668934
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Ig",
+      "auc": 0.5682161753590325
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human LEC",
+      "auc": 0.7382842025699169
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human LG",
+      "auc": 0.7475434618291761
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human LP",
+      "auc": 0.8499622071050643
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human LP-VPL",
+      "auc": 0.788548752834467
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human La",
+      "auc": 0.5944822373393802
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human M1C",
+      "auc": 0.6730914588057446
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MD",
+      "auc": 0.623771730914588
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MD-Re",
+      "auc": 0.707482993197279
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MEC",
+      "auc": 0.5302343159486017
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MG",
+      "auc": 0.8284202569916856
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MN",
+      "auc": 0.8947467876039306
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MTG",
+      "auc": 0.7995086923658353
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MoAN",
+      "auc": 0.7802343159486017
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MoRF-MoEN",
+      "auc": 0.7108843537414966
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human MoSR",
+      "auc": 0.8822751322751324
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human NAC",
+      "auc": 0.6732804232804233
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human PAG",
+      "auc": 0.577286470143613
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human PAG-DR",
+      "auc": 0.7658730158730159
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human PB",
+      "auc": 0.6390778533635677
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human PN",
+      "auc": 0.6271730914588057
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human PTR",
+      "auc": 0.5778533635676493
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Pir",
+      "auc": 0.6337868480725624
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human PnAN",
+      "auc": 0.8097127739984883
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human PnEN",
+      "auc": 0.8613000755857899
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human PnRF",
+      "auc": 0.7764550264550265
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Pro",
+      "auc": 0.61281179138322
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Pu",
+      "auc": 0.739795918367347
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Pul",
+      "auc": 0.6785714285714285
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human RN",
+      "auc": 0.7904383975812547
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human S1C",
+      "auc": 0.49867724867724866
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human SC",
+      "auc": 0.6551398337112624
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human SEP",
+      "auc": 0.6906651549508693
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human SI",
+      "auc": 0.6381330309901739
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human SN",
+      "auc": 0.5648148148148147
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human SN-RN",
+      "auc": 0.6642101284958427
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human STG",
+      "auc": 0.5704837490551777
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human STH",
+      "auc": 0.9028722600151171
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human SpC",
+      "auc": 0.8433484504913076
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human Sub",
+      "auc": 0.7339380196523053
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human TF",
+      "auc": 0.5893801965230536
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human TH-TL",
+      "auc": 0.8272864701436129
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human V1C",
+      "auc": 0.6978458049886621
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human V2",
+      "auc": 0.5895691609977324
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human VA",
+      "auc": 0.794973544973545
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human VLN",
+      "auc": 0.8412698412698414
+    },
+    {
+      "cell_type": "Astrocyte",
+      "region": "Human VPL",
+      "auc": 0.8667800453514739
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "region": "Human CBL",
+      "auc": 0.6666666666666665
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "region": "Human CBV",
+      "auc": 0.5415721844293273
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "region": "Human IC",
+      "auc": 0.5436507936507937
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "region": "Human IO",
+      "auc": 0.7061602418745276
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "region": "Human MoAN",
+      "auc": 0.6628873771730915
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "region": "Human PnAN",
+      "auc": 0.7927059712773998
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "region": "Human PnEN",
+      "auc": 0.9204459561602418
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.7486772486772486
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "region": "Human MoAN",
+      "auc": 0.5801209372637943
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "region": "Human MoRF-MoEN",
+      "auc": 0.8647014361300076
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "region": "Human MoSR",
+      "auc": 0.9285714285714286
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "region": "Human Pul",
+      "auc": 0.5444066515495086
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "region": "Human SEP",
+      "auc": 0.9208238851095994
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human A25",
+      "auc": 0.5793650793650795
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human A35r",
+      "auc": 0.7067271352985638
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human A38",
+      "auc": 0.6621315192743764
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human A44-A45",
+      "auc": 0.6995464852607711
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human ANC",
+      "auc": 0.7715419501133787
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human AON",
+      "auc": 0.5532879818594104
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human BL",
+      "auc": 0.5980725623582767
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human BM",
+      "auc": 0.7766439909297052
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human BNST",
+      "auc": 0.883975812547241
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CA1C-CA3C",
+      "auc": 0.5925925925925927
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CA1U",
+      "auc": 0.6472033257747544
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CA1U-CA2U-CA3U",
+      "auc": 0.8021541950113379
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CA3R",
+      "auc": 0.858843537414966
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CA4C-DGC",
+      "auc": 0.5054799697656841
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CBV",
+      "auc": 0.7435752078609221
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CEN",
+      "auc": 0.7666288737717308
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CM-Pf",
+      "auc": 0.7020030234315949
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CMN",
+      "auc": 0.622260015117158
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CbDN",
+      "auc": 0.7248677248677249
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human CoA",
+      "auc": 0.6275510204081631
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.7932728647014362
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human DGU-CA4Upy",
+      "auc": 0.7911942554799697
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human FI",
+      "auc": 0.5154950869236584
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human GPe",
+      "auc": 0.8915343915343915
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human HTHso",
+      "auc": 0.8590325018896449
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human HTHtub",
+      "auc": 0.8325774754346182
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human IC",
+      "auc": 0.6942554799697657
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human LEC",
+      "auc": 0.5565003779289494
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human LG",
+      "auc": 0.6806500377928949
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human LP",
+      "auc": 0.6984126984126983
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human La",
+      "auc": 0.8665910808767953
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human M1C",
+      "auc": 0.546485260770975
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human MEC",
+      "auc": 0.6695011337868481
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human MN",
+      "auc": 0.7558578987150416
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human MTG",
+      "auc": 0.7362055933484505
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human MoAN",
+      "auc": 0.6156462585034013
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human MoSR",
+      "auc": 0.8622448979591836
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human NAC",
+      "auc": 0.7331821617535903
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human Pir",
+      "auc": 0.5377928949357521
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human PnEN",
+      "auc": 0.6519274376417232
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human PnRF",
+      "auc": 0.6940665154950869
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human Pul",
+      "auc": 0.72713529856387
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human SC",
+      "auc": 0.6335978835978835
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human SEP",
+      "auc": 0.7921390778533637
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human SI",
+      "auc": 0.5748299319727892
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human SN",
+      "auc": 0.7178760393046107
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human SN-RN",
+      "auc": 0.5580120937263795
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human STH",
+      "auc": 0.6337868480725624
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human SpC",
+      "auc": 0.6948223733938019
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human Sub",
+      "auc": 0.5992063492063493
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human TH-TL",
+      "auc": 0.716931216931217
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "region": "Human VLN",
+      "auc": 0.8416477702191989
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human ANC",
+      "auc": 0.6022297808012094
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human BL",
+      "auc": 0.7711640211640212
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human BNST",
+      "auc": 0.5633030990173848
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CA1-3",
+      "auc": 0.8594104308390024
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CA1C-CA3C",
+      "auc": 0.4820483749055177
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CA1R-CA2R-CA3R",
+      "auc": 0.8216175359032502
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CA1U",
+      "auc": 0.6621315192743764
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CA1U-CA2U-CA3U",
+      "auc": 0.8475056689342404
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CA3R",
+      "auc": 0.8227513227513228
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CA4C-DGC",
+      "auc": 0.5489417989417991
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CEN",
+      "auc": 0.7139077853363567
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CM-Pf",
+      "auc": 0.9295162509448223
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CMN",
+      "auc": 0.6772486772486772
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human CaB",
+      "auc": 0.7556689342403629
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.6660997732426304
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human DGU-CA4Upy",
+      "auc": 0.7207105064247922
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human DTg",
+      "auc": 0.890400604686319
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human ETH",
+      "auc": 0.5888133030990174
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human HTHma",
+      "auc": 0.6570294784580498
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human HTHpo",
+      "auc": 0.6621315192743764
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human HTHpo-HTHso",
+      "auc": 0.95578231292517
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human HTHtub",
+      "auc": 0.8236961451247167
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human IC",
+      "auc": 0.6349206349206349
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human MD",
+      "auc": 0.6849962207105064
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human MD-Re",
+      "auc": 0.7182539682539683
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human MN",
+      "auc": 0.899848828420257
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human MoAN",
+      "auc": 0.690854119425548
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human MoRF-MoEN",
+      "auc": 0.5659486016628873
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human MoSR",
+      "auc": 0.8448601662887377
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human NAC",
+      "auc": 0.6252834467120182
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human PAG",
+      "auc": 0.600907029478458
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human PAG-DR",
+      "auc": 0.45238095238095233
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human PnAN",
+      "auc": 0.7891156462585034
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human PnEN",
+      "auc": 0.4501133786848073
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human Pul",
+      "auc": 0.8155706727135299
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human SC",
+      "auc": 0.6509826152683296
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human SEP",
+      "auc": 0.5895691609977325
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human SpC",
+      "auc": 0.8314436885865457
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human Sub",
+      "auc": 0.6747921390778533
+    },
+    {
+      "cell_type": "Ependymal",
+      "region": "Human VA",
+      "auc": 0.8771730914588057
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human A1C",
+      "auc": 0.367535903250189
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human A24",
+      "auc": 0.4631519274376417
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human A35-A36",
+      "auc": 0.6018518518518517
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human A35r",
+      "auc": 0.6122448979591838
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human A38",
+      "auc": 0.6708238851095994
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human A40",
+      "auc": 0.6719576719576721
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human A43",
+      "auc": 0.49092970521541957
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human ANC",
+      "auc": 0.5634920634920635
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human BL",
+      "auc": 0.5510204081632654
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human BM",
+      "auc": 0.5992063492063493
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human BNST",
+      "auc": 0.6243386243386243
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CA1-3",
+      "auc": 0.6203703703703705
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CA1C-CA3C",
+      "auc": 0.5255102040816326
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CA1R-CA2R-CA3R",
+      "auc": 0.5608465608465608
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CA1U",
+      "auc": 0.5413832199546484
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CA1U-CA2U-CA3U",
+      "auc": 0.8021541950113379
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CA3R",
+      "auc": 0.7843915343915344
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CA4C-DGC",
+      "auc": 0.3730158730158731
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CBL",
+      "auc": 0.7348828420256991
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CBV",
+      "auc": 0.5925925925925926
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CEN",
+      "auc": 0.5650037792894935
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CM",
+      "auc": 0.5561224489795918
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CM-Pf",
+      "auc": 0.5258881330309902
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CMN",
+      "auc": 0.5821995464852608
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CbDN",
+      "auc": 0.6802721088435375
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human Cla",
+      "auc": 0.5485638699924414
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human CoA",
+      "auc": 0.7222222222222222
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.4973544973544974
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human DGU-CA4Upy",
+      "auc": 0.4775132275132275
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human DTg",
+      "auc": 0.626984126984127
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human ETH",
+      "auc": 0.544973544973545
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human FI",
+      "auc": 0.6099773242630385
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human GPe",
+      "auc": 0.4841269841269842
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human GPi",
+      "auc": 0.6033635676492819
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human Gpe",
+      "auc": 0.7016250944822374
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human HTHma",
+      "auc": 0.48582766439909303
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human HTHma-HTHtub",
+      "auc": 0.6744142101284959
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human HTHpo-HTHso",
+      "auc": 0.46277399848828416
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human HTHtub",
+      "auc": 0.6976568405139835
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human IC",
+      "auc": 0.3720710506424792
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human IO",
+      "auc": 0.47600151171579747
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human Ig",
+      "auc": 0.5349584278155706
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human LEC",
+      "auc": 0.5614134542705971
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human LG",
+      "auc": 0.44066515495086933
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human LP",
+      "auc": 0.8252078609221466
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human LP-VPL",
+      "auc": 0.5912698412698413
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human La",
+      "auc": 0.5092592592592593
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human M1C",
+      "auc": 0.5721844293272864
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MD",
+      "auc": 0.6097883597883598
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MD-Re",
+      "auc": 0.6674225245653816
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MEC",
+      "auc": 0.5211640211640212
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MG",
+      "auc": 0.6568405139833712
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MN",
+      "auc": 0.7613378684807256
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MTG",
+      "auc": 0.5419501133786847
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MoAN",
+      "auc": 0.7951625094482236
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MoRF-MoEN",
+      "auc": 0.5990173847316704
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human MoSR",
+      "auc": 0.8902116402116403
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human PAG",
+      "auc": 0.5846560846560848
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human PAG-DR",
+      "auc": 0.5942932728647015
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human PB",
+      "auc": 0.4650415721844294
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human PN",
+      "auc": 0.6037414965986394
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human PTR",
+      "auc": 0.5653817082388511
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human Pir",
+      "auc": 0.6188586545729403
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human PnAN",
+      "auc": 0.4584278155706727
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human PnEN",
+      "auc": 0.5181405895691609
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human PnRF",
+      "auc": 0.5821995464852607
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human Pu",
+      "auc": 0.511715797430083
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human Pul",
+      "auc": 0.5699168556311414
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human RN",
+      "auc": 0.5753968253968254
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human SC",
+      "auc": 0.5742630385487528
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human SEP",
+      "auc": 0.7823129251700681
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human SI",
+      "auc": 0.5236205593348451
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human SN",
+      "auc": 0.5294784580498866
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human SN-RN",
+      "auc": 0.531557067271353
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human STG",
+      "auc": 0.5600907029478458
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human STH",
+      "auc": 0.5895691609977325
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human SpC",
+      "auc": 0.722411186696901
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human Sub",
+      "auc": 0.44765684051398336
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human TH-TL",
+      "auc": 0.5260770975056689
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human V2",
+      "auc": 0.47656840513983373
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human VA",
+      "auc": 0.700302343159486
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human VLN",
+      "auc": 0.6404006046863189
+    },
+    {
+      "cell_type": "Fibroblast",
+      "region": "Human VPL",
+      "auc": 0.6464474678760394
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A13",
+      "auc": 0.5408163265306122
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A14",
+      "auc": 0.6213151927437641
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A19",
+      "auc": 0.48601662887377167
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A1C",
+      "auc": 0.47959183673469385
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A23",
+      "auc": 0.5175736961451247
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A24",
+      "auc": 0.5616024187452759
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A25",
+      "auc": 0.3913454270597128
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A29-A30",
+      "auc": 0.5886243386243386
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A32",
+      "auc": 0.6243386243386244
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A35-A36",
+      "auc": 0.5264550264550265
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A35r",
+      "auc": 0.6591080876795162
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A38",
+      "auc": 0.6063869992441421
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A40",
+      "auc": 0.5993953136810279
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A43",
+      "auc": 0.5440287226001511
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A44-A45",
+      "auc": 0.5451625094482238
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A46",
+      "auc": 0.5553665910808768
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human A5-A7",
+      "auc": 0.6164021164021165
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human ANC",
+      "auc": 0.5260770975056689
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human AON",
+      "auc": 0.6186696900982614
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human BL",
+      "auc": 0.49603174603174605
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human BM",
+      "auc": 0.4754346182917612
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human BNST",
+      "auc": 0.6027966742252457
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA1-3",
+      "auc": 0.6264172335600907
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA1C-CA3C",
+      "auc": 0.617535903250189
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA1R-CA2R",
+      "auc": 0.7711640211640212
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA1R-CA2R-CA3R",
+      "auc": 0.5723733938019652
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA1U",
+      "auc": 0.5973167044595615
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA1U-CA2U-CA3U",
+      "auc": 0.8420256991685563
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA2U-CA3U",
+      "auc": 0.7269463340891913
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA3R",
+      "auc": 0.7280801209372638
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CA4C-DGC",
+      "auc": 0.409297052154195
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CBL",
+      "auc": 0.5944822373393802
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CBV",
+      "auc": 0.5942932728647015
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CEN",
+      "auc": 0.8129251700680272
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CM",
+      "auc": 0.7267573696145124
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CM-Pf",
+      "auc": 0.6797052154195012
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CMN",
+      "auc": 0.6591080876795163
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CaB",
+      "auc": 0.5470521541950113
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CbDN",
+      "auc": 0.7001133786848073
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Cla",
+      "auc": 0.5714285714285714
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human CoA",
+      "auc": 0.6147014361300076
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.738284202569917
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human DGU-CA4Upy",
+      "auc": 0.7018140589569161
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human DTg",
+      "auc": 0.6815948601662888
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human ETH",
+      "auc": 0.6058201058201058
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human FI",
+      "auc": 0.5878684807256236
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human GPe",
+      "auc": 0.7260015117157974
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human GPi",
+      "auc": 0.7488662131519275
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Gpe",
+      "auc": 0.8133030990173846
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human HTHma",
+      "auc": 0.6831065759637189
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human HTHma-HTHtub",
+      "auc": 0.8089569160997733
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human HTHpo",
+      "auc": 0.5430839002267573
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human HTHpo-HTHso",
+      "auc": 0.597694633408919
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human HTHso",
+      "auc": 0.7498110355253211
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human HTHso-HTHtub",
+      "auc": 0.6402116402116403
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human HTHtub",
+      "auc": 0.7558578987150415
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human IC",
+      "auc": 0.5289115646258503
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human IO",
+      "auc": 0.6386999244142102
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human ITG",
+      "auc": 0.4803476946334089
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Idg",
+      "auc": 0.6186696900982616
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Ig",
+      "auc": 0.44595616024187446
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human LEC",
+      "auc": 0.6470143613000755
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human LG",
+      "auc": 0.7088057445200302
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human LP",
+      "auc": 0.7182539682539684
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human LP-VPL",
+      "auc": 0.6284958427815571
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human La",
+      "auc": 0.5487528344671202
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human M1C",
+      "auc": 0.6626984126984126
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MD",
+      "auc": 0.5827664399092971
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MD-Re",
+      "auc": 0.6659108087679516
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MEC",
+      "auc": 0.5359032501889645
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MG",
+      "auc": 0.7159863945578232
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MN",
+      "auc": 0.7549130763416477
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MTG",
+      "auc": 0.4557823129251701
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MoAN",
+      "auc": 0.7683295540438398
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MoRF-MoEN",
+      "auc": 0.6400226757369615
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human MoSR",
+      "auc": 0.7749433106575965
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human NAC",
+      "auc": 0.6016628873771731
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human PAG",
+      "auc": 0.5797430083144369
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human PAG-DR",
+      "auc": 0.5285336356764928
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human PB",
+      "auc": 0.5461073318216175
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human PN",
+      "auc": 0.5600907029478458
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human PTR",
+      "auc": 0.5438397581254724
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Pir",
+      "auc": 0.48733938019652306
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human PnAN",
+      "auc": 0.7123960695389268
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human PnEN",
+      "auc": 0.7195767195767195
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human PnRF",
+      "auc": 0.7152305366591082
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Pro",
+      "auc": 0.5296674225245654
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Pu",
+      "auc": 0.6005291005291006
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Pul",
+      "auc": 0.5058578987150415
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human RN",
+      "auc": 0.7010582010582012
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human S1C",
+      "auc": 0.46485260770975056
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human SC",
+      "auc": 0.5963718820861678
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human SEP",
+      "auc": 0.6235827664399093
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human SI",
+      "auc": 0.5697278911564626
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human SN",
+      "auc": 0.571806500377929
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human SN-RN",
+      "auc": 0.5092592592592593
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human STG",
+      "auc": 0.5908919123204838
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human STH",
+      "auc": 0.7156084656084656
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human SpC",
+      "auc": 0.6840513983371126
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human Sub",
+      "auc": 0.5200302343159486
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human TF",
+      "auc": 0.6464474678760394
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human TH-TL",
+      "auc": 0.5759637188208617
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human V1C",
+      "auc": 0.6233938019652306
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human V2",
+      "auc": 0.5604686318972033
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human VA",
+      "auc": 0.7602040816326531
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human VLN",
+      "auc": 0.48715041572184437
+    },
+    {
+      "cell_type": "Microglia",
+      "region": "Human VPL",
+      "auc": 0.7407407407407407
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A13",
+      "auc": 0.5619803476946333
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A14",
+      "auc": 0.5534769463340893
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A19",
+      "auc": 0.4945200302343159
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A1C",
+      "auc": 0.533257747543462
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A23",
+      "auc": 0.6462585034013606
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A24",
+      "auc": 0.6528722600151171
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A25",
+      "auc": 0.492063492063492
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A29-A30",
+      "auc": 0.7384731670445955
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A32",
+      "auc": 0.5512093726379441
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A35-A36",
+      "auc": 0.537037037037037
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A35r",
+      "auc": 0.5357142857142857
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A38",
+      "auc": 0.5154950869236583
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A40",
+      "auc": 0.513416477702192
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A43",
+      "auc": 0.5430839002267575
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A44-A45",
+      "auc": 0.6135676492819351
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A46",
+      "auc": 0.550453514739229
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human A5-A7",
+      "auc": 0.6201814058956916
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human ANC",
+      "auc": 0.6279289493575207
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human AON",
+      "auc": 0.626984126984127
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human BL",
+      "auc": 0.6158352229780801
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human BM",
+      "auc": 0.5565003779289494
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human BNST",
+      "auc": 0.45786092214663643
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA1-3",
+      "auc": 0.6492819349962207
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA1C-CA3C",
+      "auc": 0.5982615268329554
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA1R-CA2R",
+      "auc": 0.7885487528344671
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA1R-CA2R-CA3R",
+      "auc": 0.538548752834467
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA1U",
+      "auc": 0.685374149659864
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA1U-CA2U-CA3U",
+      "auc": 0.8019652305366591
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA2U-CA3U",
+      "auc": 0.6893424036281179
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA3R",
+      "auc": 0.7369614512471656
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CA4C-DGC",
+      "auc": 0.660808767951625
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CBL",
+      "auc": 0.6341647770219199
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CBV",
+      "auc": 0.6392668178382465
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CEN",
+      "auc": 0.7566137566137567
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CM",
+      "auc": 0.7732426303854875
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CM-Pf",
+      "auc": 0.6464474678760391
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CMN",
+      "auc": 0.5672713529856387
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CaB",
+      "auc": 0.5190854119425548
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CbDN",
+      "auc": 0.7528344671201814
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Cla",
+      "auc": 0.6216931216931216
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human CoA",
+      "auc": 0.7951625094482238
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.550453514739229
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human DGU-CA4Upy",
+      "auc": 0.6507936507936507
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human DTg",
+      "auc": 0.6383219954648527
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human ETH",
+      "auc": 0.590702947845805
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human FI",
+      "auc": 0.5247543461829176
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human GPe",
+      "auc": 0.5971277399848829
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human GPi",
+      "auc": 0.5200302343159486
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Gpe",
+      "auc": 0.7207105064247921
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human HTHma",
+      "auc": 0.5304232804232805
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human HTHma-HTHtub",
+      "auc": 0.7001133786848074
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human HTHpo",
+      "auc": 0.5710506424792139
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human HTHpo-HTHso",
+      "auc": 0.46031746031746035
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human HTHso",
+      "auc": 0.8108465608465608
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human HTHso-HTHtub",
+      "auc": 0.5680272108843537
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human HTHtub",
+      "auc": 0.7647392290249433
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human IC",
+      "auc": 0.6232048374905517
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human IO",
+      "auc": 0.7127739984882842
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human ITG",
+      "auc": 0.5041572184429328
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Idg",
+      "auc": 0.473167044595616
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Ig",
+      "auc": 0.46806500377928945
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human LEC",
+      "auc": 0.5464852607709751
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human LG",
+      "auc": 0.5793650793650793
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human LP",
+      "auc": 0.8074452003023432
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human LP-VPL",
+      "auc": 0.8803854875283448
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human La",
+      "auc": 0.5793650793650793
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human M1C",
+      "auc": 0.6133786848072563
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MD",
+      "auc": 0.5508314436885865
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MD-Re",
+      "auc": 0.7700302343159486
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MEC",
+      "auc": 0.6215041572184429
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MG",
+      "auc": 0.6131897203325775
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MN",
+      "auc": 0.7930839002267573
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MTG",
+      "auc": 0.5075585789871504
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MoAN",
+      "auc": 0.6109221466364324
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MoRF-MoEN",
+      "auc": 0.7479213907785336
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human MoSR",
+      "auc": 0.8172713529856388
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human NAC",
+      "auc": 0.47675736961451254
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human PAG",
+      "auc": 0.7135298563869993
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human PAG-DR",
+      "auc": 0.7316704459561603
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human PB",
+      "auc": 0.6205593348450491
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human PN",
+      "auc": 0.7953514739229024
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human PTR",
+      "auc": 0.5578231292517006
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Pir",
+      "auc": 0.5956160241874529
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human PnAN",
+      "auc": 0.6092214663643235
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human PnEN",
+      "auc": 0.6020408163265307
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human PnRF",
+      "auc": 0.6152683295540439
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Pro",
+      "auc": 0.5360922146636432
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Pu",
+      "auc": 0.5839002267573696
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Pul",
+      "auc": 0.5304232804232805
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human RN",
+      "auc": 0.5461073318216175
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human S1C",
+      "auc": 0.592214663643235
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human SC",
+      "auc": 0.4788359788359789
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human SEP",
+      "auc": 0.4011715797430084
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human SI",
+      "auc": 0.5585789871504158
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human SN",
+      "auc": 0.8027210884353742
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human SN-RN",
+      "auc": 0.6294406651549509
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human STG",
+      "auc": 0.4896069538926682
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human STH",
+      "auc": 0.7297808012093726
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human SpC",
+      "auc": 0.7156084656084656
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human Sub",
+      "auc": 0.6035525321239608
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human TF",
+      "auc": 0.5572562358276644
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human TH-TL",
+      "auc": 0.7439531368102796
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human V1C",
+      "auc": 0.5697278911564626
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human V2",
+      "auc": 0.6099773242630385
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human VA",
+      "auc": 0.7473544973544973
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human VLN",
+      "auc": 0.7008692365835224
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "region": "Human VPL",
+      "auc": 0.8110355253212396
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A13",
+      "auc": 0.5736961451247166
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A14",
+      "auc": 0.7577475434618292
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A19",
+      "auc": 0.5340136054421769
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A1C",
+      "auc": 0.45786092214663643
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A23",
+      "auc": 0.6562736205593348
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A24",
+      "auc": 0.6564625850340136
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A25",
+      "auc": 0.4701436130007559
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A29-A30",
+      "auc": 0.8616780045351473
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A32",
+      "auc": 0.7345049130763416
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A35-A36",
+      "auc": 0.5829554043839758
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A35r",
+      "auc": 0.6657218442932727
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A38",
+      "auc": 0.5723733938019654
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A40",
+      "auc": 0.4899848828420257
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A43",
+      "auc": 0.6181027966742252
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A44-A45",
+      "auc": 0.6075207860922146
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A46",
+      "auc": 0.518896447467876
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human A5-A7",
+      "auc": 0.5695389266817839
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human ANC",
+      "auc": 0.6375661375661376
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human AON",
+      "auc": 0.5472411186696902
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human BL",
+      "auc": 0.5837112622826908
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human BM",
+      "auc": 0.5829554043839758
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human BNST",
+      "auc": 0.6039304610733183
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA1-3",
+      "auc": 0.5589569160997733
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA1C-CA3C",
+      "auc": 0.5026455026455027
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA1R-CA2R",
+      "auc": 0.7333711262282692
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA1R-CA2R-CA3R",
+      "auc": 0.5990173847316704
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA1U",
+      "auc": 0.593915343915344
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA1U-CA2U-CA3U",
+      "auc": 0.8395691609977324
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA2U-CA3U",
+      "auc": 0.6385109599395314
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA3R",
+      "auc": 0.8499622071050642
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CA4C-DGC",
+      "auc": 0.6914210128495842
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CBL",
+      "auc": 0.7375283446712019
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CBV",
+      "auc": 0.6713907785336357
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CEN",
+      "auc": 0.9155328798185942
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CM",
+      "auc": 0.597127739984883
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CM-Pf",
+      "auc": 0.690098261526833
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CMN",
+      "auc": 0.4877173091458805
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CaB",
+      "auc": 0.477891156462585
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CbDN",
+      "auc": 0.5595238095238095
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Cla",
+      "auc": 0.7732426303854876
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human CoA",
+      "auc": 0.809145880574452
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.7004913076341648
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human DGU-CA4Upy",
+      "auc": 0.5447845804988662
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human DTg",
+      "auc": 0.7819349962207105
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human ETH",
+      "auc": 0.6574074074074073
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human FI",
+      "auc": 0.5614134542705973
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human GPe",
+      "auc": 0.4452003023431595
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human GPi",
+      "auc": 0.760204081632653
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Gpe",
+      "auc": 0.6687452758881329
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human HTHma",
+      "auc": 0.5194633408919124
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human HTHma-HTHtub",
+      "auc": 0.807634164777022
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human HTHpo",
+      "auc": 0.6460695389266818
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human HTHpo-HTHso",
+      "auc": 0.6515495086923658
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human HTHso",
+      "auc": 0.7482993197278912
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human HTHso-HTHtub",
+      "auc": 0.6965230536659106
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human HTHtub",
+      "auc": 0.7917611489040061
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human IC",
+      "auc": 0.8238851095993954
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human IO",
+      "auc": 0.6124338624338623
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human ITG",
+      "auc": 0.5752078609221467
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Idg",
+      "auc": 0.654572940287226
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Ig",
+      "auc": 0.5430839002267575
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human LEC",
+      "auc": 0.6216931216931216
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human LG",
+      "auc": 0.6156462585034014
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human LP",
+      "auc": 0.6400226757369615
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human LP-VPL",
+      "auc": 0.8191609977324262
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human La",
+      "auc": 0.6464474678760392
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human M1C",
+      "auc": 0.5602796674225247
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MD",
+      "auc": 0.5241874527588812
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MD-Re",
+      "auc": 0.7698412698412698
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MEC",
+      "auc": 0.5793650793650794
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MG",
+      "auc": 0.7702191987906274
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MN",
+      "auc": 0.7456538170823886
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MTG",
+      "auc": 0.5105820105820106
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MoAN",
+      "auc": 0.6039304610733183
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MoRF-MoEN",
+      "auc": 0.6075207860922147
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human MoSR",
+      "auc": 0.8635676492819351
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human NAC",
+      "auc": 0.6464474678760392
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human PAG",
+      "auc": 0.6171579743008314
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human PAG-DR",
+      "auc": 0.5510204081632654
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human PB",
+      "auc": 0.5532879818594104
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human PN",
+      "auc": 0.7199546485260772
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human PTR",
+      "auc": 0.6005291005291006
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Pir",
+      "auc": 0.5139833711262283
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human PnAN",
+      "auc": 0.6366213151927438
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human PnEN",
+      "auc": 0.6398337112622827
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human PnRF",
+      "auc": 0.6262282690854118
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Pro",
+      "auc": 0.5243764172335601
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Pu",
+      "auc": 0.5995842781557068
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Pul",
+      "auc": 0.6407785336356766
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human RN",
+      "auc": 0.7059712773998489
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human S1C",
+      "auc": 0.5258881330309902
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human SC",
+      "auc": 0.5160619803476946
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human SEP",
+      "auc": 0.6245275888133031
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human SI",
+      "auc": 0.506235827664399
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human SN",
+      "auc": 0.645124716553288
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human SN-RN",
+      "auc": 0.5937263794406652
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human STG",
+      "auc": 0.6031746031746033
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human STH",
+      "auc": 0.7817460317460317
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human SpC",
+      "auc": 0.5878684807256236
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human Sub",
+      "auc": 0.6560846560846562
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human TF",
+      "auc": 0.6681783824640968
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human TH-TL",
+      "auc": 0.6713907785336357
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human V1C",
+      "auc": 0.578042328042328
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human V2",
+      "auc": 0.6511715797430084
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human VA",
+      "auc": 0.7329931972789115
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human VLN",
+      "auc": 0.6653439153439152
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "region": "Human VPL",
+      "auc": 0.6804610733182161
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human A1C",
+      "auc": 0.404572940287226
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human A24",
+      "auc": 0.45937263794406646
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human A25",
+      "auc": 0.6171579743008314
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human A35r",
+      "auc": 0.608087679516251
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human A43",
+      "auc": 0.6077097505668934
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human A44-A45",
+      "auc": 0.7571806500377929
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human ANC",
+      "auc": 0.712962962962963
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human BL",
+      "auc": 0.586734693877551
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human BM",
+      "auc": 0.6351095993953136
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human BNST",
+      "auc": 0.4484126984126984
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CA1C-CA3C",
+      "auc": 0.61281179138322
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CA1R-CA2R",
+      "auc": 0.7174981103552532
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CA1R-CA2R-CA3R",
+      "auc": 0.5495086923658353
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CA1U",
+      "auc": 0.5980725623582767
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CA3R",
+      "auc": 0.7174981103552533
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CA4C-DGC",
+      "auc": 0.5948601662887378
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CBL",
+      "auc": 0.5020786092214663
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CBV",
+      "auc": 0.5451625094482238
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CEN",
+      "auc": 0.7235449735449735
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CM",
+      "auc": 0.8153817082388511
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CM-Pf",
+      "auc": 0.6810279667422524
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CMN",
+      "auc": 0.46541950113378683
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CaB",
+      "auc": 0.5861678004535148
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CbDN",
+      "auc": 0.5959939531368101
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human Cla",
+      "auc": 0.7730536659108088
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human CoA",
+      "auc": 0.7037037037037037
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human DGR-CA4Rpy",
+      "auc": 0.6780045351473922
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human DGU-CA4Upy",
+      "auc": 0.6925547996976569
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human DTg",
+      "auc": 0.6541950113378685
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human ETH",
+      "auc": 0.5279667422524567
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human FI",
+      "auc": 0.47959183673469385
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human GPe",
+      "auc": 0.6101662887377173
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human GPi",
+      "auc": 0.7305366591080877
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human HTHma",
+      "auc": 0.650604686318972
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human HTHma-HTHtub",
+      "auc": 0.6566515495086924
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human HTHso",
+      "auc": 0.7142857142857143
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human HTHtub",
+      "auc": 0.8359788359788359
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human IC",
+      "auc": 0.4784580498866214
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human IO",
+      "auc": 0.6933106575963719
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human ITG",
+      "auc": 0.5753968253968254
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human Ig",
+      "auc": 0.5574452003023431
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human LG",
+      "auc": 0.7052154195011338
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human LP",
+      "auc": 0.6961451247165533
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human LP-VPL",
+      "auc": 0.7739984882842026
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human M1C",
+      "auc": 0.5432728647014362
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human MD",
+      "auc": 0.6086545729402872
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human MD-Re",
+      "auc": 0.7278911564625851
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human MEC",
+      "auc": 0.6054421768707483
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human MN",
+      "auc": 0.7970521541950113
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human MTG",
+      "auc": 0.657785336356765
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human MoAN",
+      "auc": 0.7278911564625851
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human MoRF-MoEN",
+      "auc": 0.6290627362055934
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human MoSR",
+      "auc": 0.8507180650037793
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human PAG",
+      "auc": 0.5024565381708239
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human PAG-DR",
+      "auc": 0.49300831443688586
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human PB",
+      "auc": 0.6148904006046864
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human PN",
+      "auc": 0.6836734693877552
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human PTR",
+      "auc": 0.42139077853363566
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human Pir",
+      "auc": 0.5525321239606954
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human PnAN",
+      "auc": 0.4525699168556312
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human PnEN",
+      "auc": 0.7333711262282692
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human PnRF",
+      "auc": 0.5370370370370371
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human Pro",
+      "auc": 0.5455404383975812
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human Pu",
+      "auc": 0.5171957671957672
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human Pul",
+      "auc": 0.7212773998488284
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human RN",
+      "auc": 0.5727513227513227
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human S1C",
+      "auc": 0.43820861678004536
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human SC",
+      "auc": 0.6109221466364324
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human SEP",
+      "auc": 0.6713907785336356
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human SI",
+      "auc": 0.5085034013605442
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human SN",
+      "auc": 0.5275888133030989
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human SN-RN",
+      "auc": 0.43745275888133034
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human STG",
+      "auc": 0.6759259259259259
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human STH",
+      "auc": 0.6751700680272109
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human SpC",
+      "auc": 0.5445956160241875
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human Sub",
+      "auc": 0.5693499622071051
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human TH-TL",
+      "auc": 0.5466742252456538
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human V1C",
+      "auc": 0.5498866213151927
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human V2",
+      "auc": 0.47033257747543467
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human VA",
+      "auc": 0.7609599395313681
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human VLN",
+      "auc": 0.5865457294028722
+    },
+    {
+      "cell_type": "Vascular",
+      "region": "Human VPL",
+      "auc": 0.7207105064247922
+    }
+  ],
+  "spearman": {
+    "omega": {
+      "rho": 0.4424242424242424,
+      "p": 0.2004226867119421
+    },
+    "k_f": {
+      "rho": 0.5636363636363636,
+      "p": 0.0897240283170912
+    },
+    "k_n": {
+      "rho": -0.23636363636363633,
+      "p": 0.5108853175152003
+    }
+  },
+  "runtime_sec": 1323.8388996124268
+}

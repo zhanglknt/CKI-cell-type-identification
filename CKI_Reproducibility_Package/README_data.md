@@ -21,7 +21,7 @@ Processed outputs (pseudobulk matrices, omega pair matrices, figure source
 data) are archived in the repository under `results/` and in the Zenodo
 record (concept DOI: 10.5281/zenodo.20405458), and in the GitHub release:
 
-**https://github.com/zhanglknt/CKI-cell-type-identification/releases/tag/v0.4.6**
+**https://github.com/zhanglknt/CKI-cell-type-identification/releases/tag/v0.4.8**
 
 ## Analysis notebooks
 
