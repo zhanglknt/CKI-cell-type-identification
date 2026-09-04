@@ -5,6 +5,7 @@ Permutation-based statistical testing for CKI omega significance.
 Includes Benjamini-Hochberg FDR correction for multiple comparisons.
 """
 
+import warnings
 from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
@@ -14,6 +15,31 @@ from anndata import AnnData
 from .core import compute_omega
 from .gene_sets import detect_housekeeping_genes, detect_functional_genes
 from .blocknull import _omega_from_pbs
+from .utils import densify
+
+
+class _BootstrapResult(dict):
+    """Result dict for :func:`bootstrap_test`.
+
+    Provides the deprecated ``cohens_d`` key as a backward-compatible
+    alias for ``ses`` (standardized effect size), emitting a
+    :class:`DeprecationWarning` on access. The statistic was never a
+    Cohen's d (there is no second-sample pooled standard deviation);
+    it is a standardized effect size of the observed omega relative to
+    the permutation null distribution.
+    """
+
+    def __getitem__(self, key):
+        if key == "cohens_d":
+            warnings.warn(
+                "'cohens_d' is deprecated and will be removed in a "
+                "future release; the statistic is a standardized effect "
+                "size (SES), not a Cohen's d. Use result['ses'] instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            key = "ses"
+        return super().__getitem__(key)
 
 
 def benjamini_hochberg(p_values: Union[np.ndarray, list]) -> np.ndarray:
@@ -133,6 +159,7 @@ def bootstrap_test(
     cell_type_col: Optional[str] = None,
     # Bootstrap params
     n_bootstrap: int = 1000,
+    tail: str = "upper",
     # Gene re-selection (manuscript parity)
     reselect_identity: bool = True,
     n_reselect_genes: int = 200,
@@ -222,6 +249,15 @@ def bootstrap_test(
         Column for per-cell-type HK detection.
     n_bootstrap : int
         Number of bootstrap permutations. Default 1000.
+    tail : str
+        Which tail of the null distribution to test, with the same
+        naming convention as :func:`cki.blocknull.block_shuffle_test`:
+        ``"upper"`` (default; tests whether the observed omega is
+        **greater** than the permuted-label null — the manuscript's
+        usage), ``"lower"`` (tests whether the observed omega is
+        anomalously **lower** than the null), or ``"two-sided"``
+        (two-sided p = min(1, 2 x min(p_upper, p_lower))). All use the
+        (n_extreme + 1) / (n_bootstrap + 1) permutation convention.
     reselect_identity : bool
         If True (default) and no explicit identity gene inputs are
         given, the k_f gene set is re-selected at every permutation
@@ -256,10 +292,14 @@ def bootstrap_test(
         - ``omega``: observed omega value
         - ``kn``, ``kf``: component values
         - ``delta_hk``, ``delta_identity``: JS divergences
-        - ``p_value``: bootstrap p-value
+        - ``p_value``: bootstrap p-value for the selected ``tail``
         - ``null_mean``: mean of null distribution
         - ``null_std``: std of null distribution
-        - ``cohens_d``: effect size (Cohen's d vs null)
+        - ``ses``: standardized effect size of the observed omega
+          relative to the null distribution,
+          ``(omega - null_mean) / null_std``. (This was previously
+          reported under the misnomer ``cohens_d``; the old key is
+          retained as a deprecated alias.)
         - ``ci_95``: 95% confidence interval [lower, upper]
         - ``null_distribution``: full null omega distribution (list)
         - ``gene_selection``: description of the k_f gene-set handling
@@ -345,13 +385,33 @@ def bootstrap_test(
     if pseudobulk_a is not None and pseudobulk_b is not None:
         pb_a = np.asarray(pseudobulk_a, dtype=float)
         pb_b = np.asarray(pseudobulk_b, dtype=float)
+        # The permutation null needs the per-group cell counts and the
+        # pooled cell-level matrix; these must come from the group
+        # labels in adata.obs, NOT from a hardcoded 50/50 split of
+        # adata.X (the previous behavior silently assumed equal group
+        # sizes and pooled cells outside the two groups).
+        if groupby is None or group_a is None or group_b is None:
+            raise ValueError(
+                "bootstrap_test with pre-computed pseudobulks still "
+                "requires (groupby, group_a, group_b) so the "
+                "permutation null can be built from the correct "
+                "per-group cell counts and pooled cells in adata."
+            )
+        mask_a = (adata.obs[groupby] == group_a).values
+        mask_b = (adata.obs[groupby] == group_b).values
+        n_a = int(mask_a.sum())
+        n_b = int(mask_b.sum())
+
+        if n_a == 0:
+            raise ValueError(f"No cells for group '{group_a}' in '{groupby}'")
+        if n_b == 0:
+            raise ValueError(f"No cells for group '{group_b}' in '{groupby}'")
+
         X = adata.X if layer is None else adata.layers[layer]
-        if hasattr(X, "toarray"):
-            X = X.toarray()
-        X = np.asarray(X, dtype=float)
-        pooled = X
-        n_a = X.shape[0] // 2
-        n_total = X.shape[0]
+        X = densify(X, context="expression matrix")
+
+        pooled = np.vstack([X[mask_a], X[mask_b]])
+        n_total = n_a + n_b
     elif groupby is not None and group_a is not None and group_b is not None:
         mask_a = (adata.obs[groupby] == group_a).values
         mask_b = (adata.obs[groupby] == group_b).values
@@ -364,9 +424,7 @@ def bootstrap_test(
             raise ValueError(f"No cells for group '{group_b}' in '{groupby}'")
 
         X = adata.X if layer is None else adata.layers[layer]
-        if hasattr(X, "toarray"):
-            X = X.toarray()
-        X = np.asarray(X, dtype=float)
+        X = densify(X, context="expression matrix")
 
         pb_a = np.mean(X[mask_a], axis=0)
         pb_b = np.mean(X[mask_b], axis=0)
@@ -421,19 +479,35 @@ def bootstrap_test(
 
     null_omega = np.array(null_omega)
 
-    # 5. Compute statistics (one-sided permutation test)
-    # Tests whether observed omega exceeds the null distribution built from
-    # randomly permuted cell labels. The null distribution represents omega
-    # values expected under random group assignment.
+    # 5. Compute statistics (permutation test on the selected tail)
+    # Default ("upper"): tests whether observed omega exceeds the null
+    # distribution built from randomly permuted cell labels. The null
+    # distribution represents omega values expected under random group
+    # assignment.
     # P-value: (n_extreme + 1) / (n_bootstrap + 1). NaN-producing permutations
     # stay in the denominator (counted as non-extreme), matching the
     # manuscript's (B + 1) formula exactly.
-    p_value = (
-        np.sum(null_omega >= obs_result["omega"]) + 1
-    ) / (n_bootstrap + 1)
+    tail = str(tail).lower().strip()
+    if tail not in ("upper", "lower", "two-sided"):
+        raise ValueError("tail must be 'upper', 'lower', or 'two-sided'.")
+    n_extreme = {
+        "upper": int(np.sum(null_omega >= obs_result["omega"])),
+        "lower": int(np.sum(null_omega <= obs_result["omega"])),
+    }
+    p_one = {k: (v + 1) / (n_bootstrap + 1) for k, v in n_extreme.items()}
+    if tail == "upper":
+        p_value = p_one["upper"]
+    elif tail == "lower":
+        p_value = p_one["lower"]
+    else:
+        p_value = min(1.0, 2.0 * min(p_one["upper"], p_one["lower"]))
     null_mean = float(np.mean(null_omega))
     null_std = float(np.std(null_omega))
-    cohens_d = (
+    # Standardized effect size (SES) of the observed omega relative to
+    # the null distribution. NOTE: this is NOT a Cohen's d (there is no
+    # second-sample pooled SD); it was previously misreported under the
+    # key "cohens_d", which is retained as a deprecated alias.
+    ses = (
         (obs_result["omega"] - null_mean) / null_std
         if null_std > 1e-12
         else 0.0
@@ -450,7 +524,7 @@ def bootstrap_test(
         )
         print(
             f"Null: mean={null_mean:.4f}, std={null_std:.4f}, "
-            f"p={p_value:.4f}, d={cohens_d:.2f}"
+            f"p={p_value:.4f} ({tail}), ses={ses:.2f}"
         )
 
     if use_reselect:
@@ -463,19 +537,23 @@ def bootstrap_test(
     else:
         gene_selection = f"fixed (auto-detected, {func_method})"
 
-    return {
-        "omega": obs_result["omega"],
-        "kn": obs_result["kn"],
-        "kf": obs_result["kf"],
-        "delta_hk": obs_result["delta_hk"],
-        "delta_identity": obs_result["delta_identity"],
-        "p_value": p_value,
-        "null_mean": null_mean,
-        "null_std": null_std,
-        "cohens_d": cohens_d,
-        "ci_95": ci_95,
-        "null_distribution": null_omega.tolist(),
-        "n_bootstrap": len(null_omega),
-        "gene_selection": gene_selection,
-        "reselect_identity": use_reselect,
-    }
+    return _BootstrapResult(
+        omega=obs_result["omega"],
+        kn=obs_result["kn"],
+        kf=obs_result["kf"],
+        delta_hk=obs_result["delta_hk"],
+        delta_identity=obs_result["delta_identity"],
+        p_value=p_value,
+        tail=tail,
+        null_mean=null_mean,
+        null_std=null_std,
+        ses=ses,
+        # Backward-compatible alias for "ses" (access emits a
+        # DeprecationWarning via _BootstrapResult.__getitem__).
+        cohens_d=ses,
+        ci_95=ci_95,
+        null_distribution=null_omega.tolist(),
+        n_bootstrap=len(null_omega),
+        gene_selection=gene_selection,
+        reselect_identity=use_reselect,
+    )

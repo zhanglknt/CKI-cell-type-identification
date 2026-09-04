@@ -1,0 +1,29 @@
+{
+  "seed": 42,
+  "downsample_replicates": 20,
+  "downsample_target_cells": 4118,
+  "thresholds": [
+    10,
+    20,
+    50,
+    100
+  ],
+  "reference_threshold": 20,
+  "runtime_sec": 673.4,
+  "validation_max_rel_diff_class_omega": 4.1402431880365795e-15,
+  "rank_spearman_kn_full_vs_downsampled": [
+    -0.05454545454545454,
+    0.8810361811618526
+  ],
+  "rank_spearman_omega_full_vs_downsampled": [
+    0.3696969696969697,
+    0.29305007529282234
+  ],
+  "gradient_full": 6.1045766794275815,
+  "gradient_downsampled_mean": 1.7405997577854333,
+  "gradient_downsampled_sd": 0.06824957844929651,
+  "gradient_downsampled_ci95": [
+    1.6353194841569383,
+    1.8356196978381856
+  ]
+}

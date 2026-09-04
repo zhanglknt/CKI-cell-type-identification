@@ -39,8 +39,9 @@ import numpy as np
 from anndata import AnnData
 from tqdm import tqdm
 
-from .core import js_divergence
+from .core import _KN_POS_TOL, js_divergence
 from .gene_sets import detect_housekeeping_genes
+from .utils import densify
 
 
 def _top_absdiff_genes(
@@ -75,7 +76,9 @@ def _omega_from_pbs(
     kn = js_divergence(pb_a[hk_indices], pb_b[hk_indices])
     kf_genes = _top_absdiff_genes(pb_a, pb_b, hk_indices, n_top)
     kf = js_divergence(pb_a[kf_genes], pb_b[kf_genes])
-    omega = kf / kn if kn > 1e-15 else float("inf")
+    # Positivity guard (float-tolerance variant; see the numerical-
+    # guards block at the top of cki.core).
+    omega = kf / kn if kn > _KN_POS_TOL else float("inf")
     return {"omega": omega, "kn": kn, "kf": kf}
 
 

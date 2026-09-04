@@ -31,10 +31,10 @@ from typing import List, Optional, Tuple, Union, Dict, Set
 import warnings
 
 import numpy as np
-from scipy import sparse
 from anndata import AnnData
 
 from .species import load_reference_hk_genes
+from .utils import densify
 
 
 # ── Housekeeping Gene Detection ────────────────────────────────────────
@@ -213,7 +213,7 @@ def detect_housekeeping_genes(
     if len(hk_indices) > 0:
         mean_expr = np.array(X.mean(axis=0)).flatten()
         std_expr = np.array(
-            X[:, hk_indices].toarray().std(axis=0)
+            densify(X[:, hk_indices], context="HK-column expression submatrix").std(axis=0)
             if hasattr(X, "toarray")
             else X[:, hk_indices].std(axis=0)
         ).flatten()
@@ -243,11 +243,7 @@ def _detect_by_detection_rate(
     adata: AnnData,
 ) -> Set[int]:
     """Detect HK genes by expression detection rate."""
-    is_sparse = sparse.issparse(X)
-    if is_sparse:
-        X_arr = X.toarray()
-    else:
-        X_arr = np.asarray(X)
+    X_arr = densify(X, context="expression matrix (HK detection rate)")
     expressed = X_arr > 0
 
     if cell_type_col is not None and cell_type_col in adata.obs.columns:
@@ -280,10 +276,7 @@ def _detect_by_cv(
     min_mean_expr: float,
 ) -> Set[int]:
     """Detect HK genes by low coefficient of variation (Eisenberg-style)."""
-    if sparse.issparse(X):
-        X_arr = X.toarray()
-    else:
-        X_arr = np.asarray(X)
+    X_arr = densify(X, context="expression matrix (HK CV)")
 
     n_cells, n_genes = X_arr.shape
     mean_expr = np.mean(X_arr, axis=0)
@@ -589,9 +582,7 @@ def _detect_by_pairwise_absdiff(
         raise ValueError(f"No cells found for group '{group_b}' in '{groupby}'")
 
     X = adata.X if layer is None else adata.layers[layer]
-    if hasattr(X, "toarray"):
-        X = X.toarray()
-    X = np.asarray(X, dtype=float)
+    X = densify(X, context="expression matrix (pairwise_absdiff)")
 
     mu_a = X[mask_a].mean(axis=0)
     mu_b = X[mask_b].mean(axis=0)

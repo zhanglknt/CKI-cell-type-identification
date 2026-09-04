@@ -412,6 +412,38 @@ def main():
         print(f"\n{color('[R5: TCGA composition] SKIPPED (--skip-tcga)', Color.YELLOW)}")
 
     # ================================================================
+    # Phase 6b: v44 blind-review analyses (see Reproducibility Guide 5.8)
+    # ================================================================
+    print(f"\n{color('[Phase 6b] v44 blind-review analyses', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+
+    if not args.skip_tcga:
+        group_v44_tcga = [
+            ("TCGA Linear-Norm",      "notebooks/85_tcga_linear_norm_v44.py"),
+            ("TCGA Composition v44",  "notebooks/86_tcga_composition_linear_norm_v44.py"),
+            ("Cross-Organ rho CI",    "notebooks/87_cross_organ_rho_ci_v44.py"),
+        ]
+        if not run_group("V44-TCGA", group_v44_tcga, False, 90):
+            all_groups_ok = False
+    else:
+        print(f"\n{color('[V44-TCGA] SKIPPED (--skip-tcga)', Color.YELLOW)}")
+
+    if not args.skip_brain:
+        ok, _, _ = run_script("Brain Downsample+Threshold v44",
+                              "notebooks/86_brain_downsample_threshold_v44.py", 120)
+        if not ok:
+            all_groups_ok = False
+    else:
+        print(f"\n{color('[V44-Brain] SKIPPED (--skip-brain)', Color.YELLOW)}")
+
+    group_v44_rest = [
+        ("Mouse Split-Half 50rep",  "notebooks/87_mouse_splithalf_v44.py"),
+        ("Competitor Benchmark",    "notebooks/101_competitors_v44.py"),
+    ]
+    if not run_group("V44-Calibration+Benchmark", group_v44_rest, not args.sequential, 120):
+        all_groups_ok = False
+
+    # ================================================================
     # Phase 7: Figure Generation
     # ================================================================
     print(f"\n{color('[Phase 7] Figure Generation', Color.BOLD + Color.CYAN)}")
@@ -452,7 +484,7 @@ def main():
         print("  3. Generate cover letter:  python generate_cover_letter_nar.py")
         print("  4. Generate repro guide:   node notebooks/100_gen_reproducibility_docx.js")
         print("  5. Extract tables:         python notebooks/_extract_table1_2.py")
-        print("  6. Verify & build package: python 99_build_gb_v40.py  (285-assertion verification)")
+        print("  6. Verify & build package: python 99_build_gb_v44.py  (553-assertion verification)")
     else:
         print(color(f"PIPELINE FAILED — Some steps failed ({mins}m {secs}s)", Color.RED + Color.BOLD))
         print("Check the output above for FAIL markers.")

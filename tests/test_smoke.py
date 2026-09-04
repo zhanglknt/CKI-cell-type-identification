@@ -4,6 +4,8 @@ Runs without any large dataset: all tests operate on small toy matrices
 (analytically hand-checkable). CI runs these via ``pytest tests/ -v``.
 """
 
+import warnings
+
 import numpy as np
 import pytest
 from anndata import AnnData
@@ -357,3 +359,181 @@ def test_bootstrap_test_reselect_rejects_pathway():
             pathway_a=np.zeros(10), pathway_b=np.zeros(10),
             n_bootstrap=2, verbose=False,
         )
+
+
+# ── 8. bootstrap_test tail alternatives ────────────────────────────────
+
+def test_bootstrap_test_tail_alternatives():
+    """tail='lower' / 'two-sided' are supported and consistent with the
+    default 'upper' tail on the same null distribution."""
+    from cki import bootstrap_test
+
+    adata, _ = _make_toy_adata()
+    kwargs = dict(
+        species="mouse", groupby="group", group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=20, random_state=42, verbose=False,
+    )
+    upper = bootstrap_test(adata, tail="upper", **kwargs)
+    lower = bootstrap_test(adata, tail="lower", **kwargs)
+    two = bootstrap_test(adata, tail="two-sided", **kwargs)
+
+    # same seed -> identical null distributions and observed values
+    assert upper["null_distribution"] == lower["null_distribution"]
+    assert upper["omega"] == lower["omega"] == two["omega"]
+
+    for res in (upper, lower, two):
+        assert 0.0 <= res["p_value"] <= 1.0
+        assert res["tail"] in ("upper", "lower", "two-sided")
+
+    # exact relations on the shared null ((B + 1) convention)
+    null = np.asarray(upper["null_distribution"])
+    obs = upper["omega"]
+    B = 20
+    p_u = (np.sum(null >= obs) + 1) / (B + 1)
+    p_l = (np.sum(null <= obs) + 1) / (B + 1)
+    assert upper["p_value"] == pytest.approx(p_u)
+    assert lower["p_value"] == pytest.approx(p_l)
+    assert two["p_value"] == pytest.approx(min(1.0, 2.0 * min(p_u, p_l)))
+
+    with pytest.raises(ValueError, match="tail"):
+        bootstrap_test(adata, tail="sideways", **kwargs)
+
+
+# ── 9. ses key + deprecated cohens_d alias ─────────────────────────────
+
+def test_bootstrap_test_ses_and_cohens_d_alias():
+    """The standardized effect size is reported as 'ses'; 'cohens_d'
+    remains a backward-compatible alias emitting DeprecationWarning."""
+    from cki import bootstrap_test
+
+    adata, _ = _make_toy_adata()
+    res = bootstrap_test(
+        adata, species="mouse", groupby="group",
+        group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=20, random_state=42, verbose=False,
+    )
+    assert "ses" in res
+    # hand check: ses = (omega - null_mean) / null_std
+    null = np.asarray(res["null_distribution"])
+    ses_hand = (res["omega"] - null.mean()) / null.std()
+    assert res["ses"] == pytest.approx(ses_hand, rel=1e-9)
+    assert res["null_mean"] == pytest.approx(null.mean())
+
+    with pytest.warns(DeprecationWarning, match="ses"):
+        alias_val = res["cohens_d"]
+    assert alias_val == res["ses"]
+    # the new key must not warn
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", DeprecationWarning)
+        _ = res["ses"]
+
+
+# ── 10. compute() exposes kn_floor ─────────────────────────────────────
+
+def test_compute_kn_floor_passthrough():
+    """compute(kn_floor=...) is forwarded to compute_omega: a near-zero
+    k_n below the floor yields omega = k_f / kn_floor instead of inf."""
+    # identical HK profiles -> k_n = 0 exactly
+    pb_a = np.array([1.0, 2.0, 3.0, 1.0])
+    pb_b = np.array([1.0, 2.0, 4.0, 2.0])
+    hk = [0, 1]   # identical in both
+    idn = [2, 3]  # differ
+
+    res_inf = compute_omega(pb_a, pb_b, hk, idn)
+    assert res_inf["kn"] == 0.0
+    assert res_inf["omega"] == float("inf")
+
+    res_floor = compute_omega(pb_a, pb_b, hk, idn, kn_floor=1e-4)
+    assert res_floor["omega"] == pytest.approx(res_floor["kf"] / 1e-4)
+
+    # end-to-end through compute(): flat HK genes -> tiny k_n
+    adata, _ = _make_toy_adata()
+    base = compute(
+        adata, species="mouse",
+        hk_genes=["G0", "G1"],
+        func_method="pairwise_absdiff", n_top_genes=3,
+        groupby="group", group_a="A", group_b="B",
+    )
+    floored = compute(
+        adata, species="mouse",
+        hk_genes=["G0", "G1"],
+        func_method="pairwise_absdiff", n_top_genes=3,
+        groupby="group", group_a="A", group_b="B",
+        kn_floor=1e-4,
+    )
+    assert base["kn"] == floored["kn"]  # k_n unaffected by the floor
+    if floored["kn"] < 1e-4:
+        assert floored["omega"] == pytest.approx(floored["kf"] / 1e-4)
+    else:
+        assert floored["omega"] == pytest.approx(base["omega"])
+
+
+# ── 11. precomputed-pseudobulk group sizes (regression) ───────────────
+
+def test_bootstrap_precomputed_pseudobulk_group_sizes():
+    """Regression: with pre-computed pseudobulks the permutation null
+    must use the true per-group cell counts from adata.obs (previously
+    hardcoded as a 50/50 split of adata.X). With correct labels, the
+    result must match the groupby-only run bit-for-bit."""
+    from cki import bootstrap_test
+
+    # unequal group sizes: 30 A cells, 10 B cells
+    rng = np.random.RandomState(7)
+    n_a, n_b, n_genes = 30, 10, 10
+    X = rng.rand(n_a + n_b, n_genes)
+    labels = ["A"] * n_a + ["B"] * n_b
+    adata = AnnData(X=X)
+    adata.var_names = [f"G{i}" for i in range(n_genes)]
+    adata.obs["group"] = labels
+
+    kwargs = dict(
+        species="mouse", groupby="group", group_a="A", group_b="B",
+        hk_genes=["G0", "G1"], n_reselect_genes=3,
+        n_bootstrap=10, random_state=3, verbose=False,
+    )
+    ref = bootstrap_test(adata, **kwargs)
+
+    pb_a = X[:n_a].mean(axis=0)
+    pb_b = X[n_a:].mean(axis=0)
+    pre = bootstrap_test(adata, pseudobulk_a=pb_a, pseudobulk_b=pb_b, **kwargs)
+
+    assert pre["omega"] == pytest.approx(ref["omega"], rel=1e-12)
+    assert pre["null_distribution"] == pytest.approx(
+        ref["null_distribution"], rel=1e-12
+    )
+    assert pre["p_value"] == pytest.approx(ref["p_value"])
+
+    # without group labels the group sizes are unknowable -> clear error
+    with pytest.raises(ValueError, match="groupby"):
+        bootstrap_test(
+            adata, pseudobulk_a=pb_a, pseudobulk_b=pb_b,
+            species="mouse", hk_genes=["G0", "G1"],
+            n_bootstrap=2, verbose=False,
+        )
+
+
+# ── 12. densification warning ──────────────────────────────────────────
+
+def test_densify_warns_on_large_sparse():
+    """densify() must warn (not silently OOM) when a sparse matrix
+    exceeds the element/nnz threshold; small matrices stay silent."""
+    from scipy import sparse as sp
+    from cki import utils as cki_utils
+    from cki.utils import densify
+
+    small = sp.csr_matrix(np.eye(5))
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", UserWarning)
+        out = densify(small)
+    assert isinstance(out, np.ndarray) and out.shape == (5, 5)
+
+    big = sp.csr_matrix((10, 10))  # tiny; threshold monkeypatched below
+    monkey = cki_utils._DENSIFY_WARN_THRESHOLD
+    try:
+        cki_utils._DENSIFY_WARN_THRESHOLD = 50  # 10x10 = 100 elements
+        with pytest.warns(UserWarning, match="Densifying"):
+            densify(big, context="test matrix")
+    finally:
+        cki_utils._DENSIFY_WARN_THRESHOLD = monkey

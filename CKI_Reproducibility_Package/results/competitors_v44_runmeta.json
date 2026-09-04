@@ -1,0 +1,23 @@
+{
+  "script": "notebooks/101_competitors_v44.py",
+  "sections": {"A_kang_comparison": "~15s", "B_simulation": "~65s", "C_power": "~780-900s"},
+  "elapsed_seconds_total_approx": 1000,
+  "seed_base": 42,
+  "n_reps": 20,
+  "sim_design": {"target": "CD14+ Monocytes", "cells_per_type": 200,
+                 "injection": "additive Poisson mean-shift on non-HK genes >=1 CPM in target ctrl",
+                 "folds": [2.0, 4.0, 8.0], "gene_sets": [100, 500]},
+  "power_design": {"detection": "per-pair permutation test on omega, B=100, P<0.05",
+                   "C1": "donor-paired n ctrl + n stim", "C2": "pooled across donors",
+                   "ns": [50, 100, 200, 500, 1000]},
+  "meld_version": "1.0.2",
+  "scprep_version": "1.2.3",
+  "graphtools_version": "2.1.0",
+  "numpy_version": "2.4.6",
+  "pandas_version": "2.3.3",
+  "python": "3.13.14",
+  "meld_install": "pip install --no-deps meld==1.0.2 scprep graphtools tasklogger pygsp + decorator/networkx/future (scprep pins pandas<2.1 which has no cp313 wheel; pandas 2.3.3 kept, runtime-compatible)",
+  "meld_graph_random_state": 42,
+  "n2_fix": "graphtools.Graph random_state fixed to 42 (was None; randomized SVD caused 1e-4 drift in near-saturated MELD AUCs, flipping ranks and moving per-type Spearman correlations between runs). After the fix, A-section exports are byte-reproducible and CSV/JSON/report correlations agree exactly (-0.086/0.143/0.771 rounded).",
+  "scdist": "R unavailable; core idea re-implemented in Python (PC-space fixed-effects condition regression, eigenvalue-weighted norm)"
+}

@@ -1,0 +1,5 @@
+min_cells,n_classes,classes,n_pairs,n_strong,n_moderate,n_weak,grand_mean_omega,lowest_omega_class,bergmann_glia_omega_rank_low_to_high,bergmann_glia_omega_mean,astrocyte_omega_mean,astro_over_bergmann_gradient
+10,10,Astrocyte; Bergmann glia; Choroid plexus; Committed oligodendrocyte precursor; Ependymal; Fibroblast; Microglia; Oligodendrocyte; Oligodendrocyte precursor; Vascular,37361,29,1530,6824,34.919,Vascular,2.0,12.533,82.748,6.602
+20,10,Astrocyte; Bergmann glia; Choroid plexus; Committed oligodendrocyte precursor; Ependymal; Fibroblast; Microglia; Oligodendrocyte; Oligodendrocyte precursor; Vascular,31764,39,1171,5381,38.545,Bergmann glia,1.0,13.555,82.748,6.105
+50,10,Astrocyte; Bergmann glia; Choroid plexus; Committed oligodendrocyte precursor; Ependymal; Fibroblast; Microglia; Oligodendrocyte; Oligodendrocyte precursor; Vascular,25876,31,784,3964,43.555,Vascular,2.0,20.338,83.725,4.117
+100,8,Astrocyte; Committed oligodendrocyte precursor; Ependymal; Fibroblast; Microglia; Oligodendrocyte; Oligodendrocyte precursor; Vascular,22968,22,535,3453,46.386,Vascular,,,83.725,

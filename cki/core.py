@@ -11,7 +11,39 @@ from typing import Dict, List, Optional, Union
 import numpy as np
 from anndata import AnnData
 
-from .utils import ensure_probability_distribution
+from .utils import _EPS, densify, ensure_probability_distribution
+
+# ── Numerical guards (single source of truth) ─────────────────────────
+# The package uses THREE distinct guard conventions. They are NOT
+# interchangeable; each applies to a specific stage of the pipeline:
+#
+# _EPS = 1e-9  (defined in cki.utils, re-exported here)
+#     Additive epsilon used ONLY inside probability-distribution
+#     normalization (utils.ensure_probability_distribution) to keep
+#     the softmax denominator well-defined. It is NEVER added to
+#     k_n / k_f / omega — the JS divergences are computed from exact
+#     probability vectors with explicit zero-masking instead.
+#
+# Omega-denominator positivity guard  (k_n <= 0 -> omega = inf)
+#     Used in compute_omega: when k_n is numerically zero, omega is
+#     returned as inf (no epsilon is ever added to the denominator).
+#     The blocknull hybrid path (blocknull._omega_from_pbs) uses the
+#     float-tolerance variant k_n <= _KN_POS_TOL instead.
+#     This guard alone governs the single-cell analyses in the
+#     manuscript (mouse, Tabula Sapiens, brain).
+#
+# _KN_FLOOR = 1e-4
+#     Optional denominator floor for compute_omega(kn_floor=...):
+#     when 0 < k_n < kn_floor, omega is computed as k_f / kn_floor.
+#     Disabled by default (kn_floor=0). The manuscript uses it ONLY
+#     for the TCGA bulk RNA-seq analysis, where k_n can collapse to
+#     near-zero because housekeeping profiles are nearly identical
+#     across bulk pseudobulks; 1e-4 is an empirical value chosen well
+#     below the k_n range observed in the single-cell datasets, so it
+#     truncates only degenerate near-zero denominators without
+#     materially altering typical omega values (see Methods).
+_KN_POS_TOL = 1e-15
+_KN_FLOOR = 1e-4
 
 
 # ── Jensen-Shannon Divergence ───────────────────────────────────────────
@@ -253,9 +285,11 @@ def compute_omega(
     else:
         delta_identity = 0.0
 
-    # Denominator handling: optional lower bound on k_n (kn_floor > 0)
-    # or positivity guard only (kn_floor = 0, the default, matching the
-    # single-cell analyses in the manuscript).
+    # Denominator handling (see the numerical-guards block at the top
+    # of this module): optional lower bound on k_n (kn_floor > 0,
+    # e.g. _KN_FLOOR = 1e-4 for the TCGA analysis) or exact positivity
+    # guard only (kn_floor = 0, the default, matching the single-cell
+    # analyses in the manuscript).
     if kn_floor > 0 and kn < kn_floor:
         omega = kf / kn_floor
     elif kn <= 0.0:
@@ -340,6 +374,7 @@ def compute(
     alpha: float = 1.0,
     w1: float = 1.0,
     w2: float = 0.0,
+    kn_floor: float = 0.0,
     pathway_a: Optional[np.ndarray] = None,
     pathway_b: Optional[np.ndarray] = None,
     # Cell type info
@@ -435,6 +470,18 @@ def compute(
         Weight for identity genes. Default 1.0.
     w2 : float
         Weight for pathway component. Default 0.0.
+    kn_floor : float
+        Optional lower bound on the k_n denominator, forwarded to
+        :func:`compute_omega`. Default 0.0 disables the bound (exact
+        positivity guard only: k_n == 0 yields omega = inf), matching
+        the single-cell analyses in the manuscript. Set
+        ``kn_floor=1e-4`` to reproduce the TCGA bulk RNA-seq analysis:
+        bulk housekeeping profiles can be nearly identical across
+        conditions, collapsing k_n towards zero; 1e-4 is an empirical
+        floor chosen well below the k_n range observed in the
+        single-cell datasets, so it truncates only degenerate
+        near-zero denominators (see Methods, and the numerical-guards
+        block at the top of this module).
     pathway_a : optional
         Pathway expression vector for A.
     pathway_b : optional
@@ -532,6 +579,7 @@ def compute(
         hk_indices, identity_indices,
         pathway_a=pathway_a, pathway_b=pathway_b,
         alpha=alpha, w1=w1, w2=w2,
+        kn_floor=kn_floor,
     )
 
     # 5. Attach gene set info if requested

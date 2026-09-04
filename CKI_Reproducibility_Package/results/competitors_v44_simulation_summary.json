@@ -1,0 +1,193 @@
+{
+  "target_cell_type": "CD14+ Monocytes",
+  "sim_folds": [
+    2.0,
+    4.0,
+    8.0
+  ],
+  "cells_per_type": 200,
+  "n_reps": 20,
+  "seed_base": 42,
+  "methods": {
+    "cki_omega": {
+      "label": "CKI omega",
+      "threshold_q95_from_null_calib": 49.69147411534437,
+      "fpr_per_type_heldout_null": 0.08333333333333333,
+      "fpr_any_type_per_rep_heldout_null": 0.5,
+      "G100_F2.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.2,
+        "auc_target_vs_nulltypes": 0.517
+      },
+      "G100_F4.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.25,
+        "auc_target_vs_nulltypes": 0.6875
+      },
+      "G100_F8.0": {
+        "sensitivity_at_null_q95": 0.05,
+        "top1_hit_rate": 0.4,
+        "auc_target_vs_nulltypes": 0.7875
+      },
+      "G500_F2.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.0,
+        "auc_target_vs_nulltypes": 0.127
+      },
+      "G500_F4.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.0,
+        "auc_target_vs_nulltypes": 0.0595
+      },
+      "G500_F8.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.0,
+        "auc_target_vs_nulltypes": 0.0545
+      }
+    },
+    "meld_auc_within_type": {
+      "label": "MELD within-type AUC",
+      "threshold_q95_from_null_calib": 0.63487,
+      "fpr_per_type_heldout_null": 0.03333333333333333,
+      "fpr_any_type_per_rep_heldout_null": 0.2,
+      "G100_F2.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G100_F4.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G100_F8.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G500_F2.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G500_F4.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G500_F8.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      }
+    },
+    "scdist_approx_dist": {
+      "label": "scDist-approx distance",
+      "threshold_q95_from_null_calib": 10.481119535953844,
+      "fpr_per_type_heldout_null": 0.05,
+      "fpr_any_type_per_rep_heldout_null": 0.3,
+      "G100_F2.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G100_F4.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G100_F8.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G500_F2.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G500_F4.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G500_F8.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      }
+    },
+    "cki_k_f": {
+      "label": "CKI k_f component (diagnostic)",
+      "threshold_q95_from_null_calib": 0.2676703779816454,
+      "fpr_per_type_heldout_null": 0.05,
+      "fpr_any_type_per_rep_heldout_null": 0.3,
+      "G100_F2.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.05,
+        "auc_target_vs_nulltypes": 0.3185
+      },
+      "G100_F4.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.1,
+        "auc_target_vs_nulltypes": 0.6115
+      },
+      "G100_F8.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.2,
+        "auc_target_vs_nulltypes": 0.6875
+      },
+      "G500_F2.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.0,
+        "auc_target_vs_nulltypes": 0.0775
+      },
+      "G500_F4.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.0,
+        "auc_target_vs_nulltypes": 0.3205
+      },
+      "G500_F8.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.05,
+        "auc_target_vs_nulltypes": 0.391
+      }
+    },
+    "cki_k_n": {
+      "label": "CKI k_n anchor component (diagnostic, expected to INCREASE with shift)",
+      "threshold_q95_from_null_calib": 0.0082606297423253,
+      "fpr_per_type_heldout_null": 0.05,
+      "fpr_any_type_per_rep_heldout_null": 0.2,
+      "G100_F2.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.0,
+        "auc_target_vs_nulltypes": 0.159
+      },
+      "G100_F4.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.0,
+        "auc_target_vs_nulltypes": 0.2235
+      },
+      "G100_F8.0": {
+        "sensitivity_at_null_q95": 0.15,
+        "top1_hit_rate": 0.1,
+        "auc_target_vs_nulltypes": 0.369
+      },
+      "G500_F2.0": {
+        "sensitivity_at_null_q95": 0.0,
+        "top1_hit_rate": 0.0,
+        "auc_target_vs_nulltypes": 0.2705
+      },
+      "G500_F4.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      },
+      "G500_F8.0": {
+        "sensitivity_at_null_q95": 1.0,
+        "top1_hit_rate": 1.0,
+        "auc_target_vs_nulltypes": 1.0
+      }
+    }
+  }
+}

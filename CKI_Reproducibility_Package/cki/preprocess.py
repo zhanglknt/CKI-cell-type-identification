@@ -62,9 +62,7 @@ def pseudobulk(
             )
             continue
 
-        X_group = X[mask]
-        if hasattr(X_group, "toarray"):
-            X_group = X_group.toarray()
+        X_group = densify(X[mask], context=f"expression matrix (group '{group}')")
 
         result[group] = np.mean(X_group, axis=0)
 

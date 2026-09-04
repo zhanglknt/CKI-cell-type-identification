@@ -1,0 +1,27 @@
+Cross-organ rank concordance: bootstrap CI for CT-level Spearman rho (v44)
+==========================================================================
+Rebuild of 83 Part A verified vs phase35_cross_organ_summary.csv (max |delta| = 3.55e-15, 17/17 CTs)
+Pairs: 59 across 17 CTs (well-sampled: 5)
+B = 1000, seed 42; per-CT rejection sampling (all replicates valid)
+
+Point estimates (published, 83):
+  CT-level r(mean omega, mean k_f) = 0.233 (P = 0.368)
+  CT-level r(mean omega, mean k_n) = -0.309 (P = 0.228)
+  Well-sampled r(omega, k_f) = 0.100; r(omega, k_n) = -0.400
+  Pair-level r(omega, k_f) = 0.435 (P = 5.67e-04)
+
+Joint organ-clustered bootstrap 95% CI (primary):
+  CT-level Spearman rho(mean_omega, mean_kf), all 17 CTs
+    point = 0.233, bootstrap median = 0.186, 95% CI [-0.083, 0.382]
+  CT-level Spearman rho(mean_omega, mean_kn), all 17 CTs
+    point = -0.309, bootstrap median = -0.398, 95% CI [-0.605, -0.167]
+  CT-level Spearman rho(mean_omega, mean_kf), well-sampled (n_pairs>=5)
+    point = 0.100, bootstrap median = 0.200, 95% CI [-0.700, 0.900]
+  CT-level Spearman rho(mean_omega, mean_kn), well-sampled (n_pairs>=5)
+    point = -0.400, bootstrap median = -0.400, 95% CI [-0.900, 0.300]
+
+Classical CT-level bootstrap 95% CI (sensitivity):
+  r(omega, k_f): median 0.246, 95% CI [-0.470, 0.699]
+  r(omega, k_n): median -0.312, 95% CI [-0.795, 0.230]
+
+Runtime: 175s

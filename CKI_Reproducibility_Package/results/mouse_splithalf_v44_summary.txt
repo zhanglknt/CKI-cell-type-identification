@@ -1,0 +1,25 @@
+Mouse split-half calibration v44 (50 splits x 6 populations, seed=42)
+======================================================================
+Reference (6 splits, 02b): omega = 6.67, 95% boot CI [4.24, 9.24]
+
+Replicate baseline (mean of 6 populations per split, n=50):
+  mean = 7.696, SD = 1.146
+  95% CI (t)    = [7.370, 8.021]
+  95% CI (boot) = [7.382, 8.017]
+
+Pooled split-half omegas (n=300):
+  mean = 7.696, SD = 3.633
+  95% CI (t)    = [7.283, 8.109]
+  95% CI (boot) = [7.302, 8.121]
+
+Per-population:
+                            mean     std  count
+tissue cell_type                               
+Heart  endothelial cell   7.2318  1.5878     50
+       fibroblast         7.0011  1.7314     50
+Liver  hepatocyte        12.4354  5.9818     50
+Marrow B cell             7.3631  1.3933     50
+       neutrophil         5.7683  2.6692     50
+Spleen B cell             6.3749  0.9344     50
+
+Runtime: 90s

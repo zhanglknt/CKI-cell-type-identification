@@ -1,0 +1,22 @@
+{
+  "n_cell_types": 6,
+  "direction_rule": "CKI: omega_cal>1 (stim effect above split-half null); MELD: within-type AUC = P(RES_stim > RES_ctrl) > 0.5",
+  "sign_agreement_cki_vs_meld": 1.0,
+  "spearman_pertype_cki_vs_meld_auc": {
+    "rho": -0.08571428571428573,
+    "p": 0.8717434402332361
+  },
+  "spearman_pertype_cki_vs_scdist_approx": {
+    "rho": 0.14285714285714288,
+    "p": 0.7871720116618076
+  },
+  "spearman_pertype_meld_vs_scdist_approx": {
+    "rho": 0.7714285714285715,
+    "p": 0.07239650145772594
+  },
+  "spearman_per_typedonor_cki_vs_meld_auc": {
+    "rho": -0.1494253275375943,
+    "p": 0.37740229988493784,
+    "n_pairs": 37
+  }
+}
