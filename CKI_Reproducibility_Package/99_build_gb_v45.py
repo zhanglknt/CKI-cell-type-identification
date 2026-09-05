@@ -1301,14 +1301,18 @@ def verify_v45_additions(v: Verifier):
             "V45-1b stale 1.5-fold absent (MS + SN)")
 
     # ---- V45-2 mechanical: Zenodo DOI / Four analyses / thresholds / sig figs ----
-    v.check("10.5281/zenodo.22308135" in ms,
-            "V45-2a MS Zenodo version DOI for v0.4.7")
+    v.check("10.5281/zenodo.22310724" in ms,
+            "V45-2a MS Zenodo version DOI for v0.4.8 (10.5281/zenodo.22310724)")
+    v.check("10.5281/zenodo.22308135" not in ms,
+            "V45-2b stale v0.4.7 version DOI absent from MS")
     v.check("Four analyses probe the robustness" in ms,
-            "V45-2b MS 'Four analyses' (was Two)")
+            "V45-2c MS 'Four analyses' (was Two)")
     v.check(bool(re.search(r'at least 20 cells per entry', ms)),
-            "V45-2c MS unified >= 20 cells per entry threshold")
+            "V45-2d MS unified >= 20 cells per entry threshold")
     v.check("at most two significant figures" in ms,
-            "V45-2d omega_cal at most two significant figures")
+            "V45-2e omega_cal at most two significant figures")
+    v.check("(v0.4.8)" in ms and "tag v0.4.8" in ms and "v0.4.7" not in ms,
+            "V45-2f MS availability block fully on v0.4.8")
 
     # ---- V45-3 figure 1C source + Algorithm 1 explicit softmax ----
     _fig1 = (BASE_DIR / "notebooks" / "_fig1_clean.py").read_text(encoding="utf-8")
@@ -2005,10 +2009,9 @@ def verify_v38_reviewer_fixes(v: Verifier):
     v.check(bool(re.search(r'kn_floor\s*=\s*0', t)), "V38-3e kn_floor = 0 contract in MS")
     v.check(bool(re.search(r'2,?510', t)) and bool(re.search(r'7\.9%', t)),
             "V38-3f upper-tail 2,510 (7.9%) in MS")
-    v.check(bool(re.search(r'v0\.4\.8|0\.4\.8', rg))
-            and not re.search(r'0\.4\.[23456]', t) and not re.search(r'0\.4\.[23456]', rg),
-            "V38-3g version 0.4.8 in guide (no 0.4.2-0.4.6 residue; MS v0.4.7->0.4.8 "
-            "availability transition completes at the v0.4.8 Zenodo archive, phase 2)")
+    v.check(bool(re.search(r'v0\.4\.8|0\.4\.8', t)) and bool(re.search(r'v0\.4\.8|0\.4\.8', rg))
+            and not re.search(r'0\.4\.[234567]', t) and not re.search(r'0\.4\.[234567]', rg),
+            "V38-3g version 0.4.8 in MS + guide (no 0.4.2-0.4.7 residue)")
     _pkg_init = (BASE_DIR / "cki" / "__init__.py").read_text(encoding="utf-8")
     _pyproject = (BASE_DIR / "pyproject.toml").read_text(encoding="utf-8")
     v.check('__version__ = "0.4.8"' in _pkg_init
@@ -2513,7 +2516,7 @@ Status: v45 = v44 + blind-review round-4 fixes (2026-09-05; four-expert
 cold-review panel v44-score, mean 7.08/10, P0 = 0; all P1/P2 items
 resolved): SN 1.3-fold typo corrected; Figure 1C redrawn on the 300-value
 split-half calibration (Median 7.69 / Baseline 7.70); Zenodo version DOI
-10.5281/zenodo.22308135 in Availability; equal-n gradient 1.74
+10.5281/zenodo.22310724 in Availability; equal-n gradient 1.74
 [1.64, 1.84] co-headlined with the 6.10-fold uncorrected upper bound;
 abstract carries the power window (~50-200 cells per donor per
 condition); de-enrichment (148.3 expected vs 39 observed, P = 1.0)
