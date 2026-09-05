@@ -5,7 +5,7 @@ v46 = v45 + reviewer cross-check text fixes (2026-09-05): seven
 mechanical wording fixes + figure6B/6D in-panel annotations +
 review-aid shipping; cki 0.4.8 -> 0.4.9; release tag v0.4.9. MS
 Availability phase-1 keeps the v0.4.8 Zenodo record DOI
-(10.5281/zenodo.22310724); phase-2 writes the v0.4.9 record DOI.
+(10.5281/zenodo.22333850); phase-2 DONE 2026-09-05.
 
   - Text: 'at moderate-to-strong drift' qualifier on the 0.81-1.00
     raw JS/cosine FPR range (abstract + Results); pyaugur fidelity
@@ -1321,8 +1321,8 @@ def verify_v45_additions(v: Verifier):
             "V45-1b stale 1.5-fold absent (MS + SN)")
 
     # ---- V45-2 mechanical: Zenodo DOI / Four analyses / thresholds / sig figs ----
-    v.check("10.5281/zenodo.22310724" in ms,
-            "V45-2a MS Zenodo version DOI for v0.4.8 (10.5281/zenodo.22310724)")
+    v.check("10.5281/zenodo.22333850" in ms,
+            "V45-2a MS Zenodo version DOI for v0.4.9 (10.5281/zenodo.22333850)")
     v.check("10.5281/zenodo.22308135" not in ms,
             "V45-2b stale v0.4.7 version DOI absent from MS")
     v.check("Four analyses probe the robustness" in ms,
@@ -1552,7 +1552,7 @@ def verify_v46_additions(v: Verifier):
             and "0.4.9" in rg,
             "V46-i1 MS/SN/CL/Guide cite v0.4.9")
     _hits = [m.start() for m in re.finditer(r'v0\.4\.8', ms)]
-    v.check(all('22310724' in ms[h:h + 120]
+    v.check(all('22333850' in ms[h:h + 120]
                 or 'version DOI' in ms[max(0, h - 60):h] for h in _hits),
             f"V46-i2 MS v0.4.8 only on phase-1 DOI line ({len(_hits)} hits)")
     v.check("v0.4.8" not in sn and "v0.4.8" not in cl
@@ -2636,7 +2636,7 @@ submission); figure6 regenerated with 6B/6D in-panel annotations.
 Results 6,476 words; abstract 250 words; cki package v0.4.9
 (29/29 tests).
 Package released as tag v0.4.9. MS Availability phase-1 cites the
-existing v0.4.8 Zenodo record (10.5281/zenodo.22310724); the v0.4.9
+v0.4.9 Zenodo record (10.5281/zenodo.22333850); the v0.4.9
 record DOI is written in phase-2 after the release.
 Brain candidates remain hypothesis-generating signals: no formal FDR
 discovery is claimed.
