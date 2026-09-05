@@ -180,7 +180,7 @@ const doc = new Document({
       p("Document-build dependencies (python-docx 1.2.0, python-pptx, lxml, reportlab, and related packages) are NOT required for any analysis; they are listed separately under 'Document generation' in requirements.txt and are needed only to rebuild the manuscript, supplementary notes, and this guide."),
 
       heading("1.2 CKI Package", 3),
-      p("Version: 0.4.8 (editable install from project root)"),
+      p("Version: 0.4.9 (editable install from project root)"),
       p("Repository: https://github.com/zhanglknt/CKI-cell-type-identification"),
       p("Install (editable, recommended):"),
       code("cd <project_root>"),
@@ -423,7 +423,7 @@ const doc = new Document({
       p(""),
       p("  a. Calibrated omega normalization (C-M1):"),
       p("     Script: notebooks/09c_phaseC_methodological.py"),
-      p("     Calibrated omega: omega_cal = omega / 7.70 (empirical baseline from 50 split-half replicates across the six mouse control populations, 300 omega values; 95% CI [7.37, 8.02]; data: results/mouse_splithalf_v44.csv). Rescales all values so equivalent populations yield omega_cal ~ 1.0; given the width of the baseline CI, calibrated values are reported with one significant figure: brain global mean 38.55 -> omega_cal ~ 5 (range 4.8-5.2); astrocytes 82.75 -> ~ 11 (range 10.3-11.2); Bergmann glia 13.56 -> ~ 1.8. Scheme-matched split-half calibration inside the brain atlas gave an internal baseline of 9.73 (95% CI [9.03, 10.53]), ~1.3-fold higher than the mouse factor, under which Bergmann glia corresponds to omega_cal ~ 1.3 (close to the internal baseline); the Tabula Sapiens internal baseline was 7.67 (95% CI [7.39, 8.00]), inside the updated mouse CI [7.37, 8.02], so the mouse factor transfers to Tabula Sapiens but not to the brain dataset (omega_cal is dataset-relative). The legacy six-split estimate 6.67 (95% bootstrap CI [4.24, 9.24], from results/mouse_pilot_v2_results.csv, category C_control) is consistent with the updated 50-replicate estimate (CIs overlap) and is superseded. Function: cki.calibrate_omega(). Output: results/brain_bs_null_observed_pairs.csv (the authoritative observed-pair values; the earlier results/superseded/phaseC_calibration.json and results/superseded/phaseC_calibrated_omega_brain.csv predate the block-shuffle pipeline and are superseded)."),
+      p("     Calibrated omega: omega_cal = omega / 7.70 (empirical baseline from 50 split-half replicates across the six mouse control populations, 300 omega values; 95% CI [7.37, 8.02]; data: results/mouse_splithalf_v44.csv). Rescales all values so equivalent populations yield omega_cal ~ 1.0; given the width of the baseline CI, calibrated values are reported with at most two significant figures: brain global mean 38.55 -> omega_cal ~ 5 (range 4.8-5.2); astrocytes 82.75 -> ~ 11 (range 10.3-11.2); Bergmann glia 13.56 -> ~ 1.8. Scheme-matched split-half calibration inside the brain atlas gave an internal baseline of 9.73 (95% CI [9.03, 10.53]), ~1.3-fold higher than the mouse factor, under which Bergmann glia corresponds to omega_cal ~ 1.4 (close to the internal baseline); the Tabula Sapiens internal baseline was 7.67 (95% CI [7.39, 8.00]), inside the updated mouse CI [7.37, 8.02], so the mouse factor transfers to Tabula Sapiens but not to the brain dataset (omega_cal is dataset-relative). The legacy six-split estimate 6.67 (95% bootstrap CI [4.24, 9.24], from results/mouse_pilot_v2_results.csv, category C_control) is consistent with the updated 50-replicate estimate (CIs overlap) and is superseded. Function: cki.calibrate_omega(). Output: results/brain_bs_null_observed_pairs.csv (the authoritative observed-pair values; the earlier results/superseded/phaseC_calibration.json and results/superseded/phaseC_calibrated_omega_brain.csv predate the block-shuffle pipeline and are superseded)."),
       p(""),
       p("  b. JS divergence dimensionality invariance (C-M2):"),
       p("     Script: notebooks/09c_phaseC_methodological.py"),
@@ -573,6 +573,37 @@ const doc = new Document({
       p("     Benchmarks CKI against MELD 1.0.2 and a Python approximation of scDist on the Kang IFN-beta PBMC data and additive mean-shift simulations, including donor-paired power curves that delimit the per-donor working range. Outputs: results/competitors_v44_* (summary in results/competitors_v44_report.md)."),
 
       // ========================================================
+      // 5.9 V45 ANALYSES
+      // ========================================================
+      heading("5.9 v45 Analyses", 3),
+      p("The following analyses were added for the v45 revision. All reuse the authoritative gene sets, pseudobulks, and nulls of the corresponding main analyses; no result above is altered."),
+      p(""),
+      p("  a. Ratio-estimator bias-variance characterization:"),
+      p("     Script: notebooks/88_ratio_estimator_v45.py"),
+      p("     Bias-variance characterization of the ratio estimator omega = k_f / k_n under the null (split-half data): part 1 quantifies ratio-estimator bias with a delta-method cross-check, binned by k_n (<1e-4 / 1e-4-1e-3 / >1e-3); part 2 reports class-level robust-summary sensitivity. Outputs: results/ratio_estimator_biasvar_v45.json, results/ratio_estimator_biasvar_v45_report.md."),
+      p(""),
+      p("  b. Small-cluster bootstrap corrections:"),
+      p("     Script: notebooks/89_cluster_boot_v45.py"),
+      p("     Small-cluster corrections for the region-clustered bootstrap confidence intervals: (a) percentile, (b) wild cluster bootstrap with Rademacher weights, and (c) studentized (bootstrap-t) intervals, with a Monte Carlo coverage simulation (studentized coverage 0.953/0.951 versus percentile 0.876/0.873); the studentized intervals ground the v45 qualitative downgrade of the Bergmann-glia endpoint. Outputs: results/cluster_boot_v45.json, results/cluster_boot_v45_report.md."),
+      p(""),
+      p("  c. Non-HK-anchored neutral drift controls:"),
+      p("     Script: notebooks/90_nonhk_drift_v45.py"),
+      p("     Adversarial neutral-drift definitions on the identical simulation background and scheme: N0 (internal control) reproduces the HK-drift result; N1 shifts a random expression-matched low-variance non-HK gene set (omega FPR stays <= 0.067 across eta while raw JS and cosine inflate to 0.81-1.00 at eta >= 0.5); N2 applies composition-preserving gene-identity swaps (266/532/1,064 genes; per-cell library size and the expression multiset exactly preserved). Outputs: results/nonhk_drift_v45_raw.csv, results/nonhk_drift_v45.json, results/nonhk_drift_v45_report.md."),
+      p(""),
+      p("  d. Augur cell-type prioritization (multiclass):"),
+      p("     Script: notebooks/91_augur_v45.py"),
+      p("     Multiclass Augur (pyaugur 0.1.0, pure-Python port of R Augur v1.0.3) on the brain atlas with condition = brain region (33,036 stratified nuclei; random forest, 100 trees, CP10k + log1p input; 5 subsample seeds x 3-fold stratified CV): macro-OvR AUC per class versus CKI omega. This variant is confounded by eligible-region count (AUC versus region count rho = -0.744, P = 0.014) and is reported as sensitivity only. Outputs: results/augur_comparison_v45.json, results/augur_comparison_v45_report.md."),
+      p(""),
+      p("  e. Augur binary one-vs-rest variant (confound-controlled, primary):"),
+      p("     Script: notebooks/91b_augur_ovr_v45.py"),
+      p("     Primary confound-controlled variant: for each eligible region r, r versus the class's other eligible regions (20 versus 20 cells, 3 repeats x 3 folds; class score = mean AUC over regions). Class-level Spearman versus omega rho = +0.442 (P = 0.200), versus k_f rho = +0.564 (P = 0.090), versus k_n rho = -0.236 (P = 0.511). Outputs: results/augur_ovr_sensitivity_v45.json."),
+      p(""),
+      p("  f. Figure 1 clean layout:"),
+      p("     Script: notebooks/_fig1_clean.py"),
+      p("     Clean-layout Figure 1 (CKI framework) for the submission: two-row GridSpec (Panel A over Panel B; the pipeline drawn in its own axes), shared visual identity from notebooks/_fig_style.py; data and numeric computations are unchanged relative to the previous version. Outputs: the submission Figure 1 renders saved via the _fig_style helpers."),
+      p(""),
+
+      // ========================================================
       // 6. OUTPUT FILES
       // ========================================================
       heading("6. Output Files", 2),
@@ -679,7 +710,7 @@ const doc = new Document({
       p(""),
       p("Figure scripts: notebooks/30_genome_biology_figures.py"),
       heading("7. Reproducibility Checklist", 2),
-      p("[\u2713] Install CKI v0.4.8: pip install -e ."),
+      p("[\u2713] Install CKI v0.4.9: pip install -e ."),
       p("[\u2713] Verify Python 3.14.4 environment (Section 1.1)."),
       p("[\u2713] Verify random seed = 42 in all analysis scripts (fixed exceptions: notebooks 77/78/79 use seed 20260903)."),
       p("[\u2713] Verify HK gene source: HRT Atlas v1.0 reference (cki/data/hrt_atlas.csv, shipped; analysis scripts read the byte-identical downloaded copy data/housekeeping/Human_Mouse_Common.csv), loaded directly for all datasets."),

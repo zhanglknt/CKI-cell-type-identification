@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
-"""Build CKI Submission Package v45 (Genome Biology).
+"""Build CKI Submission Package v46 (Genome Biology).
+
+v46 = v45 + reviewer cross-check text fixes (2026-09-05): seven
+mechanical wording fixes + figure6B/6D in-panel annotations +
+review-aid shipping; cki 0.4.8 -> 0.4.9; release tag v0.4.9. MS
+Availability phase-1 keeps the v0.4.8 Zenodo record DOI
+(10.5281/zenodo.22310724); phase-2 writes the v0.4.9 record DOI.
+
+  - Text: 'at moderate-to-strong drift' qualifier on the 0.81-1.00
+    raw JS/cosine FPR range (abstract + Results); pyaugur fidelity
+    benchmark provenance (SN 3.23); Guide omega_cal ~ 1.3 -> ~ 1.4
+    + new section 5.9 (notebooks 88/89/90/91/91b/_fig1_clean);
+    SN 3.5 omega_cal 1.39 -> 1.4 (two significant figures); TCGA
+    composition unified on softmax primary (-0.5% [-3.2%, +2.6%]),
+    linear -0.8% as sensitivity; MANIFEST Contents annotations
+    corrected; review-aid fulltext extracts + GA renders now ship
+    in the zip (not part of the journal submission).
+  - Figure 6: 6B/6D in-panel annotations (new figure6.pdf).
 
 v45 = v44 + blind-review round-4 (four-expert panel v44-score, cold
 review mean 7.08/10, P0 = 0) full fixes (2026-09-05), four new
@@ -226,8 +243,8 @@ PYTHON = BASE_DIR / "cki_env" / "Scripts" / "python.exe"
 NODE = r"C:\Users\KnightZ\.workbuddy\binaries\node\versions\22.22.2-2\node.exe"
 NODE_PATH = r"C:\Users\KnightZ\.workbuddy\binaries\node\workspace\node_modules"
 
-V38_ZIP = VERSION3_DIR / "CKI_Submission_v45.zip"
-WORK_DIR = VERSION3_DIR / "CKI_Submission_v45"
+V38_ZIP = VERSION3_DIR / "CKI_Submission_v46.zip"
+WORK_DIR = VERSION3_DIR / "CKI_Submission_v46"
 FIGURES_SUBMISSION_DIR = RESULTS_DIR / "figures_submission"
 
 
@@ -355,7 +372,7 @@ class Verifier:
         return p.read_text(encoding="utf-8") if p.exists() else ""
 
     def manifest_text(self):
-        p = self.wd / "MANIFEST_v45.txt"
+        p = self.wd / "MANIFEST_v46.txt"
         return p.read_text(encoding="utf-8") if p.exists() else ""
 
 
@@ -546,11 +563,14 @@ def verify_v40_additions(v: Verifier):
     if V38_ZIP.exists():
         with zipfile.ZipFile(V38_ZIP) as _z:
             _names = _z.namelist()
-        v.check(not any(n.endswith("_fulltext.txt") for n in _names),
-                "V40-E no plain-text extracts in zip (Word-only documents)")
-        v.check(not any(n.endswith(("CKI_graphical_abstract.png", "CKI_graphical_abstract.svg"))
-                        for n in _names),
-                "V40-F GA png/svg absent from zip (PDF only)")
+        # v46 policy: review-aid files ship in the zip (lead-accepted);
+        # they are marked in the MANIFEST as not part of the journal
+        # submission. Journal document deliverables remain Word-only (V40-G).
+        v.check(any(n.endswith("CKI_Manuscript_fulltext.txt") for n in _names),
+                "V40-E plain-text extracts ship in zip as review aids (v46 policy)")
+        v.check(any(n.endswith("CKI_graphical_abstract.png") for n in _names)
+                and any(n.endswith("CKI_graphical_abstract.svg") for n in _names),
+                "V40-F GA png/svg ship in zip as review aids (v46 policy)")
         _docx = {n.rsplit("/", 1)[-1] for n in _names if n.endswith(".docx")}
         v.check(_docx == {"CKI_Manuscript.docx", "CKI_Supplementary.docx",
                           "CKI_Cover_Letter.docx", "CKI_Reproducibility_Guide.docx",
@@ -991,7 +1011,7 @@ def verify_r2_additions(v: Verifier):
     t = v.ms_text()
     s = v.supp_text()
     g = v.rg_text()
-    mf = (v.wd / "MANIFEST_v45.txt").read_text(encoding="utf-8")
+    mf = (v.wd / "MANIFEST_v46.txt").read_text(encoding="utf-8")
     import json as _json
 
     # ---- E3 P1-1: Guide 5.7h human-pairs caliber unified to 4,851 ----
@@ -1120,8 +1140,8 @@ def verify_v43_reprofix(v: Verifier):
     # ---- P2: sizes / versions ----
     v.check("~0.74 GB" in g, "V43-13 Guide TPM size 0.74 GB")
     v.check("~3.2 GB" not in g, "V43-14 stale TPM size absent")
-    v.check("v0.4.8" in cl and "v0.4.7" not in cl,
-            "V43-15 cover letter release tag v0.4.8")
+    v.check("v0.4.9" in cl and "v0.4.7" not in cl,
+            "V43-15 cover letter release tag v0.4.9")
 
     # ---- human >=20 filter attribution ----
     v.check("13_phase35_human_pairs.py" in g,
@@ -1130,10 +1150,10 @@ def verify_v43_reprofix(v: Verifier):
     # ---- README fixes (repo root) ----
     _readme = (BASE_DIR / "README.md").read_text(encoding="utf-8")
     _data_readme = (BASE_DIR / "data" / "README_data.md").read_text(encoding="utf-8")
-    v.check("cki:0.4.8" in _readme and "cki:0.4.7" not in _readme,
-            "V43-17 README docker tag 0.4.8")
-    v.check("releases/tag/v0.4.8" in _data_readme,
-            "V43-18 data README release link v0.4.8")
+    v.check("cki:0.4.9" in _readme and "cki:0.4.7" not in _readme,
+            "V43-17 README docker tag 0.4.9")
+    v.check("releases/tag/v0.4.9" in _data_readme,
+            "V43-18 data README release link v0.4.9")
     v.check("tabula-muris.ds.czbiohub.com" not in _data_readme,
             "V43-19 dead tabula-muris portal link removed")
     v.check("github.com/czbiohub-sf/tabula-muris" in _data_readme,
@@ -1311,8 +1331,8 @@ def verify_v45_additions(v: Verifier):
             "V45-2d MS unified >= 20 cells per entry threshold")
     v.check("at most two significant figures" in ms,
             "V45-2e omega_cal at most two significant figures")
-    v.check("(v0.4.8)" in ms and "tag v0.4.8" in ms and "v0.4.7" not in ms,
-            "V45-2f MS availability block fully on v0.4.8")
+    v.check("(v0.4.9)" in ms and "tag v0.4.9" in ms and "v0.4.7" not in ms,
+            "V45-2f MS availability block fully on v0.4.9 (phase-1 DOI line excepted)")
 
     # ---- V45-3 figure 1C source + Algorithm 1 explicit softmax ----
     _fig1 = (BASE_DIR / "notebooks" / "_fig1_clean.py").read_text(encoding="utf-8")
@@ -1359,7 +1379,7 @@ def verify_v45_additions(v: Verifier):
             "V45-6a SN Note 3.22 present")
     v.check(bool(re.search(r'0\.067', sn)),
             "V45-6b SN N1 omega FPR <= 0.067")
-    v.check(bool(re.search(r'not an anchoring artifact', ms)),
+    v.check(bool(re.search(r'(?:not an|no) anchoring artifact', ms)),
             "V45-6c MS abstract construction-dependence qualifier")
     v.check(bool(re.search(r'FPR = 1\.00', ms) and re.search(r'FPR =\s*1\.00', sn)),
             "V45-6d N2 swap defeats all metrics (MS + SN)")
@@ -1428,7 +1448,7 @@ def verify_v45_additions(v: Verifier):
     _init = (BASE_DIR / "cki" / "__init__.py").read_text(encoding="utf-8")
     _boot = (BASE_DIR / "cki" / "bootstrap.py").read_text(encoding="utf-8")
     _core = (BASE_DIR / "cki" / "core.py").read_text(encoding="utf-8")
-    v.check('__version__ = "0.4.8"' in _init, "V45-13a cki __version__ = 0.4.8")
+    v.check('__version__ = "0.4.9"' in _init, "V45-13a cki __version__ = 0.4.9")
     v.check("null_ci_95" in _boot and "_ALIASES" in _boot,
             "V45-13b ci_95 renamed null_ci_95 with generic alias mechanism")
     v.check("permutation_test" in _init, "V45-13c permutation_test alias exported")
@@ -1441,8 +1461,8 @@ def verify_v45_additions(v: Verifier):
             "V45-13e cki test suite 29/29 PASS")
 
     # ---- V45-14 manifest banner ----
-    v.check("v45" in mf and "v0.4.8" in mf,
-            "V45-14 MANIFEST version banner = v45 / tag v0.4.8")
+    v.check("v46" in mf and "v0.4.9" in mf,
+            "V45-14 MANIFEST version banner = v46 / tag v0.4.9")
 
     # ---- V45-15 analysis result files exist ----
     for _fn, _lb in [
@@ -1453,6 +1473,91 @@ def verify_v45_additions(v: Verifier):
         ("augur_ovr_sensitivity_v45.json", "analysis D OvR JSON"),
     ]:
         v.check((RESULTS_DIR / _fn).exists(), f"V45-15 {_fn} ({_lb})")
+
+
+
+
+def verify_v46_additions(v: Verifier):
+    """v46 reviewer cross-check fixes: seven text fixes + figure6
+    in-panel annotations + review-aid shipping + version bump to
+    v0.4.9 (MS phase-1 keeps the v0.4.8 Zenodo record DOI)."""
+    print(f"\n{'-'*50}")
+    print(f"  v46 Additions (reviewer cross-check)")
+    print(f"{'-'*50}")
+
+    ms = v.ms_text()
+    sn = v.supp_text()
+    cl = v.cl_text()
+    rg = v.rg_text()
+    mf = v.manifest_text()
+
+    # (a) eta qualifier exactly twice in MS (abstract + Results)
+    v.check(ms.count("at moderate-to-strong drift") == 2,
+            "V46-a MS 'at moderate-to-strong drift' exactly 2x")
+
+    # (b) abstract still <= 250 words
+    _ab = 0
+    for _l in ms.split('\n'):
+        _t = _l.strip()
+        if _t.startswith('Background') and 'Standard distance metrics' in _t:
+            _ab += len(_t.split())
+        elif _t.startswith('Results') and 'ground-truth simulation' in _t:
+            _ab += len(_t.split())
+        elif _t.startswith('Conclusions') and 'CKI provides' in _t:
+            _ab += len(_t.split())
+    v.check(0 < _ab <= 250, f"V46-b abstract <= 250 words (= {_ab})")
+
+    # (c) guide section 5.9 + omega_cal 1.4
+    v.check("5.9 v45 Analyses" in rg,
+            "V46-c1 Guide section 5.9 'v45 Analyses' present")
+    v.check("omega_cal ~ 1.4" in rg and "omega_cal ~ 1.3" not in rg,
+            "V46-c2 Guide Bergmann omega_cal ~ 1.4 (stale 1.3 absent)")
+
+    # (d) SN pyaugur provenance + two-sig-fig omega_cal
+    v.check("shipped with the pyaugur package" in sn,
+            "V46-d1 SN pyaugur fidelity benchmark provenance")
+    v.check("1.4 (raw" in sn and "1.39 (raw" not in sn,
+            "V46-d2 SN 3.5 omega_cal 1.4 (raw ...) two sig figs")
+
+    # (e) MS softmax primary + linear sensitivity
+    v.check("linear-normalization sensitivity" in ms,
+            "V46-e1 MS linear run demoted to sensitivity")
+    v.check("0.5%, bootstrap 95% CI" in ms,
+            "V46-e2 MS softmax primary -0.5% bootstrap 95% CI")
+
+    # (f) MANIFEST Contents + review-aid wording
+    v.check("3.20-3.23" in mf and "review aids" in mf,
+            "V46-f1 MANIFEST Notes 3.20-3.23 + review-aid wording")
+    v.check("validation point 6" not in mf and "scripts 44-46" not in mf,
+            "V46-f2 MANIFEST stale Contents annotations absent")
+
+    # (g) zip ships review aids + annotated figure6
+    import hashlib as _hl
+    with zipfile.ZipFile(V38_ZIP) as _z:
+        _names = _z.namelist()
+        _f6 = _z.read("CKI_Submission_v46/figure6.pdf")
+    v.check("CKI_Submission_v46/CKI_Manuscript_fulltext.txt" in _names,
+            "V46-g1 zip ships review-aid fulltext extracts")
+    v.check(_hl.sha256(_f6).hexdigest() ==
+            "050fe51c7951dd22f992e0062bc1cf4a49d25f9f8901f45fd1306ce5fc071769",
+            "V46-g2 zip figure6.pdf = annotated render (sha256 match)")
+
+    # (h) no zip-exclusion lambda remains in this script
+    _src = Path(os.path.abspath(__file__)).read_text(encoding="utf-8")
+    v.check(("ZIP" + "_EXCLUDE") not in _src,
+            "V46-h build script ships all WORK_DIR files (no exclusion)")
+
+    # (i) version refs on v0.4.9; MS v0.4.8 only on phase-1 DOI line
+    v.check("v0.4.9" in ms and "v0.4.9" in sn and "v0.4.9" in cl
+            and "0.4.9" in rg,
+            "V46-i1 MS/SN/CL/Guide cite v0.4.9")
+    _hits = [m.start() for m in re.finditer(r'v0\.4\.8', ms)]
+    v.check(all('22310724' in ms[h:h + 120]
+                or 'version DOI' in ms[max(0, h - 60):h] for h in _hits),
+            f"V46-i2 MS v0.4.8 only on phase-1 DOI line ({len(_hits)} hits)")
+    v.check("v0.4.8" not in sn and "v0.4.8" not in cl
+            and "0.4.8" not in rg,
+            "V46-i3 SN/CL/Guide free of stale v0.4.8")
 
 
 def verify_files(v: Verifier):
@@ -2009,14 +2114,14 @@ def verify_v38_reviewer_fixes(v: Verifier):
     v.check(bool(re.search(r'kn_floor\s*=\s*0', t)), "V38-3e kn_floor = 0 contract in MS")
     v.check(bool(re.search(r'2,?510', t)) and bool(re.search(r'7\.9%', t)),
             "V38-3f upper-tail 2,510 (7.9%) in MS")
-    v.check(bool(re.search(r'v0\.4\.8|0\.4\.8', t)) and bool(re.search(r'v0\.4\.8|0\.4\.8', rg))
+    v.check(bool(re.search(r'v0\.4\.9|0\.4\.9', t)) and bool(re.search(r'v0\.4\.9|0\.4\.9', rg))
             and not re.search(r'0\.4\.[234567]', t) and not re.search(r'0\.4\.[234567]', rg),
-            "V38-3g version 0.4.8 in MS + guide (no 0.4.2-0.4.7 residue)")
+            "V38-3g version 0.4.9 in MS + guide (no 0.4.2-0.4.7 residue)")
     _pkg_init = (BASE_DIR / "cki" / "__init__.py").read_text(encoding="utf-8")
     _pyproject = (BASE_DIR / "pyproject.toml").read_text(encoding="utf-8")
-    v.check('__version__ = "0.4.8"' in _pkg_init
-            and re.search(r'^version\s*=\s*"0\.4\.8"', _pyproject, re.M) is not None,
-            "REL-1 package version bumped to 0.4.8 in cki/__init__.py + pyproject.toml")
+    v.check('__version__ = "0.4.9"' in _pkg_init
+            and re.search(r'^version\s*=\s*"0\.4\.9"', _pyproject, re.M) is not None,
+            "REL-1 package version bumped to 0.4.9 in cki/__init__.py + pyproject.toml")
     v.check(bool(re.search(r'Dockerfile', t)), "V38-3h Dockerfile mention in MS")
     v.check(bool(re.search(r'scanpy:\s+1\.12\.1', rg)), "V38-3i scanpy 1.12.1 in guide")
     v.check(bool(re.search(r'ratio\s+artifact\s+of\s+the\s+k_n\s+denominator', cl)),
@@ -2436,8 +2541,8 @@ def verify_v38_numeric(v: Verifier):
 
 def build_v38():
     print("=" * 60)
-    print("  CKI Submission Package v45 (Genome Biology) Builder")
-    print("  Blind-review round-4 fixes + fresh DOCX rebuild")
+    print("  CKI Submission Package v46 (Genome Biology) Builder")
+    print("  Reviewer cross-check fixes + fresh DOCX rebuild")
     print("=" * 60)
 
     if not collect_figures():
@@ -2509,34 +2614,54 @@ def build_v38():
         print(f"  {txt_name}: {WORK_DIR.joinpath(txt_name).stat().st_size:,} bytes")
 
     # 3. Manifest
-    print(f"\n[3] Writing MANIFEST_v45.txt...")
+    print(f"\n[3] Writing MANIFEST_v46.txt...")
     manifest = f"""CKI Submission Package v45 (Genome Biology, Methodology article)
 Built: {datetime.now().strftime('%Y-%m-%d %H:%M')}
-Status: v45 = v44 + blind-review round-4 fixes (2026-09-05; four-expert
-cold-review panel v44-score, mean 7.08/10, P0 = 0; all P1/P2 items
-resolved): SN 1.3-fold typo corrected; Figure 1C redrawn on the 300-value
-split-half calibration (Median 7.69 / Baseline 7.70); Zenodo version DOI
-10.5281/zenodo.22310724 in Availability; equal-n gradient 1.74
-[1.64, 1.84] co-headlined with the 6.10-fold uncorrected upper bound;
-abstract carries the power window (~50-200 cells per donor per
-condition); de-enrichment (148.3 expected vs 39 observed, P = 1.0)
-promoted to the candidate-section opening; conditional hit-rate
-P-values fenced as not valid post-selection; leave-pair-out
-non-circular k_f acknowledged (1.61-fold upper bound); mouse pilot
-CIs replaced by observed ranges; ratio-estimator bias quantified
-(+0.2% median; headline conservative); small-cluster intervals
-replaced by studentized bootstrap-t (gradient [4.43, 7.69];
-Bergmann [5.76, 28.59] downgraded to qualitative; choroid
-[25.93, 76.30]); non-HK drift controls (N1: omega FPR <= 0.067 vs
-raw JS/cosine 0.81-1.00; N2 disclosed); Augur comparison added
-(pyaugur 0.1.0; binary OvR primary: omega rho = +0.442, k_f +0.564;
-complementary not redundant); Results compressed to 6,457 words;
-cki package bumped to v0.4.8 (null_ci_95 rename + alias mechanism,
-permutation_test alias, non-finite null guard, preset='manuscript',
->500-cell window warning; 29/29 tests).
-Package released as tag v0.4.8.
+Status: v46 = v45 + reviewer cross-check text fixes (2026-09-05):
+the 0.81-1.00 raw JS/cosine FPR range is qualified to
+moderate-to-strong drift (eta >= 0.5) in abstract and Results; the
+pyaugur fidelity benchmark is attributed to the port's own package
+validation; the Reproducibility Guide corrects Bergmann omega_cal
+1.3 -> 1.4 (brain-internal baseline) and gains section 5.9
+documenting the v45 analyses (notebooks 88, 89, 90, 91, 91b,
+_fig1_clean.py); SN 3.5 reports the most-constrained-class
+omega_cal at two significant figures (1.4); the TCGA composition
+check is unified on the softmax primary (-0.5% pooled, 95% CI
+[-3.2%, +2.6%]) with the linear-normalization run (-0.8%) as
+sensitivity; MANIFEST Contents annotations are corrected (SN 3.12,
+3.13, 3.20-3.23; notebooks 05-101; four-dataset validation
+summary); review-aid fulltext extracts and graphical-abstract
+renders now ship in the package (not part of the journal
+submission); figure6 regenerated with 6B/6D in-panel annotations.
+Results 6,476 words; abstract 250 words; cki package v0.4.9
+(29/29 tests).
+Package released as tag v0.4.9. MS Availability phase-1 cites the
+existing v0.4.8 Zenodo record (10.5281/zenodo.22310724); the v0.4.9
+record DOI is written in phase-2 after the release.
 Brain candidates remain hypothesis-generating signals: no formal FDR
 discovery is claimed.
+
+=== v46 Changes (reviewer cross-check) ===
+  - Text: 'at moderate-to-strong drift' qualifier on the 0.81-1.00
+    raw JS/cosine FPR range, abstract + Results (V46-a).
+  - Text: pyaugur 0.1.0 fidelity benchmark provenance, SN 3.23
+    (V46-d1).
+  - Guide: Bergmann omega_cal ~ 1.3 -> ~ 1.4 (brain-internal
+    baseline); new section 5.9 'v45 Analyses' covering notebooks
+    88, 89, 90, 91, 91b and _fig1_clean.py (V46-c).
+  - Text: SN 3.5 most-constrained-class omega_cal 1.39 -> 1.4, two
+    significant figures (V46-d2).
+  - Text: TCGA composition attenuation unified on softmax primary
+    (-0.5% [-3.2%, +2.6%]); linear -0.8% demoted to sensitivity
+    (V46-e).
+  - MANIFEST: Contents annotations updated (SN 3.12, 3.13,
+    3.20-3.23; four-dataset validation summary; notebooks 05-101
+    incl. v45 analyses 88-91b); review-aid wording for fulltext
+    extracts + GA renders (V46-f).
+  - Package: review-aid files (fulltext extracts, GA png/svg) now
+    ship in the zip; figure6.pdf regenerated (6B/6D in-panel
+    annotations); cki 0.4.8 -> 0.4.9; release tag v0.4.9
+    (V46-g..V46-i).
 
 === v45 Changes (blind-review round-4) ===
   - Mechanical: SN 3.5 '1.5-fold' -> 1.3-fold; Figure 1C baseline
@@ -2985,7 +3110,7 @@ SHA-256 checksums (document deliverables):
         if _fp.exists():
             _h = _hashlib.sha256(_fp.read_bytes()).hexdigest()
             manifest += f"  {_h}  {_name} ({_fp.stat().st_size:,} bytes)\n"
-    with open(WORK_DIR / "MANIFEST_v45.txt", "w", encoding="utf-8") as f:
+    with open(WORK_DIR / "MANIFEST_v46.txt", "w", encoding="utf-8") as f:
         f.write(manifest)
 
     # 4. ZIP
@@ -2997,11 +3122,11 @@ SHA-256 checksums (document deliverables):
         for root, dirs, files in os.walk(WORK_DIR):
             for fn in sorted(files):
                 fp = Path(root) / fn
-                zf.write(fp, f"CKI_Submission_v45/{fn}")
+                zf.write(fp, f"CKI_Submission_v46/{fn}")
 
     zip_mb = V38_ZIP.stat().st_size / (1024 * 1024)
     print(f"\n{'='*60}")
-    print(f"  v45 (GB) Package: {V38_ZIP}")
+    print(f"  v46 (GB) Package: {V38_ZIP}")
     print(f"  Size: {zip_mb:.1f} MB")
     with zipfile.ZipFile(V38_ZIP, "r") as zf:
         print(f"  Files: {len(zf.infolist())}")
@@ -3010,7 +3135,7 @@ SHA-256 checksums (document deliverables):
 
     # 5. Verification
     print(f"\n{'='*60}")
-    print(f"  v45 Final Verification")
+    print(f"  v46 Final Verification")
     print(f"{'='*60}")
 
     v = Verifier(WORK_DIR)
@@ -3038,16 +3163,17 @@ SHA-256 checksums (document deliverables):
     verify_v43_reprofix(v)
     verify_v44_additions(v)
     verify_v45_additions(v)
+    verify_v46_additions(v)
 
     print(f"\n{'='*60}")
-    print(f"  v45 Verification Summary")
+    print(f"  v46 Verification Summary")
     print(f"{'='*60}")
     print(f"  Passed: {v.passed}  Failed: {v.failed}")
     for label, ok in v.results.items():
         print(f"  {'[OK]' if ok else '[FAIL]'} {label}")
 
     if v.failed == 0:
-        print(f"\n  *** ALL {v.passed} CHECKS PASSED — v45 (GB) FINAL ***")
+        print(f"\n  *** ALL {v.passed} CHECKS PASSED — v46 (GB) FINAL ***")
     else:
         print(f"\n  *** {v.failed} FAILURES — review above ***")
 

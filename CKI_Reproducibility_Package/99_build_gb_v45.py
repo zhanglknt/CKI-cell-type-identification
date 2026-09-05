@@ -2951,17 +2951,21 @@ discovery is claimed.
 
 Contents:
 1. CKI_Manuscript.docx - Main manuscript (peer-review revised)
-2. CKI_Supplementary.docx - Supplementary materials (SN 3.12, 3.13)
-3. CKI_Cover_Letter.docx - Cover letter (validation point 6)
-4. CKI_Reproducibility_Guide.docx - Reproducibility guide (scripts 44-46)
+2. CKI_Supplementary.docx - Supplementary materials (SN 3.12, 3.13,
+   3.20-3.23)
+3. CKI_Cover_Letter.docx - Cover letter (four-dataset validation
+   summary)
+4. CKI_Reproducibility_Guide.docx - Reproducibility guide (notebooks
+   05-101, incl. v45 analyses 88-91b)
 5. Table1-2.docx - Standalone parameter tables
 6. figure1.pdf through figure6.pdf - Main figures
 7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S14.pdf - Supplementary figures
-8. CKI_graphical_abstract.pdf - Graphical Abstract (PDF only; png/svg
-   source files remain in results/figures_final/)
-9. (Plain-text extracts of the DOCX files are generated for build
-   verification but excluded from this package: single-version,
-   Word-only deliverables.)
+8. CKI_graphical_abstract.pdf - Graphical Abstract; the png/svg renders
+   are included for convenience as review aids and are not part of the
+   journal submission.
+9. Plain-text extracts of the DOCX files (*_fulltext.txt) are included
+   for convenience as review aids (build-verification artifacts); they
+   are not part of the journal submission.
 
 SHA-256 checksums (document deliverables):
 """
@@ -2986,17 +2990,12 @@ SHA-256 checksums (document deliverables):
 
     # 4. ZIP
     print(f"\n[4] Creating ZIP...")
-    # Single-version package: documents ship as DOCX only (no plain-text
-    # extracts); Graphical Abstract ships as PDF only (no png/svg copies).
-    ZIP_EXCLUDE = (
-        lambda fn: fn.endswith("_fulltext.txt")
-        or fn in ("CKI_graphical_abstract.png", "CKI_graphical_abstract.svg")
-    )
+    # Review-aid files (*_fulltext.txt extracts and the Graphical
+    # Abstract png/svg renders) ship in the package for convenience;
+    # they are review aids only, not part of the journal submission.
     with zipfile.ZipFile(V38_ZIP, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(WORK_DIR):
             for fn in sorted(files):
-                if ZIP_EXCLUDE(fn):
-                    continue
                 fp = Path(root) / fn
                 zf.write(fp, f"CKI_Submission_v45/{fn}")
 

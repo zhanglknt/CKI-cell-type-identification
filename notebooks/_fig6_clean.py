@@ -294,7 +294,8 @@ for bar, val in zip(bars, omega_vals):
              fontsize=SMALL_SIZE, fontweight='bold', color=color)
 
 axB.set_xlabel('CKI omega (brain regional)', fontsize=MID_SIZE, labelpad=2)
-axB.set_title(f'{omega_fold:.2f}-fold omega gradient across 10 cell classes',
+axB.set_title(f'{omega_fold:.2f}-fold omega gradient across 10 cell classes\n'
+              '(uncorrected upper bound; equal-n estimate 1.74-fold, 95% CI [1.64, 1.84])',
               fontsize=SMALL_SIZE, fontweight='bold', pad=4)
 axB.set_xlim(0, 90)
 axB.tick_params(axis='x', labelsize=SMALL_SIZE)
@@ -386,6 +387,17 @@ axD.text(0.98, 0.96,
          f'{n_strong_ol}/{tier_counts["Strong"]} Strong are OL-lineage\n'
          'fold enrichment 0.77, P = 0.92 (no enrichment)',
          transform=axD.transAxes, fontsize=SMALL_SIZE - 0.5,
+         color=C_DARK, ha='right', va='top',
+         bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
+                   edgecolor=C_GRAY, linewidth=0.5, alpha=0.92))
+
+# Anti-enrichment annotation (aligned with manuscript Fig 6 caption:
+# design-matched null expects 148.3 Strong candidates vs 39 observed;
+# P(null count >= 39) = 1.0, none survives FDR correction)
+axD.text(0.98, 0.70,
+         'null expects 148.3 Strong vs 39 observed\n'
+         'anti-enriched: P(null count ≥ 39) = 1.0',
+         transform=axD.transAxes, fontsize=SMALL_SIZE,
          color=C_DARK, ha='right', va='top',
          bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
                    edgecolor=C_GRAY, linewidth=0.5, alpha=0.92))

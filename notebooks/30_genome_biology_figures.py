@@ -910,7 +910,7 @@ bars = axB.barh(cell_classes, omega_vals,
                  alpha=0.85)
 axB.set_xlabel('Mean CKI ω (brain regional)', fontsize=8)
 grad_fold = omega_vals.max() / omega_vals.min()
-axB.set_title(f'{grad_fold:.2f}-fold ω gradient across 10 cell classes', fontsize=8, fontweight='bold')
+axB.set_title(f'{grad_fold:.2f}-fold ω gradient across 10 cell classes\n(uncorrected upper bound; equal-n estimate 1.74-fold, 95% CI [1.64, 1.84])', fontsize=8, fontweight='bold')
 for bar, val in zip(bars, omega_vals):
     axB.text(val + 0.3, bar.get_y() + bar.get_height()/2,
               f'{val:.1f}', va='center', fontsize=8)
@@ -968,6 +968,15 @@ mig_pct = [100.0 * _n_strong / _n_total,
 bars = axD.barh(mig_levels, mig_pct, color=[C_RED, C_AMBER, C_BLUE], alpha=0.8)
 axD.set_xlabel('% of 31,764 pairs', fontsize=8)
 axD.set_title('Migration candidates detected', fontsize=8)
+# Anti-enrichment annotation (design-matched null expects 148.3 Strong
+# candidates vs 39 observed; P(null count >= 39) = 1.0 — see Fig 6 caption)
+axD.text(0.98, 0.96,
+         'null expects 148.3 Strong vs 39 observed\n'
+         'anti-enriched: P(null count ≥ 39) = 1.0',
+         transform=axD.transAxes, fontsize=7, color=C_DARK,
+         ha='right', va='top',
+         bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
+                   edgecolor=C_GRAY, linewidth=0.5, alpha=0.92))
 for bar, pct in zip(bars, mig_pct):
     axD.text(pct + 0.3, bar.get_y() + bar.get_height()/2,
               f'{pct:.2f}%', va='center', fontsize=8)
