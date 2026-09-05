@@ -2615,7 +2615,7 @@ def build_v38():
 
     # 3. Manifest
     print(f"\n[3] Writing MANIFEST_v46.txt...")
-    manifest = f"""CKI Submission Package v45 (Genome Biology, Methodology article)
+    manifest = f"""CKI Submission Package v46 (Genome Biology, Methodology article)
 Built: {datetime.now().strftime('%Y-%m-%d %H:%M')}
 Status: v46 = v45 + reviewer cross-check text fixes (2026-09-05):
 the 0.81-1.00 raw JS/cosine FPR range is qualified to
