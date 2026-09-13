@@ -83,7 +83,9 @@ def main():
 
     title = doc.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = title.add_run("Supplementary Tables")
+    # v47 (first-author revision A5-7): standalone tables doc title
+    # "Supplementary Tables" -> "Tables" (Table 1/2 are MAIN tables).
+    run = title.add_run("Tables")
     run.font.name = "Arial"
     run.font.size = Pt(14)
     run.font.bold = True

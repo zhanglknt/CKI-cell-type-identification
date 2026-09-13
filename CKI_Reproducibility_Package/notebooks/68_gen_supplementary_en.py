@@ -408,7 +408,7 @@ for line in pseudo:
     p.paragraph_format.space_before = Pt(0)
 
 add_para(
-    'Note: in the released cki package (v0.4.9), bootstrap_test() reproduces lines 9-15 '
+    'Note: in the released cki package (v0.5.0), bootstrap_test() reproduces lines 9-15 '
     'by default (reselect_identity = True): the HK set H is resolved once before the '
     'permutation loop and held fixed, while the k_f gene set is re-selected at every '
     'permutation (and for the observed value) as the top 200 non-HK genes by absolute '
@@ -548,8 +548,8 @@ add_para(
     'the P-value floor) because per-pair shuffling ignores the block structure of 10x libraries; that '
     'implementation was superseded by the block-shuffle null reported here. Per-signal tests are not '
     'independent (the same cell type or region pair appears in multiple comparisons); interpretation is '
-    'therefore restricted to the predefined Strong tier. (Figure S11: \u03c9 distribution '
-    'characterization; Figure S9: block-shuffle null distribution for the residual model.)'
+    'therefore restricted to the predefined Strong tier. (Figure S10: \u03c9 distribution '
+    'characterization; Figure S8: block-shuffle null distribution for the residual model.)'
 )
 
 add_para('3.4 Reporting Conventions', bold=True)
@@ -679,7 +679,7 @@ add_para(
     'filtering rather than gene count. The calibrated \u03c9 (omega_cal = \u03c9 / 7.70) '
     'absorbs this bias into the empirical baseline, and the permutation null distribution '
     '- constructed using the same gene sets as the observed data - ensures internal '
-    'consistency. (Figure S12.)'
+    'consistency. (Figure S11.)'
 )
 
 add_para('3.7 Pair-Specific k_n Variability', bold=True)
@@ -698,7 +698,7 @@ add_para(
     'global-k_n simplification would preserve only ~2% of the variance in \u03c9 orderings '
     '(\u03c1\u00b2 \u2248 0.02). This justifies the per-pair k_n approach used throughout and '
     'highlights that fine-grained \u03c9 orderings should be interpreted with the estimator '
-    'choice in mind. (Figure S7.)'
+    'choice in mind. (Figure S6.)'
 )
 
 add_para('3.8 TCGA Exploratory Analysis Caveats', bold=True)
@@ -745,7 +745,7 @@ add_para(
     'formula P = (count(omega_null \u2264 omega_obs) + 1)/(B + 1), because region-associated '
     'candidates are defined by anomalously low \u03c9; the complementary upper-tail '
     'P-value is computed for every pair and both tails are reported. In the released '
-    'cki package (v0.4.9), the tested tail is selected by the tail parameter of '
+    'cki package (v0.5.0), the tested tail is selected by the tail parameter of '
     'bootstrap_test() and block_shuffle_test() (tail = "upper", "lower", or '
     '"two-sided"); earlier releases used the parameter name "direction".'
 )
@@ -1031,7 +1031,7 @@ add_para(
     'anchor-visibility boundary: perturbations '
     'that touch the housekeeping anchor deflate \u03c9, and k_f-only with '
     'a design-matched null is the more honest statistic in that regime '
-    '(Fig. S13). '
+    '(Fig. S12). '
     'Script: notebooks/79_kang_ifnb_demo.py; outputs: '
     'results/kang_ifnb_demo_pairs.csv (709 pairs), '
     'results/kang_ifnb_demo_summary.json.'
@@ -1583,7 +1583,7 @@ add_para(
     'minute deviations), and binomial tail tests quantify the practical '
     'magnitude: an excess of ~0.8-1.9 percentage points over nominal '
     '(binom P = 9.2e-37 and 6.8e-185). The QQ plots are shown in '
-    'Additional file 1: Fig. S14.'
+    'Additional file 1: Fig. S13.'
 )
 add_para(
     'Interpretation. Because the random split destroys regional structure '
@@ -1833,6 +1833,11 @@ s4_text = (
     f'5) {top5_lines[4]}. '
     f'Complete candidate dataset: results/brain_bs_null_observed_pairs.csv '
     f'({n_candidates:,} threshold-passing rows of 31,764 total). '
+    f'Tables S3 and S4 share the same underlying data file ' 
+    f'(results/brain_bs_null_observed_pairs.csv): Table S3 reports all 31,764 pairs ' 
+    f'with per-cell-type summary statistics, whereas Table S4 retains the ' 
+    f'{n_candidates:,} threshold-passing rows with their tier, residual, and ' 
+    f'\u03c9 annotations. '
     f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py.'
 )
 add_para(s4_text)
