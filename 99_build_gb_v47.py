@@ -13,9 +13,8 @@ corrected to 'CKI: a Ka/Ks-inspired index'; Discussion gains the
 anchor-stationarity sentence (D4, Kang CD14+ monocyte example);
 SN clarifies Table S3/S4 same-file provenance; Table1-2 title
 'Supplementary Tables' -> 'Tables'; cki 0.4.9 -> 0.5.0; release
-tag v0.5.0. MS Availability phase-1 keeps the v0.4.9 Zenodo
-record DOI (10.5281/zenodo.22333850); phase-2 writes the v0.5.0
-record DOI after the release.
+tag v0.5.0. MS Availability phase-2 DONE 2026-09-13: cites the
+v0.5.0 Zenodo record DOI (10.5281/zenodo.22735744).
 
 v46 = v45 + reviewer cross-check text fixes (2026-09-05): seven
 mechanical wording fixes + figure6B/6D in-panel annotations +
@@ -1344,8 +1343,8 @@ def verify_v45_additions(v: Verifier):
             "V45-1b stale 1.5-fold absent (MS + SN)")
 
     # ---- V45-2 mechanical: Zenodo DOI / Four analyses / thresholds / sig figs ----
-    v.check("10.5281/zenodo.22333850" in ms,
-            "V45-2a MS Zenodo version DOI for v0.4.9 (10.5281/zenodo.22333850)")
+    v.check("10.5281/zenodo.22735744" in ms,
+            "V45-2a MS Zenodo version DOI for v0.5.0 (10.5281/zenodo.22735744)")
     v.check("10.5281/zenodo.22308135" not in ms,
             "V45-2b stale v0.4.7 version DOI absent from MS")
     v.check("Four analyses probe the robustness" in ms,
@@ -1575,9 +1574,9 @@ def verify_v46_additions(v: Verifier):
             and "0.5.0" in rg,
             "V46-i1 MS/SN/CL/Guide cite v0.5.0 (v47)")
     _hits = [m.start() for m in re.finditer(r'v0\.4\.9', ms)]
-    v.check(all('22333850' in ms[h:h + 120]
+    v.check(all('22735744' in ms[h:h + 120]
                 or 'version DOI' in ms[max(0, h - 60):h] for h in _hits),
-            f"V46-i2 MS v0.4.9 only on phase-1 DOI line ({len(_hits)} hits)")
+            f"V46-i2 MS v0.4.9 only near Zenodo DOI line, phase-2 ({len(_hits)} hits)")
     v.check("v0.4.8" not in sn and "v0.4.8" not in cl
             and "0.4.8" not in rg and "v0.4.9" not in sn
             and "v0.4.9" not in cl and "0.4.9" not in rg,
@@ -1699,8 +1698,10 @@ def verify_v47_additions(v: Verifier):
     v.check('__version__ = "0.5.0"' in _init, "V47-10a cki __version__ = 0.5.0")
     v.check("(v0.5.0)" in ms and "tag v0.5.0" in ms,
             "V47-10b MS availability on v0.5.0")
-    v.check("version DOI for v0.4.9: 10.5281/zenodo.22333850" in ms,
-            "V47-10c MS phase-1 Zenodo line cites v0.4.9 record")
+    v.check("version DOI for v0.5.0: 10.5281/zenodo.22735744" in ms,
+            "V47-10c MS phase-2 Zenodo line cites v0.5.0 record")
+    v.check("10.5281/zenodo.22333850" not in ms,
+            "V47-10c2 stale v0.4.9 record DOI absent from MS")
     v.check("v0.5.0" in sn and "v0.5.0" in cl and "0.5.0" in rg,
             "V47-10d SN/CL/Guide on v0.5.0")
 
@@ -2794,9 +2795,9 @@ Kang CD14+ monocyte example (omega AUC 0.55 vs k_f 0.98, D4); SN
 clarifies Table S3/S4 same-file provenance (Q2); Table1-2.docx
 title 'Supplementary Tables' -> 'Tables' (A5-7); cki package
 v0.5.0 (29/29 tests).
-Package released as tag v0.5.0. MS Availability phase-1 cites the
-v0.4.9 Zenodo record (10.5281/zenodo.22333850); the v0.5.0
-record DOI is written in phase-2 after the release.
+Package released as tag v0.5.0. MS Availability phase-2 cites the
+v0.5.0 Zenodo record (10.5281/zenodo.22735744). Phase-2 DONE
+2026-09-13.
 Brain candidates remain hypothesis-generating signals: no formal FDR
 discovery is claimed.
 
