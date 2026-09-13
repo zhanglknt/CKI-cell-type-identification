@@ -10,6 +10,8 @@ from typing import Dict, Optional
 import numpy as np
 from anndata import AnnData
 
+from .utils import densify
+
 
 def pseudobulk(
     adata: AnnData,
