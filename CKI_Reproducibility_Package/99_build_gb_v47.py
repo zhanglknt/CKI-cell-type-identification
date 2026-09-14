@@ -6,6 +6,10 @@ v47 = v46 + first-author (Xianming Wu) revision integration
 replaced by the first-author redrawn set; supplementary figures
 renumbered S1-S13 with no gap (old S3 method-comparison removed;
 Kang IFN-beta S13->S12; QQ S14->S13); Figure S1 regenerated
+v47.1 (2026-09-14): supplementary figures renumbered BY
+FIRST-CITATION ORDER per GB convention (Kang S12->S3, QQ
+S13->S10, S3-S8->S4-S9, S9-S11->S11-S13); source PDF names
+unchanged, FIGURE_MAP target keys remapped
 in-house from the authoritative sweep CSVs (k_n decreasing over
 250-1,000 HK genes; identity-only AUC 0.786 retained); the
 graphical abstract adopts the first-author layout with the title
@@ -276,7 +280,8 @@ FIGURE_MAP = {
     "figure4": "figure4",
     "figure5": "figure5",
     "figure6": "figure6",
-    # Supplementary figures S1-S13 (v47 renumbered, staged in
+    # Supplementary figures S1-S13 (v47.1 renumbered BY FIRST-CITATION
+# ORDER; source PDF names unchanged, staged in
     # results/figures_v47_author/ by _tmp_fa_review/assemble_figures_v47.py):
     # S1  = our regenerated parameter sweep (ed_fig1, k_n decreasing,
     #       AUC 0.786; supersedes the first-author redraw per D1)
@@ -286,17 +291,17 @@ FIGURE_MAP = {
     # S13 = v46 QQ (pseudoregion_control_qq; his S14 identical)
     "Supplementary_Figure_S1": "figure_S1",
     "Supplementary_Figure_S2": "figure_S2",
-    "Supplementary_Figure_S3": "figure_S3",
-    "Supplementary_Figure_S4": "figure_S4",
-    "Supplementary_Figure_S5": "figure_S5",
-    "Supplementary_Figure_S6": "figure_S6",
-    "Supplementary_Figure_S7": "figure_S7",
-    "Supplementary_Figure_S8": "figure_S8",
-    "Supplementary_Figure_S9": "figure_S9",
-    "Supplementary_Figure_S10": "figure_S10",
-    "Supplementary_Figure_S11": "figure_S11",
-    "Supplementary_Figure_S12": "figure_S12",
-    "Supplementary_Figure_S13": "figure_S13",
+    "Supplementary_Figure_S4": "figure_S3",
+    "Supplementary_Figure_S5": "figure_S4",
+    "Supplementary_Figure_S6": "figure_S5",
+    "Supplementary_Figure_S7": "figure_S6",
+    "Supplementary_Figure_S8": "figure_S7",
+    "Supplementary_Figure_S9": "figure_S8",
+    "Supplementary_Figure_S11": "figure_S9",
+    "Supplementary_Figure_S12": "figure_S10",
+    "Supplementary_Figure_S13": "figure_S11",
+    "Supplementary_Figure_S3": "figure_S12",
+    "Supplementary_Figure_S10": "figure_S13",
 }
 
 
@@ -447,8 +452,8 @@ def verify_v39_round8(v: Verifier):
     v.check(bool(re.search(r'(Additional file 1: )?Table S1', t)), "Table S1 cited")
     v.check(bool(re.search(r'(Additional file 1: )?Table S3', t)), "Table S3 cited")
     v.check(bool(re.search(r'(Additional file 1: )?Table S4', t)), "Table S4 cited")
-    v.check(bool(re.search(r'(Additional file 1: )?(Supplementary )?Fig(ure)?\.? S9', t)),
-            "Fig S9 cited in text")
+    v.check(bool(re.search(r'(Additional file 1: )?(Supplementary )?Fig(ure)?\.? S11', t)),
+            "Fig S11 cited in text (v47.1 renumber)")
 
     # E1-m1 terminology
     v.check(not re.search(r'performed performed', s),
@@ -651,15 +656,15 @@ def verify_v41_additions(v: Verifier):
             "V41-19 Kang CD14 anchor-visibility statement in MS")
     v.check(bool(re.search(r'median k_n rises 1\.2\u20135\.7-fold', t)),
             "V41-20 Kang k_n rise range in MS")
-    v.check(bool(re.search(r'Additional file 1: Fig\. S12', t)),
-            "V41-21 MS cites Additional file 1 Fig. S12 (v47: Kang)")
-    v.check(bool(re.search(r'Figure S12\. Real perturbation demonstration', t)),
-            "V41-22 S12 caption in MS (v47: Kang renumbered)")
+    v.check(bool(re.search(r'Additional file 1: Fig\. S3', t)),
+            "V41-21 MS cites Additional file 1 Fig. S3 (v47.1: Kang)")
+    v.check(bool(re.search(r'Figure S3\. Real perturbation demonstration', t)),
+            "V41-22 S3 caption in MS (v47.1: Kang renumbered)")
     # Supplementary notes
     v.check(bool(re.search(r'4\.5 Kang et al\. IFN-beta PBMC', s)),
             "V41-23 SN 4.5 heading in supplementary")
     v.check(bool(re.search(r'GSE96583', s)), "V41-24 SN 4.5 GSE96583")
-    v.check(bool(re.search(r'\(Fig\. S12\)', s)), "V41-25 SN 3.15 references Fig. S12 (v47)")
+    v.check(bool(re.search(r'\(Fig\. S3\)', s)), "V41-25 SN 3.15 references Fig. S3 (v47.1)")
     # Source artifacts
     for rel in ["results/kang_ifnb_demo_summary.json",
                 "results/kang_ifnb_demo_pairs.csv",
@@ -684,10 +689,10 @@ def verify_v41_additions(v: Verifier):
             "V41-27 pseudo tail rates in MS Results")
     v.check(bool(re.search(r'37\.6% lower-tail rate', t)),
             "V41-28 same-origin rate in MS Results")
-    v.check(bool(re.search(r'Additional file 1: Fig\. S13', t)),
-            "V41-29 MS cites Additional file 1 Fig. S13 (v47: QQ)")
-    v.check(bool(re.search(r'Figure S13\. Pseudo-region negative control', t)),
-            "V41-30 S13 caption in MS (v47: QQ renumbered)")
+    v.check(bool(re.search(r'Additional file 1: Fig\. S10', t)),
+            "V41-29 MS cites Additional file 1 Fig. S10 (v47.1: QQ)")
+    v.check(bool(re.search(r'Figure S10\. Pseudo-region negative control', t)),
+            "V41-30 S10 caption in MS (v47.1: QQ renumbered)")
     v.check(bool(re.search(r'S1\\u2013S13|S1\u2013S13', t)),
             "V41-31 additional-files figure range S1-S13 (v47)")
     v.check(bool(re.search(r'4\.6 Pseudo-Region Negative Control', s)),
@@ -1049,7 +1054,7 @@ def verify_r2_additions(v: Verifier):
     v.check("consistent with the anchor-visibility" in t,
             "R2-3 MS Kang results sentence uses 'consistent with' (v45 wording)")
     v.check("consistent with the perturbation raising the housekeeping anchor itself" in t,
-            "R2-4 Fig S12 (Kang) caption uses 'consistent with' (v47)")
+            "R2-4 Fig S3 (Kang) caption uses 'consistent with' (v47.1)")
 
     # ---- E1 P2-B: Methods paragraph for the joint bootstrap ----
     v.check(bool(re.search(r'joint region-clustered bootstrap \(B = 5,000\)', t))
@@ -1618,14 +1623,16 @@ def verify_v47_additions(v: Verifier):
                 == _hl.sha256(_b.read_bytes()).hexdigest()):
             _ok = False
             print(f"    [mismatch] figure{_i}.pdf")
-    for _i in range(1, 14):
-        _a = _stg / f"figure_S{_i}.pdf"
-        _b = v.wd / f"Supplementary_Figure_S{_i}.pdf"
+    for _tgt, _src in FIGURE_MAP.items():
+        if not _tgt.startswith("Supplementary_Figure"):
+            continue
+        _a = _stg / f"{_src}.pdf"
+        _b = v.wd / f"{_tgt}.pdf"
         if not (_a.exists() and _b.exists()
                 and _hl.sha256(_a.read_bytes()).hexdigest()
                 == _hl.sha256(_b.read_bytes()).hexdigest()):
             _ok = False
-            print(f"    [mismatch] figure_S{_i}.pdf")
+            print(f"    [mismatch] {_tgt} <- {_src}")
     _a = _stg / "CKI_graphical_abstract.pdf"
     _b = v.wd / "CKI_graphical_abstract.pdf"
     if not (_hl.sha256(_a.read_bytes()).hexdigest()
@@ -1641,12 +1648,12 @@ def verify_v47_additions(v: Verifier):
             "V47-3b SN free of S14 references")
     v.check("Figure S3. Method comparison performance" not in ms,
             "V47-3c old S3 method-comparison caption removed")
-    v.check("Figure S3. TCGA per-cancer matrices" in ms,
+    v.check("Figure S4. TCGA per-cancer matrices" in ms,
             "V47-3d new S3 caption = TCGA per-cancer (old S4)")
-    v.check("Figure S12. Real perturbation demonstration" in ms,
-            "V47-3e Kang caption = Figure S12")
-    v.check("Figure S13. Pseudo-region negative control" in ms,
-            "V47-3f QQ caption = Figure S13")
+    v.check("Figure S3. Real perturbation demonstration" in ms,
+            "V47-3e Kang caption = Figure S3 (v47.1)")
+    v.check("Figure S10. Pseudo-region negative control" in ms,
+            "V47-3f QQ caption = Figure S10 (v47.1)")
     _seq = [int(m.group(1)) for m in
             re.finditer(r'Additional file 1: Figure S(\d+)\.', ms)]
     v.check(_seq == list(range(1, 14)),
@@ -2022,7 +2029,7 @@ def verify_p2_e4(v: Verifier):
 
     s = v.supp_text()
     v.check(bool(re.search(r'S1[0-2]|S12|Supplementary Figure S1[0-2]', s, re.I)),
-            "E4-6 Supplementary figures S1-S12 complete")
+            "E4-6 Supplementary figures S1-S13 complete (v47.1)")
 
     tb_path = v.wd / "Table1-2.docx"
     v.check(tb_path.exists() and tb_path.stat().st_size > 5000,
@@ -2039,7 +2046,7 @@ def verify_p2_e4(v: Verifier):
     sn_words = len(s.split())
     v.check(len(sn_heads) == 4,
             f"E4-9 Additional file 1: 4/4 table headings present, "
-            f"{sn_words} words, figures S8-S12 cited in notes")
+            f"{sn_words} words, figures S2, S3, S7, S9, S10, S12, S13 cited in notes (v47.1)")
 
 
 def verify_v34_expert_panel(v: Verifier):
@@ -2060,7 +2067,7 @@ def verify_v34_expert_panel(v: Verifier):
     supp_refs_S3_S9 = len(re.findall(r'Supplementary\s+Fig.*S[3-9]|Fig.*S[3-9]', t))
     supp_refs_S10_S12 = len(re.findall(r'Supplementary\s+Fig.*S1[0-2]|Fig.*S1[0-2]', t))
     total_supp = supp_refs_S1_S2 + supp_refs_S3_S9 + supp_refs_S10_S12
-    v.check(total_supp >= 8, f"M3 S1-S12 cited in body ({total_supp} supp fig refs)")
+    v.check(total_supp >= 8, f"M3 S1-S13 cited in body ({total_supp} supp fig refs)")
 
     body_before_refs = t.split("References\n")[0] if "References\n" in t else t
     orphan_ok = 0
@@ -3224,7 +3231,8 @@ discovery is claimed.
     Hochberg FDR correction under the block-shuffle null (minimum
     q = 0.520); no formal FDR discovery is claimed.
   - Additional file 1 coverage verified in-build (check E4-9): all four
-    table headings (Table S1-S4) present; notes cite Figures S8-S12;
+    table headings (Table S1-S4) present; notes cite Figures S2, S3, S7,
+S9, S10, S12, S13 (v47.1 renumber);
     word count reported in the build log. Internal self-references use
     the 'Figure S..'/'Table S..' style (drop 'Supplementary' prefix,
     since this document IS Additional file 1; round-7 m2).
@@ -3252,7 +3260,7 @@ discovery is claimed.
         note (case-insensitive + prefix matching, 15 shared types);
     (e) E4-M1 Additional file 1 tables now cited in the main text:
         Table S1 (parameter sweep), Table S3 (brain landscape),
-        Table S4 (candidate tiers), and Supplementary Fig. S9
+        Table S4 (candidate tiers), and Supplementary Fig. S11
         (block-shuffle null diagnostics);
     (f) E1-m terminology: 'per-cancer bootstrap' -> 'per-cancer
         permutation test', 'bootstrap: m = 10' -> 'group-level tests:
