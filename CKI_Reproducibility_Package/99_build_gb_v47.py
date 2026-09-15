@@ -15,6 +15,15 @@ ORDER (Skinnider/Augur [56]->[38]; old [38]-[55]->[39]-[56];
 [1]-[37] unchanged); _parse_citation_brackets and N5b caps
 raised 55->56 (the old 55-cap silently hid the out-of-order
 [56], which is why V42-1 passed in v47/v47.1)
+v47.3 (2026-09-15): GB Methodology abstract compliance (plan A)
++ three first-author fixes: abstract rewritten unstructured
+single paragraph (~145 words, was structured 250); Keywords
+independent line; Augur ref lists 6 authors (Matson KJE added;
+all other et al. refs list 6); Methods environment pointer
+Guide Section 1.3 -> 1.1 (1.1 = verified environment, 1.3 =
+System Requirements); supplementary figure legends moved under
+the 'Additional file 1: Supplementary figure legends' heading
+(were stranded after References with an empty heading above)
 in-house from the authoritative sweep CSVs (k_n decreasing over
 250-1,000 HK genes; identity-only AUC 0.786 retained); the
 graphical abstract adopts the first-author layout with the title
@@ -645,9 +654,9 @@ def verify_v41_additions(v: Verifier):
     # ---- E4 review fixes: manuscript / guide ----
     v.check(bool(re.search(r'Windows x64 workstation', t)),
             "V41-13 MS environment description (Windows x64)")
-    v.check(bool(re.search(r'Verified environment|verified environment of the Reproducibility Guide',
+    v.check(bool(re.search(r'verified environment of the Reproducibility Guide, Section 1\.1',
                            t, re.I)),
-            "V41-14 MS points to Repro Guide Section 1.3")
+            "V41-14 MS points to Repro Guide Section 1.1 (verified environment; v47.3)")
     v.check(not re.search(r'Apple M2', t), "V41-15 no stale 'Apple M2' claim in MS")
 
     # ---- Kang IFN-beta demonstration ----
@@ -1523,21 +1532,26 @@ def verify_v46_additions(v: Verifier):
     rg = v.rg_text()
     mf = v.manifest_text()
 
-    # (a) eta qualifier exactly twice in MS (abstract + Results)
-    v.check(ms.count("at moderate-to-strong drift") == 2,
-            "V46-a MS 'at moderate-to-strong drift' exactly 2x")
+    # (a) eta qualifier exactly once in MS (Results only; v47.3 abstract is
+    # unstructured ~150 words and drops the 0.81-1.00 range disclosure)
+    v.check(ms.count("at moderate-to-strong drift") == 1,
+            "V46-a MS 'at moderate-to-strong drift' exactly 1x (v47.3)")
 
-    # (b) abstract still <= 250 words
+    # (b) abstract: unstructured single paragraph, <= 165 words (v47.3)
     _ab = 0
+    _in = False
     for _l in ms.split('\n'):
         _t = _l.strip()
-        if _t.startswith('Background') and 'Standard distance metrics' in _t:
-            _ab += len(_t.split())
-        elif _t.startswith('Results') and 'ground-truth simulation' in _t:
-            _ab += len(_t.split())
-        elif _t.startswith('Conclusions') and 'CKI provides' in _t:
-            _ab += len(_t.split())
-    v.check(0 < _ab <= 250, f"V46-b abstract <= 250 words (= {_ab})")
+        if _t == 'Abstract':
+            _in = True
+            continue
+        if not _in:
+            continue
+        if _t.startswith('Keywords:'):
+            break
+        _ab += len([w for w in _t.split()
+                    if re.search(r'[a-zA-Z0-9\u03c9\u2212~]', w)])
+    v.check(0 < _ab <= 165, f"V46-b abstract unstructured <= 165 words (= {_ab})")
 
     # (c) guide section 5.9 + omega_cal 1.4
     v.check("5.9 v45 Analyses" in rg,
@@ -1663,6 +1677,40 @@ def verify_v47_additions(v: Verifier):
             re.finditer(r'Additional file 1: Figure S(\d+)\.', ms)]
     v.check(_seq == list(range(1, 14)),
             f"V47-3g MS supp legend sequence S1..S13 (got {_seq})")
+
+    # ---- V47.3 (2026-09-15): Methodology abstract + AF1 legends placement ----
+    # (a) Skinnider/Augur ref lists six authors before et al. (Matson KJE 6th)
+    v.check(bool(re.search(r'Gautier M, Matson KJE, et al\.', ms)),
+            "V47.3a Augur ref lists 6 authors (Matson KJE) before et al.")
+    # (b) supp legends sit under the AF1 legends heading, BEFORE References
+    _lh = ms.find('Additional file 1: Supplementary figure legends')
+    _l1 = ms.find('Additional file 1: Figure S1.')
+    _refs_h = re.search(r'^References$', ms, re.M)
+    v.check(_lh != -1 and _l1 != -1 and _refs_h is not None
+            and _lh < _l1 < _refs_h.start(),
+            "V47.3b AF1 legends heading followed by S1 legend, before References")
+    # (c) abstract is unstructured (no Background./Results./Conclusions. labels)
+    _ablines, _in_ab = [], False
+    for _l in ms.split('\n'):
+        _t = _l.strip()
+        if _t == 'Abstract' and not _in_ab:
+            _in_ab = True
+            continue
+        if not _in_ab:
+            continue
+        if _t.startswith('Keywords:'):
+            break
+        _ablines.append(_t)
+    _abf = ' '.join(_ablines)
+    v.check(not re.search(r'\b(?:Background|Results|Conclusions)\.\s', _abf),
+            "V47.3c abstract unstructured (no section labels)")
+    # (d) Keywords independent line right after the abstract
+    v.check(bool(re.search(r'^Keywords: [a-z]', ms, re.M))
+            and 'cell-state divergence' in ms,
+            "V47.3d Keywords independent line after abstract")
+    # (e) Methods cites Repro Guide Section 1.1 (verified environment)
+    v.check(bool(re.search(r'Reproducibility Guide, Section 1\.1', ms)),
+            "V47.3e Methods points to Guide Section 1.1 (environment; v47.3)")
 
     # ---- V47-4 D4 anchor-stationarity sentence ----
     v.check("presupposes anchor stationarity" in ms,
@@ -2010,7 +2058,7 @@ def verify_p2_e4(v: Verifier):
         ab_lines.append(stripped)
     ab_full = ' '.join(ab_lines)
     wc = len([tok for tok in ab_full.split() if re.search(r'[a-zA-Z0-9\u03c9\u2212]', tok)])
-    v.check(wc <= 250, f"E4-1 Abstract word count = {wc} (GB structured, target <=250)")
+    v.check(wc <= 165, f"E4-1 Abstract word count = {wc} (GB Methodology unstructured, target <=165)")
 
     v.check(bool(re.search(r'ranked\s*5th\s*(?:of|/)\s*5|ranked\s*4th|AUC\s*rank', t, re.I)),
             "E4-2 AUC rank 5th/5 explanation")
@@ -2340,7 +2388,7 @@ def verify_v38_reviewer_fixes(v: Verifier):
         ab_lines.append(stripped)
     ab_full = ' '.join(ab_lines)
     wc = len([tok for tok in ab_full.split() if re.search(r'[a-zA-Z0-9\u03c9\u2212]', tok)])
-    v.check(wc <= 250, f"V38-4a abstract word count = {wc} (GB structured, target <=250)")
+    v.check(wc <= 165, f"V38-4a abstract word count = {wc} (GB Methodology unstructured, target <=165)")
     v.check(bool(re.search(r'ground-truth simulation', ab_full, re.I)) and
             bool(re.search(r'gene-panel ablation|gene selection inflates', ab_full, re.I)),
             "V38-4b abstract retains both new validation claims")

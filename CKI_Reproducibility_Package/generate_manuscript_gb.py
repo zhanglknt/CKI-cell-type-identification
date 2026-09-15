@@ -264,7 +264,7 @@ _refs_nar = [
 'Raj A, van Oudenaarden A. Nature, nurture, or chance: stochastic gene expression variation and its consequences on individual cellular fitness. Cell. 2008;135:216-26.',
 'Tarashansky AJ, Musser JM, Khariton M, Li P, Arendt D, Quake SR, et al. Mapping single-cell atlases throughout Metazoa unravels cell type evolution. Elife. 2021;10:e66747.',
 'Jiang J, Li J, Huang Y, Wang Y, Chen L, Zhang X. CACIMAR: cross-species analysis of cell identities, markers, regulations, and interactions. Brief Bioinform. 2024;25:bbae283.',
-'Skinnider MA, Squair JW, Kathe C, Anderson MA, Gautier M, et al. Cell type prioritization in single-cell data. Nat Biotechnol. 2021;39:30-4.',
+'Skinnider MA, Squair JW, Kathe C, Anderson MA, Gautier M, Matson KJE, et al. Cell type prioritization in single-cell data. Nat Biotechnol. 2021;39:30-4.',
 'Waxman S, Wurmbach E. De-regulation of common housekeeping genes in hepatocellular carcinoma. BMC Genomics. 2007;8:243.',
 'Bakken TE, Jorstad NL, Hu Q, Lake BB, Tian W, Kalmbach BE, et al. Comparative cellular analysis of motor cortex in human, marmoset and mouse. Nature. 2021;598:111-9.',
 'Marques S, Zeisel A, Codeluppi S, van Bruggen D, Mendanha Falcão A, Xiao L, et al. Oligodendrocyte heterogeneity in the mouse juvenile and adult central nervous system. Science. 2016;352:1326-9.',
@@ -383,33 +383,20 @@ set_black(run)
 run.font.size = Pt(11)
 
 # ============================================================
-# ABSTRACT (structured: Background / Results / Conclusions, <=250 words - GB)
+# ABSTRACT (GB Methodology: unstructured, single paragraph, ~145 words)
 # ============================================================
 heading('Abstract', level=1)
 
-def ab(label, text):
-    para = doc.add_paragraph()
-    r1 = para.add_run(label + '. ')
-    r1.font.name = 'Arial'; r1.font.size = Pt(11); r1.bold = True; set_black(r1)
-    r2 = para.add_run(text)
-    r2.font.name = 'Arial'; r2.font.size = Pt(11); set_black(r2)
-    para.paragraph_format.line_spacing = 1.15
-    para.paragraph_format.space_after = Pt(4)
-    return para
-
-ab('Background', 'Standard distance metrics conflate baseline variation with functional adaptation in single-cell genomics. Inspired by the Ka/Ks ratio, CKI (Cell-type Ka/Ks-inspired Index) decomposes divergence into a baseline rate k_n (housekeeping genes) and a functional rate k_f (identity genes); \u03c9 = k_f/k_n quantifies baseline-normalized functional divergence.')
-ab('Results', 'In ground-truth simulation, \u03c9 alone rejected neutral housekeeping drift (false-positive rate 0.00, versus 0.55\u20130.58 for raw JS and cosine) and ranked first for functional-versus-neutral discrimination (AUC = 0.80), at the cost of bounded power and blindness to anchor-located signal; the low false-positive rate is no anchoring artifact, staying \u2264 0.067 under expression-matched non-housekeeping drift (raw JS and cosine at moderate-to-strong drift: 0.81\u20131.00). We evaluated CKI on mouse, human, pan-cancer (TCGA; exploratory), and brain datasets. Calibration established an equivalent-population baseline (\u03c9 = 7.70, 95% CI [7.37, 8.02]). CKI \u03c9 correlated negatively with all standard distance metrics (Spearman r = \u22120.36 to \u22120.46), partly a k_n-denominator artifact. Brain analysis indicated a 6.10-fold regional differentiation gradient across 10 non-neuronal classes\u2014an upper bound inflated by class-size imbalance (equal-n downsampling: 1.74 [1.64, 1.84])\u2014predominantly k_n-driven (3.21-fold k_n versus 2.03-fold k_f); under a block-shuffle null, four of ten classes showed significant regional structure (three after FDR correction), but no pair survived correction. Per-pair gene selection inflates k_f (median 1.6-fold) but preserves rankings (\u03c1 \u2248 0.92).')
-ab('Conclusions', 'CKI provides an interpretable, baseline-normalized index of cell-state divergence whose rankings are robust to gene-panel choice, with a practical window of ~50\u2013200 cells per donor per condition, and is freely available as an open-source package.')
+p('Standard distance metrics conflate baseline variation with functional adaptation in single-cell genomics. Inspired by the Ka/Ks ratio, CKI (Cell-type Ka/Ks-inspired Index) decomposes divergence into a baseline rate k_n (housekeeping genes) and a functional rate k_f (identity genes); \u03c9 = k_f/k_n quantifies baseline-normalized functional divergence. In ground-truth simulation, \u03c9 rejected neutral housekeeping drift (false-positive rate 0.00, versus 0.55\u20130.58 for raw JS and cosine; no anchoring artifact) and ranked first for functional-versus-neutral discrimination (AUC = 0.80), with power bounded to ~50\u2013200 cells per donor per condition. We evaluated CKI on mouse, human, pan-cancer (TCGA; exploratory), and brain datasets: calibration fixed an equivalent-population baseline (\u03c9 = 7.70, 95% CI [7.37, 8.02]), and brain analysis revealed a 6.10-fold regional gradient across ten non-neuronal classes\u2014an uncorrected upper bound inflated by class-size imbalance (equal-n downsampling: 1.74 [1.64, 1.84]). Per-pair gene selection inflates k_f (median 1.6-fold) yet preserves rankings. CKI is freely available as an open-source Python package.')
 
 # ============================================================
-# KEYWORDS (NAR requirement: 4-6, placed after Abstract)
+# KEYWORDS (GB: 3-10 keywords, independent line after the abstract)
 # ============================================================
 kw = doc.add_paragraph()
-kw.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = kw.add_run('Keywords: cell-state divergence, housekeeping genes, Jensen-Shannon decomposition, baseline-normalized divergence, single-cell genomics')
 run.font.name = 'Arial'
 set_black(run)
-run.font.size = Pt(10)
+run.font.size = Pt(11)
 
 # ============================================================
 # INTRODUCTION (NAR: "Introduction" instead of "Background")
@@ -653,7 +640,7 @@ heading('Clinical severity analysis', level=2)
 p('For TCGA clinical severity analysis, we computed intratumoral \u03c9 for samples within each clinical stratum using the hybrid scheme. BRCA PAM50 subtype calls [16,17] were retrieved directly from the cBioPortal API (brca_tcga_pub study, PAM50_SUBTYPE clinical attribute; 522 samples with subtype calls, cached locally for reproducibility, of which 506 had matched expression data and entered the analysis); no de novo centroid-based classification was performed in this work. LIHC Edmondson grades [15] came from cBioPortal (n = 288 tumors), and LUAD mutation status (EGFR, KRAS, WT) from cBioPortal (n = 492 samples). Between-stratum differences were tested with Kruskal-Wallis (PAM50 subtypes, LUAD mutations) and trend with Jonckheere-Terpstra (Edmondson grades). Paired versus unpaired tumor-normal comparisons are reported as descriptive statistics (medians and interquartile ranges, IQRs) without formal P-values, as the paired design does not meet the independence assumption of standard between-group tests. k_f-only and k_n component controls for the ordering claims were computed with the identical pipeline (per-cancer loading, gene filtering, and TT-pair subsampling), stratifying per-tumor mean k_f and k_n exactly as for \u03c9; per-cell-type mean k_f for the cross-organ ranking was computed from the same pseudobulks and per-pair gene selection (notebooks/83_kf_only_ordering.py; results/kf_only_ordering.csv; results/kf_only_severity.csv; Additional file 1: Note 3.16).')
 
 heading('Computational environment', level=2)
-p('Typical runtime for a single cell-type pair is under 5 minutes on a standard laptop; the full brain analysis (31,764 pairs) required approximately 72 core-hours on a Windows x64 workstation with at least 32 GB RAM (the verified environment of the Reproducibility Guide, Section 1.3; Additional file 2). All analyses were performed in Python 3.14.4 with scanpy 1.12.1 [46], scipy \u2265 1.10.0, numpy \u2265 1.23.0, pandas \u2265 1.5.0, matplotlib \u2265 3.6.0, seaborn [52] \u2265 0.12.0, and scikit-learn [53] \u2265 1.2.0; random seeds were fixed at 42 throughout, except scripts 77/78/79, which used seed 20260903. Permutation results are stable with respect to seed choice: with B = 1,000 permutations the Monte Carlo standard error of the empirical P-value is approximately 0.016 at P = 0.5, so seed variation has negligible impact on statistical conclusions.')
+p('Typical runtime for a single cell-type pair is under 5 minutes on a standard laptop; the full brain analysis (31,764 pairs) required approximately 72 core-hours on a Windows x64 workstation with at least 32 GB RAM (the verified environment of the Reproducibility Guide, Section 1.1; Additional file 2). All analyses were performed in Python 3.14.4 with scanpy 1.12.1 [46], scipy \u2265 1.10.0, numpy \u2265 1.23.0, pandas \u2265 1.5.0, matplotlib \u2265 3.6.0, seaborn [52] \u2265 0.12.0, and scikit-learn [53] \u2265 1.2.0; random seeds were fixed at 42 throughout, except scripts 77/78/79, which used seed 20260903. Permutation results are stable with respect to seed choice: with B = 1,000 permutations the Monte Carlo standard error of the empirical P-value is approximately 0.016 at P = 0.5, so seed variation has negligible impact on statistical conclusions.')
 
 heading('Statistical reporting', level=2)
 p('We report summary statistics as mean \u00b1 s.d. (range) or median [IQR] as noted. Resampling-based inference [54] (permutation tests for P-values; bootstrap for confidence intervals) was performed for all four datasets with B = 1,000: label permutation for the mouse pilot (15 cell-type pairs, 6 calibration control populations with 50 split-half replicates each), human Tabula Sapiens, and TCGA, and the block-shuffle null for the brain atlas (Methods). Empirical P-values are one-sided, P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1), with the exchangeability unit following the dataset structure; in each iteration pseudobulks are recomputed from the permuted groups and \u03c9 recalculated with identity genes re-selected on the permuted pseudobulks (the TCGA per-cancer permutation test is the sole exception, holding a fixed HVG panel; Methods). Benjamini-Hochberg FDR correction [45] is applied within each dataset, with two levels distinguished. First, group-level tests (one test per cell class, cell type, or cancer type): brain cell-class (m = 10), human per-cell-type (m = 17), mouse pilot (m = 15), TCGA per-cancer (m = 5); the BH thresholds for the most significant test (0.05/m) are 5.0 \u00d7 10\u207b\u00b3, 2.9 \u00d7 10\u207b\u00b3, 3.3 \u00d7 10\u207b\u00b3, and 1.0 \u00d7 10\u207b\u00b2\u2014all above the minimum resolvable permutation P-value of 9.99 \u00d7 10\u207b\u2074 at B = 1,000, so resolution is sufficient for every group-level test. Second, the brain per-pair screen, with BH correction across all m = 31,764 region pairs: the BH threshold for the smallest ordered P-value (0.05/31,764 \u2248 1.6 \u00d7 10\u207b\u2076) lies roughly 600-fold below the smallest resolvable P, so q < 0.05 is unattainable unless ~635 of the 31,764 P-values sit at the permutation floor (a regime the empirical FDR analysis shows is not approached) or B \u2248 6 \u00d7 10\u2075 permutations are run. The per-pair FDR outcome (minimum q = 0.520) is consequently a statement about permutation resolution rather than evidence against any candidate, and we report it together with the raw permutation P-value distribution (1,960 of 31,764 pairs at raw P < 0.05, slightly more than the ~1,588 expected under a global null).')
@@ -726,26 +713,6 @@ p('Figure 6. Brain regional cell-type differentiation and region-association inf
 # ============================================================
 heading('Additional file 1: Supplementary figure legends', level=1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-# ============================================================
-# REFERENCES (GB: Vancouver, square-bracket citations)
-# ============================================================
-heading('References', level=1)
-
-for i, ref in enumerate(_refs_nar, 1):
-    ref_p_nar(f'{i}. {ref}')
-
 p('Additional file 1: Figure S1. Parameter sweep and pathway analysis. (A) k_n stability as a function of housekeeping gene set size; k_n decreases monotonically with increasing HK gene number (250\u20131,000), indicating that the baseline rate is gene-set-size-dependent; absolute \u03c9 values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (B) Variance of module-level GSVA enrichment scores across 38 mouse cell-type entries for the 20 HVG-partition modules (sorted by variance). Cell-type divergence is broadly distributed across modules rather than concentrated in a single module, consistent with the identity-only configuration of k_f. (C) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs).')
 
 p('Additional file 1: Figure S2. Calibrated \u03c9 under two baselines. (A) Raw \u03c9 and calibrated \u03c9 (\u03c9_cal = \u03c9 / 7.70, mouse FACS baseline; \u03c9 / 9.73, brain-internal baseline) by brain cell type (log scale). Dashed line indicates the split-half expectation (\u03c9_cal = 1.0). (B) Calibrated \u03c9 distributions across all 31,764 brain region pairs under both baselines; calibrating with the mouse baseline overstates brain \u03c9_cal by 1.26-fold (9.73 / 7.70).')
@@ -771,6 +738,27 @@ p('Additional file 1: Figure S11. Cross-species comparison details. (A) Cross-sp
 p('Additional file 1: Figure S12. \u03c9 distribution characterization. Histograms and Q-Q plots of \u03c9 distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D\u2019Agostino-Pearson, P < 2.2 \u00d7 10\u207b\u00b9\u2076) and human (Shapiro-Wilk, P = 7.6 \u00d7 10\u207b\u2074\u00b2), while the mouse pilot (n = 15 pairs) does not reject normality (P = 0.071), although the small sample size limits the power of this test.')
 
 p('Additional file 1: Figure S13. JS divergence dimensionality invariance. (A) Mean JS divergence between random Dirichlet distribution pairs as a function of dimensionality (50\u20135,000 genes, n = 2,000 trials per dimension), showing that JS divergence is effectively constant across dimensions (ratio = 1.001 between d = 1,130 and d = 2,000). (B) Dimensionality ratio relative to the HK gene set (d = 1,130), confirming that k_n and k_f are dimensionally comparable.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ============================================================
+# REFERENCES (GB: Vancouver, square-bracket citations)
+# ============================================================
+heading('References', level=1)
+
+for i, ref in enumerate(_refs_nar, 1):
+    ref_p_nar(f'{i}. {ref}')
 
 # == Save ==
 PROJECT_ROOT = Path(__file__).resolve().parent
