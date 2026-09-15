@@ -10,6 +10,11 @@ v47.1 (2026-09-14): supplementary figures renumbered BY
 FIRST-CITATION ORDER per GB convention (Kang S12->S3, QQ
 S13->S10, S3-S8->S4-S9, S9-S11->S11-S13); source PDF names
 unchanged, FIGURE_MAP target keys remapped
+v47.2 (2026-09-14): reference list renumbered BY FIRST-CITATION
+ORDER (Skinnider/Augur [56]->[38]; old [38]-[55]->[39]-[56];
+[1]-[37] unchanged); _parse_citation_brackets and N5b caps
+raised 55->56 (the old 55-cap silently hid the out-of-order
+[56], which is why V42-1 passed in v47/v47.1)
 in-house from the authoritative sweep CSVs (k_n decreasing over
 250-1,000 HK genes; identity-only AUC 0.786 retained); the
 graphical abstract adopts the first-author layout with the title
@@ -736,10 +741,10 @@ def verify_v41_additions(v: Verifier):
 
 
 def _parse_citation_brackets(body_text):
-    """Extract integer citation numbers (1..55) from [n], [n, m],
+    """Extract integer citation numbers (1..56) from [n], [n, m],
     and [n-m] / [n\u2013m] brackets, excluding CI/count brackets
     (decimals never match the regex; mixed lists containing numbers
-    outside 1..55 are rejected as non-citations)."""
+    outside 1..56 are rejected as non-citations)."""
     nums_seq = []
     for b in re.findall(r"\[[\d,\s\u2013\-]+\]", body_text):
         inner = b[1:-1].replace("\u2013", "-")
@@ -751,7 +756,7 @@ def _parse_citation_brackets(body_text):
                 a, _, c = part.partition("-")
                 if a.strip().isdigit() and c.strip().isdigit():
                     lo, hi = int(a), int(c)
-                    if hi < lo or lo < 1 or hi > 55 or hi - lo > 10:
+                    if hi < lo or lo < 1 or hi > 56 or hi - lo > 10:
                         ok = False
                         break
                     entries.extend(range(lo, hi + 1))
@@ -763,7 +768,7 @@ def _parse_citation_brackets(body_text):
             else:
                 ok = False
                 break
-        if ok and entries and all(1 <= n <= 55 for n in entries):
+        if ok and entries and all(1 <= n <= 56 for n in entries):
             nums_seq.extend(entries)
     return nums_seq
 
@@ -785,18 +790,18 @@ def verify_v42_additions(v: Verifier):
         if n not in seen:
             seen.add(n)
             first_order.append(n)
-    v.check(first_order == list(range(1, 56)),
-            f"V42-1 refs first-occurrence order 1..55 ({len(seen)} unique cited)")
+    v.check(first_order == list(range(1, 57)),
+            f"V42-1 refs first-occurrence order 1..56 (v47.2 renumbered; {len(seen)} unique cited)")
     v.check(bool(re.search(r'Kang et al\. \[14\]', body)),
             "V42-2 Kang et al. cited as [14] in body")
-    v.check(not re.search(r'Kang et al\. \[55\]', body),
-            "V42-3 no stale Kang [55] citation")
-    v.check(bool(re.search(r'dysregulation \[38\]', body)),
-            "V42-4 housekeeping-dysregulation ref renumbered to [38]")
+    v.check(not re.search(r'Kang et al\. \[(?:55|56)\]', body),
+            "V42-3 no stale Kang [55]/[56] citation")
+    v.check(bool(re.search(r'dysregulation \[39\]', body)),
+            "V42-4 housekeeping-dysregulation ref renumbered to [39] (v47.2)")
     ref_section = t.split("References\n")[1] if "References\n" in t else ""
     ref_nums = [int(n) for n in re.findall(r'^(\d{1,2})\.\s+\S', ref_section, re.M)]
     v.check(ref_nums == list(range(1, 57)),
-            "V42-5 reference list numbered 1..56 intact after renumbering (v45: +Augur [56])")
+            "V42-5 reference list numbered 1..56 intact (v47.2: renumbered by first appearance; Augur now [38])")
 
     # ---- P0-2: Bergmann-glia region-clustered CI unified ----
     # v45: superseded by the studentized bootstrap-t [5.76, 28.59]; the
@@ -1837,7 +1842,7 @@ def verify_legacy(v: Verifier):
     ok = early30 == sorted(early30)
     v.check(ok, f"N5 Refs first-citation order ({len(first_order)} refs)")
 
-    # N5b: every reference 1..55 is cited in the body (ranges expanded)
+    # N5b: every reference 1..56 is cited in the body (ranges expanded)
     cited = set()
     for m2 in re.finditer(r'\[(\d{1,2}(?:\s*,\s*\d{1,2})*(?:\s*[\u2013-]\s*\d{1,2})?)(\s*;[^\]]*)?\]', body):
         if '99' in m2.group(1):
@@ -1847,12 +1852,12 @@ def verify_legacy(v: Verifier):
             vals = [int(x) for x in parts if x.strip().isdigit()]
         except ValueError:
             vals = []
-        if vals and all(1 <= x <= 55 for x in vals):
+        if vals and all(1 <= x <= 56 for x in vals):
             if len(vals) == 2 and ('\u2013' in m2.group(1) or '-' in m2.group(1)):
                 cited.update(range(vals[0], vals[1] + 1))
             else:
                 cited.update(vals)
-    v.check(len(cited) == 55, f"N5b All 55 refs cited in body ({len(cited)}/55)")
+    v.check(len(cited) == 56, f"N5b All 56 refs cited in body ({len(cited)}/56)")
 
     t_cl = v.cl_text()
     ok_n10 = True
@@ -2017,8 +2022,8 @@ def verify_p2_e4(v: Verifier):
     n_refs = len(re.findall(r'\.\s\d{4};[\w]+:', ref_section))
     v.check(n_refs >= 35, f"E4-4 Reference count (Vancouver) = {n_refs}")
 
-    # GB/Vancouver: reference list must be numbered 1..56 (v45: Augur ref [56]
-    # added) matching [n] citations
+    # GB/Vancouver: reference list must be numbered 1..56 (v47.2: refs
+    # renumbered by first appearance; Augur = [38]) matching [n] citations
     ref_nums = [int(n) for n in re.findall(r'^(\d{1,2})\.\s+\S', ref_section, re.M)]
     v.check(ref_nums == list(range(1, 57)),
             f"E4-8 Reference list numbered 1..56 ({len(ref_nums)} entries, "
