@@ -1,0 +1,153 @@
+"""
+Generate Nature Communications Cover Letter
+CKI Project — Nature Communications submission (Article)
+"""
+from pathlib import Path
+from docx.shared import Pt, Inches
+
+PROJECT_ROOT = Path(__file__).parent
+OUTPUT_DIR = PROJECT_ROOT / "results"
+OUTPUT_DIR.mkdir(exist_ok=True)
+
+
+def add_para(text, doc, space_after=4, align=None, bold=False, size=None):
+    """Add a paragraph with controlled spacing — no empty-paragraph spacers."""
+    para = doc.add_paragraph()
+    para.paragraph_format.line_spacing = 1.0
+    para.paragraph_format.space_after = Pt(space_after)
+    para.paragraph_format.space_before = Pt(0)
+    run = para.add_run(text)
+    if bold:
+        run.bold = True
+    if size:
+        run.font.size = Pt(size)
+    if align is not None:
+        para.alignment = align
+    return para
+
+
+def run():
+    from docx import Document
+
+    doc = Document()
+
+    style = doc.styles['Normal']
+    font = style.font
+    font.name = 'Arial'
+    font.size = Pt(11)
+
+    for section in doc.sections:
+        section.top_margin = Inches(1)
+        section.bottom_margin = Inches(1)
+        section.left_margin = Inches(1)
+        section.right_margin = Inches(1)
+
+    # ── Salutation (letter begins directly at "Dear Editors") ──
+    add_para("Dear Editors,", doc, space_after=6)
+
+    # ── Body: opening + NC scope ──
+    add_para(
+        "On behalf of my co-author, Dr. Xianming Wu (Chinese Institute for Brain "
+        "Research, Beijing), I am pleased to submit our manuscript, "
+        "\u201cCKI is a Ka/Ks-inspired index quantifying functional divergence "
+        "in single-cell genomics\u201d, for consideration as an Article in "
+        "Nature Communications. CKI (Cell-type Ka/Ks-inspired Index) is a novel "
+        "computational method for quantifying functional divergence in "
+        "single-cell genomics: it decomposes Jensen\u2013Shannon divergence "
+        "into k_n (baseline divergence over housekeeping genes) and k_f "
+        "(identity-gene divergence), with \u03c9 = k_f/k_n. The work fits "
+        "Nature Communications\u2019 tradition of single-cell computational "
+        "methods validated through ground-truth simulation and large-scale "
+        "real data.",
+        doc,
+    )
+
+    # ── Body: core selling points, specificity-first ──
+    add_para(
+        "Our headline result is a specificity-first ground-truth simulation: "
+        "injecting module shifts into real single-cell "
+        "backgrounds (Tabula Muris marrow B cells; 1,750 replicates, replicated "
+        "in a second background), \u03c9 was the only one of six metrics that "
+        "did not false-trigger on neutral housekeeping-gene drift "
+        "(false-positive rate 0.00 versus 0.55 for JS divergence and 0.58 for "
+        "cosine distance) and ranked first for discrimination (AUC = 0.80). "
+        "Bounded sensitivity is reported with equal prominence (marrow "
+        "requires \u22654-fold shifts on \u2265200 genes; skin reaches 91% "
+        "detection at 2-fold), with split-half calibration setting the "
+        "interpretation baseline (\u03c9 = 7.70, 95% CI [7.37, 8.02]). Beyond "
+        "the simulation, CKI was validated across four datasets: 4,851 human "
+        "cell-type pairs (Tabula Sapiens, complemented by mouse Tabula "
+        "Muris analyses); "
+        "pan-cancer bulk RNA-seq across five TCGA cancer types; 31,764 "
+        "cross-region pairs from the Siletti brain atlas (888,263 nuclei); "
+        "and a fixed gene-panel ablation showing preserved pair-level rankings "
+        "under non-circular gene selection (Spearman \u03c1 \u2248 0.92, "
+        "block-shuffle null throughout).",
+        doc,
+    )
+
+    # ── Body: honest positioning + diagnostic contribution (merged) ──
+    add_para(
+        "We are explicit about what the manuscript does and does not claim: "
+        "the 6.10-fold class-level brain gradient is predominantly a k_n "
+        "denominator effect (3.2-fold k_n versus 2.0-fold k_f), and no "
+        "per-pair candidate survives false-discovery-rate correction (minimum "
+        "q = 0.520); biological observations, including the exploratory "
+        "TCGA signal, are hypothesis-generating. Diagnostically, CKI\u2019s "
+        "negative correlation with standard metrics is shown to be a ratio "
+        "artifact of the k_n denominator, and the k_n/k_f decomposition "
+        "provides a transparent self-audit of what a baseline-normalized "
+        "index adds to existing distance measures.",
+        doc,
+    )
+
+    # ── Body: declarations, reproducibility, funding ──
+    add_para(
+        "Both authors have approved the manuscript and declare no competing "
+        "interests. This work has not been published elsewhere, is not under "
+        "consideration by any other journal, and has not previously been "
+        "submitted to Nature Communications. AI tools (large language "
+        "model-based assistants) were used for computational debugging, "
+        "statistical code review, and language editing; all AI-assisted "
+        "content was reviewed and revised by the authors, who take full "
+        "responsibility. This work was supported by the National Natural "
+        "Science Foundation of China (grant 32370682). The CKI Python package "
+        "(release tag v0.5.0, MIT License) and all analysis code are publicly "
+        "available at https://github.com/zhanglknt/CKI-cell-type-identification "
+        "(Zenodo DOI 10.5281/zenodo.22735744).",
+        doc,
+    )
+
+    # ── Body: suggested reviewers ──
+    add_para(
+        "We suggest the following reviewers, none with recent collaborations "
+        "or conflicts of interest with the authors: "
+        "Prof. Fabian Theis, Helmholtz Munich (fabian.theis@helmholtz-munich.de); "
+        "Prof. Joshua Welch, University of Michigan (welchjd@umich.edu); "
+        "Prof. Sten Linnarsson, Karolinska Institutet (sten.linnarsson@ki.se); "
+        "Prof. Patrik St\u00e5hl, KTH / SciLifeLab (patrik.stahl@scilifelab.se); "
+        "Dr. Alejandro A. Sch\u00e4ffer, National Cancer Institute, NIH "
+        "(schaffer@ncbi.nlm.nih.gov); and Prof. Zemin Zhang, Peking University "
+        "(zeminzhang@pku.edu.cn).",
+        doc,
+    )
+
+    add_para(
+        "Thank you for considering our work.",
+        doc,
+    )
+
+    # ── Closing ──
+    add_para("Sincerely,", doc, space_after=12)
+    add_para("Li Zhang (Corresponding Author)", doc, space_after=0)
+    add_para("Xianming Wu (First Author)", doc, space_after=0)
+
+    # Save
+    out = str(OUTPUT_DIR / "CKI_NC_Cover_Letter.docx")
+    doc.save(out)
+    print(f"Saved: {out}")
+    return out
+
+
+if __name__ == "__main__":
+    run()

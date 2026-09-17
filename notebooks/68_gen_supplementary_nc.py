@@ -1,0 +1,1891 @@
+"""
+Generate NC-format Supplementary Information DOCX (from 68_gen_supplementary_en.py).
+NC naming: Supplementary Note 1-15, Supplementary Fig., Supplementary Table.
+Output: results/CKI_Supplementary_NC.docx
+"""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from _load_manuscript_data import get_manuscript_data
+from docx import Document
+from docx.shared import Pt, Cm, RGBColor
+from docx.oxml.ns import qn
+from lxml import etree
+
+# Load all manuscript data dynamically
+DATA = get_manuscript_data()
+_br = DATA['brain']
+_h = DATA['human']
+_mc = DATA['mouse_calibration']
+
+import json
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+# Brain block-shuffle observed pairs (current pipeline: 08d/08e)
+_obs = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "brain_bs_null_observed_pairs.csv")
+
+# Region-associated candidates for S4 top-5 (Strong tier from the block-shuffle re-analysis)
+_mig = _obs
+_strong = _mig[_mig['tier'] == 'Strong'].sort_values('residual').head(5)
+_candidates = _mig[_mig['tier'].isin(['Strong', 'Moderate', 'Weak'])]
+
+# Per-pair k_n variability (phaseC)
+_knv = json.loads((Path(__file__).resolve().parent.parent / "results" / "phaseC_kn_variability.json").read_text())
+_kn_overall = _knv['brain_overall']
+_kn_per_ct = _knv['per_cell_type']
+_kn_rho = _knv['omega_correlation']['spearman_rho']
+_kn_rho_p = _knv['omega_correlation']['p_value']
+_kn_cv_lo = min(_kn_per_ct.items(), key=lambda kv: kv[1]['kn_cv'])
+_kn_cv_hi = max(_kn_per_ct.items(), key=lambda kv: kv[1]['kn_cv'])
+
+# Scheme-matched split-half internal baselines (reviewer C-B; notebooks 42/43)
+_bs_txt = (Path(__file__).resolve().parent.parent / "results" / "reviewer_brain_splithalf_summary.txt").read_text()
+_bs = dict(kv.split(None, 1) for kv in (ln.strip() for ln in _bs_txt.splitlines()) if '\t' in kv or ' ' in kv)
+_brain_sh_mean = float(_bs['brain_split_half_mean_omega'])
+_brain_sh_ci = [float(x) for x in _bs['brain_split_half_ci95'].strip('[]').split(',')]
+
+_ts_txt = (Path(__file__).resolve().parent.parent / "results" / "reviewer_ts_splithalf_summary.txt").read_text()
+_ts = dict(kv.split(None, 1) for kv in (ln.strip() for ln in _ts_txt.splitlines()) if '\t' in kv or ' ' in kv)
+_ts_sh_mean = float(_ts['ts_split_half_mean_omega'])
+_ts_sh_ci = [float(x) for x in _ts['ts_split_half_ci95'].strip('[]').split(',')]
+
+# Per-class split-half calibration (reviewer E1-M4/E2-M5; notebook 76)
+_pc = json.loads((Path(__file__).resolve().parent.parent / "results" / "perclass_calibration.json").read_text())
+_pc_base = pd.DataFrame(_pc['baselines']).set_index('cell_type')
+_pc_cal = pd.DataFrame(_pc['calibration']).set_index('cell_type')
+_pc_bmin, _pc_bmax = _pc_base['baseline_popmean'].min(), _pc_base['baseline_popmean'].max()
+_pc_bmin_ct = _pc_base['baseline_popmean'].idxmin()
+_pc_bmax_ct = _pc_base['baseline_popmean'].idxmax()
+_pc_grad = _pc['gradient']['per_class']
+# P1-2 (blind-review round 1, E1-M2): joint region-clustered bootstrap values from
+# notebooks/81_perclass_uncertainty.py (numerator region-clustered, denominator
+# two-stage split-half resampling); the i.i.d.-numerator CIs in
+# perclass_calibration.json are anti-conservative and superseded.
+_pc_unc = json.loads((Path(__file__).resolve().parent.parent / "results" / "perclass_uncertainty.json").read_text())
+_pc_unc_df = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "perclass_uncertainty.csv").set_index('cell_type')
+_kfo = json.loads((Path(__file__).resolve().parent.parent / "results" / "kf_only_ordering.json").read_text())
+_kfo_sev = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "kf_only_severity.csv")
+_pc_grad_ci = _pc_unc['gradient']['joint_region_clustered_ci']
+_pc_grad_ci_old = _pc['gradient']['per_class_ci95']
+_pc_astro = float(_pc_cal.loc['Astrocyte', 'omega_cal_class'])
+_pc_astro_ci = [float(_pc_unc_df.loc['Astrocyte', 'omega_cal_class_lo']),
+                float(_pc_unc_df.loc['Astrocyte', 'omega_cal_class_hi'])]
+_pc_bg = float(_pc_cal.loc['Bergmann glia', 'omega_cal_class'])
+_pc_bg_ci = [float(_pc_unc_df.loc['Bergmann glia', 'omega_cal_class_lo']),
+             float(_pc_unc_df.loc['Bergmann glia', 'omega_cal_class_hi'])]
+_pc_bg_nreg = int(_pc_unc_df.loc['Bergmann glia', 'n_baseline_regions'])
+_pc_bg_base_ci = [float(_pc_unc_df.loc['Bergmann glia', 'baseline_two_stage_lo']),
+                  float(_pc_unc_df.loc['Bergmann glia', 'baseline_two_stage_hi'])]
+_pc_astro_base_ci = [float(_pc_unc_df.loc['Astrocyte', 'baseline_two_stage_lo']),
+                     float(_pc_unc_df.loc['Astrocyte', 'baseline_two_stage_hi'])]
+_pc_n_div_joint = _pc_unc['n_divergent_joint']
+_pc_bg_rc = [8.49, 19.52]  # canonical published BG region-clustered CI
+# (class-level CI list, _v38_statistical_addenda.py, B = 2,000); the per-class
+# calibration script's independent re-run ([9.09, 19.35]) is a bootstrap
+# resampling wobble of the same estimator -- use one value package-wide.
+_pc_bg_base = float(_pc_cal.loc['Bergmann glia', 'baseline_class'])
+_pc_n_div = dict(_pc['classification']['n_divergent'])
+# under the canonical [8.49, 19.52] interval the BG class-mean CI includes its
+# own baseline 9.08, so per-class divergence is 9/10 (BG borderline), not 10/10
+_pc_n_div['per_class'] = 9
+
+# Normality tests on the current-pipeline omega distributions
+_norm_brain_p = float(stats.normaltest(_obs['omega'])[1])
+_norm_human_p = float(stats.shapiro(pd.read_csv(
+    Path(__file__).resolve().parent.parent / "results" / "phase35_all_metrics_pairs.csv")['omega'])[1])
+_norm_mouse_p = float(stats.shapiro(pd.read_csv(
+    Path(__file__).resolve().parent.parent / "results" / "mouse_pilot_v2_results.csv")['omega'])[1])
+_norm_mouse_skew = float(stats.skew(pd.read_csv(
+    Path(__file__).resolve().parent.parent / "results" / "mouse_pilot_v2_results.csv")['omega']))
+
+# Bootstrap 95% CIs for the class-mean omega (pair-level resampling, B = 10,000)
+# Round-8 fix (E3-M2): report the mean CIs shipped in phaseB_bootstrap_cis.csv
+# (the file accompanying the submission) rather than median CIs recomputed
+# inline, so SN 3.2 matches the shipped artifact and the mean-based reporting
+# used throughout the manuscript.
+_pb_cis = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "phaseB_bootstrap_cis.csv")
+
+
+def _mean_ci_from_file(group):
+    row = _pb_cis[(_pb_cis['dataset'] == 'Brain') & (_pb_cis['group'] == group)].iloc[0]
+    return float(row['omega_mean']), float(row['ci_95_lower']), float(row['ci_95_upper'])
+
+
+_ci_astro = _mean_ci_from_file('Astrocyte')
+_ci_berg = _mean_ci_from_file('Bergmann glia')
+
+doc = Document()
+
+# Set default font
+style = doc.styles['Normal']
+font = style.font
+font.name = 'Arial'
+font.size = Pt(11)
+style.paragraph_format.space_after = Pt(6)
+style.paragraph_format.line_spacing = 1.15
+
+# Page margins (NAR: 2.5cm)
+for sec in doc.sections:
+    sec.top_margin = Cm(2.5)
+    sec.bottom_margin = Cm(2.5)
+    sec.left_margin = Cm(2.5)
+    sec.right_margin = Cm(2.5)
+
+# Heading styles
+for lvl, size in [(1, 16), (2, 14), (3, 12)]:
+    hs = doc.styles[f'Heading {lvl}']
+    hs.font.name = 'Arial'
+    hs.font.size = Pt(size)
+    hs.font.bold = True
+    hs.font.color.rgb = RGBColor(0, 0, 0)
+
+
+def add_heading(text, level=1):
+    return doc.add_heading(text, level=level)
+
+
+def add_para(text, bold=False):
+    p = doc.add_paragraph()
+    run = p.add_run(text)
+    run.font.name = 'Arial'
+    run.font.size = Pt(11)
+    run.font.bold = bold
+    run.font.color.rgb = RGBColor(0, 0, 0)
+    return p
+
+
+def add_table(rows, header=True):
+    t = doc.add_table(rows=len(rows), cols=len(rows[0]))
+    t.style = 'Table Grid'
+    for i, row in enumerate(rows):
+        for j, val in enumerate(row):
+            cell = t.cell(i, j)
+            cell.text = str(val)
+            for p in cell.paragraphs:
+                for r in p.runs:
+                    r.font.name = 'Arial'
+                    r.font.size = Pt(9)
+                    if header and i == 0:
+                        r.font.bold = True
+    return t
+
+
+# ===== TITLE PAGE =====
+add_heading('Supplementary Information', 1)
+add_para('CKI: a Ka/Ks-inspired index for quantifying functional cell-type divergence in single-cell transcriptomics')
+add_para('Xianming Wu (1), Li Zhang (1,2,*)')
+add_para('(1) Chinese Institute for Brain Research, Beijing, China')
+add_para('(2) Institute of Blood Transfusion, Chinese Academy of Medical Sciences & '
+         'Peking Union Medical College, Chengdu, China')
+add_para('(*) Corresponding author')
+add_para('')
+
+add_heading('Table of Contents', 2)
+toc = [
+    'CKI Mathematical Derivation',
+    'CKI Algorithm Pseudocode',
+    'Statistical Testing Details',
+    'Dataset Quality Control and Filtering Criteria',
+    'Supplementary Note 1: Ground-Truth Simulation',
+    'Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)',
+    'Supplementary Note 3: Calibrated Omega Normalization',
+    'Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization (v45)',
+    'Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls (v45)',
+    'Supplementary Note 6: Real Perturbation Demonstration (Kang et al. IFN-beta PBMC)',
+    'Supplementary Note 7: Fixed Gene-Panel Ablation',
+    'Supplementary Note 8: TCGA composition-contribution check for the NN/TT k_n reversal',
+    'Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)',
+    'Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity (v44)',
+    'Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)',
+    'Supplementary Note 12: Pseudo-Region Negative Control (Block-Shuffle Null Calibration)',
+    'Supplementary Note 13: Brain set-level enrichment of the block-shuffle signal (post-hoc)',
+    'Supplementary Note 14: Comparison with Augur Cell-Type Prioritization (v45)',
+    'Supplementary Note 15: JS Divergence Dimensionality Invariance',
+    'Supplementary Table 1: Parameter Sweep Results',
+    'Supplementary Table 2: Cross-Organ Conservation Data',
+    'Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data',
+    'Supplementary Table 4: Inter-regional Region-Associated Candidate Data',
+    'Supplementary Data 1: Complete Analysis Script Index',
+]
+for item in toc:
+    add_para(item)
+
+doc.add_page_break()
+
+# ===== SN1: Mathematical Derivation =====
+
+add_heading('CKI Mathematical Derivation', 2)
+
+add_para('1.1 Jensen-Shannon Divergence', bold=True)
+add_para(
+    'The Jensen-Shannon (JS) divergence is a symmetrized and smoothed version of the '
+    'Kullback-Leibler divergence. For two probability vectors p and q: '
+    'JS(p, q) = 1/2 D(p||m) + 1/2 D(q||m), where m = 1/2(p+q), '
+    'and D(p||q) = \u03a3 p_i log2(p_i/q_i). When using the base-2 logarithm, '
+    'the JS divergence is bounded in [0, 1]. This bound is important for interpreting '
+    '\u03c9: when both k_n and k_f approach 1, \u03c9 = k_f/k_n may still vary. '
+    'A small floor value (1e-4) on k_n is applied only in the TCGA bulk RNA-seq analysis '
+    '(where pseudobulk averaging across millions of cells compresses HK gene variance and '
+    'drives aggregate k_n toward zero) to prevent inflated \u03c9 from near-zero denominators; '
+    'all single-cell analyses (mouse, Tabula Sapiens, brain atlas) apply no floor '
+    '(kn_floor = 0, positivity guard only; minimum observed per-pair k_n: '
+    '1.1e-4, mouse; 6.3e-4, human; 9.2e-5, brain; under the reported brain pipeline, '
+    'only 1 of 31,764 pairs had k_n below 1e-4, and these values entered \u03c9 uncapped). '
+    'Before computing JS divergence, both pseudobulk vectors are mapped to probability '
+    'distributions by a softmax over the log-transformed values '
+    '(cki.utils.ensure_probability_distribution, mode = "softmax"). For single-cell data '
+    '(natural-log log1p of library-size-normalized counts) this mapping is exactly linear '
+    'in the normalized counts: softmax(log1p(x)) yields p_i = (x_i + 1)/\u03a3(x_j + 1), '
+    'equivalent to a +1 pseudo-count followed by L1 normalization. For TCGA bulk RNA-seq '
+    '(log2(TPM + 1) values) the same softmax is mathematically equivalent to a power '
+    'transformation, p_i \u221d (TPM + 1)^(1/ln 2) = (TPM + 1)^1.4427, which earlier '
+    'versions of this document did not disclose. A full re-analysis of the TCGA pipeline '
+    'under a strictly linear mapping, p_i = (TPM + 1)/\u03a3(TPM + 1), leaves every '
+    'qualitative conclusion unchanged (robustness table in Section 1.7).'
+)
+
+add_para('1.2 Baseline Divergence Rate k_n', bold=True)
+add_para(
+    'Housekeeping (HK) genes are defined as genes that maintain stable expression '
+    'across cell types and conditions. Let H = {g1, ..., gM} be the set of HK gene '
+    'indices. Given pseudobulk vectors \u03bc_A and \u03bc_B (length G, total number of genes), '
+    'the baseline divergence rate is: k_n = JS(norm(\u03bc_A[H]), norm(\u03bc_B[H])), '
+    'where norm() denotes +1 pseudo-count addition followed by L1 normalization. '
+    'Rationale: HK genes should not exhibit systematic differences between biologically '
+    'identical cell populations. The JS divergence observed on HK genes therefore reflects '
+    'baseline noise: technical variation, stochastic transcriptional bursting, and '
+    'individual-level physiological differences. k_n thus provides an internal baseline, '
+    'heuristically analogous to Ks (synonymous substitution rate) in molecular evolution. '
+    'HK gene set selection: HK genes were loaded from the HRT Atlas v1.0 reference '
+    '(1,130 human-mouse conserved HK genes) [13]. For mouse datasets, the mouse ortholog '
+    'column is used; for human datasets (Tabula Sapiens, TCGA, brain atlas), the human '
+    'gene column is used. The CKI package also supports data-driven auto-detection via '
+    'detect_housekeeping_genes() (combined criterion: detection rate > 0.9 and CV < 30th '
+    'percentile, use_reference = False), but all reported analyses use the pre-specified '
+    'HRT Atlas reference. Sensitivity analysis indicates that CKI results are robust to HK set '
+    'selection: using the top 10% lowest-variance genes as an alternative constrained set '
+    'yields \u03c9 correlations of r > 0.95.'
+)
+
+add_para('1.3 Functional Divergence Rate k_f', bold=True)
+add_para(
+    'Identity genes I are defined as genes that capture cell-type-specific functional '
+    'programs. In the default configuration (w1 = 1.0, w2 = 0.0), I consists of the '
+    'top-N highly variable genes (HVG), excluding HK genes. The functional divergence '
+    'rate is: k_f = JS(norm(\u03bc_A[I]), norm(\u03bc_B[I])). Extended configurations '
+    'can incorporate additional gene sets: (1) regulon activity genes \u2014 genes enriched '
+    'for cell-type-specific transcription factor motifs; (2) pathway enrichment genes '
+    '\u2014 genes from MSigDB pathways differentially active between the two groups; '
+    '(3) macro-gene embeddings \u2014 gene-level embeddings from protein language models '
+    '(e.g., ESM-2). These extensions use a weighted formulation: '
+    'k_f = w1*JS(HVG) + w2*JS(pathway) + w3*JS(macro). Parameter sweep (Phase 3.2) '
+    f'showed that the pure identity gene configuration (w1=1.0, w2=w3=0.0) achieved '
+    f'optimal cell type discrimination (AUC = {DATA["sweep"]["identity_auc"]:.3f}, n = {DATA["sweep"]["n_pairs"]:,} '
+    f'mouse cell-type pairs); this was therefore adopted as '
+    'the default scheme.'
+)
+
+add_para('1.4 Omega Ratio and Its Interpretation', bold=True)
+add_para(
+    '\u03c9 = k_f/k_n. Interpretation is anchored in the empirical \u03c9 distribution '
+    'within each dataset rather than in fixed ratio cut-offs: values close to the '
+    'equivalent-population calibration baseline are consistent with baseline '
+    'expectation, with no evidence of functional reprogramming; values far above the '
+    'baseline indicate functional divergence exceeding baseline drift, i.e. evidence of '
+    'functional transcriptional reprogramming beyond baseline; values far below the '
+    'baseline indicate functional constraint, the two groups being more similar in '
+    'functional genes than expected from baseline drift (rare in practice). '
+    'The Ka/Ks analogy is structurally similar but mathematically non-equivalent. '
+    'Key differences: (1) Ka/Ks operates on sequence alignments with explicit codon '
+    'models, while CKI operates on continuous expression vectors; (2) the neutral '
+    'reference in Ka/Ks has a mechanistic basis in the genetic code (synonymous changes '
+    'are assumed neutral), whereas HK genes in CKI are empirically defined; (3) Ka/Ks '
+    'uses explicit evolutionary models (e.g., PAML), while CKI uses empirical permutation '
+    'inference.'
+)
+
+add_para('1.5 Permutation Test', bold=True)
+add_para(
+    'Statistical inference is performed by generating a null distribution of \u03c9 '
+    'under the null hypothesis that the group labels are exchangeable between the two '
+    'cell populations. Procedure: (1) Annotate all cells in the pooled dataset with their '
+    'original group labels (A or B); (2) Randomly permute group labels B times '
+    '(B=1,000): cell labels for mouse and human, sample (tumor/normal) labels for TCGA; '
+    'for the brain atlas the authoritative null is the library-to-region block-shuffle '
+    'permutation rather than label permutation; pseudobulk vectors and omega_null are '
+    'recomputed each time, with the top-N identity genes re-selected on the permuted '
+    'pseudobulks in the mouse, human, and brain pipelines, while the TCGA per-cancer '
+    'permutation test holds a fixed HVG panel across permutations (anti-conservative relative '
+    'to re-selection); '
+    '(3) Empirical P-value (one-sided): '
+    'P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1), with the '
+    '+1 term avoiding P = 0; (4) Effect size: SES = (omega_obs - '
+    'mean(omega_null))/sd(omega_null). Benjamini-Hochberg FDR correction is '
+    'applied within each dataset to control the false discovery rate. '
+    'Because the test is one-sided, rejection at a given alpha is decided '
+    'directly by the empirical P-value (P < alpha); no separate two-sided '
+    'critical values are derived from the null distribution, and the null '
+    'quantiles are not confidence intervals for \u03c9 itself. '
+    'Permutation testing was performed for all four datasets: label permutation for the '
+    'mouse pilot (15 cell-type pairs), human Tabula Sapiens, and TCGA (B=1,000 each), and '
+    'the block-shuffle null for the brain atlas (B=1,000). For the larger-scale analyses, results are supplemented with non-parametric '
+    'statistical tests (Spearman correlation, Mann-Whitney U, Kruskal-Wallis, '
+    'Jonckheere-Terpstra) and descriptive statistics.'
+)
+
+add_para('1.6 Pseudobulk Construction', bold=True)
+add_para(
+    'Raw count matrices X (cells x genes) are preprocessed as follows: '
+    '(1) Library size normalization: X_norm = 10,000 * (X/colSums(X)); '
+    '(2) log1p transformation: X_log = log1p(X_norm), stabilizing variance and reducing '
+    'the influence of high-expression outliers; (3) Pseudobulk: mu = column-wise mean '
+    'of X_log for all cells with the same cell type annotation, with a minimum of 10 '
+    'cells per group. For TCGA bulk RNA-seq data, TPM normalization is used instead: '
+    'TPM values from UCSC Xena, followed by log2(TPM + 1) transformation. No pseudobulk step '
+    'is needed as each sample is already a bulk expression profile.'
+)
+
+add_para('1.7 Probability-Mapping Robustness: Linear-Normalization Re-analysis of the TCGA Pipeline', bold=True)
+add_para(
+    'Disclosure. The authoritative TCGA pipeline (notebooks/06_phase34_v2.py) applies the '
+    'softmax probability mapping to log2(TPM + 1) values, which is mathematically '
+    'equivalent to the power transformation p_i \u221d (TPM + 1)^(1/ln 2) (Section 1.1). To '
+    'verify that this mapping choice does not drive any conclusion, the entire TCGA '
+    'analysis was re-run with the strictly linear mapping p_i = (TPM + 1)/\u03a3(TPM + 1), '
+    'mirroring the authoritative pipeline otherwise (per-cancer streaming gene loading, '
+    'mean TPM \u2265 0.5 filtering, per-cancer HK mapping, per-pair top-200 |\u0394| '
+    'identity genes ranked on the log2(TPM + 1) representation so that the identity gene '
+    'sets are unchanged, kn_floor = 1 \u00d7 10\u207b\u2074, seed 42, TT/TN caps of '
+    '2,000 pairs). Scripts: notebooks/85_tcga_linear_norm_v44.py (main pipeline and '
+    'clinical severity) and notebooks/86_tcga_composition_linear_norm_v44.py '
+    '(composition sensitivity); report: results/tcga_linear_norm_v44_report.md.'
+)
+add_table([
+    ['Cancer type', 'TN/baseline \u03c9 (softmax)', 'TN/baseline \u03c9 (linear)',
+     'NN > TT \u03c9 reversal', 'TT/NN k_n fold (linear)'],
+    ['LUAD', '0.65', '0.70', 'retained', '2.6\u00d7'],
+    ['LUSC', '0.67', '0.74', 'retained', '2.7\u00d7'],
+    ['LIHC', '0.78', '0.83', 'retained', '2.1\u00d7'],
+    ['KIRC', '0.74', '0.81', 'retained', '3.6\u00d7'],
+    ['BRCA', '0.78', '0.84', 'retained', '2.8\u00d7'],
+])
+add_para(
+    'Table (Section 1.7). Linear-normalization robustness of the TCGA main pipeline. Every '
+    'qualitative conclusion is preserved: the tumor-normal versus baseline contrast stays '
+    'significant in all five cancer types (all TN/baseline \u03c9 < 1; permutation '
+    'P = 1 \u00d7 10\u207b\u2074\u2079 to 1 \u00d7 10\u207b\u00b9\u2074), with ratios '
+    'attenuating slightly toward 1; the NN > TT \u03c9 reversal is retained in 5 of 5 '
+    'cancer types with the k_n reversal (TT k_n 2.1\u20133.6\u00d7 the NN median) intact; '
+    'k_n < 1 \u00d7 10\u207b\u2074 floor saturation is < 0.1% under the linear mapping '
+    '(a single pair of 35,306 at k_n = 8.4 \u00d7 10\u207b\u2075; all other '
+    'pair-level k_n \u2248 7 \u00d7 10\u207b\u2074 to 6 \u00d7 10\u207b\u00b3), so the '
+    'floor is not an artifact of the mapping; all three clinical-severity orderings are '
+    'preserved (full values in Supplementary Note 9); and the composition-sensitivity conclusion is '
+    'unchanged (pooled tumor-pair coefficient attenuation \u22120.8%, cluster-bootstrap '
+    'median \u22121.2% [95% CI \u22124.1%, +2.6%]; Supplementary Note 8).'
+)
+
+doc.add_page_break()
+
+# ===== SN2: Algorithm Pseudocode =====
+
+add_heading('CKI Algorithm Pseudocode', 2)
+add_para('Algorithm 1: CKI Core Computation', bold=True)
+add_para(
+    'Input: Two cell populations A and B (expression matrices), HK gene set H, '
+    'identity gene set I (default top-N HVG excluding H). '
+    'Output: \u03c9, P-value, SES, null distribution.'
+)
+pseudo = [
+    ' 1. X_A, X_B <- library-normalize and log1p-transform A and B',
+    ' 2. mu_A <- mean(X_A, axis=0); mu_B <- mean(X_B, axis=0)  // pseudobulk',
+    ' 3. mu_A_H <- mu_A[H]; mu_B_H <- mu_B[H]',
+    ' 4. k_n <- JS_divergence(norm(mu_A_H), norm(mu_B_H))  // norm: softmax over log1p counts, i.e., p_i = exp(log1p(c_i)) / sum_j exp(log1p(c_j)) = (c_i+1) / sum_j (c_j+1)',
+    ' 5. mu_A_I <- mu_A[I]; mu_B_I <- mu_B[I]',
+    ' 6. k_f <- JS_divergence(norm(mu_A_I), norm(mu_B_I))',
+    ' 7. if (bulk RNA-seq analysis) and k_n < 1e-4: k_n <- 1e-4  // TCGA-only floor; single-cell analyses apply no floor',
+    ' 8. omega <- k_f / k_n',
+    ' 9. // Permutation test',
+    '10. labels <- concatenate([A]*n_A, [B]*n_B)  // for bulk RNA-seq, one label per sample',
+    '11. for b = 1 to B (B = 1,000 for all datasets):',
+    '12.     labels_perm <- random_permutation(labels)',
+    '13.     mu_perm1 <- mean(pooled[labels_perm[:n_A]], axis=0); mu_perm2 <- mean(pooled[labels_perm[n_A:]], axis=0)',
+    '14.     I_b <- top-N identity genes selected on (mu_perm1, mu_perm2)  // re-selected at every permutation',
+    '15.     omega_null[b] <- CKI_core(mu_perm1, mu_perm2, H, I_b)',
+    '16. // Inference (one-sided permutation test)',
+    '17. P <- (count(omega_null >= omega_obs) + 1) / (B + 1)',
+    '18. d <- (omega - mean(omega_null)) / sd(omega_null)',
+]
+for line in pseudo:
+    p = add_para(line)
+    p.paragraph_format.space_after = Pt(1)
+    p.paragraph_format.space_before = Pt(0)
+
+add_para(
+    'Note: in the released cki package (v0.5.0), bootstrap_test() reproduces lines 9-15 '
+    'by default (reselect_identity = True): the HK set H is resolved once before the '
+    'permutation loop and held fixed, while the k_f gene set is re-selected at every '
+    'permutation (and for the observed value) as the top 200 non-HK genes by absolute '
+    'pseudobulk difference, so the null incorporates the gene-selection step; this is '
+    'the label-permutation procedure reported for the mouse pilot and Tabula Sapiens '
+    'analyses. Passing explicit identity gene sets, or reselect_identity = False, pins '
+    'a fixed panel across permutations (legacy mode; anti-conservative relative to '
+    're-selection whenever the observed \u03c9 uses per-pair selection). The TCGA '
+    'per-cancer permutation test deliberately held a fixed identity panel across '
+    'permutations (anti-conservative relative to re-selection; see 1.5 Permutation '
+    'Test), and the brain analysis uses a library-level block-shuffle null '
+    '(cki.blocknull.block_shuffle_test) instead of label permutation.'
+)
+add_para('')
+add_para('Algorithm 2: Pairwise Identity Gene Selection (Tabula Sapiens Extension)', bold=True)
+add_para(
+    'Unlike the Tabula Muris full pairwise matrix (global HVG set for Fig. 2), Tabula Sapiens and all pilot analyses (mouse calibration, human, TCGA, brain) employ pairwise identity '
+    'gene selection to avoid dilution of HVG across 102 cell types.'
+)
+pseudo2 = [
+    'Input: Pseudobulk vectors mu_A, mu_B; HK set H; top-N parameter N (default 200)',
+    '1. Delta <- |mu_A - mu_B|  // per-gene absolute expression difference',
+    '2. I <- indices of top-N genes ranked by descending Delta, excluding H',
+    '3. k_f <- JS(norm(mu_A[I]), norm(mu_B[I]))',
+    '',
+    'Note: k_n uses the global HK set (same for all pairs); k_f uses pairwise top-N genes.',
+]
+for line in pseudo2:
+    p = add_para(line)
+    p.paragraph_format.space_after = Pt(1)
+    p.paragraph_format.space_before = Pt(0)
+
+doc.add_page_break()
+
+# ===== SN3: Statistical Testing =====
+
+add_heading('Statistical Testing Details', 2)
+
+add_para('3.1 Tests Performed and Correction Strategy', bold=True)
+add_para(
+    'The following statistical tests were used in this study: Mann-Whitney U test '
+    '(two-sided) for independent comparisons between two groups; Kruskal-Wallis test '
+    'for multi-group comparisons (e.g., BRCA PAM50 subtypes); Jonckheere-Terpstra trend '
+    'test for ordered categorical variables (e.g., LIHC Edmondson grade); Spearman rank '
+    'correlation for correlations between metrics; Permutation test (B=1,000) '
+    'for CKI \u03c9 significance inference; ROC-AUC for cell type classification '
+    'performance assessment.'
+)
+
+add_para('3.2 Permutation Test and Bootstrap CI Details', bold=True)
+add_para(
+    'Permutation iterations: B=1,000 for all datasets (mouse pilot study with '
+    '15 cell-type pairs, human Tabula Sapiens via script 08b, TCGA via script 08a, '
+    'and brain atlas via scripts 08d-08e, which implement the block-shuffle null). '
+    'Permutation testing was performed '
+    'for all four datasets. Benjamini-Hochberg FDR correction is '
+    'applied within each dataset to control the false discovery rate. '
+    'For the calibration '
+    'experiment, empirical P-values '
+    'are computed as: P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1). '
+    'Standardized effect size = (\u03c9_obs - mean(\u03c9_null)) / sd(\u03c9_null).'
+)
+add_para(
+    'Bootstrap confidence intervals (95% CI) for all key \u03c9 estimates were '
+    'computed by pair-level resampling with B=10,000 iterations. For each cell '
+    'type, observed pair-level \u03c9 values were resampled with replacement and the '
+    'mean was computed; the 2.5th and 97.5th percentiles of the resulting '
+    'distribution define the 95% CI. A region-clustered block bootstrap (B = 2,000; the 108 '
+    'regions resampled with replacement, all statistics recomputed per resample) yields wider, '
+    'cluster-aware intervals for landscape-level quantities: gradient 6.10 [5.55, 9.63], '
+    'grand mean \u03c9 38.55 [36.35, 40.73], Strong-candidate count 39 [12, 74]. '
+    'Confidence interval widths scale inversely '
+    'with the number of contributing pairs: well-sampled cell types (e.g., '
+    f'astrocytes, 5,778 pairs) yield narrow intervals ([{_ci_astro[1]:.2f}, {_ci_astro[2]:.2f}], '
+    f'mean {_ci_astro[0]:.2f}), whereas cell types with fewer comparisons '
+    f'(e.g., Bergmann glia, 21 pairs) produce wider intervals '
+    f'([{_ci_berg[1]:.2f}, {_ci_berg[2]:.2f}], mean {_ci_berg[0]:.2f}).'
+)
+
+add_para('3.3 Multiple Testing Correction', bold=True)
+_bs = _br['bs_null']
+add_para(
+    'Permutation testing was performed for all four datasets with B=1,000: '
+    'mouse pilot (15 cell-type pairs), human Tabula Sapiens, TCGA, and '
+    'brain atlas. Benjamini-Hochberg FDR correction is applied within each '
+    'dataset to control the false discovery rate, with the number of tests '
+    'defined at the level at which each analysis is performed. For the human '
+    f'atlas, {_h["n_ct_analyzed"]} of 102 cell-type entries passed the pairwise-analysis filters '
+    f'(at least 20 cells per entry and a donor with at least 10 cells), yielding '
+    f'C({_h["n_ct_analyzed"]}, 2) = {_h["n_pairs_total"]:,} pairs; for the brain atlas, 31,764 '
+    'same-cell-type cross-region pairs were tested. For the larger-scale analyses, permutation results '
+    'are supplemented with non-parametric '
+    'statistical tests and descriptive statistics (median, IQR, effect sizes). For TCGA stratified '
+    'analyses (BRCA PAM50, LIHC Edmondson) involving 4-5 groups, omnibus tests '
+    '(Kruskal-Wallis, Jonckheere-Terpstra) are used. Effect sizes are reported alongside '
+    'all significance statements to distinguish statistical significance from biological '
+    'magnitude.'
+)
+add_para(
+    f'For the brain region-association screen, per-pair empirical P-values were computed with a '
+    f'block-shuffle permutation null (B = {_bs["B"]:,}), in which 10x Chromium libraries '
+    '(sample_id) were treated as blocks and the library-to-region assignment was randomly permuted '
+    '(preserving the observed per-region library-count structure), after which region pseudobulks, all '
+    f'31,764 pair \u03c9 values, and multiplicative residuals were recomputed. The one-sided lower-tail '
+    f'P-value is P = (count(\u03c9_null \u2264 \u03c9_obs) + 1)/(B + 1); the complementary upper-tail P-value '
+    f'P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1) was also computed for every pair, and both tails are '
+    f'reported here. Of the {_br["n_strong"]} Strong-tier candidates '
+    f'(residual < 0.3), {_br.get("n_significant", 31)} showed raw P < 0.05, but after Benjamini-Hochberg '
+    f'correction across all m = 31,764 pairs, none reached q < 0.05 (minimum q = {_br["min_q_fdr"]:.3f}). '
+    f'Globally, {_bs["n_p_lt_05"]:,} of 31,764 pairs (6.2%) showed raw lower-tail P < 0.05, above the '
+    f'permutation null mean of 1,588 and beyond its 99th percentile (1,956): calibrated against the '
+    f'design-matched null distribution of the count itself, this excess is significant (P = 0.011; 0.022 '
+    f'after Bonferroni correction across the two tails tested), and it is contributed chiefly by classes '
+    f'whose mean \u03c9 sits below the null expectation\u2014microglia (8.06% of class pairs at lower-tail '
+    f'P < 0.05, +173 pairs above the 5% null rate), oligodendrocytes (6.01%, +58), and Bergmann glia '
+    f'(8 of 21 pairs, 38.1%, the family nominally significant under stratified BH)\u2014but also by '
+    f'astrocytes (7.60%, +150 pairs), whose wide, right-skewed \u03c9 distributions generate pairs far '
+    f'below the null even though the class mean lies far above it. The complementary upper tail '
+    f'was also tested and shows a clear excess in the opposite direction: '
+    f'{_bs.get("n_p_high_lt_05", 2510):,} pairs ({_bs.get("pct_p_high_lt_05", 7.9):.1f}%) had upper-tail '
+    f'P < 0.05 (observed \u03c9 above the block-shuffle null), concentrated in the most regionally structured '
+    f'classes (astrocytes 16.2%, committed OPCs 9.7%, OPCs 9.6% of class pairs; Bergmann glia 0%). The '
+    f'two-sided excesses are the pair-level signature of the same regional structure detected at the '
+    f'cell-class level\u2014classes with upward-shifted \u03c9 distributions contribute the upper-tail excess, '
+    f'while the lower-tail excess, though concentrated in the below-null classes, also draws a nearly equal '
+    f'contribution from the wide astrocyte distribution\u2014and the lower-tail excess in aggregate is not '
+    f'evidence for anomalously low-\u03c9 pairs beyond what the class-level shifts predict. '
+    'The null FDR outcome for the candidate screen is structural rather than purely empirical: with m = 31,764 tests, '
+    'the BH threshold for the smallest ordered P-value (0.05/31,764 \u2248 1.6 \u00d7 10\u207b\u2076) lies roughly '
+    '600-fold below the smallest resolvable permutation P (9.99 \u00d7 10\u207b\u2074 at B = 1,000), so '
+    'q < 0.05 would require either B \u2248 6 \u00d7 10\u2075 permutations or at least ~635 of the 31,764 '
+    'P-values at the permutation floor\u2014neither condition is approached in these data, as the '
+    'selection-rule analysis quantifies (the null alone would pass the complete '
+    'Strong rule 148.3 times in expectation, 3.8-fold above the 39 observed candidates; for the rule '
+    'restricted to raw P < 0.05 the null expectation of 131.2 exceeds the observed 31 4.2-fold). '
+    'We therefore report the Strong candidates as a prioritized hypothesis-generating list rather than '
+    'FDR-controlled discoveries. An earlier implementation of this test, which shuffled cell-type '
+    'labels within each region pair (B = 10,000), produced anti-conservative P-values (36.3% of pairs at '
+    'the P-value floor) because per-pair shuffling ignores the block structure of 10x libraries; that '
+    'implementation was superseded by the block-shuffle null reported here. Per-signal tests are not '
+    'independent (the same cell type or region pair appears in multiple comparisons); interpretation is '
+    'therefore restricted to the predefined Strong tier. (Supplementary Fig. 12: \u03c9 distribution '
+    'characterization; Supplementary Fig. 9: block-shuffle null distribution for the residual model.)'
+)
+
+add_para('3.4 Reporting Conventions', bold=True)
+add_para(
+    'Summary statistics are reported as mean +/- standard deviation (range) or median '
+    '[interquartile range]. Boxplots display: median (center line), IQR (box), '
+    '1.5x IQR (whiskers), with data points beyond the whiskers shown as outliers. '
+    'All P-values from non-permutation tests are two-sided; permutation '
+    'P-values are one-sided (see Section 1.5). Correlation '
+    'coefficients (Spearman rho) are reported with P-values. Effect sizes (standardized effect size, SES = (\u03c9_obs \u2212 \u03bc_null) / \u03c3_null) '
+    'are reported as descriptive measures of magnitude; because the \u03c9 distribution '
+    'is right-skewed and non-normal for the large datasets (brain: D\u2019Agostino-Pearson '
+    f'P < 2.2 \u00d7 10\u207b\u00b9\u2076; human: Shapiro-Wilk P = {_norm_human_p:.1e}; the mouse pilot at n = 15 '
+    f'pairs does not reject normality, Shapiro-Wilk P = {_norm_mouse_p:.3f}), SES should be '
+    'interpreted as a '
+    'non-parametric descriptive statistic rather than a parametric test result.'
+)
+
+add_para('3.7 Pair-Specific k_n Variability', bold=True)
+add_para(
+    'In all reported analyses (mouse pilot, human, TCGA, and brain), k_n is computed '
+    'per pair on the shared HK gene set: for each comparison, the HK-gene JS divergence '
+    'between the two pseudobulk vectors is evaluated on that pair alone (a single HK '
+    'reference is shared across all pairs, keeping k_n on a consistent scale, but the '
+    'divergence itself is pair-specific). '
+    f'Analysis of per-pair k_n across {_kn_overall["n_pairs"]:,} brain comparisons revealed substantial cross-pair '
+    f'variability: overall k_n CV = {_kn_overall["kn_cv"]:.2%} (mean = {_kn_overall["kn_mean"]:.4f}, median = {_kn_overall["kn_median"]:.4f}), with per-cell-type '
+    f'CVs ranging from {_kn_cv_lo[1]["kn_cv"]:.1%} ({_kn_cv_lo[0].lower()}s) to {_kn_cv_hi[1]["kn_cv"]:.1%} ({_kn_cv_hi[0].lower()}s). '
+    'As a sensitivity analysis, we contrasted this per-pair k_n estimator with a global-k_n '
+    'variant (k_n computed once from the full gene-by-cell-type pseudobulk matrix): the Spearman '
+    f'correlation between the resulting \u03c9 rankings was only \u03c1 = {_kn_rho:.3f} (P = {_kn_rho_p:.2e}), so the '
+    'global-k_n simplification would preserve only ~2% of the variance in \u03c9 orderings '
+    '(\u03c1\u00b2 \u2248 0.02). This justifies the per-pair k_n approach used throughout and '
+    'highlights that fine-grained \u03c9 orderings should be interpreted with the estimator '
+    'choice in mind. (Supplementary Fig. 7.)'
+)
+
+add_para('3.8 TCGA Exploratory Analysis Caveats', bold=True)
+add_para(
+    'The TCGA pan-cancer analysis (Results Section: Cancer analysis) is exploratory in nature '
+    'due to several inherent limitations of bulk RNA-seq data. First, bulk RNA-seq confounds '
+    'cell-composition shifts (tumor purity, stromal infiltration, immune cell infiltration) '
+    'with genuine transcriptional divergence; the observed NN/TT > 1.0 pattern may partly '
+    'reflect shared cell-composition changes across tumors rather than true transcriptional '
+    'convergence. Second, peritumoral inflammation and desmoplastic reactions are shared '
+    'across tumors and could contribute to apparent convergence. Third, systematic RNA quality '
+    'differences between tumor and normal specimens may introduce technical bias. Fourth, '
+    'the paired tumor-normal analysis (n = 2-5 per cancer type) lacks statistical power for '
+    'formal hypothesis testing (minimum two-sided P approx 0.33 for n = 2); we therefore '
+    'report paired comparisons as descriptive statistics only. Fifth, PAM50 and Edmondson '
+    'stratification includes small subgroups (Normal-like n = 7; Edmondson G4 n = 11) whose '
+    'rankings are unreliable. Sixth, the PAM50 gradient (aggressive subtypes have lower \u03c9) '
+    'may be driven by proliferative fraction differences rather than shared transcriptional '
+    'states. These caveats do not invalidate the descriptive findings but preclude causal '
+    'inference from bulk-level data alone.'
+)
+
+add_para('3.9 Cross-Organ Sample Size Considerations', bold=True)
+add_para(
+    'The cross-organ conservation ranking (Results Section: CKI ranks cell types by cross-organ '
+    'conservation) includes cell types with varying numbers of cross-organ pairs. Several cell '
+    'types have very few pairs (n = 1-3; e.g., Memory B cells n = 1, Smooth muscle n = 1), '
+    'making their mean \u03c9 estimates unreliable. We recommend interpreting rankings of cell '
+    'types with n < 5 as suggestive only. Bootstrap 95% confidence intervals for cell types '
+    'with n \u2265 5 are provided in Supplementary Table 2. The Spearman correlations between '
+    'CKI \u03c9 and standard metrics are reported with bootstrap 95% CIs (B = 10,000 resamples).'
+)
+
+add_para('3.10 One-Sided Permutation Test Justification', bold=True)
+add_para(
+    'All permutation P-values use a one-sided test: P = (count(omega_null \u2265 omega_obs) + 1)/(B + 1). '
+    'The one-sided formulation is appropriate because our hypothesis is directional: we test '
+    'whether observed \u03c9 exceeds the null expectation (equivalent populations), not whether '
+    'it differs in either direction. A two-sided test would be appropriate if we were testing '
+    'for any departure from the null (either elevated or suppressed \u03c9). However, the '
+    'biological questions addressed here (functional divergence exceeding baseline, Strong '
+    'region-associated candidates showing anomalously low \u03c9) are inherently directional. '
+    'One exception: the brain per-pair candidate screen uses the one-sided lower-tail '
+    'formula P = (count(omega_null \u2264 omega_obs) + 1)/(B + 1), because region-associated '
+    'candidates are defined by anomalously low \u03c9; the complementary upper-tail '
+    'P-value is computed for every pair and both tails are reported. In the released '
+    'cki package (v0.5.0), the tested tail is selected by the tail parameter of '
+    'bootstrap_test() and block_shuffle_test() (tail = "upper", "lower", or '
+    '"two-sided"); earlier releases used the parameter name "direction".'
+)
+
+add_para('3.11 Parameter Justification', bold=True)
+add_para(
+    'Key CKI parameters and their rationale: (1) +1 pseudo-count followed by L1 '
+    'normalization: converts expression vectors to probability distributions for JS '
+    'divergence computation; adding one pseudo-count before L1 normalization preserves '
+    'relative magnitude information while ensuring non-negativity and sum-to-one. '
+    '(2) Zero entries are excluded from the JS divergence by explicit masking '
+    '(p > 0, q > 0); the constant _EPS = 1e-9 is used only as a softmax denominator '
+    'guard and never enters k_n, k_f, or \u03c9. (3) Identity-gene sets for k_f: two schemes are used '
+    '\u2014 a global panel of the top-2,000 highly variable genes (HVGs; Seurat flavor, HK '
+    'excluded) for the Tabula Muris full pairwise matrix, and per-pair top-200 DE genes '
+    '(ranked by absolute mean difference, HK excluded) for the mouse pilot, Tabula '
+    'Sapiens, TCGA, and brain analyses; the Phase 3.2 sweep varied the identity/pathway '
+    'weighting at the fixed 2,000-HVG panel and found the identity-only configuration '
+    'optimal for AUC (Supplementary Table 1). (4) Gene-set sizes by dataset: 2,000 HVGs '
+    '(Scanpy default) for the mouse matrix; the brain pipeline retains the top-5,000 '
+    'non-HK genes by global mean expression; a diagnostic HVG-size sweep on Tabula '
+    'Sapiens (N_HVG in {2,000, 5,000, 10,000, 20,000}; notebooks/05b_phase33_diagnose.py) '
+    'informed these choices. (5) Log-base 2 for JS divergence: standard choice giving JS '
+    'range [0, 1]; the base does not affect \u03c9 = k_f/k_n since it cancels in the ratio. '
+    '(6) B = 1,000 for permutation: justified by adaptive permutation analysis showing minimum '
+    'P = 9.99 \u00d7 10\u207b\u2074 (= 1/(B+1) = 1/1001) is well below BH thresholds for cell-type-level tests (Phase B).'
+)
+
+add_para('3.18 Mouse Split-Half Re-calibration (6 \u2192 50 splits; v44)', bold=True)
+add_para(
+    'The equivalent-population calibration of Supplementary Note 3 was re-run with 50 '
+    'independent random split-halves per control population (the same six FACS '
+    'control populations as the original calibration: liver hepatocyte, heart '
+    'endothelial, spleen B cell, marrow B cell, heart fibroblast, marrow '
+    'neutrophil; 300 split-half \u03c9 values; identical QC, normalization, and '
+    'k_n/k_f definitions; script notebooks/87_mouse_splithalf_v44.py; outputs '
+    'results/mouse_splithalf_v44.csv and results/mouse_splithalf_v44_summary.json; '
+    'seed 42). The replicate baseline stabilizes at mean \u03c9 = 7.70 '
+    '(SD of replicate means 1.15, pooled SD 3.63; 95% CI [7.37, 8.02] by t-interval, [7.38, 8.02] by bootstrap '
+    'with B = 10,000), superseding the legacy single-split estimate '
+    '6.67 [4.24, 9.24]. The legacy point estimate lies inside the overlap of '
+    'the two CIs; the difference is single-split sampling noise dominated by '
+    'the hepatocyte population (per-population SD \u2248 6.0). Per-population '
+    'means (50 splits each): hepatocyte 12.44 \u00b1 5.98, marrow B cell '
+    '7.36 \u00b1 1.39, heart endothelial 7.23 \u00b1 1.59, heart fibroblast '
+    '7.00 \u00b1 1.73, spleen B cell 6.38 \u00b1 0.93, marrow neutrophil '
+    '5.77 \u00b1 2.67. The calibration constant used throughout this revision '
+    'is therefore 7.70 [7.37, 8.02]; qualitative calibrated-\u03c9 conclusions '
+    'are unchanged (e.g., brain grand mean 38.5 \u2192 \u03c9_cal \u2248 '
+    '5.0\u20135.8 under either baseline).'
+)
+
+add_para('3.19 Competitor Benchmark: MELD and a Python Approximation of scDist (v44)', bold=True)
+add_para(
+    'Purpose and methods. CKI was benchmarked against MELD (PyPI meld 1.0.2, '
+    'minimal --no-deps install; per-cell-type score = within-type AUC of the '
+    'stim-versus-control likelihood) and against a Python approximation of '
+    'scDist (the R package was unavailable in our environment; per cell type, '
+    'per-PC OLS of PC score on condition plus donor fixed effects, cell-type '
+    'distance = \u221a(\u03a3_j \u03b2\u00b2_cond,j \u03bb_j) over 20 PCs of '
+    'log-normalized 3,000 HVGs). The scDist implementation reproduces the '
+    'fixed-effects condition-coefficient distance of Mitsakos et al. 2023 but '
+    'is not the R package\u2019s exact implementation and is labelled "Python '
+    'approximation of scDist" throughout. Script: '
+    'notebooks/101_competitors_v44.py; report: results/competitors_v44_report.md; '
+    'seed 42; at least 20 replicates for every simulation and power number.'
+)
+add_para(
+    'Kang IFN-\u03b2 real data (GSE96583; same design as Supplementary Note 6). All three '
+    'methods agree on direction in 6 of 6 cell types (every type shows '
+    '\u03c9_cal > 1 and MELD within-type AUC > 0.5). The IFN-\u03b2 effect is '
+    'near-ceiling, so MELD AUCs saturate (0.997\u20130.9998) with almost no '
+    'dynamic range, while the scDist-approximation distances span '
+    '71.9\u2013182.6 (CD14+ monocytes highest). Per-type quantitative rankings '
+    'are not comparable across methods (Spearman: CKI\u2013MELD \u03c1 = '
+    '\u22120.09, P = 0.87; CKI\u2013scDist \u03c1 = 0.14, P = 0.79; '
+    'MELD\u2013scDist \u03c1 = 0.77, P = 0.07); CKI\u2019s \u03c9_cal spread '
+    '(1.76\u20133.44) reflects anchor visibility rather than effect size.'
+)
+add_table([
+    ['Cell type', 'n cells', 'CKI \u03c9_cal', 'MELD within-type AUC',
+     'scDist-approx distance'],
+    ['B cells', '2,573', '3.44', '0.9994', '94.7'],
+    ['CD14+ monocytes', '5,385', '2.28', '0.9998', '182.6'],
+    ['CD4 T cells', '10,389', '1.76', '0.9989', '71.9'],
+    ['CD8 T cells', '2,042', '3.23', '0.9976', '72.4'],
+    ['FCGR3A+ monocytes', '1,599', '3.09', '0.9995', '145.3'],
+    ['NK cells', '1,993', '2.88', '0.9972', '88.2'],
+])
+add_para(
+    'Table (Section 3.19a). Per-cell-type effects on Kang IFN-\u03b2 '
+    '(stimulated versus control). \u03c9_cal is calibrated against the '
+    'split-half baseline of Supplementary Note 6.'
+)
+add_para(
+    'Simulation with known ground truth (Kang control background; additive '
+    'Poisson mean-shift on G \u2208 {100, 500} non-HK genes in CD14+ '
+    'monocytes, fold \u2208 {2, 4, 8}; 20 effect plus 20 pure-null replicates '
+    'per configuration; thresholds at the null q95, FPR on held-out nulls). '
+    'MELD and the scDist approximation achieve perfect detection at every '
+    'configuration (sensitivity 1.00, AUC 1.000; per-type FPR 0.033 and '
+    '0.050), while CKI \u03c9 is insensitive at G = 100 (AUC 0.52 \u2192 0.79 '
+    'for fold 2 \u2192 8) and anti-monotonic at G = 500 (AUC 0.05\u20130.13). '
+    'The mechanism is documented by the diagnostic components: at G = 500 '
+    'and fold \u2265 4 the broad shift moves the HK anchor itself (k_n '
+    'AUC = 1.000), so \u03c9 = k_f/k_n is annihilated by its own denominator. '
+    '\u03c9 quantifies divergence in excess of anchor movement and is by '
+    'construction insensitive to perturbations whose dominant effect is a '
+    'broad mean shift \u2014 a design property, disclosed here as a boundary '
+    'of the method (the anchor-visibility boundary; see also Supplementary Notes 1 and '
+    '6).'
+)
+add_table([
+    ['Method', 'FPR/type', 'G100 F2', 'G100 F4', 'G100 F8',
+     'G500 F2', 'G500 F4', 'G500 F8'],
+    ['MELD', '0.033', '1.000', '1.000', '1.000', '1.000', '1.000', '1.000'],
+    ['scDist (Python approximation)', '0.050', '1.000', '1.000', '1.000',
+     '1.000', '1.000', '1.000'],
+    ['CKI \u03c9', '0.083', '0.517', '0.688', '0.787', '0.127', '0.059', '0.054'],
+])
+add_para(
+    'Table (Section 3.19b). Target-detection AUC (target CD14+ monocytes versus '
+    'the five null cell types) in the additive mean-shift simulation. MELD '
+    'and the scDist approximation also achieve sensitivity 1.00 and top-1 hit '
+    'rate 1.00 at every configuration.'
+)
+add_para(
+    'Power formalization (donor-paired design of Supplementary Note 6; per-pair '
+    'permutation test on \u03c9, B = 100, one-sided P < 0.05; 20 replicates '
+    'per cell type and sample size). Power at n = 50 cells per condition per '
+    'donor is 0.67\u20130.93 across the six cell types; it declines as n '
+    'grows (n = 100: 0.47\u20130.76; n = 200: 0.17\u20130.55; n = 500: 0.09 '
+    'in the only testable type; pooled-donor designs at n \u2265 500: '
+    '\u2248 0), because the permutation null of \u03c9 explodes with '
+    'pseudobulk size (k_n \u2192 0 in the null while top-200 selection keeps '
+    'k_f elevated), so observed and null stop separating. CKI\u2019s '
+    'operating regime is therefore approximately 50\u2013200 cells per donor '
+    'per condition; large pooled pseudobulks defeat the \u03c9 permutation '
+    'test. MELD- and scDist-style scores have no such boundary but do not '
+    'decompose donor drift, which is CKI\u2019s design target.'
+)
+add_table([
+    ['Cell type', 'n = 50', 'n = 100', 'n = 200', 'n = 500'],
+    ['B cells', '0.84', '0.68', '0.17', '\u2014'],
+    ['CD14+ monocytes', '0.78', '0.76', '0.55', '\u2014'],
+    ['CD4 T cells', '0.67', '0.61', '0.47', '0.09'],
+    ['CD8 T cells', '0.70', '0.68', '\u2014', '\u2014'],
+    ['FCGR3A+ monocytes', '0.74', '0.47', '\u2014', '\u2014'],
+    ['NK cells', '0.93', '0.76', '\u2014', '\u2014'],
+])
+add_para(
+    'Table (Section 3.19c). Donor-paired detection power (fraction of 20 '
+    'replicates significant at one-sided P < 0.05); cells marked \u2014 had '
+    'too few eligible donors.'
+)
+add_para(
+    'Summary. CKI is weaker than the competitors at detecting broad '
+    'mean-shift perturbations (the anchor moves and \u03c9 is annihilated), '
+    'at large-pseudobulk inference (power collapses for per-condition '
+    'n \u2273 500), and at quantitative per-type ranking on near-ceiling '
+    'real perturbations. CKI holds up on direction and type-level detection '
+    'on real data (6/6 sign agreement with MELD), on donor-paired designs at '
+    'its intended scale (70\u201393% power at n = 50), and on '
+    'interpretability: the k_n/k_f decomposition pinpoints why a '
+    'perturbation is or is not visible (anchor movement versus excess '
+    'divergence), which neither MELD likelihoods nor scDist distances '
+    'expose.'
+)
+
+doc.add_page_break()
+
+add_heading('Dataset Quality Control and Filtering Criteria', 2)
+
+add_para('4.1 Tabula Muris FACS (Mouse)', bold=True)
+add_para(
+    'Downloaded from GEO (GSE109774). FACS-sorted cells (not droplet-based) were used '
+    'to ensure high per-cell gene detection. QC filtering: cells with < 500 detected '
+    'genes were removed; cells with > 10% mitochondrial gene expression were removed; '
+    'genes detected in < 3 cells were removed. Result: 15,057 cells x 22,308 genes '
+    '(post-QC). Cell type annotation: 38 cell type entries (each with at least 20 '
+    'cells in total and at least one mouse contributing at least 10 cells) '
+    'were retained for pseudobulk construction, spanning 6 organs (Liver, Kidney, '
+    'Spleen, Lung, Heart, Bone Marrow), yielding C(38, 2) = 703 analyzed pairs.'
+)
+
+add_para('4.2 Tabula Sapiens (Human)', bold=True)
+add_para(
+    'Downloaded from CZ CELLxGENE Discover. QC filtering: cells with < 500 detected '
+    'genes were removed; cells with > 20% mitochondrial gene expression were removed. '
+    'Result: 108,136 cells retained (6 h5ad files total), with 51,852 genes (filtered from the '
+    'original 58,870). Cell type entries: 102 entries across 6 organs (Liver, Kidney, '
+    'Heart, Bone Marrow, Spleen, Lung). Cell types included in pairwise \u03c9 analysis '
+    f'were required to have \u2265 10 cells in at least one donor and at least 20 cells per '
+    f'entry ("unknown" annotations excluded); 99 of the 102 entries passed these filters, '
+    f'yielding C(99, 2) = 4,851 analyzed pairs. Pairwise identity gene '
+    'selection (top-200 genes by |Delta expression| ranking) ensures that each comparison '
+    'uses the most informative genes for that specific pair. Human HK genes: HRT Atlas '
+    'v1.0 reference (1,130 genes; human column, 1,129 matched to data).'
+)
+
+add_para('4.3 TCGA Bulk RNA-seq', bold=True)
+add_para(
+    'Data were obtained from the NCI Genomic Data Commons. Five cancer types were selected: '
+    'LUAD (495 tumor + 76 normal), LUSC (567 + 58), LIHC (365 + 57), KIRC (755 + 82), '
+    'BRCA (1,032 + 109), totaling n = 3,596 samples. Normalization: TPM values from UCSC Xena, '
+    'followed by log2(TPM + 1) transformation. For paired analysis, tumor-normal pairs were '
+    'matched by patient barcode (TCGA-XX-XXXX format). Clinical metadata for stratified '
+    'analyses were obtained from GDC (via the TCGAbiolinks R package) and the cBioPortal API.'
+)
+
+add_para('4.4 Highly Variable Gene (HVG) Selection', bold=True)
+add_para(
+    'Tabula Muris: Global HVG selection was performed using '
+    'scanpy.pp.highly_variable_genes, with parameters flavor="seurat" and '
+    'n_top_genes=2,000. The global HVG set was used for all pairwise comparisons '
+    'in Phases 3.1-3.2. Tabula Sapiens: Pairwise HVG selection. For each cell type '
+    'pair (CT_i, CT_j), the top-200 genes ranked by |mu_i - mu_j| (absolute log1p '
+    'expression difference) were selected as identity genes, excluding HK genes. This '
+    'avoids the dilution effect of HVG across comparisons involving 102 cell types. '
+    'HVG count sensitivity: the Phase 3.2 sweep varied the identity/pathway weighting '
+    'at a fixed global panel of 2,000 HVGs (Supplementary Table 1); no N_HVG grid was '
+    'run on the mouse matrix. A diagnostic HVG-size sweep on Tabula Sapiens tested '
+    'N_HVG in {2,000, 5,000, 10,000, 20,000} (notebooks/05b_phase33_diagnose.py). '
+    'The pairwise scheme (human) uses N = 200 per-pair genes to maintain discriminative '
+    'power with computational efficiency.'
+)
+
+add_para('4.5 Kang et al. IFN-beta PBMC (Perturbation Demonstration)', bold=True)
+add_para(
+    'Downloaded from GEO (GSE96583; Kang et al. 2018, Nature Biotechnology). '
+    'The droplet arm was used: two 10x Genomics lanes from eight donors, '
+    'lane 2.1 control (14,619 cells) and lane 2.2 IFN-beta-stimulated '
+    '(14,446 cells, 6-hour stimulation), with donor assignment by genetic '
+    'demultiplexing (demuxlet) provided by the original authors. QC '
+    'filtering: only droplets annotated as singlets with a cell-type label '
+    'were retained; Megakaryocytes were excluded; cell types with fewer '
+    'than 50 cells in any (donor, condition) group were dropped '
+    '(Dendritic cells). Result: 24,413 cells across six cell types '
+    '(B cells, CD4 T, CD8 T, NK, CD14+ monocytes, FCGR3A+ monocytes). '
+    'Ensembl gene identifiers were mapped to HGNC symbols via the HGNC '
+    'custom download (23,503 unique symbols), and 1,099 HRT Atlas '
+    'housekeeping genes were matched. Because all control cells reside in '
+    'one lane and all stimulated cells in the other, condition and lane '
+    'are confounded; this is disclosed in Supplementary Note 6 and does not affect '
+    'the within-metric class comparison.'
+)
+
+doc.add_page_break()
+
+# ===== Supplementary Notes (NC: citation order 1-15) =====
+
+add_heading('Supplementary Note 1: Ground-Truth Simulation', 2)
+add_para(
+    'Semi-synthetic benchmark. To provide a known ground truth, perturbations of known '
+    'magnitude were injected into a real single-cell background (Tabula Muris FACS marrow '
+    'B cells, 1,848 cells). Each replicate resampled two independent groups of 200 cells '
+    'from the same cell type, so the true functional divergence before injection is zero. '
+    'The kept gene set mirrored the brain pipeline (1,064 matched HK genes plus the 5,000 '
+    'non-HK genes with highest global means). Functional signal: multiplicative shift of '
+    '2^delta (delta = 0.125-2) on a fixed module of 200 non-HK genes in group B. Neutral '
+    'perturbations, injected separately: (i) 2^eta shift on HK genes in group A '
+    '(eta = 0.25-1, neutral drift), (ii) extra Poisson noise across all genes in group A '
+    '(epsilon = 0.3-1, technical batch noise). Six metrics were computed with the identical '
+    'code path as the brain analysis: \u03c9, k_f, k_n, raw JS over the full kept gene set, '
+    'cosine distance, and k_f/k_total. Signal scenarios used three independent module draws '
+    '(seeds 42, 137, 2024). Detection thresholds were the 95th percentile of 200 baseline '
+    'replicates (pure cell resampling) per metric, so type-I error and power refer to a '
+    'common nominal 5% level. 1,750 replicates per background; scripts: '
+    'notebooks/45_groundtruth_simulation.py (marrow B cells) and notebooks/49_groundtruth_sim_background2.py (skin keratinocyte stem cells; runtime about 1 minute each).'
+)
+add_para(
+    'Type-I error under neutral perturbation. Under pure HK drift (eta = 0.25-1, pooled), '
+    'exceedance rates were: \u03c9 0.000, k_f 0.007, k_n 0.813, raw JS 0.553, cosine 0.580, '
+    'k_f/k_total 0.000. Exact Clopper-Pearson intervals: \u03c9 0/150 under pure HK drift '
+    '(one-sided 95% upper bound 0.0198; 2/250 pooled neutral replicates, 95% CI '
+    '[0.001, 0.029]); raw JS 0.553 (95% CI [0.470, 0.635]); cosine 0.580 (95% CI '
+    '[0.497, 0.660]). '
+    'Under global overdispersion noise (epsilon = 0.3-1, pooled): '
+    '\u03c9 0.020 (95% CI [0.002, 0.070]), k_f 0.020, k_n 0.060, raw JS 0.040, cosine 0.040. Standard unnormalized '
+    'metrics cannot distinguish neutral drift from functional divergence; \u03c9 and the '
+    'ratio variants reject neutral drift almost perfectly.'
+)
+add_para(
+    'Power for injected functional signal (detection rate, pooled over three module seeds; '
+    'thresholds calibrated at the 95th percentile of the baseline distribution). '
+    'delta = 0.125: \u03c9 0.013, k_f 0.013, raw JS 0.040, cosine 0.060. delta = 0.25: '
+    '\u03c9 0.000, k_f 0.013, raw JS 0.053, cosine 0.060. delta = 0.5: \u03c9 0.000, k_f '
+    '0.000, raw JS 0.140, cosine 0.100. delta = 1: \u03c9 0.000 (all three module seeds), '
+    'k_f 0.013, raw JS 0.993, cosine 0.667. delta = 2: \u03c9 0.133 (per-seed 0.12-0.16), '
+    'k_f 0.153, raw JS 1.000, cosine 1.000. The \u03c9 detection floor is structural: the '
+    'per-pair top-200 selection saturates with noise under the null (median baseline k_f = '
+    '0.025), so weak module shifts do not lift k_f above the selection floor, and \u03c9 '
+    'inherits this as an upper-bound estimator. The baseline \u03c9 distribution on this '
+    'background (mean 11.6, 95th percentile 20.8) reproduces the scale of the brain-internal '
+    'split-half calibration baseline (9.73), supporting external validity.'
+)
+add_para(
+    'Confounded scenarios (delta = 0.5 plus neutral HK drift). Detection rates: '
+    'eta = 0.25: \u03c9 0.000, raw JS 0.260, cosine 0.140; eta = 0.5: \u03c9 0.000, raw JS '
+    '0.960, cosine 0.940; eta = 1: \u03c9 0.000, raw JS 1.000, cosine 1.000. Neutral '
+    'drift suppresses \u03c9 further through the inflated denominator while inflating the '
+    'unnormalized metrics (which count drift as divergence).'
+)
+add_para(
+    'Discrimination and robustness. ROC AUC for separating functional (delta \u2265 0.25) from '
+    'neutral (HK drift or global overdispersion) replicates: \u03c9 0.804 > k_f 0.716 > '
+    'raw JS 0.640 > cosine 0.584 > k_f/k_total 0.437 > k_n 0.213. Under a fourfold '
+    'cell-count imbalance (n_B = 50, delta = 1), \u03c9 changed by \u221232% (8.47 versus 12.46) '
+    'while k_f inflated by +67% and cosine by +108%; 30% dropout and a twofold depth '
+    'difference produced no systematic shift in \u03c9. Module-size sensitivity at '
+    'delta = 1: m = 50 (\u03c9 mean 11.99), m = 200 (12.46), m = 500 (7.31; large modules '
+    'shift total library composition, which leaks into k_n and suppresses \u03c9). '
+    'Interpretation: \u03c9 is a specificity-first screen; its construction rejects neutral '
+    'drift, at the cost of bounded power for weak-to-moderate functional signals.'
+)
+
+add_para(
+    'Second-background replication. The entire design was repeated in Tabula Muris FACS skin '
+    'keratinocyte stem cells (1,371 cells; script notebooks/49_groundtruth_sim_background2.py; '
+    'results/groundtruth_simulation_background2*.csv) with identical grids, module seeds, group '
+    'sizes, and code path. Type-I error under pure HK drift: \u03c9 0.000, versus 0.780 for raw '
+    'JS and 0.787 for cosine (both more inflated than in the marrow background); under global '
+    'overdispersion noise: \u03c9 0.080, k_f 0.080. AUCs: \u03c9 0.908 > k_f 0.859 > raw JS 0.649 '
+    '> cosine 0.608 > k_f/k_total 0.539 > k_n 0.207 (identical ordering to the marrow '
+    'background). Detection power at delta = 1: \u03c9 0.913, k_f 0.927, raw JS 1.000; at '
+    'delta = 2: \u03c9 0.993. Under the fourfold cell-count imbalance (n_B = 50, delta = 1), '
+    'k_f retained higher power than \u03c9 (0.98-1.00 versus 0.04-0.20 at delta = 0.25 and '
+    'delta = 1). Both backgrounds are Tabula Muris FACS samples of the same platform, so the '
+    'replication establishes robustness across tissues and library depths within that platform, '
+    'not across platforms.'
+)
+
+add_para(
+    'Adversarial circularity scenarios. The neutral-drift null above places the null '
+    'perturbation on HK genes, which is the same anchoring assumption that CKI itself '
+    'makes; the type-I and AUC advantages above are therefore conditional on that '
+    'assumption rather than evidence for it. Two adversarial scenarios quantify the '
+    'consequences (script notebooks/75_sim_circularity_scenarios.py; results: '
+    'results/sim_circularity_*.csv; same background, gene set, six-metric code path, '
+    'and baseline null thresholds as above; three module seeds per scenario, 50 '
+    'replicates each). S1, functional-on-HK: a functional module of 200 genes was '
+    'drawn from the HK genes themselves and shifted by 2^delta (delta = 0.25, 0.5, 1, '
+    '2; 600 replicates). \u03c9 detected none of these signals (rate 0.000 at every '
+    'delta, all seeds), because an HK-located shift inflates k_n while k_f stays at '
+    'the selection floor, driving \u03c9 down, away from its upper tail; k_n itself '
+    'fires at 0.61 for delta = 0.25 and 1.00 thereafter, and the unnormalized metrics '
+    'detect the signal at moderate-to-strong magnitude (k_total 0.06/0.11/0.95/1.00 '
+    'and cosine 0.06/0.10/0.85/1.00 across the delta grid). CKI is thus structurally '
+    'blind to functional signal located on the anchor genes - an unavoidable property '
+    'of any HK-anchored normalization, and the mirror image of its claimed advantage. '
+    'S2, neutral-on-nonHK: neutral drift (2^eta, eta = 0.25, 0.5, 1) was instead '
+    'placed on a module of non-HK genes (450 replicates), i.e., drift on the wrong side '
+    'of the anchor. \u03c9 remained at or below the nominal level (type-I error 0.020, '
+    '0.007, 0.007 across the eta grid), whereas k_total false-positived at 0.060, '
+    '0.147, and 1.000 and cosine at 0.060, 0.100, and 0.673. \u03c9 therefore trades a '
+    'structural blind spot for HK-located signal for strong specificity against '
+    'non-HK drift: it is conservative by construction, and its discrimination '
+    'advantage holds exactly when functional signal lies off the anchor and drift on '
+    'the anchor is neutral. Users whose perturbations of interest include '
+    'housekeeping genes (e.g., metabolic reprogramming) should use unnormalized '
+    'metrics alongside \u03c9.'
+)
+
+add_heading('Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)', 2)
+add_para(
+    'Several brain intervals rest on only 6\u20137 region clusters (Bergmann '
+    'glia 7; choroid plexus 6), where the percentile cluster bootstrap '
+    'under-covers. A Monte Carlo coverage study (2,000 simulations \u00d7 '
+    'B = 999; nominal 95%) gives coverage 0.876 (7 clusters) and 0.873 (6 '
+    'clusters) for the percentile interval, 0.816/0.806 for the wild '
+    '(Rademacher) cluster bootstrap\u2014worse, because 2\u2076\u20132\u2077 '
+    'sign combinations give coarse tails and the symmetric perturbation '
+    'cannot reproduce the few-cluster skewness\u2014and 0.953/0.951 for the '
+    'studentized bootstrap-t, which is therefore the recommended replacement '
+    'for every statistic resting on \u2264 7 region clusters (seed 20260905; '
+    'B = 5,000 on the real data).'
+)
+add_para(
+    'Replacement 95% intervals (studentized bootstrap-t): Bergmann-glia '
+    'class-mean \u03c9 13.56: [5.76, 28.59] (was percentile [8.49, 19.52])'
+    '\u2014the lower bound now falls below the class baseline 9.08, so the '
+    'above-baseline claim for Bergmann glia is downgraded to a qualitative '
+    'statement (cross-region \u03c9 elevated in absolute terms but not '
+    'separable from baseline at 7 regions; consistent with the joint '
+    'calibrated-\u03c9 CI [0.99, 2.12], which already includes 1). Choroid '
+    'plexus 37.76: [25.93, 76.30] (was [27.30, 56.19])\u2014the lower bound '
+    'remains far above its baseline 10.66, so the choroid divergence claim '
+    'stands. Astrocyte/Bergmann-glia calibrated gradient 5.99: [4.43, 7.69] '
+    '(was joint percentile [4.12, 9.18])\u2014all three methods agree the '
+    'lower bound exceeds 4, so the gradient claim remains quantitative. '
+    'Script notebooks/89_cluster_boot_v45.py; report '
+    'results/cluster_boot_v45_report.md.'
+)
+
+add_heading('Supplementary Note 3: Calibrated Omega Normalization', 2)
+add_para(
+    'The theoretical baseline \u03c9 = 1 (k_f = k_n) is never observed in practice because '
+    'identity-gene selection (per-pair top-200 DE genes or HVGs) systematically inflates k_f '
+    'relative to k_n. '
+    f'Empirical calibration on split-half equivalent populations (mouse, 6 FACS control '
+    f'populations with 50 independent random split-halves each; 300 split-half \u03c9 '
+    f'values; Section 3.18) yielded a replicate-baseline mean \u03c9 = 7.70 (95% CI '
+    f'[7.37, 8.02], bootstrap B = 10,000 [7.38, 8.02]); the legacy single-split '
+    f'estimate 6.67 [4.24, 9.24] lies inside the overlap of the two CIs and is '
+    f'superseded. We introduce calibrated \u03c9: omega_cal = omega_obs / 7.70, which '
+    'rescales all values so that equivalent populations yield omega_cal ~ 1.0. Given the width '
+    'of the baseline CI, calibrated values are reported with at most two significant figures and should '
+    'be read as order-of-magnitude estimates rather than precise quantities. Under this '
+    f'mouse-derived calibration: mouse controls yield omega_cal = 1.0, the brain global mean becomes omega_cal '
+    f'\u2248 {_br["global_mean"] / 7.70:.0f} (raw {_br["global_mean"]:.2f}; range 4.8\u20135.2 across the baseline CI), and the most divergent brain cell type '
+    f'({_br["gradient_highest_ct"].lower()}s) yields omega_cal '
+    f'\u2248 {_br["gradient_highest_omega"] / 7.70:.0f} (raw {_br["gradient_highest_omega"]:.2f}). '
+    f'A scheme-matched split-half calibration performed inside the brain atlas itself (29 populations '
+    f'with at least 200 nuclei; B = 50 random splits per population) gave an internal baseline of '
+    f'{_brain_sh_mean:.2f} (95% bootstrap CI [{_brain_sh_ci[0]:.2f}, {_brain_sh_ci[1]:.2f}]), approximately 1.3-fold '
+    'higher than the mouse-derived factor, indicating that the mouse-derived calibration '
+    'overstates omega_cal in the brain dataset. Under the brain-internal baseline, the brain '
+    f'global mean corresponds to omega_cal \u2248 {_br["global_mean"] / _brain_sh_mean:.1f}, the most divergent class to '
+    f'omega_cal \u2248 {_br["gradient_highest_omega"] / _brain_sh_mean:.1f}, and the most constrained class '
+    f'({_br["gradient_lowest_ct"]}) to omega_cal \u2248 {_br["gradient_lowest_omega"] / _brain_sh_mean:.1f} (raw '
+    f'{_br["gradient_lowest_omega"]:.2f}): the most regionally constrained class sits at, not above, the '
+    'split-half expectation for equivalent brain populations, so the statement that all ten '
+    'non-neuronal classes diverge beyond the split-half baseline holds only under the '
+    'mouse-derived calibration and is not supported under brain-internal calibration. '
+    'In Tabula Sapiens, the analogous scheme-matched internal baseline was '
+    f'{_ts_sh_mean:.2f} (95% bootstrap CI [{_ts_sh_ci[0]:.2f}, {_ts_sh_ci[1]:.2f}]; 71 populations from the largest donor per group), which lies inside the '
+    'updated mouse-derived CI [7.37, 8.02], so the mouse-derived calibration factor is transferable to '
+    'the Tabula Sapiens dataset but not to the brain atlas, and omega_cal should be treated as a '
+    'dataset-relative quantity rather than a universal constant. '
+    'A single brain-wide baseline also averages over marked between-class heterogeneity: '
+    f'class-specific split-half baselines derived from the same 29 split-half populations range from '
+    f'{_pc_bmin:.2f} ({_pc_bmin_ct.lower()}) to {_pc_bmax:.2f} ({_pc_bmax_ct.lower()}), a '
+    f'{_pc_bmax/_pc_bmin:.2f}-fold spread, and the split-half k_f floor itself varies roughly '
+    '40-fold across classes (from 0.0001 in oligodendrocytes to 0.020 in committed '
+    'oligodendrocyte precursors), so the equivalent-population expectation is a class-specific '
+    'quantity in both components rather than a single atlas-wide constant; each class '
+    'baseline rests on only 2-3 split-half populations (50 splits per population), so the '
+    'calibrated levels carry non-trivial denominator uncertainty (two-stage 95% CIs span, '
+    f'for example, [{_pc_astro_base_ci[0]:.2f}, {_pc_astro_base_ci[1]:.2f}] for astrocytes and '
+    f'[{_pc_bg_base_ci[0]:.2f}, {_pc_bg_base_ci[1]:.2f}] for Bergmann glia, the latter from only '
+    f'{_pc_bg_nreg} populations). Under per-class '
+    f'baselines the astrocyte-to-Bergmann-glia gradient is {_pc_grad:.2f} (95% CI '
+    f'[{_pc_grad_ci[0]:.2f}, {_pc_grad_ci[1]:.2f}] under a joint region-clustered bootstrap '
+    'that resamples region pairs and split-half populations together, propagating both '
+    'sources of calibration uncertainty; the narrower i.i.d.-numerator CI '
+    f'[{_pc_grad_ci_old[0]:.2f}, {_pc_grad_ci_old[1]:.2f}] ignores within-region correlation '
+    'and is anti-conservative), essentially unchanged from the raw 6.10 '
+    'because the two classes\u2019 own baselines nearly coincide (9.26 vs 9.08), while the calibrated '
+    f'levels compress: astrocytes yield omega_cal = {_pc_astro:.1f} (95% CI '
+    f'[{_pc_astro_ci[0]:.1f}, {_pc_astro_ci[1]:.1f}]) and Bergmann glia omega_cal = {_pc_bg:.2f} '
+    f'(joint 95% CI [{_pc_bg_ci[0]:.2f}, {_pc_bg_ci[1]:.2f}], which no longer excludes 1). Bergmann glia is therefore borderline '
+    f'against its own class baseline (region-clustered CI [{_pc_bg_rc[0]:.2f}, {_pc_bg_rc[1]:.2f}] '
+    f'versus baseline {_pc_bg_base:.2f}; the class contributes only 7 regions, so the interval\u2019s '
+    'lower edge is itself sensitive to bootstrap resampling): under per-class baselines '
+    f'{_pc_n_div["per_class"]} of 10 classes have region-clustered class-mean CIs excluding their '
+    'own baselines (versus '
+    f'{_pc_n_div["brain_global"]} of 10 under the single brain-wide baseline and '
+    f'{_pc_n_div["mouse"]} of 10 under the mouse-derived factor), and under the joint '
+    'region-clustered bootstrap of the calibrated ratio (notebooks/81_perclass_uncertainty.py, '
+    f'B = 5,000) {_pc_n_div_joint} of 10 classes have joint 95% CIs excluding 1, with Bergmann glia the '
+    'borderline exception under both internal calibrations; its excess is small (+49%) and '
+    'rests on only 21 pairs across 7 intra-cerebellar regions, so we read it as '
+    '"at, or marginally above, its own expectation" rather than clear divergence. Because a shared '
+    'calibration constant cancels in any ratio of class means, external calibration changes the '
+    'levels (astrocytes 10.75 under mouse-derived versus 8.51 under brain-internal) but not the '
+    'gradient ratio; only class-specific baselines move the ratio, and then only slightly. We '
+    'therefore recommend per-class split-half calibration whenever within-dataset class '
+    'contrasts are the target, and treat omega_cal as dataset- and class-relative throughout. '
+    'The calibrate_omega() function is available in the CKI package (cki.calibrate_omega). '
+    'Both raw and calibrated \u03c9 values are reported in all key results. (Supplementary Fig. 2.)'
+)
+add_para(
+    'Small-cluster correction (v45; Supplementary Note 2). A Monte Carlo coverage study '
+    'shows that the percentile region-clustered bootstrap under-covers by '
+    '7\u20138 points at 6\u20137 clusters (coverage 0.876/0.873 at nominal '
+    '0.95), so the Bergmann-glia and choroid-plexus class-mean CIs quoted '
+    'above are too narrow. Under the recommended studentized bootstrap-t '
+    '(coverage 0.953/0.951): Bergmann glia 13.56 [5.76, 28.59] (was '
+    '[8.49, 19.52])\u2014the lower bound now falls below the class baseline '
+    '9.08, so the above-baseline claim is downgraded to a qualitative '
+    'statement (cross-region \u03c9 elevated in absolute terms, not '
+    'separable from baseline at 7 regions); choroid plexus 37.76 [25.93, '
+    '76.30] (was [27.30, 56.19])\u2014the lower bound remains far above '
+    'its baseline 10.66, so the choroid claim stands; the '
+    'astrocyte/Bergmann-glia gradient 5.99 [4.43, 7.69] (was [4.12, 9.18])'
+    '\u2014the gradient claim remains quantitative.'
+)
+
+add_heading('Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization (v45)', 2)
+add_para(
+    '\u03c9 = k_f/k_n is a ratio of two JS divergences, and ratio estimators '
+    'are upward biased and heavy right-tailed when the denominator is small. '
+    'On the 1,450 split-half replicates of the brain-internal calibration '
+    '(both halves of each split are the same population, so E[k_f/k_n] '
+    'versus E[k_f]/E[k_n] isolates pure ratio bias), the bias is small and '
+    'null-calibrated: median +0.2% across the 29 class \u00d7 region groups '
+    '(pooled \u22121.8%), tracked almost exactly by the second-order '
+    'delta-method prediction (Spearman \u03c1 = 0.99 for bias, 1.00 for SD). '
+    'The largest upward bias sits in the smallest-denominator bin (k_n < '
+    '10\u207b\u2074: +6.5%; 10\u207b\u2074 \u2264 k_n < 10\u207b\u00b3: '
+    '\u22128.3%; k_n \u2265 10\u207b\u00b3: +1.5%), where delta-method '
+    'theory predicts it; because the calibration baseline is computed with '
+    'the same estimator on the same scale of k_n, this bias is absorbed '
+    'into the baseline. The null distribution is heavy-tailed (skew 2.28, '
+    'excess kurtosis 9.14, P99/P50 = 2.1), which widens intervals but does '
+    'not shift calibrated conclusions.'
+)
+add_para(
+    'On the 31,764 brain pairs, the astrocyte/Bergmann-glia gradient is '
+    'robust to the summary statistic (6.10 mean, 6.00 median, 6.09 10% '
+    'trimmed; 10-class ranking agreement Spearman \u03c1 \u2265 0.976), so '
+    'the mean-based headline is not a heavy-tail artifact. Near-zero '
+    'denominators are rare and non-influential: 1 pair (0.003%) has k_n < '
+    '10\u207b\u2074 and 141 (0.44%) have k_n < 3 \u00d7 10\u207b\u2074; '
+    'excluding all pairs with k_n < 5 \u00d7 10\u207b\u2074 (1,141 pairs, '
+    '3.59%) moves the gradient slightly up, to 6.52, with the class ranking '
+    'unchanged (\u03c1 = 1.000), and even dropping the bottom 20% by k_n '
+    'leaves \u03c1 = 0.964\u2014the 6.10-fold headline is, if anything, '
+    'conservative with respect to small-denominator pairs. Script '
+    'notebooks/88_ratio_estimator_v45.py; report '
+    'results/ratio_estimator_biasvar_v45_report.md.'
+)
+
+add_heading('Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls (v45)', 2)
+add_para(
+    'The ground-truth simulation (Supplementary Note 1) defines neutral drift as a '
+    'multiplicative shift on housekeeping genes\u2014the same set \u03c9 uses '
+    'as its denominator\u2014so the headline specificity (FPR 0.00 versus '
+    '0.55\u20130.58 for raw JS and cosine) could be a construction artifact. '
+    'Two non-HK-anchored neutral models on the identical background and '
+    'scheme (30 replicates per condition; thresholds at the 95th percentile '
+    'of 200 pure-resampling baselines; Clopper-Pearson CIs) answer this. N0 '
+    '(internal control, original HK drift) reproduces the original run '
+    '(\u03c9 0.000; raw JS 0.556; cosine 0.600, pooled over \u03b7).'
+)
+add_para(
+    'N1 (multiplicative drift moved off HK genes: random low-variance non-HK '
+    'sets, bottom-half CV, greedy log-mean matched to the HK set, n = 1,064 '
+    'genes, 3 random sets): \u03c9 stays calibrated\u2014FPR 0.067, 0.011, and '
+    '0.000 at \u03b7 = 0.25, 0.5, and 1.0, versus raw JS 0.067/0.811/1.000 '
+    'and cosine 0.089/0.878/1.000 at the same amplitudes. The /1e4 '
+    'renormalization propagates the library inflation into a uniform '
+    'compositional scaling that k_n absorbs, so \u03c9\u2019s specificity comes '
+    'from its ratio structure, not from the drift being HK-anchored. Supplementary Note 1\u2019s earlier non-HK drift scenario (type-I error 0.020) used a '
+    'different, non-expression-matched non-HK module; N1 is the stricter '
+    'expression-matched control. N2 (composition-preserving gene-identity '
+    'swap of non-HK expression profiles within one group; 0.25\u20131 \u00d7 '
+    'n_hk swapped genes, 3 random pairings): every metric fires at FPR = '
+    '1.00. The swap preserves library size and the expression-value multiset '
+    'exactly, so k_n sees no compositional signal while the swapped genes '
+    'dominate the per-pair top-200 set and k_f fires. Whether N2 counts as '
+    'neutral is debatable\u2014reassigning which gene carries which '
+    'expression level is precisely a gene-identity-specific change, which '
+    '\u03c9 is designed to detect\u2014but under it \u03c9 behaves no worse '
+    'than anchor-free global metrics. The FPR = 0.00 figure thus pertains '
+    'to compositional/multiplicative neutral drift, whether HK- or '
+    'non-HK-anchored. Script notebooks/90_nonhk_drift_v45.py; report '
+    'results/nonhk_drift_v45_report.md.'
+)
+
+add_heading('Supplementary Note 6: Real Perturbation Demonstration (Kang et al. IFN-beta PBMC)', 2)
+add_para(
+    'Purpose and dataset. To test \u03c9 on a real perturbation with known '
+    'ground truth, we re-analyzed the droplet arm of Kang et al. 2018 '
+    '(GEO: GSE96583): peripheral blood mononuclear cells from eight donors, '
+    'split into control and 6-hour IFN-beta-stimulated conditions and '
+    'captured in two 10x lanes (lane 2.1 control, 14,619 cells; lane 2.2 '
+    'stimulated, 14,446 cells), with donor assignment by genetic '
+    'demultiplexing provided by the original authors. Singlets with '
+    'annotated cell types were retained (24,413 cells across six cell '
+    'types; Megakaryocytes excluded; Dendritic cells dropped for '
+    'insufficient per-group cells). Ensembl gene identifiers were mapped '
+    'to HGNC symbols via the HGNC custom download; 23,503 unique symbols '
+    'and 1,099 HRT Atlas housekeeping genes were matched.'
+)
+add_para(
+    'Design. Pseudobulks were computed per (donor, condition) from raw '
+    'counts, normalized to 10,000 counts per pseudobulk, and log1p-'
+    'transformed. Two comparison classes were defined: the perturbation '
+    'class (stimulated versus control within donor, 4-8 pairs per cell '
+    'type) and the donor-drift class (donor versus donor within '
+    'condition, 10-56 pairs per cell type); a split-half baseline (six '
+    'random half-splits per group) anchored the calibrated scale. All '
+    'metrics used the per-pair top-200 DE hybrid scheme (k_n on the HK '
+    'set, k_f on the top-200 non-HK genes by absolute mean difference, '
+    're-selected per pair). Significance of the within-donor perturbation '
+    'effect used condition-label permutation within donor (B = 1,000; '
+    'genes re-selected at every permutation; one-sided upper tail). Class '
+    'separability was summarized as the exact rank AUC of each metric '
+    'within each cell type. Because all control cells sit in one lane and '
+    'all stimulated cells in the other, the condition effect is '
+    'confounded with lane; donor-drift pairs are within-lane, so the '
+    'comparison across metrics is internally consistent but the design '
+    'does not separate condition from capture effects.'
+)
+add_para(
+    'Results. Median \u03c9: stimulated-control 19.3-33.4, donor-donor '
+    '9.9-25.7, split-half 6.7-18.9 (omega_cal for the perturbation class '
+    '1.8-3.4 versus donor-drift 0.9-2.7). AUC (perturbation versus '
+    'donor-drift): \u03c9 0.551-0.922, k_f 0.743-1.000, raw JS 0.792-1.000. '
+    'The permutation test reached raw P < 0.05 in 15 of 37 donor-level '
+    'tests (no multiplicity correction; under the global null roughly '
+    'two of 37 tests would cross raw P < 0.05, so the aggregate excess '
+    'is informative while individual tests are not). The components are '
+    'consistent with the metric ordering: IFN-beta '
+    'stimulation raises median k_n 1.2-5.7-fold above the donor-drift '
+    'level (ACTB and GAPDH fall roughly 40% in stimulated cells, a '
+    'magnitude consistent with the anchor mechanism but not separable '
+    'from the lane effect) while '
+    'raising median k_f 1.6-6.8-fold, so the ratio partially cancels the '
+    'signal; in CD14+ monocytes, where the k_n rise is largest (5.7-fold), '
+    'the \u03c9 AUC falls to 0.551 while k_f retains 0.984. Within the '
+    'lane-confounded design this supports the '
+    'anchor-visibility boundary: perturbations '
+    'that touch the housekeeping anchor deflate \u03c9, and k_f-only with '
+    'a design-matched null is the more honest statistic in that regime '
+    '(Supplementary Fig. 3). '
+    'Script: notebooks/79_kang_ifnb_demo.py; outputs: '
+    'results/kang_ifnb_demo_pairs.csv (709 pairs), '
+    'results/kang_ifnb_demo_summary.json.'
+)
+
+add_heading('Supplementary Note 7: Fixed Gene-Panel Ablation', 2)
+add_para(
+    'Design. To test whether the brain conclusions depend on the per-pair circular '
+    'selection of k_f genes (top-200 genes ranked by the absolute difference of the '
+    'same two pseudobulks on which k_f is computed), the entire observed brain '
+    'landscape was recomputed under four gene-selection schemes with identical keep '
+    'gene set, pseudobulks, and k_n: S0, the reported per-pair top-200 scheme '
+    '(circular selection; reference); S1, a fixed panel of the 2,000 non-HK genes '
+    'with the highest global mean expression; S2, a leave-pair-out panel in which the '
+    'top-200 genes for a pair are selected by the mean absolute difference over all '
+    'other region pairs of the same cell type (adaptive but not circular for the '
+    'tested pair; note that S2 is not fully independent either, because the panel '
+    'still aggregates regional-effect genes from the other region pairs of the '
+    'same cell type); S3, all 5,000 non-HK genes of the keep set (no selection). The '
+    'reference implementation reproduced the reported landscape exactly (maximum '
+    'per-pair \u03c9 difference 6.4e-13 over 31,764 pairs). A scheme-matched '
+    'block-shuffle null (B = 200) was rerun under S2. Script: '
+    'notebooks/46_fixed_panel_ablation.py (runtime about 28 minutes).'
+)
+add_para(
+    'Rank robustness. Pair-level Spearman correlation with S0: rho = 0.918 (S1), '
+    '0.937 (S2), 0.931 (S3). Ordering of the ten class means: rho = 0.90 (S1), 0.99 '
+    '(S2), 0.93 (S3); under S2 the only change was a swap of the adjacent '
+    'Bergmann-glia and vascular means. Astrocyte-to-Bergmann-glia ratio: 6.10 (S0) versus 7.67 '
+    '(S1), 6.53 (S2), 6.57 (S3) - the gradient is preserved under the '
+    'non-circular adaptive panel, because non-circular panels deflate \u03c9 more '
+    'strongly in transcriptionally constrained classes. Under the S2-matched '
+    'block-shuffle null, astrocytes, OPCs and committed OPCs reached the permutation floor '
+    '(P \u2264 1/(B + 1) = 0.005); fibroblasts remained significant (P = 0.020, versus 0.030 '
+    'reported); vascular cells reached significance (P = 0.035, versus 0.115 '
+    'reported, non-significant under the primary null); ependymal cells were not significant (P = 0.164); and the remaining '
+    'classes stayed clearly non-significant (microglia P = 0.796, oligodendrocytes '
+    'P = 0.876, choroid plexus P = 0.562, Bergmann glia P = 0.980). The four primary '
+    'classes are stable across all three null variants; ependymal and vascular '
+    'appear only under one variant each and are not claimed.'
+)
+add_para(
+    'Circularity inflation and scale. On the same pairs, the circular panel '
+    'inflated k_f by a median of 1.61-fold relative to the leave-pair-out panel '
+    '(IQR 1.27-2.07) and by 6.1- to 7.3-fold relative to the fixed and unselected '
+    'panels (which also differ in panel composition). The absolute \u03c9 scale is '
+    'therefore scheme-specific (grand mean 38.55 for S0 versus 6.5, 26.5, and 5.3 '
+    'for S1-S3). Rank-based conclusions are robust: the multiplicative-residual '
+    'ranking correlated at rho = 0.86-0.88 across schemes, and S2 retained 32 of '
+    '50 (64%) of the S0 residual < 0.3 candidate pairs. Absolute tier cutoffs '
+    '(\u03c9 < 15/25/35) are calibrated to the S0 scale and do not transfer across '
+    'schemes: candidate lists defined by absolute \u03c9 thresholds are not '
+    'comparable across gene-selection schemes. Outputs: '
+    'results/fixed_panel_ablation_pairs.csv, results/fixed_panel_ablation_ct.csv, '
+    'results/fixed_panel_ablation_null_<CT>.npy, results/fixed_panel_ablation_summary.json.'
+)
+
+add_heading('Supplementary Note 8: TCGA composition-contribution check for the NN/TT k_n reversal', 2)
+add_para(
+    'The TCGA analysis reports that normal-normal (NN) pairs have systematically lower '
+    'k_n than tumor-tumor (TT) pairs (median TT/NN ratio 2.2-3.7x across the five '
+    'cancer types). Because bulk tumor samples differ in cellular composition, this '
+    'reversal could in principle be a purity artifact. We therefore regenerated '
+    'sample-labelled NN/TT pairs with the per-cancer pipeline of the main analysis '
+    '(per-cancer gene loading and mean TPM \u2265 0.5 filtering, log2(TPM+1), HRT Atlas HK '
+    'genes, top-200 abs-diff identity genes, kn_floor = 1 x 10^-4, seed 42; TT capped at '
+    '2,000 pairs per cancer type, all NN pairs; 25,306 pairs in total) and scored each '
+    'sample for four lineage marker panels: immune (CD3D, CD3E, CD8A, GZMB, NKG7, '
+    'MS4A1, CD79A), myeloid (CD68, CD163, LST1, FCGR3A, C1QA), stromal (COL1A1, '
+    'COL1A2, DCN, LUM, FAP, VIM), and epithelial (EPCAM, KRT8, KRT18, KRT19), as the '
+    'mean log2(TPM+1) over mapped panel genes, z-scored within each cancer type; the '
+    'myeloid panel was added in a second revision because the initial three-panel '
+    'check omitted myeloid markers despite myeloid infiltration being a known feature '
+    'of tumors. The reversal replicates exactly (median TT/NN k_n ratio 2.18, '
+    '2.53, 2.18, 3.70, and 2.79 for LUAD, LUSC, LIHC, KIRC, and BRCA; all '
+    'Mann-Whitney P < 10^-90). Composition differences are real and directional: the '
+    'median |Delta z| between pair members is 1.33-1.46-fold larger for TT than NN '
+    'pairs across the original three panels (all P < 10^-300), and with the myeloid '
+    'panel included the overall four-panel |Delta z| is still 1.24-fold larger for TT '
+    'pairs (median 0.834 vs 0.673; P = 9 x 10^-77); notably, the myeloid |Delta z| '
+    'itself does not differ between TT and NN pairs (median 0.749 vs 0.747, ratio '
+    '1.003, P = 0.99), so myeloid composition shifts are not preferentially a '
+    'tumor-pair phenomenon in these data. Within TT pairs, k_n correlates with the '
+    'overall four-panel composition difference (Spearman rho = 0.23-0.52 per cancer '
+    'type; pooled rho = 0.387, P < 10^-300; three-panel pooled rho = 0.377). '
+    'In OLS regressions of log k_n on pair type plus the composition deltas, the '
+    'tumor-pair coefficient attenuation depends materially on the panel: the original '
+    'three-panel model attenuated the coefficient by +5.7% pooled (95% CI [+2.7%, '
+    '+8.7%]; per cancer type +2%, +4%, +39%, +23%, and \u221212%), whereas the four-panel '
+    'model including the myeloid markers attenuates it by \u22120.5% pooled (95% CI '
+    '[\u22123.2%, +2.6%]; median \u22120.4%), i.e., the pooled tumor-pair coefficient is '
+    'essentially unchanged after composition adjustment. All regression uncertainty '
+    'intervals are sample-level cluster bootstraps (B = 200): within each cancer type, '
+    'tumor and normal samples are resampled with replacement, a pair is retained when '
+    'both members are drawn, weighted by the product of the two members resampling '
+    'multiplicities, and the weighted OLS is recomputed; this respects the dependence '
+    'structure that each sample contributes to many pairs (the naive pair-level '
+    'standard errors, which treat 25,306 pairs as independent, overstate precision '
+    'and are not used for inference); at B = 200 resamples the Monte-Carlo error '
+    'of an endpoint of the resampling distribution is roughly 1-2 percentage '
+    'points, small relative to the reported interval widths, and the pooled '
+    '[\u22123.2%, +2.6%] interval is interpreted only as excluding large pooled '
+    'attenuation, not as a precise point estimate. Per-cancer four-panel attenuation is strongly '
+    'heterogeneous: LUAD \u22122.3% (95% CI [\u22127.6%, +4.8%]), LUSC \u22129.7% ([\u221228.4%, +6.7%]), '
+    'LIHC +33.5% ([+23.0%, +46.9%]), KIRC +19.6% ([+14.6%, +25.7%]), and BRCA \u221214.0% '
+    '([\u221223.2%, \u22125.7%]), so composition covariates absorb a substantial share of the '
+    'tumor-pair coefficient in LIHC and KIRC but not in the other cancer types, and '
+    'the pooled near-zero estimate masks this heterogeneity. Two caveats bound the '
+    'interpretation. First, marker panels are noisy proxies for true cellular '
+    'composition (classical measurement error attenuates the covariate coefficients), '
+    'so these attenuation estimates are lower bounds on the true composition '
+    'contribution; the pooled excess of tumor-pair k_n is not fully explained by a '
+    'noisy marker-panel proxy, but neither can a marker-panel regression exclude '
+    'composition as the driver. Second, the per-cancer heterogeneity itself (from '
+    '\u221214% to +34%) argues against a single universal explanation. Plausible '
+    'contributors to the residual include tumor-specific housekeeping-gene '
+    'dysregulation and RNA-quality differences, and single-cell or '
+    'deconvolution-based validation remains necessary. Scripts: '
+    'notebooks/73_tcga_composition_check.py (three-panel) and '
+    'notebooks/74_tcga_composition_v2.py (four-panel + cluster bootstrap); results: '
+    'results/tcga_composition_check.{csv,txt}, results/tcga_composition_pairs.csv, and '
+    'results/tcga_composition_v2.{csv,txt}.'
+)
+add_para(
+    'v44 update (linear normalization). The composition check was re-run on the '
+    'linear-normalization pair table of Section 1.7 (script '
+    'notebooks/86_tcga_composition_linear_norm_v44.py, mirroring script 74 with '
+    'the four marker panels and the sample-level cluster bootstrap, B = 200; '
+    'outputs results/tcga_composition_v44.{csv,txt}). All conclusions are '
+    'unchanged: pooled four-panel attenuation \u22120.8% (cluster-bootstrap '
+    'median \u22121.2%, 95% CI [\u22124.1%, +2.6%]); per-cancer attenuation '
+    'LIHC +37.1% [+27.1%, +51.5%], KIRC +18.3% [+13.9%, +23.4%], BRCA '
+    '\u221216.2% [\u221225.5%, \u22127.5%], LUAD \u22121.6%, LUSC '
+    '\u221211.1%; the within-TT correlation of k_n with the composition '
+    'difference is Spearman \u03c1 = 0.355 pooled (per-cancer '
+    '0.146\u20130.492). Composition covariates still absorb a substantial '
+    'share of the tumor-pair coefficient in LIHC and KIRC but not in the '
+    'other cancer types, and the pooled near-zero estimate still masks this '
+    'heterogeneity.'
+)
+
+add_heading('Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)', 2)
+add_para(
+    'Purpose. Two ordering claims in the manuscript rest on the ratio '
+    '\u03c9 = k_f / k_n: the cross-organ conservation ranking of cell types '
+    '(Table 2 / Fig. 5) and the TCGA clinical-severity gradients (Edmondson '
+    'grade, PAM50, LUAD mutation strata). This note reports the control in '
+    'which each ordering is recomputed using k_f alone (and k_n alone), with '
+    'the identical pipeline otherwise, to separate functional-divergence '
+    'signal from denominator effects.'
+)
+_a = _kfo['part_a']
+add_para(
+    f"Cross-organ ranking (Tabula Sapiens). The exact phase-3.5 pipeline "
+    f"(largest-donor pseudobulks, per-pair top-200 non-HK gene selection) was "
+    f"re-run on the {_a['n_pairs']} same-cell-type cross-organ pairs across "
+    f"{_a['n_ct']} cell types; it reproduces the published per-cell-type mean "
+    f"\u03c9 values to within {_a['sanity_max_delta_vs_phase35']:.1e}. "
+    f"Agreement between the \u03c9 and k_f orderings is weak at the cell-type "
+    f"level: Spearman r = {_a['spearman_ct_omega_kf']['r']:.2f} "
+    f"(P = {_a['spearman_ct_omega_kf']['p']:.2f}, n = {_a['n_ct']}), and "
+    f"r = {_a['spearman_wellsampled_omega_kf']['r']:.2f} "
+    f"(P = {_a['spearman_wellsampled_omega_kf']['p']:.2f}) among the "
+    f"{_a['n_ct_well_sampled']} well-sampled types (n \u2265 5 pairs); "
+    f"per-pair agreement is moderate (r = {_a['spearman_pair_omega_kf']['r']:.2f}, "
+    f"P = 5.7 \u00d7 10\u207b\u2074, n = {_a['n_pairs']}). "
+    f"Mean \u03c9 correlates negatively with mean k_n "
+    f"(r = {_a['spearman_ct_omega_kn']['r']:.2f}, "
+    f"P = {_a['spearman_ct_omega_kn']['p']:.2f}). "
+    f"Organ-clustered bootstrap 95% CIs (B = 1,000, seed 42; organs resampled with "
+    f"replacement, all statistics recomputed per resample; "
+    f"notebooks/87_cross_organ_rho_ci_v44.py): the cell-type-level \u03c1(\u03c9, k_f) "
+    f"= 0.23 has 95% CI [\u22120.08, +0.38], spanning zero, whereas \u03c1(\u03c9, "
+    f"k_n) = \u22120.31 has 95% CI [\u22120.61, \u22120.17], excluding zero "
+    f"\u2014 the interval estimates support a denominator-driven ordering. "
+    f"CD8+ T cells are the most conserved well-sampled type under both "
+    f"\u03c9 and k_f, and the divergent end is directionally consistent "
+    f"(endothelial cells and erythrocytes carry the highest mean k_f among "
+    f"multi-pair types), but the middle of the ordering does not reproduce: "
+    f"NK cells rank most divergent under \u03c9 yet second-most conserved "
+    f"under k_f among well-sampled types. The cross-organ ranking is "
+    f"therefore a composite of functional divergence and baseline "
+    f"differences, not a pure k_f ordering. Full per-cell-type table: "
+    f"results/kf_only_ordering.csv."
+)
+add_para(
+    'TCGA clinical-severity gradients (per-tumor mean of intratumoral TT pairs; '
+    'values below are from the v44 linear-normalization re-analysis at kn_floor = 0, '
+    'notebooks/85_tcga_linear_norm_v44.py, results/tcga_clinical_severity_v44.csv, '
+    'which mirrors the published pipeline of notebooks/83_kf_only_ordering.py; '
+    'ordering, direction, and significance are identical to the earlier softmax '
+    'run, with \u03c9 levels shifted upward by about 10-19). LIHC Edmondson grade: '
+    'mean \u03c9 decreases from G1 to G2 and plateaus (82.4, 74.7, 74.9, 75.0 for '
+    'G1\u2013G4; Jonckheere-Terpstra P \u2248 0), but k_f increases with grade '
+    '(JT P = 1.05 \u00d7 10\u207b\u00b9\u00b2) and k_n increases in parallel '
+    '(JT P \u2248 0), so the \u03c9 gradient is a denominator effect. BRCA PAM50: '
+    'mean \u03c9 decreases across Luminal A (142.0), Luminal B (136.5), '
+    'HER2-enriched (121.8), Basal-like (116.7), and Normal-like (101.9) '
+    '(Kruskal-Wallis P = 7.0 \u00d7 10\u207b\u2077); the ordering largely reverses '
+    'under k_f-only, consistent with the lowest mean k_n in Luminal A, so the '
+    '\u03c9 heterogeneity gradient is predominantly a baseline effect. LUAD '
+    'mutation strata: the contrast persists under k_f-only (mean \u03c9 KRAS 136.9 '
+    '> EGFR 122.2 > wild-type 115.4; Kruskal-Wallis P = 7.8 \u00d7 10\u207b\u2077 '
+    'for \u03c9; k_f P = 0.015; k_n P = 3.4 \u00d7 10\u207b\u2074), with k_n '
+    'lowest in EGFR-mutant tumors, so part of the \u03c9 contrast is '
+    'denominator-driven. The main text reports these gradients only as a '
+    'one-paragraph exploratory vignette (denominator-dominated); the full values '
+    'and test details live here. The k_f-only controls are post-hoc; the P-values '
+    'reported here (three severity analyses crossed with three metrics) are '
+    'nominal and carry no multiplicity correction. Scripts: '
+    'notebooks/83_kf_only_ordering.py (published softmax run) and '
+    'notebooks/85_tcga_linear_norm_v44.py (v44 linear re-analysis); outputs: '
+    'results/kf_only_ordering.csv, results/kf_only_ordering.json, '
+    'results/kf_only_severity.csv, results/kf_only_ordering.txt, '
+    'results/tcga_clinical_severity_v44.csv.'
+)
+add_table([
+    ['Stratum', 'Ordering by mean \u03c9', 'Mean \u03c9 per group',
+     '\u03c9 omnibus P', 'k_f P', 'k_n P'],
+    ['LIHC Edmondson grade', 'G1 > G2 \u2248 G3 \u2248 G4',
+     '82.4 / 74.7 / 74.9 / 75.0', 'JT \u2248 0',
+     'JT 1.05 \u00d7 10\u207b\u00b9\u00b2', 'JT \u2248 0'],
+    ['BRCA PAM50', 'LumA > LumB > HER2 > Basal > Normal',
+     '142.0 / 136.5 / 121.8 / 116.7 / 101.9', 'KW 7.0 \u00d7 10\u207b\u2077',
+     'KW 8.3 \u00d7 10\u207b\u00b9\u00b2', 'KW 3.6 \u00d7 10\u207b\u00b9\u2070'],
+    ['LUAD mutation', 'KRAS > EGFR > wild-type', '136.9 / 122.2 / 115.4',
+     'KW 7.8 \u00d7 10\u207b\u2077', 'KW 0.015', 'KW 3.4 \u00d7 10\u207b\u2074'],
+])
+add_para(
+    'Table (Supplementary Note 9). TCGA clinical-severity gradients under the v44 '
+    'linear-normalization re-analysis (kn_floor = 0; per-tumor mean of '
+    'intratumoral TT pairs). JT = Jonckheere-Terpstra trend test; '
+    'KW = Kruskal-Wallis. All P-values are nominal (no multiplicity '
+    'correction); every gradient is denominator-dominated, as shown by the '
+    'parallel k_n trends.'
+)
+
+add_heading('Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity (v44)', 2)
+add_para(
+    'Purpose. Three post-hoc controls quantify how class size and the 20-nucleus '
+    'minimum affect the brain landscape (script '
+    'notebooks/86_brain_downsample_threshold_v44.py; report '
+    'results/brain_downsample_threshold_v44_report.md; seed 42). Pipeline '
+    'validation: at the reference threshold (min 20 nuclei) the rerun reproduces '
+    'the authoritative observed pairs exactly (31,764 pairs; class \u03c9 means '
+    'within 4.1 \u00d7 10\u207b\u00b9\u2075; grand mean 38.545; 39 Strong '
+    'candidates).'
+)
+add_para(
+    'Confound correlations (class level, 10 classes). k_n correlates '
+    'significantly with class size \u2014 Spearman \u03c1 = \u22120.648 '
+    '(P = 0.043), Pearson r = \u22120.850 (P = 0.0018) against log10(nuclei per '
+    'class); smaller classes have noisier HK pseudobulks and hence larger k_n. '
+    'k_n shows no significant correlation with detection depth (mean detected '
+    'genes or mean total counts; all P > 0.22). \u03c9 itself is uncorrelated '
+    'with every confound tested (all P \u2265 0.091): the sampling-noise factor '
+    'is shared by k_f and k_n and cancels in the ratio.'
+)
+add_para(
+    'Equal-n downsampling. Downsampling every class to 4,118 nuclei (the '
+    'smallest class; 20 replicates, proportional across regions, without '
+    'replacement) abolishes the class-level k_n ordering (full versus equal-n '
+    'Spearman \u03c1 = \u22120.055, P = 0.88), confirming that the k_n ordering '
+    'is essentially fully explained by class size, and attenuates the \u03c9 '
+    'ordering (\u03c1 = 0.370, P = 0.29). The astrocyte-to-Bergmann-glia '
+    'gradient survives in direction: 6.10 (full data) \u2192 1.74 \u00b1 0.07 '
+    '(mean \u00b1 SD over 20 replicates; 95% percentile interval [1.64, 1.84], '
+    'which excludes 1.0). Roughly 70% of the full-data 6.10-fold magnitude '
+    'therefore reflects class-size imbalance and is disclosed as such in the '
+    'main text; the direction of the gradient is robust.'
+)
+add_table([
+    ['min cells', 'classes', 'pairs', 'Strong', 'lowest-\u03c9 class',
+     'Astrocyte/Bergmann gradient'],
+    ['10', '10', '37,361', '29', 'Vascular', '6.60'],
+    ['20 (reference)', '10', '31,764', '39', 'Bergmann glia', '6.10'],
+    ['50', '10', '25,876', '31', 'Vascular', '4.12'],
+    ['100', '8', '22,968', '22', 'Vascular', 'n/a (Bergmann glia, choroid plexus dropped)'],
+])
+add_para(
+    'Table (Supplementary Note 10). Threshold sensitivity of the brain landscape. The '
+    '20-nucleus threshold is not arbitrary-sensitive: the high-\u03c9 classes '
+    '(astrocytes, oligodendrocytes, OPCs, microglia) change by \u2264 1% across '
+    'thresholds, and Strong-tier counts vary modestly (22\u201339). Two caveats: '
+    '(i) the lowest-\u03c9 position is a near-tie at t = 20 (Bergmann glia '
+    '13.555 versus vascular 13.559) and flips with threshold choice; (ii) '
+    't = 100 drops the two smallest classes (Bergmann glia, choroid plexus), so '
+    'the threshold must stay \u2264 50 to retain all ten classes; t = 20 '
+    'maximizes pair coverage while keeping per-group pseudobulk noise '
+    'acceptable.'
+)
+
+add_heading('Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)', 2)
+add_para(
+    'All brain-region abbreviations used in the manuscript follow the dissection '
+    'nomenclature of the Siletti et al. atlas [12], which is derived from the adult '
+    'human brain structural ontology of Ding et al. We extract the ROI-to-dissection '
+    'mapping verbatim from the dataset metadata (data/brain/Nonneurons.h5ad, obs '
+    'roi and dissection fields; script notebooks/_v38_region_glossary.py, output '
+    'results/v38_region_glossary.csv). Candidate-screen endpoints discussed in the '
+    'text: A13, caudal intermediate orbital gyrus (orbitofrontal cortex); A14, gyrus '
+    'rectus (medial orbitofrontal cortex); A38, temporopolar area; A40, supramarginal '
+    'gyrus; A43, parietal operculum (gustatory cortex); A46, middle frontal gyrus; '
+    'A5-A7, posterosuperior parietal cortex; AON, anterior olfactory nucleus; TF, temporal area TF of the '
+    'occipitotemporal (fusiform) gyrus; Pro, area prostriata; Cla, claustrum; '
+    'LG, lateral geniculate nucleus; MG, medial geniculate nuclei; LP, lateral '
+    'posterior nucleus; Pul, pulvinar; VA, ventral anterior nucleus; MD, '
+    'mediodorsal nucleus; MD-Re, mediodorsal plus reuniens nuclei; CM-Pf, '
+    'centromedian and parafascicular nuclei; VPL, ventral posterolateral nucleus '
+    '(all thalamic except where noted); STH, subthalamic nucleus (grouped under '
+    'thalamus in the dissection ontology but not a thalamic relay nucleus); GPe, '
+    'external segment of the globus pallidus; NAC, nucleus accumbens; SI, '
+    'substantia innominata; BL, basolateral amygdaloid nucleus; BM, basomedial '
+    'amygdaloid nucleus; CMN, corticomedial amygdaloid nuclear group; CA1C-CA3C, '
+    'caudal hippocampus (cornu ammonis fields CA1-CA3); CBL, lateral hemisphere of '
+    'the cerebellum; CBV, cerebellar vermis; IC, inferior colliculus; DTg, dorsal '
+    'tegmental nucleus; PAG-DR, periaqueductal gray and dorsal raphe nucleus; PN, '
+    'pontine nucleus; PnAN, afferent nuclei of cranial nerves in pons; PnRF, '
+    'pontine reticular formation; MoRF-MoEN, medullary reticular formation and '
+    'efferent nuclei of cranial nerves in the medulla oblongata; HTHso-HTHtub, '
+    'supraoptic and tuberal hypothalamus. A13 and A14 are cortical '
+    '(Brodmann-designated orbitofrontal) areas, not thalamic nuclei; the numbered '
+    'A-series labels in the 108-region set are cortical areas, whereas thalamic '
+    'nuclei carry their conventional abbreviations (LG, MG, Pul, LP, VPL, VA, MD, '
+    'CM-Pf, and related labels). The full 108-region glossary '
+    '(abbreviation to full dissection path) ships as '
+    'results/v38_region_glossary.csv in the reproducibility package.'
+)
+
+add_heading('Supplementary Note 12: Pseudo-Region Negative Control (Block-Shuffle Null Calibration)', 2)
+add_para(
+    'Purpose. To isolate the calibration of the brain block-shuffle null '
+    'from the regional structure it is designed to test, every region\u2019s '
+    'libraries were split uniformly at random into two halves (seed = '
+    '20260903), producing two "pseudo-regions" per region per cell type; '
+    'the identical block-shuffle test (same gene model of HRT Atlas HK '
+    'genes + top-5000 non-HK HVG; same filters: minimum 20 nuclei per '
+    '(region, cell type), minimum 50 nuclei per region, and at least two '
+    'libraries in the group; B = 1,000 permutations; identical one-sided '
+    '(B+1) P-value formulae) was re-run on the 127,756 pseudo-pairs '
+    'across the ten non-neuronal cell types. Pairs formed between the two '
+    'halves of the same real region are "same-origin" (n = 700); all '
+    'others are "cross-origin" (n = 127,056), the direct analogue of the '
+    'real cross-region pairs.'
+)
+add_para(
+    'Results. Cross-origin pseudo-pairs gave near-nominal marginal tail '
+    'rates (5.79% lower tail and 6.87% upper tail at P < 0.05, versus the '
+    '5% nominal level), closely matching the real analysis (6.17% lower, '
+    '7.90% upper). Same-origin pairs showed a 37.6% lower-tail rate '
+    '(263/700), demonstrating within-region library similarity, and a '
+    'suppressed upper-tail rate (2.0%). Kolmogorov-Smirnov tests against '
+    'U(0,1) reject exact uniformity (cross-origin D = 0.065/0.064 for the '
+    'lower/upper tail; P approximately 0 at n = 127,056, which detects '
+    'minute deviations), and binomial tail tests quantify the practical '
+    'magnitude: an excess of ~0.8-1.9 percentage points over nominal '
+    '(binom P = 9.2e-37 and 6.8e-185). The QQ plots are shown in '
+    'Supplementary Fig. 10.'
+)
+add_para(
+    'Interpretation. Because the random split destroys regional structure '
+    'but preserves within-region library grouping (donor, dissection, and '
+    'batch effects tied to each region), the closeness of the pseudo-pair '
+    'and real-pair marginal rates demonstrates that the mild '
+    'over-dispersion of the per-pair P-values arises from library-level '
+    'grouping shared by both designs, not from a null-width mismatch '
+    'driven by real regional structure. The 37.6% same-origin rate '
+    'confirms that the test retains full power where within-region '
+    'similarity exists. The small excess of the real over the pseudo '
+    'marginal rates (0.4 and 1.0 percentage points in the lower and upper '
+    'tails) is the marginal signature of the true regional biology. '
+    'Script: notebooks/77_pseudoregion_control.py; outputs: '
+    'results/pseudoregion_control_summary.json, '
+    'results/pseudoregion_control_pairs.csv.'
+)
+
+add_heading('Supplementary Note 13: Brain set-level enrichment of the block-shuffle signal (post-hoc)', 2)
+add_para(
+    'Under the block-shuffle null (B = 1,000; m = 31,764 region pairs) no individual '
+    'candidate survives Benjamini-Hochberg correction (minimum q = 0.520), and the '
+    'manuscript accordingly presents the 39 Strong candidates as hypothesis-generating. '
+    'A structural caveat applies to everything below: the tier variable '
+    '(residual < 0.3, \u03c9 < 15, lowest-in-pair) and the per-pair permutation '
+    'P-values are both monotone functions of the same observed and null \u03c9 '
+    'values, so the tier-graded raw-P enrichment is partly guaranteed by '
+    'construction; the set-level statistics below quantify the pattern rather than '
+    'provide independent evidence for it. Two post-hoc set-level checks ask whether '
+    'the raw-P signal is nonetheless structured rather than diffuse. First, raw-P '
+    'enrichment is strongly tier-dependent: '
+    'raw P < 0.05 occurs in 31 of 39 Strong-tier pairs (79.5%), 417 of 1,171 Moderate '
+    '(35.6%), 909 of 5,381 Weak (16.9%), and 603 of 25,173 unclassified pairs (2.4%), '
+    'versus 6.2% overall; the Strong-tier excess is significant under a hypergeometric '
+    'test (P = 9.6 x 10^-31), the dose-response across tiers is monotone '
+    '(Cochran-Armitage trend z = 61.0), and the Strong-tier raw P-values are '
+    'stochastically smaller than all other pairs (Mann-Whitney P = 5.3 x 10^-24; '
+    'Kolmogorov-Smirnov D = 0.846, P = 4.9 x 10^-32). Second, the 10 mature-oligodendrocyte '
+    'Strong candidates concentrate on a thalamo-temporal axis: a thalamic-relay endpoint '
+    '(conservative set: MG, LG, LP, LP-VPL, Pul, VPL, VA, MD, MD-Re, CM-Pf, CM) occurs in '
+    '6 of 10 candidates versus a 19.4% base rate among all 5,778 mature-oligodendrocyte '
+    'pairs, a temporal-fusiform (TF) endpoint in 4 of 10 versus 1.9%, and the combined '
+    'axis (thalamic relay, subthalamic nucleus, or TF endpoint) in 9 of 10 versus 22.7%. '
+    'Because the candidates share endpoints (MG appears in three pairs, TF in four), the '
+    'hypergeometric tests (P = 0.005, 2.1 x 10^-5, and 1.3 x 10^-5 respectively) assume '
+    'independent draws and are reported for reference only; a permutation test that '
+    'instead resamples candidate sets of size 10 from the same 5,778-pair pool, thereby '
+    'preserving the pool\u2019s endpoint co-occurrence structure, gives P = 1.005 x 10^-5 '
+    'for the thalamic-relay endpoint and P \u2264 1 x 10^-5 for the TF and combined-axis '
+    'endpoints (B = 100,000; null mean hit counts 1.95, 0.19, and 2.27 respectively; '
+    'the observed 4 and 9 hits equal or exceed the null maximum). A selection-rule-'
+    'matched null, at the same specification as the microglia composition check '
+    '(the Strong rule re-evaluated on each block-shuffle permutation, B = 1,000; '
+    'notebooks/82_axis_rule_matched_null.py), qualifies these values: the rule-matched '
+    'null generates more survivors than observed (mean 43.7 per permutation, 95% '
+    '[20, 79], versus 10 observed; this expectation applies to the '
+    'mature-oligodendrocyte pool of 5,778 pairs, whereas the 148.3 figure quoted '
+    'above refers to the full 31,764-pair screen\u2014the two survivor expectations '
+    'are computed on different pools and are not directly comparable), so absolute hit counts are not extreme '
+    '(thalamic-relay 6 versus a null mean of 6.58, P = 0.48; TF 4 versus 1.51, '
+    'P = 0.13; combined axis 9 versus 8.49, P = 0.38); the concentration is '
+    'significant at the level of the per-candidate hit rate (observed 0.60/0.40/0.90 '
+    'versus null mean rates 0.149/0.034/0.193; P = 0.005, 0.002, and 0.001; these '
+    'per-candidate hit-rate P values are conditional on the selected survivor '
+    'set and are not valid post-selection P values). The '
+    'uniform-draw permutation treats the candidates as a size-10 uniform subset of '
+    'the pool and does not model the selection rule; the rule-matched rate test is '
+    'the design-matched comparison, and the claim it supports is axis concentration '
+    'of the surviving candidates, not an axis excess of candidates. These are post-hoc '
+    'checks in a single dataset, with the tier variable and the axis definition chosen '
+    'after inspecting the data, and all P-values are nominal with no multiplicity '
+    'adjustment; they support the interpretation that the signal is not random '
+    'noise, but they do not substitute for pair-level FDR control. Scripts: '
+    'notebooks/72_brain_setlevel_tests.py, notebooks/78_axis_permutation_test.py, '
+    'and notebooks/82_axis_rule_matched_null.py; '
+    'results: results/brain_setlevel_tests.csv, results/brain_setlevel_tests.txt, '
+    'results/axis_permutation_test.txt, and results/axis_rule_matched_null.txt.'
+)
+
+add_heading('Supplementary Note 14: Comparison with Augur Cell-Type Prioritization (v45)', 2)
+add_para(
+    'Augur (Skinnider et al., Nat. Biotechnol. 2021; main-text ref. 56) '
+    'prioritizes cell types by the predictability of a condition label from '
+    'single-cell expression. We asked whether its class-level prioritization '
+    'of the brain atlas (condition = brain region) agrees with CKI\u2019s '
+    'regional divergence ordering. Because the reference Python port '
+    'augurpy is not distributed for Python 3.13, we used pyaugur 0.1.0, a '
+    'pure-Python port of R Augur v1.0.3; the port\u2019s own validation '
+    'benchmark (shipped with the pyaugur package) reports Spearman '
+    '\u03c1 = 1.0 against the R reference implementation. A stratified '
+    'sample of 33,036 nuclei '
+    '(\u2264 50 per class \u00d7 region group; groups with \u2265 20 '
+    'nuclei, regions with \u2265 50 total nuclei\u2014identical filters to '
+    'the CKI pipeline) was scored per class over its eligible regions with '
+    'a random forest (100 trees; CP10k + log1p input). Two variants were '
+    'run: (i) multiclass macro-OvR AUC (5 subsample seeds \u00d7 3-fold '
+    'stratified CV; 15 AUC estimates per class); and (ii) the primary, '
+    'confound-controlled binary one-vs-rest variant\u2014for each eligible '
+    'region r, r versus the class\u2019s other eligible regions (20 versus '
+    '20 cells, 3 repeats \u00d7 3 folds), class score = mean AUC over '
+    'regions\u2014because eligible-region counts differ by class '
+    '(6\u2013107) and multiclass AUC is not comparable across different '
+    'region sets.'
+)
+add_para(
+    'Under the primary binary OvR variant (n = 10 classes): Augur score '
+    'versus class-mean \u03c9 Spearman \u03c1 = +0.442 (P = 0.200); versus '
+    'k_f \u03c1 = +0.564 (P = 0.090); versus k_n \u03c1 = \u22120.236 '
+    '(P = 0.511)\u2014moderate concordance, limited by the n = 10 power. '
+    'Astrocytes, the top class by \u03c9 (82.75), rank third of ten by '
+    'Augur OvR (AUC 0.703), and choroid plexus is high on both (OvR AUC '
+    '0.765, \u03c9 37.76). The shared signal localizes to the HK-anchored '
+    'numerator k_f rather than k_n, whose regional divergence is largely '
+    'invisible to per-cell whole-transcriptome separability: the two '
+    'methods are complementary rather than redundant. The multiclass '
+    'variant is disclosed only as a sensitivity analysis because its AUC '
+    'correlates with the number of eligible regions per class '
+    '(\u03c1 = \u22120.744, P = 0.014); it gives a weaker association '
+    '(versus \u03c9 \u03c1 = +0.127, P = 0.726). Scripts '
+    'notebooks/91_augur_v45.py and notebooks/91b_augur_ovr_v45.py; '
+    'report results/augur_comparison_v45_report.md.'
+)
+
+add_heading('Supplementary Note 15: JS Divergence Dimensionality Invariance', 2)
+add_para(
+    'Because k_n is computed on ~1,130 housekeeping (HK) genes and k_f on 200-2,000 highly '
+    'variable genes (HVGs), we verified that JS divergence is not systematically biased by '
+    'gene set dimensionality. A simulation of 2,000 random Dirichlet distribution pairs '
+    'across dimensions ranging from 50 to 5,000 showed that mean JS divergence is effectively '
+    'constant across all dimensions tested (range: 0.155-0.159; ratio = 1.001 between d = 1,130 '
+    'and d = 2,000). This confirms that the systematic inflation of k_f relative to k_n '
+    '(\u03c9 = 7.70 for equivalent populations) arises from HVG selection bias (selecting genes '
+    'with high cross-cell variance) rather than from dimensional mismatch between the HK and '
+    'HVG gene sets. We note that this simulation addresses dimensionality per se (random '
+    'probability vectors of different lengths) but does not simulate the variance-based '
+    'gene selection mechanism that generates the \u03c9 inflation. A more complete validation '
+    'would test whether the inflation magnitude scales with the stringency of variance '
+    'filtering rather than gene count. The calibrated \u03c9 (omega_cal = \u03c9 / 7.70) '
+    'absorbs this bias into the empirical baseline, and the permutation null distribution '
+    '- constructed using the same gene sets as the observed data - ensures internal '
+    'consistency. (Supplementary Fig. 13.)'
+)
+
+doc.add_page_break()
+
+# ===== Supplementary Tables =====
+
+add_heading('Supplementary Table 1: Parameter Sweep Results', 2)
+add_para(
+    f'Phase 3.2 parameter sweep on Tabula Muris mouse data (n = 703 cell type pairs, '
+    f'6 organs). The pure identity gene configuration (w1 = 1.0, w2 = 0.0) achieved '
+    f'optimal cell type discrimination (AUC = {DATA["sweep"]["identity_auc"]:.3f}). Data file: '
+    'results/phase32_sweep_results.csv. Visualization: results/phase32_sweep_barplot.png.'
+)
+
+add_para('')
+
+add_heading('Supplementary Table 2: Cross-Organ Conservation Data', 2)
+add_para(
+    'Complete dataset of 59 same-cell-type cross-organ pairs in Tabula Sapiens, '
+    'including \u03c9, Jensen-Shannon divergence, Spearman distance, Cosine distance, '
+    'and Marker Jaccard distance values. Data file: '
+    'results/phase35_cross_organ_conservation.csv.'
+)
+
+add_para('')
+
+add_heading('Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data', 2)
+add_para(
+    f'Complete results of CKI brain region analysis for non-neuronal cells from the '
+    f'Siletti et al. (2023) human brain atlas, comprising {_br["total_pairs"]:,} pairwise cross-region '
+    f'comparisons across 10 cell types (n = {_br["n_nuclei"]:,} nuclei, {_br["n_regions"]} regions, '
+    f'{_br["n_genes"]:,} genes). Summary statistics for each cell type (\u03c9 mean, '
+    f'median, SD, range, k_n and k_f components) are provided in Supplementary Table 3. '
+    f'Raw data file: results/brain_bs_null_observed_pairs.csv ({_br["total_pairs"]:,} rows, '
+    f'block-shuffle re-analysis pipeline). '
+    f'Summary file: results/brain_bs_null_ct_test.csv (10-row summary). '
+    f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py. '
+    f'Figure generation: notebooks/_fig6_clean.py (Figure 6).'
+)
+
+add_para('')
+
+add_heading('Supplementary Table 4: Inter-regional Region-Associated Candidate Data', 2)
+
+# Build dynamic S4 text
+n_candidates = len(_candidates)
+pct_candidates = n_candidates / len(_mig) * 100
+n_strong = int(_br['n_strong'])
+n_moderate = int(_br['n_moderate'])
+n_weak = int(_br['n_weak'])
+pct_strong = float(_br['pct_strong'])
+pct_moderate = float(_br['pct_moderate'])
+pct_weak = float(_br['pct_weak'])
+
+# Build top-5 list (Strong tier, lowest multiplicative residuals; strip 'Human ' prefix)
+top5_lines = []
+for i, (_, r) in enumerate(_strong.iterrows()):
+    ra = str(r['region_a']).replace('Human ', '')
+    rb = str(r['region_b']).replace('Human ', '')
+    top5_lines.append(
+        f'{r["cell_type"]} {ra} vs. {rb} '
+        f'(\u03c9 = {r["omega"]:.2f}, residual = {r["residual"]:.3f})'
+    )
+
+s4_text = (
+    f'Results of multiplicative model-based detection of candidate inter-regional cell '
+    f'region-association signals (block-shuffle re-analysis pipeline). Of the {_br["total_pairs"]:,} total pairwise cross-region comparisons, '
+    f'{n_candidates:,} pairs ({pct_candidates:.1f}%) were classified as threshold-passing candidates '
+    f'(residual < 0.75), with full tier definitions: '
+    f'{n_strong} Strong signals (residual < {DATA["brain"]["residual_thresholds"]["strong"]}, \u03c9 < 15, and the lowest \u03c9 in the region pair; '
+    f'{pct_strong:.2f}%), '
+    f'{n_moderate:,} Moderate signals (residual < {DATA["brain"]["residual_thresholds"]["moderate"]}, \u03c9 < 25; '
+    f'{pct_moderate:.2f}%), '
+    f'and {n_weak:,} Weak signals (residual < {DATA["brain"]["residual_thresholds"]["weak"]}, \u03c9 < 35; '
+    f'{pct_weak:.2f}%). '
+    f'Under the block-shuffle permutation null (B = {_bs["B"]:,}), {_br.get("n_significant", 31)} of the {n_strong} '
+    f'Strong candidates showed raw one-sided P < 0.05, but none survived Benjamini-Hochberg '
+    f'correction across all 31,764 pairs (minimum q = {_br["min_q_fdr"]:.3f}); the candidate list is '
+    f'therefore hypothesis-generating only. '
+    f'Top-5 strongest signals by cell type (ranked by residual): '
+    f'1) {top5_lines[0]}, '
+    f'2) {top5_lines[1]}, '
+    f'3) {top5_lines[2]}, '
+    f'4) {top5_lines[3]}, '
+    f'5) {top5_lines[4]}. '
+    f'Complete candidate dataset: results/brain_bs_null_observed_pairs.csv '
+    f'({n_candidates:,} threshold-passing rows of 31,764 total). '
+    f'Tables S3 and S4 share the same underlying data file ' 
+    f'(results/brain_bs_null_observed_pairs.csv): Supplementary Table 3 reports all 31,764 pairs ' 
+    f'with per-cell-type summary statistics, whereas Supplementary Table 4 retains the ' 
+    f'{n_candidates:,} threshold-passing rows with their tier, residual, and ' 
+    f'\u03c9 annotations. '
+    f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py.'
+)
+add_para(s4_text)
+
+add_para('')
+
+add_heading('Supplementary Data 1: Analysis Script Index', 2)
+add_para(
+    'Complete analysis scripts used in this study are organized in the notebooks/ '
+    'directory of the GitHub repository (github.com/zhanglknt/CKI-cell-type-identification). '
+    'The package can be installed via: pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git. '
+    'Key scripts include: notebooks/04_phase32_sweep.py (parameter sweep and calibration), '
+    'notebooks/06_phase34_v2.py (TCGA pan-cancer analysis), '
+    'notebooks/05_phase33_v3_fixed.py (Tabula Sapiens cross-organ analysis), '
+    'notebooks/07c_brain_siletti_v3.py (brain regional CKI analysis and region-associated candidate detection), '
+    'and notebooks/30_genome_biology_figures.py with notebooks/_fig1_clean.py to _fig6_clean.py (figure generation).'
+)
+
+# ===== Add line numbers (continuous, every line) =====
+for sec in doc.sections:
+    sect_pr = sec._sectPr
+    ln_num = etree.SubElement(sect_pr, qn('w:lnNumType'))
+    ln_num.set(qn('w:countBy'), '1')
+    ln_num.set(qn('w:start'), '1')
+    ln_num.set(qn('w:restart'), 'continuous')
+
+out_path = 'results/CKI_Supplementary_NC.docx'
+doc.save(out_path)
+print(f'Saved: {out_path}')
+print(f'Paragraphs: {len(doc.paragraphs)}')
