@@ -32,7 +32,7 @@
 
 **ω 在 T1 上 FPR 最低（28.6%）但非 0**——与 Kang batch1 pilot 的 0% 不一致。诊断（`results/audit/_nc49_t1_perct.txt`、`_nc49_outlier_diag.txt`、`_nc49_fpr_versions.txt`）：
 
-1. **ω 的 FPR 在 10/10 细胞类型全部低于 raw JS/cosine/Spearman**（逐类比值 1.2–2.3×），方向完全一致。
+1. **ω 的 FPR 低于 raw JS 10/10、cosine 9/10、Spearman 8/10 细胞类型**（逐类 raw-JS-to-ω 比值 1.2–2.3×），方向一致；marker Jaccard 则 10/10 低于 ω（见表，T1 19.9% vs 28.6%）。
 2. **FPR 随组规模单调上升**（n_min 20–30 时 ω FPR 13.8%，>500 时 47.8%；Spearman ρ(log n, cal) = 0.23–0.36 对所有指标）：真实 library 技术效应存在（capture/深度差异），大组有统计功效检出——所有指标都被检出，ω 检出最少。
 3. **ω 残余漂移的结构**：逐对检查显示 k_f 分子在同 donor 同 roi 的同型 library 间真实分化（极端例：Choroid plexus @ SEP、donor H18.30.002，三 library 间 k_f 相差 30–137×；Bergmann glia cal_ω 1.16；这些正是 08d block-shuffle null 中 Bergmann glia null_mean 21.9 ≫ split-half 9.7 的来源）。k_n 的 HK 分母吸收了大部分漂移（cal_k_n ≈ 1.05），但不能吸收基因特异性的 HVG/身份基因级差异。
 4. **与稿件已发表结果一致**：08d 中 Oligo/Microglia 的观察均值 ≈ block-shuffle null 均值（区域结构不显著），即 library 级结构确实主导大量 ω——本次 T1 直接量化了这一点。T1 校准比中位 1.04 与 split-half 校准值口径一致。

@@ -7,17 +7,23 @@ v49 changes (d-tcga, 2026-09-18):
     principled separation of functional divergence from background drift
     (Ka/Ks analogy), with real-data misreporting-control evidence and a
     discovery-level pan-cancer application.
-  * New paragraph responding directly to the two prior (Genome Biology)
-    reviewer concerns: (i) classification AUC, (ii) broad readership.
+  * Reviewer-concern paragraph replaced with a new-evidence framing ("Two
+    properties of this work are worth stating explicitly..."), per blind
+    review R4 P0-3/P1-1: no rebuttal voice, no "5th of 5".
+  * Misreporting claim qualified to the continuous divergence metrics
+    (marker Jaccard is lower still on the FPR statistic), per R1 P1-1.
   * Preserved: NC scope, six suggested reviewers, Zenodo DOI, one-page
     format (Arial 11 pt, 1" margins, ~520 words).
 Numbers sourced from verified audits only:
   nc49_pilot_kang_2026-09-18.md (Kang 30 pairs: omega 0/30 vs raw JS 36.7%,
   cosine 23.3%), nc49_brain_ladder_2026-09-18.md (T1 2,161 pairs: omega FPR
-  28.6% lowest, 10/10 classes; ladder 1.04->1.76->1.80 vs raw JS
-  1.07->3.32->2.98), nc49_tcga_main_2026-09-18.md (3,596 samples; NN/TT
-  1.13-2.46, 4/5 CIs exclude 1; k_n 2.1-3.6x; LUAD KRAS P = 7.8e-7),
-  manuscript Table 1 (classification AUC 0.680, 5th of 5) and simulation
+  28.6% lowest among continuous metrics, below raw JS 10/10 classes; ladder
+  1.04->1.76->1.80 vs raw JS 1.07->3.32->2.98),
+  nc49_tcga_main_2026-09-18.md (3,567 samples; NN/TT
+  1.10-2.46, 4/5 CIs exclude 1; k_n 1.3-3.3x; LUAD KRAS retained after
+  purity + smoking adjustment, EGFR association dissolved under purity
+  adjustment per nc49_purity/nc49_smoking audits),
+  manuscript Table 1 (classification AUC 0.680) and simulation
   results (FPR 0.00 vs 0.55-0.58; AUC 0.80).
 """
 from pathlib import Path
@@ -90,36 +96,36 @@ def run():
         "real-data drift calibration, \u03c9 misreported none of 30 "
         "cross-lane technical-replicate pairs (Kang IFN-\u03b2 PBMC data; "
         "raw JS 36.7%, cosine 23.3%) and, on 2,161 brain technical-drift "
-        "pairs, misreported least of seven metrics (28.6% versus "
-        "44\u201345%, lowest in all ten cell classes), with the shallowest "
+        "pairs, had the lowest false-report rate among the continuous "
+        "divergence metrics (28.6% versus 35.7\u201345.2% for the other "
+        "five; below raw JS in all ten cell classes), with the shallowest "
         "drift-ladder gradient (1.04 \u2192 1.76 \u2192 1.80 versus "
-        "1.07 \u2192 3.32 \u2192 2.98 for raw JS). Third, across 3,596 TCGA "
+        "1.07 \u2192 3.32 \u2192 2.98 for raw JS). Third, across 3,567 TCGA "
         "samples in five cancer types, tumor specimens were consistently less "
         "divergent than adjacent non-tumor tissue (NN/TT \u03c9 ratio "
-        "1.13\u20132.46, bootstrap CIs excluding 1 in four of five)\u2014"
-        "reflecting a 2.1\u20133.6-fold elevated housekeeping baseline, not "
+        "1.10\u20132.46, bootstrap CIs excluding 1 in four of five)\u2014"
+        "reflecting a 1.3\u20133.3-fold elevated housekeeping baseline, not "
         "reduced functional divergence; and in lung adenocarcinoma the k_f/k_n "
-        "decomposition separates KRAS-mutant tumors (functional component, "
-        "P = 7.8 \u00d7 10\u207b\u2077) from EGFR-mutant tumors "
-        "(baseline-driven).",
+        "decomposition separates KRAS-mutant tumors\u2014retaining both a "
+        "functional (k_f) and a baseline (k_n) component after purity and "
+        "smoking adjustment\u2014from EGFR-mutant tumors, whose apparent "
+        "association dissolved under purity adjustment.",
         doc,
     )
 
-    # ── Body: direct response to the two prior reviewer concerns ──
+    # ── Body: two properties stated explicitly (new-evidence framing) ──
     add_para(
-        "Previously raised concerns that (i) the index does not outperform "
-        "existing metrics and (ii) the work may hold limited interest for a "
-        "broad biological readership have been addressed directly. On (i): "
-        "the classification benchmark (AUC = 0.680, 5th of 5) is by "
-        "design\u2014CKI trades global-identity sensitivity for "
-        "identity-gene divergence, and classification is outside its question "
-        "domain; on the appropriate benchmark, misreporting control, "
-        "\u03c9 misreports technical and donor drift least among all compared "
-        "metrics while retaining sensitivity to biology. On (ii): the "
-        "pan-cancer divergence map and the LUAD driver-class decomposition "
-        "give the work direct cancer-biology relevance, and the drift-ladder "
-        "calibration speaks to anyone who has seen batch effects masquerade "
-        "as biology.",
+        "Two properties of this work are worth stating explicitly. CKI is "
+        "a specificity-first index: its cell-type classification AUC "
+        "(0.680) is modest by design, because it down-weights the "
+        "global-identity signal that classifiers exploit; on the benchmark "
+        "matched to its question domain\u2014false divergence calls on "
+        "real technical and donor drift\u2014it misreports least among "
+        "the continuous divergence metrics while retaining sensitivity to "
+        "biology (Fig. 4). And the pan-cancer divergence map, with the "
+        "lung adenocarcinoma driver-class decomposition, grounds the "
+        "method in cancer biology of direct interest to a broad "
+        "readership (Fig. 5).",
         doc,
     )
 

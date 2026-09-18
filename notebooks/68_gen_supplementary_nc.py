@@ -162,11 +162,13 @@ _t1_49 = _ladder[_ladder['tier'] == 'T1_techrep']
 _t1ct_49 = _t1_49.groupby('cell_type').agg(
     fpr_omega=('exceed_omega', 'mean'), fpr_js=('exceed_raw_js', 'mean'),
     fpr_cos=('exceed_cosine', 'mean'), fpr_spr=('exceed_spearman', 'mean'),
+    fpr_mj=('exceed_marker_jaccard', 'mean'),
     cal_omega=('cal_omega', 'median'), n=('exceed_omega', 'size'))
 _nct_49 = len(_t1ct_49)
 _below49 = dict(js=int((_t1ct_49.fpr_omega < _t1ct_49.fpr_js).sum()),
                 cos=int((_t1ct_49.fpr_omega < _t1ct_49.fpr_cos).sum()),
-                spr=int((_t1ct_49.fpr_omega < _t1ct_49.fpr_spr).sum()))
+                spr=int((_t1ct_49.fpr_omega < _t1ct_49.fpr_spr).sum()),
+                mj=int((_t1ct_49.fpr_mj < _t1ct_49.fpr_omega).sum()))
 _ratio49 = _t1ct_49.fpr_js / _t1ct_49.fpr_omega
 _ratio_lo49, _ratio_hi49 = float(_ratio49.min()), float(_ratio49.max())
 
@@ -246,11 +248,11 @@ def add_table(rows, header=True):
 
 # ===== TITLE PAGE =====
 add_heading('Supplementary Information', 1)
-add_para('CKI: a Ka/Ks-inspired index for quantifying functional cell-type divergence in single-cell transcriptomics')
+add_para('CKI is a Ka/Ks-inspired index quantifying functional divergence in single-cell genomics')
 add_para('Xianming Wu (1), Li Zhang (1,2,*)')
-add_para('(1) Chinese Institute for Brain Research, Beijing, China')
+add_para('(1) Chinese Institute for Brain Research, Beijing 102206, China')
 add_para('(2) Institute of Blood Transfusion, Chinese Academy of Medical Sciences & '
-         'Peking Union Medical College, Chengdu, China')
+         'Peking Union Medical College, Chengdu 610052, China')
 add_para('(*) Corresponding author')
 add_para('')
 
@@ -261,25 +263,25 @@ toc = [
     'Statistical Testing Details',
     'Dataset Quality Control and Filtering Criteria',
     'Supplementary Note 1: Ground-Truth Simulation',
-    'Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)',
+    'Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs',
     'Supplementary Note 3: Calibrated Omega Normalization',
-    'Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization (v45)',
-    'Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls (v45)',
+    'Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization',
+    'Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls',
     'Supplementary Note 6: Real Perturbation Demonstration (Kang et al. IFN-beta PBMC)',
     'Supplementary Note 7: Fixed Gene-Panel Ablation',
     'Supplementary Note 8: TCGA composition-contribution check for the NN/TT k_n reversal',
     'Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)',
-    'Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity (v44)',
+    'Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity',
     'Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)',
     'Supplementary Note 12: Pseudo-Region Negative Control (Block-Shuffle Null Calibration)',
     'Supplementary Note 13: Brain set-level enrichment of the block-shuffle signal (post-hoc)',
-    'Supplementary Note 14: Comparison with Augur Cell-Type Prioritization (v45)',
+    'Supplementary Note 14: Comparison with Augur Cell-Type Prioritization',
     'Supplementary Note 15: JS Divergence Dimensionality Invariance',
     'Supplementary Table 1: Parameter Sweep Results',
     'Supplementary Table 2: Cross-Organ Conservation Data',
     'Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data',
     'Supplementary Table 4: Inter-regional Region-Associated Candidate Data',
-    'Supplementary Data 1: Complete Analysis Script Index',
+    'Supplementary Data 1: Analysis Script Index',
 ]
 for item in toc:
     add_para(item)
@@ -421,17 +423,20 @@ add_para(
 
 add_para('1.7 Probability-Mapping Robustness: Linear-Normalization Re-analysis of the TCGA Pipeline', bold=True)
 add_para(
-    'Disclosure. The authoritative TCGA pipeline (notebooks/06_phase34_v2.py) applies the '
-    'softmax probability mapping to log2(TPM + 1) values, which is mathematically '
-    'equivalent to the power transformation p_i \u221d (TPM + 1)^(1/ln 2) (Section 1.1). To '
-    'verify that this mapping choice does not drive any conclusion, the entire TCGA '
-    'analysis was re-run with the strictly linear mapping p_i = (TPM + 1)/\u03a3(TPM + 1), '
-    'mirroring the authoritative pipeline otherwise (per-cancer streaming gene loading, '
-    'mean TPM \u2265 0.5 filtering, per-cancer HK mapping, per-pair top-200 |\u0394| '
-    'identity genes ranked on the log2(TPM + 1) representation so that the identity gene '
-    'sets are unchanged, kn_floor = 1 \u00d7 10\u207b\u2074, seed 42, TT/TN caps of '
-    '2,000 pairs). Scripts: notebooks/85_tcga_linear_norm_v44.py (main pipeline and '
-    'clinical severity) and notebooks/86_tcga_composition_linear_norm_v44.py '
+    'Disclosure. All TCGA statistics reported in the manuscript are computed under the '
+    'strictly linear probability mapping p_i = (TPM + 1)/\u03a3(TPM + 1), which is the '
+    'authoritative caliber throughout (notebooks/85_tcga_linear_norm_v44.py; per-cancer '
+    'streaming gene loading, mean TPM \u2265 0.5 filtering, per-cancer HK mapping, '
+    'per-pair top-200 |\u0394| identity genes ranked on the log2(TPM + 1) '
+    'representation so that the identity gene sets are unchanged, kn_floor = 1 \u00d7 '
+    '10\u207b\u2074, seed 42, TT/TN caps of 2,000 pairs). The legacy pipeline '
+    '(notebooks/06_phase34_v2.py) applied the softmax probability mapping to '
+    'log2(TPM + 1) values, which is mathematically equivalent to the power '
+    'transformation p_i \u221d (TPM + 1)^(1/ln 2) (Section 1.1); the softmax-caliber '
+    'values are archived here as a sensitivity analysis to verify that the mapping '
+    'choice drives no conclusion. Scripts: notebooks/85_tcga_linear_norm_v44.py '
+    '(main pipeline and clinical severity) and '
+    'notebooks/86_tcga_composition_linear_norm_v44.py '
     '(composition sensitivity); report: results/tcga_linear_norm_v44_report.md.'
 )
 add_table([
@@ -456,7 +461,11 @@ add_para(
     'floor is not an artifact of the mapping; all three clinical-severity orderings are '
     'preserved (full values in Supplementary Note 9); and the composition-sensitivity conclusion is '
     'unchanged (pooled tumor-pair coefficient attenuation \u22120.8%, cluster-bootstrap '
-    'median \u22121.2% [95% CI \u22124.1%, +2.6%]; Supplementary Note 8).'
+    'median \u22121.2% [95% CI \u22124.1%, +2.6%]; Supplementary Note 8). One '
+    'quantitative caveat: the LIHC NN/TT effect size is mapping-sensitive - the '
+    'mean NN/TT \u03c9 ratio is 1.10 under the linear mapping versus 1.31 under '
+    'the softmax mapping - so the LIHC reversal, though directionally preserved, '
+    'is quantitatively weaker in the authoritative linear caliber.'
 )
 
 doc.add_page_break()
@@ -658,7 +667,7 @@ add_para(
     'non-parametric descriptive statistic rather than a parametric test result.'
 )
 
-add_para('3.7 Pair-Specific k_n Variability', bold=True)
+add_para('3.5 Pair-Specific k_n Variability', bold=True)
 add_para(
     'In all reported analyses (mouse pilot, human, TCGA, and brain), k_n is computed '
     'per pair on the shared HK gene set: for each comparison, the HK-gene JS divergence '
@@ -677,7 +686,7 @@ add_para(
     'choice in mind. (Supplementary Fig. 7.)'
 )
 
-add_para('3.8 TCGA Exploratory Analysis Caveats', bold=True)
+add_para('3.6 TCGA Exploratory Analysis Caveats', bold=True)
 add_para(
     'The TCGA pan-cancer analysis (Results Section: Cancer analysis) is exploratory in nature '
     'due to several inherent limitations of bulk RNA-seq data. First, bulk RNA-seq confounds '
@@ -697,7 +706,7 @@ add_para(
     'inference from bulk-level data alone.'
 )
 
-add_para('3.9 Cross-Organ Sample Size Considerations', bold=True)
+add_para('3.7 Cross-Organ Sample Size Considerations', bold=True)
 add_para(
     'The cross-organ conservation ranking (Results Section: CKI ranks cell types by cross-organ '
     'conservation) includes cell types with varying numbers of cross-organ pairs. Several cell '
@@ -708,7 +717,7 @@ add_para(
     'CKI \u03c9 and standard metrics are reported with bootstrap 95% CIs (B = 10,000 resamples).'
 )
 
-add_para('3.10 One-Sided Permutation Test Justification', bold=True)
+add_para('3.8 One-Sided Permutation Test Justification', bold=True)
 add_para(
     'All permutation P-values use a one-sided test: P = (count(omega_null \u2265 omega_obs) + 1)/(B + 1). '
     'The one-sided formulation is appropriate because our hypothesis is directional: we test '
@@ -726,7 +735,7 @@ add_para(
     '"two-sided"); earlier releases used the parameter name "direction".'
 )
 
-add_para('3.11 Parameter Justification', bold=True)
+add_para('3.9 Parameter Justification', bold=True)
 add_para(
     'Key CKI parameters and their rationale: (1) +1 pseudo-count followed by L1 '
     'normalization: converts expression vectors to probability distributions for JS '
@@ -750,7 +759,7 @@ add_para(
     'P = 9.99 \u00d7 10\u207b\u2074 (= 1/(B+1) = 1/1001) is well below BH thresholds for cell-type-level tests (Phase B).'
 )
 
-add_para('3.18 Mouse Split-Half Re-calibration (6 \u2192 50 splits; v44)', bold=True)
+add_para('3.10 Mouse Split-Half Re-calibration (6 \u2192 50 splits)', bold=True)
 add_para(
     'The equivalent-population calibration of Supplementary Note 3 was re-run with 50 '
     'independent random split-halves per control population (the same six FACS '
@@ -774,7 +783,7 @@ add_para(
     '5.0\u20135.8 under either baseline).'
 )
 
-add_para('3.19 Competitor Benchmark: MELD and a Python Approximation of scDist (v44)', bold=True)
+add_para('3.11 Competitor Benchmark: MELD and a Python Approximation of scDist', bold=True)
 add_para(
     'Purpose and methods. CKI was benchmarked against MELD (PyPI meld 1.0.2, '
     'minimal --no-deps install; per-cell-type score = within-type AUC of the '
@@ -812,7 +821,7 @@ add_table([
     ['NK cells', '1,993', '2.88', '0.9972', '88.2'],
 ])
 add_para(
-    'Table (Section 3.19a). Per-cell-type effects on Kang IFN-\u03b2 '
+    'Table (Section 3.11a). Per-cell-type effects on Kang IFN-\u03b2 '
     '(stimulated versus control). \u03c9_cal is calibrated against the '
     'split-half baseline of Supplementary Note 6.'
 )
@@ -843,7 +852,7 @@ add_table([
     ['CKI \u03c9', '0.083', '0.517', '0.688', '0.787', '0.127', '0.059', '0.054'],
 ])
 add_para(
-    'Table (Section 3.19b). Target-detection AUC (target CD14+ monocytes versus '
+    'Table (Section 3.11b). Target-detection AUC (target CD14+ monocytes versus '
     'the five null cell types) in the additive mean-shift simulation. MELD '
     'and the scDist approximation also achieve sensitivity 1.00 and top-1 hit '
     'rate 1.00 at every configuration.'
@@ -873,7 +882,7 @@ add_table([
     ['NK cells', '0.93', '0.76', '\u2014', '\u2014'],
 ])
 add_para(
-    'Table (Section 3.19c). Donor-paired detection power (fraction of 20 '
+    'Table (Section 3.11c). Donor-paired detection power (fraction of 20 '
     'replicates significant at one-sided P < 0.05); cells marked \u2014 had '
     'too few eligible donors.'
 )
@@ -891,8 +900,8 @@ add_para(
     'expose.'
 )
 
-# ===== Section 3.20 (v49): real-data neutral-drift calibration =====
-add_para('3.20 Real-Data Neutral-Drift Calibration on Technical Replicates (v49)', bold=True)
+# ===== Section 3.12: real-data neutral-drift calibration =====
+add_para('3.12 Real-Data Neutral-Drift Calibration on Technical Replicates', bold=True)
 add_para(
     'Purpose and design. Supplementary Note 1 quantifies neutral-drift '
     'specificity in simulation; this section repeats the test on real '
@@ -948,7 +957,7 @@ add_para(
     f'{_cos49["k"]} of {_cos49["n"]} ({_cos49["k"] / _cos49["n"]:.1%}, CI '
     f'[{_wcos49[0]:.3f}, {_wcos49[1]:.3f}]) as divergence; k_n alone fired '
     f'once ({_km49["k_n"]["k"]} of {_km49["k_n"]["n"]}). The per-metric '
-    'values are given in Table (Section 3.20a); the replication is shown '
+    'values are given in Table (Section 3.12a); the replication is shown '
     'in main-text Fig. 4d.'
 )
 _rows_kang49 = [['Metric', 'Calibration median [IQR]', 'FPR (k/n)', 'Wilson 95% CI']]
@@ -962,20 +971,31 @@ for _m in ['k_n', 'k_f', 'omega', 'raw_js', 'cosine']:
         f'[{_w[0]:.3f}, {_w[1]:.3f}]'])
 add_table(_rows_kang49)
 add_para(
-    'Table (Section 3.20a). Kang batch 1, 30 same-donor, same-condition '
+    'Table (Section 3.12a). Kang batch 1, 30 same-donor, same-condition '
     'cross-lane pairs. Calibration = observed / own n-matched null median '
     '(B = 200 per pair); FPR = fraction of pairs whose observed value '
-    'exceeds its own null 95th percentile.'
+    'exceeds its own null 95th percentile. The Wilson intervals treat the '
+    '30 pairs as independent (donor-level clustering is not modeled), so '
+    'they are optimistic for the cohort-level rate. Cross-metric '
+    'comparisons on these 30 pairs are paired by design - every metric is '
+    'evaluated on the identical pairs against the identical per-pair '
+    'nulls - so FPR differences are within-pair contrasts (a McNemar-style '
+    'paired framing applies to any cross-metric test).'
 )
 _l1o, _l1w = _lad49['T1']['omega'], _lad49['T1']['raw_js']
 _l2o, _l2w = _lad49['T2']['omega'], _lad49['T2']['raw_js']
 _l3o, _l3w = _lad49['T3']['omega'], _lad49['T3']['raw_js']
 _mj1, _mj3 = _lad49['T1']['marker_jaccard'], _lad49['T3']['marker_jaccard']
+_mj2 = _lad49['T2']['marker_jaccard']
 _kf1, _kf2 = _lad49['T1']['k_f'], _lad49['T2']['k_f']
+_mjf1, _mjf3 = _mj1['k'] / _mj1['n'], _mj3['k'] / _mj3['n']
+_omf1, _omf3 = _l1o['k'] / _l1o['n'], _l3o['k'] / _l3o['n']
+_gap_mj49, _gap_om49 = _mjf3 - _mjf1, _omf3 - _omf1
+_rat_mj49, _rat_om49 = _mjf3 / _mjf1, _omf3 / _omf1
 add_para(
     'Brain drift ladder. On T1 (pure technical drift), \u03c9 had the '
-    f'lowest misreporting rate of the seven metrics except marker Jaccard '
-    f'(FPR {_l1o["k"] / _l1o["n"]:.1%}, versus '
+    'lowest misreporting rate among the continuous divergence metrics '
+    f'(FPR {_omf1:.1%}, versus '
     f'{_lad49["T1"]["raw_js"]["k"] / _lad49["T1"]["raw_js"]["n"]:.1%} for raw JS, '
     f'{_lad49["T1"]["cosine"]["k"] / _lad49["T1"]["cosine"]["n"]:.1%} for cosine, '
     f'{_lad49["T1"]["spearman"]["k"] / _lad49["T1"]["spearman"]["n"]:.1%} for Spearman, '
@@ -984,25 +1004,35 @@ add_para(
     f'was below raw JS in {_below49["js"]} of {_nct_49} cell classes (below cosine in '
     f'{_below49["cos"]} of {_nct_49}, below Spearman in {_below49["spr"]} of '
     f'{_nct_49}; per-class raw-JS-to-\u03c9 FPR ratios '
-    f'{_ratio_lo49:.1f}-{_ratio_hi49:.1f}). At T2 (donor drift), all metrics '
+    f'{_ratio_lo49:.1f}-{_ratio_hi49:.1f}). Marker Jaccard distance was '
+    f'lower still (T1 FPR {_mjf1:.1%}, below \u03c9 in {_below49["mj"]} of '
+    f'{_nct_49} cell classes): judged on the false-positive statistic '
+    'alone, it separates the tiers at least as well as \u03c9 '
+    f'(T3\u2212T1 FPR gap {_gap_mj49:.2f} versus {_gap_om49:.2f}; '
+    f'T3/T1 ratio {_rat_mj49:.1f} versus {_rat_om49:.1f}), so the '
+    'misreporting claim for \u03c9 is restricted to the continuous '
+    'divergence metrics. At T2 (donor drift), all metrics '
     'fired on most pairs - donor differences contain real biology - and '
-    '\u03c9 again misreported least among the divergence metrics '
+    '\u03c9 again misreported least among the continuous divergence metrics '
     f'({_l2o["k"] / _l2o["n"]:.1%} versus '
     f'{_l2w["k"] / _l2w["n"]:.1%} for raw JS and {_kf2["k"] / _kf2["n"]:.1%} for '
-    f'k_f; calibration {_l2o["cal_med"]:.2f} versus {_l2w["cal_med"]:.2f} and '
+    f'k_f; marker Jaccard was again lower at {_mj2["k"] / _mj2["n"]:.1%}; '
+    f'calibration {_l2o["cal_med"]:.2f} versus {_l2w["cal_med"]:.2f} and '
     f'{_kf2["cal_med"]:.2f}). At T3 (regional biology, positive control), '
     f'every metric rose (\u03c9 calibration {_l3o["cal_med"]:.2f}; raw JS '
     f'{_l3w["cal_med"]:.2f}), so sensitivity to genuine divergence is '
     'preserved; across the ladder the \u03c9 calibration gradient is the '
     f'shallowest of all metrics ({_l1o["cal_med"]:.2f} \u2192 {_l2o["cal_med"]:.2f} '
     f'\u2192 {_l3o["cal_med"]:.2f}, versus {_l1w["cal_med"]:.2f} \u2192 '
-    f'{_l2w["cal_med"]:.2f} \u2192 {_l3w["cal_med"]:.2f} for raw JS). Marker '
-    f'Jaccard distance has the lowest T1 FPR ({_mj1["k"] / _mj1["n"]:.1%}) but '
-    f'the weakest response to genuine regional divergence (T3 calibration '
+    f'{_l2w["cal_med"]:.2f} \u2192 {_l3w["cal_med"]:.2f} for raw JS). The '
+    'advantage of \u03c9 over marker Jaccard lies elsewhere: Jaccard '
+    'responds weakest to genuine regional divergence (T3 calibration '
     f'{_mj3["cal_med"]:.2f} versus {_l3o["cal_med"]:.2f} for \u03c9 and '
     f'{_l3w["cal_med"]:.2f} for raw JS), so its apparent specificity is '
-    'purchased with the weakest sensitivity to real signal. Per-tier values '
-    'for all seven metrics are given in Table (Section 3.20b); main-text '
+    'purchased with the weakest sensitivity to real signal, and as a '
+    'single set-overlap statistic it offers no k_n/k_f decomposition. '
+    'Per-tier values '
+    'for all seven metrics are given in Table (Section 3.12b); main-text '
     'Fig. 4b,c.'
 )
 _rows_lad49 = [['Metric', 'T1 cal [IQR] / FPR', 'T2 cal [IQR] / FPR', 'T3 cal [IQR] / FPR']]
@@ -1015,11 +1045,19 @@ for _m in _METRICS49:
     _rows_lad49.append(_row)
 add_table(_rows_lad49)
 add_para(
-    'Table (Section 3.20b). Brain drift ladder, per tier and metric: '
+    'Table (Section 3.12b). Brain drift ladder, per tier and metric: '
     'calibration median [IQR] (observed / own n-matched null median) and '
     'FPR (observed > own null 95th percentile). T1: same (donor, region) '
     'cross-library pairs, n = 2,161; T2: same region cross-donor pairs, '
-    'n = 1,089; T3: same donor cross-region pairs, n = 1,656.'
+    'n = 1,089; T3: same donor cross-region pairs, n = 1,656. Per-pair '
+    'nulls used B = 100 permutations for T1 and B = 30 for T2/T3; at '
+    'B = 30 the per-pair exceedance indicator resolves to 1/31, so the '
+    'T2/T3 tier rates carry Monte-Carlo noise of a few percentage points '
+    'and are tier-level, not per-pair, calibrations. The 200-per-class '
+    'subsampling cap makes the cell-class composition of T2/T3 '
+    'availability-dependent, so cross-tier comparisons mix class '
+    'composition with drift tier; per-class T1 values are discussed in '
+    'the text.'
 )
 _cp49 = _t1ct_49.loc['Choroid plexus']
 _bg49 = _t1ct_49.loc['Bergmann glia']
@@ -1044,25 +1082,35 @@ add_para(
     'retains by design (Supplementary Note 12): the Bergmann-glia '
     'block-shuffle null mean (21.9) lying far above its split-half '
     'baseline (9.7) reflects precisely this within-donor, within-region '
-    'technical divergence. The simulation-level claim of absolute '
+    'technical divergence. Third, per-pair nulls were used throughout '
+    '(one null per pair, not one pooled null per class-size bin); the '
+    'size-binned FPR gradient above is reported precisely to expose the '
+    'group-size dependence that a pooled null would mask, and small-group '
+    'p95 estimates are correspondingly noisy at the smallest group sizes. '
+    'The simulation-level claim of absolute '
     'neutral-drift immunity (Supplementary Note 1) thus transfers to real '
     'data only as a relative-calibration advantage: lowest misreporting '
-    'among the compared metrics at every tier, with sensitivity to genuine '
+    'among the continuous divergence metrics at every tier, with '
+    'sensitivity to genuine '
     'regional divergence preserved.'
 )
 
-# ===== Section 3.21 (v49): TCGA per-sample statistics =====
-add_para('3.21 Per-Sample Divergence and Group Statistics for TCGA (v49)', bold=True)
+# ===== Section 3.13: TCGA per-sample statistics =====
+add_para('3.13 Per-Sample Divergence and Group Statistics for TCGA', bold=True)
 add_para(
     'Purpose and design. The main-text TCGA analysis (Results: A pan-cancer '
-    'map of tissue-level functional divergence in tumors; Methods: '
+    'map of tissue-level divergence in tumors; Methods: '
     'Per-sample divergence and group statistics) ranks cancer types by the '
     'NN/TT ratio of mean \u03c9, stratifies LUAD tumors by driver mutation, '
     'and tests survival association in LIHC. This section reports the full '
     'group statistics behind those claims. Per-tumor statistics are the '
     'mean of \u03c9, k_f, and k_n over all pairs in the linear-normalization '
-    'pair table (35,306 pairs; v44 re-computation) in which a sample '
-    'participates. Group-level ratios carry sample-level cluster bootstrap '
+    'pair table (35,306 pairs; authoritative file: '
+    'results/tcga_linear_norm_v44_all_pairs.csv) in which a sample '
+    'participates; per-sample values are not archived as a separate file '
+    'and are rebuilt from that pair table plus the cBioPortal mutation '
+    'labels by notebooks/nc49_tcga_main.py (Reproducibility Guide, Section '
+    '5.10c). Group-level ratios carry sample-level cluster bootstrap '
     '95% CIs (B = 1,000; seed 42; tumor and normal samples resampled with '
     'replacement independently, each pair reweighted by the product of its '
     'endpoint resampling weights). LUAD driver groups (61 EGFR, 120 KRAS, '
@@ -1075,10 +1123,20 @@ add_para(
     '(hazard ratios per SD), adjusted for AJCC stage (I-IV), Edmondson '
     'grade (G1-G4), age, and sex (listwise deletion of missing covariates), '
     'with k_f-only, k_n-only, and tumor-normal-\u03c9 exposures as '
-    'sensitivity models. Scripts: notebooks/nc49_tcga_main.py (seed 42), '
-    'notebooks/nc49_pilot_lihc_cox.py; outputs: '
+    'sensitivity models. Covariate sensitivity used the official ESTIMATE '
+    'stromal (141) and immune (141) gene sets (rank-based single-sample '
+    'enrichment; combined stromal-plus-immune score, monotonically '
+    'equivalent to published ESTIMATE purity) and cBioPortal patient-level '
+    'LUAD clinical data (study luad_tcga; smoking status 508, pack-years '
+    '356, sex 522 patients; 427 of 492 tumors with known smoking status, '
+    '87%). Scripts: notebooks/nc49_tcga_main.py (seed 42), '
+    'notebooks/nc49_pilot_lihc_cox.py, notebooks/nc49_tcga_purity.py, '
+    'notebooks/nc49_tcga_luad_smoking.py, '
+    'notebooks/nc49_tcga_kf_composition.py; outputs: '
     'results/nc49_tcga_pancancer.csv, results/nc49_tcga_luad_mutation.csv, '
-    'results/nc49_pilot_lihc_cox.csv.'
+    'results/nc49_pilot_lihc_cox.csv, results/nc49_tcga_purity.csv, '
+    'results/nc49_tcga_admix_scores.csv, results/nc49_tcga_luad_smoking.csv, '
+    'results/nc49_tcga_kf_composition.csv.'
 )
 _rows_pc49 = [['Cancer', 'NN/TT \u03c9 ratio [95% CI]', 'MWU P',
                'k_n TT/NN median', 'k_n mean ratio [95% CI]']]
@@ -1095,10 +1153,13 @@ for _, _r in _tcga_pc.sort_values('rank_by_NN_TT_ratio').iterrows():
         f'{_r["kn_TT_NN_mean_ratio_CI95_upper"]:.2f}]'])
 add_table(_rows_pc49)
 add_para(
-    'Table (Section 3.21a). Pan-cancer NN/TT ratios (mean NN to mean TT '
+    'Table (Section 3.13a). Pan-cancer NN/TT ratios (mean NN to mean TT '
     '\u03c9) with sample-level cluster-bootstrap 95% CIs, one-sided '
     'Mann-Whitney P (NN > TT), and the housekeeping-baseline mechanism: '
-    'median and mean TT/NN k_n ratios with bootstrap 95% CIs. The point '
+    'median and mean TT/NN k_n ratios with bootstrap 95% CIs. The '
+    'pair-level Mann-Whitney P-values are descriptive only: they ignore '
+    'the dyadic dependence between pairs sharing a sample, so the '
+    'cluster-bootstrap CI is the inferential caliber. The point '
     'estimate exceeds 1 in 5 of 5 cancer types; the CI excludes 1 in 4 of '
     '5 (LIHC includes 1), whereas the k_n mean-ratio CI excludes 1 in all '
     'five. Ranked by NN/TT effect size (main-text Fig. 5a).'
@@ -1107,18 +1168,28 @@ add_para(
     'LUAD driver-mutation stratification. Mean per-tumor \u03c9 was highest '
     'in KRAS-mutant tumors (136.9), exceeding wild-type (115.4) and '
     'EGFR-mutant tumors (122.2; Kruskal-Wallis P = 7.8 \u00d7 10\u207b\u2077; '
-    'Tables (Sections 3.21b,c)). The k_f/k_n decomposition separates the '
+    'Tables (Sections 3.13b,c)). The k_f/k_n decomposition separates the '
     'two drivers\u2019 associations: the KRAS contrast carries a functional '
     'component - k_f is elevated in KRAS-mutant tumors (KRAS versus EGFR, '
     'Dunn-Holm P = 0.015; KRAS-wild-type k_f difference 0.011, 95% CI '
     '0.002-0.019) accompanied by a lower k_n (wild-type > KRAS, '
     'Dunn-Holm P = 4.2 \u00d7 10\u207b\u2074), both of which raise the '
-    'ratio; the EGFR association shows no k_f difference (all '
-    'Holm-adjusted P > 0.09) and is visible only in the k_n baseline, so '
-    'it is baseline-driven. These are observational associations without '
-    'patient-level covariate adjustment (no age, sex, or smoking metadata '
-    'were available locally); tumor purity differences between driver '
-    'classes cannot be excluded.'
+    'ratio; the unadjusted elevation is denominator-dominated (k_n '
+    'contributed ~84% of the log-\u03c9 gap; the unadjusted k_f contrast '
+    'KRAS versus WT was non-significant, Dunn P = 0.097), so both the '
+    'unadjusted decomposition and the covariate-adjusted estimates below '
+    'are reported; the EGFR association shows no significant k_f difference (all '
+    'Holm-adjusted P > 0.09) and no significant k_n difference (WT > EGFR, '
+    'P = 0.09). '
+    'Covariate adjustment resolves the two drivers differently (Tables '
+    '(Sections 3.13e-g)): after adjustment for stromal/immune admixture the '
+    'KRAS-wild-type contrast retains both components (k_f +0.012, '
+    'P = 0.009; k_n -0.0004, P = 0.003) and likewise survives joint '
+    'smoking-plus-admixture adjustment (omega +13.6, P = 3.3 \u00d7 '
+    '10\u207b\u2074), whereas the EGFR-wild-type differences disappear '
+    'entirely under purity adjustment (all P > 0.4) - EGFR-mutant tumors '
+    'carry the highest admixture scores (Kruskal-Wallis P = 0.003), so the '
+    'apparent EGFR elevation is an admixture artefact.'
 )
 _rows_lu49 = [['Metric', 'WT', 'EGFR', 'KRAS', 'Kruskal-Wallis P']]
 for _met, _lab in (('omega', '\u03c9'), ('kf', 'k_f'), ('kn', 'k_n')):
@@ -1131,9 +1202,14 @@ for _met, _lab in (('omega', '\u03c9'), ('kf', 'k_f'), ('kn', 'k_n')):
                        _pf49(_p)])
 add_table(_rows_lu49)
 add_para(
-    'Table (Section 3.21b). LUAD per-tumor group means (n = 311 wild-type, '
+    'Table (Section 3.13b). LUAD per-tumor group means (n = 311 wild-type, '
     '61 EGFR-mutant, 120 KRAS-mutant) and the omnibus Kruskal-Wallis test '
-    'for \u03c9, k_f, and k_n.'
+    'for \u03c9, k_f, and k_n. Wild-type means wild-type for EGFR and KRAS '
+    '(tumors carrying other drivers were not separately excluded). '
+    'Per-tumor means share TT pairs across groups, so the KW/Dunn tests '
+    'and within-group bootstrap CIs do not model this pair-sharing '
+    'dependence and are read descriptively; the covariate-adjusted OLS '
+    'contrasts of Tables (Sections 3.13f,g) are the inferential caliber.'
 )
 _rows_luc49 = [['Contrast', '\u03c9: Dunn-Holm P / bootstrap diff [95% CI]',
                 'k_f: P / diff [95% CI]', 'k_n: P / diff [95% CI]']]
@@ -1154,7 +1230,7 @@ for _cmp in ('KRAS - WT', 'KRAS - EGFR', 'EGFR - WT'):
     _rows_luc49.append(_row)
 add_table(_rows_luc49)
 add_para(
-    'Table (Section 3.21c). LUAD pairwise contrasts: Dunn post-hoc P-values '
+    'Table (Section 3.13c). LUAD pairwise contrasts: Dunn post-hoc P-values '
     'with Holm correction, and within-group bootstrap mean differences with '
     '95% CIs (B = 1,000). Main-text Fig. 5b-d.'
 )
@@ -1175,12 +1251,144 @@ for _mod in ['M1_omega_full', 'M2_omega_stage_grade', 'M3_omega_unadjusted',
         _pf49(_r["p"])])
 add_table(_rows_cox49)
 add_para(
-    'Table (Section 3.21d). LIHC overall-survival Cox models (hazard ratios '
-    'per +1 SD of the exposure). No exposure shows an association (all '
-    'P \u2265 0.30), so the pan-cancer reversal is a descriptive property '
+    'Table (Section 3.13d). LIHC overall-survival Cox models (hazard ratios '
+    'per +1 SD of the exposure). No exposure reaches significance (all '
+    'P \u2265 0.07; k_f closest at P = 0.072), so the pan-cancer reversal '
+    'is a descriptive property '
     'of tissue-state divergence, not a prognostic marker; the full '
     'coefficient table is results/nc49_pilot_lihc_cox.csv of the companion '
     'repository.'
+)
+
+# ===== Section 3.13 continued: purity and smoking covariate sensitivity =====
+_pur49 = pd.read_csv(_root49 / "results" / "nc49_tcga_purity.csv")
+_smk49 = pd.read_csv(_root49 / "results" / "nc49_tcga_luad_smoking.csv")
+add_para(
+    'Purity and smoking covariate sensitivity. Stromal/immune admixture was '
+    'scored per sample with the official ESTIMATE gene sets (141 stromal + '
+    '141 immune genes) using the rank-based single-sample enrichment '
+    'algorithm over all 45,504 expressed genes of the five-cancer merged '
+    'matrix; the combined stromal-plus-immune score is monotonically '
+    'equivalent to published ESTIMATE purity, so regression-based '
+    'adjustment is invariant to the transformation. Per-tumor k_n '
+    'correlated negatively with admixture in every cancer type, and '
+    'restricting tumor-tumor pairs to the low-admixture half of tumors '
+    'increased the NN/TT ratio in all five cancer types (Table (Section '
+    '3.13e)), so the pan-cancer reversal is not an admixture artefact. In '
+    'LUAD, admixture differed across driver groups (highest in EGFR-mutant '
+    'tumors), and OLS adjustment for admixture abolished the EGFR-wild-type '
+    'differences while preserving both KRAS-wild-type components (Table '
+    '(Section 3.13f)); smoking status (ever/never, available for 427 of '
+    '492 LUAD tumors, 87%) was strongly confounded with driver group but '
+    'did not carry the divergence association (Table (Section 3.13g)).'
+)
+_rows_pur49 = [['Cancer', 'k_n ~ admix r (P)', '\u03c9 ~ admix r (P)',
+                'NN/TT all tumors', 'NN/TT low-admix half [95% CI]']]
+for _c in ('TCGA-LUAD', 'TCGA-LUSC', 'TCGA-LIHC', 'TCGA-KIRC', 'TCGA-BRCA'):
+    _kn = _pur49[(_pur49.section == 'A_regression') &
+                 (_pur49.cancer == _c) & (_pur49.metric == 'kn')].iloc[0]
+    _om = _pur49[(_pur49.section == 'A_regression') &
+                 (_pur49.cancer == _c) & (_pur49.metric == 'omega')].iloc[0]
+    _all = _pur49[(_pur49.section == 'D_nntt_highpurity') &
+                  (_pur49.cancer == _c) &
+                  (_pur49.test == 'NN/TT all tumours')].iloc[0]
+    _half = _pur49[(_pur49.section == 'D_nntt_highpurity') &
+                   (_pur49.cancer == _c) &
+                   (_pur49.test == 'NN/TT low-admix half')].iloc[0]
+    _rows_pur49.append([
+        _c.replace('TCGA-', ''),
+        f'{_kn.pearson_r:.2f} ({_pf49(_kn.p)})',
+        f'{_om.pearson_r:+.2f} ({_pf49(_om.p)})',
+        f'{_all.stat:.2f}',
+        f'{_half.stat:.2f} {str(_half["p"]).replace("CI95 ", "")}'])
+add_table(_rows_pur49)
+add_para(
+    'Table (Section 3.13e). Purity sensitivity of the pan-cancer reversal. '
+    'Left: Pearson correlations of per-tumor k_n and \u03c9 with the '
+    'ESTIMATE combined admixture score; the k_n correlation is negative in '
+    'all five cancer types (KIRC P = 8.3 \u00d7 10\u207b\u00b9\u2077, '
+    'LIHC P = 3.9 \u00d7 10\u207b\u2076), so admixture can only weaken, '
+    'not create, the TT k_n elevation. Right: NN/TT \u03c9 mean ratio over '
+    'all tumors versus tumor-tumor pairs restricted to the low-admixture '
+    '(high-purity) half of tumors (sample-level cluster bootstrap 95% CI, '
+    'B = 1,000, seed 42); the ratio increases in all five cancer types and '
+    'the CI excludes 1 in four of five (LIHC still including 1).'
+)
+_anco49 = _pur49[(_pur49.section == 'C_luad_ancova') &
+                 (_pur49.test == 'OLS adj diff (group + admix)')]
+_rows_anc49 = [['Contrast', '\u0394\u03c9 (P)', '\u0394k_f (P)',
+                '\u0394k_n (P)']]
+for _cmp in ('KRAS - WT', 'KRAS - EGFR', 'EGFR - WT'):
+    _row = [_cmp.replace(' -', ' \u2212')]
+    for _met in ('omega', 'kf', 'kn'):
+        _r = _anco49[(_anco49.metric == _met) &
+                     (_anco49.comparison == _cmp)].iloc[0]
+        _row.append(f'{_r.stat:+.4g} ({_pf49(_r.p)})')
+    _rows_anc49.append(_row)
+add_table(_rows_anc49)
+_kwad49 = _pur49[(_pur49.section == 'B_group_admix') &
+                 (_pur49.test == 'Kruskal-Wallis')].iloc[0]
+_gmad49 = _pur49[(_pur49.section == 'B_group_admix') &
+                 (_pur49.test == 'group mean')].set_index('n')['stat']
+add_para(
+    'Table (Section 3.13f). LUAD driver-group contrasts after adjustment '
+    'for stromal/immune admixture (OLS metric ~ group + z-scored '
+    'admixture, n = 492 tumors). Admixture differed across driver groups '
+    f'(means WT {_gmad49[311]:,.0f} < KRAS {_gmad49[120]:,.0f} < EGFR '
+    f'{_gmad49[61]:,.0f}; Kruskal-Wallis P = {_pf49(_kwad49.p)}), '
+    'consistent with the low-purity lepidic growth pattern of EGFR-mutant '
+    'tumors. After adjustment the KRAS \u2212 WT contrast retains both '
+    'components, whereas EGFR \u2212 WT is null on every metric (all '
+    'P > 0.4) - the apparent EGFR elevation is an admixture artefact.'
+)
+_smkmods49 = [('B_group_only', 'group only'),
+              ('B_smoke_adj', '+ ever-smoker'),
+              ('B_smoke_agesex_adj', '+ ever-smoker + age + sex'),
+              ('B_smoke_admix_adj', '+ ever-smoker + admixture')]
+_rows_smk49 = [['Model (KRAS \u2212 WT)', 'n', '\u0394\u03c9 (P)',
+                '\u0394k_f (P)', '\u0394k_n (P)']]
+for _sec, _lab in _smkmods49:
+    _sub = _smk49[_smk49.section == _sec]
+    _row = [f'OLS {_lab}', f'{int(_sub.n.iloc[0])}']
+    for _met in ('omega', 'kf', 'kn'):
+        _r = _sub[(_sub.metric == _met) &
+                  (_sub.comparison == 'KRAS - WT')].iloc[0]
+        _row.append(f'{_r.stat:+.4g} ({_pf49(_r.p)})')
+    _rows_smk49.append(_row)
+add_table(_rows_smk49)
+_chi49 = _smk49[_smk49.test == 'chi2 ever/never x group'].iloc[0]
+_pct49 = _smk49[_smk49.test.str.startswith('ever-smoker pct')].set_index('test')['stat']
+add_para(
+    'Table (Section 3.13g). LUAD smoking-covariate adjustment (ever/never; '
+    '427 of 492 tumors with known smoking status). KRAS-mutant tumors were '
+    'strongly enriched for ever-smokers '
+    f'({_pct49["ever-smoker pct KRAS"]:.1f}% versus '
+    f'{_pct49["ever-smoker pct WT"]:.1f}% wild-type and '
+    f'{_pct49["ever-smoker pct EGFR"]:.1f}% EGFR-mutant; \u03c7\u00b2 = '
+    f'{_chi49.stat:.1f}, P = {_pf49(_chi49.p)}), yet the KRAS \u2212 WT '
+    'differences are essentially unchanged across adjustments; EGFR \u2212 '
+    'WT was non-significant in every model (all P > 0.10; full values in '
+    'results/nc49_tcga_luad_smoking.csv). Pack-years (available for 356 '
+    'patients) were not modeled owing to high missingness and are '
+    'descriptive only.'
+)
+add_para(
+    'Panel semantics and composition correction for k_f. Enrichment of '
+    'the LUAD KRAS tumor-tumor identity panels (all 7,260 KRAS-KRAS '
+    'pairs, top-200 genes per pair; core panel by the documented '
+    'frequency fallback) against the 50 MSigDB Hallmark programs found '
+    'no program surviving multiple-testing correction (top: Estrogen '
+    'Response Late, q = 0.24; recurrent panel members are dominated by '
+    'individually variable, sex-linked and secreted markers), indicating '
+    'that bulk k_f measures broad tissue-state divergence rather than a '
+    'single tumor-intrinsic program; pair-level regressions of log k_f '
+    'on pair type with ESTIMATE admixture covariates retained the '
+    'TT \u2265 NN k_f ordering in all five cancer types (adjusted log '
+    'gaps +0.21 to +0.82, all P \u2264 8.2 \u00d7 '
+    '10\u207b\u2078\u2070), so the k_f group differences are not '
+    'explained by stromal/immune admixture. Script: '
+    'notebooks/nc49_tcga_kf_composition.py; output: '
+    'results/nc49_tcga_kf_composition.csv.'
 )
 
 doc.add_page_break()
@@ -1217,8 +1425,10 @@ add_para(
 add_para('4.3 TCGA Bulk RNA-seq', bold=True)
 add_para(
     'Data were obtained from the NCI Genomic Data Commons. Five cancer types were selected: '
-    'LUAD (495 tumor + 76 normal), LUSC (567 + 58), LIHC (365 + 57), KIRC (755 + 82), '
-    'BRCA (1,032 + 109), totaling n = 3,596 samples. Normalization: TPM values from UCSC Xena, '
+    'LUAD (493 tumor + 76 normal), LUSC (534 + 58), LIHC (398 + 57), KIRC (750 + 82), '
+    'BRCA (1,010 + 109), totaling n = 3,567 samples entering the pair-level '
+    'analysis (29 expression-matrix samples were excluded for missing barcode '
+    'matching or pair coverage). Normalization: TPM values from UCSC Xena, '
     'followed by log2(TPM + 1) transformation. For paired analysis, tumor-normal pairs were '
     'matched by patient barcode (TCGA-XX-XXXX format). Clinical metadata for stratified '
     'analyses were obtained from GDC (via the TCGAbiolinks R package) and the cBioPortal API.'
@@ -1377,7 +1587,7 @@ add_para(
     'metrics alongside \u03c9.'
 )
 
-add_heading('Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)', 2)
+add_heading('Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs', 2)
 add_para(
     'Several brain intervals rest on only 6\u20137 region clusters (Bergmann '
     'glia 7; choroid plexus 6), where the percentile cluster bootstrap '
@@ -1415,7 +1625,7 @@ add_para(
     'relative to k_n. '
     f'Empirical calibration on split-half equivalent populations (mouse, 6 FACS control '
     f'populations with 50 independent random split-halves each; 300 split-half \u03c9 '
-    f'values; Section 3.18) yielded a replicate-baseline mean \u03c9 = 7.70 (95% CI '
+    f'values; Section 3.10) yielded a replicate-baseline mean \u03c9 = 7.70 (95% CI '
     f'[7.37, 8.02], bootstrap B = 10,000 [7.38, 8.02]); the legacy single-split '
     f'estimate 6.67 [4.24, 9.24] lies inside the overlap of the two CIs and is '
     f'superseded. We introduce calibrated \u03c9: omega_cal = omega_obs / 7.70, which '
@@ -1486,7 +1696,7 @@ add_para(
     'Both raw and calibrated \u03c9 values are reported in all key results. (Supplementary Fig. 2.)'
 )
 add_para(
-    'Small-cluster correction (v45; Supplementary Note 2). A Monte Carlo coverage study '
+    'Small-cluster correction (Supplementary Note 2). A Monte Carlo coverage study '
     'shows that the percentile region-clustered bootstrap under-covers by '
     '7\u20138 points at 6\u20137 clusters (coverage 0.876/0.873 at nominal '
     '0.95), so the Bergmann-glia and choroid-plexus class-mean CIs quoted '
@@ -1502,7 +1712,7 @@ add_para(
     '\u2014the gradient claim remains quantitative.'
 )
 
-add_heading('Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization (v45)', 2)
+add_heading('Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization', 2)
 add_para(
     '\u03c9 = k_f/k_n is a ratio of two JS divergences, and ratio estimators '
     'are upward biased and heavy right-tailed when the denominator is small. '
@@ -1537,7 +1747,7 @@ add_para(
     'results/ratio_estimator_biasvar_v45_report.md.'
 )
 
-add_heading('Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls (v45)', 2)
+add_heading('Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls', 2)
 add_para(
     'The ground-truth simulation (Supplementary Note 1) defines neutral drift as a '
     'multiplicative shift on housekeeping genes\u2014the same set \u03c9 uses '
@@ -1755,7 +1965,7 @@ add_para(
     'results/tcga_composition_v2.{csv,txt}.'
 )
 add_para(
-    'v44 update (linear normalization). The composition check was re-run on the '
+    'Linear-normalization update. The composition check was re-run on the '
     'linear-normalization pair table of Section 1.7 (script '
     'notebooks/86_tcga_composition_linear_norm_v44.py, mirroring script 74 with '
     'the four marker panels and the sample-level cluster bootstrap, B = 200; '
@@ -1818,14 +2028,15 @@ add_para(
 )
 add_para(
     'TCGA clinical-severity gradients (per-tumor mean of intratumoral TT pairs; '
-    'values below are from the v44 linear-normalization re-analysis at kn_floor = 0, '
+    'values below are from the linear-normalization re-analysis at kn_floor = 0, '
     'notebooks/85_tcga_linear_norm_v44.py, results/tcga_clinical_severity_v44.csv, '
     'which mirrors the published pipeline of notebooks/83_kf_only_ordering.py; '
     'ordering, direction, and significance are identical to the earlier softmax '
-    'run, with \u03c9 levels shifted upward by about 10-19). LIHC Edmondson grade: '
-    'mean \u03c9 decreases from G1 to G2 and plateaus (82.4, 74.7, 74.9, 75.0 for '
-    'G1\u2013G4; Jonckheere-Terpstra P \u2248 0), but k_f increases with grade '
-    '(JT P = 1.05 \u00d7 10\u207b\u00b9\u00b2) and k_n increases in parallel '
+    'run, with \u03c9 levels shifted upward by about 5-20). LIHC Edmondson grade: '
+    'mean \u03c9 is highest in G1, roughly flat across G2\u2013G3, and lowest in '
+    'G4 (78.2, 76.8, 77.9, 72.6 for G1\u2013G4; Jonckheere-Terpstra P \u2248 0), '
+    'but k_f increases with grade (JT P = 6.9 \u00d7 10\u207b\u00b9\u2075) and '
+    'k_n increases in parallel '
     '(JT P \u2248 0), so the \u03c9 gradient is a denominator effect. BRCA PAM50: '
     'mean \u03c9 decreases across Luminal A (142.0), Luminal B (136.5), '
     'HER2-enriched (121.8), Basal-like (116.7), and Normal-like (101.9) '
@@ -1844,7 +2055,7 @@ add_para(
     'reported here (three severity analyses crossed with three metrics) are '
     'nominal and carry no multiplicity correction. Scripts: '
     'notebooks/83_kf_only_ordering.py (published softmax run) and '
-    'notebooks/85_tcga_linear_norm_v44.py (v44 linear re-analysis); outputs: '
+    'notebooks/85_tcga_linear_norm_v44.py (linear re-analysis); outputs: '
     'results/kf_only_ordering.csv, results/kf_only_ordering.json, '
     'results/kf_only_severity.csv, results/kf_only_ordering.txt, '
     'results/tcga_clinical_severity_v44.csv.'
@@ -1852,9 +2063,9 @@ add_para(
 add_table([
     ['Stratum', 'Ordering by mean \u03c9', 'Mean \u03c9 per group',
      '\u03c9 omnibus P', 'k_f P', 'k_n P'],
-    ['LIHC Edmondson grade', 'G1 > G2 \u2248 G3 \u2248 G4',
-     '82.4 / 74.7 / 74.9 / 75.0', 'JT \u2248 0',
-     'JT 1.05 \u00d7 10\u207b\u00b9\u00b2', 'JT \u2248 0'],
+    ['LIHC Edmondson grade', 'G1 > G2 \u2248 G3 > G4',
+     '78.2 / 76.8 / 77.9 / 72.6', 'JT \u2248 0',
+     'JT 6.9 \u00d7 10\u207b\u00b9\u2075', 'JT \u2248 0'],
     ['BRCA PAM50', 'LumA > LumB > HER2 > Basal > Normal',
      '142.0 / 136.5 / 121.8 / 116.7 / 101.9', 'KW 7.0 \u00d7 10\u207b\u2077',
      'KW 8.3 \u00d7 10\u207b\u00b9\u00b2', 'KW 3.6 \u00d7 10\u207b\u00b9\u2070'],
@@ -1862,7 +2073,7 @@ add_table([
      'KW 7.8 \u00d7 10\u207b\u2077', 'KW 0.015', 'KW 3.4 \u00d7 10\u207b\u2074'],
 ])
 add_para(
-    'Table (Supplementary Note 9). TCGA clinical-severity gradients under the v44 '
+    'Table (Supplementary Note 9). TCGA clinical-severity gradients under the '
     'linear-normalization re-analysis (kn_floor = 0; per-tumor mean of '
     'intratumoral TT pairs). JT = Jonckheere-Terpstra trend test; '
     'KW = Kruskal-Wallis. All P-values are nominal (no multiplicity '
@@ -1870,7 +2081,7 @@ add_para(
     'parallel k_n trends.'
 )
 
-add_heading('Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity (v44)', 2)
+add_heading('Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity', 2)
 add_para(
     'Purpose. Three post-hoc controls quantify how class size and the 20-nucleus '
     'minimum affect the brain landscape (script '
@@ -2070,7 +2281,7 @@ add_para(
     'results/axis_permutation_test.txt, and results/axis_rule_matched_null.txt.'
 )
 
-add_heading('Supplementary Note 14: Comparison with Augur Cell-Type Prioritization (v45)', 2)
+add_heading('Supplementary Note 14: Comparison with Augur Cell-Type Prioritization', 2)
 add_para(
     'Augur (Skinnider et al., Nat. Biotechnol. 2021; main-text ref. 56) '
     'prioritizes cell types by the predictability of a condition label from '

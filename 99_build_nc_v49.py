@@ -85,8 +85,10 @@ def main():
     # ---- [0] figures staging -> v49 naming ----
     print("\n[0] Collecting figures into figures_submission_nc ...")
     FIGS_NC.mkdir(parents=True, exist_ok=True)
+    _arch1 = BASE / "_tmp_archive" / "v49_build_figs_cleanup"
     for old in os.listdir(FIGS_NC):
-        os.remove(FIGS_NC / old)
+        _arch1.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(FIGS_NC / old), str(_arch1 / old))
     # main figures: 1-3 unchanged; 4 = drift ladder (new); 5 = TCGA map (new);
     # 6 = old figure5 (cross-organ); 7 = old figure6 (brain); old figure4 dropped
     for i in (1, 2, 3):
@@ -106,8 +108,10 @@ def main():
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_v49_NC ...")
     if WORK_DIR.exists():
+        _arch2 = BASE / "_tmp_archive" / "v49_build_workdir_cleanup"
         for old in os.listdir(WORK_DIR):
-            os.remove(WORK_DIR / old)
+            _arch2.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(WORK_DIR / old), str(_arch2 / old))
     else:
         WORK_DIR.mkdir(parents=True)
     for f in os.listdir(FIGS_NC):
@@ -163,7 +167,9 @@ def main():
     # ---- [4] zip ----
     print("\n[4] Creating ZIP ...")
     if ZIP_PATH.exists():
-        os.remove(ZIP_PATH)
+        _arch3 = BASE / "_tmp_archive" / "v49_build_zip_backup"
+        _arch3.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(ZIP_PATH), str(_arch3 / ZIP_PATH.name))
     with zipfile.ZipFile(ZIP_PATH, "w", zipfile.ZIP_DEFLATED) as z:
         for e in sorted(os.listdir(WORK_DIR)):
             z.write(WORK_DIR / e, f"CKI_Submission_v49_NC/{e}")
@@ -184,7 +190,7 @@ def main():
     # ---- workers' self-check scripts (must exit 0) ----
     run([PY, str(AUD / "_nc49_ms_verify.py")], "nc49 MS self-check")
     run([PY, str(AUD / "_nc49_si_verify.py")], "nc49 SI self-check")
-    run([PY, str(FA / "verify_nc_guide.py")], "guide check (v48, unchanged)")
+    run([PY, str(AUD / "_nc49_cl_guide_verify.py")], "nc49 CL+Guide self-check")
 
     # ---- SN inline checks ----
     print("\n--- SN (inline) ---")
@@ -198,23 +204,25 @@ def main():
     check(n_sfig_sn == 8, f"V49-S6 SN Supplementary Fig. refs = 8 ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
     check(n_stab_sn == 14, f"V49-S7 SN Supplementary Table refs = 14 ({n_stab_sn})")
-    check("Section 3.20" in sn and "Section 3.21" in sn, "V49-S8 SN Sections 3.20/3.21 present")
+    check("Section 3.12" in sn and "Section 3.13" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
     check("TODO" not in sn, "V49-S9 no TODO in SN")
 
-    # ---- Guide inline checks (unchanged from v48) ----
+    # ---- Guide inline checks (v49 caliber) ----
     check("Supplementary Note 13" in gd, "V49-G1 Guide cites Supplementary Note 13")
-    check("Section 3.11 of the Supplementary Information" in gd, "V49-G2 Guide Section 3.11 pointer")
+    check("Section 3.9 of the Supplementary Information" in gd, "V49-G2 Guide Section 3.9 pointer (renumbered from 3.11)")
     check(not re.search(r"Note [345]\.\d", gd), "V49-G3 no decimal Note refs in Guide")
     check("Fig. S" not in gd and "Table S" not in gd, "V49-G4 no S-naming in Guide")
 
-    # ---- CL inline checks (v49 repositioned) ----
+    # ---- CL inline checks (v49.1 new-evidence frame) ----
     check(cl.count("Nature Communications") >= 2, "V49-C1 CL names Nature Communications x2+")
     check("Genome Biology" not in cl, "V49-C2 no Genome Biology in CL")
     check("CKI is a Ka/Ks-inspired index quantifying functional divergence in single-cell genomics" in cl,
           "V49-C3 CL carries the NC title")
-    check("Previously raised concerns" in cl and "addressed directly" in cl,
-          "V49-C4 CL direct rebuttal of GB concerns")
+    check("Two properties" in cl and "Previously raised concerns" not in cl and "5th of 5" not in cl,
+          "V49-C4 CL new-evidence frame (no rebuttal-speak, no 5th-of-5)")
     check("0.680" in cl, "V49-C5 CL cites AUC 0.680 (by-design admission)")
+    check("baseline-driven" not in cl and "baseline-associated" not in cl,
+          "V49-C5b no baseline-* phrasing in CL (EGFR dissolved)")
     check("10.5281/zenodo.22735744" in cl, "V49-C6 CL Zenodo DOI")
     for who in ("Theis", "Welch", "Linnarsson", "Sch", "Zemin Zhang"):
         check(who in cl, f"V49-C7 CL reviewer: {who}")
@@ -256,20 +264,20 @@ def main():
         ("90.9", "N6 brain T2 omega FPR"),
         ("1.41", "N7 marker-Jaccard T3 calibration"),
         ("relative-calibration advantage", "N8 relative-calibration phrasing"),
-        ("Section 3.20 of the Supplementary Information", "N9 Section 3.20 pointer x2"),
+        ("Section 3.12 of the Supplementary Information", "N9 Section 3.12 pointer x2"),
         # pan-cancer map
         ("2.46", "N10 LUAD NN/TT ratio"),
-        ("1.13", "N11 LIHC NN/TT ratio"),
-        ("2.1", "N12 k_n fold elevation (median)"),
+        ("LIHC 1.10 (0.93", "N11 LIHC NN/TT ratio (post-CC)"),
+        ("1.3\u20133.3-fold (mean ratios", "N12 k_n fold elevation (mean, post-CC)"),
         ("136.9", "N13 LUAD KRAS mean omega"),
         ("115.4", "N14 LUAD WT mean omega"),
         ("tissue-level functional divergence", "N15 bulk positioning phrase"),
-        ("0.85\u20131.32", "N16 Cox HR CI (NO-GO)"),
+        ("0.88\u20131.31", "N16 Cox HR CI post-CC (NO-GO)"),
     ]
     for pat, name in v49_anchors:
         check(pat in ms, f"V49-{name}")
-    check(ms.count("Section 3.20 of the Supplementary Information") == 2,
-          "V49-N17 exactly 2 Section 3.20 pointers in MS")
+    check(ms.count("Section 3.12 of the Supplementary Information") == 3,
+          "V49-N17 exactly 3 Section 3.12 pointers in MS (post-CC)")
     # old exploratory phrasing must be gone
     for stale in ("TCGA; exploratory", "apparent tumor homogeneity", "TODO-nc49"):
         check(stale not in ms, f"V49-N18 stale gone: '{stale}'")
@@ -280,12 +288,32 @@ def main():
           "V49-N20 Figure 4 legend is drift ladder")
     check("pan-cancer" in ms[ms.find("Figure 5."):ms.find("Figure 5.") + 400].lower(),
           "V49-N21 Figure 5 legend is pan-cancer map")
-    # Abstract word count <= 150
+    # Abstract word count <= 200 (v49.1: NC abstract limit is 200)
     ai = ms.find("Abstract")
     ab_para = ms[ai:].split("\n")
     ab_text = next((t for t in ab_para[1:] if len(t.split()) > 40), "")
-    check(0 < len(ab_text.split()) <= 150,
-          f"V49-N22 Abstract words <= 150 ({len(ab_text.split())})")
+    check(0 < len(ab_text.split()) <= 200,
+          f"V49-N22 Abstract words <= 200 ({len(ab_text.split())})")
+    # v49.1 post-repair anchors (purity / smoking / EGFR-dissolved)
+    for pat, name in [("16.8", "N23 purity-adjusted KRAS omega"),
+                      ("13.6", "N24 joint-adjusted KRAS omega"),
+                      ("2.86", "N25 high-purity LUAD ratio"),
+                      ("stromal or immune admixture", "N27 admixture caveat phrase")]:
+        check(pat in ms, f"V49-{name}")
+    check("8.3 \u00d7 10\u207b\u00b9\u2077" in sn, "V49-N26 KIRC kn~admix P post-CC (SN)")
+    check("baseline-driven" not in ms and "baseline-associated" not in ms,
+          "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
+    # v49.2 post-CC anchors + stale purge
+    for pat, name in [("3,567", "N29 sample total post-CC"),
+                      ("1.10\u20132.46", "N30 Abstract ratio range post-CC"),
+                      ("P = 0.48", "N31 Cox P post-CC")]:
+        check(pat in ms, f"V49-{name}")
+    for stale in ("1.822", "1.133", "1.895", "1.13\u20132.46"):
+        check(stale not in ms, f"V49-N32 stale gone from MS: '{stale}'")
+    check("78.2, 76.8, 77.9, 72.6" in sn and "6.9 \u00d7 10\u207b\u00b9\u2075" in sn,
+          "V49-N33 Note 9 LIHC severity post-CC (SN prose)")
+    for stale in ("82.4 / 74.7", "1.05 \u00d7 10\u207b\u00b9\u00b2", "about 10-19"):
+        check(stale not in sn, f"V49-N34 stale gone from SN: '{stale}'")
 
     # ---- structural re-checks ----
     print("\n--- structural spot checks ---")
