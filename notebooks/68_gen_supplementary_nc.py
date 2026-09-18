@@ -108,6 +108,77 @@ _norm_mouse_skew = float(stats.skew(pd.read_csv(
 # used throughout the manuscript.
 _pb_cis = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "phaseB_bootstrap_cis.csv")
 
+# nc49 v49: real-data neutral-drift calibration and TCGA per-sample statistics
+_root49 = Path(__file__).resolve().parent.parent
+_kang_drift = pd.read_csv(_root49 / "results" / "nc49_pilot_kang_techrep.csv")
+_ladder = pd.read_csv(_root49 / "results" / "nc49_brain_drift_ladder.csv")
+_tcga_pc = pd.read_csv(_root49 / "results" / "nc49_tcga_pancancer.csv")
+_tcga_luad = pd.read_csv(_root49 / "results" / "nc49_tcga_luad_mutation.csv")
+_tcga_cox = pd.read_csv(_root49 / "results" / "nc49_pilot_lihc_cox.csv")
+
+_METRICS49 = ['k_n', 'k_f', 'omega', 'raw_js', 'cosine', 'spearman', 'marker_jaccard']
+_LABEL49 = {'k_n': 'k_n', 'k_f': 'k_f', 'omega': '\u03c9', 'raw_js': 'raw JS',
+            'cosine': 'cosine', 'spearman': 'Spearman', 'marker_jaccard': 'marker Jaccard'}
+
+
+def _wilson49(k, n):
+    ci = stats.binomtest(int(k), int(n)).proportion_ci(0.95, method='wilson')
+    return ci.low, ci.high
+
+
+def _agg49(df, metric):
+    """Calibration median [IQR] and false-positive count for one metric."""
+    cal = df['cal_' + metric]
+    ex = df['exceed_' + metric]
+    return dict(cal_med=float(cal.median()), cal_lo=float(cal.quantile(0.25)),
+                cal_hi=float(cal.quantile(0.75)), k=int(ex.sum()), n=int(len(df)))
+
+
+_SUP49 = str.maketrans('0123456789-', '\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079\u207b')
+
+
+def _pf49(v):
+    """Format a P-value in the SI house style (unicode scientific below 1e-3)."""
+    v = float(v)
+    if v < 1e-3:
+        m, e = f'{v:.1e}'.split('e')
+        return f'{m}\u00d710{str(int(e)).translate(_SUP49)}'
+    if v < 0.1:
+        return f'{v:.3f}'
+    return f'{v:.2f}'
+
+
+# Kang batch-1 aggregates
+_km49 = {m: _agg49(_kang_drift, m) for m in ['k_n', 'k_f', 'omega', 'raw_js', 'cosine']}
+
+# Brain ladder aggregates per tier
+_lad49 = {}
+for _t, _tier in (('T1', 'T1_techrep'), ('T2', 'T2_cross_donor'), ('T3', 'T3_cross_roi')):
+    _sub = _ladder[_ladder['tier'] == _tier]
+    _lad49[_t] = {m: _agg49(_sub, m) for m in _METRICS49}
+
+# T1 per-cell-class FPR comparison (omega vs raw JS / cosine / Spearman)
+_t1_49 = _ladder[_ladder['tier'] == 'T1_techrep']
+_t1ct_49 = _t1_49.groupby('cell_type').agg(
+    fpr_omega=('exceed_omega', 'mean'), fpr_js=('exceed_raw_js', 'mean'),
+    fpr_cos=('exceed_cosine', 'mean'), fpr_spr=('exceed_spearman', 'mean'),
+    cal_omega=('cal_omega', 'median'), n=('exceed_omega', 'size'))
+_nct_49 = len(_t1ct_49)
+_below49 = dict(js=int((_t1ct_49.fpr_omega < _t1ct_49.fpr_js).sum()),
+                cos=int((_t1ct_49.fpr_omega < _t1ct_49.fpr_cos).sum()),
+                spr=int((_t1ct_49.fpr_omega < _t1ct_49.fpr_spr).sum()))
+_ratio49 = _t1ct_49.fpr_js / _t1ct_49.fpr_omega
+_ratio_lo49, _ratio_hi49 = float(_ratio49.min()), float(_ratio49.max())
+
+# T1 FPR growth with group size (min of the two library sizes per pair)
+_nmin49 = _t1_49[['n_cells_a', 'n_cells_b']].min(axis=1)
+_bins49 = {}
+for _lab, _mask in (('small', _nmin49 <= 30), ('mid', (_nmin49 > 30) & (_nmin49 <= 500)),
+                    ('large', _nmin49 > 500)):
+    _bins49[_lab] = dict(n=int(_mask.sum()),
+                         fpr_omega=float(_t1_49.loc[_mask, 'exceed_omega'].mean()),
+                         fpr_js=float(_t1_49.loc[_mask, 'exceed_raw_js'].mean()))
+
 
 def _mean_ci_from_file(group):
     row = _pb_cis[(_pb_cis['dataset'] == 'Brain') & (_pb_cis['group'] == group)].iloc[0]
@@ -820,6 +891,298 @@ add_para(
     'expose.'
 )
 
+# ===== Section 3.20 (v49): real-data neutral-drift calibration =====
+add_para('3.20 Real-Data Neutral-Drift Calibration on Technical Replicates (v49)', bold=True)
+add_para(
+    'Purpose and design. Supplementary Note 1 quantifies neutral-drift '
+    'specificity in simulation; this section repeats the test on real '
+    'technical replicates, where the ground truth of no functional '
+    'difference comes from the study design rather than from injected '
+    'noise. Every metric is calibrated against a per-pair size-matched '
+    '(n-matched) cell-shuffle null: the nuclei of the two libraries being '
+    'compared are pooled, permuted, and re-split into disjoint subsets of '
+    'exactly the observed group sizes (n_a, n_b), so the null matches '
+    'donor, cell type, and group sizes while containing no group structure '
+    '(B = 200 per pair for Kang; 100/30/30 for brain tiers T1/T2/T3). '
+    'Calibration is the ratio observed / null median; the false-positive '
+    'element is observed > own null 95th percentile. Two designs are used. '
+    '(i) Kang et al. batch 1 (GSE96583): eight unstimulated PBMC donors '
+    'captured across three 10x lanes such that every donor appears in '
+    'exactly two lanes, yielding 30 same-donor, same-condition cross-lane '
+    'pairs (pure technical drift) across six cell types, evaluated with the '
+    'per-pair top-200 scheme for k_n, k_f, \u03c9, raw JS, and cosine '
+    'distance. (ii) The Siletti et al. brain atlas drift ladder: 2,732 '
+    '(cell class, library) groups with at least 20 nuclei, nested in 606 '
+    'libraries, define three tiers of library-level pairs within each cell '
+    'class - T1, same (donor, region) different libraries, all 2,161 pairs '
+    '(pure technical drift); T2, same region different donors, 1,089 pairs '
+    '(technical plus inter-individual drift); T3, same donor different '
+    'regions, 1,656 pairs (regional biology, positive control) - evaluated '
+    'with the brain pipeline (HK genes plus top-5,000 non-HK genes by mean '
+    'expression; per-pair top-200 selection) for seven metrics: k_n, k_f, '
+    '\u03c9, raw JS, cosine distance, Spearman distance (1 - \u03c1), and '
+    'marker Jaccard distance (1 minus the Jaccard index of each '
+    'group\u2019s top-200 markers, genes ranked by pseudobulk difference '
+    'minus the cell-weighted background of the other cell classes). '
+    'Scripts: notebooks/nc49_pilot_kang_techrep.py (seed 20260918), '
+    'notebooks/nc49_brain_drift_ladder.py (seed 42); outputs: '
+    'results/nc49_pilot_kang_techrep.csv, '
+    'results/nc49_brain_drift_ladder.csv.'
+)
+_om49 = _km49['omega']
+_js49 = _km49['raw_js']
+_cos49 = _km49['cosine']
+_wom49 = _wilson49(_om49['k'], _om49['n'])
+_wjs49 = _wilson49(_js49['k'], _js49['n'])
+_wcos49 = _wilson49(_cos49['k'], _cos49['n'])
+add_para(
+    'Kang batch 1 (technical replicates). \u03c9 was fully calibrated: no '
+    f'pair exceeded its own null 95th percentile ({_om49["k"]} of {_om49["n"]}, '
+    f'Wilson 95% CI [{_wom49[0]:.3f}, {_wom49[1]:.3f}]), with a median '
+    f'calibration ratio of {_om49["cal_med"]:.3f} (IQR '
+    f'[{_om49["cal_lo"]:.3f}, {_om49["cal_hi"]:.3f}]); k_f alone was equally '
+    f'calibrated ({_km49["k_f"]["k"]} of {_km49["k_f"]["n"]}). Raw JS '
+    f'misreported {_js49["k"]} of {_js49["n"]} pairs '
+    f'({_js49["k"] / _js49["n"]:.1%}, CI '
+    f'[{_wjs49[0]:.3f}, {_wjs49[1]:.3f}]) and cosine distance '
+    f'{_cos49["k"]} of {_cos49["n"]} ({_cos49["k"] / _cos49["n"]:.1%}, CI '
+    f'[{_wcos49[0]:.3f}, {_wcos49[1]:.3f}]) as divergence; k_n alone fired '
+    f'once ({_km49["k_n"]["k"]} of {_km49["k_n"]["n"]}). The per-metric '
+    'values are given in Table (Section 3.20a); the replication is shown '
+    'in main-text Fig. 4d.'
+)
+_rows_kang49 = [['Metric', 'Calibration median [IQR]', 'FPR (k/n)', 'Wilson 95% CI']]
+for _m in ['k_n', 'k_f', 'omega', 'raw_js', 'cosine']:
+    _a = _km49[_m]
+    _w = _wilson49(_a['k'], _a['n'])
+    _rows_kang49.append([
+        _LABEL49[_m],
+        f'{_a["cal_med"]:.3f} [{_a["cal_lo"]:.3f}, {_a["cal_hi"]:.3f}]',
+        f'{_a["k"]}/{_a["n"]}',
+        f'[{_w[0]:.3f}, {_w[1]:.3f}]'])
+add_table(_rows_kang49)
+add_para(
+    'Table (Section 3.20a). Kang batch 1, 30 same-donor, same-condition '
+    'cross-lane pairs. Calibration = observed / own n-matched null median '
+    '(B = 200 per pair); FPR = fraction of pairs whose observed value '
+    'exceeds its own null 95th percentile.'
+)
+_l1o, _l1w = _lad49['T1']['omega'], _lad49['T1']['raw_js']
+_l2o, _l2w = _lad49['T2']['omega'], _lad49['T2']['raw_js']
+_l3o, _l3w = _lad49['T3']['omega'], _lad49['T3']['raw_js']
+_mj1, _mj3 = _lad49['T1']['marker_jaccard'], _lad49['T3']['marker_jaccard']
+_kf1, _kf2 = _lad49['T1']['k_f'], _lad49['T2']['k_f']
+add_para(
+    'Brain drift ladder. On T1 (pure technical drift), \u03c9 had the '
+    f'lowest misreporting rate of the seven metrics except marker Jaccard '
+    f'(FPR {_l1o["k"] / _l1o["n"]:.1%}, versus '
+    f'{_lad49["T1"]["raw_js"]["k"] / _lad49["T1"]["raw_js"]["n"]:.1%} for raw JS, '
+    f'{_lad49["T1"]["cosine"]["k"] / _lad49["T1"]["cosine"]["n"]:.1%} for cosine, '
+    f'{_lad49["T1"]["spearman"]["k"] / _lad49["T1"]["spearman"]["n"]:.1%} for Spearman, '
+    f'{_kf1["k"] / _kf1["n"]:.1%} for k_f, and '
+    f'{_lad49["T1"]["k_n"]["k"] / _lad49["T1"]["k_n"]["n"]:.1%} for k_n), and \u03c9 '
+    f'was below raw JS in {_below49["js"]} of {_nct_49} cell classes (below cosine in '
+    f'{_below49["cos"]} of {_nct_49}, below Spearman in {_below49["spr"]} of '
+    f'{_nct_49}; per-class raw-JS-to-\u03c9 FPR ratios '
+    f'{_ratio_lo49:.1f}-{_ratio_hi49:.1f}). At T2 (donor drift), all metrics '
+    'fired on most pairs - donor differences contain real biology - and '
+    '\u03c9 again misreported least among the divergence metrics '
+    f'({_l2o["k"] / _l2o["n"]:.1%} versus '
+    f'{_l2w["k"] / _l2w["n"]:.1%} for raw JS and {_kf2["k"] / _kf2["n"]:.1%} for '
+    f'k_f; calibration {_l2o["cal_med"]:.2f} versus {_l2w["cal_med"]:.2f} and '
+    f'{_kf2["cal_med"]:.2f}). At T3 (regional biology, positive control), '
+    f'every metric rose (\u03c9 calibration {_l3o["cal_med"]:.2f}; raw JS '
+    f'{_l3w["cal_med"]:.2f}), so sensitivity to genuine divergence is '
+    'preserved; across the ladder the \u03c9 calibration gradient is the '
+    f'shallowest of all metrics ({_l1o["cal_med"]:.2f} \u2192 {_l2o["cal_med"]:.2f} '
+    f'\u2192 {_l3o["cal_med"]:.2f}, versus {_l1w["cal_med"]:.2f} \u2192 '
+    f'{_l2w["cal_med"]:.2f} \u2192 {_l3w["cal_med"]:.2f} for raw JS). Marker '
+    f'Jaccard distance has the lowest T1 FPR ({_mj1["k"] / _mj1["n"]:.1%}) but '
+    f'the weakest response to genuine regional divergence (T3 calibration '
+    f'{_mj3["cal_med"]:.2f} versus {_l3o["cal_med"]:.2f} for \u03c9 and '
+    f'{_l3w["cal_med"]:.2f} for raw JS), so its apparent specificity is '
+    'purchased with the weakest sensitivity to real signal. Per-tier values '
+    'for all seven metrics are given in Table (Section 3.20b); main-text '
+    'Fig. 4b,c.'
+)
+_rows_lad49 = [['Metric', 'T1 cal [IQR] / FPR', 'T2 cal [IQR] / FPR', 'T3 cal [IQR] / FPR']]
+for _m in _METRICS49:
+    _row = [_LABEL49[_m]]
+    for _t in ('T1', 'T2', 'T3'):
+        _a = _lad49[_t][_m]
+        _row.append(f'{_a["cal_med"]:.2f} [{_a["cal_lo"]:.2f}, {_a["cal_hi"]:.2f}] '
+                    f'/ {_a["k"] / _a["n"]:.1%}')
+    _rows_lad49.append(_row)
+add_table(_rows_lad49)
+add_para(
+    'Table (Section 3.20b). Brain drift ladder, per tier and metric: '
+    'calibration median [IQR] (observed / own n-matched null median) and '
+    'FPR (observed > own null 95th percentile). T1: same (donor, region) '
+    'cross-library pairs, n = 2,161; T2: same region cross-donor pairs, '
+    'n = 1,089; T3: same donor cross-region pairs, n = 1,656.'
+)
+_cp49 = _t1ct_49.loc['Choroid plexus']
+_bg49 = _t1ct_49.loc['Bergmann glia']
+add_para(
+    'Diagnostics and honest qualifications. First, the absolute \u03c9 FPR '
+    'on T1 is not zero, and it grows with group size: '
+    f'{_bins49["small"]["fpr_omega"]:.1%} for pairs with at most 30 nuclei per '
+    f'library (n = {_bins49["small"]["n"]}), '
+    f'{_bins49["mid"]["fpr_omega"]:.1%} for 31-500, and '
+    f'{_bins49["large"]["fpr_omega"]:.1%} above 500 (n = {_bins49["large"]["n"]}; raw JS '
+    f'{_bins49["small"]["fpr_js"]:.1%} \u2192 {_bins49["large"]["fpr_js"]:.1%}) - a real '
+    'library-level technical component (capture efficiency, depth) that '
+    'grows detectable with power and that the k_n denominator absorbs only '
+    f'partially (the T1 k_n calibration itself is {_lad49["T1"]["k_n"]["cal_med"]:.2f}). '
+    'Second, a minority of cell classes show gene-specific library effects '
+    'that the anchor cannot absorb: choroid plexus '
+    f'(n = {int(_cp49["n"])} pairs, median calibration {_cp49["cal_omega"]:.2f}) and '
+    f'Bergmann glia (n = {int(_bg49["n"])}, {_bg49["cal_omega"]:.2f}) exceed the null '
+    'most strongly; in choroid plexus, two libraries of the same donor, '
+    'region, and type differ in k_f by up to 137-fold. The ladder thereby '
+    'quantifies the library-level structure that the block-shuffle null '
+    'retains by design (Supplementary Note 12): the Bergmann-glia '
+    'block-shuffle null mean (21.9) lying far above its split-half '
+    'baseline (9.7) reflects precisely this within-donor, within-region '
+    'technical divergence. The simulation-level claim of absolute '
+    'neutral-drift immunity (Supplementary Note 1) thus transfers to real '
+    'data only as a relative-calibration advantage: lowest misreporting '
+    'among the compared metrics at every tier, with sensitivity to genuine '
+    'regional divergence preserved.'
+)
+
+# ===== Section 3.21 (v49): TCGA per-sample statistics =====
+add_para('3.21 Per-Sample Divergence and Group Statistics for TCGA (v49)', bold=True)
+add_para(
+    'Purpose and design. The main-text TCGA analysis (Results: A pan-cancer '
+    'map of tissue-level functional divergence in tumors; Methods: '
+    'Per-sample divergence and group statistics) ranks cancer types by the '
+    'NN/TT ratio of mean \u03c9, stratifies LUAD tumors by driver mutation, '
+    'and tests survival association in LIHC. This section reports the full '
+    'group statistics behind those claims. Per-tumor statistics are the '
+    'mean of \u03c9, k_f, and k_n over all pairs in the linear-normalization '
+    'pair table (35,306 pairs; v44 re-computation) in which a sample '
+    'participates. Group-level ratios carry sample-level cluster bootstrap '
+    '95% CIs (B = 1,000; seed 42; tumor and normal samples resampled with '
+    'replacement independently, each pair reweighted by the product of its '
+    'endpoint resampling weights). LUAD driver groups (61 EGFR, 120 KRAS, '
+    '311 wild-type; 2 double mutants excluded) were tested with '
+    'Kruskal-Wallis followed by Dunn post-hoc tests with Holm correction '
+    '(manual implementation, tie-corrected rank variances); group mean '
+    'differences carry within-group bootstrap 95% CIs (B = 1,000). The '
+    'LIHC survival analysis used Cox proportional-hazards regression '
+    '(statsmodels PHReg) with per-tumor \u03c9 standardized to unit SD '
+    '(hazard ratios per SD), adjusted for AJCC stage (I-IV), Edmondson '
+    'grade (G1-G4), age, and sex (listwise deletion of missing covariates), '
+    'with k_f-only, k_n-only, and tumor-normal-\u03c9 exposures as '
+    'sensitivity models. Scripts: notebooks/nc49_tcga_main.py (seed 42), '
+    'notebooks/nc49_pilot_lihc_cox.py; outputs: '
+    'results/nc49_tcga_pancancer.csv, results/nc49_tcga_luad_mutation.csv, '
+    'results/nc49_pilot_lihc_cox.csv.'
+)
+_rows_pc49 = [['Cancer', 'NN/TT \u03c9 ratio [95% CI]', 'MWU P',
+               'k_n TT/NN median', 'k_n mean ratio [95% CI]']]
+for _, _r in _tcga_pc.sort_values('rank_by_NN_TT_ratio').iterrows():
+    _p = _r['p_MWU_NN_gt_TT']
+    _ps = '< 10\u207b\u00b3\u2070\u2070' if _p == 0 else _pf49(_p)
+    _rows_pc49.append([
+        _r['cancer'].replace('TCGA-', ''),
+        f'{_r["NN_TT_ratio"]:.2f} [{_r["NN_TT_ratio_CI95_lower"]:.2f}, '
+        f'{_r["NN_TT_ratio_CI95_upper"]:.2f}]',
+        _ps,
+        f'{_r["kn_TT_NN_median_ratio"]:.1f}\u00d7',
+        f'{_r["kn_TT_NN_mean_ratio"]:.2f} [{_r["kn_TT_NN_mean_ratio_CI95_lower"]:.2f}, '
+        f'{_r["kn_TT_NN_mean_ratio_CI95_upper"]:.2f}]'])
+add_table(_rows_pc49)
+add_para(
+    'Table (Section 3.21a). Pan-cancer NN/TT ratios (mean NN to mean TT '
+    '\u03c9) with sample-level cluster-bootstrap 95% CIs, one-sided '
+    'Mann-Whitney P (NN > TT), and the housekeeping-baseline mechanism: '
+    'median and mean TT/NN k_n ratios with bootstrap 95% CIs. The point '
+    'estimate exceeds 1 in 5 of 5 cancer types; the CI excludes 1 in 4 of '
+    '5 (LIHC includes 1), whereas the k_n mean-ratio CI excludes 1 in all '
+    'five. Ranked by NN/TT effect size (main-text Fig. 5a).'
+)
+add_para(
+    'LUAD driver-mutation stratification. Mean per-tumor \u03c9 was highest '
+    'in KRAS-mutant tumors (136.9), exceeding wild-type (115.4) and '
+    'EGFR-mutant tumors (122.2; Kruskal-Wallis P = 7.8 \u00d7 10\u207b\u2077; '
+    'Tables (Sections 3.21b,c)). The k_f/k_n decomposition separates the '
+    'two drivers\u2019 associations: the KRAS contrast carries a functional '
+    'component - k_f is elevated in KRAS-mutant tumors (KRAS versus EGFR, '
+    'Dunn-Holm P = 0.015; KRAS-wild-type k_f difference 0.011, 95% CI '
+    '0.002-0.019) accompanied by a lower k_n (wild-type > KRAS, '
+    'Dunn-Holm P = 4.2 \u00d7 10\u207b\u2074), both of which raise the '
+    'ratio; the EGFR association shows no k_f difference (all '
+    'Holm-adjusted P > 0.09) and is visible only in the k_n baseline, so '
+    'it is baseline-driven. These are observational associations without '
+    'patient-level covariate adjustment (no age, sex, or smoking metadata '
+    'were available locally); tumor purity differences between driver '
+    'classes cannot be excluded.'
+)
+_rows_lu49 = [['Metric', 'WT', 'EGFR', 'KRAS', 'Kruskal-Wallis P']]
+for _met, _lab in (('omega', '\u03c9'), ('kf', 'k_f'), ('kn', 'k_n')):
+    _d = _tcga_luad[(_tcga_luad['metric'] == f'LUAD_{_met}') &
+                    (_tcga_luad['test'] == 'descriptive')].set_index('comparison')['stat']
+    _p = _tcga_luad[(_tcga_luad['metric'] == f'LUAD_{_met}') &
+                    (_tcga_luad['test'] == 'Kruskal-Wallis')]['p'].iloc[0]
+    _fmt = (lambda v: f'{v:.1f}') if _met == 'omega' else (lambda v: f'{v:.4f}')
+    _rows_lu49.append([_lab, _fmt(_d['WT']), _fmt(_d['EGFR']), _fmt(_d['KRAS']),
+                       _pf49(_p)])
+add_table(_rows_lu49)
+add_para(
+    'Table (Section 3.21b). LUAD per-tumor group means (n = 311 wild-type, '
+    '61 EGFR-mutant, 120 KRAS-mutant) and the omnibus Kruskal-Wallis test '
+    'for \u03c9, k_f, and k_n.'
+)
+_rows_luc49 = [['Contrast', '\u03c9: Dunn-Holm P / bootstrap diff [95% CI]',
+                'k_f: P / diff [95% CI]', 'k_n: P / diff [95% CI]']]
+_dhcmp49 = {'KRAS - WT': 'WT vs KRAS', 'KRAS - EGFR': 'EGFR vs KRAS',
+            'EGFR - WT': 'WT vs EGFR'}
+for _cmp in ('KRAS - WT', 'KRAS - EGFR', 'EGFR - WT'):
+    _row = [_cmp.replace(' -', ' \u2212')]
+    for _met in ('omega', 'kf', 'kn'):
+        _dh = _tcga_luad[(_tcga_luad['metric'] == f'LUAD_{_met}') &
+                         (_tcga_luad['test'] == 'Dunn (Holm)') &
+                         (_tcga_luad['comparison'] == _dhcmp49[_cmp])]['p'].iloc[0]
+        _bt = _tcga_luad[(_tcga_luad['metric'] == f'LUAD_{_met}') &
+                         (_tcga_luad['test'] == 'bootstrap mean diff') &
+                         (_tcga_luad['comparison'] == _cmp)].iloc[0]
+        _lo, _hi = (float(x) for x in
+                    _bt['p'].replace('CI95 [', '').replace(']', '').split(','))
+        _row.append(f'{_pf49(_dh)} / {_bt["stat"]:+.4g} [{_lo:.4g}, {_hi:.4g}]')
+    _rows_luc49.append(_row)
+add_table(_rows_luc49)
+add_para(
+    'Table (Section 3.21c). LUAD pairwise contrasts: Dunn post-hoc P-values '
+    'with Holm correction, and within-group bootstrap mean differences with '
+    '95% CIs (B = 1,000). Main-text Fig. 5b-d.'
+)
+_coxz49 = _tcga_cox[_tcga_cox['covariate'] == 'z'].set_index('model')
+_coxlab49 = {'M1_omega_full': 'M1: \u03c9, full adjustment',
+             'M2_omega_stage_grade': 'M2: \u03c9 + stage + grade',
+             'M3_omega_unadjusted': 'M3: \u03c9, unadjusted',
+             'M4_kf_full': 'M4: k_f, full adjustment',
+             'M5_kn_full': 'M5: k_n, full adjustment',
+             'M6_tnomega_full': 'M6: TN-\u03c9, full adjustment'}
+_rows_cox49 = [['Model', 'n', 'Events', 'HR per SD [95% CI]', 'P']]
+for _mod in ['M1_omega_full', 'M2_omega_stage_grade', 'M3_omega_unadjusted',
+             'M4_kf_full', 'M5_kn_full', 'M6_tnomega_full']:
+    _r = _coxz49.loc[_mod]
+    _rows_cox49.append([
+        _coxlab49[_mod], f'{int(_r["n"])}', f'{int(_r["events"])}',
+        f'{_r["HR"]:.2f} [{_r["HR_lower"]:.2f}, {_r["HR_upper"]:.2f}]',
+        _pf49(_r["p"])])
+add_table(_rows_cox49)
+add_para(
+    'Table (Section 3.21d). LIHC overall-survival Cox models (hazard ratios '
+    'per +1 SD of the exposure). No exposure shows an association (all '
+    'P \u2265 0.30), so the pan-cancer reversal is a descriptive property '
+    'of tissue-state divergence, not a prognostic marker; the full '
+    'coefficient table is results/nc49_pilot_lihc_cox.csv of the companion '
+    'repository.'
+)
+
 doc.add_page_break()
 
 add_heading('Dataset Quality Control and Filtering Criteria', 2)
@@ -1413,7 +1776,7 @@ add_heading('Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranki
 add_para(
     'Purpose. Two ordering claims in the manuscript rest on the ratio '
     '\u03c9 = k_f / k_n: the cross-organ conservation ranking of cell types '
-    '(Table 2 / Fig. 5) and the TCGA clinical-severity gradients (Edmondson '
+    '(Table 2 / Fig. 6) and the TCGA clinical-severity gradients (Edmondson '
     'grade, PAM50, LUAD mutation strata). This note reports the control in '
     'which each ordering is recomputed using k_f alone (and k_n alone), with '
     'the identical pipeline otherwise, to separate functional-divergence '
@@ -1473,8 +1836,10 @@ add_para(
     '> EGFR 122.2 > wild-type 115.4; Kruskal-Wallis P = 7.8 \u00d7 10\u207b\u2077 '
     'for \u03c9; k_f P = 0.015; k_n P = 3.4 \u00d7 10\u207b\u2074), with k_n '
     'lowest in EGFR-mutant tumors, so part of the \u03c9 contrast is '
-    'denominator-driven. The main text reports these gradients only as a '
-    'one-paragraph exploratory vignette (denominator-dominated); the full values '
+    'denominator-driven. The main text reports only the LUAD driver-mutation '
+    'contrast as a primary result; the LIHC Edmondson and BRCA PAM50 '
+    'gradients are reported here as denominator-dominated vignettes '
+    '(Supplementary Fig. 4b), and the full values '
     'and test details live here. The k_f-only controls are post-hoc; the P-values '
     'reported here (three severity analyses crossed with three metrics) are '
     'nominal and carry no multiplicity correction. Scripts: '
@@ -1804,7 +2169,7 @@ add_para(
     f'block-shuffle re-analysis pipeline). '
     f'Summary file: results/brain_bs_null_ct_test.csv (10-row summary). '
     f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py. '
-    f'Figure generation: notebooks/_fig6_clean.py (Figure 6).'
+    f'Figure generation: notebooks/_fig6_clean.py (Figure 7).'
 )
 
 add_para('')
