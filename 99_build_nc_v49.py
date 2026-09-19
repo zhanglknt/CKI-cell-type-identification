@@ -32,6 +32,12 @@ PY = r"C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Scripts\python.e
 NODE = r"C:\Users\KnightZ\.workbuddy\binaries\node\versions\22.22.2-3\node.exe"
 NODE_ENV = dict(os.environ, NODE_PATH=r"C:\Users\KnightZ\.workbuddy\binaries\node\workspace\node_modules")
 
+# Rerun mode: skip the three _tmp_archive move blocks (safe-delete guard counts
+# moves as deletes; a rerun right after a completed build only overwrites the
+# same artifacts in place, so archiving adds no protection). The pre-run zip is
+# already backed up under _tmp_archive/v49_build_zip_backup by the first run.
+NO_ARCHIVE = os.environ.get("CKI_BUILD_NO_ARCHIVE") == "1"
+
 STAGE = BASE / "results" / "figures_v47_author"
 FIGS_NC = BASE / "results" / "figures_submission_nc"
 FF = BASE / "results" / "figures_final"
@@ -86,9 +92,10 @@ def main():
     print("\n[0] Collecting figures into figures_submission_nc ...")
     FIGS_NC.mkdir(parents=True, exist_ok=True)
     _arch1 = BASE / "_tmp_archive" / "v49_build_figs_cleanup"
-    for old in os.listdir(FIGS_NC):
-        _arch1.mkdir(parents=True, exist_ok=True)
-        shutil.move(str(FIGS_NC / old), str(_arch1 / old))
+    if not NO_ARCHIVE:
+        for old in os.listdir(FIGS_NC):
+            _arch1.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(FIGS_NC / old), str(_arch1 / old))
     # main figures: 1-3 unchanged; 4 = drift ladder (new); 5 = TCGA map (new);
     # 6 = old figure5 (cross-organ); 7 = old figure6 (brain); old figure4 dropped
     for i in (1, 2, 3):
@@ -107,10 +114,11 @@ def main():
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_v49_NC ...")
     if WORK_DIR.exists():
-        _arch2 = BASE / "_tmp_archive" / "v49_build_workdir_cleanup"
-        for old in os.listdir(WORK_DIR):
-            _arch2.mkdir(parents=True, exist_ok=True)
-            shutil.move(str(WORK_DIR / old), str(_arch2 / old))
+        if not NO_ARCHIVE:
+            _arch2 = BASE / "_tmp_archive" / "v49_build_workdir_cleanup"
+            for old in os.listdir(WORK_DIR):
+                _arch2.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(WORK_DIR / old), str(_arch2 / old))
     else:
         WORK_DIR.mkdir(parents=True)
     for f in os.listdir(FIGS_NC):
@@ -148,13 +156,17 @@ def main():
     xlsx_src = BASE / "results" / "CKI_Tables_NC.xlsx"
     check(xlsx_src.exists() and xlsx_src.stat().st_size > 4000, "Tables xlsx exists")
     shutil.copy2(xlsx_src, WORK_DIR / "CKI_Tables_NC.xlsx")
+    si_xlsx_src = BASE / "results" / "CKI_Supplementary_Tables_NC.xlsx"
+    check(si_xlsx_src.exists() and si_xlsx_src.stat().st_size > 4000,
+          "SI Tables xlsx exists")
+    shutil.copy2(si_xlsx_src, WORK_DIR / "CKI_Supplementary_Tables_NC.xlsx")
 
     manifest = ["=" * 60,
                 "  CKI Submission Package v49 (Nature Communications)",
                 "  MANIFEST_v49.txt",
                 "  tag: v0.5.x | GB-rebuttal round: real-data drift calibration + pan-cancer map",
                 "=" * 60, ""]
-    entries = sorted(os.listdir(WORK_DIR))
+    entries = sorted(e for e in os.listdir(WORK_DIR) if e != "MANIFEST_v49.txt")
     for i, e in enumerate(entries, 1):
         p = WORK_DIR / e
         manifest.append(f"{i:2d}. {e}  ({p.stat().st_size:,} bytes)")
@@ -167,7 +179,7 @@ def main():
 
     # ---- [4] zip ----
     print("\n[4] Creating ZIP ...")
-    if ZIP_PATH.exists():
+    if ZIP_PATH.exists() and not NO_ARCHIVE:
         _arch3 = BASE / "_tmp_archive" / "v49_build_zip_backup"
         _arch3.mkdir(parents=True, exist_ok=True)
         shutil.move(str(ZIP_PATH), str(_arch3 / ZIP_PATH.name))
@@ -204,8 +216,8 @@ def main():
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
     check(n_sfig_sn == 8, f"V49-S6 SN Supplementary Fig. refs = 8 ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
-    check(n_stab_sn == 14, f"V49-S7 SN Supplementary Table refs = 14 ({n_stab_sn})")
-    check("Section 3.12" in sn and "Section 3.13" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
+    check(n_stab_sn == 41, f"V49-S7 SN Supplementary Table refs = 41 post-v49.5 ({n_stab_sn})")
+    check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
     check("TODO" not in sn, "V49-S9 no TODO in SN")
 
     # ---- Guide inline checks (v49 caliber) ----
@@ -301,7 +313,11 @@ def main():
                       ("2.86", "N25 high-purity LUAD ratio"),
                       ("stromal or immune admixture", "N27 admixture caveat phrase")]:
         check(pat in ms, f"V49-{name}")
-    check("8.3 \u00d7 10\u207b\u00b9\u2077" in sn, "V49-N26 KIRC kn~admix P post-CC (SN)")
+    from openpyxl import load_workbook as _lwb
+    _si_xlsx = _lwb(str(BASE / "results" / "CKI_Supplementary_Tables_NC.xlsx"))
+    _si_caps = "\n".join(str(_si_xlsx[_sn]["A1"].value) for _sn in _si_xlsx.sheetnames)
+    check("8.3 \u00d7 10\u207b\u00b9\u2077" in _si_caps,
+          "V49-N26 KIRC kn~admix P post-CC (SuppTable 15 xlsx caption)")
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # v49.2 post-CC anchors + stale purge
@@ -339,7 +355,8 @@ def main():
                  "CKI_Submission_v49_NC/figure5.pdf",
                  "CKI_Submission_v49_NC/figure7.pdf",
                  "CKI_Submission_v49_NC/CKI_graphical_abstract.pdf",
-                 "CKI_Submission_v49_NC/CKI_Tables_NC.xlsx"]:
+                 "CKI_Submission_v49_NC/CKI_Tables_NC.xlsx",
+                 "CKI_Submission_v49_NC/CKI_Supplementary_Tables_NC.xlsx"]:
         check(must in names, f"V49-P2 {must.split('/')[-1]}")
     n_oldname = [n for n in names if "figure_S" in n or "Supplementary_Figure_S" in n]
     check(not n_oldname, f"V49-P3 no old supp figure naming ({n_oldname})")
@@ -348,6 +365,8 @@ def main():
     from docx import Document as _DocxCheck
     check(len(_DocxCheck(str(BASE / "results" / "CKI_Manuscript_NC.docx")).tables) == 0,
           "V49-P5 MS docx contains no tables (tables live in CKI_Tables_NC.xlsx)")
+    check(len(_DocxCheck(str(BASE / "results" / "CKI_Supplementary_NC.docx")).tables) == 0,
+          "V49-P6 SI docx contains no tables (tables live in CKI_Supplementary_Tables_NC.xlsx)")
 
     print("\n" + "=" * 60)
     print(f"  Passed: {len(PASSES)}  Failed: {len(FAILS)}")

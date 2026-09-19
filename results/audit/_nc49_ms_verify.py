@@ -217,6 +217,66 @@ chk('main figure legends 1-7 in order', fignums == list(range(1, 8)), str(figs))
 chk('Fig 4 legend Jaccard admission',
     'marker Jaccard is lower still on the false-positive statistic (T1 19.9%, T2 74.7%)' in full)
 
+# 13. Citation order (v49.5 refs renumber): superscript citation groups between
+# the Abstract heading and the References heading must first-appear in strict
+# 1..56 order; every reference must be cited (no orphans); References list must
+# be numbered 1..56 with the v49.5 reordered entries at their new positions.
+def _cite_expand(s):
+    out = []
+    for part in s.split(','):
+        part = part.strip()
+        m = re.match(r'^(\d+)\s*[–\-]\s*(\d+)$', part)
+        if m:
+            a, b = int(m.group(1)), int(m.group(2))
+            out.extend(range(a, b + 1))
+        elif part.isdigit():
+            out.append(int(part))
+    return out
+
+_abs_i = next(i for i, t in enumerate(paras) if t.strip() == 'Abstract')
+_ref_i = next(i for i, t in enumerate(paras) if t.strip() == 'References')
+_sup_groups = []
+for _p in doc.paragraphs[_abs_i + 1:_ref_i]:
+    for _r in _p.runs:
+        if _r.font.superscript:
+            _sup_groups.append(_cite_expand(_r.text))
+chk('superscript citation group count == 75', len(_sup_groups) == 75,
+    f'found {len(_sup_groups)}')
+_first, _seen = [], set()
+for _g in _sup_groups:
+    for _n in _g:
+        if _n not in _seen:
+            _seen.add(_n)
+            _first.append(_n)
+chk('citation first-appearance order is 1..56 monotonic',
+    _first == list(range(1, 57)),
+    'seq head: ' + str(_first[:18]))
+chk('no orphan references (all 56 cited in text)', len(_seen) == 56,
+    f'cited: {len(_seen)}')
+
+_refs = [t for t in paras[_ref_i + 1:] if re.match(r'^\d+\.\s', t)]
+chk('56 reference entries', len(_refs) == 56, f'found {len(_refs)}')
+chk('references numbered 1..56 sequentially',
+    [int(re.match(r'^(\d+)\.', t).group(1)) for t in _refs] == list(range(1, 57)))
+if len(_refs) == 56:
+    chk('ref 15 = Liberzon MSigDB (moved from old 56)', _refs[14].startswith('15. Liberzon'))
+    chk('ref 33 = Raj fixed title', _refs[32].startswith('33. Raj') and
+        'stochastic gene expression and its consequences.' in _refs[32] and
+        'variation and its consequences on individual' not in _refs[32])
+    chk('ref 35 = Jiang CACIMAR completed title', _refs[34].startswith('35. Jiang') and
+        'using single-cell RNA sequencing data' in _refs[34])
+    chk('ref 45 = Hao 2021 pages .e29', _refs[44].startswith('45. Hao') and
+        '3573–3587.e29' in _refs[44])
+    chk('ref 47 = CZI CELLxGENE (moved from old 55)',
+        _refs[46].startswith('47. CZI Cell Science Program') and 'CZ CELLxGENE Discover' in _refs[46])
+    chk('ref 51/52 = Perou/Parker (moved from old 16/17)',
+        _refs[50].startswith('51. Perou') and _refs[51].startswith('52. Parker'))
+    chk('ref 53 = Edmondson (moved from old 15)', _refs[52].startswith('53. Edmondson'))
+    chk('ref 56 = Efron bootstrap (moved from old 54)', _refs[55].startswith('56. Efron'))
+    chk('refs 48-50 = Weinstein/Colaprico/Cerami (moved from old 49-51)',
+        _refs[47].startswith('48. Weinstein') and _refs[48].startswith('49. Colaprico')
+        and _refs[49].startswith('50. Cerami'))
+
 print('===== MS checks =====')
 nfail = 0
 for name, status, detail in checks:

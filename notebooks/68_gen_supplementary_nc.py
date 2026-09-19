@@ -4,6 +4,7 @@ NC naming: Supplementary Note 1-15, Supplementary Fig., Supplementary Table.
 Output: results/CKI_Supplementary_NC.docx
 """
 import sys
+import re
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -230,20 +231,22 @@ def add_para(text, bold=False):
     return p
 
 
+# v49.5: all 15 SI tables are migrated to results/CKI_Supplementary_Tables_NC.xlsx
+# (Supplementary Tables 5-19, one sheet per table, in document order). The docx
+# itself carries no tables; add_table only collects the rows, and the former
+# in-document caption paragraph of each table is registered via si_caption so
+# the pair (rows, caption) can be exported with the caption as the sheet's A1.
+_SI_TABLE_ROWS = []
+_SI_TABLE_CAPS = []
+
 def add_table(rows, header=True):
-    t = doc.add_table(rows=len(rows), cols=len(rows[0]))
-    t.style = 'Table Grid'
-    for i, row in enumerate(rows):
-        for j, val in enumerate(row):
-            cell = t.cell(i, j)
-            cell.text = str(val)
-            for p in cell.paragraphs:
-                for r in p.runs:
-                    r.font.name = 'Arial'
-                    r.font.size = Pt(9)
-                    if header and i == 0:
-                        r.font.bold = True
-    return t
+    _SI_TABLE_ROWS.append([[str(v) for v in row] for row in rows])
+    return None
+
+def si_caption(text):
+    body = re.sub(r'^Supplementary Table \d+\.\s*', '', text)
+    _SI_TABLE_CAPS.append(body)
+    return None
 
 
 # ===== TITLE PAGE =====
@@ -281,6 +284,21 @@ toc = [
     'Supplementary Table 2: Cross-Organ Conservation Data',
     'Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data',
     'Supplementary Table 4: Inter-regional Region-Associated Candidate Data',
+    'Supplementary Table 5: TCGA Linear-Normalization Robustness',
+    'Supplementary Table 6: Kang IFN-beta Per-Cell-Type Effects',
+    'Supplementary Table 7: Target-Detection AUC in Mean-Shift Simulation',
+    'Supplementary Table 8: Donor-Paired Detection Power',
+    'Supplementary Table 9: Kang Batch-1 Technical-Replicate Calibration',
+    'Supplementary Table 10: Brain Drift Ladder by Tier and Metric',
+    'Supplementary Table 11: Pan-Cancer NN/TT Ratios',
+    'Supplementary Table 12: LUAD Driver-Group Means',
+    'Supplementary Table 13: LUAD Pairwise Contrasts',
+    'Supplementary Table 14: LIHC Overall-Survival Cox Models',
+    'Supplementary Table 15: Purity Sensitivity of the Pan-Cancer Reversal',
+    'Supplementary Table 16: LUAD Admixture-Adjusted Contrasts',
+    'Supplementary Table 17: LUAD Smoking-Covariate Adjustment',
+    'Supplementary Table 18: TCGA Clinical-Severity Gradients',
+    'Supplementary Table 19: Brain min-cells Threshold Sensitivity',
     'Supplementary Data 1: Analysis Script Index',
 ]
 for item in toc:
@@ -434,7 +452,8 @@ add_para(
     'log2(TPM + 1) values, which is mathematically equivalent to the power '
     'transformation p_i \u221d (TPM + 1)^(1/ln 2) (Section 1.1); the softmax-caliber '
     'values are archived here as a sensitivity analysis to verify that the mapping '
-    'choice drives no conclusion. Scripts: notebooks/85_tcga_linear_norm_v44.py '
+    'choice drives no conclusion (Supplementary Table 5). Scripts: '
+    'notebooks/85_tcga_linear_norm_v44.py '
     '(main pipeline and clinical severity) and '
     'notebooks/86_tcga_composition_linear_norm_v44.py '
     '(composition sensitivity); report: results/tcga_linear_norm_v44_report.md.'
@@ -448,8 +467,8 @@ add_table([
     ['KIRC', '0.74', '0.81', 'retained', '3.6\u00d7'],
     ['BRCA', '0.78', '0.84', 'retained', '2.8\u00d7'],
 ])
-add_para(
-    'Table (Section 1.7). Linear-normalization robustness of the TCGA main pipeline. Every '
+si_caption(
+    'Supplementary Table 5. Linear-normalization robustness of the TCGA main pipeline. Every '
     'qualitative conclusion is preserved: the tumor-normal versus baseline contrast stays '
     'significant in all five cancer types (all TN/baseline \u03c9 < 1; permutation '
     'P = 1 \u00d7 10\u207b\u2074\u2079 to 1 \u00d7 10\u207b\u00b9\u2074), with ratios '
@@ -808,7 +827,8 @@ add_para(
     'are not comparable across methods (Spearman: CKI\u2013MELD \u03c1 = '
     '\u22120.09, P = 0.87; CKI\u2013scDist \u03c1 = 0.14, P = 0.79; '
     'MELD\u2013scDist \u03c1 = 0.77, P = 0.07); CKI\u2019s \u03c9_cal spread '
-    '(1.76\u20133.44) reflects anchor visibility rather than effect size.'
+    '(1.76\u20133.44) reflects anchor visibility rather than effect size '
+    '(Supplementary Table 6).'
 )
 add_table([
     ['Cell type', 'n cells', 'CKI \u03c9_cal', 'MELD within-type AUC',
@@ -820,8 +840,8 @@ add_table([
     ['FCGR3A+ monocytes', '1,599', '3.09', '0.9995', '145.3'],
     ['NK cells', '1,993', '2.88', '0.9972', '88.2'],
 ])
-add_para(
-    'Table (Section 3.11a). Per-cell-type effects on Kang IFN-\u03b2 '
+si_caption(
+    'Supplementary Table 6. Per-cell-type effects on Kang IFN-\u03b2 '
     '(stimulated versus control). \u03c9_cal is calibrated against the '
     'split-half baseline of Supplementary Note 6.'
 )
@@ -841,7 +861,7 @@ add_para(
     'construction insensitive to perturbations whose dominant effect is a '
     'broad mean shift \u2014 a design property, disclosed here as a boundary '
     'of the method (the anchor-visibility boundary; see also Supplementary Notes 1 and '
-    '6).'
+    '6; Supplementary Table 7).'
 )
 add_table([
     ['Method', 'FPR/type', 'G100 F2', 'G100 F4', 'G100 F8',
@@ -851,8 +871,8 @@ add_table([
      '1.000', '1.000', '1.000'],
     ['CKI \u03c9', '0.083', '0.517', '0.688', '0.787', '0.127', '0.059', '0.054'],
 ])
-add_para(
-    'Table (Section 3.11b). Target-detection AUC (target CD14+ monocytes versus '
+si_caption(
+    'Supplementary Table 7. Target-detection AUC (target CD14+ monocytes versus '
     'the five null cell types) in the additive mean-shift simulation. MELD '
     'and the scDist approximation also achieve sensitivity 1.00 and top-1 hit '
     'rate 1.00 at every configuration.'
@@ -870,7 +890,8 @@ add_para(
     'operating regime is therefore approximately 50\u2013200 cells per donor '
     'per condition; large pooled pseudobulks defeat the \u03c9 permutation '
     'test. MELD- and scDist-style scores have no such boundary but do not '
-    'decompose donor drift, which is CKI\u2019s design target.'
+    'decompose donor drift, which is CKI\u2019s design target '
+    '(Supplementary Table 8).'
 )
 add_table([
     ['Cell type', 'n = 50', 'n = 100', 'n = 200', 'n = 500'],
@@ -881,8 +902,8 @@ add_table([
     ['FCGR3A+ monocytes', '0.74', '0.47', '\u2014', '\u2014'],
     ['NK cells', '0.93', '0.76', '\u2014', '\u2014'],
 ])
-add_para(
-    'Table (Section 3.11c). Donor-paired detection power (fraction of 20 '
+si_caption(
+    'Supplementary Table 8. Donor-paired detection power (fraction of 20 '
     'replicates significant at one-sided P < 0.05); cells marked \u2014 had '
     'too few eligible donors.'
 )
@@ -957,7 +978,7 @@ add_para(
     f'{_cos49["k"]} of {_cos49["n"]} ({_cos49["k"] / _cos49["n"]:.1%}, CI '
     f'[{_wcos49[0]:.3f}, {_wcos49[1]:.3f}]) as divergence; k_n alone fired '
     f'once ({_km49["k_n"]["k"]} of {_km49["k_n"]["n"]}). The per-metric '
-    'values are given in Table (Section 3.12a); the replication is shown '
+    'values are given in Supplementary Table 9; the replication is shown '
     'in main-text Fig. 4d.'
 )
 _rows_kang49 = [['Metric', 'Calibration median [IQR]', 'FPR (k/n)', 'Wilson 95% CI']]
@@ -970,8 +991,8 @@ for _m in ['k_n', 'k_f', 'omega', 'raw_js', 'cosine']:
         f'{_a["k"]}/{_a["n"]}',
         f'[{_w[0]:.3f}, {_w[1]:.3f}]'])
 add_table(_rows_kang49)
-add_para(
-    'Table (Section 3.12a). Kang batch 1, 30 same-donor, same-condition '
+si_caption(
+    'Supplementary Table 9. Kang batch 1, 30 same-donor, same-condition '
     'cross-lane pairs. Calibration = observed / own n-matched null median '
     '(B = 200 per pair); FPR = fraction of pairs whose observed value '
     'exceeds its own null 95th percentile. The Wilson intervals treat the '
@@ -1032,7 +1053,7 @@ add_para(
     'purchased with the weakest sensitivity to real signal, and as a '
     'single set-overlap statistic it offers no k_n/k_f decomposition. '
     'Per-tier values '
-    'for all seven metrics are given in Table (Section 3.12b); main-text '
+    'for all seven metrics are given in Supplementary Table 10; main-text '
     'Fig. 4b,c.'
 )
 _rows_lad49 = [['Metric', 'T1 cal [IQR] / FPR', 'T2 cal [IQR] / FPR', 'T3 cal [IQR] / FPR']]
@@ -1044,8 +1065,8 @@ for _m in _METRICS49:
                     f'/ {_a["k"] / _a["n"]:.1%}')
     _rows_lad49.append(_row)
 add_table(_rows_lad49)
-add_para(
-    'Table (Section 3.12b). Brain drift ladder, per tier and metric: '
+si_caption(
+    'Supplementary Table 10. Brain drift ladder, per tier and metric: '
     'calibration median [IQR] (observed / own n-matched null median) and '
     'FPR (observed > own null 95th percentile). T1: same (donor, region) '
     'cross-library pairs, n = 2,161; T2: same region cross-donor pairs, '
@@ -1103,7 +1124,8 @@ add_para(
     'Per-sample divergence and group statistics) ranks cancer types by the '
     'NN/TT ratio of mean \u03c9, stratifies LUAD tumors by driver mutation, '
     'and tests survival association in LIHC. This section reports the full '
-    'group statistics behind those claims. Per-tumor statistics are the '
+    'group statistics behind those claims (Supplementary Tables 11\u201317). '
+    'Per-tumor statistics are the '
     'mean of \u03c9, k_f, and k_n over all pairs in the linear-normalization '
     'pair table (35,306 pairs; authoritative file: '
     'results/tcga_linear_norm_v44_all_pairs.csv) in which a sample '
@@ -1123,7 +1145,8 @@ add_para(
     '(hazard ratios per SD), adjusted for AJCC stage (I-IV), Edmondson '
     'grade (G1-G4), age, and sex (listwise deletion of missing covariates), '
     'with k_f-only, k_n-only, and tumor-normal-\u03c9 exposures as '
-    'sensitivity models. Covariate sensitivity used the official ESTIMATE '
+    'sensitivity models (Supplementary Table 14). Covariate sensitivity used '
+    'the official ESTIMATE '
     'stromal (141) and immune (141) gene sets (rank-based single-sample '
     'enrichment; combined stromal-plus-immune score, monotonically '
     'equivalent to published ESTIMATE purity) and cBioPortal patient-level '
@@ -1152,8 +1175,8 @@ for _, _r in _tcga_pc.sort_values('rank_by_NN_TT_ratio').iterrows():
         f'{_r["kn_TT_NN_mean_ratio"]:.2f} [{_r["kn_TT_NN_mean_ratio_CI95_lower"]:.2f}, '
         f'{_r["kn_TT_NN_mean_ratio_CI95_upper"]:.2f}]'])
 add_table(_rows_pc49)
-add_para(
-    'Table (Section 3.13a). Pan-cancer NN/TT ratios (mean NN to mean TT '
+si_caption(
+    'Supplementary Table 11. Pan-cancer NN/TT ratios (mean NN to mean TT '
     '\u03c9) with sample-level cluster-bootstrap 95% CIs, one-sided '
     'Mann-Whitney P (NN > TT), and the housekeeping-baseline mechanism: '
     'median and mean TT/NN k_n ratios with bootstrap 95% CIs. The '
@@ -1168,7 +1191,7 @@ add_para(
     'LUAD driver-mutation stratification. Mean per-tumor \u03c9 was highest '
     'in KRAS-mutant tumors (136.9), exceeding wild-type (115.4) and '
     'EGFR-mutant tumors (122.2; Kruskal-Wallis P = 7.8 \u00d7 10\u207b\u2077; '
-    'Tables (Sections 3.13b,c)). The k_f/k_n decomposition separates the '
+    'Supplementary Tables 12 and 13). The k_f/k_n decomposition separates the '
     'two drivers\u2019 associations: the KRAS contrast carries a functional '
     'component - k_f is elevated in KRAS-mutant tumors (KRAS versus EGFR, '
     'Dunn-Holm P = 0.015; KRAS-wild-type k_f difference 0.011, 95% CI '
@@ -1181,8 +1204,7 @@ add_para(
     'are reported; the EGFR association shows no significant k_f difference (all '
     'Holm-adjusted P > 0.09) and no significant k_n difference (WT > EGFR, '
     'P = 0.09). '
-    'Covariate adjustment resolves the two drivers differently (Tables '
-    '(Sections 3.13e-g)): after adjustment for stromal/immune admixture the '
+    'Covariate adjustment resolves the two drivers differently (Supplementary Tables 15\u201317): after adjustment for stromal/immune admixture the '
     'KRAS-wild-type contrast retains both components (k_f +0.012, '
     'P = 0.009; k_n -0.0004, P = 0.003) and likewise survives joint '
     'smoking-plus-admixture adjustment (omega +13.6, P = 3.3 \u00d7 '
@@ -1201,15 +1223,15 @@ for _met, _lab in (('omega', '\u03c9'), ('kf', 'k_f'), ('kn', 'k_n')):
     _rows_lu49.append([_lab, _fmt(_d['WT']), _fmt(_d['EGFR']), _fmt(_d['KRAS']),
                        _pf49(_p)])
 add_table(_rows_lu49)
-add_para(
-    'Table (Section 3.13b). LUAD per-tumor group means (n = 311 wild-type, '
+si_caption(
+    'Supplementary Table 12. LUAD per-tumor group means (n = 311 wild-type, '
     '61 EGFR-mutant, 120 KRAS-mutant) and the omnibus Kruskal-Wallis test '
     'for \u03c9, k_f, and k_n. Wild-type means wild-type for EGFR and KRAS '
     '(tumors carrying other drivers were not separately excluded). '
     'Per-tumor means share TT pairs across groups, so the KW/Dunn tests '
     'and within-group bootstrap CIs do not model this pair-sharing '
     'dependence and are read descriptively; the covariate-adjusted OLS '
-    'contrasts of Tables (Sections 3.13f,g) are the inferential caliber.'
+    'contrasts of Supplementary Tables 16 and 17 are the inferential caliber.'
 )
 _rows_luc49 = [['Contrast', '\u03c9: Dunn-Holm P / bootstrap diff [95% CI]',
                 'k_f: P / diff [95% CI]', 'k_n: P / diff [95% CI]']]
@@ -1229,8 +1251,8 @@ for _cmp in ('KRAS - WT', 'KRAS - EGFR', 'EGFR - WT'):
         _row.append(f'{_pf49(_dh)} / {_bt["stat"]:+.4g} [{_lo:.4g}, {_hi:.4g}]')
     _rows_luc49.append(_row)
 add_table(_rows_luc49)
-add_para(
-    'Table (Section 3.13c). LUAD pairwise contrasts: Dunn post-hoc P-values '
+si_caption(
+    'Supplementary Table 13. LUAD pairwise contrasts: Dunn post-hoc P-values '
     'with Holm correction, and within-group bootstrap mean differences with '
     '95% CIs (B = 1,000). Main-text Fig. 5b-d.'
 )
@@ -1250,8 +1272,8 @@ for _mod in ['M1_omega_full', 'M2_omega_stage_grade', 'M3_omega_unadjusted',
         f'{_r["HR"]:.2f} [{_r["HR_lower"]:.2f}, {_r["HR_upper"]:.2f}]',
         _pf49(_r["p"])])
 add_table(_rows_cox49)
-add_para(
-    'Table (Section 3.13d). LIHC overall-survival Cox models (hazard ratios '
+si_caption(
+    'Supplementary Table 14. LIHC overall-survival Cox models (hazard ratios '
     'per +1 SD of the exposure). No exposure reaches significance (all '
     'P \u2265 0.07; k_f closest at P = 0.072), so the pan-cancer reversal '
     'is a descriptive property '
@@ -1273,14 +1295,12 @@ add_para(
     'adjustment is invariant to the transformation. Per-tumor k_n '
     'correlated negatively with admixture in every cancer type, and '
     'restricting tumor-tumor pairs to the low-admixture half of tumors '
-    'increased the NN/TT ratio in all five cancer types (Table (Section '
-    '3.13e)), so the pan-cancer reversal is not an admixture artefact. In '
+    'increased the NN/TT ratio in all five cancer types (Supplementary Table 15), so the pan-cancer reversal is not an admixture artefact. In '
     'LUAD, admixture differed across driver groups (highest in EGFR-mutant '
     'tumors), and OLS adjustment for admixture abolished the EGFR-wild-type '
-    'differences while preserving both KRAS-wild-type components (Table '
-    '(Section 3.13f)); smoking status (ever/never, available for 427 of '
+    'differences while preserving both KRAS-wild-type components (Supplementary Table 16); smoking status (ever/never, available for 427 of '
     '492 LUAD tumors, 87%) was strongly confounded with driver group but '
-    'did not carry the divergence association (Table (Section 3.13g)).'
+    'did not carry the divergence association (Supplementary Table 17).'
 )
 _rows_pur49 = [['Cancer', 'k_n ~ admix r (P)', '\u03c9 ~ admix r (P)',
                 'NN/TT all tumors', 'NN/TT low-admix half [95% CI]']]
@@ -1302,8 +1322,8 @@ for _c in ('TCGA-LUAD', 'TCGA-LUSC', 'TCGA-LIHC', 'TCGA-KIRC', 'TCGA-BRCA'):
         f'{_all.stat:.2f}',
         f'{_half.stat:.2f} {str(_half["p"]).replace("CI95 ", "")}'])
 add_table(_rows_pur49)
-add_para(
-    'Table (Section 3.13e). Purity sensitivity of the pan-cancer reversal. '
+si_caption(
+    'Supplementary Table 15. Purity sensitivity of the pan-cancer reversal. '
     'Left: Pearson correlations of per-tumor k_n and \u03c9 with the '
     'ESTIMATE combined admixture score; the k_n correlation is negative in '
     'all five cancer types (KIRC P = 8.3 \u00d7 10\u207b\u00b9\u2077, '
@@ -1330,8 +1350,8 @@ _kwad49 = _pur49[(_pur49.section == 'B_group_admix') &
                  (_pur49.test == 'Kruskal-Wallis')].iloc[0]
 _gmad49 = _pur49[(_pur49.section == 'B_group_admix') &
                  (_pur49.test == 'group mean')].set_index('n')['stat']
-add_para(
-    'Table (Section 3.13f). LUAD driver-group contrasts after adjustment '
+si_caption(
+    'Supplementary Table 16. LUAD driver-group contrasts after adjustment '
     'for stromal/immune admixture (OLS metric ~ group + z-scored '
     'admixture, n = 492 tumors). Admixture differed across driver groups '
     f'(means WT {_gmad49[311]:,.0f} < KRAS {_gmad49[120]:,.0f} < EGFR '
@@ -1358,8 +1378,8 @@ for _sec, _lab in _smkmods49:
 add_table(_rows_smk49)
 _chi49 = _smk49[_smk49.test == 'chi2 ever/never x group'].iloc[0]
 _pct49 = _smk49[_smk49.test.str.startswith('ever-smoker pct')].set_index('test')['stat']
-add_para(
-    'Table (Section 3.13g). LUAD smoking-covariate adjustment (ever/never; '
+si_caption(
+    'Supplementary Table 17. LUAD smoking-covariate adjustment (ever/never; '
     '427 of 492 tumors with known smoking status). KRAS-mutant tumors were '
     'strongly enriched for ever-smokers '
     f'({_pct49["ever-smoker pct KRAS"]:.1f}% versus '
@@ -2051,7 +2071,7 @@ add_para(
     'contrast as a primary result; the LIHC Edmondson and BRCA PAM50 '
     'gradients are reported here as denominator-dominated vignettes '
     '(Supplementary Fig. 4b), and the full values '
-    'and test details live here. The k_f-only controls are post-hoc; the P-values '
+    'and test details are given in Supplementary Table 18. The k_f-only controls are post-hoc; the P-values '
     'reported here (three severity analyses crossed with three metrics) are '
     'nominal and carry no multiplicity correction. Scripts: '
     'notebooks/83_kf_only_ordering.py (published softmax run) and '
@@ -2072,8 +2092,8 @@ add_table([
     ['LUAD mutation', 'KRAS > EGFR > wild-type', '136.9 / 122.2 / 115.4',
      'KW 7.8 \u00d7 10\u207b\u2077', 'KW 0.015', 'KW 3.4 \u00d7 10\u207b\u2074'],
 ])
-add_para(
-    'Table (Supplementary Note 9). TCGA clinical-severity gradients under the '
+si_caption(
+    'Supplementary Table 18. TCGA clinical-severity gradients under the '
     'linear-normalization re-analysis (kn_floor = 0; per-tumor mean of '
     'intratumoral TT pairs). JT = Jonckheere-Terpstra trend test; '
     'KW = Kruskal-Wallis. All P-values are nominal (no multiplicity '
@@ -2113,7 +2133,8 @@ add_para(
     '(mean \u00b1 SD over 20 replicates; 95% percentile interval [1.64, 1.84], '
     'which excludes 1.0). Roughly 70% of the full-data 6.10-fold magnitude '
     'therefore reflects class-size imbalance and is disclosed as such in the '
-    'main text; the direction of the gradient is robust.'
+    'main text; the direction of the gradient is robust. The min-cells '
+    'threshold sweep is given in Supplementary Table 19.'
 )
 add_table([
     ['min cells', 'classes', 'pairs', 'Strong', 'lowest-\u03c9 class',
@@ -2123,8 +2144,8 @@ add_table([
     ['50', '10', '25,876', '31', 'Vascular', '4.12'],
     ['100', '8', '22,968', '22', 'Vascular', 'n/a (Bergmann glia, choroid plexus dropped)'],
 ])
-add_para(
-    'Table (Supplementary Note 10). Threshold sensitivity of the brain landscape. The '
+si_caption(
+    'Supplementary Table 19. Threshold sensitivity of the brain landscape. The '
     '20-nucleus threshold is not arbitrary-sensitive: the high-\u03c9 classes '
     '(astrocytes, oligodendrocytes, OPCs, microglia) change by \u2264 1% across '
     'thresholds, and Strong-tier counts vary modestly (22\u201339). Two caveats: '
@@ -2465,3 +2486,29 @@ out_path = 'results/CKI_Supplementary_NC.docx'
 doc.save(out_path)
 print(f'Saved: {out_path}')
 print(f'Paragraphs: {len(doc.paragraphs)}')
+
+# ===== v49.5: export the 15 migrated tables as Supplementary Tables 5-19 =====
+def write_si_tables_xlsx():
+    from openpyxl import Workbook
+    from openpyxl.styles import Font
+    assert len(_SI_TABLE_ROWS) == 15, f'expected 15 tables, got {len(_SI_TABLE_ROWS)}'
+    assert len(_SI_TABLE_CAPS) == 15, f'expected 15 captions, got {len(_SI_TABLE_CAPS)}'
+    wb = Workbook()
+    wb.remove(wb.active)
+    for _i, (_rows, _cap) in enumerate(zip(_SI_TABLE_ROWS, _SI_TABLE_CAPS)):
+        _n = _i + 5
+        ws = wb.create_sheet(f'Table {_n}')
+        ws['A1'] = f'Supplementary Table {_n}: {_cap}'
+        ws['A1'].font = Font(bold=True)
+        ws.append([])
+        for _ri, _row in enumerate(_rows):
+            ws.append(list(_row))
+            if _ri == 0:
+                for _c in ws[3]:
+                    _c.font = Font(bold=True)
+        ws.column_dimensions['A'].width = 28
+    out_x = 'results/CKI_Supplementary_Tables_NC.xlsx'
+    wb.save(out_x)
+    print(f'Saved: {out_x} (sheets: {len(wb.sheetnames)})')
+
+write_si_tables_xlsx()
