@@ -15,7 +15,9 @@ chk('CL word count <= 530', wc <= 530, f'{wc} words')
 chk('CL no rebuttal framing', 'Previously raised concerns' not in clfull)
 chk('CL no 5th of 5', '5th of 5' not in clfull)
 chk('CL new-evidence paragraph', 'Two properties of this work are worth stating explicitly' in clfull)
-chk('CL specificity-first AUC 0.680', 'specificity-first index' in clfull and '(0.680)' in clfull)
+chk('CL change-detection framing (no classification AUC)',
+    'specificity-first index' in clfull and '0.680' not in clfull
+    and 'dynamic cell-state changes' in clfull)
 chk('CL drift claim qualified',
     'lowest false-report rate among the continuous divergence metrics' in clfull)
 chk('CL no "least of seven metrics"', 'least of seven metrics' not in clfull)

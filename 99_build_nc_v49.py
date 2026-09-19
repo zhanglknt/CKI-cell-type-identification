@@ -243,7 +243,8 @@ def main():
           "V49-C3 CL carries the NC title")
     check("Two properties" in cl and "Previously raised concerns" not in cl and "5th of 5" not in cl,
           "V49-C4 CL new-evidence frame (no rebuttal-speak, no 5th-of-5)")
-    check("0.680" in cl, "V49-C5 CL cites AUC 0.680 (by-design admission)")
+    check("0.680" not in cl and "dynamic cell-state changes" in cl,
+          "V49-C5 CL change-detection framing (no classification AUC)")
     check("baseline-driven" not in cl and "baseline-associated" not in cl,
           "V49-C5b no baseline-* phrasing in CL (EGFR dissolved)")
     check("Both authors" not in cl, "V49-C6 CL declarations paragraph removed")
@@ -331,6 +332,16 @@ def main():
     _si_caps = "\n".join(str(_si_xlsx[_sn]["A1"].value) for _sn in _si_xlsx.sheetnames)
     check("8.3 \u00d7 10\u207b\u00b9\u2077" in _si_caps,
           "V49-N26 KIRC kn~admix P post-CC (SuppTable 15 xlsx caption)")
+    _main_xlsx = _lwb(str(BASE / "results" / "CKI_Tables_NC.xlsx"))
+    check(_main_xlsx.sheetnames == ['Table 1']
+          and str(_main_xlsx['Table 1']['A1'].value).startswith('Table 1. Cross-organ conservation'),
+          "V49-N35 main Tables xlsx = single Table 1 sheet (cross-organ)")
+    check('cell-type classification performance' not in ms and '0.680' not in ms
+          and 'ranked 5th of 5 methods' not in ms,
+          "V49-N36 classification benchmark cut from MS")
+    check('(Fig. 5; Table 1; Supplementary Fig. 5)' in ms and 'upper block of Table 1' in ms
+          and not re.search(r'(?<!Supplementary )Table 2', ms),
+          "V49-N37 main Table 2 renumbered to Table 1")
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # v49.2 post-CC anchors + stale purge

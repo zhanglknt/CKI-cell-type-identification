@@ -570,8 +570,8 @@ add_para(
     'for multi-group comparisons (e.g., BRCA PAM50 subtypes); Jonckheere-Terpstra trend '
     'test for ordered categorical variables (e.g., LIHC Edmondson grade); Spearman rank '
     'correlation for correlations between metrics; Permutation test (B=1,000) '
-    'for CKI \u03c9 significance inference; ROC-AUC for cell type classification '
-    'performance assessment.'
+    'for CKI \u03c9 significance inference; ROC-AUC for benchmark performance '
+    'assessment (parameter sweep and functional-change detection).'
 )
 
 add_para('3.2 Permutation Test and Bootstrap CI Details', bold=True)

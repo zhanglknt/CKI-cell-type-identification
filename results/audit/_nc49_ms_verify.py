@@ -213,7 +213,7 @@ figs = [t[:12] for t in paras if re.match(r'^Figure \d\.', t)]
 fignums = [int(re.match(r'^Figure (\d)\.', t).group(1)) for t in paras if re.match(r'^Figure \d\.', t)]
 chk('main figure legends 1-6 in order', fignums == list(range(1, 7)), str(figs))
 
-# 11b. v49.7: Fig 2e = change-detection ROC (classification ROC demoted to Table 1)
+# 11b. v49.7: Fig 2e = change-detection ROC
 chk('Fig 2 legend new scope',
     'functional-change detection in the ground-truth simulation' in full)
 chk('Fig 2e legend change-detection ROC',
@@ -227,8 +227,20 @@ chk('Result 3b AUC sentence cites Fig. 2e',
     'from neutral perturbations (Fig. 2e; AUC = 0.80' in full)
 chk('Result 3b background2 cites Fig. 2e',
     '= 0.859 (Fig. 2e), with the same metric ranking' in full)
-chk('Table 1 classification disclosure retained',
-    'ranked 5th of 5 methods; Table 1' in full)
+
+# 11c. v49.8: classification benchmark fully cut; main Table 2 renumbered to Table 1
+chk('classification benchmark paragraph removed',
+    'cell-type classification performance' not in full
+    and 'ranked 5th of 5 methods' not in full and '0.680' not in full)
+chk('Fig 2 legend Table 1 pointer removed',
+    'Cell-type classification performance on Tabula Sapiens is reported in Table 1' not in full)
+chk('Methods classification ROC-AUC removed',
+    'cell-type classification ROC-AUC' not in full)
+chk('main-text Table 2 retired',
+    not re.search(r'(?<!Supplementary )Table 2', full))
+chk('cross-organ Table 1 citations',
+    '(Fig. 5; Table 1; Supplementary Fig. 5)' in full
+    and 'upper block of Table 1' in full and 'lower block of Table 1' in full)
 
 # 12. Fig 3 legend honest framing
 chk('Fig 3 legend Jaccard admission',

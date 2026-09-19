@@ -23,8 +23,8 @@ Numbers sourced from verified audits only:
   1.10-2.46, 4/5 CIs exclude 1; k_n 1.3-3.3x; LUAD KRAS retained after
   purity + smoking adjustment, EGFR association dissolved under purity
   adjustment per nc49_purity/nc49_smoking audits),
-  manuscript Table 1 (classification AUC 0.680) and simulation
-  results (FPR 0.00 vs 0.55-0.58; AUC 0.80).
+  simulation change-detection results (FPR 0.00 vs 0.55-0.58; AUC 0.80
+  rank 1/6, skin replication 0.91).
 """
 from pathlib import Path
 from docx.shared import Pt, Inches
@@ -116,13 +116,15 @@ def run():
     # ── Body: two properties stated explicitly (new-evidence framing) ──
     add_para(
         "Two properties of this work are worth stating explicitly. CKI is "
-        "a specificity-first index: its cell-type classification AUC "
-        "(0.680) is modest by design, because it down-weights the "
-        "global-identity signal that classifiers exploit; on the benchmark "
-        "matched to its question domain\u2014false divergence calls on "
-        "real technical and donor drift\u2014it misreports least among "
-        "the continuous divergence metrics while retaining sensitivity to "
-        "biology (Fig. 3). And the pan-cancer divergence map, with the "
+        "a specificity-first index, designed to detect dynamic cell-state "
+        "changes rather than to discriminate static cell types: on the "
+        "benchmark matched to its question domain\u2014false divergence "
+        "calls on real technical and donor drift\u2014it misreports least "
+        "among the continuous divergence metrics while retaining "
+        "sensitivity to biology (Fig. 3); in the ground-truth simulation "
+        "it ranks first of six metrics at separating injected functional "
+        "change from neutral drift (AUC = 0.80; Fig. 2e). And the "
+        "pan-cancer divergence map, with the "
         "lung adenocarcinoma driver-class decomposition, grounds the "
         "method in cancer biology of direct interest to a broad "
         "readership (Fig. 4).",
