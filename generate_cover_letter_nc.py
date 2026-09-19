@@ -93,7 +93,7 @@ def run():
         "neutral housekeeping drift (false-positive rate 0.00 versus "
         "0.55\u20130.58 for JS and cosine) and ranked first for "
         "functional-versus-neutral discrimination (AUC = 0.80). Second, in "
-        "real-data drift calibration, \u03c9 misreported none of 30 "
+        "real-data drift calibration, \u03c9 raised no false reports on any of the 30 "
         "cross-lane technical-replicate pairs (Kang IFN-\u03b2 PBMC data; "
         "raw JS 36.7%, cosine 23.3%) and, on 2,161 brain technical-drift "
         "pairs, had the lowest false-report rate among the continuous "

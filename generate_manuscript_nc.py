@@ -373,13 +373,17 @@ def ref_p_nc(text):
 # ============================================================
 # TITLE PAGE
 # ============================================================
-t = doc.add_heading('CKI is a Ka/Ks-inspired index quantifying functional divergence in single-cell genomics', level=0)
+# Title as plain paragraph: add_heading(level=0) uses Word's built-in Title
+# style, which carries a blue bottom border (visible as a blue rule under the
+# title). A plain paragraph avoids the style entirely.
+t = doc.add_paragraph()
 t.alignment = WD_ALIGN_PARAGRAPH.CENTER
-for run in t.runs:
-    run.font.name = 'Arial'
-    run.font.color.rgb = RGBColor(0,0,0)
-    run.font.size = Pt(16)
-    run.bold = True
+tr = t.add_run('CKI is a Ka/Ks-inspired index quantifying functional divergence in single-cell genomics')
+tr.font.name = 'Arial'
+tr.font.color.rgb = RGBColor(0,0,0)
+tr.font.size = Pt(16)
+tr.bold = True
+t.paragraph_format.space_after = Pt(14)
 
 sub = doc.add_paragraph()
 sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -461,7 +465,7 @@ run.font.size = Pt(11)
 # ============================================================
 heading('Abstract', level=1)
 
-p('Inspired by the Ka/Ks ratio, CKI (Cell-type Ka/Ks-inspired Index) decomposes transcriptomic divergence into a baseline rate k_n (housekeeping genes) and a functional rate k_f (identity genes); \u03c9 = k_f/k_n quantifies baseline-normalized functional divergence. In ground-truth simulation, \u03c9 rejected neutral housekeeping drift (false-positive rate 0.00 versus 0.55\u20130.58 for raw JS and cosine) and ranked first for functional-versus-neutral discrimination (AUC = 0.80). On real technical replicates, \u03c9 misreported none of 30 Kang IFN-\u03b2 cross-lane pairs and had the lowest false-report rate among continuous divergence metrics on 2,161 brain library pairs (28.6% versus 45.2% for raw JS), though this specificity decays with group size. In 3,567 TCGA samples across five cancer types, \u03c9 revealed a consistent pan-cancer reversal\u2014tumor specimens less divergent than adjacent non-tumor tissue (ratio 1.10\u20132.46, CI excluding 1 in four of five cancers)\u2014driven by a 1.3\u20133.3-fold elevated housekeeping baseline, not reduced functional divergence; in lung adenocarcinoma, KRAS-mutant tumors showed elevated tissue-level divergence whose functional (k_f) and baseline (k_n) components both survived adjustment for tumor purity and smoking, whereas the apparent EGFR-mutant association was attributable to stromal/immune admixture. Brain analysis revealed a 6.10-fold regional gradient (size-balanced estimate 1.74 [1.64, 1.84]). CKI is freely available as an open-source Python package.')
+p('Inspired by the Ka/Ks ratio, CKI (Cell-type Ka/Ks-inspired Index) decomposes transcriptomic divergence into a baseline rate k_n (housekeeping genes) and a functional rate k_f (identity genes); \u03c9 = k_f/k_n quantifies baseline-normalized functional divergence. In ground-truth simulation, \u03c9 rejected neutral housekeeping drift (false-positive rate 0.00 versus 0.55\u20130.58 for raw JS and cosine) and ranked first for functional-versus-neutral discrimination (AUC = 0.80). On real technical replicates\u201430 cross-lane pairs from Kang IFN-\u03b2\u2014\u03c9 raised no false reports; under stronger brain library-level drift (2,161 pairs), it had the lowest false-report rate among continuous divergence metrics (28.6% versus 45.2% for raw JS), though this specificity decays with group size. In 3,567 TCGA samples across five cancer types, \u03c9 revealed a consistent pan-cancer reversal\u2014tumor specimens less divergent than adjacent non-tumor tissue (ratio 1.10\u20132.46, CI excluding 1 in four of five cancers)\u2014driven by a 1.3\u20133.3-fold elevated housekeeping baseline, not reduced functional divergence; in lung adenocarcinoma, KRAS-mutant tumors showed elevated tissue-level divergence whose functional (k_f) and baseline (k_n) components both survived adjustment for tumor purity and smoking, whereas the apparent EGFR-mutant association was attributable to stromal/immune admixture. Brain analysis revealed a 6.10-fold regional gradient (size-balanced estimate 1.74 [1.64, 1.84]). CKI is freely available as an open-source Python package.')
 
 
 # ============================================================

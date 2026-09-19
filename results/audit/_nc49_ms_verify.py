@@ -54,7 +54,7 @@ chk('no unqualified "misreported least of seven"',
     'least of seven metrics' not in full and 'of the seven metrics except' not in full)
 
 # 4. Abstract (drift sentence, word count <= 200)
-abs_paras = [t for t in paras if 'misreported none of 30' in t]
+abs_paras = [t for t in paras if 'Inspired by the Ka/Ks ratio' in t]
 chk('Abstract drift sentence present', len(abs_paras) == 1)
 if abs_paras:
     wc = len(abs_paras[0].split())
