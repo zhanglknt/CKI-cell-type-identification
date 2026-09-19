@@ -28,7 +28,7 @@ import zipfile
 from pathlib import Path
 
 BASE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择")
-PY = r"C:/Users/KnightZ/AppData/Local/Programs/Python/Python312/python.exe"
+PY = r"C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Scripts\python.exe"
 NODE = r"C:\Users\KnightZ\.workbuddy\binaries\node\versions\22.22.2-3\node.exe"
 NODE_ENV = dict(os.environ, NODE_PATH=r"C:\Users\KnightZ\.workbuddy\binaries\node\workspace\node_modules")
 
@@ -99,11 +99,10 @@ def main():
     shutil.copy2(STAGE / "figure6.pdf", FIGS_NC / "figure7.pdf")
     for i in range(1, 14):
         shutil.copy2(STAGE / f"figure_S{i}.pdf", FIGS_NC / f"Supplementary_Fig_{i}.pdf")
-    for ext in ("pdf", "png", "svg"):
-        shutil.copy2(STAGE / f"CKI_graphical_abstract.{ext}",
-                     FIGS_NC / f"CKI_graphical_abstract.{ext}")
+    shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
+                 FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
-    check(n_fig == 23, f"V49-1 figures staged = 23 (7 main + 13 supp + GA x3) got {n_fig}")
+    check(n_fig == 21, f"V49-1 figures staged = 21 (7 main + 13 supp + GA pdf) got {n_fig}")
 
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_v49_NC ...")
@@ -141,12 +140,14 @@ def main():
         texts[name] = t
         ft = BASE / "results" / (name.replace(".docx", "_fulltext.txt"))
         ft.write_text(t, encoding="utf-8")
-        shutil.copy2(ft, WORK_DIR / ft.name)
         print(f"  {ft.name}: {ft.stat().st_size:,} bytes")
 
     # ---- [3] copy DOCX into workdir + MANIFEST ----
     for name, p in docx_files.items():
         shutil.copy2(p, WORK_DIR / name)
+    xlsx_src = BASE / "results" / "CKI_Tables_NC.xlsx"
+    check(xlsx_src.exists() and xlsx_src.stat().st_size > 4000, "Tables xlsx exists")
+    shutil.copy2(xlsx_src, WORK_DIR / "CKI_Tables_NC.xlsx")
 
     manifest = ["=" * 60,
                 "  CKI Submission Package v49 (Nature Communications)",
@@ -223,11 +224,11 @@ def main():
     check("0.680" in cl, "V49-C5 CL cites AUC 0.680 (by-design admission)")
     check("baseline-driven" not in cl and "baseline-associated" not in cl,
           "V49-C5b no baseline-* phrasing in CL (EGFR dissolved)")
-    check("10.5281/zenodo.22735744" in cl, "V49-C6 CL Zenodo DOI")
+    check("Both authors" not in cl, "V49-C6 CL declarations paragraph removed")
     for who in ("Theis", "Welch", "Linnarsson", "Sch", "Zemin Zhang"):
         check(who in cl, f"V49-C7 CL reviewer: {who}")
     n_cl_words = len(cl.split())
-    check(480 <= n_cl_words <= 560, f"V49-C8 CL one-page word budget ({n_cl_words})")
+    check(420 <= n_cl_words <= 560, f"V49-C8 CL one-page word budget ({n_cl_words})")
 
     # ---- scientific regression anchors (v48 subset) ----
     print("\n--- scientific anchors (v48 subset) ---")
@@ -337,10 +338,16 @@ def main():
                  "CKI_Submission_v49_NC/figure4.pdf",
                  "CKI_Submission_v49_NC/figure5.pdf",
                  "CKI_Submission_v49_NC/figure7.pdf",
-                 "CKI_Submission_v49_NC/CKI_graphical_abstract.pdf"]:
+                 "CKI_Submission_v49_NC/CKI_graphical_abstract.pdf",
+                 "CKI_Submission_v49_NC/CKI_Tables_NC.xlsx"]:
         check(must in names, f"V49-P2 {must.split('/')[-1]}")
     n_oldname = [n for n in names if "figure_S" in n or "Supplementary_Figure_S" in n]
     check(not n_oldname, f"V49-P3 no old supp figure naming ({n_oldname})")
+    check(not any(n.endswith((".png", ".svg", "_fulltext.txt")) for n in names),
+          "V49-P4 pdf-only figures + word-only docs (no png/svg/txt)")
+    from docx import Document as _DocxCheck
+    check(len(_DocxCheck(str(BASE / "results" / "CKI_Manuscript_NC.docx")).tables) == 0,
+          "V49-P5 MS docx contains no tables (tables live in CKI_Tables_NC.xlsx)")
 
     print("\n" + "=" * 60)
     print(f"  Passed: {len(PASSES)}  Failed: {len(FAILS)}")

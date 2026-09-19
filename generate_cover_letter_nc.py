@@ -129,21 +129,6 @@ def run():
         doc,
     )
 
-    # ── Body: declarations, reproducibility, funding ──
-    add_para(
-        "Both authors declare no competing interests. The work is original, "
-        "not under consideration elsewhere, and not previously submitted to "
-        "Nature Communications. AI tools were used for debugging, code "
-        "review, and language editing; all AI-assisted content was reviewed "
-        "and revised by the authors, who take full responsibility. This work "
-        "was supported by the National Natural Science Foundation of China "
-        "(grant 32370682). The CKI Python package (v0.5.0, MIT License) and "
-        "all analysis code are available at "
-        "https://github.com/zhanglknt/CKI-cell-type-identification (Zenodo "
-        "DOI 10.5281/zenodo.22735744).",
-        doc,
-    )
-
     # ── Body: suggested reviewers ──
     add_para(
         "We suggest the following reviewers, none with recent collaborations "

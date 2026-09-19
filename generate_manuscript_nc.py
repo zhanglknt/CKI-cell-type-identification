@@ -213,69 +213,62 @@ def p(text, bold=False, italic=False, size=11):
     para.paragraph_format.first_line_indent = Cm(0)
     return para
 
-# == Table helpers ==
-def add_table_1(doc):
+# == Tables -> standalone Excel (tables as separate file, not in the DOCX) ==
+def write_tables_xlsx():
+    from openpyxl import Workbook
+    from openpyxl.styles import Font
     auc = DATA['table1_auc']
     ds = DATA['datasets']
-    para = doc.add_paragraph()
-    run = para.add_run(f"Table 1. Classification AUC (area under the ROC curve) of five metrics on Tabula Sapiens ({DATA['human']['n_ct_analyzed']} of {ds['tabula_sapiens_ct_entries']} cell-type entries analyzed; {DATA['human']['n_pairs_total']:,} pairs).")
-    run.bold = True
-    run.font.name = 'Arial'
-    run.font.size = Pt(11)
-    para.paragraph_format.space_before = Pt(21)
-    para.paragraph_format.space_after = Pt(8)
-    table = doc.add_table(rows=6, cols=2)
-    table.style = 'Table Grid'
-    hdr = table.rows[0].cells
-    hdr[0].text = 'Metric'
-    hdr[1].text = 'ROC-AUC'
-    data = [
+    wb = Workbook()
+    ws1 = wb.active
+    ws1.title = 'Table 1'
+    cap1 = (f"Table 1. Classification AUC (area under the ROC curve) of five metrics on "
+            f"Tabula Sapiens ({DATA['human']['n_ct_analyzed']} of {ds['tabula_sapiens_ct_entries']} "
+            f"cell-type entries analyzed; {DATA['human']['n_pairs_total']:,} pairs).")
+    ws1['A1'] = cap1
+    ws1['A1'].font = Font(bold=True)
+    ws1.append([])
+    ws1.append(['Metric', 'ROC-AUC'])
+    for c in ws1[3]:
+        c.font = Font(bold=True)
+    for metric, val in [
         ('Cosine distance', f"{auc['cosine']:.3f}"),
         ('Raw JS divergence', f"{auc['raw_js']:.3f}"),
         ('Marker Jaccard distance', f"{auc['marker_jaccard']:.3f}"),
         ('Spearman distance', f"{auc['spearman']:.3f}"),
         ('CKI \u03c9', f"{auc['cki_omega']:.3f}"),
-    ]
-    for i, (metric, auc_val) in enumerate(data):
-        table.rows[i+1].cells[0].text = metric
-        table.rows[i+1].cells[1].text = auc_val
-    doc.add_paragraph().paragraph_format.space_after = Pt(8)
+    ]:
+        ws1.append([metric, val])
+    ws1.column_dimensions['A'].width = 28
+    ws1.column_dimensions['B'].width = 12
 
-def add_table_2(doc):
-    t2 = DATA['table2_data']
-    has_sep = any(int(r[3]) < 5 for r in t2) and any(int(r[3]) >= 5 for r in t2)
-    n_rows = len(t2) + 1 + (1 if has_sep else 0)
-    para = doc.add_paragraph()
-    run = para.add_run(f"Table 2. Cross-organ conservation ranking by cell type (Tabula Sapiens, n={DATA['cross_organ_n_total']} same-cell-type cross-organ pairs). Well-sampled cell types (n \u2265 5 cross-organ pairs) are ranked first by mean \u03c9; sparsely sampled cell types (n < 5 pairs; SD shown only where n > 1) are listed below the divider, and their rankings should be interpreted as suggestive only. k_f-only controls for this ranking are reported in Supplementary Note 9.")
-    run.bold = True
-    run.font.name = 'Arial'
-    run.font.size = Pt(11)
-    para.paragraph_format.space_before = Pt(21)
-    para.paragraph_format.space_after = Pt(8)
-    table = doc.add_table(rows=n_rows, cols=4)
-    table.style = 'Table Grid'
-    hdr = table.rows[0].cells
-    hdr[0].text = 'Cell type'
-    hdr[1].text = 'Mean \u03c9'
-    hdr[2].text = 'SD'
-    hdr[3].text = 'n pairs'
-    row_i = 1
+    t2d = DATA['table2_data']
+    has_sep = any(int(r[3]) < 5 for r in t2d) and any(int(r[3]) >= 5 for r in t2d)
+    ws2 = wb.create_sheet('Table 2')
+    cap2 = (f"Table 2. Cross-organ conservation ranking by cell type (Tabula Sapiens, "
+            f"n={DATA['cross_organ_n_total']} same-cell-type cross-organ pairs). Well-sampled "
+            f"cell types (n \u2265 5 cross-organ pairs) are ranked first by mean \u03c9; "
+            f"sparsely sampled cell types (n < 5 pairs; SD shown only where n > 1) are listed "
+            f"below the divider, and their rankings should be interpreted as suggestive only. "
+            f"k_f-only controls for this ranking are reported in Supplementary Note 9.")
+    ws2['A1'] = cap2
+    ws2['A1'].font = Font(bold=True)
+    ws2.append([])
+    ws2.append(['Cell type', 'Mean \u03c9', 'SD', 'n pairs'])
+    for c in ws2[3]:
+        c.font = Font(bold=True)
     sep_done = False
-    for (name, mean_w, sd, n) in t2:
+    for (name, mean_w, sd, n) in t2d:
         if has_sep and not sep_done and int(n) < 5:
-            cells = table.rows[row_i].cells
-            cells[0].text = '\u2014 Sparsely sampled (n < 5 pairs): interpret with caution \u2014'
-            for c in cells[1:]:
-                c.text = ''
-            row_i += 1
+            ws2.append(['\u2014 Sparsely sampled (n < 5 pairs): interpret with caution \u2014', '', '', ''])
             sep_done = True
-        cells = table.rows[row_i].cells
-        cells[0].text = name
-        cells[1].text = mean_w
-        cells[2].text = sd
-        cells[3].text = n
-        row_i += 1
-    doc.add_paragraph().paragraph_format.space_after = Pt(8)
+        ws2.append([name, mean_w, sd, n])
+    ws2.column_dimensions['A'].width = 34
+    for col in 'BCD':
+        ws2.column_dimensions[col].width = 10
+    out_x = str(PROJECT_ROOT / "results" / "CKI_Tables_NC.xlsx")
+    wb.save(out_x)
+    print(f"Saved: {out_x}")
 
 # ============================================================
 # NC REFERENCE LIST (Nature style)
@@ -525,7 +518,6 @@ _decomp_pc_lo = _decomp['partial_corr_omega_M_given_kn'].min()
 _decomp_pc_hi = _decomp['partial_corr_omega_M_given_kn'].max()
 p(f'We computed CKI \u03c9 and four standard metrics (raw JS divergence, Spearman distance, cosine distance, marker Jaccard distance) on all {_h["n_pairs_total"]:,} human cell-type pairs. CKI \u03c9 was negatively correlated with all four standard metrics (Spearman r = {f'{_sc["max"]:.2f}'.replace('-', '\u2212')} to {f'{_sc["min"]:.2f}'.replace('-', '\u2212')}, all P < 0.001), whereas the four standard metrics formed a tight positive cluster (pairwise r = {_sc["std_pairwise_min"]:.2f}\u2013{_sc["std_pairwise_max"]:.2f}). Because \u03c9 = k_f/k_n is a ratio, a negative correlation can arise mechanically when the denominator k_n is itself positively correlated with those metrics. Decomposing the association: k_f was positively correlated with the standard metrics (r = +{_decomp_kf_lo:.2f} to +{_decomp_kf_hi:.2f}) and k_n more strongly so (r = +{_decomp_kn_lo:.2f} to +{_decomp_kn_hi:.2f}), and conditional on k_n the correlation between \u03c9 and each standard metric became positive in all four cases (partial r = +{_decomp_pc_lo:.2f} to +{_decomp_pc_hi:.2f}, all P < 1 \u00d7 10\u207b\u00b9\u2074). The negative raw correlation is thus partly a ratio artifact of the k_n denominator: \u03c9 combines k_f and k_n into a composite signal whose value lies in normalizing functional divergence against a population-specific baseline rather than in statistical independence from existing metrics.')
 
-add_table_1(doc)
 p(f'CKI showed moderate cell-type classification performance (AUC = {_au["cki_omega"]:.3f}, ranked 5th of 5 methods; Table 1). The pair-level bootstrap 95% CI ([0.609, 0.745], B = 2,000) widens to [0.540, 0.804] under cell-type-entry clustering: the classification advantage is weak and resampling-unit dependent. The lower ranking is expected by design: CKI down-weights shared HK patterns to isolate functional divergence, trading global-identity sensitivity for identity-gene divergence. Critically, CKI was the only metric where same-organ different-cell-type pairs had higher values than different-organ different-cell-type pairs (mean \u03c9 {_h["same_organ_diff_ct_mean"]:.2f}, n = {_h["same_organ_diff_ct_n"]:,} vs. {_h["diff_organ_diff_ct_mean"]:.2f}, n = {_h["diff_organ_diff_ct_n"]:,}; Mann-Whitney U, P < 0.001); all four standard metrics showed the opposite pattern. A component decomposition tempers the reversal\u2019s functional reading: same-organ pairs have indistinguishable k_f (0.247 vs. 0.250, P = 0.60) but lower k_n (0.0130 vs. 0.0148, P = 3.0 \u00d7 10\u207b\u00b9\u2076), contributing +0.176 on the log scale (factor 1.19)\u2014essentially all of the reversal. The reversal therefore indicates a more stable housekeeping baseline within organs, not greater functional specialization of same-organ cell types.')
 
 # --- Result 3b: ground-truth simulation ---
@@ -568,9 +560,6 @@ p('Three controls bound the interpretation of the pan-cancer reversal. First, a 
 
 # --- Result 5 ---
 heading('CKI ranks cell types by cross-organ conservation', level=2)
-
-add_table_2(doc)
-
 
 p(f'Of the {_h["n_pairs_total"]:,} Tabula Sapiens cell-type pairs, {DATA["cross_organ_n_total"]} are same-cell-type cross-organ comparisons, which ask which cell types maintain their identity regardless of residence and which are shaped by their organ environment (Fig. 6; Table 2; Supplementary Fig. 5). The cross-organ \u03c9 ranking reveals a broad spectrum of conservation across {len(t2)} cell types, of which only the extremes reproduce under k_f (Supplementary Note 9) (Table 2). Because single-pair means are statistically uninformative, we anchor interpretation on well-sampled cell types (n \u2265 5 pairs; upper block of Table 2): {t2[0][0]}s (mean \u03c9 = {t2[0][1]} \u00b1 {t2[0][2]}, n = {t2[0][3]}) and {t2[1][0]}s (mean \u03c9 = {t2[1][1]} \u00b1 {t2[1][2]}, n = {t2[1][3]}) were the most conserved, followed by {t2[2][0]}s and {t2_next[0]}s; {mac[0]}s, the most abundant type (n = {mac[3]}), showed intermediate conservation (mean {mac[1]} \u00b1 {mac[2]}). At the divergent end, {last2[0][0]}s and {last2[1][0]}s had the highest cross-organ \u03c9, consistent with the organ-specific gene programs of endothelial cells [18], although both are represented by only n = 3 pairs and this end of the ranking is suggestive only. Sparsely sampled types (n = 1\u20133 pairs, lower block of Table 2) carry no reliable signal.')
 
@@ -833,6 +822,7 @@ p('Supplementary Fig. 13. JS divergence dimensionality invariance. (a) Mean JS d
 assert _cite_sup_count == 73, f'Expected 73 superscripted citation groups, got {_cite_sup_count}'
 print(f'Superscripted citation groups: {_cite_sup_count}')
 PROJECT_ROOT = Path(__file__).resolve().parent
+write_tables_xlsx()
 out = str(PROJECT_ROOT / "results" / "CKI_Manuscript_NC.docx")
 doc.save(out)
 print(f'Saved: {out}')
