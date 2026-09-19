@@ -213,6 +213,23 @@ figs = [t[:12] for t in paras if re.match(r'^Figure \d\.', t)]
 fignums = [int(re.match(r'^Figure (\d)\.', t).group(1)) for t in paras if re.match(r'^Figure \d\.', t)]
 chk('main figure legends 1-6 in order', fignums == list(range(1, 7)), str(figs))
 
+# 11b. v49.7: Fig 2e = change-detection ROC (classification ROC demoted to Table 1)
+chk('Fig 2 legend new scope',
+    'functional-change detection in the ground-truth simulation' in full)
+chk('Fig 2e legend change-detection ROC',
+    'ROC curves for discriminating injected functional signal' in full
+    and 'AUC = 0.80' in full and 'AUC = 0.91 (rank 1/6)' in full)
+chk('Fig 2e legend old classification ROC gone',
+    'ROC curves for cell-type classification across five metrics on Tabula Sapiens data' not in full)
+chk('Result 3 anchor narrowed to Fig. 2d',
+    'human column) (Fig. 2d).' in full and 'human column) (Fig. 2d, e).' not in full)
+chk('Result 3b AUC sentence cites Fig. 2e',
+    'from neutral perturbations (Fig. 2e; AUC = 0.80' in full)
+chk('Result 3b background2 cites Fig. 2e',
+    '= 0.859 (Fig. 2e), with the same metric ranking' in full)
+chk('Table 1 classification disclosure retained',
+    'ranked 5th of 5 methods; Table 1' in full)
+
 # 12. Fig 3 legend honest framing
 chk('Fig 3 legend Jaccard admission',
     'marker Jaccard is lower still on the false-positive statistic (T1 19.9%, T2 74.7%)' in full)

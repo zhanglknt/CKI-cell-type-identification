@@ -96,15 +96,18 @@ def main():
         for old in os.listdir(FIGS_NC):
             _arch1.mkdir(parents=True, exist_ok=True)
             shutil.move(str(FIGS_NC / old), str(_arch1 / old))
-    # main figures v49.6: 6 main figures (Fig2+Fig3 merged per 4-6 panels rule)
-    #   1 = schematic (unchanged); 2 = merged calibration+benchmark (regenerated
-    #       top row from mouse_pilot data at 178 mm, Arial >= 7 pt; bottom row =
-    #       v47 figure3 relabelled d/e); 3 = drift ladder; 4 = TCGA map;
-    #   5 = cross-organ (old figure5); 6 = brain (old figure6)
+    # main figures v49.7: 6 main figures (Fig2 5-panel merged)
+    #   1 = schematic (unchanged); 2 = merged: top row = mouse calibration
+    #       (regenerated at 178 mm, Arial >= 7 pt); bottom row = D TS metric-
+    #       correlation heatmap + E change-detection ROC (ground-truth
+    #       simulation, omega AUC-first scenario; v49.7 native regen);
+    #   3 = drift ladder; 4 = TCGA map; 5 = cross-organ; 6 = brain
     run([PY, str(BASE / "notebooks" / "_regen_fig2_toprow_nc49.py")],
         "Regen Fig2 top row (NC v49.6)")
-    run([PY, str(BASE / "notebooks" / "_merge_fig2_fig3_nc49.py")],
-        "Merge Fig2+Fig3 (NC v49.6)")
+    run([PY, str(BASE / "notebooks" / "_regen_fig2_bottomrow_v497.py")],
+        "Regen Fig2 bottom row (NC v49.7)")
+    run([PY, str(BASE / "notebooks" / "_merge_fig2_v497.py")],
+        "Merge Fig2 (NC v49.7)")
     shutil.copy2(STAGE / "figure1.pdf", FIGS_NC / "figure1.pdf")
     shutil.copy2(FF / "figure2_merged_nc49.pdf", FIGS_NC / "figure2.pdf")
     shutil.copy2(FF / "nc49_fig_drift_ladder.pdf", FIGS_NC / "figure3.pdf")
@@ -308,9 +311,9 @@ def main():
           "V49-N20 Figure 3 legend is drift ladder")
     check("pan-cancer" in ms[ms.find("Figure 4."):ms.find("Figure 4.") + 400].lower(),
           "V49-N21 Figure 4 legend is pan-cancer map")
-    check("benchmarking" in ms[ms.find("Figure 2."):ms.find("Figure 2.") + 200].lower()
-          and "(e) ROC curves" in ms[ms.find("Figure 2."):ms.find("Figure 3.")],
-          "V49-N21b Figure 2 legend is merged calibration+benchmark (panels a-e)")
+    check("functional-change detection" in ms[ms.find("Figure 2."):ms.find("Figure 2.") + 300].lower()
+          and "(e) ROC curves for discriminating injected functional signal" in ms[ms.find("Figure 2."):ms.find("Figure 3.")],
+          "V49-N21b Figure 2 legend: calibration + TS correlation + change-detection ROC (panels a-e)")
     # Abstract word count <= 200 (v49.1: NC abstract limit is 200)
     ai = ms.find("Abstract")
     ab_para = ms[ai:].split("\n")

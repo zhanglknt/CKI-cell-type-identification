@@ -46,7 +46,7 @@ chk('Guide 3,567', '3,567 samples' in gdfull)
 chk('Guide no 3,563/3,596', '3,563' not in gdfull and '3,596' not in gdfull)
 chk('Guide CC attrition 29', '29 expression-matrix samples excluded' in gdfull)
 chk('Guide mean-ratio caliber',
-    'mean(omega_NN) / mean(omega_TT)' in gdfull and 'Fig. 5a' in gdfull)
+    'mean(omega_NN) / mean(omega_TT)' in gdfull and 'Fig. 4a' in gdfull)
 chk('Guide no median NN/TT caliber',
     'median(omega_NN) / median(omega_TT)' not in gdfull)
 chk('Guide SF12 -> SF11 (2 places)',
