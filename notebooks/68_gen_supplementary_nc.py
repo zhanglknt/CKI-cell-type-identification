@@ -2006,7 +2006,7 @@ add_heading('Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranki
 add_para(
     'Purpose. Two ordering claims in the manuscript rest on the ratio '
     '\u03c9 = k_f / k_n: the cross-organ conservation ranking of cell types '
-    '(Table 2 / Fig. 6) and the TCGA clinical-severity gradients (Edmondson '
+    '(Table 2 / Fig. 5) and the TCGA clinical-severity gradients (Edmondson '
     'grade, PAM50, LUAD mutation strata). This note reports the control in '
     'which each ordering is recomputed using k_f alone (and k_n alone), with '
     'the identical pipeline otherwise, to separate functional-divergence '
@@ -2401,7 +2401,7 @@ add_para(
     f'block-shuffle re-analysis pipeline). '
     f'Summary file: results/brain_bs_null_ct_test.csv (10-row summary). '
     f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py. '
-    f'Figure generation: notebooks/_fig6_clean.py (Figure 7).'
+    f'Figure generation: notebooks/_fig6_clean.py (Figure 6).'
 )
 
 add_para('')

@@ -178,7 +178,7 @@ chk('Ladder table T1 omega cell', '1.04 [0.97, 1.21] / 28.6%' in cellfull)
 # 11. Note 9 sync + figure refs
 chk('Note 9 sync sentence',
     'reported here as denominator-dominated vignettes (Supplementary Fig. 4b)' in full)
-chk('Note 9 cross-organ Fig. 6', '(Table 2 / Fig. 6)' in full)
+chk('Note 9 cross-organ Fig. 5', '(Table 2 / Fig. 5)' in full)
 chk('Note 9 LIHC severity post-CC',
     '78.2 / 76.8 / 77.9 / 72.6' in cellfull
     and 'JT 6.9 \u00d7 10\u207b\u00b9\u2075' in cellfull
@@ -189,7 +189,7 @@ chk('Note 9 no stale severity',
     and 'JT 1.05' not in cellfull
     and 'about 10-19' not in full
     and 'G1 > G2 \u2248 G3 \u2248 G4' not in cellfull)
-chk('Supp Table 3 Figure 7', '_fig6_clean.py (Figure 7)' in full)
+chk('Supp Table 3 Figure 6', '_fig6_clean.py (Figure 6)' in full)
 
 # 12. Notes 1-15 unchanged
 notes = re.findall(r'Supplementary Note (\d+):', full)

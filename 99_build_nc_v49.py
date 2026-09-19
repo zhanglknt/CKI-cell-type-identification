@@ -96,20 +96,27 @@ def main():
         for old in os.listdir(FIGS_NC):
             _arch1.mkdir(parents=True, exist_ok=True)
             shutil.move(str(FIGS_NC / old), str(_arch1 / old))
-    # main figures: 1-3 unchanged; 4 = drift ladder (new); 5 = TCGA map (new);
-    # 6 = old figure5 (cross-organ); 7 = old figure6 (brain); old figure4 dropped
-    for i in (1, 2, 3):
-        shutil.copy2(STAGE / f"figure{i}.pdf", FIGS_NC / f"figure{i}.pdf")
-    shutil.copy2(FF / "nc49_fig_drift_ladder.pdf", FIGS_NC / "figure4.pdf")
-    shutil.copy2(FF / "nc49_fig_tcga.pdf", FIGS_NC / "figure5.pdf")
-    shutil.copy2(STAGE / "figure5.pdf", FIGS_NC / "figure6.pdf")
-    shutil.copy2(STAGE / "figure6.pdf", FIGS_NC / "figure7.pdf")
+    # main figures v49.6: 6 main figures (Fig2+Fig3 merged per 4-6 panels rule)
+    #   1 = schematic (unchanged); 2 = merged calibration+benchmark (regenerated
+    #       top row from mouse_pilot data at 178 mm, Arial >= 7 pt; bottom row =
+    #       v47 figure3 relabelled d/e); 3 = drift ladder; 4 = TCGA map;
+    #   5 = cross-organ (old figure5); 6 = brain (old figure6)
+    run([PY, str(BASE / "notebooks" / "_regen_fig2_toprow_nc49.py")],
+        "Regen Fig2 top row (NC v49.6)")
+    run([PY, str(BASE / "notebooks" / "_merge_fig2_fig3_nc49.py")],
+        "Merge Fig2+Fig3 (NC v49.6)")
+    shutil.copy2(STAGE / "figure1.pdf", FIGS_NC / "figure1.pdf")
+    shutil.copy2(FF / "figure2_merged_nc49.pdf", FIGS_NC / "figure2.pdf")
+    shutil.copy2(FF / "nc49_fig_drift_ladder.pdf", FIGS_NC / "figure3.pdf")
+    shutil.copy2(FF / "nc49_fig_tcga.pdf", FIGS_NC / "figure4.pdf")
+    shutil.copy2(STAGE / "figure5.pdf", FIGS_NC / "figure5.pdf")
+    shutil.copy2(STAGE / "figure6.pdf", FIGS_NC / "figure6.pdf")
     for i in range(1, 14):
         shutil.copy2(STAGE / f"figure_S{i}.pdf", FIGS_NC / f"Supplementary_Fig_{i}.pdf")
     shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
                  FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
-    check(n_fig == 21, f"V49-1 figures staged = 21 (7 main + 13 supp + GA pdf) got {n_fig}")
+    check(n_fig == 20, f"V49-1 figures staged = 20 (6 main + 13 supp + GA pdf) got {n_fig}")
 
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_v49_NC ...")
@@ -294,13 +301,16 @@ def main():
     # old exploratory phrasing must be gone
     for stale in ("TCGA; exploratory", "apparent tumor homogeneity", "TODO-nc49"):
         check(stale not in ms, f"V49-N18 stale gone: '{stale}'")
-    # figure legends 1-7 order + new figure identity
-    for i in range(1, 8):
+    # figure legends 1-6 order + new figure identity (v49.6: 6 main figures)
+    for i in range(1, 7):
         check(f"Figure {i}." in ms, f"V49-N19 Figure {i} legend present")
-    check("drift" in ms[ms.find("Figure 4."):ms.find("Figure 4.") + 400].lower(),
-          "V49-N20 Figure 4 legend is drift ladder")
-    check("pan-cancer" in ms[ms.find("Figure 5."):ms.find("Figure 5.") + 400].lower(),
-          "V49-N21 Figure 5 legend is pan-cancer map")
+    check("drift" in ms[ms.find("Figure 3."):ms.find("Figure 3.") + 400].lower(),
+          "V49-N20 Figure 3 legend is drift ladder")
+    check("pan-cancer" in ms[ms.find("Figure 4."):ms.find("Figure 4.") + 400].lower(),
+          "V49-N21 Figure 4 legend is pan-cancer map")
+    check("benchmarking" in ms[ms.find("Figure 2."):ms.find("Figure 2.") + 200].lower()
+          and "(e) ROC curves" in ms[ms.find("Figure 2."):ms.find("Figure 3.")],
+          "V49-N21b Figure 2 legend is merged calibration+benchmark (panels a-e)")
     # Abstract word count <= 200 (v49.1: NC abstract limit is 200)
     ai = ms.find("Abstract")
     ab_para = ms[ai:].split("\n")
@@ -351,9 +361,9 @@ def main():
                  "CKI_Submission_v49_NC/MANIFEST_v49.txt",
                  "CKI_Submission_v49_NC/Supplementary_Fig_1.pdf",
                  "CKI_Submission_v49_NC/Supplementary_Fig_13.pdf",
-                 "CKI_Submission_v49_NC/figure4.pdf",
-                 "CKI_Submission_v49_NC/figure5.pdf",
-                 "CKI_Submission_v49_NC/figure7.pdf",
+                 "CKI_Submission_v49_NC/figure2.pdf",
+                 "CKI_Submission_v49_NC/figure3.pdf",
+                 "CKI_Submission_v49_NC/figure6.pdf",
                  "CKI_Submission_v49_NC/CKI_graphical_abstract.pdf",
                  "CKI_Submission_v49_NC/CKI_Tables_NC.xlsx",
                  "CKI_Submission_v49_NC/CKI_Supplementary_Tables_NC.xlsx"]:

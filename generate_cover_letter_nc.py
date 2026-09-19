@@ -122,10 +122,10 @@ def run():
         "matched to its question domain\u2014false divergence calls on "
         "real technical and donor drift\u2014it misreports least among "
         "the continuous divergence metrics while retaining sensitivity to "
-        "biology (Fig. 4). And the pan-cancer divergence map, with the "
+        "biology (Fig. 3). And the pan-cancer divergence map, with the "
         "lung adenocarcinoma driver-class decomposition, grounds the "
         "method in cancer biology of direct interest to a broad "
-        "readership (Fig. 5).",
+        "readership (Fig. 4).",
         doc,
     )
 

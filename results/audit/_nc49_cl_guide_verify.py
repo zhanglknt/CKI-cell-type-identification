@@ -31,17 +31,17 @@ chk('CL KRAS dual-adjusted upgrade',
     'after purity and smoking adjustment' in clfull)
 chk('CL EGFR dissolved',
     'whose apparent association dissolved under purity adjustment' in clfull)
-chk('CL Fig. 4 / Fig. 5 refs', '(Fig. 4)' in clfull and '(Fig. 5)' in clfull)
+chk('CL Fig. 3 / Fig. 4 refs', '(Fig. 3)' in clfull and '(Fig. 4)' in clfull)
 
 # ---------- Reproducibility Guide ----------
 gd = Document('results/CKI_Reproducibility_Guide_NC.docx')
 gdfull = '\n'.join(p.text for p in gd.paragraphs)
 
-chk('Guide drift section = Result 4 (Fig. 4)',
-    'Real-Data Drift Calibration' in gdfull and 'Result 4 (Fig. 4)' in gdfull)
-chk('Guide TCGA = Result 5 (Fig. 5)', 'Result 5 (Fig. 5)' in gdfull)
-chk('Guide cross-organ = Result 6, Fig. 6', 'Cross-organ conservation (Result 6, Fig. 6)' in gdfull)
-chk('Guide brain = Result 7 (Fig. 7)', 'Result 7 (Fig. 7)' in gdfull)
+chk('Guide drift section = Result 4 (Fig. 3)',
+    'Real-Data Drift Calibration' in gdfull and 'Result 4 (Fig. 3)' in gdfull)
+chk('Guide TCGA = Result 5 (Fig. 4)', 'Result 5 (Fig. 4)' in gdfull)
+chk('Guide cross-organ = Result 6, Fig. 5', 'Cross-organ conservation (Result 6, Fig. 5)' in gdfull)
+chk('Guide brain = Result 7 (Fig. 6)', 'Result 7 (Fig. 6)' in gdfull)
 chk('Guide 3,567', '3,567 samples' in gdfull)
 chk('Guide no 3,563/3,596', '3,563' not in gdfull and '3,596' not in gdfull)
 chk('Guide CC attrition 29', '29 expression-matrix samples excluded' in gdfull)

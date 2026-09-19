@@ -162,7 +162,7 @@ chk('seeded subsampling MC note',
     'Monte-Carlo error of roughly 0.01\u20130.02 ratio units' in full)
 chk('TCGA fixed-panel caveat',
     'fixed-panel ablation of the per-pair top-200 selection was run for the brain pipeline' in full)
-chk('Fig 5a dual-axis note', 'The two axes use independent scales' in full)
+chk('Fig 4a dual-axis note', 'The two axes use independent scales' in full)
 chk('affiliation postcodes',
     'Beijing 102206, China' in full and 'Chengdu 610052, China' in full)
 
@@ -201,20 +201,20 @@ chk('marker Jaccard 1.41 (Results)', 'T3 calibration ratio 1.41 versus 1.80' in 
 chk('no leftover 1.40 versus 1.80', '1.40 versus 1.80' not in full)
 chk('Result 5 TCGA title',
     'A pan-cancer map of tissue-level divergence in tumors' in full)
-chk('Figure 5 legend (TCGA)', 'Figure 5. Pan-cancer tissue-level divergence in tumors' in full)
+chk('Figure 4 legend (TCGA)', 'Figure 4. Pan-cancer tissue-level divergence in tumors' in full)
 chk('Cox limitation sentence', 'Cox hazard ratio per SD 1.07, 95% CI 0.88\u20131.31, P = 0.48' in full)
 chk('drift Results heading', 'Real-data neutral-drift calibration on technical replicates' in full)
 chk('Kang Wilson CI', 'Wilson 95% CI [0.000, 0.114]' in full)
 chk('Kang-brain size reconciliation',
     'consistent under the size-dependence of the technical component' in full)
 
-# 11. Figure legends order 1-7
+# 11. Figure legends order 1-6 (v49.6: Fig2+Fig3 merged, 3-7 renumbered)
 figs = [t[:12] for t in paras if re.match(r'^Figure \d\.', t)]
 fignums = [int(re.match(r'^Figure (\d)\.', t).group(1)) for t in paras if re.match(r'^Figure \d\.', t)]
-chk('main figure legends 1-7 in order', fignums == list(range(1, 8)), str(figs))
+chk('main figure legends 1-6 in order', fignums == list(range(1, 7)), str(figs))
 
-# 12. Fig 4 legend honest framing
-chk('Fig 4 legend Jaccard admission',
+# 12. Fig 3 legend honest framing
+chk('Fig 3 legend Jaccard admission',
     'marker Jaccard is lower still on the false-positive statistic (T1 19.9%, T2 74.7%)' in full)
 
 # 13. Citation order (v49.5 refs renumber): superscript citation groups between

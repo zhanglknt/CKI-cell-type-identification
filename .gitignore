@@ -264,3 +264,4 @@ notebooks/fix_*.py
 !notebooks/68_gen_supplementary_en.py
 !notebooks/69_generate_graphical_abstract_nar.py
 !notebooks/100_gen_reproducibility_docx.js
+!results/mouse_pilot_v2_results.csv
