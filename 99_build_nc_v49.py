@@ -342,6 +342,10 @@ def main():
     check('(Fig. 5; Table 1; Supplementary Fig. 5)' in ms and 'upper block of Table 1' in ms
           and not re.search(r'(?<!Supplementary )Table 2', ms),
           "V49-N37 main Table 2 renumbered to Table 1")
+    check('not to discriminate cell-type identity' in ms
+          and 'housekeeping gene sets may differ across cell types' in ms
+          and 'expected by design and delineates, rather than limits' in ms,
+          "V49-N38 Scope design argument present (HK anchor cell-type-specific)")
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # v49.2 post-CC anchors + stale purge
