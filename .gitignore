@@ -104,6 +104,17 @@ results/CKI_Reproducibility.ipynb
 !results/brain_bs_null_summary.txt
 !results/brain_bs_null_fdr_manifest.json
 
+# Whitelist: v49 NC analysis result CSVs (drift calibration + TCGA, cited in manuscript/SI)
+!results/nc49_brain_drift_ladder.csv
+!results/nc49_pilot_kang_techrep.csv
+!results/nc49_pilot_lihc_cox.csv
+!results/nc49_tcga_admix_scores.csv
+!results/nc49_tcga_kf_composition.csv
+!results/nc49_tcga_luad_mutation.csv
+!results/nc49_tcga_luad_smoking.csv
+!results/nc49_tcga_pancancer.csv
+!results/nc49_tcga_purity.csv
+
 # Whitelist: v38 analysis / figure notebooks cited in the reproducibility guide (moved to end of file)
 
 # Temp/helper scripts
