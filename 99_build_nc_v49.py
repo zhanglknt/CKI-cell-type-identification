@@ -379,6 +379,19 @@ def main():
           "V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile)")
     check('Supplementary Fig. 7)' in gd and 'Supplementary Fig. 8)' not in gd,
           "V49-N52 A4 Guide estimator-comparison pointer = Fig. 7")
+    # ---- v49.11 MK substantive correspondence (R2-C1 ruling: analogy substantive) ----
+    check('synonymous-site divergence (Ks) corresponds to HK-gene divergence (k_n)' in ms
+          and 'nonsynonymous divergence (Ka) to functional-gene divergence (k_f)' in ms
+          and 'a species pair to the two cell populations being compared' in ms
+          and 'substantive rather than nominal' in ms,
+          "V49-N53 MK threefold correspondence in MS Discussion (substantive analogy)")
+    check('the correspondence is threefold' in sn
+          and 'a species pair to the two cell ' in sn
+          and 'constrained rather than neutral reference class' in sn,
+          "V49-N54 SI 1.4 threefold correspondence synced")
+    check('the counterpart of the synonymous baseline' in ms
+          and 'read against the empirical calibration baseline rather than against 1' in ms,
+          "V49-N55 Fig 1a legend counterpart mapping + calibration anchor")
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # v49.2 post-CC anchors + stale purge
