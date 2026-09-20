@@ -269,7 +269,7 @@ for _p in doc.paragraphs[_abs_i + 1:_ref_i]:
     for _r in _p.runs:
         if _r.font.superscript:
             _sup_groups.append(_cite_expand(_r.text))
-chk('superscript citation group count == 75', len(_sup_groups) == 75,
+chk('superscript citation group count == 76', len(_sup_groups) == 76,
     f'found {len(_sup_groups)}')
 _first, _seen = [], set()
 for _g in _sup_groups:
@@ -277,34 +277,36 @@ for _g in _sup_groups:
         if _n not in _seen:
             _seen.add(_n)
             _first.append(_n)
-chk('citation first-appearance order is 1..56 monotonic',
-    _first == list(range(1, 57)),
+chk('citation first-appearance order is 1..57 monotonic',
+    _first == list(range(1, 58)),
     'seq head: ' + str(_first[:18]))
-chk('no orphan references (all 56 cited in text)', len(_seen) == 56,
+chk('no orphan references (all 57 cited in text)', len(_seen) == 57,
     f'cited: {len(_seen)}')
 
 _refs = [t for t in paras[_ref_i + 1:] if re.match(r'^\d+\.\s', t)]
-chk('56 reference entries', len(_refs) == 56, f'found {len(_refs)}')
-chk('references numbered 1..56 sequentially',
-    [int(re.match(r'^(\d+)\.', t).group(1)) for t in _refs] == list(range(1, 57)))
-if len(_refs) == 56:
+chk('57 reference entries', len(_refs) == 57, f'found {len(_refs)}')
+chk('references numbered 1..57 sequentially',
+    [int(re.match(r'^(\d+)\.', t).group(1)) for t in _refs] == list(range(1, 58)))
+if len(_refs) == 57:
     chk('ref 15 = Liberzon MSigDB (moved from old 56)', _refs[14].startswith('15. Liberzon'))
     chk('ref 33 = Raj fixed title', _refs[32].startswith('33. Raj') and
         'stochastic gene expression and its consequences.' in _refs[32] and
         'variation and its consequences on individual' not in _refs[32])
-    chk('ref 35 = Jiang CACIMAR completed title', _refs[34].startswith('35. Jiang') and
-        'using single-cell RNA sequencing data' in _refs[34])
-    chk('ref 45 = Hao 2021 pages .e29', _refs[44].startswith('45. Hao') and
-        '3573–3587.e29' in _refs[44])
-    chk('ref 47 = CZI CELLxGENE (moved from old 55)',
-        _refs[46].startswith('47. CZI Cell Science Program') and 'CZ CELLxGENE Discover' in _refs[46])
-    chk('ref 51/52 = Perou/Parker (moved from old 16/17)',
-        _refs[50].startswith('51. Perou') and _refs[51].startswith('52. Parker'))
-    chk('ref 53 = Edmondson (moved from old 15)', _refs[52].startswith('53. Edmondson'))
-    chk('ref 56 = Efron bootstrap (moved from old 54)', _refs[55].startswith('56. Efron'))
-    chk('refs 48-50 = Weinstein/Colaprico/Cerami (moved from old 49-51)',
-        _refs[47].startswith('48. Weinstein') and _refs[48].startswith('49. Colaprico')
-        and _refs[49].startswith('50. Cerami'))
+    chk('ref 34 = McDonald-Kreitman (new in v49.10)',
+        _refs[33].startswith('34. McDonald') and 'Adh locus in Drosophila' in _refs[33])
+    chk('ref 36 = Jiang CACIMAR completed title', _refs[35].startswith('36. Jiang') and
+        'using single-cell RNA sequencing data' in _refs[35])
+    chk('ref 46 = Hao 2021 pages .e29', _refs[45].startswith('46. Hao') and
+        '3573–3587.e29' in _refs[45])
+    chk('ref 48 = CZI CELLxGENE (moved from old 55)',
+        _refs[47].startswith('48. CZI Cell Science Program') and 'CZ CELLxGENE Discover' in _refs[47])
+    chk('ref 52/53 = Perou/Parker (moved from old 16/17)',
+        _refs[51].startswith('52. Perou') and _refs[52].startswith('53. Parker'))
+    chk('ref 54 = Edmondson (moved from old 15)', _refs[53].startswith('54. Edmondson'))
+    chk('ref 57 = Efron bootstrap (moved from old 54)', _refs[56].startswith('57. Efron'))
+    chk('refs 49-51 = Weinstein/Colaprico/Cerami (moved from old 49-51)',
+        _refs[48].startswith('49. Weinstein') and _refs[49].startswith('50. Colaprico')
+        and _refs[50].startswith('51. Cerami'))
 
 print('===== MS checks =====')
 nfail = 0

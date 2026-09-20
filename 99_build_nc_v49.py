@@ -257,7 +257,7 @@ def main():
     print("\n--- scientific anchors (v48 subset) ---")
     anchors = [
         ("[7.37, 8.02]", "A2 calibration CI"),
-        ("1.74 [1.64, 1.84]", "A3 equal-n gradient"),
+        ("1.74-fold size-balanced regional gradient ([1.64, 1.84]", "A3 equal-n gradient"),
         ("0.442", "A4 Augur OvR vs omega"),
         ("0.564", "A5 Augur OvR vs k_f"),
         ("24,413", "A6 Kang cells"),
@@ -346,6 +346,39 @@ def main():
           and 'housekeeping gene sets may differ across cell types' in ms
           and 'expected by design and delineates, rather than limits' in ms,
           "V49-N38 Scope design argument present (HK anchor cell-type-specific)")
+    # ---- v49.10 review-panel fixes (A/B classes) ----
+    check('Supplementary Tables 1\u201319' in ms and 'Supplementary Tables 1\u20134' not in ms,
+          "V49-N39 A1 MS availability lists 19 supplementary tables")
+    check('one committed OPC, one OPC) accounting for the remainder (39 in total)' in ms,
+          "V49-N40 A5 brain enumeration sums to 39 (OPC lineage included)")
+    check('median ratios 2.18\u20133.70 in the Supplementary Information' in ms,
+          "V49-N41 A6 mean/median caliber cross-pointer (TCGA k_n ratios)")
+    check('in main-text Fig. 3d.' in sn and 'main-text Fig. 3b,c.' in sn,
+          "V49-N42 A2 SI main-text figure pointers corrected to Fig. 3")
+    check('Fig. 4d' not in sn and 'Fig. 4b,c' not in sn,
+          "V49-N42b A2 no stale Fig. 4 panel pointers in SI")
+    check('(Table 1 / Fig. 5)' in sn and '(Table 2 / Fig. 5)' not in sn,
+          "V49-N43 A3 SI Note 9 points to Table 1")
+    check('main-text ref. 37' in sn and 'main-text ref. 56' not in sn,
+          "V49-N44 A7 SI Note 14 Augur pointer = ref. 37")
+    check('gene-set configuration criterion only' in sn,
+          "V49-N45 B1 SI weight-scheme AUC reconciliation clause")
+    check('McDonald\u2013Kreitman-style contrasts' in ms
+          and '34. McDonald' in ms and 'Adh locus in Drosophila' in ms,
+          "V49-N46 B2 Ka/Ks structural inversion + MK ref [34]")
+    check('descriptive rather than calibrated differences' in ms,
+          "V49-N47 B3 Table 1 cross-type caveat")
+    check('1.74-fold size-balanced regional gradient ([1.64, 1.84]; 6.10-fold uncorrected)' in ms,
+          "V49-N48 B4 Abstract leads with size-balanced gradient")
+    check('leaving pair-level nominations subject to donor confounding' in ms,
+          "V49-N49 B5 brain screen donor-confounding disclosure")
+    check('sample-source code (positions 14\u201315)' in ms
+          and 'assigned to LIHC following a barcode audit' in ms,
+          "V49-N50 B7 CC provenance disclosure (32 LUSC->LIHC)")
+    check('2.5th and 97.5th percentiles of the resampled ratios' in ms,
+          "V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile)")
+    check('Supplementary Fig. 7)' in gd and 'Supplementary Fig. 8)' not in gd,
+          "V49-N52 A4 Guide estimator-comparison pointer = Fig. 7")
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # v49.2 post-CC anchors + stale purge

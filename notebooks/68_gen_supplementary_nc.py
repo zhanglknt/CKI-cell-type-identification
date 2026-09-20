@@ -376,7 +376,9 @@ add_para(
     f'showed that the pure identity gene configuration (w1=1.0, w2=w3=0.0) achieved '
     f'optimal cell type discrimination (AUC = {DATA["sweep"]["identity_auc"]:.3f}, n = {DATA["sweep"]["n_pairs"]:,} '
     f'mouse cell-type pairs); this was therefore adopted as '
-    'the default scheme.'
+    'the default scheme (a gene-set configuration criterion only; CKI itself '
+    'is not designed for cell-type discrimination\u2014see the main-text '
+    'Discussion).'
 )
 
 add_para('1.4 Omega Ratio and Its Interpretation', bold=True)
@@ -979,7 +981,7 @@ add_para(
     f'[{_wcos49[0]:.3f}, {_wcos49[1]:.3f}]) as divergence; k_n alone fired '
     f'once ({_km49["k_n"]["k"]} of {_km49["k_n"]["n"]}). The per-metric '
     'values are given in Supplementary Table 9; the replication is shown '
-    'in main-text Fig. 4d.'
+    'in main-text Fig. 3d.'
 )
 _rows_kang49 = [['Metric', 'Calibration median [IQR]', 'FPR (k/n)', 'Wilson 95% CI']]
 for _m in ['k_n', 'k_f', 'omega', 'raw_js', 'cosine']:
@@ -1054,7 +1056,7 @@ add_para(
     'single set-overlap statistic it offers no k_n/k_f decomposition. '
     'Per-tier values '
     'for all seven metrics are given in Supplementary Table 10; main-text '
-    'Fig. 4b,c.'
+    'Fig. 3b,c.'
 )
 _rows_lad49 = [['Metric', 'T1 cal [IQR] / FPR', 'T2 cal [IQR] / FPR', 'T3 cal [IQR] / FPR']]
 for _m in _METRICS49:
@@ -2006,7 +2008,7 @@ add_heading('Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranki
 add_para(
     'Purpose. Two ordering claims in the manuscript rest on the ratio '
     '\u03c9 = k_f / k_n: the cross-organ conservation ranking of cell types '
-    '(Table 2 / Fig. 5) and the TCGA clinical-severity gradients (Edmondson '
+    '(Table 1 / Fig. 5) and the TCGA clinical-severity gradients (Edmondson '
     'grade, PAM50, LUAD mutation strata). This note reports the control in '
     'which each ordering is recomputed using k_f alone (and k_n alone), with '
     'the identical pipeline otherwise, to separate functional-divergence '
@@ -2304,7 +2306,7 @@ add_para(
 
 add_heading('Supplementary Note 14: Comparison with Augur Cell-Type Prioritization', 2)
 add_para(
-    'Augur (Skinnider et al., Nat. Biotechnol. 2021; main-text ref. 56) '
+    'Augur (Skinnider et al., Nat. Biotechnol. 2021; main-text ref. 37) '
     'prioritizes cell types by the predictability of a condition label from '
     'single-cell expression. We asked whether its class-level prioritization '
     'of the brain atlas (condition = brain region) agrees with CKI\u2019s '
