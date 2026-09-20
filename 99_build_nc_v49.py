@@ -582,6 +582,28 @@ def main():
                   '+31.7% [+21.0%, +45.3%]', '(1.34\u20131.84)'):
         check(stale not in ms and stale not in sn,
               f"V49-N99 stale gone from MS/SI: '{stale}'")
+    # ---- v49.15 fifth-round blind-review fixes (5 Minor + 1 optional) ----
+    # m2 (R1): span-matched residual decomposition surfaced in MS
+    check('residual again predominantly k_n-driven: k_f 1.39 versus k_n 0.33'
+          in ms and 'Supplementary Note 10' in ms,
+          "V49-N100 m2 span-matched residual decomposition in MS")
+    # m3 (R1): ependymal against-direction class noted in MS
+    check('ependymal cells (P 0.058 free versus 0.021 stratified)' in ms
+          and 'stratified q = 0.052' in ms,
+          "V49-N101 m3 ependymal stratified-reversal note in MS")
+    # m4 (R6): exact Mann-Whitney P for cross-organ reversal
+    check('Mann-Whitney U, P = 5.6 \u00d7 10\u207b\u00b9\u2078' in ms
+          and 'Mann-Whitney U, P < 0.001' not in ms,
+          "V49-N102 m4 exact cross-organ Mann-Whitney P (5.6e-18)")
+    # m5 (R6, optional): CL per-background replicate count
+    check('1,750 replicates per background, two backgrounds' in cl,
+          "V49-N103 m5 CL per-background replicate count")
+    # R5 optional: median qualifier on aggregation-order baseline
+    check('split-control median baseline itself moves from 6.46 to 10.94' in ms,
+          "V49-N104 R5 median qualifier on agg-order baseline (MS)")
+    # m1 (R2): legend word order fixed (asserted in N55, negative here)
+    check('constrained counterpart of the synonymous baseline' in ms,
+          "V49-N105 m1 legend word order fixed")
     # ---- v49.11 MK substantive correspondence (R2-C1 ruling: analogy substantive) ----
     check('synonymous-site divergence (Ks) to HK-gene divergence (k_n)' in ms
           and 'nonsynonymous divergence (Ka) to functional-gene divergence (k_f)' in ms
@@ -595,9 +617,10 @@ def main():
           and 'a species pair to the two cell ' in sn
           and 'constrained rather than neutral reference class' in sn,
           "V49-N54 SI 1.4 threefold correspondence synced")
-    check('the counterpart of the constrained synonymous baseline' in ms
+    check('the constrained counterpart of the synonymous baseline' in ms
+          and 'the counterpart of the constrained synonymous baseline' not in ms
           and 'read against the empirical calibration baseline rather than against 1' in ms,
-          "V49-N55 Fig 1a legend counterpart mapping + calibration anchor")
+          "V49-N55 Fig 1a legend counterpart mapping + calibration anchor (v49.15 word order)")
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # v49.2 post-CC anchors + stale purge

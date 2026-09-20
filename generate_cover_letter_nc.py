@@ -90,7 +90,7 @@ def run():
     # ── Body: core argument — three pillars ──
     add_para(
         "The manuscript rests on three pillars. First, in ground-truth "
-        "simulation (1,750 replicates), \u03c9 alone did not false-trigger on "
+        "simulation (1,750 replicates per background, two backgrounds), \u03c9 alone did not false-trigger on "
         "neutral housekeeping drift (false-positive rate 0.00 versus "
         "0.55\u20130.58 for JS and cosine) and ranked first for "
         "functional-versus-neutral discrimination (AUC = 0.80). Second, in "

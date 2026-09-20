@@ -1,0 +1,9 @@
+abstract words: 197
+refs count: 57 continuous: True
+Supplementary Fig. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+Supplementary Table [1, 2, 3, 4]
+Supplementary Note [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+P<0.001 remaining: 1
+   ... rent-organ different-cell-type pairs (mean ω 24.87, n = 1,038 vs. 20.80, n = 3,754; Mann-Whitney U, P < 0.001); all
+GUIDE 5.11h present: True
+h.   5. Per-pair k_n computed on the shared HK gene set for each sample pair.   6. Per-pair k_f with top-200 DE genes (ranked by |mean_diff|).   7. NN/TT ratio computed as mean(omega_NN) / mean(omega_TT) per cancer type under the linear probability mapping (the manuscript and Fig. 4a report this mean NN/TT omega ratio with sample-level cluster-bootstrap 95% CIs; the legacy median/softmax caliber i
