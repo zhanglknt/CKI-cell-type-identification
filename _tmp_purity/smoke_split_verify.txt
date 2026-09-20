@@ -1,0 +1,3 @@
+total non-double samples: 492
+smoking known: 427 (never=65, ever=362)
+by group (never, ever): {'KRAS': [7, 111], 'WT': [36, 214], 'EGFR': [22, 37]}

@@ -1,0 +1,7 @@
+severity rows old=12 new=12
+cols: ['cancer', 'stratification', 'group', 'n', 'omega_mean', 'omega_std', 'kf_mean', 'kf_std', 'kn_mean', 'kn_std']
+_merge
+both          50
+left_only      0
+right_only     0
+Name: count, dtype: int64

@@ -1,0 +1,147 @@
+============================================================
+1. Loading data...
+============================================================
+  HK genes: 1130
+  Annotations: 13654 cells
+
+============================================================
+2. Building unified AnnData...
+============================================================
+  Common genes: 23433
+  Unified: 17957 cells x 23433 genes
+
+============================================================
+3. Preprocessing...
+============================================================
+  After QC: 15057 x 22308
+  HVGs: 2000
+  HK: 1064, Identity: 2000
+
+============================================================
+5. Building CT pseudobulk (largest mouse group)...
+============================================================
+  Viable CT entries: 38
+    Liver|natural killer cell (n=28)
+    Liver|hepatocyte (n=157)
+    Liver|Kupffer cell (n=39)
+    Liver|endothelial cell of hepatic sinusoid (n=162)
+    Liver|B cell (n=23)
+    Kidney|kidney collecting duct cell (n=13)
+    Kidney|kidney tubule cell (n=76)
+    Kidney|endothelial cell (n=21)
+    Kidney|fenestrated cell (n=19)
+    Kidney|leukocyte (n=16)
+    Kidney|fibroblast (n=24)
+    Spleen|T cell (n=79)
+    Spleen|B cell (n=245)
+    Spleen|myeloid cell (n=12)
+    Lung|endothelial cell (n=248)
+    Lung|stromal cell (n=79)
+    Lung|type II pneumocyte (n=34)
+    Lung|B cell (n=27)
+    Lung|leukocyte (n=11)
+    Lung|monocyte (n=17)
+    Lung|dendritic cell (n=24)
+    Lung|T cell (n=20)
+    Lung|natural killer cell (n=14)
+    Lung|macrophage (n=33)
+    Heart|fibroblast (n=590)
+    Heart|endothelial cell (n=286)
+    Heart|smooth muscle cell (n=57)
+    Heart|endocardial cell (n=50)
+    Heart|leukocyte (n=109)
+    Heart|cardiac muscle cell (n=36)
+    Marrow|B cell (n=433)
+    Marrow|Fraction A pre-pro B cell (n=49)
+    Marrow|granulocyte (n=136)
+    Marrow|hematopoietic stem cell (n=350)
+    Marrow|monocyte (n=91)
+    Marrow|T cell (n=53)
+    Marrow|natural killer cell (n=48)
+    Marrow|neutrophil (n=161)
+
+============================================================
+6. Computing all pairwise omega...
+============================================================
+  Total pairs: 703
+Rows:   0%|          | 0/38 [00:00<?, ?it/s]Rows:   8%|▊         | 3/38 [00:00<00:01, 26.22it/s]Rows:  18%|█▊        | 7/38 [00:00<00:01, 30.29it/s]Rows:  29%|██▉       | 11/38 [00:00<00:00, 32.85it/s]Rows:  39%|███▉      | 15/38 [00:00<00:00, 34.91it/s]Rows:  58%|█████▊    | 22/38 [00:00<00:00, 45.88it/s]Rows:  92%|█████████▏| 35/38 [00:00<00:00, 72.55it/s]Rows: 100%|██████████| 38/38 [00:00<00:00, 57.47it/s]
+C:\Users\KnightZ\Desktop\细胞受选择\notebooks\03_full_matrix.py:258: ClusterWarning: The symmetric non-negative hollow observation matrix looks suspiciously like an uncondensed distance matrix
+  linkage_matrix = linkage(condensed_dist, method="ward")
+C:\Users\KnightZ\Desktop\细胞受选择\notebooks\03_full_matrix.py:363: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  bp = ax.boxplot(cat_data_values, labels=cat_names, patch_artist=True, widths=0.5)
+
+  Computed 703 pairs
+
+============================================================
+8. Saving matrices...
+============================================================
+  Saved: full_matrix_omega.csv
+  Saved: full_matrix_kn.csv
+  Saved: full_matrix_kf.csv
+
+============================================================
+9. Summary Statistics
+============================================================
+  Omega range: [0.28, 37.93]
+  Omega mean: 5.71
+  Omega median: 4.06
+  Omega std: 5.70
+
+  Same tissue (n=116): mean=6.27, median=3.90
+  Diff tissue (n=587): mean=5.60, median=4.06
+  Same CT class (n=20): mean=2.15, median=2.08
+  Diff CT class (n=683): mean=5.81, median=4.15
+
+============================================================
+10. Generating heatmap...
+============================================================
+  Saved: full_matrix_heatmap.png
+  Saved: full_matrix_dendrogram.png
+
+============================================================
+12. Top 15 Most Differentiated Pairs
+============================================================
+
+  Top 15 (highest omega = most differentiated):
+    Live|hepatocyte vs Lung|type II pneumocyte: omega=37.93, kn=0.00814, kf=0.30868
+    Lung|type II pneumocyte vs Hear|smooth muscle cell: omega=37.14, kn=0.00680, kf=0.25241
+    Lung|type II pneumocyte vs Hear|endothelial cell: omega=36.27, kn=0.00707, kf=0.25640
+    Lung|type II pneumocyte vs Hear|fibroblast: omega=35.79, kn=0.00701, kf=0.25102
+    Kidn|fenestrated cell vs Lung|type II pneumocyte: omega=35.51, kn=0.00745, kf=0.26473
+    Lung|type II pneumocyte vs Hear|leukocyte: omega=33.08, kn=0.00748, kf=0.24751
+    Lung|stromal cell vs Lung|type II pneumocyte: omega=32.46, kn=0.00778, kf=0.25254 (same tissue)
+    Live|Kupffer cell vs Lung|type II pneumocyte: omega=32.27, kn=0.00795, kf=0.25670
+    Lung|type II pneumocyte vs Marr|Fraction A pre-p..: omega=30.05, kn=0.00800, kf=0.24047
+    Lung|type II pneumocyte vs Lung|macrophage: omega=29.77, kn=0.00811, kf=0.24147 (same tissue)
+    Lung|type II pneumocyte vs Marr|B cell: omega=29.68, kn=0.00790, kf=0.23459
+    Marr|granulocyte vs Marr|neutrophil: omega=28.93, kn=0.00325, kf=0.09416 (same tissue)
+    Lung|type II pneumocyte vs Hear|endocardial cell: omega=28.83, kn=0.00874, kf=0.25203
+    Live|liver sinusoid EC vs Lung|type II pneumocyte: omega=26.67, kn=0.01032, kf=0.27526
+    Sple|B cell vs Lung|type II pneumocyte: omega=26.15, kn=0.00915, kf=0.23928
+
+  Bottom 15 (lowest omega = most similar):
+    Marr|hematopoietic st.. vs Marr|monocyte: omega=0.75, kn=0.01970, kf=0.01472 (same tissue)
+    Sple|myeloid cell vs Lung|T cell: omega=0.74, kn=0.01596, kf=0.01177
+    Kidn|fibroblast vs Marr|hematopoietic st..: omega=0.73, kn=0.02990, kf=0.02194
+    Sple|myeloid cell vs Marr|monocyte: omega=0.71, kn=0.01384, kf=0.00982
+    Sple|myeloid cell vs Marr|hematopoietic st..: omega=0.59, kn=0.02161, kf=0.01279
+    Lung|dendritic cell vs Marr|hematopoietic st..: omega=0.58, kn=0.02505, kf=0.01463
+    Lung|T cell vs Marr|B cell: omega=0.53, kn=0.01203, kf=0.00642
+    Marr|B cell vs Marr|hematopoietic st..: omega=0.50, kn=0.01466, kf=0.00737 (same tissue)
+    Live|B cell vs Sple|B cell: omega=0.50, kn=0.00315, kf=0.00158 (same CT)
+    Live|B cell vs Lung|B cell: omega=0.49, kn=0.00664, kf=0.00326 (same CT)
+    Sple|T cell vs Marr|T cell: omega=0.49, kn=0.00441, kf=0.00216 (same CT)
+    Lung|T cell vs Marr|hematopoietic st..: omega=0.49, kn=0.02229, kf=0.01090
+    Sple|B cell vs Lung|B cell: omega=0.45, kn=0.00602, kf=0.00271 (same CT)
+    Sple|T cell vs Lung|T cell: omega=0.37, kn=0.00881, kf=0.00325 (same CT)
+    Lung|T cell vs Marr|T cell: omega=0.28, kn=0.01212, kf=0.00343 (same CT)
+  Saved: full_matrix_pairs.csv
+
+============================================================
+13. Generating category boxplot...
+============================================================
+  Saved: full_matrix_category_boxplot.png
+
+============================================================
+DONE. Phase 3.1 complete.
+============================================================

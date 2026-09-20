@@ -1,0 +1,11 @@
+﻿
+==== MS line 77 word-level differences ====
+word 285: OLD=[37] NEW=[38]
+==== MS line 78 word-level differences ====
+word 425: OLD=[38] NEW=[39]
+==== Tail alignment: old[191..218] vs new[192..219] ====
+MISMATCH old line 197 vs new line 198:
+  OLD: Supplementary Information is available for this paper: Supplementary Notes 1–15, Supplementary Figs. 1–13, Supplementary Tables 1–4, and the Reproducibility Guide (providing step-by-step instructions, the verified computational environment, and spot-check values for reproducing all analyses, figures, and tables reported in this work).
+  NEW: Supplementary Information is available for this paper: Supplementary Notes 1–15, Supplementary Figs. 1–13, Supplementary Tables 1–19, and the Reproducibility Guide (providing step-by-step instructions, the verified computational environment, and spot-check values for reproducing all analyses, figures, and tables reported in this work).
+==== Ref shift: old ref k (line 168..) vs new ====
+Ref shift clean: old refs 34-56 text == new refs 35-57 text

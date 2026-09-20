@@ -1,0 +1,95 @@
+CKI version: 0.3.2
+
+============================================================
+2. Loading HK genes (HRT Atlas)...
+============================================================
+  HRT Atlas human HK genes: 1129
+
+============================================================
+3. Loading Siletti Nonneurons (backed)...
+============================================================
+  Shape: (888263, 59480)
+  obs columns: ['ROIGroup', 'ROIGroupCoarse', 'ROIGroupFine', 'roi', 'organism_ontology_term_id', 'disease_ontology_term_id', 'self_reported_ethnicity_ontology_term_id', 'assay_ontology_term_id', 'sex_ontology_term_id', 'development_stage_ontology_term_id', 'donor_id', 'dissection', 'cell_cycle_score', 'sample_id', 'cluster_id', 'subcluster_id', 'supercluster_term', 'cell_type_ontology_term_id', 'tissue_ontology_term_id']
+  Matched HK genes (by symbol): 1115/1129
+
+============================================================
+4. Building group list...
+============================================================
+  Total (ct, region) groups: 98
+  After >=20 filter: 87 groups
+  Regions with >=50 total: 10
+  Final groups: 87
+  Cell types: ['Astrocyte', 'Bergmann glia', 'Choroid plexus', 'Committed oligodendrocyte precursor', 'Ependymal', 'Fibroblast', 'Microglia', 'Oligodendrocyte', 'Oligodendrocyte precursor', 'Vascular']
+
+============================================================
+5. Computing pseudobulks (raw count means)...
+============================================================
+  Processing 87 groups...
+    Progress: 0/87 groups...
+    Progress: 50/87 groups...
+  Computed: 87 pseudobulks
+  Time: 508.3s
+
+============================================================
+6. Normalizing pseudobulks (softmax)...
+============================================================
+  Prepared: 87 pseudobulks (raw log1p; single softmax inside js_divergence)
+
+============================================================
+7. Computing CKI omega (using compute_kn/compute_kf)...
+============================================================
+  Total same-CT cross-region pairs: 359
+  HK genes: 1115
+  Non-HK genes (for k_f): 58365
+  k_f: per-pair top-200 DE genes
+  Processing Oligodendrocyte (10 regions, 45 pairs)...
+  Complete: 359 pairs computed
+  Time: 508.5s
+
+============================================================
+8. Saving results...
+============================================================
+  Saved: brain_siletti_v4_omega_pairs.csv (359 pairs)
+  Saved: brain_siletti_v4_ct_summary.csv
+
+============================================================
+9. Multiplicative migration detection...
+============================================================
+  Grand mean omega: 68.58
+  Saved: brain_siletti_v4_migration_candidates.csv
+  Strong: 0 (0.00%)
+  Moderate: 4 (1.11%)
+  Weak: 32 (8.91%)
+
+  Strong candidates by cell type:
+    (none)
+
+============================================================
+FINAL REPORT
+============================================================
+
+CKI version: 0.3.2
+Total pairs: 359
+Grand mean omega: 68.58
+Omega range: 10.66 - 328.61
+
+Per-cell-type omega (low to high):
+  Bergmann glia: mean=19.94, n_pairs=6
+  Vascular: mean=33.7, n_pairs=45
+  Ependymal: mean=46.97, n_pairs=28
+  Choroid plexus: mean=47.93, n_pairs=10
+  Committed oligodendrocyte precursor: mean=55.63, n_pairs=45
+  Oligodendrocyte: mean=60.15, n_pairs=45
+  Microglia: mean=60.71, n_pairs=45
+  Fibroblast: mean=69.21, n_pairs=45
+  Oligodendrocyte precursor: mean=82.51, n_pairs=45
+  Astrocyte: mean=142.66, n_pairs=45
+
+Migration candidates:
+  Strong: 0
+  Moderate: 4
+  Weak: 32
+
+Total time: 508.6s
+============================================================
+DONE

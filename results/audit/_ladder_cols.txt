@@ -1,0 +1,3 @@
+C:\Users\KnightZ\.workbuddy\binaries\PortableGit\versions\1.2.0\bin\bash.exe: line 1: head: command not found
+C:\Users\KnightZ\.workbuddy\binaries\PortableGit\versions\1.2.0\bin\bash.exe: line 1: head: command not found
+C:\Users\KnightZ\.workbuddy\binaries\PortableGit\versions\1.2.0\bin\bash.exe: line 1: ls: command not found

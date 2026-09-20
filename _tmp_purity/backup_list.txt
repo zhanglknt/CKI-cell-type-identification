@@ -1,0 +1,13 @@
+﻿nc49_fig_tcga.pdf
+nc49_fig_tcga.png
+nc49_pilot_lihc_audit_before.md
+nc49_pilot_lihc_cox.csv
+nc49_tcga_admix_scores.csv
+nc49_tcga_luad_mutation.csv
+nc49_tcga_luad_smoking.csv
+nc49_tcga_pancancer.csv
+nc49_tcga_purity.csv
+tcga_clinical_severity_v44.csv
+tcga_clinical_severity_v44.json
+tcga_linear_norm_v44_all_pairs.csv
+tcga_linear_norm_v44_summary.csv

@@ -1,0 +1,17 @@
+CKI NAR Manuscript v10 - User Comments/Annotations
+============================================================
+
+Comment 0: 手算结果：k_n median = 0.034, range:0.0018-0.221 
+
+Comment 13: 对应前面的错误，手算结果：k_n median = 0.034, range:0.0018-0.221 
+
+Comment 18: 由mouse_pilot_v2_results.csvshou'd手算：median = 3.63，mean=5.27
+
+Comment 22: 上一版是59？
+
+Comment 3: 这个是怎么计算得到的？我手算没发现有k_n < 0.001的pair
+
+Comment 31: 这一代改的有问题，建议全部删除，下面红色段落是我重写的Fig5 legend
+
+Comment 4: ω <15的比例应该是56.3%
+

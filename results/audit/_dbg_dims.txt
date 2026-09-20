@@ -1,0 +1,15 @@
+Table 5 | rows=8 cols=5 | Supplementary Table 5: Linear-normalization robustness of the TCGA mai
+Table 6 | rows=9 cols=5 | Supplementary Table 6: Per-cell-type effects on Kang IFN-β (stimulated
+Table 7 | rows=6 cols=8 | Supplementary Table 7: Target-detection AUC (target CD14+ monocytes ve
+Table 8 | rows=9 cols=5 | Supplementary Table 8: Donor-paired detection power (fraction of 20 re
+Table 9 | rows=8 cols=4 | Supplementary Table 9: Kang batch 1, 30 same-donor, same-condition cro
+Table 10 | rows=10 cols=4 | Supplementary Table 10: Brain drift ladder, per tier and metric: calib
+Table 11 | rows=8 cols=5 | Supplementary Table 11: Pan-cancer NN/TT ratios (mean NN to mean TT ω)
+Table 12 | rows=6 cols=5 | Supplementary Table 12: LUAD per-tumor group means (n = 311 wild-type,
+Table 13 | rows=6 cols=4 | Supplementary Table 13: LUAD pairwise contrasts: Dunn post-hoc P-value
+Table 14 | rows=9 cols=5 | Supplementary Table 14: LIHC overall-survival Cox models (hazard ratio
+Table 15 | rows=8 cols=5 | Supplementary Table 15: Purity sensitivity of the pan-cancer reversal.
+Table 16 | rows=6 cols=4 | Supplementary Table 16: LUAD driver-group contrasts after adjustment f
+Table 17 | rows=7 cols=5 | Supplementary Table 17: LUAD smoking-covariate adjustment (ever/never;
+Table 18 | rows=6 cols=6 | Supplementary Table 18: TCGA clinical-severity gradients under the lin
+Table 19 | rows=7 cols=6 | Supplementary Table 19: Threshold sensitivity of the brain landscape. 

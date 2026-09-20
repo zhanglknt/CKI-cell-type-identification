@@ -1,0 +1,20 @@
+--- ulation, ω rejected neutral housekeeping drift (false-positive rate 0.00, versus 0.55–0.58 for raw JS and cosine; no anchoring artifact) and ranked first for functional-versus-neutral discrimination (AUC = 0.80), with power bounded to ~50–200 cells per donor. We evaluated CKI on mouse, human, pan-cancer (TCGA; exploratory), and brain datasets: calibration fixed an equivalent-population baseline (ω
+
+--- gans) showed that adding pathway enrichment scores to k_f does not improve performance: the identity-only configuration (w_identity = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = 0.786, Supplementary Fig. 1; Supplementary Table 1). Partitioning expression into constrained baseline and identity gene sets suffices, without external pathway databases. Calibration confirms b
+
+--- s to k_f does not improve performance: the identity-only configuration (w_identity = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = 0.786, Supplementary Fig. 1; Supplementary Table 1). Partitioning expression into constrained baseline and identity gene sets suffices, without external pathway databases. Calibration confirms baseline behavior We calibrated CKI on the Tabula 
+
+--- ombines k_f and k_n into a composite signal whose value lies in normalizing functional divergence against a population-specific baseline rather than in statistical independence from existing metrics. Table 1. Classification AUC (area under the ROC curve) of five metrics on Tabula Sapiens (99 of 102 cell-type entries analyzed; 4,851 pairs).  CKI showed moderate cell-type classification performance 
+
+--- able 1. Classification AUC (area under the ROC curve) of five metrics on Tabula Sapiens (99 of 102 cell-type entries analyzed; 4,851 pairs).  CKI showed moderate cell-type classification performance (AUC = 0.680, ranked 5th of 5 methods; Table 1). The pair-level bootstrap 95% CI ([0.609, 0.745], B = 2,000) widens to [0.540, 0.804] under cell-type-entry clustering: the classification advantage is w
+
+--- ification AUC (area under the ROC curve) of five metrics on Tabula Sapiens (99 of 102 cell-type entries analyzed; 4,851 pairs).  CKI showed moderate cell-type classification performance (AUC = 0.680, ranked 5th of 5 methods; Table 1). The pair-level bootstrap 95% CI ([0.609, 0.745], B = 2,000) widens to [0.540, 0.804] under cell-type-entry clustering: the classification advantage is weak and resam
+
+---  the ROC curve) of five metrics on Tabula Sapiens (99 of 102 cell-type entries analyzed; 4,851 pairs).  CKI showed moderate cell-type classification performance (AUC = 0.680, ranked 5th of 5 methods; Table 1). The pair-level bootstrap 95% CI ([0.609, 0.745], B = 2,000) widens to [0.540, 0.804] under cell-type-entry clustering: the classification advantage is weak and resampling-unit dependent. The
+
+--- ver it acts, so ω’s specificity is not an HK-anchoring artifact (Supplementary Note 5). Integrating specificity and sensitivity, ω best discriminated functional (δ ≥ 0.25) from neutral perturbations (AUC = 0.80, versus 0.72 for k_f alone, 0.64 for raw JS, 0.58 for cosine, and 0.21 for k_n alone; bootstrap 95% CI 0.804 [0.777, 0.831], the advantage over k_f holding in 100% of resamples): the appare
+
+--- ound reached 91% detection at δ = 1 (twofold shifts on at least 200 genes)—and ω ranked below raw JS and cosine in raw detection power while ranking first in functional-versus-neutral discrimination (AUC = 0.80). The simulation was restricted to two backgrounds (one cell type each: marrow B cells and skin keratinocyte stem cells), a single module-size series, and simple multiplicative perturbation
+
+---  module, consistent with the identity-only configuration of k_f. (c) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs). Supplementary Fig. 2. Calibrated ω under two baselines. (a) Raw ω and calibrated ω (ω_cal = ω / 7.70, mouse FACS baseline; ω / 9.73, brain-intern
+

@@ -1,0 +1,4 @@
+LIHC/Edmondson_grade/G1: n 39->48, omega 82.36->78.18, kn 0.00461->0.00484
+LIHC/Edmondson_grade/G2: n 133->150, omega 74.66->76.82, kn 0.00515->0.00489
+LIHC/Edmondson_grade/G3: n 105->112, omega 74.92->77.87, kn 0.00533->0.00514
+LIHC/Edmondson_grade/G4: n 11->11, omega 75.04->72.58, kn 0.00607->0.00606

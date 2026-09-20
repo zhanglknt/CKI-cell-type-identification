@@ -1,0 +1,4 @@
+LINE 530 tail:  of absolute neutral-drift immunity thus transfers to real data only as a relative-calibration advantage\u2014lowest misreporting among all compared metrics at every tier, with sensitivity to genuine regional divergence preserved (Fig. 4; audit trails in the companion repository; Supplementary Note TODO-nc49-drift).')
+---
+LINE 690 tail:  Random seeds: 20260918 (Kang), 42 (brain). Scripts: notebooks/nc49_pilot_kang_techrep.py, notebooks/nc49_brain_drift_ladder.py; outputs: results/nc49_pilot_kang_techrep.csv, results/nc49_brain_drift_ladder.csv, and figure notebook nc49_fig_drift_ladder.py (companion repository). Supplementary Note TODO-nc49-drift: full audit of design, diagnostics, and per-class results.')
+---

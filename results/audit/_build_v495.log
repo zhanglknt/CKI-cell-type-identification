@@ -1,0 +1,10 @@
+[safe-delete][SAFE_DELETE_BULK_GUARD_ERROR] EPERM: operation not permitted, rename 'C:\Users\KnightZ\AppData\Local\Temp\codebuddy-safe-delete-bulk\71c7a10cbd5895f973d42a698d7dfcde0e1a91c31508a1a569b6d9759498b245\state.json.21636.tmp' -> 'C:\Users\KnightZ\AppData\Local\Temp\codebuddy-safe-delete-bulk\71c7a10cbd5895f973d42a698d7dfcde0e1a91c31508a1a569b6d9759498b245\state.json'
+============================================================
+  CKI Submission Package v49 (NC, GB-rebuttal round) Builder
+============================================================
+
+[0] Collecting figures into figures_submission_nc ...
+  [OK] V49-1 figures staged = 21 (7 main + 13 supp + GA pdf) got 21
+
+[1] Preparing CKI_Submission_v49_NC ...
+build exit 1

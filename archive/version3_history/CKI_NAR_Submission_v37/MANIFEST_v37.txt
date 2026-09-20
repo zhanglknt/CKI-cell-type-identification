@@ -1,0 +1,48 @@
+CKI NAR Submission Package v37
+Built: 2026-08-28 22:24
+Status: Simulated peer-review revision (v36 report, 4 reviewers) applied across
+all four documents; robustness/calibration analyses added (scripts 38/39/41/42/43).
+
+=== v37 Changes (v36 peer-review fixes) ===
+  - C-B calibration honesty: scheme-matched split-half internal baselines
+    (brain 12.29 [12.12, 12.47], ~1.8x the mouse factor; Tabula Sapiens
+    7.67 [7.39, 8.00], inside the mouse CI); omega_cal reported to one
+    significant figure; Bergmann glia claim corrected (omega_cal ~ 0.9
+    at, not above, the brain-internal baseline); omega_cal framed as
+    dataset-relative; Limitations Tenth and Seventeenth revised.
+  - C-C k_n estimator sensitivity: aggregate-first estimator preserves the
+    class ordering (Spearman rho = 0.988, gradient 6.97x vs 6.88x);
+    global-k_n variant reverses it (rho = -0.21, effectively kf-only);
+    gradient decomposition (k_f 1.2-fold vs k_n 5.7-fold) added to Results
+    and Limitation Twelfth.
+  - C-J donor confounding: within-donor brain gradient 4.07-fold
+    (astrocytes 43.92 across 11,139 same-donor pairs; Bergmann glia 10.80),
+    class ordering preserved; abstract updated.
+  - C-G lineage enrichment formal test: 50 of 55 Strong candidates from
+    the oligodendrocyte lineage (fold 2.26; hypergeometric P = 4.5e-15;
+    permutation P = 1.0e-5, B = 100,000; OPC alone P = 1.2e-7).
+  - C-D tier sensitivity: 19-combination (residual 0.2-0.4 x omega cap
+    12-25) grid; 16/19 significant, failures only at residual cap 0.2;
+    max P = 1.4e-3 at residual >= 0.25.
+  - C-A residual overclaim cleanup: Figure 3 retitled "Correlation
+    structure between CKI and standard metrics"; Discussion and abstract
+    reframed to composite-signal language.
+  - Methods: new "Robustness and calibration analyses" subsection
+    (within-donor gradient, k_n estimator sensitivity, split-half
+    calibration, lineage enrichment, tier sensitivity).
+  - Reproducibility guide: new Section 5.6 documenting the five reviewer
+    robustness scripts (38/39/41/42/43) and their outputs.
+  - All v36 checks retained (numbers unchanged where unaffected). Brain
+    candidates remain hypothesis-generating signals: no candidate survived
+    BH FDR correction under the block-shuffle null (minimum q = 0.949).
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (peer-review revised)
+2. CKI_NAR_Supplementary.docx - Supplementary materials
+3. CKI_NAR_Cover_Letter.docx - Cover letter
+4. CKI_NAR_Reproducibility_Guide.docx - Reproducibility guide (with Sec 5.6)
+5. Table1-2.docx - Standalone parameter tables
+6. figure1.pdf through figure6.pdf - Main figures
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S12.pdf - Supplementary figures
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+9. *_fulltext.txt - Plain-text extracts

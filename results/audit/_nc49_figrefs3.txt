@@ -1,0 +1,7 @@
+543 | normal (NN), and tumor-normal (TN) \u03c9 values (Fig. 4; Supplementary Fig. 4).')
+557 |  and which are shaped by their organ environment (Fig. 5; Table 2; Supplementary Fig. 
+564 | pe cross-region comparisons (31,764 pairs total) (Fig. 6; Supplementary Fig. 6; Supple
+570 | ally on the per-pair k_n estimator (Supplementary Fig. 7). We therefore recommend trea
+754 | p('Figure 4. TCGA pan-cancer perturbation
+756 | p(f'Figure 5. Cross-organ cell-type conser
+758 | p('Figure 6. Brain regional cell-type dif

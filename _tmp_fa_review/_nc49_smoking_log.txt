@@ -1,0 +1,73 @@
+== nc49 LUAD smoking covariate analysis (R2-P0-2) ==
+cBioPortal patients with any target attribute: 522
+smoking status known: 508/522 (never=75, ever=433); pack-years known: 356
+LUAD per-tumour: WT=311, EGFR=61, KRAS=120; smoking matched: 427/492
+
+smoking (ever/never) x mutation group:
+ever_smoke  0.0  1.0
+group               
+EGFR         22   37
+KRAS          7  111
+WT           36  214
+chi2=30.28, dof=2, P=2.66e-07
+  WT: ever-smoker 85.6% (214/250)
+  EGFR: ever-smoker 62.7% (37/59)
+  KRAS: ever-smoker 94.1% (111/118)
+pack-years mean: WT=44.7(n=178), EGFR=45.4(n=25), KRAS=36.3(n=93)
+
+--- omega (group only, n=427) ---
+  EGFR - WT: -2.5375 (SE 5.1589), P=0.623
+  KRAS - WT: 13.6663 (SE 3.9809), P=0.000656
+  KRAS - EGFR: 16.2038 (SE 5.6832), P=0.00457
+--- omega (group + ever_smoke) ---
+  EGFR - WT: -3.0767 (SE 5.2882), P=0.561
+  KRAS - WT: 13.8658 (SE 4.0069), P=0.000594
+  KRAS - EGFR: 16.9425 (SE 5.8993), P=0.00428
+--- omega (group + ever_smoke + age + sex, n=411) ---
+  EGFR - WT: -3.5224 (SE 5.5193), P=0.524
+  KRAS - WT: 13.2799 (SE 4.1367), P=0.00143
+  KRAS - EGFR: 16.8022 (SE 6.1295), P=0.00639
+--- kf (group only, n=427) ---
+  EGFR - WT: -0.0100 (SE 0.0061), P=0.105
+  KRAS - WT: 0.0101 (SE 0.0047), P=0.0341
+  KRAS - EGFR: 0.0200 (SE 0.0068), P=0.0032
+--- kf (group + ever_smoke) ---
+  EGFR - WT: -0.0089 (SE 0.0063), P=0.159
+  KRAS - WT: 0.0097 (SE 0.0048), P=0.0433
+  KRAS - EGFR: 0.0185 (SE 0.0070), P=0.00856
+--- kf (group + ever_smoke + age + sex, n=411) ---
+  EGFR - WT: -0.0076 (SE 0.0065), P=0.248
+  KRAS - WT: 0.0115 (SE 0.0049), P=0.0197
+  KRAS - EGFR: 0.0190 (SE 0.0073), P=0.00905
+--- kn (group only, n=427) ---
+  EGFR - WT: -0.0002 (SE 0.0002), P=0.335
+  KRAS - WT: -0.0004 (SE 0.0001), P=0.0142
+  KRAS - EGFR: -0.0002 (SE 0.0002), P=0.396
+--- kn (group + ever_smoke) ---
+  EGFR - WT: -0.0002 (SE 0.0002), P=0.358
+  KRAS - WT: -0.0004 (SE 0.0001), P=0.0144
+  KRAS - EGFR: -0.0002 (SE 0.0002), P=0.399
+--- kn (group + ever_smoke + age + sex, n=411) ---
+  EGFR - WT: -0.0002 (SE 0.0002), P=0.382
+  KRAS - WT: -0.0004 (SE 0.0002), P=0.0219
+  KRAS - EGFR: -0.0002 (SE 0.0002), P=0.445
+
+--- combined model (group + ever_smoke + admix_z, n=427) ---
+omega:
+  EGFR - WT: -5.3291 (SE 4.9778), P=0.285
+  KRAS - WT: 13.6353 (SE 3.7651), P=0.000329
+  KRAS - EGFR: 18.9644 (SE 5.5496), P=0.000694
+kf:
+  EGFR - WT: -0.0064 (SE 0.0060), P=0.284
+  KRAS - WT: 0.0099 (SE 0.0045), P=0.0291
+  KRAS - EGFR: 0.0163 (SE 0.0067), P=0.0148
+kn:
+  EGFR - WT: -0.0001 (SE 0.0002), P=0.6
+  KRAS - WT: -0.0004 (SE 0.0001), P=0.011
+  KRAS - EGFR: -0.0003 (SE 0.0002), P=0.207
+
+omega smoke-residual KW: H=15.27, P=0.000484; EGFR vs KRAS P_holm=0.00198; WT vs KRAS P_holm=0.00198; WT vs EGFR P_holm=0.311
+kf smoke-residual KW: H=7.16, P=0.0278; EGFR vs KRAS P_holm=0.0229; WT vs KRAS P_holm=0.144; WT vs EGFR P_holm=0.14
+kn smoke-residual KW: H=4.05, P=0.132; EGFR vs KRAS P_holm=0.636; WT vs KRAS P_holm=0.133; WT vs EGFR P_holm=0.651
+
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_tcga_luad_smoking.csv

@@ -1,0 +1,244 @@
+===== results/audit/_rerun_ms2.log
+Superscripted citation groups: 73
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_Manuscript_NC.docx
+MS exit: 0
+
+===== results/audit/_rerun_si2.log
+Saved: results/CKI_Supplementary_NC.docx
+Paragraphs: 215
+SI exit: 0
+
+===== results/audit/_verify_ms.log
+===== MS checks =====
+[PASS] TODO-nc49-fix count == 0 found 0
+[PASS] no TODO-nc49-drift residue 
+[PASS] no TODO at all 
+[PASS] no baseline-driven/baseline-associated 
+[PASS] no "available locally" 
+[PASS] no stale 85% decomposition (0.097 restored in new sentence) 
+[PASS] Results Section 3.12 ref 
+[PASS] Methods Section 3.12 ref 
+[PASS] Section 3.12 referenced 3x (Results, Methods, class-composition note) found 3
+[PASS] MWU descriptive -> Section 3.13 
+[PASS] no stale Section 3.20/3.21 refs 
+[PASS] T1 qualified (continuous metrics) 
+[PASS] marker Jaccard T1 19.9% admitted 
+[PASS] Jaccard below omega 10/10 admitted 
+[PASS] same-statistic frontier admitted 
+[PASS] final claim qualified 
+[PASS] Discussion decision-rules qualified 
+[PASS] no unqualified "misreported least of seven" 
+[PASS] Abstract drift sentence present 
+[PASS] Abstract word count <= 200 197 words
+[PASS] Abstract real-data calibration numbers 
+[PASS] Abstract 3,567 
+[PASS] Abstract new ratio range 
+[PASS] Abstract new k_n range 
+[PASS] 3,567 present 
+[PASS] no 3,563 residue 
+[PASS] no 3,596 residue 
+[PASS] Methods per-cancer counts 
+[PASS] attrition sentence 
+[PASS] CC ratio list new values 
+[PASS] CC old ratio list gone 
+[PASS] k_n mechanism sentence new range 
+[PASS] k_n mechanism old examples gone 
+[PASS] Discussion range updated 
+[PASS] pair-level MWU P deleted from main claims 
+[PASS] LIHC mapping-sensitivity honest 
+[PASS] softmax demoted to SI sensitivity 
+[PASS] purity adj KRAS omega +16.8 
+[PASS] purity adj k_f/k_n significant 
+[PASS] EGFR null after purity adj 
+[PASS] EGFR admixture highest 
+[PASS] smoking enrichment 94/63/86 
+[PASS] smoking chi2 
+[PASS] smoking joint model +13.6 
+[PASS] smoking alone +13.9 
+[PASS] purity proxy limitation (Results) 
+[PASS] pack-years limitation 
+[PASS] batch/center limitation 
+[PASS] GTEx healthy-reference limitation 
+[PASS] Discussion epidemiology sentence 
+[PASS] k_n admix correlation range 
+[PASS] high-purity half LUAD 
+[PASS] high-purity half LIHC caliber kept 
+[PASS] reversal not admixture artefact 
+[PASS] Methods ESTIMATE block 
+[PASS] Methods cBioPortal smoking block 
+[PASS] Methods scripts extended 
+[PASS] Abstract KRAS dual-component adjusted 
+[PASS] Abstract EGFR admixture 
+[PASS] Intro EGFR dissolved 
+[PASS] Fig 5 legend NEW-3 fix 
+[PASS] Fig 5 legend old EGFR-baseline gone 
+[PASS] B=30 MC noise note 
+[PASS] tier class-composition note 
+[PASS] per-tumor cross-group pairing note 
+[PASS] wild-type label qualified 
+[PASS] seeded subsampling MC note 
+[PASS] TCGA fixed-panel caveat 
+[PASS] Fig 5a dual-axis note 
+[PASS] affiliation postcodes 
+[PASS] short Result 5 heading 
+[PASS] KRAS magnitude sentence restored 
+[PASS] KRAS magnitude coexists with adjusted 
+[PASS] Hallmark enrichment sentence 
+[PASS] Hallmark distributed-signal framing 
+[PASS] k_f composition regression sentence 
+[PASS] Data availability Enrichr mirror 
+[PASS] Kang k_f 0/30 parenthetical 
+[PASS] no Additional file 2 
+[PASS] SI availability rewritten 
+[PASS] severity -> Note 9 + Supp Fig 4b 
+[PASS] marker Jaccard 1.41 (Results) 
+[PASS] no leftover 1.40 versus 1.80 
+[PASS] Result 5 TCGA title 
+[PASS] Figure 5 legend (TCGA) 
+[PASS] Cox limitation sentence 
+[PASS] drift Results heading 
+[PASS] Kang Wilson CI 
+[PASS] Kang-brain size reconciliation 
+[PASS] main figure legends 1-7 in order ['Figure 1. Th', 'Figure 2. CK', 'Figure 3. Co', 'Figure 4. Re', 'Figure 5. Pa', 'Figure 6. Cr', 'Figure 7. Br']
+[PASS] Fig 4 legend Jaccard admission 
+TOTAL: 91 checks, 0 failures
+exit 0
+
+===== results/audit/_verify_si.log
+===== SI checks =====
+[PASS] 3.12 heading present 
+[PASS] 3.13 heading present 
+[PASS] 3.10 mouse split-half heading 
+[PASS] 3.11 competitor heading 
+[PASS] Section 3 contiguous 1-13 found [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+[PASS] no 3.18-3.21 headings/refs 
+[PASS] no (v44)/(v45)/(v49) tags 
+[PASS] no inline v4x labels 
+[PASS] Table (Section 3.11a) 
+[PASS] Table (Section 3.11b) 
+[PASS] Table (Section 3.11c) 
+[PASS] Table (Section 3.12a) 
+[PASS] Table (Section 3.12b) 
+[PASS] Table (Section 3.13a) 
+[PASS] Table (Section 3.13b) 
+[PASS] Table (Section 3.13c) 
+[PASS] Table (Section 3.13d) 
+[PASS] Sections 3.13b,c in-text ref 
+[PASS] Section 3.10 in-text ref (Note 2) 
+[PASS] T1 continuous-metrics framing 
+[PASS] Jaccard same-statistic admission 
+[PASS] Jaccard claim restricted 
+[PASS] Jaccard per-class 10/10 admission 
+[PASS] T2 Jaccard 74.7% 
+[PASS] T2 continuous-metrics framing 
+[PASS] no "seven metrics except Jaccard" residue 
+[PASS] Jaccard no-decomposition sentence 
+[PASS] transfer sentence qualified 
+[PASS] MWU descriptive note 
+[PASS] no baseline-driven/baseline-associated in SI 
+[PASS] no "available locally" in SI 
+[PASS] 3.13 EGFR admixture artefact 
+[PASS] 3.13 adjusted KRAS components 
+[PASS] 3.13 joint smoking adjustment 
+[PASS] purity/smoking block intro 
+[PASS] Table (Section 3.13e) 
+[PASS] Table (Section 3.13f) 
+[PASS] Table (Section 3.13g) 
+[PASS] 3.13e table cells (LUAD row) 
+[PASS] 3.13e post-CC half ratios 
+[PASS] 3.13e caption post-CC P values 
+[PASS] 3.13f ANCOVA cells 
+[PASS] 3.13g smoking model cells 
+[PASS] 3.13g caption chi2 
+[PASS] 3.13g ever-smoker pcts 
+[PASS] admix group means caption 
+[PASS] 4.3 counts 3,567 
+[PASS] 4.3 attrition note 
+[PASS] no 3,563 residue 
+[PASS] no 3,596 residue 
+[PASS] 1.7 LIHC mapping caveat 
+[PASS] Kang omega cal 0.963 
+[PASS] Kang 0/30 wording 
+[PASS] Wilson CI [0.000, 0.114] 
+[PASS] T1 FPR 28.6% 
+[PASS] T2 omega 90.9% 
+[PASS] marker Jaccard T3 1.41 
+[PASS] choroid 137-fold 
+[PASS] LUAD NN/TT 2.46 CI (table) 
+[FAIL] CC post-fix ratios (table) 
+[PASS] CC post-fix k_n mean ratios (table) 
+[PASS] CC old table values gone 
+[PASS] LUAD means (table) 
+[FAIL] Cox M1 (table) 
+[PASS] Cox caption post-CC 
+[PASS] Kang table omega row 
+[PASS] Ladder table T1 omega cell 
+[PASS] Note 9 sync sentence 
+[PASS] Note 9 cross-organ Fig. 6 
+[PASS] Supp Table 3 Figure 7 
+[PASS] Notes 1-15 count = 15 found [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[PASS] NEW-1 linear authoritative 
+[PASS] 3.13 EGFR k_n NS framing 
+[PASS] pair-table filename + rebuild pointer 
+[PASS] Wilson CI clustering note 
+[PASS] McNemar paired note 
+[PASS] 3.12b B=100/30/30 + noise note 
+[PASS] 3.12b class-composition note 
+[PASS] pooled-null note 
+[PASS] 3.13b wild-type definition 
+[PASS] 3.13b pair-sharing note 
+[PASS] SI title matches MS 
+[PASS] Data 1 naming unified 
+[PASS] SI affiliation postcodes 
+[PASS] 3.13 short heading ref 
+[PASS] 3.13 KRAS magnitude restored 
+[PASS] 3.13 Hallmark paragraph 
+[PASS] 3.13 kf_composition output listed 
+[PASS] no TODO in SI 
+TOTAL: 89 checks, 2 failures
+exit 0
+
+===== results/audit/_verify_clg.log
+===== CL + Guide checks =====
+[PASS] CL word count <= 530 522 words
+[PASS] CL no rebuttal framing 
+[PASS] CL no 5th of 5 
+[PASS] CL new-evidence paragraph 
+[PASS] CL specificity-first AUC 0.680 
+[PASS] CL drift claim qualified 
+[PASS] CL no "least of seven metrics" 
+[PASS] CL below raw JS 10/10 
+[PASS] CL 3,567 
+[PASS] CL no 3,563/3,596 
+[PASS] CL CC new ranges 
+[PASS] CL no baseline-driven/baseline-associated 
+[PASS] CL KRAS dual-adjusted upgrade 
+[PASS] CL EGFR dissolved 
+[PASS] CL Fig. 4 / Fig. 5 refs 
+[PASS] Guide drift section = Result 4 (Fig. 4) 
+[PASS] Guide TCGA = Result 5 (Fig. 5) 
+[PASS] Guide cross-organ = Result 6, Fig. 6 
+[PASS] Guide brain = Result 7 (Fig. 7) 
+[PASS] Guide 3,567 
+[PASS] Guide no 3,563/3,596 
+[PASS] Guide CC attrition 29 
+[PASS] Guide mean-ratio caliber 
+[PASS] Guide no median NN/TT caliber 
+[PASS] Guide SF12 -> SF11 (2 places) 
+[PASS] Guide SF10 -> SF3 
+[PASS] Guide 5.10 v49 Analyses 
+[PASS] Guide nc49 scripts listed 
+[PASS] Guide nc49 outputs listed 
+[PASS] Guide v49 checklist entries 
+[PASS] Guide NEW-5 brain ladder B values 
+[PASS] Guide NEW-4 iteration labels cleared 
+[PASS] Guide baseline-/denominator-driven zero 
+[PASS] Guide EGFR admixture sync 
+[PASS] Guide SI param-justification ref updated 
+[PASS] Guide Jaccard honest framing 
+[PASS] Guide B-group scripts listed 
+[PASS] Guide B-group outputs listed 
+[PASS] Guide kf_composition listed 
+TOTAL: 39 checks, 0 failures
+exit 0
+

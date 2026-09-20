@@ -1,0 +1,91 @@
+===== SI checks =====
+[PASS] 3.12 heading present 
+[PASS] 3.13 heading present 
+[PASS] 3.10 mouse split-half heading 
+[PASS] 3.11 competitor heading 
+[PASS] Section 3 contiguous 1-13 found [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+[PASS] no 3.18-3.21 headings/refs 
+[PASS] no (v44)/(v45)/(v49) tags 
+[PASS] no inline v4x labels 
+[PASS] Table (Section 3.11a) 
+[PASS] Table (Section 3.11b) 
+[PASS] Table (Section 3.11c) 
+[PASS] Table (Section 3.12a) 
+[PASS] Table (Section 3.12b) 
+[PASS] Table (Section 3.13a) 
+[PASS] Table (Section 3.13b) 
+[PASS] Table (Section 3.13c) 
+[PASS] Table (Section 3.13d) 
+[PASS] Sections 3.13b,c in-text ref 
+[PASS] Section 3.10 in-text ref (Note 2) 
+[PASS] T1 continuous-metrics framing 
+[PASS] Jaccard same-statistic admission 
+[PASS] Jaccard claim restricted 
+[PASS] Jaccard per-class 10/10 admission 
+[PASS] T2 Jaccard 74.7% 
+[PASS] T2 continuous-metrics framing 
+[PASS] no "seven metrics except Jaccard" residue 
+[PASS] Jaccard no-decomposition sentence 
+[PASS] transfer sentence qualified 
+[PASS] MWU descriptive note 
+[PASS] no baseline-driven/baseline-associated in SI 
+[PASS] no "available locally" in SI 
+[PASS] 3.13 EGFR admixture artefact 
+[PASS] 3.13 adjusted KRAS components 
+[PASS] 3.13 joint smoking adjustment 
+[PASS] purity/smoking block intro 
+[PASS] Table (Section 3.13e) 
+[PASS] Table (Section 3.13f) 
+[PASS] Table (Section 3.13g) 
+[PASS] 3.13e table cells (LUAD row) 
+[PASS] 3.13e post-CC half ratios 
+[PASS] 3.13e caption post-CC P values 
+[PASS] 3.13f ANCOVA cells 
+[PASS] 3.13g smoking model cells 
+[PASS] 3.13g caption chi2 
+[PASS] 3.13g ever-smoker pcts 
+[PASS] admix group means caption 
+[PASS] 4.3 counts 3,567 
+[PASS] 4.3 attrition note 
+[PASS] no 3,563 residue 
+[PASS] no 3,596 residue 
+[PASS] 1.7 LIHC mapping caveat 
+[PASS] Kang omega cal 0.963 
+[PASS] Kang 0/30 wording 
+[PASS] Wilson CI [0.000, 0.114] 
+[PASS] T1 FPR 28.6% 
+[PASS] T2 omega 90.9% 
+[PASS] marker Jaccard T3 1.41 
+[PASS] choroid 137-fold 
+[PASS] LUAD NN/TT 2.46 CI (table) 
+[PASS] CC post-fix ratios (table) 
+[PASS] CC post-fix k_n mean ratios (table) 
+[PASS] CC old table values gone 
+[PASS] LUAD means (table) 
+[PASS] Cox M1 (table) 
+[PASS] Cox caption post-CC 
+[PASS] Kang table omega row 
+[PASS] Ladder table T1 omega cell 
+[PASS] Note 9 sync sentence 
+[PASS] Note 9 cross-organ Fig. 6 
+[PASS] Supp Table 3 Figure 7 
+[PASS] Notes 1-15 count = 15 found [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[PASS] NEW-1 linear authoritative 
+[PASS] 3.13 EGFR k_n NS framing 
+[PASS] pair-table filename + rebuild pointer 
+[PASS] Wilson CI clustering note 
+[PASS] McNemar paired note 
+[PASS] 3.12b B=100/30/30 + noise note 
+[PASS] 3.12b class-composition note 
+[PASS] pooled-null note 
+[PASS] 3.13b wild-type definition 
+[PASS] 3.13b pair-sharing note 
+[PASS] SI title matches MS 
+[PASS] Data 1 naming unified 
+[PASS] SI affiliation postcodes 
+[PASS] 3.13 short heading ref 
+[PASS] 3.13 KRAS magnitude restored 
+[PASS] 3.13 Hallmark paragraph 
+[PASS] 3.13 kf_composition output listed 
+[PASS] no TODO in SI 
+TOTAL: 89 checks, 0 failures

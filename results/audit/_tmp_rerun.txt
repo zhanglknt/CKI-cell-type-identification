@@ -1,0 +1,14 @@
+===== results/audit/_rerun_si.log
+Saved: results/CKI_Supplementary_NC.docx
+Paragraphs: 215
+SI exit: 0
+
+===== results/audit/_rerun_cl.log
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_NC_Cover_Letter.docx
+CL exit: 0
+
+===== results/audit/_rerun_guide.log
+Generated: C:/Users/KnightZ/Desktop/细胞受选择/results/CKI_Reproducibility_Guide_NC.docx
+Size: 40.4 KB
+Guide exit: 0
+

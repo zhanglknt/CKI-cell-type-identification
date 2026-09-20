@@ -1,0 +1,8 @@
+[OK] live body fetched, len: 3651
+[OK] old asset deleted: 575190894
+[OK] uploaded asset id: 575239545 size: 12258746 state: uploaded
+[OK] body patched, len: 4770
+--- new asset list ---
+565418079 CKI_Submission_v47.zip 65439685
+570640683 CKI_Submission_v48_NC.zip 65521245
+575239545 CKI_Submission_v49_NC.zip 12258746

@@ -1,0 +1,24 @@
+CKI NAR Submission Package v35
+Built: 2026-08-28 14:54
+Status: Softmax normalization unified across all analyses; all figures regenerated from current CSV outputs.
+
+=== v35 Changes ===
+  - All main figures (figure1-6) regenerated with softmax-unified data.
+  - All supplementary figures (S1-S12) regenerated with softmax-unified data.
+  - Method-comparison AUCs updated: CKI omega = 0.6797, Raw JS = 0.8488,
+    Cosine = 0.8865, Marker Jaccard = 0.8007, Spearman = 0.6904.
+  - Human Tabula Sapiens: n = 5,151 pairs, mean omega = 21.48, median = 19.58.
+  - Brain Siletti atlas: n = 31,764 pairs, 6.28-fold gradient,
+    Bergmann glia = 16.4, astrocyte = 103.1.
+  - Per-pair k_n variability: CV = 92.89%, Spearman rho = 0.181.
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (softmax-updated numbers)
+2. CKI_NAR_Supplementary.docx - Supplementary materials
+3. CKI_NAR_Cover_Letter.docx - Cover letter
+4. CKI_NAR_Reproducibility_Guide.docx - Reproducibility guide
+5. Table1-2.docx - Standalone parameter tables
+6. figure1.pdf through figure6.pdf - Main figures
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S12.pdf - Supplementary figures
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+9. *_fulltext.txt - Plain-text extracts

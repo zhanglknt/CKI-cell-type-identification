@@ -1,0 +1,56 @@
+section,test,n,stat,p,metric,comparison,se
+A_smoking_dist,chi2 ever/never x group,427,30.283,2.6560611765820575e-07,,,
+A_smoking_dist,ever-smoker pct WT,250,85.6,,,,
+A_smoking_dist,ever-smoker pct EGFR,59,62.7,,,,
+A_smoking_dist,ever-smoker pct KRAS,118,94.1,,,,
+A_smoking_dist,pack-years mean WT,178,44.7,,,,
+A_smoking_dist,pack-years mean EGFR,25,45.4,,,,
+A_smoking_dist,pack-years mean KRAS,93,36.3,,,,
+B_group_only,OLS adj diff (group),427,-2.5375,0.6230618059888934,omega,EGFR - WT,5.1589
+B_group_only,OLS adj diff (group),427,13.6663,0.0006557453321888465,omega,KRAS - WT,3.9809
+B_group_only,OLS adj diff (group),427,16.2038,0.00456823443118276,omega,KRAS - EGFR,5.6832
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,-3.0767,0.5610102651663984,omega,EGFR - WT,5.2882
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,13.8658,0.000593986803480851,omega,KRAS - WT,4.0069
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,16.9425,0.004284739316903383,omega,KRAS - EGFR,5.8993
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,-3.5224,0.5237102181700445,omega,EGFR - WT,5.5193
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,13.2799,0.0014317980671939387,omega,KRAS - WT,4.1367
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,16.8022,0.00639283328170896,omega,KRAS - EGFR,6.1295
+B_group_only,OLS adj diff (group),427,-0.01,0.10479193849816217,kf,EGFR - WT,0.0061
+B_group_only,OLS adj diff (group),427,0.0101,0.03413852526524696,kf,KRAS - WT,0.0047
+B_group_only,OLS adj diff (group),427,0.02,0.003204865772834672,kf,KRAS - EGFR,0.0068
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,-0.0089,0.15899488014603327,kf,EGFR - WT,0.0063
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,0.0097,0.043302514019957244,kf,KRAS - WT,0.0048
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,0.0185,0.008560797163299558,kf,KRAS - EGFR,0.007
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,-0.0076,0.24772082377818996,kf,EGFR - WT,0.0065
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,0.0115,0.019677313122012575,kf,KRAS - WT,0.0049
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,0.019,0.009052219699775555,kf,KRAS - EGFR,0.0073
+B_group_only,OLS adj diff (group),427,-0.0002,0.33473002642663396,kn,EGFR - WT,0.0002
+B_group_only,OLS adj diff (group),427,-0.0004,0.014155297020754461,kn,KRAS - WT,0.0001
+B_group_only,OLS adj diff (group),427,-0.0002,0.3963711625269556,kn,KRAS - EGFR,0.0002
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,-0.0002,0.35777344135275624,kn,EGFR - WT,0.0002
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,-0.0004,0.014399307425496992,kn,KRAS - WT,0.0001
+B_smoke_adj,OLS adj diff (group+ever_smoke),427,-0.0002,0.3992756243504396,kn,KRAS - EGFR,0.0002
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,-0.0002,0.3815320900319663,kn,EGFR - WT,0.0002
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,-0.0004,0.021853127335577684,kn,KRAS - WT,0.0002
+B_smoke_agesex_adj,OLS adj diff (group+ever_smoke+age_c+male),411,-0.0002,0.44494666391673815,kn,KRAS - EGFR,0.0002
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,-5.3291,0.2849726016775827,omega,EGFR - WT,4.9778
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,13.6353,0.00032850466392517306,omega,KRAS - WT,3.7651
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,18.9644,0.0006938997973872583,omega,KRAS - EGFR,5.5496
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,-0.0064,0.28401922230865534,kf,EGFR - WT,0.006
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,0.0099,0.029105808032972913,kf,KRAS - WT,0.0045
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,0.0163,0.014785488520766266,kf,KRAS - EGFR,0.0067
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,-0.0001,0.6000721562556012,kn,EGFR - WT,0.0002
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,-0.0004,0.010984080749011641,kn,KRAS - WT,0.0001
+B_smoke_admix_adj,OLS adj diff (group+ever_smoke+admix_z),427,-0.0003,0.2074838867345741,kn,KRAS - EGFR,0.0002
+C_resid,KW on ever-smoke residuals,427,15.265,0.0004843349439634265,omega,,
+C_resid,Dunn-Holm (smoke-resid),427,-3.305,0.001984164171107583,omega,EGFR vs KRAS,
+C_resid,Dunn-Holm (smoke-resid),427,-3.405,0.001984164171107583,omega,WT vs KRAS,
+C_resid,Dunn-Holm (smoke-resid),427,1.014,0.31068234607267,omega,WT vs EGFR,
+C_resid,KW on ever-smoke residuals,427,7.163,0.027832705110450297,kf,,
+C_resid,Dunn-Holm (smoke-resid),427,-2.668,0.022917010991011955,kf,EGFR vs KRAS,
+C_resid,Dunn-Holm (smoke-resid),427,-1.46,0.1443288868531245,kf,WT vs KRAS,
+C_resid,Dunn-Holm (smoke-resid),427,1.812,0.13990654808520464,kf,WT vs EGFR,
+C_resid,KW on ever-smoke residuals,427,4.049,0.13203394833450935,kn,,
+C_resid,Dunn-Holm (smoke-resid),427,0.998,0.6362554898106838,kn,EGFR vs KRAS,
+C_resid,Dunn-Holm (smoke-resid),427,2.012,0.13273231554160003,kn,WT vs KRAS,
+C_resid,Dunn-Holm (smoke-resid),427,0.453,0.6508055753845259,kn,WT vs EGFR,

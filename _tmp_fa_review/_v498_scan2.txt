@@ -1,0 +1,15 @@
+--- Table 1 occurrences (generator) ---
+224 "    ws1.title = 'Table 1'"
+225 '    cap1 = (f"Table 1. Classification AUC (area under the ROC curve) of five metrics on "'
+495 '= 0.0) achieved the best cell-type discrimination (AUC = {_sb["identity_auc"]:.3f}, Supplementary Fig. 1; Supplementary Table 1). Partitioning expression into constrained baseline and identity gene sets suffices, without external pathway databases'
+521 'p(f\'CKI showed moderate cell-type classification performance (AUC = {_au["cki_omega"]:.3f}, ranked 5th of 5 methods; Table 1). The pair-level bootstrap 95% CI ([0.609, 0.745], B = 2,000) widens to [0.540, 0.804] under cell-type-entry clustering'
+763 "ratinocyte background gave AUC = 0.91 (rank 1/6). Cell-type classification performance on Tabula Sapiens is reported in Table 1.')"
+
+--- lines 517-520 (preceding para) ---
+517 _decomp_pc_lo = _decomp['partial_corr_omega_M_given_kn'].min()
+518 _decomp_pc_hi = _decomp['partial_corr_omega_M_given_kn'].max()
+519 p(f'We computed CKI \u03c9 and four standard metrics (raw JS divergence, Spearman distance, cosine distance, marker Jaccard distance) on all {_h["n_pairs_total"]:,} human cell-type pairs. CKI \u03c9 was negatively correlated with all four standard metrics (Spearman r = {f'{_sc["max"]:.2f}'.replace('-', '\u2212')} to {f'{_sc["min"]:.2f}'.replace('-', '\u2212')}, all P < 0.001), whereas the four sta
+520 
+
+--- Fig2 legend tail ---
+763 " in the semi-synthetic ground-truth simulation (marrow B-cell background; 600 functional versus 250 neutral replicates). CKI \\u03c9 ranked first of six metrics (AUC = 0.80); independent replication on a skin keratinocyte background gave AUC = 0.91 (rank 1/6). Cell-type classification performance on Tabula Sapiens is reported in Table 1.')"

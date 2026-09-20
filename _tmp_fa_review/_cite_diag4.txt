@@ -1,0 +1,2 @@
+Expected count now 72 (removed [15] and [16,17] from deleted severity paragraph).
+Remaining [15]/[16,17] occurrences are in Methods (converted there too).

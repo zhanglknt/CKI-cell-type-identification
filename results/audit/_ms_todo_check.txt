@@ -1,0 +1,6 @@
+530 | preserved (Fig. 4; audit trails in the companion repository; Supplementary Note TODO-nc49-drift).')
+---
+551 | e reported as denominator-dominated vignettes in the Supplementary Information (Supplementary Note 9; Supplementary Fig. 4b), because both orderings reverse under k_f alone.')
+---
+690 | adder.csv, and figure notebook nc49_fig_drift_ladder.py (companion repository). Section 3.20 of the Supplementary Information reports the full audit of design, diagnostics, and per-class results.')
+---

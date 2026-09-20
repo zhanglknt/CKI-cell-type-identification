@@ -1,0 +1,914 @@
+{
+ "1": [
+  {
+   "sim": 0.429,
+   "fam": "Human Cell Atlas Standards and Technology Working Group",
+   "yr": "2021",
+   "container": "Nature Biotechnology",
+   "vol": "39",
+   "page": "149-153",
+   "doi": "10.1038/s41587-020-00812-4",
+   "title": "Building a high-quality Human Cell Atlas",
+   "n_auth": 7,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.375,
+   "fam": "Rozenblatt-Rosen",
+   "yr": "2017",
+   "container": "Nature",
+   "vol": "550",
+   "page": "451-453",
+   "doi": "10.1038/550451a",
+   "title": "The Human Cell Atlas: from vision to reality",
+   "n_auth": 4,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.333,
+   "fam": "Yan",
+   "yr": "2020",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2020.02.11.943779",
+   "title": "Cell Atlas of the Human Fovea and Peripheral Retina",
+   "n_auth": 7,
+   "type": "posted-content"
+  }
+ ],
+ "3": [
+  {
+   "sim": 0.545,
+   "fam": "Lopez",
+   "yr": "2018",
+   "container": "Nature Methods",
+   "vol": "15",
+   "page": "1053-1058",
+   "doi": "10.1038/s41592-018-0229-2",
+   "title": "Deep generative modeling for single-cell transcriptomics",
+   "n_auth": 5,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.385,
+   "fam": "Xu",
+   "yr": "2021",
+   "container": "Molecular Systems Biology",
+   "vol": "17",
+   "page": "MSB20209620",
+   "doi": "10.15252/msb.20209620",
+   "title": "Probabilistic harmonization and annotation of single‐cell transcriptomics data with deep generative models",
+   "n_auth": 6,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.385,
+   "fam": "Xu",
+   "yr": "2019",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/532895",
+   "title": "Probabilistic Harmonization and Annotation of Single-cell Transcriptomics Data with Deep Generative Models",
+   "n_auth": 6,
+   "type": "posted-content"
+  }
+ ],
+ "6": [
+  {
+   "sim": 0.583,
+   "fam": "",
+   "yr": "1986",
+   "container": "Molecular Biology and Evolution",
+   "vol": "",
+   "page": "",
+   "doi": "10.1093/oxfordjournals.molbev.a040410",
+   "title": "Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions.",
+   "n_auth": 0,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.5,
+   "fam": "Tzeng",
+   "yr": "2004",
+   "container": "Molecular Biology and Evolution",
+   "vol": "21",
+   "page": "2290-2298",
+   "doi": "10.1093/molbev/msh242",
+   "title": "Comparison of Three Methods for Estimating Rates of Synonymous and Nonsynonymous Nucleotide Substitutions",
+   "n_auth": 1,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.455,
+   "fam": "Ina",
+   "yr": "1995",
+   "container": "Journal of Molecular Evolution",
+   "vol": "40",
+   "page": "190-226",
+   "doi": "10.1007/bf00167113",
+   "title": "New methods for estimating the numbers of synonymous and nonsynonymous substitutions",
+   "n_auth": 1,
+   "type": "journal-article"
+  }
+ ],
+ "7": [
+  {
+   "sim": 0.545,
+   "fam": "Yang",
+   "yr": "2007",
+   "container": "Molecular Biology and Evolution",
+   "vol": "24",
+   "page": "1586-1591",
+   "doi": "10.1093/molbev/msm088",
+   "title": "PAML 4: Phylogenetic Analysis by Maximum Likelihood",
+   "n_auth": 1,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.455,
+   "fam": "Cummings",
+   "yr": "2004",
+   "container": "Dictionary of Bioinformatics and Computational Biology",
+   "vol": "",
+   "page": "",
+   "doi": "10.1002/0471650129.dob0515",
+   "title": "PAML (Phylogenetic Analysis by Maximum Likelihood)",
+   "n_auth": 1,
+   "type": "reference-entry"
+  },
+  {
+   "sim": 0.455,
+   "fam": "Cummings",
+   "yr": "2004",
+   "container": "Dictionary of Bioinformatics and Computational Biology",
+   "vol": "",
+   "page": "",
+   "doi": "10.1002/9780471650126.dob0515.pub2",
+   "title": "<scp>PAML</scp>\n            (Phylogenetic Analysis by Maximum Likelihood)",
+   "n_auth": 1,
+   "type": "other"
+  }
+ ],
+ "9": [
+  {
+   "sim": 0.75,
+   "fam": "The Tabula Sapiens Consortium",
+   "yr": "2021",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2021.07.19.452956",
+   "title": "The Tabula Sapiens: a multiple organ single cell transcriptomic atlas of humans",
+   "n_auth": 2,
+   "type": "posted-content"
+  },
+  {
+   "sim": 0.455,
+   "fam": "",
+   "yr": "2021",
+   "container": "American Journal of Medical Genetics Part A",
+   "vol": "185",
+   "page": "2857-2858",
+   "doi": "10.1002/ajmg.a.61700",
+   "title": "Tabula Sapiens: An Atlas of Single‐Cell Gene Expression",
+   "n_auth": 0,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.25,
+   "fam": "LaRocca",
+   "yr": "2024",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2024.02.19.580983",
+   "title": "Predicting cell type-specific extracellular vesicle biology using an organism-wide single cell transcriptomic atlas – insights from the\n                  <i>Tabula Muris</i>",
+   "n_auth": 2,
+   "type": "posted-content"
+  }
+ ],
+ "11": [
+  {
+   "sim": 0.545,
+   "fam": "The Cancer Genome Atlas Network",
+   "yr": "2012",
+   "container": "Nature",
+   "vol": "490",
+   "page": "61-70",
+   "doi": "10.1038/nature11412",
+   "title": "Comprehensive molecular portraits of human breast tumours",
+   "n_auth": 1,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.545,
+   "fam": "Wyld",
+   "yr": "2024",
+   "container": "50 Landmark Papers every Breast Surgeon Should Know",
+   "vol": "",
+   "page": "111-116",
+   "doi": "10.1201/b23352-21",
+   "title": "Comprehensive Molecular Portraits of Human Breast Tumours",
+   "n_auth": 3,
+   "type": "book-chapter"
+  },
+  {
+   "sim": 0.545,
+   "fam": "Baldassarre",
+   "yr": "2016",
+   "container": "Faculty Opinions – Post-Publication Peer Review of the Biomedical Literature",
+   "vol": "",
+   "page": "",
+   "doi": "10.3410/f.717957378.793516572",
+   "title": "Faculty Opinions recommendation of Comprehensive molecular portraits of human breast tumours.",
+   "n_auth": 1,
+   "type": "dataset"
+  }
+ ],
+ "16": [
+  {
+   "sim": 0.625,
+   "fam": "The Cancer Genome Atlas Network",
+   "yr": "2012",
+   "container": "Nature",
+   "vol": "490",
+   "page": "61-70",
+   "doi": "10.1038/nature11412",
+   "title": "Comprehensive molecular portraits of human breast tumours",
+   "n_auth": 1,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.625,
+   "fam": "Perou",
+   "yr": "2000",
+   "container": "Nature",
+   "vol": "406",
+   "page": "747-752",
+   "doi": "10.1038/35021093",
+   "title": "Molecular portraits of human breast tumours",
+   "n_auth": 18,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.625,
+   "fam": "Wyld",
+   "yr": "2024",
+   "container": "50 Landmark Papers every Breast Surgeon Should Know",
+   "vol": "",
+   "page": "111-116",
+   "doi": "10.1201/b23352-21",
+   "title": "Comprehensive Molecular Portraits of Human Breast Tumours",
+   "n_auth": 3,
+   "type": "book-chapter"
+  }
+ ],
+ "17": [
+  {
+   "sim": 0.583,
+   "fam": "Parker",
+   "yr": "2009",
+   "container": "Journal of Clinical Oncology",
+   "vol": "27",
+   "page": "1160-1167",
+   "doi": "10.1200/jco.2008.18.1370",
+   "title": "Supervised Risk Predictor of Breast Cancer Based on Intrinsic Subtypes",
+   "n_auth": 20,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.583,
+   "fam": "Parker",
+   "yr": "2023",
+   "container": "Journal of Clinical Oncology",
+   "vol": "41",
+   "page": "4192-4199",
+   "doi": "10.1200/jco.22.02511",
+   "title": "Supervised Risk Predictor of Breast Cancer Based on Intrinsic Subtypes",
+   "n_auth": 20,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.5,
+   "fam": "Parker",
+   "yr": "2008",
+   "container": "Journal of Clinical Oncology",
+   "vol": "26",
+   "page": "11008-11008",
+   "doi": "10.1200/jco.2008.26.15_suppl.11008",
+   "title": "A supervised risk predictor of breast cancer based on biological subtypes",
+   "n_auth": 10,
+   "type": "journal-article"
+  }
+ ],
+ "18": [
+  {
+   "sim": 0.692,
+   "fam": "Wälchli",
+   "yr": "2024",
+   "container": "Nature",
+   "vol": "632",
+   "page": "603-613",
+   "doi": "10.1038/s41586-024-07493-y",
+   "title": "Single-cell atlas of the human brain vasculature across development, adulthood and disease",
+   "n_auth": 37,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.5,
+   "fam": "Wälchli",
+   "yr": "2023",
+   "container": "Nature Reviews Neuroscience",
+   "vol": "24",
+   "page": "271-298",
+   "doi": "10.1038/s41583-023-00684-y",
+   "title": "Shaping the brain vasculature in development and disease in the single-cell era",
+   "n_auth": 7,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.417,
+   "fam": "Anania",
+   "yr": "2024",
+   "container": "Nature Genetics",
+   "vol": "56",
+   "page": "2296-2296",
+   "doi": "10.1038/s41588-024-02008-x",
+   "title": "Single-cell 3D multi-omics during human brain development",
+   "n_auth": 1,
+   "type": "journal-article"
+  }
+ ],
+ "20": [
+  {
+   "sim": 0.692,
+   "fam": "Jones",
+   "yr": "2023",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2023.03.23.533982",
+   "title": "Meningeal origins and dynamics of perivascular fibroblast development on the mouse cerebral vasculature",
+   "n_auth": 6,
+   "type": "posted-content"
+  },
+  {
+   "sim": 0.692,
+   "fam": "Jones",
+   "yr": "2023",
+   "container": "Development",
+   "vol": "150",
+   "page": "dev201805",
+   "doi": "10.1242/dev.201805",
+   "title": "Meningeal origins and dynamics of perivascular fibroblast development on the mouse cerebral vasculature",
+   "n_auth": 6,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.364,
+   "fam": "Jones",
+   "yr": "2025",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.2139/ssrn.5290713",
+   "title": "Pdgfrα is Required for Postnatal Cerebral Perivascular Fibroblast Development",
+   "n_auth": 4,
+   "type": "posted-content"
+  }
+ ],
+ "27": [
+  {
+   "sim": 0.636,
+   "fam": "Foerster",
+   "yr": "2024",
+   "container": "Nature Neuroscience",
+   "vol": "27",
+   "page": "1545-1554",
+   "doi": "10.1038/s41593-024-01666-8",
+   "title": "Developmental origin of oligodendrocytes determines their function in the adult brain",
+   "n_auth": 30,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.333,
+   "fam": "Masumura",
+   "yr": "2024",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2024.05.06.590880",
+   "title": "Developmental oligodendrocytes regulate brain function through the mediation of synchronized spontaneous activity",
+   "n_auth": 4,
+   "type": "posted-content"
+  },
+  {
+   "sim": 0.286,
+   "fam": "VijayRaghavan",
+   "yr": "2026",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.7554/elife.102200.3.sa2",
+   "title": "eLife Assessment: Developmental oligodendrocytes regulate brain function through the mediation of synchronized spontaneous activity",
+   "n_auth": 1,
+   "type": "peer-review"
+  }
+ ],
+ "30": [
+  {
+   "sim": 0.583,
+   "fam": "Zhang",
+   "yr": "2024",
+   "container": "The EMBO Journal",
+   "vol": "43",
+   "page": "15",
+   "doi": "10.1038/s44318-024-00218-x",
+   "title": "Astrocyte allocation during brain development is controlled by Tcf4-mediated fate restriction",
+   "n_auth": 11,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.545,
+   "fam": "Zhang",
+   "yr": "None",
+   "container": "BioStudies Database",
+   "vol": "",
+   "page": "",
+   "doi": "10.6019/s-biad1218",
+   "title": "Fate restriction governs regional astrocyte allocation during brain development",
+   "n_auth": 3,
+   "type": "dataset"
+  },
+  {
+   "sim": 0.182,
+   "fam": "Wiley",
+   "yr": "2014",
+   "container": "The EMBO Journal",
+   "vol": "33",
+   "page": "1289-1291",
+   "doi": "10.15252/embj.201488969",
+   "title": "NAD+ controls neural stem cell fate in the aging brain",
+   "n_auth": 2,
+   "type": "journal-article"
+  }
+ ],
+ "33": [
+  {
+   "sim": 0.455,
+   "fam": "Elowitz",
+   "yr": "2002",
+   "container": "Science",
+   "vol": "297",
+   "page": "1183-1186",
+   "doi": "10.1126/science.1070919",
+   "title": "Stochastic Gene Expression in a Single Cell",
+   "n_auth": 4,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.308,
+   "fam": "Young",
+   "yr": "2012",
+   "container": "Nature Protocols",
+   "vol": "7",
+   "page": "80-88",
+   "doi": "10.1038/nprot.2011.432",
+   "title": "Measuring single-cell gene expression dynamics in bacteria using fluorescence time-lapse microscopy",
+   "n_auth": 8,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.286,
+   "fam": "Ding",
+   "yr": "2018",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/457432",
+   "title": "Quantitative single-cell splicing analysis reveals an ‘economy of scale’ filter for gene expression",
+   "n_auth": 2,
+   "type": "posted-content"
+  }
+ ],
+ "35": [
+  {
+   "sim": 0.545,
+   "fam": "Raj",
+   "yr": "2008",
+   "container": "Cell",
+   "vol": "135",
+   "page": "216-226",
+   "doi": "10.1016/j.cell.2008.09.050",
+   "title": "Nature, Nurture, or Chance: Stochastic Gene Expression and Its Consequences",
+   "n_auth": 2,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.5,
+   "fam": "van Oudenaarden",
+   "yr": "2009",
+   "container": "Biophysical Journal",
+   "vol": "96",
+   "page": "306a",
+   "doi": "10.1016/j.bpj.2008.12.1524",
+   "title": "Nature, Nurture Or Just Blind Chance: Stochastic Gene Expression And Its Consequences",
+   "n_auth": 1,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.5,
+   "fam": "van Oudenaarden",
+   "yr": "2009",
+   "container": "Biophysical Journal",
+   "vol": "96",
+   "page": "15a",
+   "doi": "10.1016/j.bpj.2008.12.975",
+   "title": "Nature, nurture, or just blind chance: Stochastic gene expression and its consequences",
+   "n_auth": 1,
+   "type": "journal-article"
+  }
+ ],
+ "36": [
+  {
+   "sim": 0.7,
+   "fam": "Tarashansky",
+   "yr": "2021",
+   "container": "eLife",
+   "vol": "10",
+   "page": "e66747",
+   "doi": "10.7554/elife.66747",
+   "title": "Mapping single-cell atlases throughout Metazoa unravels cell type evolution",
+   "n_auth": 7,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.7,
+   "fam": "Tarashansky",
+   "yr": "2020",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2020.09.28.317784",
+   "title": "Mapping single-cell atlases throughout Metazoa unravels cell type evolution",
+   "n_auth": 7,
+   "type": "posted-content"
+  },
+  {
+   "sim": 0.636,
+   "fam": "Tarashansky",
+   "yr": "2021",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.7554/elife.66747.sa2",
+   "title": "Author response: Mapping single-cell atlases throughout Metazoa unravels cell type evolution",
+   "n_auth": 7,
+   "type": "peer-review"
+  }
+ ],
+ "37": [
+  {
+   "sim": 0.583,
+   "fam": "Junyao Jiang <jiangjunyao789@163.com>",
+   "yr": "2022",
+   "container": "CRAN: Contributed Packages",
+   "vol": "",
+   "page": "",
+   "doi": "10.32614/cran.package.cacimar",
+   "title": "CACIMAR: Cross-Species Analysis of Cell Identities, Markers and Regulations",
+   "n_auth": 1,
+   "type": "dataset"
+  },
+  {
+   "sim": 0.5,
+   "fam": "Jiang",
+   "yr": "2024",
+   "container": "Briefings in Bioinformatics",
+   "vol": "25",
+   "page": "bbae283",
+   "doi": "10.1093/bib/bbae283",
+   "title": "CACIMAR: cross-species analysis of cell identities, markers, regulations, and interactions using single-cell RNA sequencing data",
+   "n_auth": 7,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.5,
+   "fam": "Jiang",
+   "yr": "2024",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2024.01.23.576964",
+   "title": "CACIMAR: Cross-species Analysis of Cell Identities, Markers, Regulations and Interactions Using Single-cell RNA Sequencing Data",
+   "n_auth": 7,
+   "type": "posted-content"
+  }
+ ],
+ "38": [
+  {
+   "sim": 0.556,
+   "fam": "Skinnider",
+   "yr": "2021",
+   "container": "Nature Biotechnology",
+   "vol": "39",
+   "page": "30-34",
+   "doi": "10.1038/s41587-020-0605-1",
+   "title": "Cell type prioritization in single-cell data",
+   "n_auth": 14,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.556,
+   "fam": "Skinnider",
+   "yr": "2019",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2019.12.20.884916",
+   "title": "Cell type prioritization in single-cell data",
+   "n_auth": 14,
+   "type": "posted-content"
+  },
+  {
+   "sim": 0.333,
+   "fam": "Skinnider",
+   "yr": "2021",
+   "container": "Genome Biology",
+   "vol": "22",
+   "page": "215",
+   "doi": "10.1186/s13059-021-02422-y",
+   "title": "Enabling reproducible re-analysis of single-cell data",
+   "n_auth": 3,
+   "type": "journal-article"
+  }
+ ],
+ "40": [
+  {
+   "sim": 0.312,
+   "fam": "Matsunaga",
+   "yr": "2015",
+   "container": "Neuroscience",
+   "vol": "284",
+   "page": "566-580",
+   "doi": "10.1016/j.neuroscience.2014.10.032",
+   "title": "Comparative analysis of developmentally regulated expressions of Gadd45a, Gadd45b, and Gadd45g in the mouse and marmoset cerebral cortex",
+   "n_auth": 4,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.286,
+   "fam": "",
+   "yr": "2012",
+   "container": "The Journal of Neuroscience",
+   "vol": "32",
+   "page": "17932-17932",
+   "doi": "10.1523/jneurosci.5030-12.2012",
+   "title": "Correction: Mashiko et al., Comparative Anatomy of Marmoset and Mouse Cortex from Genomic Expression",
+   "n_auth": 0,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.273,
+   "fam": "Booeshaghi",
+   "yr": "2021",
+   "container": "Nature",
+   "vol": "598",
+   "page": "195-199",
+   "doi": "10.1038/s41586-021-03969-3",
+   "title": "Isoform cell-type specificity in the mouse primary motor cortex",
+   "n_auth": 7,
+   "type": "journal-article"
+  }
+ ],
+ "41": [
+  {
+   "sim": 0.727,
+   "fam": "Marques",
+   "yr": "2016",
+   "container": "Science",
+   "vol": "352",
+   "page": "1326-1329",
+   "doi": "10.1126/science.aaf6463",
+   "title": "Oligodendrocyte heterogeneity in the mouse juvenile and adult central nervous system",
+   "n_auth": 23,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.533,
+   "fam": "Gregg",
+   "yr": "2016",
+   "container": "Faculty Opinions – Post-Publication Peer Review of the Biomedical Literature",
+   "vol": "",
+   "page": "",
+   "doi": "10.3410/f.726408842.793520663",
+   "title": "Faculty Opinions recommendation of Oligodendrocyte heterogeneity in the mouse juvenile and adult central nervous system.",
+   "n_auth": 1,
+   "type": "dataset"
+  },
+  {
+   "sim": 0.533,
+   "fam": "Tiwari",
+   "yr": "2016",
+   "container": "Faculty Opinions – Post-Publication Peer Review of the Biomedical Literature",
+   "vol": "",
+   "page": "",
+   "doi": "10.3410/f.726408842.793519959",
+   "title": "Faculty Opinions recommendation of Oligodendrocyte heterogeneity in the mouse juvenile and adult central nervous system.",
+   "n_auth": 2,
+   "type": "dataset"
+  }
+ ],
+ "43": [
+  {
+   "sim": 0.6,
+   "fam": "Luecken",
+   "yr": "2019",
+   "container": "Molecular Systems Biology",
+   "vol": "15",
+   "page": "MSB188746",
+   "doi": "10.15252/msb.20188746",
+   "title": "Current best practices in single‐cell RNA‐seq analysis: a tutorial",
+   "n_auth": 2,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.6,
+   "fam": "Gottardo",
+   "yr": "2019",
+   "container": "Faculty Opinions – Post-Publication Peer Review of the Biomedical Literature",
+   "vol": "",
+   "page": "",
+   "doi": "10.3410/f.736010853.793568622",
+   "title": "Faculty Opinions recommendation of Current best practices in single-cell RNA-seq analysis: a tutorial.",
+   "n_auth": 1,
+   "type": "dataset"
+  },
+  {
+   "sim": 0.6,
+   "fam": "Hotz",
+   "yr": "2019",
+   "container": "Faculty Opinions – Post-Publication Peer Review of the Biomedical Literature",
+   "vol": "",
+   "page": "",
+   "doi": "10.3410/f.736010853.793562426",
+   "title": "Faculty Opinions recommendation of Current best practices in single-cell RNA-seq analysis: a tutorial.",
+   "n_auth": 1,
+   "type": "dataset"
+  }
+ ],
+ "45": [
+  {
+   "sim": 0.692,
+   "fam": "Benjamini",
+   "yr": "1995",
+   "container": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+   "vol": "57",
+   "page": "289-300",
+   "doi": "10.1111/j.2517-6161.1995.tb02031.x",
+   "title": "Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing",
+   "n_auth": 2,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.538,
+   "fam": "Kwong",
+   "yr": "2002",
+   "container": "Journal of Statistical Planning and Inference",
+   "vol": "104",
+   "page": "351-362",
+   "doi": "10.1016/s0378-3758(01)00252-x",
+   "title": "A modified Benjamini–Hochberg multiple comparisons procedure for controlling the false discovery rate",
+   "n_auth": 3,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.417,
+   "fam": "Koner",
+   "yr": "2024",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.21203/rs.3.rs-3861673/v1",
+   "title": "False discovery rate control: Moving beyond the Benjamini–Hochberg method",
+   "n_auth": 3,
+   "type": "posted-content"
+  }
+ ],
+ "47": [
+  {
+   "sim": 0.75,
+   "fam": "Hao",
+   "yr": "2021",
+   "container": "Cell",
+   "vol": "184",
+   "page": "3573-3587.e29",
+   "doi": "10.1016/j.cell.2021.04.048",
+   "title": "Integrated analysis of multimodal single-cell data",
+   "n_auth": 25,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.556,
+   "fam": "Gong",
+   "yr": "2021",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1101/2021.04.03.438329",
+   "title": "Cobolt: Joint analysis of multimodal single-cell sequencing data",
+   "n_auth": 3,
+   "type": "posted-content"
+  },
+  {
+   "sim": 0.455,
+   "fam": "",
+   "yr": "2021",
+   "container": "Frontiers Research Topics",
+   "vol": "",
+   "page": "",
+   "doi": "10.3389/978-2-88966-668-3",
+   "title": "Multimodal and Integrative Analysis of Single-Cell or Bulk Sequencing Data",
+   "n_auth": 0,
+   "type": "book"
+  }
+ ],
+ "53": [
+  {
+   "sim": 0.444,
+   "fam": "",
+   "yr": "2019",
+   "container": "Python® Machine Learning",
+   "vol": "",
+   "page": "93-117",
+   "doi": "10.1002/9781119557500.ch5",
+   "title": "Getting Started with Scikit‐learn for Machine Learning",
+   "n_auth": 0,
+   "type": "other"
+  },
+  {
+   "sim": 0.444,
+   "fam": "Pajankar",
+   "yr": "2022",
+   "container": "Hands-on Machine Learning with Python",
+   "vol": "",
+   "page": "65-77",
+   "doi": "10.1007/978-1-4842-7921-2_5",
+   "title": "Introduction to Machine Learning with Scikit-learn",
+   "n_auth": 2,
+   "type": "book-chapter"
+  },
+  {
+   "sim": 0.444,
+   "fam": "Nelli",
+   "yr": "2015",
+   "container": "Python Data Analytics",
+   "vol": "",
+   "page": "237-264",
+   "doi": "10.1007/978-1-4842-0958-5_8",
+   "title": "Machine Learning with scikit-learn",
+   "n_auth": 1,
+   "type": "book-chapter"
+  }
+ ],
+ "54": [
+  {
+   "sim": 0.625,
+   "fam": "Efron",
+   "yr": "1994",
+   "container": "",
+   "vol": "",
+   "page": "",
+   "doi": "10.1201/9780429246593",
+   "title": "An Introduction to the Bootstrap",
+   "n_auth": 2,
+   "type": "book"
+  },
+  {
+   "sim": 0.625,
+   "fam": "Buckland",
+   "yr": "1994",
+   "container": "Biometrics",
+   "vol": "50",
+   "page": "890",
+   "doi": "10.2307/2532810",
+   "title": "An Introduction to the Bootstrap.",
+   "n_auth": 3,
+   "type": "journal-article"
+  },
+  {
+   "sim": 0.625,
+   "fam": "Kimber",
+   "yr": "1994",
+   "container": "The Statistician",
+   "vol": "43",
+   "page": "600",
+   "doi": "10.2307/2348146",
+   "title": "An Introduction to the Bootstrap.",
+   "n_auth": 3,
+   "type": "journal-article"
+  }
+ ]
+}

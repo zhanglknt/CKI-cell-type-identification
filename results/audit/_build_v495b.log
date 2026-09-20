@@ -1,0 +1,10 @@
+[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] {"count":50,"threshold":50,"scope":"turn","targets":["C:\\Users\\KnightZ\\Desktop\\细胞受选择\\version3\\CKI_Submission_v49_NC\\figure2.pdf"],"targetCount":1}
+============================================================
+  CKI Submission Package v49 (NC, GB-rebuttal round) Builder
+============================================================
+
+[0] Collecting figures into figures_submission_nc ...
+  [OK] V49-1 figures staged = 21 (7 main + 13 supp + GA pdf) got 21
+
+[1] Preparing CKI_Submission_v49_NC ...
+build exit 1

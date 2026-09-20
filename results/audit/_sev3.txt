@@ -1,0 +1,45 @@
+BRCA kn test: {'test': 'Kruskal-Wallis', 'stat': 50.01968807305707, 'p': 3.5768480389931186e-10}
+meta: {
+ "seed": 42,
+ "n_top_kf": 200,
+ "kn_floor_main": 0.0001,
+ "kn_floor_severity": 0.0,
+ "probability_mapping": "linear (TPM+1)/sum(TPM+1)",
+ "identity_gene_ranking_scale": "log2(TPM+1) (unchanged from v2)",
+ "per_cancer": {
+  "TCGA-LUAD": {
+   "time_s": 121.52938032150269,
+   "floor_frac": {
+    "TT": 0.0,
+    "NN": 0.0,
+    "TN": 0.0
+   }
+  },
+  "TCGA-LUSC": {
+   "time_s": 118.18490076065063,
+   "floor_frac": {
+    "TT": 0.0,
+    "NN": 0.0,
+    "TN": 0.0
+   }
+  },
+  "TCGA-LIHC": {
+   "time_s": 89.680002450943,
+   "floor_frac": {
+    "TT": 0.0,
+    "NN": 0.0,
+    "TN": 0.0
+   }
+  },
+  "TCGA-KIRC": {
+   "time_s": 98.30297780036926,
+   "floor_frac": {
+    "TT": 0.0,
+    "NN": 0.00030111412225233364,
+    "TN": 0.0
+   }
+  },
+  "TCGA-BRCA": {
+   "time_s": 117.85383677482605,
+   "floor_frac": {
+ 

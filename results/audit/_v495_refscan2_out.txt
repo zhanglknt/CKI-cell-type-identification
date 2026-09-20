@@ -1,0 +1,29 @@
+AST source-order group count: 73
+AST first-appearance seq: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 56, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 16, 17, 15, 52, 53, 54]
+orphans: [55]
+  ref 15: first at line 670
+  ref 16: first at line 670
+  ref 17: first at line 670
+  ref 49: first at line 670
+  ref 50: first at line 670
+  ref 51: first at line 670
+  ref 52: first at line 705
+  ref 53: first at line 705
+  ref 54: first at line 708
+  ref 55: first at line None
+  ref 56: first at line 559
+
+DOCX superscript group count: 0
+DOCX first-appearance seq: []
+DOCX orphans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56]
+  ref 15: first in para: None
+  ref 16: first in para: None
+  ref 17: first in para: None
+  ref 49: first in para: None
+  ref 50: first in para: None
+  ref 51: first in para: None
+  ref 52: first in para: None
+  ref 53: first in para: None
+  ref 54: first in para: None
+  ref 55: first in para: None
+  ref 56: first in para: None

@@ -1,0 +1,4 @@
+=== MS line 84 length 4465 ===
+=== SI line 156 length 991 ===
+--- kw='ratio bias' @309 ---
+ω = k_f/k_n is a ratio of two JS divergences, and ratio estimators are upward biased and heavy right-tailed when the denominator is small. On the 1,450 split-half replicates of the brain-internal calibration (both halves of each split are the same population, so E[k_f/k_n] versus E[k_f]/E[k_n] isolates pure ratio bias), the bias is small and null-calibrated: median +0.2% across the 29 class × region groups (pooled −1.8%), tracked almost exactly by the second-order delta-method prediction (Spearman ρ = 0.99 for bias, 1.00 for SD). The largest upward bias sits in the smallest-denominator bin (k_n < 10⁻⁴: +6.5%; 10⁻⁴ ≤ k_n < 10⁻³: −8.3%; k_n ≥ 10⁻³: +1.5%), where delta-method theory predicts it; because the calibration baseline is computed with the same estimator on the same scale of k_n, thi

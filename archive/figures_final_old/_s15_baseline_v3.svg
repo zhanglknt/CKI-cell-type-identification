@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" width="1200" height="460" style="background:#F8FAFC; font-family:Arial,Helvetica,sans-serif">
+<text x="600" y="28" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A">Baseline: Intra-region ω &lt; Inter-region ω</text>
+<text x="600" y="46" text-anchor="middle" font-size="10" fill="#64748B">Same cell type across regions is MORE distinct than different cell types within same region</text>
+<rect x="40" y="65" width="540" height="355" rx="10" fill="white" stroke="#E2E8F0" stroke-width="1.5"/>
+<text x="310" y="87" text-anchor="middle" font-size="13" font-weight="700" fill="#1E293B">Intra-region ω</text>
+<text x="310" y="105" text-anchor="middle" font-size="10" fill="#64748B">Same brain region, different cell types</text>
+<rect x="80" y="127" width="144" height="34" rx="4" fill="#0D9488" opacity="0.85"/>
+<text x="232" y="149" font-size="12" fill="#0D9488" font-weight="600">28</text>
+<text x="320" y="149" font-size="12" fill="#334155">Astrocytes</text>
+<rect x="80" y="189" width="113" height="34" rx="4" fill="#2563EB" opacity="0.85"/>
+<text x="201" y="211" font-size="12" fill="#2563EB" font-weight="600">22</text>
+<text x="320" y="211" font-size="12" fill="#334155">OPCs</text>
+<rect x="80" y="251" width="92" height="34" rx="4" fill="#7C3AED" opacity="0.85"/>
+<text x="180" y="273" font-size="12" fill="#7C3AED" font-weight="600">18</text>
+<text x="320" y="273" font-size="12" fill="#334155">Neurons(ex)</text>
+<rect x="55" y="345" width="510" height="56" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+<text x="310" y="365" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">Intra-region ω = LOW</text>
+<text x="310" y="385" text-anchor="middle" font-size="9" fill="#166534">Same microenvironment → similar expression program</text>
+<line x1="595" y1="85" x2="595" y2="405" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="595" y="245" text-anchor="middle" font-size="20" fill="#94A3B8" font-weight="700">&lt;</text>
+<rect x="620" y="65" width="540" height="355" rx="10" fill="white" stroke="#E2E8F0" stroke-width="1.5"/>
+<text x="890" y="87" text-anchor="middle" font-size="13" font-weight="700" fill="#1E293B">Inter-region ω</text>
+<text x="890" y="105" text-anchor="middle" font-size="10" fill="#64748B">Same cell type, different brain regions</text>
+<rect x="660" y="127" width="16" height="34" rx="4" fill="#0D9488" opacity="0.85"/>
+<text x="684" y="149" font-size="12" fill="#0D9488" font-weight="600">3.2</text>
+<text x="910" y="149" font-size="12" fill="#334155">OPC · SVZ</text>
+<rect x="660" y="189" width="92" height="34" rx="4" fill="#2563EB" opacity="0.85"/>
+<text x="760" y="211" font-size="12" fill="#2563EB" font-weight="600">18</text>
+<text x="910" y="211" font-size="12" fill="#334155">OPC · Hipp</text>
+<rect x="660" y="251" width="113" height="34" rx="4" fill="#7C3AED" opacity="0.85"/>
+<text x="781" y="273" font-size="12" fill="#7C3AED" font-weight="600">22</text>
+<text x="910" y="273" font-size="12" fill="#334155">OPC · Cortex</text>
+<rect x="635" y="345" width="510" height="56" rx="8" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+<text x="890" y="365" text-anchor="middle" font-size="11" font-weight="700" fill="#991B1B">Inter-region ω = HIGH</text>
+<text x="890" y="385" text-anchor="middle" font-size="9" fill="#991B1B">Different microenvironments → distinct expression programs</text>
+<rect x="35" y="420" width="1130" height="32" rx="8" fill="#0F172A"/>
+<text x="600" y="442" text-anchor="middle" font-size="11" font-weight="600" fill="white">Baseline:  Intra-region ω &lt; Inter-region ω  →  Cells differentiate LOCALLY, not by migrating</text>
+</svg>

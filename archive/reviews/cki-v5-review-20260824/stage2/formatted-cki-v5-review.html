@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="docx-page-size" content="A4">
+  <title>CKI version5 投稿版专家团综合审稿报告</title>
+  <style>
+  @page {
+    @bottom-center { content: counter(page); }
+  }
+  @page cover {
+    @bottom-center { content: none; }
+  }
+  section[role="cover"] { page: cover; }
+
+  :root {
+    --ff-heading: 微软雅黑, "Microsoft YaHei", "PingFang SC", sans-serif;
+    --ff-body: 微软雅黑, "Microsoft YaHei", "PingFang SC", sans-serif;
+    --ff-latin: Calibri, "Helvetica Neue", sans-serif;
+    --fs-cover-title: 22pt;
+    --fs-cover-subtitle: 14pt;
+    --fs-h1: 16pt;
+    --fs-h2: 13pt;
+    --fs-h3: 11pt;
+    --fs-body: 10pt;
+    --fs-small: 9pt;
+    --fs-stat-num: 13pt;
+    --lh-body: 1.6;
+    --fw-bold: 700;
+    --fw-heading: 600;
+    --color-primary: #1565C0;
+    --color-secondary: #0288D1;
+    --color-accent: #00897B;
+    --color-text: #212121;
+    --color-muted: #616161;
+    --color-heading: #1A237E;
+    --color-border: #E0E0E0;
+    --color-bg: #FFFFFF;
+    --color-surface: #F5F7FA;
+    --color-emphasis: #C62828;
+    --color-on-primary: #FFFFFF;
+    --color-warn-bg: #FDECEA;
+    --spacing-2xs: 0.3em;
+    --spacing-xs: 0.4em;
+    --spacing-sm: 0.5em;
+    --spacing-sm2: 0.6em;
+    --spacing-md: 0.7em;
+    --spacing-md3: 0.9em;
+    --spacing-lg: 1em;
+    --spacing-xl: 1.2em;
+    --spacing-2xl: 1.4em;
+    --spacing-3xl: 1.6em;
+    --spacing-4xl: 2em;
+    --spacing-5xl: 2.5em;
+    --spacing-paragraph: 0.75em;
+    --spacing-section: 2em;
+    --spacing-block: 1em;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--ff-body); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--color-text); background: var(--color-bg); max-width: 15.6cm; margin-left: auto; margin-right: auto; }
+
+  /* ===== 封面 ===== */
+  .cover-eyebrow { font-size: var(--fs-small); color: var(--color-secondary); letter-spacing: 0.3em; text-align: left; margin-bottom: var(--spacing-xl); font-family: var(--ff-heading); font-weight: var(--fw-heading); }
+  .cover-title { font-size: var(--fs-cover-title); font-family: var(--ff-heading); font-weight: var(--fw-bold); color: var(--color-heading); text-align: left; margin-bottom: var(--spacing-sm2); line-height: 1.4; }
+  .cover-subtitle { font-size: var(--fs-cover-subtitle); color: var(--color-muted); text-align: left; margin-bottom: var(--spacing-5xl); }
+  .cover-meta-table { width: 100%; border-collapse: collapse; margin-top: var(--spacing-4xl); }
+  .cover-meta-table td { padding: var(--spacing-sm) var(--spacing-sm2); font-size: var(--fs-small); border: none; }
+  .cover-meta-table td.k { color: var(--color-muted); width: 6.5em; }
+  .cover-meta-table td.v { color: var(--color-text); }
+
+  /* ===== 目录 ===== */
+  .toc-block { padding: var(--spacing-block) 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); margin-bottom: var(--spacing-section); }
+  .toc-title { font-weight: var(--fw-bold); font-family: var(--ff-heading); font-size: var(--fs-h2); color: var(--color-heading); margin-bottom: var(--spacing-sm); }
+  .toc-list { padding-left: var(--spacing-3xl); font-size: var(--fs-body); color: var(--color-text); }
+
+  /* ===== 执行摘要 ===== */
+  .executive-summary { margin: var(--spacing-section) 0; padding: var(--spacing-2xl); background: var(--color-surface); border-left: 4px solid var(--color-primary); }
+  .summary-header { font-family: var(--ff-heading); font-size: var(--fs-h2); font-weight: var(--fw-bold); color: var(--color-heading); margin-bottom: var(--spacing-sm2); }
+  .summary-badge { font-size: var(--fs-small); color: var(--color-muted); font-style: italic; }
+  .stats-table { width: 100%; border-collapse: collapse; margin-bottom: var(--spacing-lg); }
+  .stats-table th { background: var(--color-primary); color: var(--color-on-primary); font-family: var(--ff-heading); font-weight: var(--fw-heading); font-size: var(--fs-small); padding: var(--spacing-sm) var(--spacing-md); border: 1px solid var(--color-primary); text-align: center; }
+  .stats-table td { padding: var(--spacing-sm) var(--spacing-md); border: 1px solid var(--color-border); font-size: var(--fs-body); text-align: center; font-family: var(--ff-latin); }
+  .stats-table td.stat-num { color: var(--color-emphasis); font-weight: var(--fw-bold); font-size: var(--fs-stat-num); }
+  .stats-table td.stat-label { color: var(--color-muted); font-size: var(--fs-small); }
+
+  /* ===== 正文 ===== */
+  .report-body h2 { font-size: var(--fs-h1); font-family: var(--ff-heading); font-weight: var(--fw-bold); color: var(--color-heading); border-left: 4px solid var(--color-primary); padding-left: var(--spacing-sm2); margin-top: var(--spacing-section); margin-bottom: var(--spacing-md); }
+  .report-body h3 { font-size: var(--fs-h2); font-family: var(--ff-heading); font-weight: var(--fw-bold); color: var(--color-heading); margin-top: var(--spacing-2xl); margin-bottom: var(--spacing-sm); }
+  .report-body p { margin-bottom: var(--spacing-paragraph); text-align: justify; }
+  .report-body ul, .report-body ol { margin-bottom: var(--spacing-paragraph); padding-left: var(--spacing-3xl); }
+  .report-body li { margin-bottom: var(--spacing-xs); text-align: justify; }
+
+  .data-emphasis { color: var(--color-emphasis); font-weight: var(--fw-bold); }
+
+  .issue-table { width: 100%; border-collapse: collapse; margin-bottom: var(--spacing-paragraph); }
+  .issue-table th { background: var(--color-surface); color: var(--color-heading); font-family: var(--ff-heading); font-weight: var(--fw-heading); font-size: var(--fs-small); padding: var(--spacing-sm) var(--spacing-md); border: 1px solid var(--color-border); }
+  .issue-table td { padding: var(--spacing-sm) var(--spacing-md); border: 1px solid var(--color-border); font-size: var(--fs-small); vertical-align: top; }
+  .issue-table td.no { font-family: var(--ff-latin); font-weight: var(--fw-bold); color: var(--color-primary); white-space: nowrap; }
+
+  .crit-item { margin-bottom: var(--spacing-xl); }
+
+  .callout-info { border-left: 3px solid var(--color-primary); background: var(--color-surface); padding: var(--spacing-md) var(--spacing-md3); margin-bottom: var(--spacing-paragraph); font-size: var(--fs-small); }
+  .callout-warn { border-left: 3px solid var(--color-emphasis); background: var(--color-warn-bg); padding: var(--spacing-md) var(--spacing-md3); margin-bottom: var(--spacing-paragraph); font-size: var(--fs-small); }
+
+  .divider-line { border: none; border-top: 1px solid var(--color-border); margin: var(--spacing-section) 0; }
+
+  .verdict-table { width: 100%; border-collapse: collapse; margin-bottom: var(--spacing-paragraph); }
+  .verdict-table th { background: var(--color-surface); color: var(--color-heading); font-family: var(--ff-heading); font-weight: var(--fw-heading); font-size: var(--fs-small); padding: var(--spacing-sm) var(--spacing-md); border: 1px solid var(--color-border); }
+  .verdict-table td { padding: var(--spacing-sm) var(--spacing-md); border: 1px solid var(--color-border); font-size: var(--fs-small); vertical-align: top; }
+  .verdict-table td.expert { font-family: var(--ff-heading); font-weight: var(--fw-heading); white-space: nowrap; }
+
+  .appendix-note { font-size: var(--fs-small); color: var(--color-muted); border-top: 1px solid var(--color-border); padding-top: var(--spacing-lg); margin-top: var(--spacing-section); }
+  </style>
+</head>
+<body>
+
+<section role="cover">
+  <p class="cover-eyebrow">EXPERT PANEL REVIEW REPORT</p>
+  <h1 class="cover-title">CKI version5 投稿版<br>专家团综合审稿报告</h1>
+  <p class="cover-subtitle">Cell-state Kinetic Index · NAR 投稿前独立评审</p>
+  <table class="cover-meta-table">
+    <thead>
+    <tr><td class="k">审稿对象</td><td class="v">version5/submitting_version.zip（主稿件、Cover Letter、5 主图、图文摘要、Table 1-2、S1-S6）</td></tr>
+    </thead>
+    <tbody>
+    <tr><td class="k">审稿团队</td><td class="v">方法学/计算生物学 · 统计学 · 生物学/单细胞基因组学 · 写作/NAR 期刊策略</td></tr>
+    <tr><td class="k">审稿日期</td><td class="v">2026 年 8 月 24 日</td></tr>
+    <tr><td class="k">审稿模式</td><td class="v">纯审稿——未对任何原文件做实际改动</td></tr>
+    <tr><td class="k">总体结论</td><td class="v"><strong>4/4 专家一致倾向大修（Major Revision）</strong></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section role="body" data-page-restart="1">
+
+  <div class="toc-block">
+    <p class="toc-title">目录</p>
+    <ol class="toc-list">
+      <li>总体结论</li>
+      <li>Critical 问题（7 项）</li>
+      <li>Major 问题（12 项）</li>
+      <li>Minor 问题</li>
+      <li>修订优先级建议</li>
+      <li>各专家总体评价摘录</li>
+    </ol>
+  </div>
+
+  <table class="executive-summary">
+    <thead>
+    <tr><td></td></tr>
+    </thead>
+    <tbody>
+    <tr><td>
+      <p class="summary-header">执行摘要 <span class="summary-badge">Executive Summary</span></p>
+      <table class="stats-table">
+        <thead>
+        <tr>
+          <th>审稿专家</th>
+          <th>Critical</th>
+          <th>Major</th>
+          <th>倾向结论</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="stat-label">方法学/计算生物学</td>
+          <td class="stat-num">2</td>
+          <td class="stat-num">5</td>
+          <td>大修</td>
+        </tr>
+        <tr>
+          <td class="stat-label">统计学</td>
+          <td class="stat-num">3</td>
+          <td class="stat-num">5</td>
+          <td>大修</td>
+        </tr>
+        <tr>
+          <td class="stat-label">生物学/单细胞基因组学</td>
+          <td class="stat-num">2</td>
+          <td class="stat-num">5</td>
+          <td>大修后可能接收</td>
+        </tr>
+        <tr>
+          <td class="stat-label">写作/NAR 期刊策略</td>
+          <td class="stat-num">3</td>
+          <td class="stat-num">6</td>
+          <td>修复合规后可投</td>
+        </tr>
+        </tbody>
+      </table>
+      <p>CKI 概念具有原创性，跨数据集负相关发现（Spearman r = −0.57 至 −0.38，均 P &lt; 0.001）证明其捕捉到与现有度量互补的信息维度，代码开源完备。但脑区分析多重比较失效、per-pair 基因选择循环依赖、校准基线统计基础不足三项结构性统计问题被三位专家独立指出，投稿包卫生与声明不符问题可能直接导致编辑部退回。汇总共 <span class="data-emphasis">7 项 Critical、12 项 Major</span> 与若干 Minor 问题。当前状态不建议直接投出。</p>
+    </td></tr>
+    </tbody>
+  </table>
+
+  <main class="report-body">
+
+    <h2>一、总体结论</h2>
+    <p>四位专家一致倾向 <strong>大修（Major Revision）</strong>。</p>
+    <p>CKI（Cell-state Kinetic Index）概念具有原创性——以管家基因表达散度作为内源基线、将功能散度归一化的思路方向合理；跨数据集负相关发现（CKI ω 与四种标准距离度量的 Spearman r = −0.57 至 −0.38，均 P &lt; 0.001）表明其确实捕捉到与现有度量互补的信息维度；Python 包开源（GitHub + Zenodo DOI）完备。</p>
+    <div class="callout-warn">
+      <p>&nbsp;&nbsp;但统计推断链与投稿合规各存在多处实质缺陷：脑区分析的多重比较失效、per-pair 基因选择的循环依赖、校准基线的统计基础不足三项统计结构问题被三位专家独立指出；投稿包卫生与声明不符问题则可能直接导致编辑部退回。<strong>当前状态不建议直接投出。</strong></p>
+    </div>
+
+    <h2>二、Critical 问题（7 项，足以导致拒稿或编辑部退回）</h2>
+
+    <h3>C1. 脑区分析多重比较失效（统计/方法学/生物三方共识）</h3>
+    <div class="crit-item">
+      <p>31,764 次比较、<span class="data-emphasis">36.3%</span>（11,541 个）触及置换检验 P 值地板 9.99×10⁻⁵，无法进行 Bonferroni/BH 校正；16 个 "Strong signals" 全部触底，且候选先经阈值筛选（residual &lt; 0.3、ω &lt; 15）再行置换验证，属双重筛选，实际发现率不可评估。摘要将 "two with permutation support" 作为核心成果宣传，与正文自认的 "descriptive evidence" 相矛盾。建议采用更严格的 null 模型（如 block-shuffle 保持 cell-type × region 联合分布）重做，或将脑分析明确降级为假设生成（hypothesis-generating）。</p>
+    </div>
+
+    <h3>C2. per-pair k_f 基因选择的循环依赖（data snooping）</h3>
+    <div class="crit-item">
+      <p>k_f 的 top-200 基因按两组均值差绝对值 |μ_A − μ_B| 选出——"功能基因"恰恰是两组间差异最大的基因，任意两群比较都会内生地放大 k_f 与 ω。作者虽在 Limitations 承认其为 "upper bound"，但主结果中绝对 ω 数值的解读全部受此动摇，且不可跨数据集比较。</p>
+    </div>
+
+    <h3>C3. 校准基线 ω = 6.67 统计基础不足且被跨方案滥用</h3>
+    <div class="crit-item">
+      <p>校准仅基于 <span class="data-emphasis">n = 6</span> 个对照，CV ≈ 52%，bootstrap 95% CI [4.12, 9.33]（上下界相差逾 2 倍）；基线来自小鼠 global HVG-2000 方案，却被外推到人类/TCGA/脑分析的 per-pair DE-200 方案；TCGA 中 5/5 癌症类型的 k_n 全部触及地板值 10⁻⁴，ω 退化为 k_f 的缩放，却仍与单细胞数据 ω 同尺度比较。建议改用 rank-based 解释贯穿全文，并补充各数据集独立的 split-half 校准。</p>
+    </div>
+
+    <h3>C4. 管家基因"中性基线"生物学假设未论证</h3>
+    <div class="crit-item">
+      <p>管家基因受肿瘤代谢重编程（Warburg 效应）、增殖/细胞周期状态、缺氧与炎症微环境等系统调控，在肿瘤中可能失调；HRT Atlas 的"低变异"是跨组织平均结果，不代表特定肿瘤或细胞状态下稳定。TCGA 分析未做任何 HK 稳定性诊断或癌症特异性敏感性检验（Figure S3 的替代集为"低变异基因"，概念上并非管家基因）。</p>
+    </div>
+
+    <h3>C5. 投稿包卫生问题（已核实）</h3>
+    <div class="crit-item">
+      <p>投稿包内存在：Word 临时锁文件 <span class="data-emphasis">~$ble1-2.docx</span>（表明打包时 Table1-2.docx 仍处于打开状态）、.DS_Store 文件 2 个、__MACOSX/ 元数据目录。编辑部对此类"脏包"通常直接要求清理重传，且影响职业化印象。</p>
+    </div>
+
+    <h3>C6. Supplementary Data 声明与实际文件不符</h3>
+    <div class="crit-item">
+      <p>正文声明 "All analysis notebooks and processed data matrices are included in the Supplementary Data"，但投稿包内除 S1-S6 六个 PDF 外无任何代码或数据文件。须补齐 Supp Data 文件，或将该声明改为 "available at GitHub/Zenodo"，否则审稿人核对即发现不符。</p>
+    </div>
+
+    <h3>C7. Figure 2 图例与正文类别定义直接矛盾</h3>
+    <div class="crit-item">
+      <p>图例定义 C/S/D/X 四类，其中 S 为 "same sub-organ"；正文却定义 S 为 "same cell type across different organs"，且 C 类别在正文从未出现。数据内部一致性问题，审稿人必抓。</p>
+    </div>
+
+    <h2>三、Major 问题（12 项，需大修）</h2>
+    <table class="issue-table">
+      <thead>
+      <tr>
+        <th>编号</th>
+        <th>问题</th>
+        <th>来源</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="no">M1</td>
+        <td>Ka/Ks 类比无数学对等性（无共享速率过程，比率失去"消去中性过程"语义），ω 符号与群体遗传学 dN/dS 专有符号冲突；摘要/标题仍以其为中心叙事，存在过度宣称</td>
+        <td>方法学</td>
+      </tr>
+      <tr>
+        <td class="no">M2</td>
+        <td>softmax(log1p) 在 1130-2000 维向量上饱和，k_n 极易触底（TCGA 即此机制）；未论证 softmax 与 L1-normalize 的方案差异及温度选择依据</td>
+        <td>方法学</td>
+      </tr>
+      <tr>
+        <td class="no">M3</td>
+        <td>k_n 方案跨数据集不一致：Tabula Sapiens/TCGA 用 global 共享 HK 集合，脑分析用 per-pair；同类任务（cross-organ，n=59）双重标准，使 ω 不可直接比较</td>
+        <td>方法学</td>
+      </tr>
+      <tr>
+        <td class="no">M4</td>
+        <td>缺 ground-truth 正对照：无 spike-in 模拟、无 TOST 等价检验，全部结论依赖事后生物学回溯解释</td>
+        <td>方法学</td>
+      </tr>
+      <tr>
+        <td class="no">M5</td>
+        <td>ω 右偏分布（skewness 0.73-2.22）却用算术均值建模乘法残差模型，未采用 log-ω 或中位数等稳健量</td>
+        <td>统计</td>
+      </tr>
+      <tr>
+        <td class="no">M6</td>
+        <td>效应量与置信区间缺失：主发现负相关无 CI；Table 2 中 10/17 细胞类型仅 n = 1 仍参与排序并获生物学解释</td>
+        <td>统计</td>
+      </tr>
+      <tr>
+        <td class="no">M7</td>
+        <td>分类器 AUC 评估不透明：未说明交叉验证、102 类转二分类方式；5,151 个 pair 非独立（同细胞类型重复出现）导致 AUC 高估；CKI 0.716 vs Spearman 0.690 差异无 DeLong/bootstrap 检验</td>
+        <td>统计</td>
+      </tr>
+      <tr>
+        <td class="no">M8</td>
+        <td>因果语言过度："migration candidates" 实为发育起源信号（OPC 零 Strong signals 恰说明低 ω 应解释为共享发育程序）；"transcriptional convergence" 与自认 exploratory 矛盾；应全文统一为关联性表述</td>
+        <td>统计/生物</td>
+      </tr>
+      <tr>
+        <td class="no">M9</td>
+        <td>TCGA 肿瘤"转录收敛"结论受 bulk RNA-seq 细胞组成伪影严重混淆（纯度、基质/免疫浸润未校正），应降级为待 scRNA-seq 验证的探索性假说</td>
+        <td>生物</td>
+      </tr>
+      <tr>
+        <td class="no">M10</td>
+        <td>缺与领域现有方法比较（inferCNV/CopyKAT、CytoTRACE、Palantir、Shannon/Simpson 异质性指数等），无法证明增量价值</td>
+        <td>生物</td>
+      </tr>
+      <tr>
+        <td class="no">M11</td>
+        <td>Limitations 共 21 条且编号错乱（First/Second/Third 后直接跳 Sixteenth），防御过度、拖累可读性；Methods 中置换检验程序与 P 值公式在约三处近乎逐字重复</td>
+        <td>写作</td>
+      </tr>
+      <tr>
+        <td class="no">M12</td>
+        <td>引用与声明问题：BH 校正误引 Storey &amp; Tibshirani 2003（正确出处为 Benjamini &amp; Hochberg 1995）；稿件正文缺 AI 使用声明（Cover letter 已有，OUP/NAR 要求稿件内披露）；Figure 1C 标注 "Bootstrap…mouse pilot" 与 "simulated" 自相矛盾；脑细胞类别数 9/10 前后不一</td>
+        <td>写作</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h2>四、Minor 问题</h2>
+    <ul>
+      <li>小样本分层结果进入正文（Edmondson G4 n = 11、PAM50 Normal-like n = 7、配对肿瘤-正常 n = 2-5 无 P 值），建议移入补充材料。</li>
+      <li>TCGA 三个临床检验未做多重比较校正；LUAD mutation P = 0.017 经 BH 校正后可能不显著（约 0.051）。</li>
+      <li>维度不变性模拟（Dirichlet，2,000 trials）仅模拟均匀随机向量，未模拟"基因选择偏置"，而该偏置恰是 ω = 6.67 膨胀的来源，论证不完整。</li>
+      <li>Figure 5D 横轴区域缩写标签严重重叠，难以阅读。</li>
+      <li>Strong/Moderate/Weak 分层阈值（residual 0.3/0.5/0.75 与 ω 上限 15/25/35）缺乏推导或验证，显得武断。</li>
+      <li>神经元因亚型未解析被整体排除，限制脑区分析对谷氨酸/GABA 神经元区域特化的外推。</li>
+      <li>文件命名三套规则混用（figure1-5.pdf / Supplementary_Figure_S1-S6.pdf / Table1-2.docx），建议统一前缀。</li>
+      <li>GitHub 仓库名 "CKI-cell-type-identification" 与论文定位 "CKI is a divergence index, not a classifier" 相悖。</li>
+      <li>Cover letter：摘要框架 "three dimensions" 与正文 "four scales" 不一；建议审稿人 Theis（scanpy 作者）、Teichmann（ref[1] 资深作者）或被视为利益关联；"None have recent collaborations" 属无法担保的绝对化陈述。</li>
+      <li>术语与缩写："DE" 首用未定义；Table 1 表头 "CKI omega" 与正文 ω 拼写不一；摘要 "millions of cells" 实际分析仅 888,263 个非神经元核；摘要 "30 signatures (two with permutation support)" 应区分阈值候选与统计支持。</li>
+    </ul>
+
+    <h2>五、修订优先级建议（按投入产出排序）</h2>
+
+    <h3>第一优先级：零成本、必须（预计 1-2 天）</h3>
+    <p>清理投稿包重新打包（删除 ~$ble1-2.docx、.DS_Store、__MACOSX/）；修复 Supp Data 声明（C6）；修复 Figure 2 类别矛盾（C7）；更正 BH 引用；正文补 AI 使用声明；修复 Limitations 编号错乱。</p>
+
+    <h3>第二优先级：低成本、高回报</h3>
+    <p>全文因果语言降级为关联性表述；脑分析降级为 hypothesis-generating；摘要 "30 signatures (two with permutation support)" 改为区分阈值候选与统计支持；"migration candidates" 改为 "developmental origin / regional specialization candidates"。</p>
+
+    <h3>第三优先级：需实质重新分析</h3>
+    <p>rank-based 替代绝对 ω_cal 解读；各数据集独立 split-half 校准；更严格 null 模型（block-shuffle）；log-ω 建模；AUC 补交叉验证与 DeLong CI；TCGA 纯度/解卷积敏感性分析；HK 集合癌症特异性敏感性检验。</p>
+
+    <h3>第四优先级：可选加强</h3>
+    <p>spike-in 合成数据 ground-truth benchmark；与 CytoTRACE/inferCNV 等领域工具比较。</p>
+
+    <hr class="divider-line">
+
+    <h2>六、各专家总体评价摘录</h2>
+    <table class="verdict-table">
+      <thead>
+      <tr>
+        <th>专家</th>
+        <th>总体评价</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="expert">方法学</td>
+        <td>Major Revision；若结构性缺陷（循环依赖、校准不稳定、方案不一致、P 值地板）无法在修订中解决，应考虑 Reject &amp; Resubmit。</td>
+      </tr>
+      <tr>
+        <td class="expert">统计学</td>
+        <td>Major Revision；核心统计推断链存在三处实质缺陷（脑分析多重比较失效、基因选择循环性、校准外推与低分母退化），若不愿实质改动统计设计，当前证据强度不足以支撑摘要中的因果式宣传，存在拒稿风险。</td>
+      </tr>
+      <tr>
+        <td class="expert">生物学</td>
+        <td>大修后可能接收；在解决 HK 中性基线论证（C1）与校准可转移性（C2）及 TCGA 伪影混淆、领域方法比较之前，不适合以当前形式接收。</td>
+      </tr>
+      <tr>
+        <td class="expert">写作/期刊策略</td>
+        <td>科学内容扎实、写作总体流畅、图表引用完整、Data/Code availability 完善；主要问题集中于投稿包卫生、声明与实际不符、Methods/Discussion 冗长与内部编号矛盾。修复第一优先级问题后，预计 1-2 周内可达到投稿成熟度。</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p class="appendix-note">附注：本报告基于四位专家对 version5/submitting_version.zip 的独立审稿意见汇总，审稿过程为纯评审模式，未对任何原文件做实际改动。原稿件、图表与投稿包均保持原样。</p>
+
+  </main>
+
+</section>
+
+</body>
+</html>

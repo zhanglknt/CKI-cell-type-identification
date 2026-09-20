@@ -1,0 +1,23 @@
+222 1.1 Jensen-Shannon Divergence
+250 1.2 Baseline Divergence Rate k_n
+273 1.3 Functional Divergence Rate k_f
+291 1.4 Omega Ratio and Its Interpretation
+310 1.5 Permutation Test
+339 1.6 Pseudobulk Construction
+351 1.7 Probability-Mapping Robustness: Linear-Normalization Re-anal
+467 3.1 Tests Performed and Correction Strategy
+478 3.2 Permutation Test and Bootstrap CI Details
+508 3.3 Multiple Testing Correction
+574 3.4 Reporting Conventions
+590 3.7 Pair-Specific k_n Variability
+609 3.8 TCGA Exploratory Analysis Caveats
+629 3.9 Cross-Organ Sample Size Considerations
+640 3.10 One-Sided Permutation Test Justification
+658 3.11 Parameter Justification
+682 3.18 Mouse Split-Half Re-calibration (6 \u2192 50 splits; v44)
+706 3.19 Competitor Benchmark: MELD and a Python Approximation of scD
+827 4.1 Tabula Muris FACS (Mouse)
+839 4.2 Tabula Sapiens (Human)
+854 4.3 TCGA Bulk RNA-seq
+864 4.4 Highly Variable Gene (HVG) Selection
+881 4.5 Kang et al. IFN-beta PBMC (Perturbation Demonstration)

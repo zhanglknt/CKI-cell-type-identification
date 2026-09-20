@@ -1,0 +1,7 @@
+k_n: 35.7%
+k_f: 37.6%
+omega: 28.6%
+raw_js: 45.2%
+cosine: 44.1%
+spearman: 40.6%
+marker_jaccard: 19.9%

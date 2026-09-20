@@ -1,0 +1,76 @@
+============================================================
+09c: EVT residual P-values (GPD tail extrapolation)
+============================================================
+
+[1/5] Loading brain omega pairs...
+  Total pairs: 31,764
+  Cell types: 10
+  Unique region pairs: 5778
+  Observed: Strong=29, Moderate=1051, Weak=5849
+
+[2/5] Pre-encoding data for numpy operations...
+  CT codes: 10 unique
+  Region pairs: 5778
+  Memory for nulls: 1.18 GB (float32)
+
+[3/5] Running 10,000 permutations...
+C:\Users\KnightZ\Desktop\细胞受选择\notebooks\09c_phaseB_residual_evt.py:120: UserWarning: 'where' used without 'out', expect unitialized memory in output. If this is intentional, use out=None.
+  mu_ct_arr = np.divide(ct_sums, ct_counts, where=ct_counts > 0)
+  Perm 2000/10000, elapsed=64s, ETA=254s, saturated_so_far=10,206
+  Perm 4000/10000, elapsed=125s, ETA=187s, saturated_so_far=10,127
+  Perm 6000/10000, elapsed=184s, ETA=123s, saturated_so_far=10,120
+  Perm 8000/10000, elapsed=243s, ETA=61s, saturated_so_far=10,119
+  Perm 10000/10000, elapsed=299s, ETA=0s, saturated_so_far=10,118
+  Permutations done in 299s (5.0 min)
+  Empirical P-values: 10,118 saturated (P=9.9990e-05)
+
+[4/5] Fitting GPD to 500-smallest nulls per signal...
+  Freed null array (1.18 GB)
+
+  EVT fitting complete:
+    Saturated signals: 10,118
+    EVT success: 10,118
+    EVT fallback (insufficient tail data): 0
+    EVT fallback (bad fit): 0
+    EVT fallback (bounded tail): 0
+
+  EVT P-value distribution (saturated signals):
+    P < 1e-2: 10,118
+    P < 1e-3: 10,118
+    P < 1e-4: 10,118
+    P < 1e-5: 10,114
+    P < 1e-6: 10,090
+    P < 1e-8: 9,554
+    P < 1e-10: 9,037
+
+[5/5] Applying BH-FDR...
+  Saved: results/phaseB_residual_evt.csv
+  Saved: results/phaseB_residual_evt.json
+
+============================================================
+COMPARISON: EVT vs Empirical
+============================================================
+
+  All 31,764 pairs:
+    EVT: P < 0.05:   11,449
+    EVT: P < 1e-3:   10,579
+    EVT: P < 1e-4:   10,118
+    EVT: P < 1e-5:   10,114
+    EVT: FDR < 0.05: 11,436
+    Emp: FDR < 0.05: 11,436
+    EVT: FDR < 0.01: 11,434
+    Emp: FDR < 0.01: 11,434
+
+  Strong tier (29 signals):
+    EVT P range: [1.0000e-300, 1.0000e+00]
+    EVT Q range: [3.8127e-300, 1.0000e+00]
+    EVT FDR < 0.05: 1/29
+    Emp FDR < 0.05: 1/29
+
+  Moderate tier (1051 signals):
+    EVT FDR < 0.05: 125/1051
+
+  Weak tier (5849 signals):
+    EVT FDR < 0.05: 1149/5849
+
+Done! 09c EVT analysis complete.

@@ -1,0 +1,32 @@
+1. Loading data...
+  Reference HK genes: 1130
+2. Building unified AnnData...
+  Common genes: 23433
+  Unified: 17957 cells x 23433 genes
+3. Preprocessing...
+  After QC: 15057 x 22308
+  HVGs: 2000
+  HK genes matched in data: 1064
+  Identity genes: 1998
+5. Building tissue pseudobulks...
+  Liver: 758 cells
+  Kidney: 578 cells
+  Spleen: 1704 cells
+  Lung: 1758 cells
+  Heart: 5170 cells
+  Marrow: 5089 cells
+6. Sweeping n_HK...
+  n_HK=250: k_n = 0.0147 ± 0.0069
+  n_HK=500: k_n = 0.0101 ± 0.0046
+  n_HK=750: k_n = 0.0080 ± 0.0037
+  n_HK=1000: k_n = 0.0068 ± 0.0031
+  n_HK=1250: exceeds available genes (1064), skipping
+  n_HK=1500: exceeds available genes (1064), skipping
+7. Saving...
+  Saved: hk_stability_sweep.csv
+ n_hk  kn_mean   kn_std
+  250 0.014726 0.006888
+  500 0.010088 0.004635
+  750 0.008035 0.003675
+ 1000 0.006783 0.003117
+DONE.

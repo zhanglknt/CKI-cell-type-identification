@@ -1,0 +1,3 @@
+LINE 758 : p('Figure 1. The CKI framework. (a) Conceptual analogy between Ka/Ks in molecular evolution and CKI in transcriptomics. Ka/Ks uses synonymous substitution rate (Ks) as a neutral ba
+LINE 760 : p('Figure 2. CKI calibration on Tabula Muris mouse data. (a) k_n calibration across six Tabula Muris cell types from control comparisons (C category: random split of same populatio
+LINE 762 : p(f'Figure 3. Correlation structure between CKI and standard metrics. (a) Spearman correlation heatmap of five metrics on n = {_h["n_pairs_total"]:,} Tabula Sapiens pairs. CKI \u03

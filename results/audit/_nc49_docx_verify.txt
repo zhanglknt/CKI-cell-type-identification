@@ -1,0 +1,73 @@
+'neutral-drift calibration' paragraphs at: [37, 118, 205]
+  [37] Real-data neutral-drift calibration on technical replicates
+  [118] Neutral-drift calibration on technical replicates
+  [205] Figure 4. Real-data neutral-drift calibration on technical replicates. (a) Schematic of the four-tie
+
+Figure legends in order:
+  [202] Figure 1. The CKI framework. (a) Conceptual analogy between 
+  [203] Figure 2. CKI calibration on Tabula Muris mouse data. (a) k_
+  [204] Figure 3. Correlation structure between CKI and standard met
+  [205] Figure 4. Real-data neutral-drift calibration on technical r
+  [206] Figure 5. TCGA pan-cancer perturbation analysis. (a) Median 
+  [207] Figure 6. Cross-organ cell-type conservation. (a) CKI ω rank
+  [208] Figure 7. Brain regional cell-type differentiation and regio
+
+Main Fig. references by number (excluding Supplementary):
+  Fig. 1: paragraphs [16]
+  Fig. 2: paragraphs [22, 23, 24, 129]
+  Fig. 3: paragraphs [27]
+  Fig. 4: paragraphs [38, 39, 40]
+  Fig. 5: paragraphs [49]
+  Fig. 6: paragraphs [56]
+  Fig. 7: paragraphs [59]
+
+Key-number presence:
+  '0.963': 1 occurrence(s)
+  '28.6%': 2 occurrence(s)
+  '45.2%': 1 occurrence(s)
+  '44.1%': 1 occurrence(s)
+  '40.6%': 1 occurrence(s)
+  '19.9%': 1 occurrence(s)
+  '90.9%': 1 occurrence(s)
+  '1.04': 2 occurrence(s)
+  '1.80': 5 occurrence(s)
+  '2.98': 5 occurrence(s)
+  '36.7%': 2 occurrence(s)
+  '23.3%': 2 occurrence(s)
+  '2,161': 2 occurrence(s)
+  '1,089': 2 occurrence(s)
+  '1,656': 2 occurrence(s)
+  '137-fold': 1 occurrence(s)
+  '21.9': 1 occurrence(s)
+  '9.7': 6 occurrence(s)
+  'TODO-nc49-drift': 2 occurrence(s)
+  'n-matched': 17 occurrence(s)
+
+All level-2 style headings around Results:
+  [15] Decomposing transcriptomic variation
+  [21] Calibration confirms baseline behavior
+  [26] Correlation structure between CKI and standard metrics
+  [33] Ground-truth simulation: specificity versus sensitivity
+  [37] Real-data neutral-drift calibration on technical replicates
+  [41] Real perturbation demonstration: IFN-β-stimulated PBMCs
+  [43] Benchmarking against perturbation-response metrics
+  [45] Fixed-panel ablation: robust rankings, scheme-specific ω
+  [48] Cancer analysis: apparent tumor homogeneity (exploratory)
+  [53] CKI ranks cell types by cross-organ conservation
+  [58] Brain regional analysis reveals divergence gradients
+  [66] Anomalously similar pairs: a hypothesis-generating screen
+  [94] CKI computation
+  [98] Dimensionality invariance of JS divergence
+  [100] Permutation test
+  [102] Datasets
+  [107] Method comparison
+  [109] Multiplicative residual model for brain regional analysis
+  [111] Robustness and calibration analyses
+  [114] Ground-truth simulation
+  [116] Perturbation demonstration (IFN-β PBMC)
+  [118] Neutral-drift calibration on technical replicates
+  [120] Fixed gene-panel ablation
+  [122] Clinical severity analysis
+  [124] Computational environment
+  [126] Statistics and reproducibility
+  [130] Use of large language models

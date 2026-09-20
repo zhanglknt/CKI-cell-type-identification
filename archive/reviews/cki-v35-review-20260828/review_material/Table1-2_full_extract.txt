@@ -1,0 +1,31 @@
+Supplementary Tables
+Table 1. Classification AUC of five metrics on Tabula Sapiens (102 cell types, 4,851 pairs).
+Table 2. Cross-organ conservation ranking by cell type (Tabula Sapiens, n=59 same-cell-type cross-organ pairs).
+[TABLE 1]
+Metric | ROC-AUC
+Cosine distance | 0.887
+Raw JS divergence | 0.849
+Marker Jaccard distance | 0.801
+Spearman distance | 0.690
+CKI omega | 0.680
+[/TABLE]
+[TABLE 2]
+Cell type | Mean ω | SD | n pairs
+Hepatocyte | 8.57 | — | 1
+B cell | 9.36 | — | 1
+CD8+ T cell | 9.93 | 4.62 | 6
+Plasma cell | 10.20 | 2.03 | 6
+Hematopoietic stem cell | 11.12 | — | 1
+Smooth muscle cell | 12.22 | — | 1
+Neutrophil | 14.22 | 8.49 | 6
+Monocyte | 15.19 | — | 1
+Macrophage | 15.49 | 8.46 | 15
+CD4+ T cell | 16.71 | — | 1
+NK cell | 17.28 | 3.14 | 10
+Classical monocyte | 17.50 | — | 1
+Naive B cell | 21.06 | — | 1
+Intermediate monocyte | 21.78 | — | 1
+Memory B cell | 22.36 | — | 1
+Endothelial cell | 26.25 | 8.59 | 3
+Erythrocyte | 29.36 | 23.07 | 3
+[/TABLE]

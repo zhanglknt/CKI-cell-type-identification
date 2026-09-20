@@ -1,0 +1,65 @@
+CKI NAR Submission Package v33
+Built: 2026-08-03 09:34
+Status: v32 expert panel (8.41/10) — 4 Major + 20 Minor ALL resolved
+  + all earlier fixes inherited (v32 P0/P1/P2 + v26-v31)
+
+=== v33: Third-Batch Expert Panel Fixes (4 Major + 20 Minor) ===
+Phase A — Major (4/4):
+  M1: Repro Guide section 6 parameter table relocated
+  M2: Data source declarations unified (GitHub + GEO/CELLxGENE)
+  M3: S3-S9 supplementary figures cited in manuscript body
+  M4: 8 orphan references (31-35, 40-41, 44) cited or removed
+
+Phase B — High-Consensus Minor (3/3):
+  m1: MANIFEST FDR terminology unified -> "P-value floor (descriptive)"
+  m2: CV 60% -> 52% (manuscript line 52)
+  m3: Cover Letter "30 signatures" -> "30 threshold-passing candidates (16 significant)"
+
+Phase C — Low-Consensus Minor (17/17):
+  m4: requirements.txt referenced in Repro Guide section 1
+  m5: Supp P-value precision 0.001 -> 9.99e-04
+  m6: Brain cell type list 9->10 (committed OPCs as separate class)
+  m7: MANIFEST "section 2" -> "section 1"
+  m8: Abstract "two statistically significant" -> "two with permutation support"
+  m9: k_n floor TT/NN quantified (in Limitations #20)
+  m10: One-sided test limitation added (Limitations #18)
+  m11: P-value floor alternative explanation (Limitations #19)
+  m12: Cross-species Spearman r referenced in Discussion
+  m13: TCGA k_n floor note in Results section
+  m14: "Strong candidate" -> "threshold-passing candidates" for P>=0.76
+  m15: Non-neuronal scope limitation (Limitations #21)
+  m16: Supp figure numbering "Figure 8" -> "S8", "Figure 9" -> "S9"
+  m17: "orthogonal" -> "complementary" (2 occurrences)
+
+=== v32 (inherited): Abstract Compression ===
+  - Abstract 197 -> 195 words
+
+=== v31 (inherited): Final P2 Minor Resolution (19/19) ===
+
+=== v30 (inherited): P1 Fixes (8/8) ===
+
+=== v29 (inherited): P0 Fixes (3/3) ===
+
+=== v26-v28 (inherited): N1-N10 + C1-C7 + M1-M20 ===
+
+Bootstrap Status:
+  Mouse (Tabula Muris): 8/15 significant, B=1000, one-sided + BH FDR
+  Human (Tabula Sapiens): 15/16 significant, P=9.99e-04, B=1000
+  TCGA: descriptive + SES, B=1000
+  Brain (Siletti Atlas): 10/10 significant, P<0.01, FDR<0.05, B=1000
+
+Calibration: omega=6.67, 95% CI [4.12, 9.33], n=6 split-half
+
+FDR: No formal FDR applies (P-value floor saturation); signals interpreted as descriptive evidence
+Residual Model: 30 Strong, 16/30 P-value floor (descriptive), 14/30 non-significant
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (v33: all v32 expert panel fixes)
+2. CKI_NAR_Supplementary.docx - Supplementary materials
+3. CKI_NAR_Cover_Letter.docx - Cover letter
+4. CKI_NAR_Reproducibility_Guide.docx - Reproducibility guide
+5. Table1-2.docx - Standalone tables
+6. figure1.pdf through figure6.pdf - Main figures (6)
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S12.pdf (12)
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+9. *_fulltext.txt - Plain-text extracts

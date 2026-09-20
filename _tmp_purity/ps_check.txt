@@ -1,0 +1,3 @@
+﻿dir created
+curl=
+py=C:\Users\KnightZ\AppData\Local\Programs\Python\Python312\python.exe exists=True

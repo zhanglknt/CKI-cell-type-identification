@@ -1,0 +1,13 @@
+results/nc49_tcga_purity.csv 2026-09-18 22:59:19.877488 6013
+results/nc49_tcga_admix_scores.csv 2026-09-18 22:59:19.913705 319503
+results/tcga_linear_norm_v44_all_pairs.csv 2026-09-04 19:11:57.969054 4379901
+results/nc49_tcga_luad_smoking.csv 2026-09-18 22:59:51.446405 5155
+results/nc49_tcga_pancancer.csv 2026-09-18 12:18:34.209562 1101
+notebooks/nc49_tcga_purity.py 2026-09-18 22:54:04.325367 25410
+results/nc49_tcga_luad_mutation.csv 2026-09-18 12:18:34.524020 1917
+admix tumor counts by cancer: {'TCGA-BRCA': 1032, 'TCGA-KIRC': 754, 'TCGA-LIHC': 366, 'TCGA-LUAD': 495, 'TCGA-LUSC': 567}
+admix normal counts by cancer: {'TCGA-BRCA': 109, 'TCGA-KIRC': 82, 'TCGA-LIHC': 57, 'TCGA-LUAD': 76, 'TCGA-LUSC': 58}
+KIRC merged n: 746
+KIRC kn: r(z over all admix tumors of cancer)=-0.3994 P=6.016e-30 | r(z over matched subset)=-0.3994 P=6.016e-30
+KIRC omega: r(z over all admix tumors of cancer)=+0.4059 P=5.961e-31 | r(z over matched subset)=+0.4059 P=5.961e-31
+KIRC kf: r(z over all admix tumors of cancer)=-0.1816 P=5.894e-07 | r(z over matched subset)=-0.1816 P=5.894e-07

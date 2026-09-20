@@ -1,0 +1,52 @@
+CKI NAR 完整投稿资料包 v34
+=============================
+构建时间: 2026-08-10
+版本状态: v34 — 第四批专家评审修改全部完成 (8.64/10)
+
+目录结构
+--------
+01_Manuscript/              Word版本稿件
+    CKI_NAR_Manuscript.docx         正文 (Word)
+    CKI_NAR_Manuscript_fulltext.txt  正文 (纯文本)
+
+02_Attachments/             附件材料
+    CKI_NAR_Cover_Letter.docx        投稿信
+    CKI_NAR_Supplementary.docx       补充材料
+    CKI_NAR_Reproducibility_Guide.docx 复现指南
+    Table1-2.docx                    表格 1-2
+
+03_Main_Figures/            正文图表 (PDF)
+    figure1.pdf - figure6.pdf        正文图 1-6
+    CKI_graphical_abstract.pdf/png/svg  图形摘要
+
+04_Supplementary_Figures/   附件图表 (PDF)
+    Supplementary_Figure_S1.pdf - S12.pdf  补充图 S1-S12
+
+05_Reproducibility/         复现代码和文档
+    cki/                             CKI 核心算法库 v0.3.2
+    notebooks/                       24 个分析脚本 (Phase 1-6)
+    scripts/                         辅助脚本
+    data/                            数据说明和下载指引
+    results/                         预计算结果
+    run_all.py                       一键复现脚本
+    generate_manuscript_nar.py       稿件生成脚本
+    generate_cover_letter_nar.py     投稿信生成脚本
+    requirements.txt                 Python 依赖
+    README.md                        复现说明
+
+复现步骤
+--------
+1. pip install -e .
+2. 下载数据 (见 data/README.md)
+3. python run_all.py --skip-tcga
+4. python generate_manuscript_nar.py
+
+统计摘要
+--------
+TS 对: 5,151 (102 细胞类型)
+脑区: 108
+Bootstrap: B=1,000
+Omega 基线: 6.67 (经验校准 95% CI [4.12, 9.33])
+小鼠 (Tabula Muris): 8/15 显著
+人类 (Tabula Sapiens): 15/16 显著
+脑 (Siletti Atlas): 10/10 显著, P<0.01, FDR<0.05

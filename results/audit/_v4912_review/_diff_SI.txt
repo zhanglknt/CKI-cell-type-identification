@@ -1,0 +1,8 @@
+﻿=== SI.txt : 2 differing lines ===
+
+InputObject                                                                    
+-----------                                                                    
+蠅 = k_f/k_n. Interpretation is anchored in the empirical 蠅 distribution with...
+蠅 = k_f/k_n. Interpretation is anchored in the empirical 蠅 distribution with...
+
+

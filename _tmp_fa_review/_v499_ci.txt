@@ -1,0 +1,3 @@
+poll 0: total=4 [('test (3.10)', 'in_progress', None), ('test (3.13)', 'in_progress', None), ('test (3.12)', 'in_progress', None), ('test (3.11)', 'in_progress', None)]
+poll 1: total=4 [('test (3.10)', 'completed', 'success'), ('test (3.13)', 'in_progress', None), ('test (3.12)', 'in_progress', None), ('test (3.11)', 'in_progress', None)]
+poll 2: total=4 [('test (3.10)', 'completed', 'success'), ('test (3.13)', 'completed', 'success'), ('test (3.12)', 'completed', 'success'), ('test (3.11)', 'completed', 'success')]

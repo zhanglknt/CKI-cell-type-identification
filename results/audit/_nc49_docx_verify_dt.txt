@@ -1,0 +1,49 @@
+TCGA results heading at paragraphs: [48]
+Figure legends in order:
+  [203] Figure 1. The CKI framework. (a) Conceptual analogy between Ka/Ks in molecular e
+  [204] Figure 2. CKI calibration on Tabula Muris mouse data. (a) k_n calibration across
+  [205] Figure 3. Correlation structure between CKI and standard metrics. (a) Spearman c
+  [206] Figure 4. Real-data neutral-drift calibration on technical replicates. (a) Schem
+  [207] Figure 5. Pan-cancer tissue-level divergence in tumors. (a) Ratio of mean normal
+  [208] Figure 6. Cross-organ cell-type conservation. (a) CKI ω ranking of 17 cell types
+  [209] Figure 7. Brain regional cell-type differentiation and region-association infere
+
+Main Fig references by number (excluding Supplementary):
+  Fig. 1: paragraphs [16, 18, 20, 22, 86, 210]
+  Fig. 2: paragraphs [22, 25, 211]
+  Fig. 3: paragraphs [27, 42, 83, 212]
+  Fig. 4: paragraphs [40, 49, 213]
+  Fig. 5: paragraphs [49, 55, 214]
+  Fig. 6: paragraphs [55, 58, 215]
+  Fig. 7: paragraphs [58, 61, 216]
+
+Key-number presence:
+  '2.46': 3 occurrence(s)
+  '1.13': 3 occurrence(s)
+  '3.21': 3 occurrence(s)
+  '2.1–3.6': 2 occurrence(s)
+  '136.9': 1 occurrence(s)
+  '115.4': 1 occurrence(s)
+  '7.8 × 10⁻⁷': 3 occurrence(s)
+  'Dunn–Holm': 5 occurrence(s)
+  '3.6 × 10⁻⁷': 1 occurrence(s)
+  '0.015': 2 occurrence(s)
+  '4.2 × 10⁻⁴': 2 occurrence(s)
+  '−4.1% to +2.6%': 1 occurrence(s)
+  'hazard ratio per SD 1.06': 1 occurrence(s)
+  '0.85–1.32': 1 occurrence(s)
+  'tissue-level functional divergence': 4 occurrence(s)
+  'nc49_tcga_pancancer.csv': 1 occurrence(s)
+  'nc49_pilot_lihc_cox.csv': 1 occurrence(s)
+  'cluster bootstrap, B = 1,000': 1 occurrence(s)
+
+Removed phrasing (expect 0):
+  'apparent tumor homogeneity': 0
+  'TCGA; exploratory': 0
+  'median NN/TT = 1.23': 0
+  'median NN/TT = 2.32': 0
+  'paired/unpaired ratio = 0.89': 0
+
+Abstract word count: 144
+
+Supplementary Fig. 4 legend: Supplementary Fig. 4. TCGA per-cancer matrices and supplementary stratification vignettes. (a) Pairwise ω matrices for f

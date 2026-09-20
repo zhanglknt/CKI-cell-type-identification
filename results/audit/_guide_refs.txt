@@ -1,0 +1,9 @@
+total lines: 751
+294 | p("The default mode (global HVG 2,000) is used only for the Tabula Muris full pairwise matrix (03_full_matrix.py, 703 pairs, Fig. 2 heatmap). The hybrid mode (p
+317 | p("Cross-species matching note (Supplementary Fig. 12): the mouse-human cell-type matching used for the cross-species comparison is case-insensitive exact match
+334 | heading("4.3 TCGA (Human Cancer) \u2014 Result 4 (Fig. 4)", 3),
+345 | p("  7. NN/TT ratio computed as median(omega_NN) / median(omega_TT) per cancer type (the manuscript and Fig. 4a report the median NN/TT omega ratio)."),
+351 | p("Cross-organ conservation (Result 5, Fig. 5): Subset of 59 same-cell-type cross-organ pairs from Tabula Sapiens data. Ranked by mean omega per cell type."),
+353 | heading("4.4 Siletti Brain Atlas (Human) \u2014 Result 6 (Fig. 6)", 3),
+461 | p("  l. Cross-species analysis (M-B1): Added mention in Discussion that preliminary cross-species validation was performed (Supplementary Fig. 12)."),
+530 | p("     Script: notebooks/79_kang_ifnb_demo.py (analysis), notebooks/80_kang_demo_figure.py (Supplementary Fig. 10)"),

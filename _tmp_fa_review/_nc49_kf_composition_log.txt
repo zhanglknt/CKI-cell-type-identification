@@ -1,0 +1,53 @@
+== PART A: k_f composition correction ==
+
+-- A1 pair-level OLS: log metric ~ is_TT + admix_mean + |dAdmix| --
+TCGA-LUAD kf: TT-vs-NN log gap unadj=+0.238 -> adj=+0.208 (SE 0.011, P=8.21e-80)
+TCGA-LUAD kn: TT-vs-NN log gap unadj=+1.077 -> adj=+0.991 (SE 0.019, P=0)
+TCGA-LUSC kf: TT-vs-NN log gap unadj=+0.551 -> adj=+0.534 (SE 0.014, P=1.12e-264)
+TCGA-LUSC kn: TT-vs-NN log gap unadj=+0.930 -> adj=+0.619 (SE 0.022, P=9.74e-159)
+TCGA-LIHC kf: TT-vs-NN log gap unadj=+0.539 -> adj=+0.530 (SE 0.014, P=3.6e-250)
+TCGA-LIHC kn: TT-vs-NN log gap unadj=+0.566 -> adj=+0.485 (SE 0.025, P=3.56e-82)
+TCGA-KIRC kf: TT-vs-NN log gap unadj=+0.479 -> adj=+0.599 (SE 0.015, P=1.96e-293)
+TCGA-KIRC kn: TT-vs-NN log gap unadj=+1.188 -> adj=+1.303 (SE 0.023, P=0)
+TCGA-BRCA kf: TT-vs-NN log gap unadj=+0.827 -> adj=+0.824 (SE 0.015, P=0)
+TCGA-BRCA kn: TT-vs-NN log gap unadj=+0.993 -> adj=+0.856 (SE 0.018, P=0)
+
+-- A2 per-tumour k_f ~ admix --
+TCGA-LUAD: per-tumour kf ~ admix r=-0.151, P=0.000751
+TCGA-LUSC: per-tumour kf ~ admix r=-0.177, P=2.22e-05
+TCGA-LIHC: per-tumour kf ~ admix r=-0.267, P=2.23e-07
+TCGA-KIRC: per-tumour kf ~ admix r=-0.182, P=5.89e-07
+TCGA-BRCA: per-tumour kf ~ admix r=-0.152, P=1.15e-06
+
+-- A3 LUAD k_f ~ group + admix_z --
+  EGFR - WT: -0.0048 (SE 0.0062), P=0.437
+  KRAS - WT: +0.0124 (SE 0.0047), P=0.00921
+  KRAS - EGFR: +0.0172 (SE 0.0069), P=0.0129
+
+== PART B: LUAD KRAS-KRAS top-200 panel Hallmark enrichment ==
+HK symbols: 1129
+LUAD samples: 571
+qualifying genes: 36334
+after mean>=0.5 filter: 14178 genes
+HK genes mapped: 1125; non-HK background: 13053
+KRAS tumours in expression matrix: 121
+KRAS-KRAS pairs: 7260
+panels computed: 7260
+core panel: 300 gene rows -> 300 symbols (top-300 by frequency (50% rule gave <50 genes))
+top-15 recurrent panel genes: RPS4Y1(49%), XIST(48%), GSTM1(47%), MTND4P12(44%), AL162151.3(42%), PAEP(40%), FGL1(39%), BPIFA1(38%), TMSB4XP8(38%), GPX2(38%), XAGE1A(37%), FGA(36%), MSMB(36%), TNNT1(36%), PROM1(36%)
+background symbols: 13031; core panel intersect background: 300
+Hallmark sets loaded: 50
+
+top-10 Hallmark over-representation (KRAS core panel):
+  Estrogen Response Late: overlap 10/165, P=4.88e-03, q=2.44e-01
+  KRAS Signaling Dn: overlap 5/69, P=2.12e-02, q=5.30e-01
+  Myogenesis: overlap 7/141, P=4.45e-02, q=7.42e-01
+  Estrogen Response Early: overlap 7/169, P=9.58e-02, q=1.00e+00
+  Epithelial Mesenchymal Transition: overlap 7/178, P=1.17e-01, q=1.00e+00
+  Coagulation: overlap 4/94, P=1.71e-01, q=1.00e+00
+  KRAS Signaling Up: overlap 6/165, P=1.81e-01, q=1.00e+00
+  Pancreas Beta Cells: overlap 1/11, P=2.26e-01, q=1.00e+00
+  Inflammatory Response: overlap 5/163, P=3.22e-01, q=1.00e+00
+  Hedgehog Signaling: overlap 1/24, P=4.28e-01, q=1.00e+00
+
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_tcga_kf_composition.csv

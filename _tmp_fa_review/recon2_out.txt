@@ -1,0 +1,49 @@
+--- L414 ---
+p('We evaluated CKI across four scales. First, we calibrated CKI on Tabula Muris mouse data [8]: random splits of the same cell population yield \u03c9 above 1 (empirical calibration baseline 7.70, 95% CI [7.37, 8.02]). Second, in Tabula Sapiens human data [9], CKI \u03c9 is negatively correlated with all four standard distance metrics; a decomposition analysis showed this association is partly driven by the k_n denominator (k_n is itself strongly positively correlated with the standard metrics), so \u03c9 is a composite of numerator and denominator information rather than a fully independent dimension (see Results). Third, applied to TCGA cancer data [10,11], CKI suggested that tumors appear more transcriptionally homogeneous than adjacent non-tumor tissues at bulk resolution (an exploratory observation; see Results for caveats). Fourth, in a human brain single-nucleus atlas [12], we measured how non-neuronal cell classes differ across brain regions, quantifying a 6.10-fold regional differentiation gradient and screening for anomalously similar cell-type/region-pair candidates; because no candidate survived false-discovery-rate correction under a strict block-shuffle null preserving the cell-type-by-region design, we present the brain candidates as hypothesis-generating signals for future lineage-tracing validation. The human, pan-cancer, and brain analyses are complemented by mouse Tabula Muris calibration and ground-truth simulation analyses throughout.')
+--- L462 ---
+heading('Ground-truth simulation dissociates specificity from sensitivity', level=2)
+--- L479 ---
+heading('Fixed gene-panel ablation: rankings robust, absolute \u03c9 scheme-specific', level=2)
+--- L485 ---
+heading('Cancer analysis suggests apparent tumor homogeneity (exploratory)', level=2)
+--- L506 ---
+heading('Brain regional analysis reveals cell-type divergence gradients', level=2)
+--- L522 ---
+heading('Anomalously similar cell-type/region pairs: a hypothesis-generating screen', level=2)
+
+=== heading lengths >60 ===
+len=106 L0: CKI: a Ka/Ks-inspired index for quantifying functional cell-type divergence in single-cell transcriptomics
+len=64 L2: Ground-truth simulation dissociates specificity from sensitivity
+len=75 L2: Fixed gene-panel ablation: rankings robust, absolute \u03c9 scheme-specific
+len=65 L2: Cancer analysis suggests apparent tumor homogeneity (exploratory)
+len=62 L2: Brain regional analysis reveals cell-type divergence gradients
+len=74 L2: Anomalously similar cell-type/region pairs: a hypothesis-generating screen
+len=63 L3: Astrocytes, fibroblasts, and ependymal cells: sparse candidates
+
+=== dangling xref candidates ===
+L412 [Limitations]: p('CKI defines two rates: a baseline divergence rate k_n, estimated from housekeeping (HK) gene expression, and a functional divergence rate k_f, estimated from cell-type identity genes. The ratio \u03c9 = k_f/k_n quantifies baseline-normalized functional divergence: values close to the equivalent-p
+L468 [Limitations]: p('The entire simulation was repeated in a second Tabula Muris FACS background\u2014skin keratinocyte stem cells (1,371 cells; epithelial lineage)\u2014with the identical design (1,750 replicates; Methods). The \u03c9 advantage was fully reproduced: AUC(\u03c9) = 0.908 versus AUC(k_f) = 0.859, with 
+L476 [Limitations]: p('We benchmarked CKI against MELD (v1.0.2) and scDist on the Kang IFN-\u03b2 dataset [14] (GEO: GSE96583); because scDist is R-only, we implemented a Python approximation (per-PC condition fixed-effect regression with donor covariates; distance = \u221a\u03a3\u03b2\u00b2\u03bb), labelled as such be
+L566 [Limitations]: p('CKI and standard metrics answer different questions, and choosing between them can be reduced to a few practical rules. Use CKI when the question is relative: is the functional divergence between two populations larger than what their own housekeeping baseline varies by, within the same dataset a
+L571 [Limitations]: heading('Limitations', level=2)
+L568 [Practical usage]: heading('Practical usage guide', level=2)
+L565 [When to use CKI]: heading('When to use CKI versus standard metrics', level=2)
+L568 [usage guide]: heading('Practical usage guide', level=2)
+L410 [see Discussion]: p('This question mirrors one addressed in molecular evolution. The Ka/Ks ratio (dN/dS) distinguishes nonsynonymous changes (Ka, which alter the protein) from synonymous changes (Ks, largely silent) [6,7], using synonymous sites as an internal baseline so that the ratio reveals selection. While CKI d
+L412 [see Discussion]: p('CKI defines two rates: a baseline divergence rate k_n, estimated from housekeeping (HK) gene expression, and a functional divergence rate k_f, estimated from cell-type identity genes. The ratio \u03c9 = k_f/k_n quantifies baseline-normalized functional divergence: values close to the equivalent-p
+L450 [see Discussion]: p(f'Human \u03c9 values ranged from {_h["omega_min"]:.2f} to {_h["omega_max"]:.2f} (mean {_h["omega_mean"]:.2f}, median {_h["omega_median"]:.2f}, n = {_h["n_pairs_total"]:,} pairs). We refrain from comparing these absolute magnitudes with the mouse pilot X-category mean (n = 2 pairs on a different d
+L510 [see Discussion]: p('Mean \u03c9 spanned a 6.10-fold gradient across cell classes (all class-level SDs in this paragraph computed with ddof = 1). Bergmann glia and vascular cells showed the lowest mean \u03c9 (both 13.56; Bergmann glia 13.56 \u00b1 5.72, n = 21 pairs across 7 regions\u2014all intra-cerebellar, so the
+L536 [\(Discussion]: p('Mature oligodendrocytes contributed 10 Strong candidates, all with raw P < 0.05\u2014the only class in which every Strong candidate reaches nominal significance. Six of the ten have a thalamic relay-nucleus endpoint (eight if the subthalamic nucleus, which the atlas ontology groups under thalamus
+L410 [Discussion\)]: p('This question mirrors one addressed in molecular evolution. The Ka/Ks ratio (dN/dS) distinguishes nonsynonymous changes (Ka, which alter the protein) from synonymous changes (Ks, largely silent) [6,7], using synonymous sites as an internal baseline so that the ratio reveals selection. While CKI d
+L412 [Discussion\)]: p('CKI defines two rates: a baseline divergence rate k_n, estimated from housekeeping (HK) gene expression, and a functional divergence rate k_f, estimated from cell-type identity genes. The ratio \u03c9 = k_f/k_n quantifies baseline-normalized functional divergence: values close to the equivalent-p
+L450 [Discussion\)]: p(f'Human \u03c9 values ranged from {_h["omega_min"]:.2f} to {_h["omega_max"]:.2f} (mean {_h["omega_mean"]:.2f}, median {_h["omega_median"]:.2f}, n = {_h["n_pairs_total"]:,} pairs). We refrain from comparing these absolute magnitudes with the mouse pilot X-category mean (n = 2 pairs on a different d
+L510 [Discussion\)]: p('Mean \u03c9 spanned a 6.10-fold gradient across cell classes (all class-level SDs in this paragraph computed with ddof = 1). Bergmann glia and vascular cells showed the lowest mean \u03c9 (both 13.56; Bergmann glia 13.56 \u00b1 5.72, n = 21 pairs across 7 regions\u2014all intra-cerebellar, so the
+L588 [Conclusions\b]: heading('Conclusions', level=1)
+L658 [List of abbreviations]: heading('List of abbreviations', level=1)
+L575 [Background\)]: p('Gene-set definition, calibration, and estimator dependence. CKI uses the HRT Atlas v1.0 reference [13] for all reported analyses; the package also supports data-driven auto-detection (combined detection-rate and CV filtering, use_reference = False), not used here, and sensitivity analysis showed 
+L532 [Microglia: composition]: heading('Microglia: composition of the largest candidate share', level=3)
+L535 [thalamo-temporal]: heading('Oligodendrocytes: thalamo-temporal convergence', level=3)
+L536 [thalamo-temporal]: p('Mature oligodendrocytes contributed 10 Strong candidates, all with raw P < 0.05\u2014the only class in which every Strong candidate reaches nominal significance. Six of the ten have a thalamic relay-nucleus endpoint (eight if the subthalamic nucleus, which the atlas ontology groups under thalamus
+L561 [thalamo-temporal]: p('The cross-organ and cross-brain-region analyses indicate that CKI can serve as a general tool for measuring functional differentiation at multiple spatial scales. The brain analysis showed a 6.10-fold \u03c9 gradient across 10 cell classes (from 13.56 in Bergmann glia and vascular cells to 82.75 
+L563 [thalamo-temporal]: p('Although no individual candidate survives FDR correction, several signals are consistent with prior reports\u2014literature anchoring rather than independent validation. Maturation comparisons must be made on the k_f-only ordering rather than the composite \u03c9 ordering, because the composite i
+L538 [sparse candidates]: heading('Astrocytes, fibroblasts, and ependymal cells: sparse candidates', level=3)

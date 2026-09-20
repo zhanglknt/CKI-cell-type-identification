@@ -1,0 +1,7 @@
+'o pseudo-regions and the identical test re-run on the resulting 127,756 pseudo-pairs (B = 1,000; Additional file 1: Note 4.6; Additional file 1: Fig. S13). Pseudo-pairs between halves of different regions (n = 127,056) gave near-nomi'
+---
+'rsion is attributable to library-level grouping shared by both designs rather than to null-width mismatch (Results; Additional file 1: Note 4.6, Fig. S13). In addition, B = 1,000 permutations bounds the resolvable P-value at 9.99 \\u0'
+---
+"tes. Format: DOCX. Title: CKI: Supplementary Notes. Description: extended methods and supplementary analyses, including Supplementary Figures S1\\u2013S13 and Supplementary Tables S1\\u2013S4.')\np('Additional file 2: CKI Reproducibilit"
+---
+"nded with capture lane in this dataset; cross-metric contrasts, not absolute detection, are the informative quantity.')\n\np('Additional file 1: Figure S13. Pseudo-region negative control for the brain block-shuffle null (QQ plots of p"

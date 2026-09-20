@@ -1,0 +1,24 @@
+Li Zhang
+Institute of Blood Transfusion
+Chinese Academy of Medical Sciences & Peking Union Medical College
+Chengdu, China
+Chinese Institute for Brain Research, Beijing
+Beijing, China
+Email: knightz@pumc.edu.cn
+ORCID: 0000-0002-0698-0754
+August 28, 2026
+The Editors
+Nucleic Acids Research
+Oxford University Press
+Re: Submission of Original Research Article
+CKI: A Cell-state Kinetic Index for Quantifying Baseline-Normalized Transcriptomic Remodeling
+Dear Editors,
+On behalf of my co-author, Dr. Xianming Wu (Chinese Institute for Brain Research, Beijing), I am pleased to submit our original research article, “CKI: A Cell-state Kinetic Index for Quantifying Baseline-Normalized Transcriptomic Remodeling”, for consideration for publication in Nucleic Acids Research.
+Cell identity is fundamentally defined by its transcriptome. However, a standardized, assumption-free metric to quantify transcriptomic divergence between cell states has been lacking. Drawing inspiration from evolutionary biology’s Ka/Ks ratio, we propose CKI (Cell-state Kinetic Index), which decomposes Jensen–Shannon divergence into two complementary components: k_n (baseline divergence rate, from housekeeping gene expression) and k_f (functional divergence rate, from identity gene expression). The ratio ω = k_f/k_n provides a robust, interpretable measure of baseline-normalized transcriptomic remodeling. As a new computational method with rigorous validation across multiple datasets, CKI aligns well with Nucleic Acids Research’s scope in methods development and genomic analysis.
+We validated CKI across four datasets. (1) Independent information dimension—on 4,851 human cell-type pairs from Tabula Sapiens, CKI ω was negatively correlated with all four standard distance metrics (Spearman r = −0.36 to −0.46, all P < 0.001), while the four standard metrics formed a tight positive cluster, demonstrating that ω measures something fundamentally different from raw JS divergence, cosine similarity, and other existing approaches. (2) Empirical calibration—random splits of the same cell population yield an ω baseline of 6.67 (95% bootstrap CI [4.24, 9.24]), inflated above unity by identity-gene selection and absorbed by the calibrated ω_cal scale, which we verified is not driven by gene-set dimensionality. (3) Pan-cancer analysis—CKI ω suggested potential transcriptional convergence across genetically diverse tumors: in all five cancer types examined, the median NN/TT ω ratio exceeded 1.0 (range 1.23–2.32), an exploratory observation we present with explicit caveats on bulk RNA-seq resolution. (4) Brain regional analysis—CKI revealed a 6.88-fold regional differentiation gradient across 10 non-neuronal cell classes (888,263 nuclei, 31,764 cross-region comparisons), and a screen of 55 anomalously similar Strong candidates (37 with raw P < 0.05) under a design-preserving block-shuffle null; because none survived false-discovery-rate correction (minimum q = 0.949), we present these candidates as hypothesis-generating signals for future lineage-tracing validation rather than confirmed discoveries.
+Both authors have approved the manuscript and declare no competing interests. This work has not been published elsewhere, is not under consideration by any other journal, and has not been previously submitted to Nucleic Acids Research. AI tools (large language model-based assistants) were used for computational debugging, statistical code review, and language editing; all AI-assisted content was reviewed and revised by the authors, who take full responsibility. The CKI Python package (v0.3.1, MIT License) and all analysis code and notebooks are publicly available at https://github.com/zhanglknt/CKI-cell-type-identification (permanent archive: Zenodo DOI: 10.5281/zenodo.15670808). The CKI package is implemented in Python (≥3.10) and runs on Linux, macOS, and Windows. Dependencies include scanpy, scipy, numpy, and pandas (see repository for full requirements).
+We suggest the following potential reviewers with relevant expertise: (1) Prof. Fabian Theis, Helmholtz Munich (fabian.theis@helmholtz-munich.de); (2) Prof. Sarah Teichmann, Wellcome Sanger Institute (st1@sanger.ac.uk); (3) Prof. Joshua Welch, University of Michigan (welchjd@umich.edu); (4) Prof. Itai Yanai, NYU Grossman School of Medicine (itai.yanai@nyulangone.org); (5) Prof. Zemin Zhang, Peking University (zeminzhang@pku.edu.cn); (6) Prof. Xiaowo Wang, Tsinghua University (xww@tsinghua.edu.cn). None of the suggested reviewers have recent collaborations or conflicts of interest with the authors.
+Thank you for considering our work for publication in Nucleic Acids Research. We look forward to hearing from you.
+Sincerely,
+Li Zhang (Corresponding Author)
+Xianming Wu (First Author)

@@ -1,0 +1,20 @@
+===== MS checks =====
+[PASS] no TODO residue 
+[PASS] Results Section 3.20 ref 
+[PASS] Methods Section 3.20 ref 
+[PASS] severity -> Note 9 + Supp Fig 4b 
+[PASS] Supp Fig 4 legend panel b 
+[PASS] marker Jaccard 1.41 (Results) 
+[PASS] marker Jaccard 1.41 (Fig 4 legend) 
+[PASS] no leftover 1.40 versus 1.80 
+[PASS] assertion count 72 (from run log; check text has 72 somewhere) verified separately in generator log
+[PASS] Result 4 new title 
+[PASS] Figure 5 legend (TCGA) 
+[PASS] Cox limitation sentence 
+[PASS] KRAS gradient in Results 
+[PASS] drift Results heading 
+[PASS] drift Methods heading 
+[PASS] Kang Wilson CI 
+[PASS] main figure legends 1-7 in order ['Figure 1. Th', 'Figure 2. CK', 'Figure 3. Co', 'Figure 4. Re', 'Figure 5. Pa', 'Figure 6. Cr', 'Figure 7. Br']
+[PASS] Section 3.20 referenced twice 
+TOTAL: 18 checks, 0 failures

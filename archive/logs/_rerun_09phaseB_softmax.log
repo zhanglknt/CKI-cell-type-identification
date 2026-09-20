@@ -1,0 +1,182 @@
+============================================================
+C-S1: Adaptive permutation — B=1,000 sufficiency analysis
+============================================================
+
+  Brain:
+    Tests: 10, B=1000, min_P=9.9900e-04
+    BH threshold (rank 1): 5.0000e-03
+    Significant (FDR<0.05): 10/10
+    Borderline cases: 10
+      rank 1: P=9.9900e-04, thresh=5.0000e-03, margin=5.0x
+      rank 2: P=9.9900e-04, thresh=1.0000e-02, margin=10.0x
+      rank 3: P=9.9900e-04, thresh=1.5000e-02, margin=15.0x
+      rank 4: P=9.9900e-04, thresh=2.0000e-02, margin=20.0x
+      rank 5: P=9.9900e-04, thresh=2.5000e-02, margin=25.0x
+      rank 6: P=9.9900e-04, thresh=3.0000e-02, margin=30.0x
+      rank 7: P=9.9900e-04, thresh=3.5000e-02, margin=35.0x
+      rank 8: P=9.9900e-04, thresh=4.0000e-02, margin=40.0x
+      rank 9: P=9.9900e-04, thresh=4.5000e-02, margin=45.0x
+      rank 10: P=2.9970e-03, thresh=5.0000e-02, margin=16.7x
+
+  Human (per-CT):
+    Tests: 17, B=1000, min_P=9.9900e-04
+    BH threshold (rank 1): 2.9412e-03
+    Significant (FDR<0.05): 16/17
+    Borderline cases: 16
+      rank 1: P=9.9900e-04, thresh=2.9412e-03, margin=2.9x
+      rank 2: P=9.9900e-04, thresh=5.8824e-03, margin=5.9x
+      rank 3: P=9.9900e-04, thresh=8.8235e-03, margin=8.8x
+      rank 4: P=9.9900e-04, thresh=1.1765e-02, margin=11.8x
+      rank 5: P=9.9900e-04, thresh=1.4706e-02, margin=14.7x
+      rank 6: P=9.9900e-04, thresh=1.7647e-02, margin=17.7x
+      rank 7: P=9.9900e-04, thresh=2.0588e-02, margin=20.6x
+      rank 8: P=9.9900e-04, thresh=2.3529e-02, margin=23.6x
+      rank 9: P=9.9900e-04, thresh=2.6471e-02, margin=26.5x
+      rank 10: P=9.9900e-04, thresh=2.9412e-02, margin=29.4x
+      rank 11: P=9.9900e-04, thresh=3.2353e-02, margin=32.4x
+      rank 12: P=9.9900e-04, thresh=3.5294e-02, margin=35.3x
+      rank 13: P=9.9900e-04, thresh=3.8235e-02, margin=38.3x
+      rank 14: P=9.9900e-04, thresh=4.1176e-02, margin=41.2x
+      rank 15: P=9.9900e-04, thresh=4.4118e-02, margin=44.2x
+      rank 16: P=1.9980e-03, thresh=4.7059e-02, margin=23.6x
+
+  Mouse (pilot):
+    Tests: 15, B=1000, min_P=9.9900e-04
+    BH threshold (rank 1): 3.3333e-03
+    Significant (FDR<0.05): 8/15
+    Borderline cases: 6
+      rank 1: P=9.9900e-04, thresh=3.3333e-03, margin=3.3x
+      rank 2: P=9.9900e-04, thresh=6.6667e-03, margin=6.7x
+      rank 3: P=9.9900e-04, thresh=1.0000e-02, margin=10.0x
+      rank 4: P=9.9900e-04, thresh=1.3333e-02, margin=13.3x
+      rank 5: P=9.9900e-04, thresh=1.6667e-02, margin=16.7x
+      rank 6: P=9.9900e-04, thresh=2.0000e-02, margin=20.0x
+
+  Saved: results/phaseB_adaptive_analysis.json
+
+============================================================
+C-S2: Bootstrap CIs for ω (B=10,000)
+============================================================
+
+  Loading brain omega pairs...
+    Astrocyte: ω=103.08 [101.61, 104.50]
+    Fibroblast: ω=24.26 [23.80, 24.71]
+    Microglia: ω=31.99 [31.56, 32.43]
+    Oligodendrocyte: ω=41.08 [40.65, 41.52]
+    Oligodendrocyte precursor: ω=50.62 [49.96, 51.27]
+    Vascular: ω=18.47 [18.24, 18.71]
+    Committed oligodendrocyte precursor: ω=33.78 [32.99, 34.57]
+    Ependymal: ω=32.33 [31.35, 33.34]
+    Bergmann glia: ω=16.42 [13.47, 19.59]
+    Choroid plexus: ω=48.21 [40.24, 59.23]
+
+  Loading mouse omega matrix...
+    Mouse all pairs: ω=5.71 [5.29, 6.15]
+
+  Loading human omega matrix...
+    Human all pairs: ω=21.48 [21.20, 21.76]
+
+  Loading mouse pilot results...
+
+  Loading human per-CT results...
+
+  Saved: results/phaseB_bootstrap_cis.csv (33 entries)
+
+============================================================
+C-S5: ω distribution characterization
+============================================================
+
+  Brain (per-pair):
+    n=31764, mean=47.74, std=39.97
+    skewness=2.301, excess kurtosis=6.410
+    D'Agostino-Pearson: P=0.0000e+00 → non-normal
+    Log-normality: P=1.9113e-180 → not log-normal
+
+  Mouse (all pairs):
+    n=703, mean=5.71, std=5.70
+    skewness=2.929, excess kurtosis=10.143
+    Shapiro-Wilk: P=1.7700e-34 → non-normal
+    Log-normality: P=1.1156e-04 → not log-normal
+
+  Human (all pairs):
+    n=5151, mean=21.48, std=10.30
+    skewness=1.187, excess kurtosis=2.429
+    D'Agostino-Pearson: P=5.7130e-236 → non-normal
+    Log-normality: P=2.8074e-52 → not log-normal
+
+  Saved: results/phaseB_omega_distribution.json
+
+  Generating distribution plots...
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\figures_final\ed_fig8_omega_distribution.pdf
+
+============================================================
+C-S3: Null distribution for residual model (B=10,000)
+============================================================
+  Loading brain omega pairs...
+  Total pairs: 31,764, Cell types: 10
+
+  Observed (before 'lowest ω in pair' filter):
+    Strong (res<0.3, ω<15): 29
+    Moderate (res<0.5, ω<25): 1051
+    Weak (res<0.75, ω<35): 5849
+
+  Running 10,000 permutations (shuffle CT labels within region pairs)...
+    Iter 1000/10000, strong=895.3, moderate=5605.7, elapsed=22s, ETA=195s
+    Iter 2000/10000, strong=895.3, moderate=5606.0, elapsed=44s, ETA=174s
+    Iter 3000/10000, strong=895.4, moderate=5606.0, elapsed=65s, ETA=153s
+    Iter 4000/10000, strong=895.4, moderate=5605.9, elapsed=87s, ETA=131s
+    Iter 5000/10000, strong=895.4, moderate=5605.7, elapsed=109s, ETA=109s
+    Iter 6000/10000, strong=895.5, moderate=5605.7, elapsed=130s, ETA=87s
+    Iter 7000/10000, strong=895.5, moderate=5605.7, elapsed=153s, ETA=66s
+    Iter 8000/10000, strong=895.5, moderate=5605.7, elapsed=174s, ETA=44s
+    Iter 9000/10000, strong=895.5, moderate=5605.8, elapsed=195s, ETA=22s
+    Iter 10000/10000, strong=895.5, moderate=5605.8, elapsed=218s, ETA=0s
+
+  Results:
+    Strong: observed=29, null=895.5±5.0, P=1.0000e+00, q=1.0000e+00
+    Moderate: observed=1051, null=5605.8±10.0, P=1.0000e+00, q=1.0000e+00
+    Weak: observed=5849, null=11702.0±12.1, P=1.0000e+00, q=1.0000e+00
+
+  Saved: results/phaseB_residual_null.json + CSVs
+
+  Generating residual null distribution plot...
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\figures_final\ed_fig9_residual_null.pdf
+
+============================================================
+Phase B Summary
+============================================================
+
+C-S1 (Adaptive permutation):
+  - Brain: 10 tests, B=1,000, min_P=9.99e-04, BH_thresh=5.0e-03 → sufficient
+  - Human: 17 tests, B=1,000, min_P=9.99e-04, BH_thresh=2.9e-03 → sufficient
+  - Mouse: 15 tests, B=1,000, min_P=9.99e-04, BH_thresh=3.3e-03 → sufficient
+  - Test granularity is cell-type level, not pair level
+  - No borderline cases requiring additional permutations
+
+C-S2 (Bootstrap CIs):
+  - Computed 95% bootstrap CIs for all key ω estimates
+  - Brain: 10 cell types, CI widths reflect pair count
+  - Mouse/Human: aggregate + per-category CIs
+
+C-S3 (Residual null distribution):
+  - B=10,000 permutations of CT labels within region pairs
+  - Empirical P-values for Strong/Moderate/Weak tiers
+  - BH-FDR correction across 3 tests
+
+C-S5 (Distribution characterization):
+  - All ω distributions are right-skewed (positive skewness)
+  - Non-normal but approximately log-normal
+  - Cohen's d should be interpreted with caution (non-normal distribution)
+  - Histograms + Q-Q plots generated as ED Fig 8
+
+
+Phase B complete!
+Output files:
+  results/phaseB_adaptive_analysis.json
+  results/phaseB_bootstrap_cis.csv
+  results/phaseB_omega_distribution.json
+  results/phaseB_residual_null.json
+  results/phaseB_residual_null_counts.csv
+  results/phaseB_residual_null_sample.csv
+  results/figures_final/ed_fig8_omega_distribution.pdf
+  results/figures_final/ed_fig9_residual_null.pdf

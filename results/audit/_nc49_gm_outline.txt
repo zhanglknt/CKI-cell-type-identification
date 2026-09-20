@@ -1,0 +1,81 @@
+26: # Load all manuscript data dynamically from CSV files
+30: # Shorthand accessors
+43: # Phase B: Statistical upgrade data
+56: # Phase C: Methodological reinforcement data
+70: # C-A fix: k_f/k_n correlation decomposition (reviewer_decomposition_correlations.csv)
+83: # next well-sampled cell type after t2[0..2] that is not the duplicated macrophage row
+89: def find_ct(name):
+108: # == NC submission formatting: single-spaced, Arial 11pt ==
+116: # Page margins
+123: # == Helpers ==
+124: def set_black(run):
+127: def set_superscript(run):
+134: def heading(text, level=1):
+152: def _is_citation_group(content):
+162: def _fmt_citation(content):
+174: def p(text, bold=False, italic=False, size=11):
+206: # == Table helpers ==
+207: def add_table_1(doc):
+234: def add_table_2(doc):
+270: # ============================================================
+271: # NC REFERENCE LIST (Nature style)
+272: # Author, A. B., Author, C. D. & Author, E. F. Title. *Journal* **Vol**, pages (year).
+273: # >=6 authors -> first author + et al.; <=5 authors all listed.
+274: # Markup: «i»..«/i» = italic journal, «b»..«/b» = bold volume + comma.
+275: # ============================================================
+336: def _ref_run(para, text, bold=False, italic=False):
+347: def ref_p_nc(text):
+363: # ============================================================
+364: # TITLE PAGE
+365: # ============================================================
+377: # Xianming Wu (first author)
+391: # Li Zhang (corresponding author)
+408: # Affiliations
+433: # Correspondence
+441: # ORCID
+449: # ============================================================
+450: # ABSTRACT (NC: unstructured, single paragraph, <=150 words)
+451: # ============================================================
+457: # ============================================================
+458: # INTRODUCTION (NC: manuscript must begin with the heading "Introduction")
+459: # ============================================================
+472: # ============================================================
+473: # RESULTS
+474: # ============================================================
+477: # --- Result 1 ---
+490: # --- Result 2 ---
+501: # --- Result 3 ---
+517: # --- Result 3b: ground-truth simulation ---
+526: # --- Result 3b: real perturbation demonstration (IFN-beta PBMC) ---
+530: # --- Result 3d: benchmarking against perturbation-response metrics ---
+534: # --- Result 3c: fixed gene-panel ablation ---
+540: # --- Result 4 ---
+551: # --- Result 5 ---
+561: # --- Result 6 ---
+597: # ============================================================
+598: # DISCUSSION
+599: # ============================================================
+635: # ============================================================
+636: # Conclusions paragraph retained, merged into the end of Discussion (NC: no separate Conclusions section)
+637: # ============================================================
+640: # ============================================================
+641: # METHODS
+642: # ============================================================
+705: # ============================================================
+706: # DATA AVAILABILITY / CODE AVAILABILITY (NC: after Methods, before References;
+707: # no literature citations inside either section)
+708: # ============================================================
+715: # ============================================================
+716: # REFERENCES (NC: Nature style; superscript citations in text)
+717: # ============================================================
+724: # ============================================================
+725: # ACKNOWLEDGEMENTS / AUTHOR CONTRIBUTIONS / COMPETING INTERESTS
+726: # (NC fixed order, after References; Funding merged into Acknowledgements)
+727: # ============================================================
+743: # ============================================================
+744: # FIGURE LEGENDS
+745: # ============================================================
+760: # ============================================================
+761: # Supplementary figure legends (NC: follows the main figure legends)
+762: # ============================================================
+804: # == Save ==

@@ -1,0 +1,36 @@
+﻿
+---- SI line 98 ----
+For the larger-scale analyses, permutation results are supplemented with non-parametric statistical tests and descriptive statistics (median, IQR, effect sizes).
+---- SI line 101 ----
+Summary statistics are reported as mean +/- standard deviation (range) or median [interquartile range].
+Boxplots display: median (center line), IQR (box), 1.
+---- SI line 103 ----
+0035, median = 0.
+---- SI line 121 ----
+Calibration is the ratio observed / null median; the false-positive element is observed > own null 95th percentile.
+---- SI line 124 ----
+Second, a minority of cell classes show gene-specific library effects that the anchor cannot absorb: choroid plexus (n = 9 pairs, median calibration 2.
+---- SI line 126 ----
+---- SI line 156 ----
+On the 1,450 split-half replicates of the brain-internal calibration (both halves of each split are the same population, so E[k_f/k_n] versus E[k_f]/E[k_n] isolates pure ratio bias), the bias is small and null-calibrated: median +0.
+---- SI line 157 ----
+00 median, 6.
+---- SI line 164 ----
+The components are consistent with the metric ordering: IFN-beta stimulation raises median k_n 1.
+7-fold above the donor-drift level (ACTB and GAPDH fall roughly 40% in stimulated cells, a magnitude consistent with the anchor mechanism but not separable from the lane effect) while raising median k_f 1.
+---- SI line 168 ----
+On the same pairs, the circular panel inflated k_f by a median of 1.
+---- SI line 170 ----
+The TCGA analysis reports that normal-normal (NN) pairs have systematically lower k_n than tumor-tumor (TT) pairs (median TT/NN ratio 2.
+The reversal replicates exactly (median TT/NN k_n ratio 2.18, 2.
+53, 2.18, 3.
+70, and 2.79 for LUAD, LUSC, LIHC, KIRC, and BRCA; all Mann-Whitney P < 10^-90).
+Composition differences are real and directional: the median |Delta z| between pair members is 1.
+24-fold larger for TT pairs (median 0.
+673; P = 9 x 10^-77); notably, the myeloid |Delta z| itself does not differ between TT and NN pairs (median 0.
+6%]; median −0.
+---- SI line 171 ----
+8% (cluster-bootstrap median −1.
+---- SI line 181 ----
+---- SI line 198 ----
+Summary statistics for each cell type (ω mean, median, SD, range, k_n and k_f components) are provided in Supplementary Table 3.

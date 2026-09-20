@@ -1,0 +1,82 @@
+pairs total: 35306 (text: 35,306)
+per-tumor matched: n=3181 by cancer {'TCGA-BRCA': 1010, 'TCGA-KIRC': 746, 'TCGA-LIHC': 365, 'TCGA-LUAD': 493, 'TCGA-LUSC': 567}
+
+== (a) per-cancer metric ~ admix_z ==
+TCGA-LUAD kn: r=-0.4198 P=1.825e-22 (csv r=-0.4198 P=1.825e-22)
+TCGA-LUAD omega: r=+0.4736 P=6.358e-29 (csv r=+0.4736 P=6.358e-29)
+TCGA-LUAD kf: r=-0.1513 P=7.506e-04 (csv r=-0.1513 P=7.506e-04)
+TCGA-LUSC kn: r=-0.3670 P=1.593e-19 (csv r=-0.3670 P=1.593e-19)
+TCGA-LUSC omega: r=+0.3585 P=1.216e-18 (csv r=+0.3585 P=1.216e-18)
+TCGA-LUSC kf: r=-0.1771 P=2.223e-05 (csv r=-0.1771 P=2.223e-05)
+TCGA-LIHC kn: r=-0.2094 P=5.520e-05 (csv r=-0.2094 P=5.520e-05)
+TCGA-LIHC omega: r=+0.1547 P=3.052e-03 (csv r=+0.1547 P=3.052e-03)
+TCGA-LIHC kf: r=-0.2671 P=2.226e-07 (csv r=-0.2671 P=2.226e-07)
+TCGA-KIRC kn: r=-0.3994 P=6.016e-30 (csv r=-0.3983 P=8.875e-30)
+TCGA-KIRC omega: r=+0.4059 P=5.961e-31 (csv r=+0.4039 P=1.202e-30)
+TCGA-KIRC kf: r=-0.1816 P=5.894e-07 (csv r=-0.1812 P=6.269e-07)
+TCGA-BRCA kn: r=-0.3238 P=4.341e-26 (csv r=-0.3238 P=4.341e-26)
+TCGA-BRCA omega: r=+0.2855 P=2.157e-20 (csv r=+0.2855 P=2.157e-20)
+TCGA-BRCA kf: r=-0.1524 P=1.146e-06 (csv r=-0.1524 P=1.146e-06)
+
+== (b) LUAD driver groups ==
+mutation json: 75 EGFR aliquots, 161 KRAS aliquots (15-char: 75/161)
+DOUBLE excluded: 1
+LUAD groups: WT=311 EGFR=61 KRAS=120 (n=492)
+admix KW H=11.527 P=3.1400e-03; means WT=23869.83 EGFR=27064.10 KRAS=25655.37
+omega: admix_z coef=17.7820 P=7.885e-28; EGFR-WT -1.6454 (P=0.7279); KRAS-WT +16.8258 (P=4.001e-06); KRAS-EGFR +18.4712 (P=4.800e-04); group F=11.923 P=8.797e-06
+kf: admix_z coef=-0.0070 P=5.675e-04; EGFR-WT -0.0048 (P=0.4371); KRAS-WT +0.0124 (P=9.212e-03); KRAS-EGFR +0.0172 (P=1.294e-02); group F=4.410 P=1.265e-02
+kn: admix_z coef=-0.0006 P=7.984e-21; EGFR-WT -0.0001 (P=0.4229); KRAS-WT -0.0004 (P=2.933e-03); KRAS-EGFR -0.0003 (P=1.838e-01); group F=4.477 P=1.184e-02
+
+== (c) NN/TT high-purity half (exact bootstrap replication, seed 42 B=1000) ==
+TCGA-LUAD: all=2.464 (n=2000); low-admix half=2.863 [2.410,3.451] (n=482)
+TCGA-LUSC: all=1.822 (n=2000); low-admix half=1.984 [1.596,2.416] (n=529)
+TCGA-LIHC: all=1.133 (n=2000); low-admix half=1.217 [1.008,1.461] (n=503)
+TCGA-KIRC: all=1.895 (n=2000); low-admix half=2.204 [1.879,2.576] (n=513)
+TCGA-BRCA: all=1.567 (n=2000); low-admix half=1.740 [1.446,2.069] (n=496)
+
+== (d) LUAD smoking ==
+cBioPortal patients: 522; smoking known 508 (never=75, ever=433); pack-years known 356; age known 503; sex known 522
+smoke_ind value counts: {"4": 170, "3": 137, "2": 122, "1": 75, "null": 14, "5": 4}
+LUAD merged: smoking matched 427/492 (86.8%); never=65 ever=362
+crosstab:
+ever_smoke  0.0  1.0
+group               
+EGFR         22   37
+KRAS          7  111
+WT           36  214
+chi2=30.283 dof=2 P=2.656e-07
+  WT: ever 85.6% (214/250); pack-years mean 44.7 (n=178)
+  EGFR: ever 62.7% (37/59); pack-years mean 45.4 (n=25)
+  KRAS: ever 94.1% (111/118); pack-years mean 36.3 (n=93)
+models n: group/smoke=427, +age+sex=411, +admix=427
+omega group_only: EGFR-WT -2.5375(P=0.6231) KRAS-WT +13.6663(P=6.557e-04) KRAS-EGFR +16.2038(P=4.568e-03)
+omega smoke_adj: EGFR-WT -3.0767(P=0.5610) KRAS-WT +13.8658(P=5.940e-04) KRAS-EGFR +16.9425(P=4.285e-03)
+omega smoke_agesex: EGFR-WT -3.5224(P=0.5237) KRAS-WT +13.2799(P=1.432e-03) KRAS-EGFR +16.8022(P=6.393e-03)
+omega smoke_admix: EGFR-WT -5.3291(P=0.2850) KRAS-WT +13.6353(P=3.285e-04) KRAS-EGFR +18.9644(P=6.939e-04)
+kf group_only: EGFR-WT -0.0100(P=0.1048) KRAS-WT +0.0101(P=3.414e-02) KRAS-EGFR +0.0200(P=3.205e-03)
+kf smoke_adj: EGFR-WT -0.0089(P=0.1590) KRAS-WT +0.0097(P=4.330e-02) KRAS-EGFR +0.0185(P=8.561e-03)
+kf smoke_agesex: EGFR-WT -0.0076(P=0.2477) KRAS-WT +0.0115(P=1.968e-02) KRAS-EGFR +0.0190(P=9.052e-03)
+kf smoke_admix: EGFR-WT -0.0064(P=0.2840) KRAS-WT +0.0099(P=2.911e-02) KRAS-EGFR +0.0163(P=1.479e-02)
+kn group_only: EGFR-WT -0.0002(P=0.3347) KRAS-WT -0.0004(P=1.416e-02) KRAS-EGFR -0.0002(P=3.964e-01)
+kn smoke_adj: EGFR-WT -0.0002(P=0.3578) KRAS-WT -0.0004(P=1.440e-02) KRAS-EGFR -0.0002(P=3.993e-01)
+kn smoke_agesex: EGFR-WT -0.0002(P=0.3815) KRAS-WT -0.0004(P=2.185e-02) KRAS-EGFR -0.0002(P=4.449e-01)
+kn smoke_admix: EGFR-WT -0.0001(P=0.6001) KRAS-WT -0.0004(P=1.098e-02) KRAS-EGFR -0.0003(P=2.075e-01)
+
+== (e) pancancer NN/TT from raw pairs ==
+TCGA-LUAD: TT pairs=2000 NN pairs=2850 NN/TT=2.464 kn median ratio=2.60 kf TT mean=0.2823 NN mean=0.2259
+TCGA-LUSC: TT pairs=2000 NN pairs=1653 NN/TT=1.822 kn median ratio=2.69 kf TT mean=0.3033 NN mean=0.1801
+TCGA-LIHC: TT pairs=2000 NN pairs=1596 NN/TT=1.133 kn median ratio=2.12 kf TT mean=0.3065 NN mean=0.1846
+TCGA-KIRC: TT pairs=2000 NN pairs=3321 NN/TT=1.895 kn median ratio=3.64 kf TT mean=0.2684 NN mean=0.1708
+TCGA-BRCA: TT pairs=2000 NN pairs=5886 NN/TT=1.567 kn median ratio=2.78 kf TT mean=0.2944 NN mean=0.1422
+Traceback (most recent call last):
+  File "C:\Users\KnightZ\Desktop\细胞受选择\results\audit\_xv491_recalc.py", line 233, in <module>
+    + json.dumps(adm_all.groupby(['cancer','type']).size().to_dict()))
+      ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KnightZ\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py", line 235, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\KnightZ\AppData\Local\Programs\Python\Python314\Lib\json\encoder.py", line 202, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\KnightZ\AppData\Local\Programs\Python\Python314\Lib\json\encoder.py", line 263, in iterencode
+    return _iterencode(o, 0)
+TypeError: keys must be str, int, float, bool or None, not tuple

@@ -1,0 +1,29 @@
+﻿OK: build + compile + generate + verify all passed
+written: C:\Users\KnightZ\Desktop\缁嗚優鍙楅€夋嫨\notebooks\68_gen_supplementary_nc.py
+docx:    C:\Users\KnightZ\Desktop\缁嗚優鍙楅€夋嫨\results\CKI_Supplementary_NC.docx
+report:  C:\Users\KnightZ\Desktop\缁嗚優鍙楅€夋嫨\_tmp_fa_review\nc_sn_conversion_report_2026-09-17.md
+  [PASS] residual Note X.Y clean
+  [PASS] residual SN X.Y clean
+  [PASS] residual Fig. S clean
+  [PASS] residual Figure S clean
+  [PASS] residual Table S clean
+  [PASS] residual Additional file clean
+  [PASS] residual Supplementary Materials clean
+  [PASS] py_compile 68_gen_supplementary_nc.py ok
+  [PASS] generator run Saved: results/CKI_Supplementary_NC.docx | Paragraphs: 196
+  [PASS] DOCX residual Note X.Y clean
+  [PASS] DOCX residual Notes X.Y clean
+  [PASS] DOCX residual SN X.Y clean
+  [PASS] DOCX residual Fig. S clean
+  [PASS] DOCX residual Figure S clean
+  [PASS] DOCX residual Table S clean
+  [PASS] DOCX residual Additional file clean
+  [PASS] DOCX residual Supplementary Materials clean
+  [PASS] Supplementary Note 1-15 headings in order [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  [PASS] TOC Supplementary Note 1-15 in order [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  [PASS] TOC titles == heading titles 
+  [PASS] Supplementary Fig. count == original Figure/Fig. S count (7) new=[2, 3, 7, 9, 10, 12, 13]
+  [PASS] Supplementary Table count == original Table S count (14) new=[1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4]
+  [PASS] document title 'Supplementary Information' 
+  [PASS] panel labels (A)-(E) in DOCX 0
+  [PASS] Section X.Y refs (uncited subsections) 1.1, 1.5, 1.7, 3.18, 3.19a, 3.19b, 3.19c

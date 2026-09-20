@@ -1,0 +1,47 @@
+===== MS checks =====
+[PASS] TODO-nc49-fix count == 3 found 3
+[PASS] no TODO-nc49-drift residue 
+[PASS] Results Section 3.12 ref 
+[PASS] Methods Section 3.12 ref 
+[PASS] Section 3.12 referenced twice found 2
+[PASS] MWU descriptive -> Section 3.13 
+[PASS] no stale Section 3.20/3.21 refs 
+[PASS] T1 qualified (continuous metrics) 
+[PASS] marker Jaccard T1 19.9% admitted 
+[PASS] Jaccard below omega 10/10 admitted 
+[PASS] same-statistic frontier admitted 
+[PASS] final claim qualified 
+[PASS] Discussion decision-rules qualified 
+[PASS] no unqualified "misreported least of seven" 
+[PASS] Abstract drift sentence present 
+[PASS] Abstract word count <= 200 196 words
+[PASS] Abstract real-data calibration numbers 
+[PASS] Abstract 3,563 
+[PASS] 3,563 present 
+[PASS] no 3,596 residue 
+[PASS] Methods per-cancer counts 
+[PASS] attrition sentence 
+[PASS] pair-level MWU P deleted from main claims 
+[PASS] LIHC mapping-sensitivity honest 
+[PASS] softmax demoted to SI sensitivity 
+[PASS] KRAS magnitude decomposition 
+[PASS] KRAS vs WT k_f P = 0.097 
+[PASS] EGFR baseline-associated (Results) 
+[PASS] EGFR omega P = 0.39 NS 
+[PASS] batch/center limitation 
+[PASS] GTEx healthy-reference limitation 
+[PASS] Kang k_f 0/30 parenthetical 
+[PASS] no Additional file 2 
+[PASS] SI availability rewritten 
+[PASS] severity -> Note 9 + Supp Fig 4b 
+[PASS] marker Jaccard 1.41 (Results) 
+[PASS] no leftover 1.40 versus 1.80 
+[PASS] Result 5 TCGA title 
+[PASS] Figure 5 legend (TCGA) 
+[PASS] Cox limitation sentence 
+[PASS] drift Results heading 
+[PASS] Kang Wilson CI 
+[PASS] Kang-brain size reconciliation 
+[PASS] main figure legends 1-7 in order ['Figure 1. Th', 'Figure 2. CK', 'Figure 3. Co', 'Figure 4. Re', 'Figure 5. Pa', 'Figure 6. Cr', 'Figure 7. Br']
+[PASS] Fig 4 legend Jaccard admission 
+TOTAL: 45 checks, 0 failures

@@ -1,0 +1,11 @@
+'iptional drift), and evolutionary cell biology (quantifying conservation and divergence of cell-type programs across the tree of life). The CKI Python package (v0.4.9) and all analysis notebooks are available at https://github.com/zhanglknt/CKI-cell-type-identification under the MIT Li'
+---
+'nments: cBioPortal (brca_tcga_pub study, PAM50_SUBTYPE clinical attribute; [16,17]). MSigDB Hallmark gene sets: from Liberzon et al. [55]. The CKI source code (v0.4.9) is publicly available at https://github.com/zhanglknt/CKI-cell-type-identification (tag v0.4.9) under the MIT License.'
+---
+'mark gene sets: from Liberzon et al. [55]. The CKI source code (v0.4.9) is publicly available at https://github.com/zhanglknt/CKI-cell-type-identification (tag v0.4.9) under the MIT License. A permanent archival copy has been deposited at Zenodo (concept DOI: 10.5281/zenodo.20405458; v'
+---
+'dentification (tag v0.4.9) under the MIT License. A permanent archival copy has been deposited at Zenodo (concept DOI: 10.5281/zenodo.20405458; version DOI for v0.4.9: 10.5281/zenodo.22333850). The package requires Python ≥3.10 and runs on Linux, macOS, and Windows. A Dockerfile is pro'
+---
+'.9) under the MIT License. A permanent archival copy has been deposited at Zenodo (concept DOI: 10.5281/zenodo.20405458; version DOI for v0.4.9: 10.5281/zenodo.22333850). The package requires Python ≥3.10 and runs on Linux, macOS, and Windows. A Dockerfile is provided in the repository f'
+---
+"ovided in the repository for containerized reproducibility. All analysis notebooks and processed data matrices are available in the same GitHub repository (tag v0.4.9) and are included in the Zenodo archive (concept DOI: 10.5281/zenodo.20405458).')\n\nheading('Competing interests', level"

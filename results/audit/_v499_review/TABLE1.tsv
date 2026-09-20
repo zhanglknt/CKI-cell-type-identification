@@ -1,0 +1,21 @@
+Table 1. Cross-organ conservation ranking by cell type (Tabula Sapiens, n=59 same-cell-type cross-organ pairs). Well-sampled cell types (n ≥ 5 cross-organ pairs) are ranked first by mean ω; sparsely sampled cell types (n < 5 pairs; SD shown only where n > 1) are listed below the divider, and their rankings should be interpreted as suggestive only. k_f-only controls for this ranking are reported in Supplementary Note 9.			
+			
+Cell type	Mean ω	SD	n pairs
+CD8+ T cell	9.93	4.62	6
+Plasma cell	10.20	2.03	6
+Neutrophil	14.22	8.49	6
+Macrophage	15.49	8.46	15
+NK cell	17.28	3.14	10
+— Sparsely sampled (n < 5 pairs): interpret with caution —			
+Hepatocyte	8.57	—	1
+B cell	9.36	—	1
+Hematopoietic stem cell	11.12	—	1
+Smooth muscle cell	12.22	—	1
+Monocyte	15.19	—	1
+CD4+ T cell	16.71	—	1
+Classical monocyte	17.50	—	1
+Naive B cell	21.06	—	1
+Intermediate monocyte	21.78	—	1
+Memory B cell	22.36	—	1
+Endothelial cell	26.25	8.59	3
+Erythrocyte	29.36	23.07	3

@@ -1,0 +1,9 @@
+pair-table KIRC n=746 (RG in it: 1); LIHC n=365 (RG in it: 0)
+RG pairs in pair table: 11
+RG pair_type counts: {('TCGA-KIRC', 'TN'): 7, ('TCGA-KIRC', 'TT'): 4}
+KIRC as-analyzed (746): kn r=-0.3994 P=6.016e-30
+KIRC corrected (745): kn r=-0.3989 P=7.902e-30
+LIHC as-analyzed (365): kn r=-0.2094 P=5.520e-05
+LIHC corrected (366): kn r=-0.2096 P=5.304e-05
+TCGA-KIRC: NN/TT as-analyzed=1.8954 (TT 2000 pairs); excluding RG pairs=1.8934 (TT 1996 pairs)
+TCGA-LIHC: NN/TT as-analyzed=1.1330 (TT 2000 pairs); excluding RG pairs=1.1330 (TT 2000 pairs)

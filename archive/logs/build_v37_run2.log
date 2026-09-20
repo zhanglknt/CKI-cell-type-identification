@@ -1,0 +1,312 @@
+[safe-delete][SAFE_DELETE_FAIL_CLOSED] {"target": "C:\\Users\\KnightZ\\Desktop\\细胞受选择\\results\\figures_submission", "reason": "windows-sandbox-recycle-bin-unavailable"}
+[safe-delete][SAFE_DELETE_FAIL_CLOSED] {"target": "C:\\Users\\KnightZ\\Desktop\\细胞受选择\\version3\\CKI_NAR_Submission_v37", "reason": "windows-sandbox-recycle-bin-unavailable"}
+============================================================
+  CKI NAR Submission Package v37 Builder
+  Expert-review revision (E1-E4) + fresh DOCX rebuild
+============================================================
+
+[0] Collecting figures into figures_submission ...
+  OK: 18 figure PDFs + GA copied
+
+[1] Preparing CKI_NAR_Submission_v37...
+  Copied figures into CKI_NAR_Submission_v37
+
+[2] Regenerating DOCX files...
+
+============================================================
+  Generate Manuscript
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_NAR_Manuscript.docx
+
+  OK
+
+============================================================
+  Generate Supplementary
+============================================================
+Saved: results/CKI_NAR_Supplementary.docx
+Paragraphs: 110
+
+  OK
+
+============================================================
+  Generate Cover Letter
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_NAR_Cover_Letter.docx
+
+  OK
+
+============================================================
+  Generate Repro Guide
+============================================================
+Generated: C:/Users/KnightZ/Desktop/细胞受选择/results/CKI_Reproducibility_Guide.docx
+Size: 26.1 KB
+
+  OK
+
+============================================================
+  Extract Table1-2
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\Table1-2.docx (2 tables extracted)
+
+  OK
+  CKI_NAR_Manuscript.docx: 73.0 KB
+  CKI_NAR_Supplementary.docx: 46.3 KB
+  CKI_NAR_Cover_Letter.docx: 37.0 KB
+  CKI_NAR_Reproducibility_Guide.docx: 26.1 KB
+  Table1-2.docx: 35.5 KB
+
+[2f] Extracting fulltext...
+  CKI_NAR_Manuscript_fulltext.txt: 107,396 bytes
+  CKI_NAR_Supplementary_fulltext.txt: 30,425 bytes
+  CKI_NAR_Cover_Letter_fulltext.txt: 4,810 bytes
+  CKI_NAR_Reproducibility_Guide_fulltext.txt: 34,308 bytes
+  Table1-2_fulltext.txt: 1,330 bytes
+
+[3] Writing MANIFEST_v37.txt...
+
+[4] Creating ZIP...
+
+============================================================
+  v37 Package: C:\Users\KnightZ\Desktop\细胞受选择\version3\CKI_NAR_Submission_v37.zip
+  Size: 2.2 MB
+  Files: 32
+        37,874  CKI_NAR_Submission_v37/CKI_NAR_Cover_Letter.docx
+         4,810  CKI_NAR_Submission_v37/CKI_NAR_Cover_Letter_fulltext.txt
+        74,800  CKI_NAR_Submission_v37/CKI_NAR_Manuscript.docx
+       107,396  CKI_NAR_Submission_v37/CKI_NAR_Manuscript_fulltext.txt
+        26,767  CKI_NAR_Submission_v37/CKI_NAR_Reproducibility_Guide.docx
+        34,308  CKI_NAR_Submission_v37/CKI_NAR_Reproducibility_Guide_fulltext.txt
+        47,382  CKI_NAR_Submission_v37/CKI_NAR_Supplementary.docx
+        30,425  CKI_NAR_Submission_v37/CKI_NAR_Supplementary_fulltext.txt
+        82,618  CKI_NAR_Submission_v37/CKI_graphical_abstract.pdf
+       334,773  CKI_NAR_Submission_v37/CKI_graphical_abstract.png
+       224,815  CKI_NAR_Submission_v37/CKI_graphical_abstract.svg
+         2,740  CKI_NAR_Submission_v37/MANIFEST_v37.txt
+        47,295  CKI_NAR_Submission_v37/Supplementary_Figure_S1.pdf
+        21,392  CKI_NAR_Submission_v37/Supplementary_Figure_S10.pdf
+        96,594  CKI_NAR_Submission_v37/Supplementary_Figure_S11.pdf
+        22,874  CKI_NAR_Submission_v37/Supplementary_Figure_S12.pdf
+        47,239  CKI_NAR_Submission_v37/Supplementary_Figure_S2.pdf
+        40,941  CKI_NAR_Submission_v37/Supplementary_Figure_S3.pdf
+        29,983  CKI_NAR_Submission_v37/Supplementary_Figure_S4.pdf
+        41,791  CKI_NAR_Submission_v37/Supplementary_Figure_S5.pdf
+        69,234  CKI_NAR_Submission_v37/Supplementary_Figure_S6.pdf
+        65,379  CKI_NAR_Submission_v37/Supplementary_Figure_S7.pdf
+       741,437  CKI_NAR_Submission_v37/Supplementary_Figure_S8.pdf
+        20,969  CKI_NAR_Submission_v37/Supplementary_Figure_S9.pdf
+        36,327  CKI_NAR_Submission_v37/Table1-2.docx
+         1,330  CKI_NAR_Submission_v37/Table1-2_fulltext.txt
+        79,323  CKI_NAR_Submission_v37/figure1.pdf
+        55,351  CKI_NAR_Submission_v37/figure2.pdf
+        86,621  CKI_NAR_Submission_v37/figure3.pdf
+        64,071  CKI_NAR_Submission_v37/figure4.pdf
+        51,134  CKI_NAR_Submission_v37/figure5.pdf
+        64,750  CKI_NAR_Submission_v37/figure6.pdf
+
+============================================================
+  v37 Final Verification
+============================================================
+
+──────────────────────────────────────────────────
+  File Integrity
+──────────────────────────────────────────────────
+  CKI_NAR_Manuscript.docx: 73.0 KB
+  CKI_NAR_Supplementary.docx: 46.3 KB
+  CKI_NAR_Cover_Letter.docx: 37.0 KB
+  CKI_NAR_Reproducibility_Guide.docx: 26.1 KB
+  Table1-2.docx: 35.5 KB
+
+──────────────────────────────────────────────────
+  Core numbers in manuscript (v37 authoritative)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  Legacy Checks
+──────────────────────────────────────────────────
+  OK: Strong candidate = 55
+    [FAIL] P0-2 FDR statement unified
+
+──────────────────────────────────────────────────
+  P1 Checks
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E1: Computational Methods & Reproducibility
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E2: Quantitative Biology & Statistics
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E3: Transcriptomics & Single-cell Applications
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E4: Academic Publishing & Peer Review
+──────────────────────────────────────────────────
+    [FAIL] E4-1 Abstract word count = 213 (target <=200)
+
+──────────────────────────────────────────────────
+  v34 Expert Panel Fixes (retained)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v37 Expert-Review Fixes (E1-E4, #939-#950)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v37 Peer-Review Fixes (C-A/C-B/C-C/C-D/C-F/C-G/C-J)
+──────────────────────────────────────────────────
+    [FAIL] V37-6c 50 of 55 Strong from lineage in MS
+
+============================================================
+  v37 Verification Summary
+============================================================
+  Passed: 141  Failed: 3
+  [OK] File: CKI_NAR_Manuscript.docx
+  [OK] File: CKI_NAR_Supplementary.docx
+  [OK] File: CKI_NAR_Cover_Letter.docx
+  [OK] File: CKI_NAR_Reproducibility_Guide.docx
+  [OK] File: Table1-2.docx
+  [OK] Figure 1
+  [OK] Figure 2
+  [OK] Figure 3
+  [OK] Figure 4
+  [OK] Figure 5
+  [OK] Figure 6
+  [OK] Supp Fig S1
+  [OK] Supp Fig S2
+  [OK] Supp Fig S3
+  [OK] Supp Fig S4
+  [OK] Supp Fig S5
+  [OK] Supp Fig S6
+  [OK] Supp Fig S7
+  [OK] Supp Fig S8
+  [OK] Supp Fig S9
+  [OK] Supp Fig S10
+  [OK] Supp Fig S11
+  [OK] Supp Fig S12
+  [OK] GA png
+  [OK] GA pdf
+  [OK] GA svg
+  [OK] human pairs = 4,851
+  [OK] human mean omega ~21.6
+  [OK] human median omega ~19.7
+  [OK] CKI AUC = 0.6797
+  [OK] Raw JS AUC = 0.8488
+  [OK] Cosine AUC = 0.8865
+  [OK] Spearman r = -0.36 to -0.46
+  [OK] brain pairs = 31,764
+  [OK] Bergmann glia mean omega = 11.17
+  [OK] Astrocyte mean omega = 76.83
+  [OK] 6.88-fold brain gradient
+  [OK] brain grand mean omega = 32.56
+  [OK] 55 Strong candidates
+  [OK] 37 of 55 raw P < 0.05
+  [OK] minimum q = 0.949
+  [OK] block-shuffle null terminology
+  [OK] LIHC median NN/TT = 1.23
+  [OK] LUAD median NN/TT = 2.32
+  [OK] kn CV = 92.89%
+  [OK] per-pair/global kn Spearman ~0.181
+  [OK] P0-1 Strong counts=55
+  [FAIL] P0-2 FDR statement unified
+  [OK] P0-3 Bootstrap CI [4.24, 9.24] (9 locations)
+  [OK] N5 Refs first-citation order (43 refs)
+  [OK] N5b All 47 refs cited in body (47/47)
+  [OK] N10 Python versions consistent (3.14.4)
+  [OK] P1-4 TCGA bulk RNA-seq qualifier
+  [OK] P1-5 SES + bootstrap CI complement
+  [OK] P1-1 Strong-candidate screen section
+  [OK] P1-6 k_n floor = 1e-4 mentioned
+  [OK] P1-7 Neuron exclusion rationale
+  [OK] P1-8 Bergmann glia signal documented
+  [OK] E1-1 Repro Guide covers environment setup
+  [OK] E1-2 CELLxGENE Discover access documented
+  [OK] E1-3 Abstract mentions calibration + CI
+  [OK] E1-4 Spell check (0 suspect patterns)
+  [OK] E1-5 Table1-2 parameter documentation
+  [OK] E1-6 Repro Guide completeness
+  [OK] E2-1 One-sided test justification
+  [OK] E2-2 Bootstrap CI definition in Methods
+  [OK] E2-3 Seed sensitivity / Monte Carlo SE
+  [OK] E2-4 n=1 cases as descriptive (no formal SD)
+  [OK] E2-5 P-value precision stated
+  [OK] E2-6 SN 3.11 / cross-species data
+  [OK] E3-1 Cross-species validation noted
+  [OK] E3-2 Mechanism boundary clarification
+  [OK] E3-3 Limitations structured (21 ordinal items)
+  [OK] E3-4 JS divergence / info-theoretic methods
+  [OK] E3-5 OPC candidate concentration documented
+  [OK] E3-6 HK cancer dysregulation discussed
+  [FAIL] E4-1 Abstract word count = 213 (target <=200)
+  [OK] E4-2 AUC rank 5th/5 explanation
+  [OK] E4-3 Acknowledgements expanded
+  [OK] E4-4 Reference count = 46
+  [OK] E4-5 Bergmann glia signal documented
+  [OK] E4-6 Supplementary figures S1-S12 complete
+  [OK] E4-7 Tables as separate Table1-2.docx
+  [OK] M1 Repro Guide §2.1 parameter table (not §6)
+  [OK] M3 S1-S12 cited in body (26 supp fig refs)
+  [OK] M4 Orphan refs cited in body (6/7)
+  [OK] m8 permutation support wording
+  [OK] m9 Limitations sequential (19/20/21 all present)
+  [OK] m17 orthogonal->complementary (0 remaining)
+  [OK] V37-1a CI in manuscript (9, need >=5)
+  [OK] V37-1b CI in repro guide (5, need >=4)
+  [OK] V37-1c CI in supplementary (2, need >=1)
+  [OK] V37-1d CI in cover letter (1, need >=1)
+  [OK] V37-2 stale v35 numbers absent ([])
+  [OK] V37-3a Welch email = welchjd@umich.edu
+  [OK] V37-3b old Welch email absent
+  [OK] V37-3c cover letter four-dataset paragraph
+  [OK] V37-3d cover letter 6.88-fold
+  [OK] V37-3e cover letter NN/TT 1.23-2.32
+  [OK] V37-3f cover letter AI declaration aligned
+  [OK] V37-4a guide Python 3.14.4
+  [OK] V37-4b guide human pairs 4,851
+  [OK] V37-4c guide brain_bs_null pointers
+  [OK] V37-4d guide superseded annotations
+  [OK] V37-4e guide mu_grand 32.56
+  [OK] V37-4f guide per-pair k_n coverage
+  [OK] V37-4g guide block-shuffle B = 1,000
+  [OK] V37-5a brain candidates hypothesis-generating
+  [OK] V37-5b block-shuffle null in manuscript
+  [OK] V37-5c TCGA exploratory framing
+  [OK] V37-1a brain internal baseline 12.29 in MS
+  [OK] V37-1b brain internal CI
+  [OK] V37-1c TS internal baseline 7.67 in MS
+  [OK] V37-1d dataset-relative framing in MS
+  [OK] V37-1e brain internal baseline in supp
+  [OK] V37-1f TS internal baseline in supp
+  [OK] V37-1g dataset-relative framing in supp
+  [OK] V37-2a old Bergmann claim absent (MS)
+  [OK] V37-2b old all-ten claim absent (supp)
+  [OK] V37-2c over-precise omega_cal values absent (MS)
+  [OK] V37-3a Limitation Tenth revised
+  [OK] V37-3b Limitation Seventeenth revised
+  [OK] V37-4a aggregate-first rho 0.988 in MS
+  [OK] V37-4b aggregate-first gradient 6.97x in MS
+  [OK] V37-4c global-kn reversal in MS
+  [OK] V37-4d kf 1.2-fold vs kn 5.7-fold decomposition in MS
+  [OK] V37-5a within-donor 4.07-fold in MS
+  [OK] V37-5b 11,139 within-donor pairs in MS
+  [OK] V37-5c astrocyte within-donor 43.92 in MS
+  [OK] V37-6a lineage fold 2.26 in MS
+  [OK] V37-6b hypergeometric P = 4.5e-15 in MS
+  [FAIL] V37-6c 50 of 55 Strong from lineage in MS
+  [OK] V37-7a 16/19 tier combinations significant in MS
+  [OK] V37-7b max P 1.4e-3 at residual >= 0.25 in MS
+  [OK] V37-8a Figure 3 retitled in MS
+  [OK] V37-8b old Figure 3 title absent
+  [OK] V37-9a Methods robustness subsection in MS
+  [OK] V37-9b TS split-half 71 populations in MS
+  [OK] V37-10a guide Sec 5.6 present
+  [OK] V37-10b script 41 documented
+  [OK] V37-10c script 42 documented
+  [OK] V37-10d script 43 documented
+  [OK] V37-10e brain splithalf output pointer
+  [OK] V37-10f TS splithalf output pointer
+
+  *** 3 FAILURES — review above ***

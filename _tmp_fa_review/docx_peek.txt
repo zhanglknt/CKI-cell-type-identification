@@ -1,0 +1,45 @@
+  0 [Heading 1] Supplementary Information
+  1 [Normal] CKI: a Ka/Ks-inspired index for quantifying functional cell-type divergence in single-cell tran
+  2 [Normal] Xianming Wu (1), Li Zhang (1,2,*)
+  3 [Normal] (1) Chinese Institute for Brain Research, Beijing, China
+  4 [Normal] (2) Institute of Blood Transfusion, Chinese Academy of Medical Sciences & Peking Union Medical 
+  5 [Normal] (*) Corresponding author
+  6 [Normal] 
+  7 [Heading 2] Table of Contents
+  8 [Normal] CKI Mathematical Derivation
+  9 [Normal] CKI Algorithm Pseudocode
+ 10 [Normal] Statistical Testing Details
+ 11 [Normal] Dataset Quality Control and Filtering Criteria
+ 12 [Normal] Supplementary Note 1: Ground-Truth Simulation
+ 13 [Normal] Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)
+ 14 [Normal] Supplementary Note 3: Calibrated Omega Normalization
+ 15 [Normal] Supplementary Note 4: Ratio-Estimator Bias–Variance Characterization (v45)
+ 16 [Normal] Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls (v45)
+ 17 [Normal] Supplementary Note 6: Real Perturbation Demonstration (Kang et al. IFN-beta PBMC)
+ 18 [Normal] Supplementary Note 7: Fixed Gene-Panel Ablation
+ 19 [Normal] Supplementary Note 8: TCGA composition-contribution check for the NN/TT k_n reversal
+ 20 [Normal] Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)
+ 21 [Normal] Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivit
+ 22 [Normal] Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)
+ 23 [Normal] Supplementary Note 12: Pseudo-Region Negative Control (Block-Shuffle Null Calibration)
+ 24 [Normal] Supplementary Note 13: Brain set-level enrichment of the block-shuffle signal (post-hoc)
+ 25 [Normal] Supplementary Note 14: Comparison with Augur Cell-Type Prioritization (v45)
+ 26 [Normal] Supplementary Note 15: JS Divergence Dimensionality Invariance
+ 27 [Normal] Supplementary Table 1: Parameter Sweep Results
+ 28 [Normal] Supplementary Table 2: Cross-Organ Conservation Data
+ 29 [Normal] Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data
+ 30 [Normal] Supplementary Table 4: Inter-regional Region-Associated Candidate Data
+ 31 [Normal] Supplementary Data 1: Complete Analysis Script Index
+ 32 [Normal] 
+ 33 [Heading 2] CKI Mathematical Derivation
+ 34 [Normal] 1.1 Jensen-Shannon Divergence
+ 35 [Normal] The Jensen-Shannon (JS) divergence is a symmetrized and smoothed version of the Kullback-Leible
+ 36 [Normal] 1.2 Baseline Divergence Rate k_n
+ 37 [Normal] Housekeeping (HK) genes are defined as genes that maintain stable expression across cell types 
+ 38 [Normal] 1.3 Functional Divergence Rate k_f
+ 39 [Normal] Identity genes I are defined as genes that capture cell-type-specific functional programs. In t
+ 40 [Normal] 1.4 Omega Ratio and Its Interpretation
+ 41 [Normal] ω = k_f/k_n. Interpretation is anchored in the empirical ω distribution within each dataset rat
+ 42 [Normal] 1.5 Permutation Test
+ 43 [Normal] Statistical inference is performed by generating a null distribution of ω under the null hypoth
+ 44 [Normal] 1.6 Pseudobulk Construction

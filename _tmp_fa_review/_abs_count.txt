@@ -1,0 +1,2 @@
+Standard distance metrics conflate baseline variation with functional adaptation in single-cell genomics. Inspired by the Ka/Ks ratio, CKI (Cell-type Ka/Ks-inspired Index) decomposes divergence into a
+current abstract word count: 149

@@ -1,0 +1,203 @@
+============================================================
+1. Loading HK genes from HRT Atlas...
+============================================================
+  HRT Atlas human HK genes: 1129
+
+============================================================
+2. Loading Tabula Sapiens organ h5ad files...
+============================================================
+  TS_Liver: 5007 cells, 13 CTs
+  TS_Kidney: 9641 cells, 7 CTs
+  TS_Heart: 11505 cells, 6 CTs
+  TS_Bone_Marrow: 12297 cells, 17 CTs
+  TS_Spleen: 34004 cells, 24 CTs
+  TS_Lung: 35682 cells, 40 CTs
+
+  Common genes: 58870
+  Unified: 108136 cells x 58870 genes
+  After QC: 107399 cells x 51852 genes
+  Normalized (log1p)
+  HK genes in common set: 1129
+
+============================================================
+3. Building CT entries and extracting cells...
+============================================================
+  Liver|hepatocyte: 1491 cells (donor=TSP14)
+  Liver|macrophage: 1379 cells (donor=TSP6)
+  Liver|monocyte: 605 cells (donor=TSP6)
+  Liver|endothelial cell of hepatic sinusoid: 341 cells (donor=TSP6)
+  Liver|endothelial cell: 267 cells (donor=TSP14)
+  Liver|nk cell: 231 cells (donor=TSP6)
+  Liver|t cell: 126 cells (donor=TSP14)
+  Liver|erythrocyte: 89 cells (donor=TSP14)
+  Liver|fibroblast: 70 cells (donor=TSP6)
+  Liver|neutrophil: 63 cells (donor=TSP6)
+  Liver|intrahepatic cholangiocyte: 31 cells (donor=TSP14)
+  Liver|liver dendritic cell: 34 cells (donor=TSP6)
+  Liver|plasma cell: 19 cells (donor=TSP6)
+  Kidney|kidney epithelial cell: 8290 cells (donor=TSP2)
+  Kidney|b cell: 340 cells (donor=TSP2)
+  Kidney|macrophage: 318 cells (donor=TSP2)
+  Kidney|cd8-positive, alpha-beta t cell: 238 cells (donor=TSP2)
+  Kidney|cd4-positive helper t cell: 181 cells (donor=TSP2)
+  Kidney|nk cell: 131 cells (donor=TSP2)
+  Kidney|endothelial cell: 95 cells (donor=TSP2)
+  Heart|cardiac muscle cell: 7204 cells (donor=TSP12)
+  Heart|cardiac endothelial cell: 2665 cells (donor=TSP12)
+  Heart|hepatocyte: 1086 cells (donor=TSP12)
+  Heart|fibroblast of cardiac tissue: 250 cells (donor=TSP12)
+  Heart|smooth muscle cell: 222 cells (donor=TSP12)
+  Heart|macrophage: 72 cells (donor=TSP12)
+  Bone_Marrow|cd24 neutrophil: 2106 cells (donor=TSP14)
+  Bone_Marrow|cd4-positive, alpha-beta t cell: 833 cells (donor=TSP14)
+  Bone_Marrow|monocyte: 557 cells (donor=TSP2)
+  Bone_Marrow|cd8-positive, alpha-beta t cell: 439 cells (donor=TSP2)
+  Bone_Marrow|granulocyte: 454 cells (donor=TSP14)
+  Bone_Marrow|plasma cell: 365 cells (donor=TSP11)
+  Bone_Marrow|erythroid progenitor: 334 cells (donor=TSP14)
+  Bone_Marrow|nk cell: 345 cells (donor=TSP2)
+  Bone_Marrow|hematopoietic stem cell: 256 cells (donor=TSP2)
+  Bone_Marrow|nampt neutrophil: 381 cells (donor=TSP14)
+  Bone_Marrow|memory b cell: 160 cells (donor=TSP14)
+  Bone_Marrow|myeloid progenitor: 177 cells (donor=TSP14)
+  Bone_Marrow|macrophage: 157 cells (donor=TSP2)
+  Bone_Marrow|naive b cell: 85 cells (donor=TSP2)
+  Bone_Marrow|neutrophil: 73 cells (donor=TSP14)
+  Bone_Marrow|erythrocyte: 83 cells (donor=TSP14)
+  Spleen|memory b cell: 2774 cells (donor=TSP14)
+  Spleen|neutrophil: 3814 cells (donor=TSP14)
+  Spleen|classical monocyte: 2959 cells (donor=TSP14)
+  Spleen|cd8-positive, alpha-beta memory t cell: 2756 cells (donor=TSP14)
+  Spleen|plasma cell: 1814 cells (donor=TSP14)
+  Spleen|nk cell: 1239 cells (donor=TSP14)
+  Spleen|cd4-positive, alpha-beta memory t cell: 1042 cells (donor=TSP14)
+  Spleen|macrophage: 522 cells (donor=TSP14)
+  Spleen|naive thymus-derived cd4-positive, alpha-beta t cell: 661 cells (donor=TSP14)
+  Spleen|naive b cell: 566 cells (donor=TSP2)
+  Spleen|type i nk t cell: 589 cells (donor=TSP14)
+  Spleen|naive thymus-derived cd8-positive, alpha-beta t cell: 378 cells (donor=TSP2)
+  Spleen|endothelial cell: 310 cells (donor=TSP7)
+  Spleen|mature nk t cell: 426 cells (donor=TSP2)
+  Spleen|regulatory t cell: 145 cells (donor=TSP14)
+  Spleen|intermediate monocyte: 100 cells (donor=TSP7)
+  Spleen|innate lymphoid cell: 66 cells (donor=TSP14)
+  Spleen|erythrocyte: 99 cells (donor=TSP14)
+  Spleen|hematopoietic stem cell: 45 cells (donor=TSP14)
+  Spleen|cd1c-positive myeloid dendritic cell: 25 cells (donor=TSP2)
+  Spleen|cd141-positive myeloid dendritic cell: 33 cells (donor=TSP2)
+  Spleen|cd8-positive, alpha-beta t cell: 43 cells (donor=TSP2)
+  Spleen|plasmacytoid dendritic cell: 37 cells (donor=TSP14)
+  Spleen|platelet: 10 cells (donor=TSP14)
+  Lung|macrophage: 8568 cells (donor=TSP1)
+  Lung|type ii pneumocyte: 4091 cells (donor=TSP2)
+  Lung|basal cell: 2136 cells (donor=TSP2)
+  Lung|classical monocyte: 1103 cells (donor=TSP2)
+  Lung|club cell: 983 cells (donor=TSP2)
+  Lung|non-classical monocyte: 848 cells (donor=TSP2)
+  Lung|capillary endothelial cell: 804 cells (donor=TSP2)
+  Lung|respiratory goblet cell: 479 cells (donor=TSP2)
+  Lung|basophil: 494 cells (donor=TSP1)
+  Lung|lung ciliated cell: 315 cells (donor=TSP2)
+  Lung|capillary aerocyte: 506 cells (donor=TSP2)
+  Lung|cd8-positive, alpha-beta t cell: 393 cells (donor=TSP2)
+  Lung|cd4-positive, alpha-beta t cell: 381 cells (donor=TSP2)
+  Lung|vein endothelial cell: 370 cells (donor=TSP2)
+  Lung|lung microvascular endothelial cell: 462 cells (donor=TSP2)
+  Lung|adventitial cell: 271 cells (donor=TSP2)
+  Lung|alveolar fibroblast: 167 cells (donor=TSP1)
+  Lung|dendritic cell: 278 cells (donor=TSP1)
+  Lung|intermediate monocyte: 252 cells (donor=TSP2)
+  Lung|pericyte cell: 192 cells (donor=TSP2)
+  Lung|type i pneumocyte: 147 cells (donor=TSP1)
+  Lung|endothelial cell of artery: 103 cells (donor=TSP2)
+  Lung|neutrophil: 136 cells (donor=TSP14)
+  Lung|cd4-positive alpha-beta t cell: 132 cells (donor=TSP14)
+  Lung|nk cell: 94 cells (donor=TSP2)
+  Lung|plasma cell: 92 cells (donor=TSP2)
+  Lung|b cell: 64 cells (donor=TSP1)
+  Lung|vascular associated smooth muscle cell: 43 cells (donor=TSP1)
+  Lung|cd8-positive alpha-beta t cell: 80 cells (donor=TSP14)
+  Lung|bronchial smooth muscle cell: 48 cells (donor=TSP2)
+  Lung|bronchial vessel endothelial cell: 47 cells (donor=TSP14)
+  Lung|endothelial cell of lymphatic vessel: 28 cells (donor=TSP1)
+  Lung|smooth muscle cell: 25 cells (donor=TSP14)
+
+  Total CT entries: 99
+
+============================================================
+4. Computing observed omega (4851 pairs)...
+============================================================
+  Progress: row 20/99
+  Progress: row 40/99
+  Progress: row 60/99
+  Progress: row 80/99
+  same_organ_same_ct: n=0, mean=0.00
+  same_organ_diff_ct: n=1038, mean=24.87
+  diff_organ_same_ct: n=59, mean=15.83
+  diff_organ_diff_ct: n=3754, mean=20.80
+  Cross/same organ ratio: 0.83
+
+============================================================
+6. Bootstrap (B=1000) — cell-level permutation...
+============================================================
+  CTs with >=2 organs: 17
+  Organs with >=2 CTs: 6
+
+  --- Cross-organ permutation (same CT) ---
+    b cell: 2 organs, 1 pairs, obs_mean=9.36, null_mean=6.29, p=1.9980e-03 (27s)
+    cd4-positive, alpha-beta t cell: 2 organs, 1 pairs, obs_mean=16.71, null_mean=6.52, p=9.9900e-04 (82s)
+    cd8-positive, alpha-beta t cell: 4 organs, 6 pairs, obs_mean=9.93, null_mean=6.03, p=9.9900e-04 (75s)
+    classical monocyte: 2 organs, 1 pairs, obs_mean=17.50, null_mean=6.59, p=9.9900e-04 (268s)
+    endothelial cell: 3 organs, 3 pairs, obs_mean=26.25, null_mean=7.17, p=9.9900e-04 (54s)
+    erythrocyte: 3 organs, 3 pairs, obs_mean=29.36, null_mean=8.47, p=9.9900e-04 (19s)
+    hematopoietic stem cell: 2 organs, 1 pairs, obs_mean=11.12, null_mean=6.69, p=9.9900e-04 (19s)
+    hepatocyte: 2 organs, 1 pairs, obs_mean=8.57, null_mean=7.50, p=3.9660e-01 (157s)
+    intermediate monocyte: 2 organs, 1 pairs, obs_mean=21.78, null_mean=6.75, p=9.9900e-04 (22s)
+    macrophage: 6 organs, 15 pairs, obs_mean=15.49, null_mean=6.96, p=9.9900e-04 (658s)
+    memory b cell: 2 organs, 1 pairs, obs_mean=22.36, null_mean=6.57, p=9.9900e-04 (172s)
+    monocyte: 2 organs, 1 pairs, obs_mean=15.19, null_mean=6.57, p=9.9900e-04 (69s)
+    naive b cell: 2 organs, 1 pairs, obs_mean=21.06, null_mean=6.43, p=9.9900e-04 (39s)
+    neutrophil: 4 organs, 6 pairs, obs_mean=14.22, null_mean=9.82, p=9.9900e-04 (244s)
+    nk cell: 5 organs, 10 pairs, obs_mean=17.28, null_mean=6.58, p=9.9900e-04 (124s)
+    plasma cell: 4 organs, 6 pairs, obs_mean=10.20, null_mean=6.30, p=9.9900e-04 (138s)
+    smooth muscle cell: 2 organs, 1 pairs, obs_mean=12.22, null_mean=6.45, p=9.9900e-04 (16s)
+
+  --- Cross-CT permutation (same organ) ---
+    Bone_Marrow: 16 CTs, 120 pairs, obs_mean=16.18, null_mean=5.97, p=9.9900e-04 (435s)
+    Heart: 6 CTs, 15 pairs, obs_mean=30.15, null_mean=6.24, p=9.9900e-04 (690s)
+    Kidney: 7 CTs, 21 pairs, obs_mean=22.89, null_mean=6.61, p=9.9900e-04 (574s)
+    Liver: 13 CTs, 78 pairs, obs_mean=24.43, null_mean=6.64, p=9.9900e-04 (303s)
+    Lung: 33 CTs, 528 pairs, obs_mean=29.18, null_mean=5.77, p=9.9900e-04 (1581s)
+    Spleen: 24 CTs, 276 pairs, obs_mean=20.40, null_mean=5.86, p=9.9900e-04 (1286s)
+
+============================================================
+7. Aggregating group-level bootstrap statistics...
+============================================================
+  diff_organ_same_ct: 17 CTs, 59 pairs, weighted_obs_mean=15.83, null_mean=7.06, p=9.9900e-04
+
+  --- Aggregate: cross/same organ ratio permutation ---
+    Pooled cells: 35392, organs: 6
+    Computing null ratio from per-CT null distributions...
+    Cross/same ratio: obs=0.83, null_mean=0.28, p=9.9900e-04, 95% CI=[0.27, 0.30]
+
+============================================================
+8. Saving results...
+============================================================
+
+                    group  n_pairs  omega_mean omega_median omega_std    p_value null_mean null_std  ci_95_lower  ci_95_upper
+       same_organ_same_ct        0      0.0000          0.0       0.0        N/A       N/A      N/A          NaN          NaN
+       same_organ_diff_ct     1038     24.8724      22.3272   12.5769        N/A       N/A      N/A          NaN          NaN
+       diff_organ_same_ct       59     15.8308       15.016     8.579 9.9900e-04    7.0634    0.233          NaN          NaN
+       diff_organ_diff_ct     3754     20.8033      19.3122    9.6236        N/A       N/A      N/A          NaN          NaN
+cross_vs_same_organ_ratio     4851      0.8333                        9.9900e-04    0.2841   0.0092       0.2663       0.3019
+
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\human_bootstrap_results.csv
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\human_bootstrap_per_ct_results.csv
+
+Done! Human bootstrap v2 complete.
+
+Key results:
+  Cross/same organ ratio: 0.83, P=9.9900e-04
+  Per-CT P < 0.05: 16
+  Per-CT FDR < 0.05: 16
+  Significant CTs (P<0.05, cross-organ): 16/17

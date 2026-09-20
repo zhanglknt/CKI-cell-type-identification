@@ -1,0 +1,13 @@
+lihc_patient_clinical.json 4461759
+lihc_sample_clinical.json 308568
+luad_data_mutations.txt 134
+luad_egfr_kras_mutations.json 8889
+luad_mutations.json 2
+probemap.tsv 3244244
+tcga_RSEM_gene_tpm.gz 740772247
+--- search wider data dir for LUAD/smoking/purity ---
+C:/Users/KnightZ/Desktop/细胞受选择/data\tcga\lihc_patient_clinical.json
+C:/Users/KnightZ/Desktop/细胞受选择/data\tcga\lihc_sample_clinical.json
+C:/Users/KnightZ/Desktop/细胞受选择/data\tcga\luad_data_mutations.txt
+C:/Users/KnightZ/Desktop/细胞受选择/data\tcga\luad_egfr_kras_mutations.json
+C:/Users/KnightZ/Desktop/细胞受选择/data\tcga\luad_mutations.json

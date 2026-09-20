@@ -142,9 +142,9 @@ chk('Methods scripts extended',
 
 # 7d. Abstract / Intro / Fig.5 sync
 chk('Abstract KRAS dual-component adjusted',
-    'both survived adjustment for tumor purity and smoking' in full)
+    'both survived purity and smoking adjustment' in full)
 chk('Abstract EGFR admixture',
-    'apparent EGFR-mutant association was attributable to stromal/immune admixture' in full)
+    'apparent EGFR-mutant association was explained by stromal/immune admixture' in full)
 chk('Intro EGFR dissolved',
     'apparent EGFR association dissolved under purity adjustment' in full)
 chk('Fig 5 legend NEW-3 fix',

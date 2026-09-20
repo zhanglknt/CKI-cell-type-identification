@@ -1,0 +1,2 @@
+563 |  NN/TT ratio in all five cancer types (LUAD 2.46 \u2192 2.86, 95% CI 2.41\u20133.45; LIHC 1.13 \u2192 1.22, its CI still including 1, so the four-of-five CI caliber is preserved; Secti
+626 | r reversal\u2014tumor specimens less divergent than adjacent non-tumor tissue (mean NN/TT 1.13\u20132.46, cluster-bootstrap CIs excluding 1 in four of five cancers)\u2014is a robust ti

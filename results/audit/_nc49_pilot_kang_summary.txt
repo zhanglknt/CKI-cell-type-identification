@@ -1,0 +1,22 @@
+Kang batch1 technical-replicate pilot (nc49, n-matched null)
+========================================================================
+techrep pairs: 30 (each vs its own n-matched lane-shuffled null, B=200)
+
+Per-metric: observed median | paired cal = observed/null_med (per pair, then median) | FPR = fraction of pairs exceeding their own null p95
+
+metric        obs_med   null_med    cal_med          cal_iqr     FPR
+k_n           0.01389    0.01411     0.9927 [0.949,1.03]   3.33%
+k_f              0.11     0.1187      0.936 [0.908,0.977]   0.00%
+omega           8.479      8.836     0.9626 [0.918,0.998]   0.00%
+raw_js       0.005109   0.005089      1.019 [0.991,1.08]  36.67%
+cosine        0.05148    0.05111      1.006 [0.993,1.03]  23.33%
+
+per-CT cal & FPR:
+                    cal_k_n   cal_k_f  cal_omega  cal_raw_js  cal_cosine  exceed_k_n  exceed_k_f  exceed_omega  exceed_raw_js  exceed_cosine
+cell_type                                                                                                                                   
+B cells            0.967044  0.915349   0.901241    1.005435    1.002154         0.0         0.0           0.0            0.0            0.0
+CD14+ Monocytes    0.998080  0.939526   0.960745    1.022262    1.008478         0.0         0.0           0.0            0.0            0.0
+CD4 T cells        1.009791  0.916856   0.959055    1.044599    0.999331         0.0         0.0           0.0            0.5            0.0
+CD8 T cells        0.986746  0.988257   0.961743    1.042930    1.014093         0.0         0.0           0.0            0.5            0.5
+FCGR3A+ Monocytes  0.892330  0.902741   1.018231    1.046913    1.019313         0.0         0.0           0.0            1.0            0.0
+NK cells           0.987344  0.954652   0.979942    1.024498    1.009641         0.0         0.0           0.0            0.0            0.0

@@ -1,0 +1,12 @@
+﻿=== GUIDE lines 355-365 ===
+  c. Non-HK-anchored neutral drift controls:
+     Script: notebooks/90_nonhk_drift_v45.py
+     Adversarial neutral-drift definitions on the identical simulation background and scheme: N0 (internal control) reproduces the HK-drift result; N1 shifts a random expression-matched low-variance non-HK gene set (omega FPR stays <= 0.067 across eta while raw JS and cosine inflate to 0.81-1.00 at eta >= 0.5); N2 applies composition-preserving gene-identity swaps (266/532/1,064 genes; per-cell library size and the expression multiset exactly preserved). Outputs: results/nonhk_drift_v45_raw.csv, results/nonhk_drift_v45.json, results/nonhk_drift_v45_report.md.
+
+  d. Augur cell-type prioritization (multiclass):
+     Script: notebooks/91_augur_v45.py
+     Multiclass Augur (pyaugur 0.1.0, pure-Python port of R Augur v1.0.3) on the brain atlas with condition = brain region (33,036 stratified nuclei; random forest, 100 trees, CP10k + log1p input; 5 subsample seeds x 3-fold stratified CV): macro-OvR AUC per class versus CKI omega. This variant is confounded by eligible-region count (AUC versus region count rho = -0.744, P = 0.014) and is reported as sensitivity only. Outputs: results/augur_comparison_v45.json, results/augur_comparison_v45_report.md.
+
+  e. Augur binary one-vs-rest variant (confound-controlled, primary):
+     Script: notebooks/91b_augur_ovr_v45.py
+     Primary confound-controlled variant: for each eligible region r, r versus the class's other eligible regions (20 versus 20 cells, 3 repeats x 3 folds; class score = mean AUC over regions). Class-level Spearman versus omega rho = +0.442 (P = 0.200), versus k_f rho = +0.564 (P = 0.090), versus k_n rho = -0.236 (P = 0.511). Outputs: results/augur_ovr_sensitivity_v45.json.

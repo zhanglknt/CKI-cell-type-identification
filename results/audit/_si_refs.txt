@@ -1,0 +1,43 @@
+264 | (v45) | 'Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)',
+266 | (v45) | 'Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization (v45)',
+267 | (v45) | 'Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls (v45)',
+272 | (v44) | 'Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity (v44)',
+276 | (v45) | 'Supplementary Note 14: Comparison with Augur Cell-Type Prioritization (v45)',
+309 | softmax | 'distributions by a softmax over the log-transformed values '
+310 | softmax | '(cki.utils.ensure_probability_distribution, mode = "softmax"). For single-cell data '
+312 | softmax | 'in the normalized counts: softmax(log1p(x)) yields p_i = (x_i + 1)/\u03a3(x_j + 1), '
+314 | softmax | '(log2(TPM + 1) values) the same softmax is mathematically equivalent to a power '
+318 | Section 1. | 'qualitative conclusion unchanged (robustness table in Section 1.7).'
+425 | softmax | 'softmax probability mapping to log2(TPM + 1) values, which is mathematically '
+426 | Section 1. | 'equivalent to the power transformation p_i \u221d (TPM + 1)^(1/ln 2) (Section 1.1). To '
+438 | softmax | ['Cancer type', 'TN/baseline \u03c9 (softmax)', 'TN/baseline \u03c9 (linear)',
+447 | Section 1. | 'Table (Section 1.7). Linear-normalization robustness of the TCGA main pipeline. Every '
+477 | softmax | ' 4. k_n <- JS_divergence(norm(mu_A_H), norm(mu_B_H))  // norm: softmax over log1p counts, i.e., p_i = exp(log1p(c_i)) / sum_j exp(log1p(c_j)) = (c_i+
+651 | Section 1. | 'P-values are one-sided (see Section 1.5). Correlation '
+736 | softmax | '(p > 0, q > 0); the constant _EPS = 1e-9 is used only as a softmax denominator '
+777 | (v44) | add_para('3.19 Competitor Benchmark: MELD and a Python Approximation of scDist (v44)', bold=True)
+815 | Section 3. | 'Table (Section 3.19a). Per-cell-type effects on Kang IFN-\u03b2 '
+846 | Section 3. | 'Table (Section 3.19b). Target-detection AUC (target CD14+ monocytes versus '
+876 | Section 3. | 'Table (Section 3.19c). Donor-paired detection power (fraction of 20 '
+894 | Section 3. | # ===== Section 3.20 (v49): real-data neutral-drift calibration =====
+895 | (v49) | add_para('3.20 Real-Data Neutral-Drift Calibration on Technical Replicates (v49)', bold=True)
+951 | Section 3. | 'values are given in Table (Section 3.20a); the replication is shown '
+965 | Section 3. | 'Table (Section 3.20a). Kang batch 1, 30 same-donor, same-condition '
+1005 | Section 3. | 'for all seven metrics are given in Table (Section 3.20b); main-text '
+1018 | Section 3. | 'Table (Section 3.20b). Brain drift ladder, per tier and metric: '
+1054 | Section 3. | # ===== Section 3.21 (v49): TCGA per-sample statistics =====
+1055 | (v49) | add_para('3.21 Per-Sample Divergence and Group Statistics for TCGA (v49)', bold=True)
+1098 | Section 3. | 'Table (Section 3.21a). Pan-cancer NN/TT ratios (mean NN to mean TT '
+1134 | Section 3. | 'Table (Section 3.21b). LUAD per-tumor group means (n = 311 wild-type, '
+1157 | Section 3. | 'Table (Section 3.21c). LUAD pairwise contrasts: Dunn post-hoc P-values '
+1178 | Section 3. | 'Table (Section 3.21d). LIHC overall-survival Cox models (hazard ratios '
+1221 | 3,596 | 'BRCA (1,032 + 109), totaling n = 3,596 samples. Normalization: TPM values from UCSC Xena, '
+1380 | (v45) | add_heading('Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)', 2)
+1418 | Section 3. | f'values; Section 3.18) yielded a replicate-baseline mean \u03c9 = 7.70 (95% CI '
+1505 | (v45) | add_heading('Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization (v45)', 2)
+1540 | (v45) | add_heading('Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls (v45)', 2)
+1759 | Section 1. | 'linear-normalization pair table of Section 1.7 (script '
+1824 | softmax | 'ordering, direction, and significance are identical to the earlier softmax '
+1846 | softmax | 'notebooks/83_kf_only_ordering.py (published softmax run) and '
+1873 | (v44) | add_heading('Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity (v44)', 2)
+2073 | (v45) | add_heading('Supplementary Note 14: Comparison with Augur Cell-Type Prioritization (v45)', 2)

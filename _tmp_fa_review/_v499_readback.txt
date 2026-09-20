@@ -1,0 +1,5 @@
+downloaded bytes: 12258746
+sha256: 43256f999d0007a4984f993d727daaa86b4dee67f0fa90f25a3ea705d79eed3e
+MATCH: True
+entries: 27
+sheets: ['Table 1'] | A1: Table 1. Cross-organ conservation ranking by cell type (Tabu

@@ -1,0 +1,2 @@
+2402
+"t: recomputing all TCGA analyses under a linear normalization (Methods) left every qualitative conclusion unchanged\\u2014the NN/TT reversal in all five cancer types (tumor\\u2013normal \\u03c9 0.70\\u20130.84 across cancer types, all < 1), near-zero denominator-floor saturation (< 0.1% of pairs), and the severity-gradient directions\\u2014with full numerical results in the Supplementary Information.')"

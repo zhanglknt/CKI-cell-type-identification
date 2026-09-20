@@ -1,0 +1,182 @@
+============================================================
+  CKI Submission Package v47 (Genome Biology) Builder
+  First-author revision integration + fresh DOCX rebuild
+============================================================
+
+[0] Collecting figures into figures_submission ...
+  OK: 19 figure PDFs + GA copied
+
+[1] Preparing CKI_Submission_v47...
+  Copied figures into CKI_Submission_v47
+
+[2] Regenerating DOCX files...
+
+============================================================
+  Generate Manuscript (GB)
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_Manuscript_GB.docx
+
+  OK
+
+============================================================
+  Generate Supplementary
+============================================================
+Saved: results/CKI_Supplementary.docx
+Paragraphs: 183
+
+  OK
+
+============================================================
+  Generate Cover Letter
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_GenomeBiology_Cover_Letter.docx
+
+  OK
+
+============================================================
+  Generate Repro Guide
+============================================================
+  WARNING: rc=1
+  STDERR: ϵͳ�Ҳ���ָ����·����
+
+
+============================================================
+  Extract Table1-2
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\Table1-2.docx (2 tables extracted)
+
+  OK
+  CKI_Manuscript.docx: 88.0 KB
+  CKI_Supplementary.docx: 72.4 KB
+  CKI_Cover_Letter.docx: 36.6 KB
+  CKI_Reproducibility_Guide.docx: 37.6 KB
+  Table1-2.docx: 35.5 KB
+
+[2f] Extracting fulltext...
+  CKI_Manuscript_fulltext.txt: 146,447 bytes
+  CKI_Supplementary_fulltext.txt: 97,094 bytes
+  CKI_Cover_Letter_fulltext.txt: 4,145 bytes
+  CKI_Reproducibility_Guide_fulltext.txt: 64,631 bytes
+  Table1-2_fulltext.txt: 1,703 bytes
+
+[3] Writing MANIFEST_v47.txt...
+
+[4] Creating ZIP...
+
+============================================================
+  v47 (GB) Package: C:\Users\KnightZ\Desktop\细胞受选择\version3\CKI_Submission_v47.zip
+  Size: 12.2 MB
+  Files: 33
+        37,434  CKI_Submission_v47/CKI_Cover_Letter.docx
+         4,145  CKI_Submission_v47/CKI_Cover_Letter_fulltext.txt
+        90,095  CKI_Submission_v47/CKI_Manuscript.docx
+       146,447  CKI_Submission_v47/CKI_Manuscript_fulltext.txt
+        38,515  CKI_Submission_v47/CKI_Reproducibility_Guide.docx
+        64,631  CKI_Submission_v47/CKI_Reproducibility_Guide_fulltext.txt
+        74,134  CKI_Submission_v47/CKI_Supplementary.docx
+        97,094  CKI_Submission_v47/CKI_Supplementary_fulltext.txt
+       382,594  CKI_Submission_v47/CKI_graphical_abstract.pdf
+       278,539  CKI_Submission_v47/CKI_graphical_abstract.png
+       410,347  CKI_Submission_v47/CKI_graphical_abstract.svg
+        33,576  CKI_Submission_v47/MANIFEST_v47.txt
+        55,172  CKI_Submission_v47/Supplementary_Figure_S1.pdf
+       770,996  CKI_Submission_v47/Supplementary_Figure_S10.pdf
+       135,481  CKI_Submission_v47/Supplementary_Figure_S11.pdf
+       181,664  CKI_Submission_v47/Supplementary_Figure_S12.pdf
+        29,709  CKI_Submission_v47/Supplementary_Figure_S13.pdf
+       338,431  CKI_Submission_v47/Supplementary_Figure_S2.pdf
+        33,749  CKI_Submission_v47/Supplementary_Figure_S3.pdf
+       441,535  CKI_Submission_v47/Supplementary_Figure_S4.pdf
+       435,265  CKI_Submission_v47/Supplementary_Figure_S5.pdf
+     4,467,901  CKI_Submission_v47/Supplementary_Figure_S6.pdf
+       673,628  CKI_Submission_v47/Supplementary_Figure_S7.pdf
+       338,670  CKI_Submission_v47/Supplementary_Figure_S8.pdf
+       324,116  CKI_Submission_v47/Supplementary_Figure_S9.pdf
+        36,385  CKI_Submission_v47/Table1-2.docx
+         1,703  CKI_Submission_v47/Table1-2_fulltext.txt
+       581,675  CKI_Submission_v47/figure1.pdf
+       329,639  CKI_Submission_v47/figure2.pdf
+       102,434  CKI_Submission_v47/figure3.pdf
+        26,479  CKI_Submission_v47/figure4.pdf
+       852,789  CKI_Submission_v47/figure5.pdf
+     5,667,859  CKI_Submission_v47/figure6.pdf
+
+============================================================
+  v47 Final Verification
+============================================================
+
+──────────────────────────────────────────────────
+  File Integrity
+──────────────────────────────────────────────────
+  CKI_Manuscript.docx: 88.0 KB
+  CKI_Supplementary.docx: 72.4 KB
+  CKI_Cover_Letter.docx: 36.6 KB
+  CKI_Reproducibility_Guide.docx: 37.6 KB
+  Table1-2.docx: 35.5 KB
+
+──────────────────────────────────────────────────
+  Core numbers in manuscript (v37 authoritative)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  Legacy Checks
+──────────────────────────────────────────────────
+  OK: Strong candidate = 39
+    [FAIL] P0-2 FDR statement unified
+
+──────────────────────────────────────────────────
+  P1 Checks
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E1: Computational Methods & Reproducibility
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E2: Quantitative Biology & Statistics
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E3: Transcriptomics & Single-cell Applications
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E4: Academic Publishing & Peer Review
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v34 Expert Panel Fixes (retained)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v37 Expert-Review Fixes (E1-E4, #939-#950)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v37 Peer-Review Fixes (C-A/C-B/C-C/C-D/C-F/C-G/C-J)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v38 Peer-Review Fixes (#971/#972/#974)
+──────────────────────────────────────────────────
+    [FAIL] REL-1 package version bumped to 0.4.9 in cki/__init__.py + pyproject.toml
+
+──────────────────────────────────────────────────
+  v38.1 P2 Text Revisions
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  R2 Numeric Re-derivation Layer (data-level)
+──────────────────────────────────────────────────
+Traceback (most recent call last):
+  File "C:\Users\KnightZ\Desktop\细胞受选择\99_build_gb_v47.py", line 3373, in <module>
+    success = build_v38()
+  File "C:\Users\KnightZ\Desktop\细胞受选择\99_build_gb_v47.py", line 3343, in build_v38
+    verify_v38_numeric(v)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\KnightZ\Desktop\细胞受选择\99_build_gb_v47.py", line 2621, in verify_v38_numeric
+    tc = _rows("_v38_tailcount_calibration.csv")
+  File "C:\Users\KnightZ\Desktop\细胞受选择\99_build_gb_v47.py", line 2459, in _rows
+    with open(RESULTS_DIR / name, newline="", encoding="utf-8") as fh:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\KnightZ\\Desktop\\细胞受选择\\results\\_v38_tailcount_calibration.csv'

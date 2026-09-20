@@ -1,0 +1,44 @@
+[pilot] loading gene ids ...
+  mapped unique symbols: 23503
+[pilot] loading three lane matrices ...
+  lane A: (3639, 23503)
+  lane B: (4246, 23503)
+  lane C: (6145, 23503)
+[pilot] joining batch1 tsne.df metadata ...
+  joined cells: 14030; lanes: {'C': 6145, 'B': 4246, 'A': 3639}
+  singlets kept: 11649; cell types: ['B cells', 'CD14+ Monocytes', 'CD4 T cells', 'CD8 T cells', 'Dendritic cells', 'FCGR3A+ Monocytes', 'NK cells']
+  stacked matrix: (11649, 23503)
+  HK genes (HRT Atlas human) present: 1099
+  [B cells] techrep pairs=5 (n-matched null draws x200) (3s elapsed)
+  [CD14+ Monocytes] techrep pairs=7 (n-matched null draws x200) (7s elapsed)
+  [CD4 T cells] techrep pairs=8 (n-matched null draws x200) (12s elapsed)
+  [CD8 T cells] techrep pairs=4 (n-matched null draws x200) (15s elapsed)
+  [Dendritic cells] techrep pairs=0 (n-matched null draws x200) (15s elapsed)
+  [FCGR3A+ Monocytes] techrep pairs=1 (n-matched null draws x200) (15s elapsed)
+  [NK cells] techrep pairs=5 (n-matched null draws x200) (18s elapsed)
+[pilot] saved C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_pilot_kang_techrep.csv (30 rows)
+
+[pilot] === summary ===
+Kang batch1 technical-replicate pilot (nc49, n-matched null)
+========================================================================
+techrep pairs: 30 (each vs its own n-matched lane-shuffled null, B=200)
+
+Per-metric: observed median | paired cal = observed/null_med (per pair, then median) | FPR = fraction of pairs exceeding their own null p95
+
+metric        obs_med   null_med    cal_med          cal_iqr     FPR
+k_n           0.01389    0.01411     0.9927 [0.949,1.03]   3.33%
+k_f              0.11     0.1187      0.936 [0.908,0.977]   0.00%
+omega           8.479      8.836     0.9626 [0.918,0.998]   0.00%
+raw_js       0.005109   0.005089      1.019 [0.991,1.08]  36.67%
+cosine        0.05148    0.05111      1.006 [0.993,1.03]  23.33%
+
+per-cell-type calibrated (cal, median) & FPR:
+                    cal_k_n   cal_k_f  cal_omega  cal_raw_js  cal_cosine  exceed_k_n  exceed_k_f  exceed_omega  exceed_raw_js  exceed_cosine
+cell_type                                                                                                                                   
+B cells            0.967044  0.915349   0.901241    1.005435    1.002154         0.0         0.0           0.0            0.0            0.0
+CD14+ Monocytes    0.998080  0.939526   0.960745    1.022262    1.008478         0.0         0.0           0.0            0.0            0.0
+CD4 T cells        1.009791  0.916856   0.959055    1.044599    0.999331         0.0         0.0           0.0            0.5            0.0
+CD8 T cells        0.986746  0.988257   0.961743    1.042930    1.014093         0.0         0.0           0.0            0.5            0.5
+FCGR3A+ Monocytes  0.892330  0.902741   1.018231    1.046913    1.019313         0.0         0.0           0.0            1.0            0.0
+NK cells           0.987344  0.954652   0.979942    1.024498    1.009641         0.0         0.0           0.0            0.0            0.0
+[pilot] done

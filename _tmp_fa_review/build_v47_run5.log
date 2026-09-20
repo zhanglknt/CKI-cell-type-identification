@@ -1,0 +1,10 @@
+[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] {"count":66,"threshold":50,"scope":"turn","targets":["C:\\Users\\KnightZ\\Desktop\\细胞受选择\\version3\\CKI_Submission_v47"],"targetCount":1}
+============================================================
+  CKI Submission Package v47 (Genome Biology) Builder
+  First-author revision integration + fresh DOCX rebuild
+============================================================
+
+[0] Collecting figures into figures_submission ...
+  OK: 19 figure PDFs + GA copied
+
+[1] Preparing CKI_Submission_v47...

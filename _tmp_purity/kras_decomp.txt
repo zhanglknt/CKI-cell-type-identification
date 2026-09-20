@@ -1,0 +1,15 @@
+group means (full precision):
+            omega        kf        kn
+group                                
+EGFR   122.215599  0.273216  0.002800
+KRAS   136.943625  0.291893  0.002654
+WT     115.373447  0.281364  0.003217
+
+observed omega ratio KRAS/WT: 1.1870 (log 0.1714)
+kf ratio: 1.0374 (log +0.0367)
+kn ratio: 0.8248 (log -0.1926); kn drop 17.5%
+component-mean log-omega increment: 0.2293
+kn share of increment: 84.0%
+kf share of increment: 16.0%
+
+Dunn-Holm (from nc49_tcga_luad_mutation.csv): k_f WT vs KRAS P=0.0969; bootstrap mean diff k_f KRAS-WT +0.0105 CI95 [0.0024,0.0192]

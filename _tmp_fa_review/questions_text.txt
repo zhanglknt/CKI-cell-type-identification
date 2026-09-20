@@ -1,0 +1,8 @@
+
+问题（除下面需提示的问题，其他修订和批注请见正文）：
+Figure S1的ABC三张图数据都不对，结果文件中没有对应的结果，我用notes文件夹中的相应代码重新跑结果做的图
+Table_S1-S4,没有准确对应的表，在CKI_Supplementary.docx文件中有描述，我把描述对应的文件放在Tables下的Table_S1-S4文件夹中（Table S3和S4指向了同一个文件？）
+Fig.S13(原结果包中的附图13)，我这边无法验证，因为没有相应的数据，我试图去GEO下载原始数据，但运行时还是提示缺一个ensg2sym.tsv文件。所以这张图我只调了格式，而且没有按顺序改编号。这张图如果正确且按目前样子使用，建议在Discussion 里增加一句类似：A real IFN-β perturbation dataset (Kang et al.) illustrates the limits of ω: in CD14+ monocytes, where IFN-β remodels the housekeeping program, ω separation collapses (AUC 0.55) while the HK-anchored score k_f remains discriminative (AUC 0.98). This shows that ω assumes anchor stationarity; when the anchor itself moves, cross-metric contrasts—not absolute ω values—are the reliable signal (Fig. S13).
+Fig.S14因为是置换检验，在随机生成的时候会有些许差别，我重新跑了一遍，结果和您的基本是一致的，但感觉原图比我画的好看些，保留了原图，我的分析结果如下：
+目前没有 Figure S12编号的图，想等S13确认后，重新排序下所有附图，但目前已有编号和正文中引用位置的对应关系是正确的，只需投稿前重新整理一遍编号即可
+参考文献还没弄，等其他内容都确定后，最后调整

@@ -1,0 +1,12 @@
+﻿=== GUIDE lines 320-330 ===
+
+  a. TCGA linear-normalization robustness:
+     Script: notebooks/85_tcga_linear_norm_v44.py
+     Recomputes the TCGA pipeline (baseline omega, NN/TT inversion, k_n inversion, severity vignettes) with the linear normalization p_i = (TPM+1)/sum_j(TPM_j+1) in place of softmax over log2(TPM+1), verifying that all qualitative conclusions are normalization-independent. Outputs: results/tcga_linear_norm_v44_* (summary in results/tcga_linear_norm_v44_report.md).
+
+  b. TCGA composition check under linear normalization:
+     Script: notebooks/86_tcga_composition_linear_norm_v44.py
+     Repeats the four-panel composition analysis (immune, myeloid, stromal, epithelial) under the linear-normalization mapping with sample-level cluster bootstrap. Outputs: results/tcga_composition_v44.txt, results/tcga_composition_v44.csv.
+
+  c. Cross-organ rank-correlation confidence interval:
+     Script: notebooks/87_cross_organ_rho_ci_v44.py

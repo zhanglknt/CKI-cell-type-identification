@@ -1,0 +1,7 @@
+===== results/audit/_nc49_ms_verify.py
+"nd 'LUSC 1.71 (1.38\\u20132.09)' in full\n    and 'BRCA 1.57 (1.34\\u20131.85)' in full and 'LIHC 1.10 (0.93\\u20131.29)' in full)\nchk('CC old r"
+"ergence in tumors' in full)\nchk('Cox limitation sentence', 'Cox hazard ratio per SD 1.07, 95% CI 0.88\\u20131.31, P = 0.48' in full)\nchk('dri"
+===== results/audit/_nc49_si_verify.py
+"cellfull\n    and '1.10 [0.93, 1.29]' in cellfull and '1.57 [1.34, 1.85]' in cellfull)\nchk('CC post-fix k_n mean ratios (table)',\n    '3.29 ["
+" cellfull)\nchk('CC old table values gone',\n    '1.13 [0.97, 1.34]' not in cellfull and '1.82 [1.46, 2.25]' not in cellfull\n    and '1.90 [1."
+"lfull and '122.2' in cellfull and '136.9' in cellfull)\nchk('Cox M1 (table)', '1.07 [0.88, 1.31]' in cellfull)\nchk('Cox caption post-CC',\n   "

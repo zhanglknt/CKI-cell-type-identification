@@ -1,0 +1,5 @@
+merged n: 746 max err vs manual z: 1.3828954684430264
+bad: 1
+              sample        kn         admix   admix_z  z_manual       err
+709  TCGA-RG-A7D4-01  0.004721  16651.991957  0.417919 -0.964976  1.382895
+TCGA-RG-A7D4-01 -> df_tumor rows: 1 [{'cancer': 'TCGA-LIHC', 'admix': 16651.991957078146, 'admix_z': 0.4179194693317629}]

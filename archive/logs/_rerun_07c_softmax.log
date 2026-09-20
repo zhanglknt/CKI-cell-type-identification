@@ -1,0 +1,134 @@
+============================================================
+1. Loading Siletti Nonneurons.h5ad (raw counts)...
+============================================================
+  Shape: (888263, 59480)
+  Cell types: ['Astrocyte', 'Bergmann glia', 'Choroid plexus', 'Committed oligodendrocyte precursor', 'Ependymal', 'Fibroblast', 'Microglia', 'Oligodendrocyte', 'Oligodendrocyte precursor', 'Vascular']
+  Brain regions: 108
+
+============================================================
+2. Loading HK genes from HRT Atlas reference...
+============================================================
+  HRT Atlas human HK genes: 1129
+  Matched HK genes: 1115/1129 (via var['Gene'] mapping)
+
+============================================================
+3. Filtering: >=20 nuclei per (region, ct) and >=50 per region...
+============================================================
+C:\Users\KnightZ\Desktop\细胞受选择\notebooks\07c_brain_siletti_v3.py:69: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  groups = adata.obs.groupby([region_col, ct_col]).size().reset_index(name="count")
+  Groups passing >=20 nuclei: 700 (from 1080 total)
+  Regions passing >=50 nuclei: 108 (from 108 total)
+  Groups passing both filters: 700
+  Cell types present: ['Astrocyte', 'Bergmann glia', 'Choroid plexus', 'Committed oligodendrocyte precursor', 'Ependymal', 'Fibroblast', 'Microglia', 'Oligodendrocyte', 'Oligodendrocyte precursor', 'Vascular']
+
+============================================================
+4. Computing pseudobulks (raw count means)...
+============================================================
+  Total pseudobulks computed: 700
+
+============================================================
+5. Normalizing pseudobulk vectors (target_sum=1e4, log1p)...
+============================================================
+  Normalized: 700 pseudobulks
+  Freed raw adata from memory.
+
+============================================================
+6. Building non-HK mask for k_f selection...
+============================================================
+  HK genes: 1115
+  Non-HK genes (for k_f): 58365
+
+============================================================
+7. Computing CKI omega (global HK k_n + per-pair top-N k_f)...
+============================================================
+  Total same-CT cross-region pairs: 31764
+  Astrocyte: 108 regions, 5778 pairs
+    Progress: 5000/31764 pairs
+  Fibroblast: 83 regions, 3403 pairs
+  Microglia: 107 regions, 5671 pairs
+    Progress: 10000/31764 pairs
+  Oligodendrocyte: 108 regions, 5778 pairs
+    Progress: 15000/31764 pairs
+    Progress: 20000/31764 pairs
+  Oligodendrocyte precursor: 107 regions, 5671 pairs
+    Progress: 25000/31764 pairs
+  Vascular: 82 regions, 3321 pairs
+  Committed oligodendrocyte precursor: 52 regions, 1326 pairs
+    Progress: 30000/31764 pairs
+  Ependymal: 40 regions, 780 pairs
+  Bergmann glia: 7 regions, 21 pairs
+  Choroid plexus: 6 regions, 15 pairs
+  Complete: 31764 pairs computed
+
+============================================================
+8. Per-cell-type omega summary...
+============================================================
+  Astrocyte: n_regions=108, n_pairs=5778, mean=103.08, std=56.09
+  Bergmann glia: n_regions=7, n_pairs=21, mean=16.42, std=7.33
+  Choroid plexus: n_regions=6, n_pairs=15, mean=48.21, std=19.78
+  Committed oligodendrocyte precursor: n_regions=52, n_pairs=1326, mean=33.78, std=14.59
+  Ependymal: n_regions=40, n_pairs=780, mean=32.33, std=14.08
+  Fibroblast: n_regions=83, n_pairs=3403, mean=24.26, std=13.48
+  Microglia: n_regions=107, n_pairs=5671, mean=31.99, std=16.34
+  Oligodendrocyte: n_regions=108, n_pairs=5778, mean=41.08, std=16.96
+  Oligodendrocyte precursor: n_regions=107, n_pairs=5671, mean=50.62, std=25.13
+  Vascular: n_regions=82, n_pairs=3321, mean=18.47, std=6.90
+
+  Omega gradient: Bergmann glia (16.42) -> Astrocyte (103.08), fold = 6.28
+
+============================================================
+9. Multiplicative migration detection model...
+============================================================
+  Grand mean omega: 47.74
+  Total pairs: 31764
+  Strong (residual < 0.3): 44 (0.1%)
+  Moderate (residual < 0.5): 1342 (4.2%)
+  Weak (residual < 0.75): 6557 (20.6%)
+
+  Strong candidates by cell type:
+    Astrocyte: 5
+    Bergmann glia: 0
+    Choroid plexus: 0
+    Committed oligodendrocyte precursor: 1
+    Ependymal: 3
+    Fibroblast: 6
+    Microglia: 17
+    Oligodendrocyte: 11
+    Oligodendrocyte precursor: 0
+    Vascular: 1
+
+  Top 10 Strong candidates (lowest residual):
+    Microglia: Human A14 vs Human Pul, omega=10.29, expected=52.97, residual=0.1942
+    Microglia: Human A14 vs Human LG, omega=9.44, expected=46.87, residual=0.2014
+    Oligodendrocyte: Human STH vs Human TF, omega=12.95, expected=63.12, residual=0.2052
+    Oligodendrocyte: Human LP vs Human TF, omega=13.15, expected=62.50, residual=0.2105
+    Microglia: Human Cla vs Human LG, omega=7.47, expected=35.00, residual=0.2134
+    Oligodendrocyte: Human A13 vs Human LP, omega=12.60, expected=57.52, residual=0.2191
+    Microglia: Human DTg vs Human TF, omega=12.83, expected=55.35, residual=0.2318
+    Microglia: Human Cla vs Human Pul, omega=9.74, expected=41.56, residual=0.2343
+    Microglia: Human AON vs Human DTg, omega=12.30, expected=52.46, residual=0.2345
+    Astrocyte: Human CM-Pf vs Human VPL, omega=14.72, expected=60.48, residual=0.2433
+
+============================================================
+10. Saving results...
+============================================================
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\brain_siletti_omega_pairs_v3.csv
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\brain_siletti_migration_candidates_v3.csv
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\brain_siletti_ct_summary_v3.csv
+
+============================================================
+11. Generating report...
+============================================================
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\brain_siletti_analysis_report_v3.md
+  Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\brain_siletti_key_values_v3.csv
+
+============================================================
+Analysis complete (v3)!
+============================================================
+
+Key numbers for manuscript:
+  Total pairs: 31764
+  Omega gradient: 6.28x (Bergmann glia=16.42 -> Astrocyte=103.08)
+  Strong candidates: 44
+  OPC most active: 0 strong
+  Top signal: Microglia Human A14 vs Human Pul, omega=10.29, residual=0.1942

@@ -1,0 +1,4 @@
+FAIL https://downloads.sourceforge.net/project/estimateproject/estimate_1.0.11.tar.gz: HTTP Error 403: Forbidden
+FAIL https://sourceforge.net/projects/estimateproject/files/estimate_1.0.11.tar.gz/download: HTTP Error 403: Forbidden
+FAIL https://master.dl.sourceforge.net/project/estimateproject/estimate_1.0.11.tar.gz: HTTP Error 403: Forbidden
+FAIL https://phoenixnap.dl.sourceforge.net/project/estimateproject/estimate_1.0.11.tar.gz: HTTP Error 403: Forbidden

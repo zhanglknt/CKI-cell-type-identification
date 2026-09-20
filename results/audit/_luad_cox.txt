@@ -1,0 +1,39 @@
+        metric                 test          comparison  n_total      stat                       p
+0   LUAD_omega          Dunn (Holm)        EGFR vs KRAS      492   -2.8600    0.008467067996592359
+1   LUAD_omega          Dunn (Holm)          WT vs KRAS      492   -5.2950   3.569276301185198e-07
+2   LUAD_omega          Dunn (Holm)          WT vs EGFR      492   -0.8520      0.3943482370894955
+3   LUAD_omega       Kruskal-Wallis  WT vs EGFR vs KRAS      492   28.1200   7.832510348041664e-07
+4   LUAD_omega          descriptive                  WT      311  115.3734                     NaN
+5   LUAD_omega          descriptive                EGFR       61  122.2156                     NaN
+6   LUAD_omega          descriptive                KRAS      120  136.9436                     NaN
+7      LUAD_kf          Dunn (Holm)        EGFR vs KRAS      492   -2.8170    0.014551186314969655
+8      LUAD_kf          Dunn (Holm)          WT vs KRAS      492   -1.9730     0.09689304091084106
+9      LUAD_kf          Dunn (Holm)          WT vs EGFR      492    1.6490     0.09922347139898768
+10     LUAD_kf       Kruskal-Wallis  WT vs EGFR vs KRAS      492    8.3860    0.015103980459083927
+11     LUAD_kf          descriptive                  WT      311    0.2814                     NaN
+12     LUAD_kf          descriptive                EGFR       61    0.2732                     NaN
+13     LUAD_kf          descriptive                KRAS      120    0.2919                     NaN
+14     LUAD_kn          Dunn (Holm)        EGFR vs KRAS      492    0.8160     0.41460715420445515
+15     LUAD_kn          Dunn (Holm)          WT vs KRAS      492    3.8090  0.00041821579040335344
+16     LUAD_kn          Dunn (Holm)          WT vs EGFR      492    2.0070     0.08945292763862867
+17     LUAD_kn       Kruskal-Wallis  WT vs EGFR vs KRAS      492   16.0020   0.0003350859307509108
+18     LUAD_kn          descriptive                  WT      311    0.0032                     NaN
+19     LUAD_kn          descriptive                EGFR       61    0.0028                     NaN
+20     LUAD_kn          descriptive                KRAS      120    0.0027                     NaN
+21  LUAD_omega  bootstrap mean diff           KRAS - WT      492   21.5702  CI95 [14.6650,29.3789]
+22  LUAD_omega  bootstrap mean diff         KRAS - EGFR      492   14.7280   CI95 [5.5637,24.1338]
+23  LUAD_omega  bootstrap mean diff           EGFR - WT      492    6.8422  CI95 [-2.0924,15.1818]
+24     LUAD_kf  bootstrap mean diff           KRAS - WT      492    0.0105    CI95 [0.0024,0.0192]
+25     LUAD_kf  bootstrap mean diff         KRAS - EGFR      492    0.0187    CI95 [0.0061,0.0326]
+26     LUAD_kf  bootstrap mean diff           EGFR - WT      492   -0.0081   CI95 [-0.0213,0.0042]
+27     LUAD_kn  bootstrap mean diff           KRAS - WT      492   -0.0006  CI95 [-0.0008,-0.0003]
+28     LUAD_kn  bootstrap mean diff         KRAS - EGFR      492   -0.0001   CI95 [-0.0005,0.0002]
+29     LUAD_kn  bootstrap mean diff           EGFR - WT      492   -0.0004  CI95 [-0.0007,-0.0001]
+
+                   model covariate    n  events     coef       se     HR  HR_lower  HR_upper      z         p
+0          M1_omega_full         z  271      79  0.05963  0.11125  1.061     0.853     1.320  0.536  0.591965
+5   M2_omega_stage_grade         z  271      79  0.00932  0.10981  1.009     0.814     1.252  0.085  0.932350
+8    M3_omega_unadjusted         z  293      93  0.07946  0.10536  1.083     0.881     1.331  0.754  0.450775
+9             M4_kf_full         z  271      79  0.07222  0.12164  1.075     0.847     1.364  0.594  0.552689
+14            M5_kn_full         z  271      79 -0.04960  0.08973  0.952     0.798     1.135 -0.553  0.580428
+19       M6_tnomega_full         z  270      79 -0.11989  0.11614  0.887     0.706     1.114 -1.032  0.301929

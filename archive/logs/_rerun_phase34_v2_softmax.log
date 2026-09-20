@@ -1,0 +1,99 @@
+============================================================
+0. Loading HK gene mapping...
+============================================================
+  HK gene symbols: 1129, probeMap: 60498
+
+============================================================
+1. Parsing sample metadata...
+============================================================
+  TCGA-LUAD: T=495, N=76
+  TCGA-LUSC: T=567, N=58
+  TCGA-LIHC: T=365, N=57
+  TCGA-KIRC: T=755, N=82
+  TCGA-BRCA: T=1032, N=109
+
+  Usable: 5 cancers
+
+============================================================
+3. Per-cancer omega analysis...
+============================================================
+
+--- TCGA-LUAD ---
+  Loading data...
+  Genes: 14178, HK: 1125, T=495, N=76
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/122265 done
+    NN: 2850 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/37620 done
+    omega_TT: mean=105.8, median=103.4, std=49.5
+    omega_NN: mean=277.2, median=239.8, std=175.8
+    omega_TN: mean=124.9, median=122.2, std=54.9
+    TN/baseline: 0.65x, p=1.16e-67
+
+--- TCGA-LUSC ---
+  Loading data...
+  Genes: 13989, HK: 1125, T=567, N=58
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/160461 done
+    NN: 1653 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/32886 done
+    omega_TT: mean=98.2, median=97.7, std=38.3
+    omega_NN: mean=196.4, median=172.9, std=140.0
+    omega_TN: mean=98.7, median=100.5, std=43.4
+    TN/baseline: 0.67x, p=1.12e-28
+
+--- TCGA-LIHC ---
+  Loading data...
+  Genes: 12047, HK: 1124, T=365, N=57
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/66430 done
+    NN: 1596 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/20805 done
+    omega_TT: mean=66.6, median=64.7, std=32.1
+    omega_NN: mean=87.6, median=79.8, std=60.1
+    omega_TN: mean=60.4, median=56.5, std=30.1
+    TN/baseline: 0.78x, p=3.69e-28
+
+--- TCGA-KIRC ---
+  Loading data...
+  Genes: 13876, HK: 1125, T=755, N=82
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/284635 done
+    NN: 3321 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/61910 done
+    omega_TT: mean=110.6, median=93.0, std=71.2
+    omega_NN: mean=228.8, median=203.8, std=131.9
+    omega_TN: mean=125.2, median=115.6, std=67.5
+    TN/baseline: 0.74x, p=5.63e-68
+
+--- TCGA-BRCA ---
+  Loading data...
+  Genes: 14272, HK: 1125, T=1032, N=109
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/531996 done
+    NN: 5886 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/112488 done
+    omega_TT: mean=110.3, median=106.3, std=49.7
+    omega_NN: mean=192.8, median=160.4, std=146.7
+    omega_TN: mean=117.9, median=112.0, std=61.4
+    TN/baseline: 0.78x, p=3.64e-33
+
+============================================================
+4. Combined cross-cancer analysis...
+============================================================
+  Total pairs: 35306
+
+  Project  n_Tumor  n_Normal  n_Genes  n_HK omega_TT_mean omega_TT_median omega_NN_mean omega_NN_median omega_TN_mean omega_TN_median TN_Baseline  p_value time_s
+TCGA-LUAD      495        76    14178  1125         105.8           103.4         277.2           239.8         124.9           122.2       0.65x 1.16e-67    161
+TCGA-LUSC      567        58    13989  1125          98.2            97.7         196.4           172.9          98.7           100.5       0.67x 1.12e-28    169
+TCGA-LIHC      365        57    12047  1124          66.6            64.7          87.6            79.8          60.4            56.5       0.78x 3.69e-28    132
+TCGA-KIRC      755        82    13876  1125         110.6            93.0         228.8           203.8         125.2           115.6       0.74x 5.63e-68    143
+TCGA-BRCA     1032       109    14272  1125         110.3           106.3         192.8           160.4         117.9           112.0       0.78x 3.64e-33    186
+
+============================================================
+5. Visualization...
+============================================================
+  All plots saved.
+
+============================================================
+6. Generating report...
+============================================================
+  Saved: phase34_v2_report.md
+
+Phase 3.4 v2 complete in 797s
+Done!

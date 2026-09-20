@@ -1,0 +1,5 @@
+TCGA-LUAD: n1=493 n2=493 same_samples=True max|dKn|=0.000e+00 max|dAdmix|=0.000e+00 r1=-0.419781 r2=-0.419781
+TCGA-LUSC: n1=567 n2=567 same_samples=True max|dKn|=0.000e+00 max|dAdmix|=0.000e+00 r1=-0.367049 r2=-0.367049
+TCGA-LIHC: n1=365 n2=365 same_samples=True max|dKn|=0.000e+00 max|dAdmix|=0.000e+00 r1=-0.209440 r2=-0.209440
+TCGA-KIRC: n1=746 n2=746 same_samples=True max|dKn|=0.000e+00 max|dAdmix|=0.000e+00 r1=-0.398347 r2=-0.399441
+TCGA-BRCA: n1=1010 n2=1010 same_samples=True max|dKn|=0.000e+00 max|dAdmix|=0.000e+00 r1=-0.323831 r2=-0.323831

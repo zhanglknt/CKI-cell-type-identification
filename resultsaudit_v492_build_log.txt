@@ -1,0 +1,42 @@
+[safe-delete][SAFE_DELETE_BULK_REJECTED] {"count":50,"threshold":50,"scope":"turn","targets":["C:\\Users\\KnightZ\\Desktop\\细胞受选择\\results\\audit\\_xv_extract2.txt"],"targetCount":1}
+============================================================
+  CKI Submission Package v49 (NC, GB-rebuttal round) Builder
+============================================================
+
+[0] Collecting figures into figures_submission_nc ...
+  [OK] V49-1 figures staged = 23 (7 main + 13 supp + GA x3) got 23
+
+[1] Preparing CKI_Submission_v49_NC ...
+
+[2] Regenerating DOCX files ...
+
+--- Generate Manuscript (NC v49) ---
+Superscripted citation groups: 73
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_Manuscript_NC.docx
+  [OK] run: Generate Manuscript (NC v49)
+
+--- Generate Supplementary (NC v49) ---
+Saved: results/CKI_Supplementary_NC.docx
+Paragraphs: 215
+  [OK] run: Generate Supplementary (NC v49)
+
+--- Generate Cover Letter (NC v49) ---
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_NC_Cover_Letter.docx
+  [OK] run: Generate Cover Letter (NC v49)
+
+--- Generate Repro Guide (NC) ---
+Generated: C:/Users/KnightZ/Desktop/细胞受选择/results/CKI_Reproducibility_Guide_NC.docx
+Size: 40.4 KB
+  [OK] run: Generate Repro Guide (NC)
+  [OK] DOCX exists: CKI_Manuscript_NC.docx
+  [OK] DOCX exists: CKI_Supplementary_NC.docx
+  [OK] DOCX exists: CKI_NC_Cover_Letter.docx
+  [OK] DOCX exists: CKI_Reproducibility_Guide_NC.docx
+
+[2f] Extracting fulltext ...
+  CKI_Manuscript_NC_fulltext.txt: 163,591 bytes
+  CKI_Supplementary_NC_fulltext.txt: 113,987 bytes
+  CKI_NC_Cover_Letter_fulltext.txt: 3,935 bytes
+  CKI_Reproducibility_Guide_NC_fulltext.txt: 69,481 bytes
+
+[4] Creating ZIP ...

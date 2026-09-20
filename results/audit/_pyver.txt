@@ -1,0 +1,2 @@
+C:\Users\KnightZ\Desktop\细胞受选择\cki_env\Scripts\python.exe
+C:\Users\KnightZ\Desktop\细胞受选择\census_env\Scripts\python.exe

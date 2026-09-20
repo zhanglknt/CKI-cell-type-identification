@@ -1,0 +1,85 @@
+-- T2_cross_donor n=1089
+   omega           FPR  90.9%   cal median 1.764
+   k_f             FPR  98.7%   cal median 3.217
+   k_n             FPR  88.6%   cal median 1.690
+   raw_js          FPR  98.4%   cal median 3.320
+   cosine          FPR  97.8%   cal median 2.277
+   spearman        FPR  96.4%   cal median 1.788
+   marker_jaccard  FPR  74.7%   cal median 1.392
+-- T3_cross_roi n=1656
+   omega           FPR  84.8%   cal median 1.802
+   k_f             FPR  94.2%   cal median 2.878
+   k_n             FPR  84.8%   cal median 1.487
+   raw_js          FPR  96.8%   cal median 2.976
+   cosine          FPR  95.5%   cal median 2.005
+   spearman        FPR  95.2%   cal median 1.574
+   marker_jaccard  FPR  80.1%   cal median 1.405
+paper T2: omega FPR 90.9% cal 1.76; raw_js 98.4% cal 3.32; k_f 98.7% cal 3.22
+paper T3: omega cal 1.80; raw_js 2.98; marker_jaccard 1.41; k_f ? 
+T1_techrep omega cal med 1.038 rawjs cal med 1.073
+T2_cross_donor omega cal med 1.764 rawjs cal med 3.32
+T3_cross_roi omega cal med 1.802 rawjs cal med 2.976
+paper gradient: omega 1.04->1.76->1.80; raw_js 1.07->3.32->2.98
+
+B values per tier:                 min  max
+tier                    
+T1_techrep      100  100
+T2_cross_donor   30   30
+T3_cross_roi     30   30
+paper: B=100/30/30 for T1/T2/T3
+
+=== LUAD internal consistency ===
+LUAD_omega: H=28.12 p_csv=7.833e-07 p_recalc_chi2(df=2)=7.831e-07 match=True
+LUAD_kf: H=8.386 p_csv=0.0151 p_recalc_chi2(df=2)=0.0151 match=True
+LUAD_kn: H=16.002 p_csv=0.0003351 p_recalc_chi2(df=2)=0.0003351 match=True
+-- LUAD_omega Dunn:
+   WT vs KRAS     z= -5.295 p_raw=1.19e-07 p_holm_csv=3.569e-07 p_holm_recalc=3.57e-07 match=True
+   EGFR vs KRAS   z= -2.860 p_raw=0.004236 p_holm_csv=0.008467 p_holm_recalc=0.008473 match=True
+   WT vs EGFR     z= -0.852 p_raw=0.3942 p_holm_csv=0.3943 p_holm_recalc=0.3942 match=True
+-- LUAD_kf Dunn:
+   EGFR vs KRAS   z= -2.817 p_raw=0.004847 p_holm_csv=0.01455 p_holm_recalc=0.01454 match=True
+   WT vs KRAS     z= -1.973 p_raw=0.0485 p_holm_csv=0.09689 p_holm_recalc=0.09699 match=True
+   WT vs EGFR     z=  1.649 p_raw=0.09915 p_holm_csv=0.09922 p_holm_recalc=0.09915 match=True
+-- LUAD_kn Dunn:
+   WT vs KRAS     z=  3.809 p_raw=0.0001395 p_holm_csv=0.0004182 p_holm_recalc=0.0004186 match=True
+   WT vs EGFR     z=  2.007 p_raw=0.04475 p_holm_csv=0.08945 p_holm_recalc=0.0895 match=True
+   EGFR vs KRAS   z=  0.816 p_raw=0.4145 p_holm_csv=0.4146 p_holm_recalc=0.4145 match=True
+group ns: {'WT': 311, 'EGFR': 61, 'KRAS': 120} sum = 1476 (paper: 492; 61+120+311)
+
+=== LIHC Cox (nc49_pilot_lihc_cox.csv) ===
+['M1_omega_full' 'M2_omega_stage_grade' 'M3_omega_unadjusted' 'M4_kf_full'
+ 'M5_kn_full' 'M6_tnomega_full']
+               model   n  events    HR  HR_lower  HR_upper        p
+       M1_omega_full 271      79 1.061     0.853     1.320 0.591965
+M2_omega_stage_grade 271      79 1.009     0.814     1.252 0.932350
+ M3_omega_unadjusted 293      93 1.083     0.881     1.331 0.450775
+          M4_kf_full 271      79 1.075     0.847     1.364 0.552689
+          M5_kn_full 271      79 0.952     0.798     1.135 0.580428
+     M6_tnomega_full 270      79 0.887     0.706     1.114 0.301929
+paper: M1 omega HR 1.06 [0.85,1.32] P=0.59; all six exposures P>=0.30
+rows failing internal HR/p consistency: 0
+               model covariate    HR    HR_re        p     p_re
+       M1_omega_full         z 1.061 1.061444 0.591965 0.591959
+       M1_omega_full     stage 1.483 1.483331 0.002268 0.002268
+       M1_omega_full grade_ord 1.421 1.420885 0.037190 0.037193
+       M1_omega_full       age 1.022 1.022377 0.025177 0.025246
+       M1_omega_full  sex_Male 0.825 0.825332 0.420983 0.420971
+M2_omega_stage_grade         z 1.009 1.009364 0.932350 0.932362
+M2_omega_stage_grade     stage 1.547 1.547035 0.000572 0.000572
+M2_omega_stage_grade grade_ord 1.346 1.345748 0.073095 0.073101
+ M3_omega_unadjusted         z 1.083 1.082702 0.450775 0.450743
+          M4_kf_full         z 1.075 1.074892 0.552689 0.552700
+          M4_kf_full     stage 1.479 1.479449 0.002417 0.002416
+          M4_kf_full grade_ord 1.387 1.387412 0.054034 0.054033
+          M4_kf_full       age 1.021 1.020763 0.035160 0.035058
+          M4_kf_full  sex_Male 0.822 0.822218 0.410840 0.410844
+          M5_kn_full         z 0.952 0.951610 0.580428 0.580421
+          M5_kn_full     stage 1.498 1.498238 0.001717 0.001717
+          M5_kn_full grade_ord 1.427 1.426651 0.036197 0.036195
+          M5_kn_full       age 1.023 1.022970 0.024433 0.024402
+          M5_kn_full  sex_Male 0.839 0.838652 0.463541 0.463550
+     M6_tnomega_full         z 0.887 0.887018 0.301929 0.301937
+     M6_tnomega_full     stage 1.510 1.509714 0.001395 0.001394
+     M6_tnomega_full grade_ord 1.385 1.385402 0.054681 0.054677
+     M6_tnomega_full       age 1.020 1.020089 0.043148 0.043244
+     M6_tnomega_full  sex_Male 0.825 0.825134 0.418145 0.418144

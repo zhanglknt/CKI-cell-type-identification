@@ -1,0 +1,36 @@
+===== Checks =====
+[PASS] 3.20 heading present 
+[PASS] 3.21 heading present 
+[PASS] Kang omega cal 0.963 
+[PASS] Kang 0/30 wording 
+[PASS] Wilson CI [0.000, 0.114] 
+[PASS] T1 FPR 28.6% 
+[PASS] T2 omega 90.9% 
+[PASS] marker Jaccard T3 1.41 
+[PASS] n-bin 14.1% 
+[PASS] choroid 137-fold 
+[PASS] Bergmann 21.9 / 9.7 
+[PASS] LUAD NN/TT 2.46 CI (table) 
+[PASS] LIHC NN/TT 1.13 CI (table) 
+[PASS] k_n KIRC 3.21 CI (table) 
+[PASS] LUAD means 115.4/122.2/136.9 (table) 
+[PASS] Cox M1 1.06 [0.85, 1.32] (table) 
+[PASS] Cox M1 P 0.59 (table) 
+[PASS] Dunn KRAS-WT omega (table) 
+[PASS] Kang table cells (omega row) 
+[PASS] Ladder table T1 omega cell 
+[PASS] Note 9 stale sentence gone 
+[PASS] Note 9 new sync sentence 
+[PASS] Note 9 cross-organ now Fig. 6 
+[PASS] Supp Table 3 now Figure 7 
+[PASS] no stale Fig. 5 cross-organ ref 
+[PASS] no stale Figure 6 brain ref 
+[PASS] Notes 1-15 count = 15 found [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[PASS] no TODO in SI 
+[PASS] Table (Section 3.20a) 
+[PASS] Table (Section 3.20b) 
+[PASS] Table (Section 3.21a) 
+[PASS] Table (Section 3.21b) 
+[PASS] Table (Section 3.21c) 
+[PASS] Table (Section 3.21d) 
+TOTAL: 34 checks, 0 failures

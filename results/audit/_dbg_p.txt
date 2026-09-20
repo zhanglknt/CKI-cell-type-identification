@@ -1,0 +1,3 @@
+LUAD_omega '7.832510348041664e-07' <class 'str'>
+LUAD_kf '0.015103980459083927' <class 'str'>
+LUAD_kn '0.0003350859307509108' <class 'str'>

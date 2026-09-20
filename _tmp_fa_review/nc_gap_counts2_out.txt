@@ -1,0 +1,10 @@
+Fig 1 legend words: 201
+Fig 2 legend words: 126
+Fig 3 legend words: 71
+Fig 4 legend words: 74
+Fig 5 legend words: 108
+Fig 6 legend words: 194
+total refs matched: 56
+et al. refs: 27
+no et al., <=5 authors (must list all; already complete): ['3', '6', '7', '8', '9', '10', '11', '13', '15', '21', '22', '28', '32', '33', '35', '39', '43', '44', '45', '46', '52', '54', '55']
+no et al., >=6 authors (NC: truncate to first + et al.): [('4', 6), ('20', 6), ('27', 6), ('29', 6), ('37', 6), ('56', 6)]

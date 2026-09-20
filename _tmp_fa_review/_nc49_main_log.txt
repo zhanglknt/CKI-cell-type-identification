@@ -1,0 +1,47 @@
+TCGA-LUAD: NN/TT=2.46 [2.13,2.86] P=0.00e+00; kn TT/NN=2.6x (mean CI [2.09,3.31])
+TCGA-LUSC: NN/TT=1.71 [1.38,2.09] P=8.41e-59; kn TT/NN=2.5x (mean CI [1.46,2.59])
+TCGA-LIHC: NN/TT=1.10 [0.93,1.29] P=1.92e-01; kn TT/NN=2.1x (mean CI [1.02,1.88])
+TCGA-KIRC: NN/TT=1.88 [1.63,2.16] P=1.41e-232; kn TT/NN=3.6x (mean CI [2.54,4.35])
+TCGA-BRCA: NN/TT=1.57 [1.34,1.85] P=3.33e-42; kn TT/NN=2.8x (mean CI [1.83,2.91])
+
+   cancer  n_tumor  n_normal  n_TT_pairs  n_NN_pairs  omega_TT_mean  omega_NN_mean  NN_TT_ratio  NN_TT_ratio_CI95_lower  NN_TT_ratio_CI95_upper  p_MWU_NN_gt_TT  kn_TT_median  kn_NN_median  kn_TT_NN_median_ratio  kn_TT_NN_mean_ratio  kn_TT_NN_mean_ratio_CI95_lower  kn_TT_NN_mean_ratio_CI95_upper  kf_TT_mean  kf_NN_mean  rank_by_NN_TT_ratio
+TCGA-LUAD      493        76        2000        2850         121.66         299.76        2.464                   2.128                   2.863    0.000000e+00      0.002449      0.000941                   2.60                2.548                           2.088                           3.314      0.2823      0.2259                    1
+TCGA-LUSC      534        58        2000        1653         122.68         209.49        1.708                   1.378                   2.087    8.406349e-59      0.002532      0.001001                   2.53                1.891                           1.463                           2.594      0.3063      0.1815                    3
+TCGA-LIHC      398        57        2000        1596          77.31          85.34        1.104                   0.933                   1.286    1.917841e-01      0.003980      0.001917                   2.08                1.347                           1.019                           1.882      0.3066      0.1851                    5
+TCGA-KIRC      750        82        2000        3321         125.78         236.46        1.880                   1.632                   2.161   1.406689e-232      0.002601      0.000720                   3.61                3.292                           2.544                           4.350      0.2643      0.1709                    2
+TCGA-BRCA     1010       109        2000        5886         128.23         201.00        1.567                   1.340                   1.845    3.328192e-42      0.002412      0.000869                   2.78                2.270                           1.835                           2.907      0.2944      0.1422                    4
+
+LUAD per-tumor: WT=311, EGFR=61, KRAS=120, DOUBLE excluded
+--- omega: KW H=28.12, P=7.83e-07 ---
+  WT: n=311, mean=115.3734, median=117.8441
+  EGFR: n=61, mean=122.2156, median=125.1686
+  KRAS: n=120, mean=136.9436, median=143.1554
+  Dunn EGFR vs KRAS: z=-2.86, P_holm=0.00847
+  Dunn WT vs KRAS: z=-5.30, P_holm=3.57e-07
+  Dunn WT vs EGFR: z=-0.85, P_holm=0.394
+--- kf: KW H=8.39, P=0.0151 ---
+  WT: n=311, mean=0.2814, median=0.2889
+  EGFR: n=61, mean=0.2732, median=0.2799
+  KRAS: n=120, mean=0.2919, median=0.2941
+  Dunn EGFR vs KRAS: z=-2.82, P_holm=0.0146
+  Dunn WT vs KRAS: z=-1.97, P_holm=0.0969
+  Dunn WT vs EGFR: z=1.65, P_holm=0.0992
+--- kn: KW H=16.00, P=0.000335 ---
+  WT: n=311, mean=0.0032, median=0.0028
+  EGFR: n=61, mean=0.0028, median=0.0025
+  KRAS: n=120, mean=0.0027, median=0.0024
+  Dunn EGFR vs KRAS: z=0.82, P_holm=0.415
+  Dunn WT vs KRAS: z=3.81, P_holm=0.000418
+  Dunn WT vs EGFR: z=2.01, P_holm=0.0895
+
+omega mean diff KRAS-WT: 21.5702 [14.6650,29.3789]
+omega mean diff KRAS-EGFR: 14.7280 [5.5637,24.1338]
+omega mean diff EGFR-WT: 6.8422 [-2.0924,15.1818]
+kf mean diff KRAS-WT: 0.0105 [0.0024,0.0192]
+kf mean diff KRAS-EGFR: 0.0187 [0.0061,0.0326]
+kf mean diff EGFR-WT: -0.0081 [-0.0213,0.0042]
+kn mean diff KRAS-WT: -0.0006 [-0.0008,-0.0003]
+kn mean diff KRAS-EGFR: -0.0001 [-0.0005,0.0002]
+kn mean diff EGFR-WT: -0.0004 [-0.0007,-0.0001]
+
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_tcga_pancancer.csv, C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_tcga_luad_mutation.csv

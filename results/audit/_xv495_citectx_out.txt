@@ -1,0 +1,11 @@
+=== first superscript '56' in paragraph 49 ===
+Three controls bound the interpretation of the pan-cancer reversal. First, a four-panel marker composition check (immune, myeloid, stromal, epithelial) with sample-level cluster bootstrap found the pooled tumor-pair k_n coefficient essentially unchanged after composition adjustment (−1.2%, bootstrap 95% CI −4.1% to +2.6%; per cancer type −16% to +37%), so marker-measurable composition explains lit
+
+=== first superscript '16,17' in paragraph 100 ===
+TCGA bulk RNA-seq 49: five cancer types from NCI Genomic Data Commons, accessed via TCGAbiolinks 50 and cBioPortal 51 APIs. LUAD: 493 tumor + 76 normal; LUSC: 534 tumor + 58 normal; LIHC: 398 tumor + 57 normal; KIRC: 750 tumor + 82 normal; BRCA: 1010 tumor + 109 normal (3,567 samples entering the pair-level analysis; 29 expression-matrix samples were excluded for missing barcode matching or pair c
+
+=== first superscript '15' in paragraph 100 ===
+TCGA bulk RNA-seq 49: five cancer types from NCI Genomic Data Commons, accessed via TCGAbiolinks 50 and cBioPortal 51 APIs. LUAD: 493 tumor + 76 normal; LUSC: 534 tumor + 58 normal; LIHC: 398 tumor + 57 normal; KIRC: 750 tumor + 82 normal; BRCA: 1010 tumor + 109 normal (3,567 samples entering the pair-level analysis; 29 expression-matrix samples were excluded for missing barcode matching or pair c
+
+=== superscripts after References ===
+count: 0

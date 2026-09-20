@@ -1,0 +1,22 @@
+local zip: 65,374,406 B, sha256 2483326780fde1e8b1ee4cbc39eff67c83ae84e2bb748b9e4739cd69762b9e37
+delete old asset HTTP 404 (continuing if 404)
+Traceback (most recent call last):
+  File "C:\Users\KnightZ\Desktop\细胞受选择\_tmp_fa_review\replace_release_asset_v050.py", line 51, in <module>
+    resp = json.loads(urllib.request.urlopen(req, timeout=1800).read())
+                      ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\versions\3.13.12\Lib\urllib\request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\versions\3.13.12\Lib\urllib\request.py", line 495, in open
+    response = meth(req, response)
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\versions\3.13.12\Lib\urllib\request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\versions\3.13.12\Lib\urllib\request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\versions\3.13.12\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\versions\3.13.12\Lib\urllib\request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 422: Unprocessable Entity

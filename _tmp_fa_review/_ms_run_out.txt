@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Users\KnightZ\Desktop\细胞受选择\generate_manuscript_nc.py", line 817, in <module>
+    assert _cite_sup_count == 74, f'Expected 74 superscripted citation groups, got {_cite_sup_count}'
+           ^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Expected 74 superscripted citation groups, got 72

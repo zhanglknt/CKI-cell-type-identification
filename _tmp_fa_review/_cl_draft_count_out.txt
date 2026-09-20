@@ -1,0 +1,12 @@
+salut      2
+p1        93
+p2       163
+p3       110
+p4        47
+p5        78
+p6        58
+thanks     6
+close1     1
+close2     4
+close3     4
+TOTAL: 566

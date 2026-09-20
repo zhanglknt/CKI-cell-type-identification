@@ -1,0 +1,41 @@
+
+=== Limitations ===
+  ...egimes \u03c9 must be read alongside its components, and k_f with a design-matched null is the honest default for ordering claims (Results; Limitations). CKI \u03c9 is a heuristic index, not a formal measure of Darwinian selection; interpretation is anchored in the empirical distribution of...
+  ...rsus AUC(k_f) = 0.859, with the same metric ranking in both backgrounds and \u03c9 AUC gains over k_f of +0.088 (marrow) and +0.049 (skin). Limitations replicated too: under strong confounding (\u03b4 = 0.5, \u03b7 \u2265 0.25) both \u03c9 and k_f fell below threshold, and under the fourfol...
+  ...ired power falls from 0.67\u20130.93 at 50 cells per donor per condition to \u2248 0 at 500 and above (operating window ~50\u2013200 cells; Limitations).')
+
+# --- Result 3c: fixed gene-panel ablation ---
+heading('Fixed gene-panel ablation: rankings robust, absolute \u03c9 scheme-specific', ...
+  ...and attribution to functional divergence further requires excluding library-level confounders (batch, donor, dissection order, RNA quality; Limitations); drift on the anchor is the null hypothesis by construction, and functional signal on the anchor is invisible to \u03c9. Before trusting f...
+
+=== usage guide ===
+
+=== When to use ===
+
+=== Conclusions ===
+
+=== abbreviations ===
+  ...uided; the oligodendrocyte lineage is not enriched (fold 0.77, P = 0.92), so migration-driven similarity is not currently evidenced. Region abbreviations follow the Siletti et al. dissection nomenclature (glossary in Additional file 1: Note 3.14).')
+
+p('The screen uses a multiplicative model:...
+
+=== Declarations ===
+
+=== Additional files ===
+
+=== Ethics ===
+
+=== Consent ===
+
+=== Ground-truth simulation dissociates ===
+
+=== rankings robust ===
+
+=== apparent tumor homogeneity ===
+
+=== divergence gradients ===
+
+=== hypothesis-generating screen ===
+
+=== Background ===
+  ...y affecting the k_n baseline in a disease-specific manner\u2014one instance of the anchor-failure scope stated with the concept definition (Background). The empirical calibration factor (\u03c9_cal = \u03c9 / 7.70, 95% CI [7.37, 8.02]) derives from mouse split-half controls (50 replicates ...

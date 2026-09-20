@@ -363,12 +363,13 @@ def main():
           "V49-N44 A7 SI Note 14 Augur pointer = ref. 37")
     check('gene-set configuration criterion only' in sn,
           "V49-N45 B1 SI weight-scheme AUC reconciliation clause")
-    check('McDonald\u2013Kreitman-style contrasts' in ms
+    check('McDonald\u2013Kreitman-style contrast' in ms
           and '34. McDonald' in ms and 'Adh locus in Drosophila' in ms,
           "V49-N46 B2 Ka/Ks structural inversion + MK ref [34]")
     check('descriptive rather than calibrated differences' in ms,
           "V49-N47 B3 Table 1 cross-type caveat")
-    check('1.74-fold size-balanced regional gradient ([1.64, 1.84]; 6.10-fold uncorrected)' in ms,
+    check('1.74-fold size-balanced regional gradient ([1.64, 1.84]; 6.10-fold '
+          'uncorrected; 3.68-fold span-matched intra-cerebellar)' in ms,
           "V49-N48 B4 Abstract leads with size-balanced gradient")
     check('leaving pair-level nominations subject to donor confounding' in ms,
           "V49-N49 B5 brain screen donor-confounding disclosure")
@@ -389,19 +390,27 @@ def main():
           and 'influence-function (multiplier) sandwich standard error' in ms
           and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in ms,
           "V49-N57 C6 studentized bootstrap-t pivot/SE described")
-    check('attenuates by \u22120.8% pooled (cluster-bootstrap median \u22121.2%, '
-          '95% CI [\u22124.1%, +2.6%])' in ms
+    check('attenuates by \u22121.3% pooled (cluster-bootstrap median \u22121.2%, '
+          '95% CI [\u22125.0%, +2.3%])' in ms
           and 'attenuates by \u22120.5% pooled' not in ms
-          and 'Spearman \u03c1 = 0.355 pooled; 0.15\u20130.49 per cancer type' in ms
+          and 'Spearman \u03c1 = 0.364 pooled, P < 10\u207b\u00b3\u2070\u2070; 0.20\u20130.51 per cancer type' in ms
           and '0.387 pooled' not in ms,
-          "V49-N58 N2 Discussion composition numbers = linear caliber")
-    check('\u22120.8% pooled; cluster-bootstrap median \u22121.2%' in ms
-          and 'median |Delta z| 1.30-fold higher for the three-panel composite' in ms,
-          "V49-N58b N2 Results composition caliber (point + bootstrap median, linear)")
+          "V49-N58 N2 Discussion composition numbers = post-CC linear caliber")
+    check('\u22121.3% pooled; cluster-bootstrap median \u22121.2%' in ms
+          and 'median |Delta z| 1.31-fold higher for the three-panel composite' in ms,
+          "V49-N58b N2 Results composition caliber (point + bootstrap median, post-CC linear)")
     check('softmax caliber; superseded by the linear-normalization update' in sn
           and 'These linear-normalization estimates are the ones cited in the manuscript'
           in sn,
           "V49-N65 N2 SI Note 8 softmax regression labeled superseded")
+    check('median |\u0394z| 1.305-fold for the three-panel '
+          'composite, P = 3.57 \u00d7 10\u207b\u00b9\u00b3\u2077, and 1.216-fold with '
+          'the myeloid panel included, P = 1.28 \u00d7 10\u207b\u2076\u2076' in sn
+          and 'pooled four-panel attenuation \u22121.3% (cluster-bootstrap '
+          'median \u22121.2%, 95% CI [\u22125.0%, +2.3%])' in sn
+          and 'Spearman \u03c1 = 0.364 pooled (n = 10,000 pairs, '
+          'P < 10\u207b\u00b3\u2070\u2070; per-cancer 0.196\u20130.513' in sn,
+          "V49-N65b A2 SI Note 8 linear update = post-CC caliber")
     check('with four fixed exceptions' in gd and 'three fixed exceptions' not in gd
           and '89_cluster_boot_v45.py (the small-cluster studentized bootstrap-t '
           'analysis) uses the fixed seed 20260905' in gd,
@@ -427,12 +436,67 @@ def main():
     check('seaborn:             0.13.2' in gd and 'statsmodels:         0.14.6' in gd
           and 'meld:                1.0.2' in gd and 'pyaugur:             0.1.0' in gd,
           "V49-N64 N5 Guide environment completes seaborn/statsmodels/meld/pyaugur")
+    # ---- v49.13 third-review-round fixes (A/B/C groups) ----
+    check('3.68-fold span-matched intra-cerebellar' in ms
+          and 'span-matched gradient of 3.68 (ratio of class means; paired '
+          'per-region-pair median 4.30, bootstrap 95% CI [3.40, 4.95]' in ms
+          and 'size-balanced but not span-balanced' in ms,
+          "V49-N67 B1 span-matched intra-cerebellar control (3.68) in MS")
+    check('k_f ratio is 2.09 (95% CI [2.02, 2.18]) under equal-n' in ms
+          and 'equal-n 1.29, 95% CI [1.21, 1.41], astrocyte higher; '
+          'full-data 0.31, Bergmann glia higher' in ms
+          and '96_brain_downsample_decomp_v49.py' in ms,
+          "V49-N68 B2 equal-n k_f/k_n decomposition (2.09/1.29/0.31) in MS")
+    check('removing hepatocyte lowers the baseline to 6.75 (\u221212.3%; '
+          'leave-one-out range 6.75\u20138.08; median-of-population-means 7.12)' in ms,
+          "V49-N69 B3 calibration leave-one-out in MS")
+    check('KW P = 0.0001 (B = 10,000), KRAS\u2013WT P = 0.0001, '
+          'KRAS\u2013EGFR P = 0.003, EGFR\u2013WT P = 0.21' in ms
+          and '93_luad_group_permutation_v49.py' in ms,
+          "V49-N70 B4 LUAD whole-tumor label permutation in MS")
+    check('on the log-\u03c9 scale the adjusted KRAS/WT ratio is 1.19, '
+          'bootstrap 95% CI [1.12, 1.26], so the adjustment conclusion is '
+          'scale-robust' in ms,
+          "V49-N71 C4b log-omega scale sensitivity in MS")
+    check('LIHC 1.17 with all tumors versus 1.19 excluding CC, '
+          '95% CI [1.01, 1.44]' in ms
+          and 'barcode source-code audit' in ms
+          and '94_cc_audit_sensitivity_v49.py' in ms,
+          "V49-N72 B5/B6 CC exclusion sensitivity + barcode audit in MS")
+    check('nc49_donor_stratified_table.csv' in sn
+          and '4.8 \u00d7 10\u207b\u00b2\u00b3\u00b9' in sn
+          and '97_donor_stratified_table_v49.py' in sn,
+          "V49-N73 A7 donor-stratified transparency table in SI Note 12")
+    check('consistent with, but does not establish, a shared basis in '
+          'HK-anchored divergence' in sn
+          and 'self-reported benchmark rather than an '
+          'independent validation by us' in sn,
+          "V49-N74 C3 SI Note 14 Augur variants parallel + pyaugur self-report")
+    check('the first per-comparison, design-testable ' in cl,
+          "V49-N75 A4 CL priority claim qualified")
+    check('5.11 v49.13 Analyses' in gd
+          and 'superseded by the linear-normalization recompute of '
+          'Section 5.8b' in gd
+          and 'Aggregation-order default' in gd,
+          "V49-N76 A1/A2 Guide softmax superseded labels + 5.11 + aggregation default")
+    for _f in ("results/nc49_brain_region_matched.txt",
+               "results/nc49_calib_leave_one_out.txt",
+               "results/nc49_tcga_luad_mutation_perm.csv",
+               "results/nc49_tcga_luad_logomega_sensitivity.csv",
+               "results/nc49_cc_barcode_audit.csv",
+               "results/nc49_cc_excl_sensitivity.csv",
+               "results/nc49_donor_stratified_table.csv",
+               "results/brain_v49_downsample_kfkn_summary.json"):
+        check((BASE / _f).exists(), f"V49-N77 B-group output exists: {_f}")
     # ---- v49.11 MK substantive correspondence (R2-C1 ruling: analogy substantive) ----
-    check('synonymous-site divergence (Ks) corresponds to HK-gene divergence (k_n)' in ms
+    check('synonymous-site divergence (Ks) to HK-gene divergence (k_n)' in ms
           and 'nonsynonymous divergence (Ka) to functional-gene divergence (k_f)' in ms
           and 'a species pair to the two cell populations being compared' in ms
-          and 'substantive rather than nominal' in ms,
-          "V49-N53 MK threefold correspondence in MS Discussion (substantive analogy)")
+          and 'the split-half calibration baseline (within-population \u03c9 \u2248 7.70) to the '
+          'polymorphism class' in ms
+          and 'parallels the direction of the neutrality index' in ms
+          and 'substantive rather than nominal' not in ms,
+          "V49-N53 MK fourfold correspondence in MS Discussion (self-grading removed)")
     check('the correspondence is threefold' in sn
           and 'a species pair to the two cell ' in sn
           and 'constrained rather than neutral reference class' in sn,

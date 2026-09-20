@@ -1,0 +1,144 @@
+﻿=== SI HEADINGS (lines starting with Note/Section/digits) ===
+L1: Supplementary Information
+L12: Supplementary Note 1: Ground-Truth Simulation
+L13: Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs
+L14: Supplementary Note 3: Calibrated Omega Normalization
+L15: Supplementary Note 4: Ratio-Estimator Bias–Variance Characterization
+L16: Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls
+L17: Supplementary Note 6: Real Perturbation Demonstration (Kang et al. IFN-beta PBMC)
+L18: Supplementary Note 7: Fixed Gene-Panel Ablation
+L19: Supplementary Note 8: TCGA composition-contribution check for the NN/TT k_n reversal
+L20: Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)
+L21: Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity
+L22: Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)
+L23: Supplementary Note 12: Pseudo-Region Negative Control (Block-Shuffle Null Calibration)
+L24: Supplementary Note 13: Brain set-level enrichment of the block-shuffle signal (post-hoc)
+L25: Supplementary Note 14: Comparison with Augur Cell-Type Prioritization
+L26: Supplementary Note 15: JS Divergence Dimensionality Invariance
+L27: Supplementary Table 1: Parameter Sweep Results
+L28: Supplementary Table 2: Cross-Organ Conservation Data
+L29: Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data
+L30: Supplementary Table 4: Inter-regional Region-Associated Candidate Data
+L31: Supplementary Table 5: TCGA Linear-Normalization Robustness
+L32: Supplementary Table 6: Kang IFN-beta Per-Cell-Type Effects
+L33: Supplementary Table 7: Target-Detection AUC in Mean-Shift Simulation
+L34: Supplementary Table 8: Donor-Paired Detection Power
+L35: Supplementary Table 9: Kang Batch-1 Technical-Replicate Calibration
+L36: Supplementary Table 10: Brain Drift Ladder by Tier and Metric
+L37: Supplementary Table 11: Pan-Cancer NN/TT Ratios
+L38: Supplementary Table 12: LUAD Driver-Group Means
+L39: Supplementary Table 13: LUAD Pairwise Contrasts
+L40: Supplementary Table 14: LIHC Overall-Survival Cox Models
+L41: Supplementary Table 15: Purity Sensitivity of the Pan-Cancer Reversal
+L42: Supplementary Table 16: LUAD Admixture-Adjusted Contrasts
+L43: Supplementary Table 17: LUAD Smoking-Covariate Adjustment
+L44: Supplementary Table 18: TCGA Clinical-Severity Gradients
+L45: Supplementary Table 19: Brain min-cells Threshold Sensitivity
+L46: Supplementary Data 1: Analysis Script Index
+L48: 1.1 Jensen-Shannon Divergence
+L50: 1.2 Baseline Divergence Rate k_n
+L52: 1.3 Functional Divergence Rate k_f
+L54: 1.4 Omega Ratio and Its Interpretation
+L56: 1.5 Permutation Test
+L58: 1.6 Pseudobulk Construction
+L60: 1.7 Probability-Mapping Robustness: Linear-Normalization Re-analysis of the TCGA Pipeline
+L65: 1. X_A, X_B <- library-normalize and log1p-transform A and B
+L66: 2. mu_A <- mean(X_A, axis=0); mu_B <- mean(X_B, axis=0)  // pseudobulk
+L67: 3. mu_A_H <- mu_A[H]; mu_B_H <- mu_B[H]
+L68: 4. k_n <- JS_divergence(norm(mu_A_H), norm(mu_B_H))  // norm: softmax over log1p counts, i.e., p_i = exp(log1p(c_i)) / sum_j exp(log1p(c_j)) = (c_i+1)
+L69: 5. mu_A_I <- mu_A[I]; mu_B_I <- mu_B[I]
+L70: 6. k_f <- JS_divergence(norm(mu_A_I), norm(mu_B_I))
+L71: 7. if (bulk RNA-seq analysis) and k_n < 1e-4: k_n <- 1e-4  // TCGA-only floor; single-cell analyses apply no floor
+L72: 8. omega <- k_f / k_n
+L73: 9. // Permutation test
+L74: 10. labels <- concatenate([A]*n_A, [B]*n_B)  // for bulk RNA-seq, one label per sample
+L75: 11. for b = 1 to B (B = 1,000 for all datasets):
+L76: 12.     labels_perm <- random_permutation(labels)
+L77: 13.     mu_perm1 <- mean(pooled[labels_perm[:n_A]], axis=0); mu_perm2 <- mean(pooled[labels_perm[n_A:]], axis=0)
+L78: 14.     I_b <- top-N identity genes selected on (mu_perm1, mu_perm2)  // re-selected at every permutation
+L79: 15.     omega_null[b] <- CKI_core(mu_perm1, mu_perm2, H, I_b)
+L80: 16. // Inference (one-sided permutation test)
+L81: 17. P <- (count(omega_null >= omega_obs) + 1) / (B + 1)
+L82: 18. d <- (omega - mean(omega_null)) / sd(omega_null)
+L83: Note: in the released cki package (v0.5.0), bootstrap_test() reproduces lines 9-15 by default (reselect_identity = True): the HK set H is resolved onc
+L87: 1. Delta <- |mu_A - mu_B|  // per-gene absolute expression difference
+L88: 2. I <- indices of top-N genes ranked by descending Delta, excluding H
+L89: 3. k_f <- JS(norm(mu_A[I]), norm(mu_B[I]))
+L90: Note: k_n uses the global HK set (same for all pairs); k_f uses pairwise top-N genes.
+L92: 3.1 Tests Performed and Correction Strategy
+L94: 3.2 Permutation Test and Bootstrap CI Details
+L97: 3.3 Multiple Testing Correction
+L100: 3.4 Reporting Conventions
+L102: 3.5 Pair-Specific k_n Variability
+L104: 3.6 TCGA Exploratory Analysis Caveats
+L106: 3.7 Cross-Organ Sample Size Considerations
+L108: 3.8 One-Sided Permutation Test Justification
+L110: 3.9 Parameter Justification
+L112: 3.10 Mouse Split-Half Re-calibration (6 → 50 splits)
+L114: 3.11 Competitor Benchmark: MELD and a Python Approximation of scDist
+L120: 3.12 Real-Data Neutral-Drift Calibration on Technical Replicates
+L125: 3.13 Per-Sample Divergence and Group Statistics for TCGA
+L131: 4.1 Tabula Muris FACS (Mouse)
+L133: 4.2 Tabula Sapiens (Human)
+L135: 4.3 TCGA Bulk RNA-seq
+L137: 4.4 Highly Variable Gene (HVG) Selection
+L139: 4.5 Kang et al. IFN-beta PBMC (Perturbation Demonstration)
+L141: Supplementary Note 1: Ground-Truth Simulation
+L149: Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs
+L152: Supplementary Note 3: Calibrated Omega Normalization
+L155: Supplementary Note 4: Ratio-Estimator Bias–Variance Characterization
+L158: Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls
+L161: Supplementary Note 6: Real Perturbation Demonstration (Kang et al. IFN-beta PBMC)
+L165: Supplementary Note 7: Fixed Gene-Panel Ablation
+L169: Supplementary Note 8: TCGA composition-contribution check for the NN/TT k_n reversal
+L172: Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)
+L176: Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity
+L180: Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)
+L182: Supplementary Note 12: Pseudo-Region Negative Control (Block-Shuffle Null Calibration)
+L186: Supplementary Note 13: Brain set-level enrichment of the block-shuffle signal (post-hoc)
+L188: Supplementary Note 14: Comparison with Augur Cell-Type Prioritization
+L191: Supplementary Note 15: JS Divergence Dimensionality Invariance
+L193: Supplementary Table 1: Parameter Sweep Results
+L195: Supplementary Table 2: Cross-Organ Conservation Data
+L197: Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data
+L199: Supplementary Table 4: Inter-regional Region-Associated Candidate Data
+L201: Supplementary Data 1: Analysis Script Index
+=== SI line 170 first 400 chars ===
+The TCGA analysis reports that normal-normal (NN) pairs have systematically lower k_n than tumor-tumor (TT) pairs (median TT/NN ratio 2.2-3.7x across the five cancer types). Because bulk tumor samples differ in cellular composition, this reversal could in principle be a purity artifact. We therefore regenerated sample-labelled NN/TT pairs with the per-cancer pipeline of the main analysis (per-canc
+=== MS 31,764 occurrences ===
+MS L45: ...ation first reproduced the reported landscape exactly (maximum per-pair |Δω| = 6.4 × 10⁻¹³ over all 31,764 pairs). Non-circular panels left rankings essentially untouched: pair-level ω under leave-pair-out correlated wit...
+MS L55: ... the same-cell-type assumption. CKI ω was computed for all same-cell-type cross-region comparisons (31,764 pairs total) (Fig. 6; Supplementary Fig. 6; Supplementary Table 3). Vascular cells and fibroblasts are heterogene...
+MS L65: ...Among 31,764 cross-region comparisons, threshold criteria identified 39 (0.12%) Strong candidates, with 1,171 (3.69%) Moderate and 5,381 (16.94%) Weak (Supplementary Table 4). Under the block-shuffle null (B = 1,000; Sup...
+MS L65: ...r Bergmann-glia family (m = 21; minimum q = 0.042)—crossing no class boundaries. Globally, 1,960 of 31,764 pairs (6.2%) showed raw lower-tail P < 0.05, above the null 99th percentile (P = 0.011; Bonferroni 0.022), the ex...
+MS L78: ...null (B = 1,000) 31 showed raw P < 0.05, but none survived Benjamini-Hochberg correction across all 31,764 pairs (minimum q = 0.520); the raw-P enrichment is strongly tier-dependent (raw P < 0.05 in 79.5% of Strong, 35.6...
+MS L86: ...Multiple testing and cluster-aware inference. The brain regional analysis generated 31,764 cross-region comparisons; Benjamini-Hochberg FDR correction was applied within each dataset separately (group-level tests: m = 10...
+MS L86: ...et separately (group-level tests: m = 10 for brain, 17 for human, 15 for mouse; residual model: m = 31,764). The class-level upper-tail tests (m = 10) and the pair-level lower-tail screen (m = 31,764) are families with o...
+MS L86: ...l: m = 31,764). The class-level upper-tail tests (m = 10) and the pair-level lower-tail screen (m = 31,764) are families with opposite directional hypotheses and are reported separately; no cross-family joint correction ...
+MS L86: ...ions bounds the resolvable P-value at 9.99 × 10⁻⁴; because the BH threshold for the smallest of m = 31,764 ordered P-values is 0.05/31,764 ≈ 1.6 × 10⁻⁶, detecting FDR-significant per-pair signals at B = 1,000 would requi...
+MS L86: ...ue at 9.99 × 10⁻⁴; because the BH threshold for the smallest of m = 31,764 ordered P-values is 0.05/31,764 ≈ 1.6 × 10⁻⁶, detecting FDR-significant per-pair signals at B = 1,000 would require ~635 of the 31,764 P-values t...
+MS L86: ...764 ≈ 1.6 × 10⁻⁶, detecting FDR-significant per-pair signals at B = 1,000 would require ~635 of the 31,764 P-values to sit simultaneously at the permutation floor—a regime the empirical FDR analysis shows is not approach...
+MS L92: ... (minimum observed per-pair k_n: 1.1 × 10⁻⁴, mouse; 6.3 × 10⁻⁴, human; 9.2 × 10⁻⁵, brain; only 1 of 31,764 pairs had k_n below 1 × 10⁻⁴, and these values entered ω uncapped). The TCGA bulk analysis is the sole exception ...
+MS L102: ... log1p at the pseudobulk level. CKI ω was computed for all same-cell-type cross-region comparisons (31,764 pairs) with the hybrid scheme; HK genes came from the HRT Atlas v1.0 reference (1,115 genes matched to the Silett...
+MS L106: ...he cell type’s global mean ω, μ_pair the region pair’s mean ω, and μ_grand the global mean over all 31,764 pairs (38.55); the multiplicative residual = observed / expected, and a residual well below 1 indicates the cell ...
+MS L106: ...rmuted across libraries (preserving per-region library counts), after which region pseudobulks, all 31,764 pair ω values, and residuals were recomputed; because each library’s cells move together, this null retains libra...
+MS L106: ...very pair and both tails are reported. Benjamini-Hochberg FDR correction was applied across all m = 31,764 pairs. No pair reached q < 0.05 (minimum q = 0.520); at this multiplicity q < 0.05 would require B ≈ 6 × 10⁵ perm...
+MS L106: ...acing validation, with interpretation restricted to the predefined Strong tier rather than the full 31,764 search space. A cell-type-level test additionally asked whether regional structure significantly raises a cell ty...
+MS L108: ... from 261 donor-region blocks; Bergmann glia: 10 pairs). k_n estimator sensitivity (brain). For all 31,764 pairs we compared four aggregation schemes: per-pair k_n (the reported estimator), an aggregate-first estimator (...
+MS L108: ...godendrocyte-lineage classes among Strong candidates was tested with a hypergeometric test over the 31,764 pairs (12,775 belonging to the lineage), corroborated by permutation (B = 100,000); tier-threshold sensitivity wa...
+MS L117: ...me two pseudobulks on which k_f is computed), we recomputed the entire observed brain landscape—all 31,764 pairs, with identical keep gene set, pseudobulks, and k_n—under three alternative gene-selection schemes: (i) a f...
+MS L123: ...ntime for a single cell-type pair is under 5 minutes on a standard laptop; the full brain analysis (31,764 pairs) required approximately 72 core-hours on a Windows x64 workstation with at least 32 GB RAM (the verified en...
+MS L125: ...nt for every group-level test. Second, the brain per-pair screen, with BH correction across all m = 31,764 region pairs: the BH threshold for the smallest ordered P-value (0.05/31,764 ≈ 1.6 × 10⁻⁶) lies roughly 600-fold ...
+MS L125: ...rection across all m = 31,764 region pairs: the BH threshold for the smallest ordered P-value (0.05/31,764 ≈ 1.6 × 10⁻⁶) lies roughly 600-fold below the smallest resolvable P, so q < 0.05 is unattainable unless ~635 of t...
+MS L125: ...es roughly 600-fold below the smallest resolvable P, so q < 0.05 is unattainable unless ~635 of the 31,764 P-values sit at the permutation floor (a regime the empirical FDR analysis shows is not approached) or B ≈ 6 × 10...
+MS L125: ...st any candidate, and we report it together with the raw permutation P-value distribution (1,960 of 31,764 pairs at raw P < 0.05, slightly more than the ~1,588 expected under a global null)....
+MS L206: ...ive residual model identifies 39 Strong candidates (residual < 0.3, ω < 15, lowest ω in pair) among 31,764 cross-region comparisons, shown as tier counts as a percentage of all pairs; under a design-matched null the Stro...
+MS L208: ... line indicates the split-half expectation (ω_cal = 1.0). (b) Calibrated ω distributions across all 31,764 brain region pairs under both baselines; calibrating with the mouse baseline overstates brain ω_cal by 1.26-fold ...
+MS L212: ...ivergence at n = 10). (c) Distribution of multiplicative residuals (observed/expected ω) across all 31,764 cross-region pairs; colours indicate confidence tier (Strong: < 0.3; Moderate: < 0.5; Weak)....
+MS L213: ...s ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P = 7.07×10⁻¹⁴³, n = 31,764)....
+MS L214: ...mentary Fig. 8. Developmental signature detection. (a) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers sha...
+=== MS 'Table 1' occurrences ===
+MS L21: ...ty = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = 0.786, Supplementary Fig. 1; Supplementary Table 1). Partitioning expression into constrained baseline and identity gene sets suffices, without external pathway da...
+MS L52: ...ich cell types maintain their identity regardless of residence and which are shaped by their organ environment (Fig. 5; Table 1; Supplementary Fig. 5). The cross-organ ω ranking reveals a broad spectrum of conservation across 17 cell types,...
+MS L52: ...d spectrum of conservation across 17 cell types, of which only the extremes reproduce under k_f (Supplementary Note 9) (Table 1). Because single-pair means are statistically uninformative, we anchor interpretation on well-sampled cell types...
+MS L52: ...means are statistically uninformative, we anchor interpretation on well-sampled cell types (n ≥ 5 pairs; upper block of Table 1): CD8+ T cells (mean ω = 9.93 ± 4.62, n = 6) and Plasma cells (mean ω = 10.20 ± 2.03, n = 6) were the most conse...
+MS L52: ... only n = 3 pairs and this end of the ranking is suggestive only. Sparsely sampled types (n = 1–3 pairs, lower block of Table 1) carry no reliable signal....

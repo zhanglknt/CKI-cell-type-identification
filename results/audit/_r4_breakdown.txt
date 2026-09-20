@@ -1,0 +1,16 @@
+Introduction words: 661
+Results words: 7191
+Discussion words: 5175
+--- Subheading lengths ---
+line 16: [36 chars] Decomposing transcriptomic variation
+line 22: [38 chars] Calibration confirms baseline behavior
+line 27: [54 chars] Correlation structure between CKI and standard metrics
+line 34: [55 chars] Ground-truth simulation: specificity versus sensitivity
+line 38: [59 chars] Real-data neutral-drift calibration on technical replicates
+line 42: [55 chars] Real perturbation demonstration: IFN-尾-stimulated PBMCs
+line 44: [50 chars] Benchmarking against perturbation-response metrics
+line 46: [56 chars] Fixed-panel ablation: robust rankings, scheme-specific 蠅
+line 49: [64 chars] A pan-cancer map of tissue-level functional divergence in tumors
+line 53: [48 chars] CKI ranks cell types by cross-organ conservation
+line 58: [52 chars] Brain regional analysis reveals divergence gradients
+line 66: [57 chars] Anomalously similar pairs: a hypothesis-generating screen

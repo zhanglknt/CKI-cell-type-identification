@@ -1,0 +1,53 @@
+16: # Load all manuscript data dynamically
+27: # Brain block-shuffle observed pairs (current pipeline: 08d/08e)
+30: # Region-associated candidates for S4 top-5 (Strong tier from the block-shuffle re-analysis)
+35: # Per-pair k_n variability (phaseC)
+44: # Scheme-matched split-half internal baselines (reviewer C-B; notebooks 42/43)
+55: # Per-class split-half calibration (reviewer E1-M4/E2-M5; notebook 76)
+63: # P1-2 (blind-review round 1, E1-M2): joint region-clustered bootstrap values from
+64: # notebooks/81_perclass_uncertainty.py (numerator region-clustered, denominator
+65: # two-stage split-half resampling); the i.i.d.-numerator CIs in
+66: # perclass_calibration.json are anti-conservative and superseded.
+86: # (class-level CI list, _v38_statistical_addenda.py, B = 2,000); the per-class
+87: # calibration script's independent re-run ([9.09, 19.35]) is a bootstrap
+88: # resampling wobble of the same estimator -- use one value package-wide.
+91: # under the canonical [8.49, 19.52] interval the BG class-mean CI includes its
+92: # own baseline 9.08, so per-class divergence is 9/10 (BG borderline), not 10/10
+95: # Normality tests on the current-pipeline omega distributions
+104: # Bootstrap 95% CIs for the class-mean omega (pair-level resampling, B = 10,000)
+105: # Round-8 fix (E3-M2): report the mean CIs shipped in phaseB_bootstrap_cis.csv
+106: # (the file accompanying the submission) rather than median CIs recomputed
+107: # inline, so SN 3.2 matches the shipped artifact and the mean-based reporting
+108: # used throughout the manuscript.
+112: def _mean_ci_from_file(group):
+122: # Set default font
+130: # Page margins (NAR: 2.5cm)
+137: # Heading styles
+146: def add_heading(text, level=1):
+150: def add_para(text, bold=False):
+160: def add_table(rows, header=True):
+176: # ===== TITLE PAGE =====
+202:     'Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)',
+218: # ===== SN1: Mathematical Derivation =====
+393: # ===== SN2: Algorithm Pseudocode =====
+463: # ===== SN3: Statistical Testing =====
+903: # ===== Supplementary Notes (NC: citation order 1-15) =====
+905: add_heading('Supplementary Note 1: Ground-Truth Simulation', 2)
+1017: add_heading('Supplementary Note 2: Small-Cluster Bootstrap Corrections for Region-Clustered CIs (v45)', 2)
+1048: add_heading('Supplementary Note 3: Calibrated Omega Normalization', 2)
+1142: add_heading('Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization (v45)', 2)
+1177: add_heading('Supplementary Note 5: Non-HK-Anchored Neutral Drift Controls (v45)', 2)
+1214: add_heading('Supplementary Note 6: Real Perturbation Demonstration (Kang et al. IFN-beta PBMC)', 2)
+1276: add_heading('Supplementary Note 7: Fixed Gene-Panel Ablation', 2)
+1328: add_heading('Supplementary Note 8: TCGA composition-contribution check for the NN/TT k_n reversal', 2)
+1412: add_heading('Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)', 2)
+1508: add_heading('Supplementary Note 10: Brain Class-Size Confounding Controls and min-cells Threshold Sensitivity (v44)', 2)
+1563: add_heading('Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)', 2)
+1600: add_heading('Supplementary Note 12: Pseudo-Region Negative Control (Block-Shuffle Null Calibration)', 2)
+1647: add_heading('Supplementary Note 13: Brain set-level enrichment of the block-shuffle signal (post-hoc)', 2)
+1708: add_heading('Supplementary Note 14: Comparison with Augur Cell-Type Prioritization (v45)', 2)
+1752: add_heading('Supplementary Note 15: JS Divergence Dimensionality Invariance', 2)
+1774: # ===== Supplementary Tables =====
+1814: # Build dynamic S4 text
+1824: # Build top-5 list (Strong tier, lowest multiplicative residuals; strip 'Human ' prefix)
+1880: # ===== Add line numbers (continuous, every line) =====

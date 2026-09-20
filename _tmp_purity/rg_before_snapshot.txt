@@ -1,0 +1,20 @@
+== BEFORE RG fix ==
+total pairs: 35306
+TCGA-LUAD: TT=2000 pairs/493 tumors, NN=2850/76 normals, TN=2000
+TCGA-LUSC: TT=2000 pairs/567 tumors, NN=1653/58 normals, TN=2000
+TCGA-LIHC: TT=2000 pairs/365 tumors, NN=1596/57 normals, TN=2000
+TCGA-KIRC: TT=2000 pairs/746 tumors, NN=3321/82 normals, TN=2000
+TCGA-BRCA: TT=2000 pairs/1010 tumors, NN=5886/109 normals, TN=2000
+
+RG sample pairs: 11
+cancer     pair_type
+TCGA-KIRC  TN           7
+           TT           4
+dtype: int64
+
+pairs involving TSS 'CC' samples: 333
+
+== current nc49_tcga_pancancer.csv (KIRC/LIHC rows) ==
+   cancer  n_tumor  n_normal  n_TT_pairs  NN_TT_ratio  NN_TT_ratio_CI95_lower  NN_TT_ratio_CI95_upper  kn_TT_NN_median_ratio  kn_TT_NN_mean_ratio
+TCGA-LIHC      365        57        2000        1.133                   0.968                   1.342                   2.12                 1.41
+TCGA-KIRC      746        82        2000        1.895                   1.652                   2.175                   3.64                 3.21

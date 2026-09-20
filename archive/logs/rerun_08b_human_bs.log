@@ -1,0 +1,28 @@
+============================================================
+Human (Tabula Sapiens) CKI Bootstrap (B=1000, CSV-based)
+============================================================
+
+Loading phase35_all_metrics_pairs.csv...
+  Loaded: 4851 pairs
+  Columns: ['pair', 'ct_i', 'ct_j', 'organ_i', 'organ_j', 'same_organ', 'same_ct', 'omega', 'js_raw', 'spearman_dist', 'cosine_dist', 'marker_jaccard_dist']
+
+Bootstrapping (B=1000)...
+  same_organ_same_ct: SKIP (n=0)
+  same_organ_diff_ct: n=1038, mean=24.87, 95% CI [24.17, 25.64]
+  diff_organ_same_ct: n=59, mean=15.83, 95% CI [13.86, 18.06]
+  diff_organ_diff_ct: n=3754, mean=20.80, 95% CI [20.51, 21.10]
+
+Bootstrap: cross-organ vs same-organ contrast...
+  Cross/same organ omega ratio: 0.83, 95% CI [0.81, 0.86]
+
+============================================================
+Results:
+============================================================
+
+                    group  n_pairs  omega_mean omega_median omega_std  ci_95_lower  ci_95_upper   p_ge_obs    q_value
+       same_organ_diff_ct     1038     24.8724      22.3272   12.5769      24.1725      25.6441 5.0350e-01 5.1149e-01
+       diff_organ_same_ct       59     15.8308       15.016     8.579      13.8550      18.0633 4.9051e-01 5.1149e-01
+       diff_organ_diff_ct     3754     20.8033      19.3122    9.6236      20.5054      21.1004 4.9451e-01 5.1149e-01
+cross_vs_same_organ_ratio     4851      0.8333                              0.8058       0.8621 5.1149e-01 5.1149e-01
+
+Done! Saved to human_bootstrap_results.csv

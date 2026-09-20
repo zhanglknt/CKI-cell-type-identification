@@ -1,0 +1,540 @@
+CKI Submission Package v47 (Genome Biology, Methodology article)
+Built: 2026-09-14 18:49
+Status: v47 = v46 + first-author (Xianming Wu) revision integration
+(2026-09-05). All 95 tracked revisions + 6 comments from the
+first-author pass were adopted; the main figures are replaced by
+the first-author redrawn set (figure1-6); supplementary figures are
+renumbered S1-S13 with no gap (old S3 method-comparison removed per
+comment 56; Kang IFN-beta S13->S12; QQ S14->S13); Figure S1 is
+regenerated in-house from the authoritative sweep CSVs (k_n
+decreasing over 250-1,000 HK genes; identity-only AUC 0.786
+retained, D1); the graphical abstract adopts the first-author
+layout with the title corrected to 'CKI: a Ka/Ks-inspired index'
+(D3); Discussion gains the anchor-stationarity sentence with the
+Kang CD14+ monocyte example (omega AUC 0.55 vs k_f 0.98, D4); SN
+clarifies Table S3/S4 same-file provenance (Q2); Table1-2.docx
+title 'Supplementary Tables' -> 'Tables' (A5-7); cki package
+v0.5.0 (29/29 tests).
+Package released as tag v0.5.0. MS Availability phase-2 cites the
+v0.5.0 Zenodo record (10.5281/zenodo.22735744). Phase-2 DONE
+2026-09-13.
+Brain candidates remain hypothesis-generating signals: no formal FDR
+discovery is claimed.
+
+=== v47 Changes (first-author revision integration) ===
+  - Main text: Fig. 2 panel citation 2B,D -> 2B,C; old Fig. S3
+    method-comparison citation removed; all supplementary citations
+    renumbered (S4->S3 ... S12->S11, Kang S13->S12, QQ S14->S13);
+    additional-files range S1-S14 -> S1-S13 (V47-a..c).
+  - Discussion: anchor-stationarity sentence added to the 'When to
+    use CKI' paragraph ('...the index presupposes anchor
+    stationarity: when the anchor itself moves, cross-metric
+    contrasts - not absolute omega values - are the reliable signal
+    (Additional file 1: Fig. S12).') with Kang et al. [14]
+    attribution (V47-d).
+  - Figure legends: Fig 2 old C removed (D->C); Fig 3 old B/D/E
+    removed (C->B); Fig 4 old C/D/E removed; Fig 5 'Table of top 5'
+    -> 'Top 5'; Fig 6 old C removed (D->C, E->D); S1 panel-A legend
+    rewritten to the decreasing-k_n wording (AUC 0.786 retained,
+    'w' -> omega typo fixed); S2 two-baseline legend rewritten;
+    S4-S13 legends rewritten/renumbered per the first-author final
+    text (V47-e).
+  - Supplementary Notes: six cross-references renumbered (S11->S10,
+    S9->S8, S12->S11, S7->S6, S13->S12, S14->S13); Table S3/S4
+    same-file provenance sentence added (V47-f).
+  - Figures: main figure1-6 replaced by the first-author redrawn
+    PDFs; supplementary S2-S11 adopted from the first-author set
+    (his S1 superseded by our regenerated sweep figure per D1; his
+    Kang file figure_S13__.pdf -> S12); S13 = v46 QQ
+    (pseudoregion_control_qq; his S14 visually identical); GA =
+    first-author layout with the title corrected (V47-g).
+  - Table1-2.docx: title 'Supplementary Tables' -> 'Tables' (V47-h).
+  - Version: cki 0.4.9 -> 0.5.0 across package, pyproject, README,
+    MS, SN, CL, Guide; release tag v0.5.0 (V47-i).
+
+=== v46 Changes (reviewer cross-check) ===
+  - Text: 'at moderate-to-strong drift' qualifier on the 0.81-1.00
+    raw JS/cosine FPR range, abstract + Results (V46-a).
+  - Text: pyaugur 0.1.0 fidelity benchmark provenance, SN 3.23
+    (V46-d1).
+  - Guide: Bergmann omega_cal ~ 1.3 -> ~ 1.4 (brain-internal
+    baseline); new section 5.9 'v45 Analyses' covering notebooks
+    88, 89, 90, 91, 91b and _fig1_clean.py (V46-c).
+  - Text: SN 3.5 most-constrained-class omega_cal 1.39 -> 1.4, two
+    significant figures (V46-d2).
+  - Text: TCGA composition attenuation unified on softmax primary
+    (-0.5% [-3.2%, +2.6%]); linear -0.8% demoted to sensitivity
+    (V46-e).
+  - MANIFEST: Contents annotations updated (SN 3.12, 3.13,
+    3.20-3.23; four-dataset validation summary; notebooks 05-101
+    incl. v45 analyses 88-91b); review-aid wording for fulltext
+    extracts + GA renders (V46-f).
+  - Package: review-aid files (fulltext extracts, GA png/svg) now
+    ship in the zip; figure6.pdf regenerated (6B/6D in-panel
+    annotations); cki 0.4.8 -> 0.4.9; release tag v0.4.9
+    (V46-g..V46-i).
+
+=== v45 Changes (blind-review round-4) ===
+  - Mechanical: SN 3.5 '1.5-fold' -> 1.3-fold; Figure 1C baseline
+    7.70; Zenodo version DOI; 'Four analyses'; abstract 250 words;
+    thresholds >= 20 cells/>= 10 per donor; omega_cal two
+    significant figures; Algorithm 1 explicit softmax (V45-1..V45-3).
+  - Analysis A: ratio-estimator bias +0.2% median (k_n < 1e-4 bin
+    +6.5%); robust gradient 6.00/6.09; k_n >= 5e-4 subset raises
+    gradient to 6.52 (notebook 88) (V45-4).
+  - Analysis B: percentile cluster bootstrap under-covers 7-8pp at
+    G = 6-7; studentized bootstrap-t at nominal coverage; replacement
+    intervals gradient [4.43, 7.69], Bergmann [5.76, 28.59]
+    (downgraded), choroid [25.93, 76.30] (notebook 89) (V45-5).
+  - Analysis C: N1 non-HK multiplicative drift — omega FPR <= 0.067
+    vs raw JS/cosine 0.81-1.00; N2 composition-preserving swaps fail
+    all metrics (notebook 90) (V45-6).
+  - Analysis D: Augur (pyaugur 0.1.0) binary OvR primary — omega
+    rho = +0.442 (P = 0.200), k_f +0.564 (P = 0.090), k_n -0.236;
+    complementary not redundant (notebooks 91/91b) (V45-7).
+  - Presentation: equal-n co-headline; power window in abstract;
+    de-enrichment promoted; hit-rate fencing; leave-pair-out
+    acknowledgment; mouse range-only; Results 8,908 -> 6,457 words;
+    SN Notes 3.20-3.23 (V45-8..V45-12).
+  - Package v0.4.8: ci_95 -> null_ci_95 (generic _ALIASES +
+    DeprecationWarning), permutation_test alias, non-finite null
+    guard + n_null_finite, compute(preset='manuscript'), >500-cell
+    window UserWarning, 29/29 tests (V45-13).
+
+=== v44 Changes (blind-review round-3) ===
+  - TCGA: softmax over log2(TPM+1) disclosed as p_i ~ (TPM+1)^(1/ln2);
+    linear normalization p_i = (TPM+1)/Sum(TPM+1) re-run (notebooks 85/
+    86): NN>TT omega reversal 5/5 preserved, kn_floor saturation 0,
+    severity directions preserved; severity downgraded to exploratory
+    vignette; cross-organ rho = 0.23 with organ-clustered bootstrap CI
+    [-0.08, 0.38] (notebook 87, B = 1,000) (V44-2, V44-3).
+  - Brain: k_n vs log10(class nuclei) rho = -0.648 (P = 0.043) while
+    omega is unconfounded; equal-n downsample attenuates the 6.10-fold
+    gradient to 1.74 [1.64, 1.84]; threshold grid (10, 20, 50, 100)
+    disclosed (notebook 86) (V44-4).
+  - Calibration: mouse split-half 6 -> 50 replicates; baseline 7.70,
+    95% CI [7.37, 8.02]; derived omega_cal values updated (brain ~5,
+    astrocytes ~11, Bergmann ~1.8) (notebook 87) (V44-1, R2-N19b).
+  - Benchmarking: Kang IFN-beta direction agreement 6/6 with MELD;
+    simulated mean-shift sensitivity 1.00 for MELD/scDist-approx vs
+    omega's by-design insensitivity to anchor-moving perturbations
+    (k_n AUC = 1.000); donor-paired power 0.70-0.93 at n = 50, ~0 at
+    n >= 500 (notebook 101) (V44-5).
+  - Package v0.4.7 + text disclosures (seed/tail/ORCID/GSE96583/
+    Additional file 2/ddof = 1) (V44-6..V44-14).
+
+=== v43 Changes (repro-review-v3 verification fixes) ===
+  - P0: dead CELLxGENE collection ID replaced with the live
+    283d65eb-dd53-496d-adb7-7570c7caa443 in the MS Methods, Guide,
+    and legacy NAR generator (V43-1a..V43-1c).
+  - P1: dead Siletti repo URL -> linnarsson-lab/adult-human-brain;
+    dead probeMap S3 URL -> bundled data/tcga/probemap.tsv wording
+    (V43-2..V43-5).
+  - P1: Guide Section 2 normalization step states the actual softmax
+    implementation (cki/utils.py) with the +1/L1 equivalence noted as
+    brain-pipeline-specific; epsilon parameter row replaced by the
+    omega positivity guard (kn <= 0 -> inf; TCGA kn_floor = 1e-4);
+    fixed seed 20260903 exceptions (notebooks 77/78/79) disclosed
+    (V43-6..V43-10).
+  - P1: cross-species matching note corrected (18-character
+    truncation; alias-table case-insensitive exact matching; 11
+    case-sensitive matches); Strong tier attributed to
+    08d_brain_blockshuffle_null.py with the 07d variant disclosed
+    (V43-11..V43-12).
+  - P2: TPM download size ~0.74 GB; version 0.4.5 -> 0.4.6 across
+    MS/Guide/cover letter/pyproject/cki/__init__ + README docker tag
+    and data/README_data.md release link; dead tabula-muris portal
+    link replaced; >=20-cells entry filter attributed to
+    13_phase35_human_pairs.py (V43-13..V43-20).
+
+=== v42 Changes (P0 mechanical + P1 substantive fixes) ===
+  - v42 status: blind-review round-1 (four-expert panel, 2026-09-03,
+    weighted 7.4/10) full fixes: all five P0 mechanical items AND all
+    five P1 substantive items resolved. Round-2 re-review
+    (8.0/6.5/9.0/9.0, mean 8.125): one P1 (Guide 5.7h / spot_check
+    human-pairs caliber unified to the phase35 4,851 analyzed pairs)
+    and all twelve round-2 P2 items resolved (R2-1..R2-17).
+  - References renumbered strictly by first appearance in the GB
+    layout (55 refs; first-occurrence order verified 1..55 including
+    the range citations [22-24] and [33-35]); Kang et al. 2018 is now
+    [14], cited at its first Results use rather than [55]; verified
+    in-build (V42-1..V42-5).
+  - Bergmann-glia region-clustered CI unified to the authoritative
+    per-class script value [8.49, 19.52] in both MS (Results and
+    Discussion) and SN 3.5 (was [9.09, 19.35], a Monte-Carlo seed
+    variant of the same estimator); seed-sensitivity note added
+    (7 contributing regions, lower edge sensitive to bootstrap
+    resampling); per-class split-half population count corrected
+    10/10 -> 9/10 (V42-6..V42-11).
+  - Statistical-value unification (MS): brain mean k_n 0.003 ->
+    0.0035; TCGA per-cancer Spearman range 0.27-0.45 -> 0.27-0.46;
+    SN 5.1 thalamo-temporal permutation P unified to 1.005e-5;
+    abstract metric ordering 'raw JS and cosine' (V42-12..V42-16).
+  - Methods disclosure: TCGA gene filter stated explicitly (genes
+    with mean expression below 0.5 TPM removed) in MS and Guide
+    (V42-17..V42-18).
+  - Reproducibility Guide synchronized with v41 content: 5.3(e)
+    rewritten to the four-panel v2 TCGA composition wording; new
+    Section 5.7 'v41 Blind-Review Analyses' (a-h) documenting
+    notebooks 74-80 and scripts/spot_check.py + tests/; author
+    affiliation numbering fixed (1 = CIBR, 2 = blood transfusion
+    institute, matching the MS); Siletti collection ID, Kang GSE96583
+    download entry, Dockerfile note, and median NN/TT step added
+    (V42-19..V42-30).
+  - Cross-reference style: MS '(Supplementary Note 5)' ->
+    '(Additional file 1: Note 5.2)' (V42-31..V42-32).
+  - P1-1 (Kang lane-confound): condition fully confounded with 10x
+    lane disclosed in Results, Methods, Discussion, Fig. S13 caption,
+    and SN 3.15; conclusion downgraded to a relative architecture
+    demonstration (metric vs metric within one confounded design);
+    37 donor-level tests given multiplicity disclosure (~2/37
+    expected under the global null) (V42-33..V42-37).
+  - P1-2 (joint region-clustered bootstrap, notebook 81): gradient CI
+    widened from the anti-conservative i.i.d. [4.86, 7.42] to the
+    joint region-clustered [4.12, 9.18] (numerator region-clustered
+    weighted resampling + denominator two-stage split-half
+    resampling, B = 5,000); Bergmann-glia omega_cal CI [0.99, 2.12]
+    no longer excludes 1; 9/10 classes have joint CIs excluding 1
+    (V42-38..V42-42).
+  - P1-4 (selection-rule-matched axis null, notebook 82): the Strong
+    rule re-evaluated on each block-shuffle permutation (B = 1,000)
+    generates a mean 43.7 survivors per permutation versus 10
+    observed, so absolute hit counts are not extreme (6 vs 6.58,
+    P = 0.48; 9 vs 8.49, P = 0.38) while the per-candidate hit rate
+    remains concentrated (0.60/0.90 vs 0.15/0.19, P = 0.005/0.001);
+    claim narrowed to axis concentration of surviving candidates,
+    not an axis excess (V42-43..V42-46).
+  - P1-5 (anchor-failure scope): validity boundary of the HK anchor
+    stated once, with the concept definition in the Background, with a
+    Limitations back-reference (V42-47).
+  - P1-3 (k_f-only ordering controls, notebook 83): both ratio-based
+    ordering claims recomputed with k_f alone (and k_n alone) on
+    identical pipelines. Cross-organ: per-cell-type omega/k_f
+    concordance r = 0.23 (P = 0.37; well-sampled r = 0.10) - ranking
+    read as a composite, with CD8+ T-cell conservation robust under
+    both metrics. TCGA severity: LIHC gradient reverses under k_f
+    (rises with grade, JT P = 1.1e-12), BRCA PAM50 ordering largely
+    reverses under k_f-only (Luminal A lowest 0.479, Basal-like
+    highest 0.536, KW P = 1.3e-11), only LUAD mutation contrast
+    persists in k_f (KW P = 0.015); severity gradients reported as
+    exploratory and denominator-dominated; new SN 3.16 and Guide
+    5.7i; Table 2 caption points to the control (V42-48..V42-72).
+  - Deferred to the v42 tag/release: superseded output files move
+    to results/superseded/ (P0-6).
+
+=== v41 Changes ===
+  - E4 review (reproducibility/software engineering) fixes:
+    (a) cki/bootstrap.py P-value denominator corrected to
+        (n_bootstrap + 1) with NaN-producing permutations counted in the
+        denominator, matching the manuscript (B+1) formula;
+    (b) cki/blocknull.py block_shuffle_test gained a tail parameter
+        ("upper" default / "lower" / "two-sided") with the same (B+1)
+        denominator; per-pair lower-tail screening now has a package
+        entry point;
+    (c) calibrate_omega docstring baselines updated to the authoritative
+        post-fix values (brain split-half 9.73 [9.03, 10.53]);
+    (d) scripts/spot_check_v19.py replaced by scripts/spot_check.py:
+        40 assertions recomputed from the authoritative result files
+        (TCGA NN/TT medians, mouse calibration, brain class-level and
+        set-level, internal baselines, Kang demo AUC); run_all.py
+        references updated;
+    (e) tests/test_reference_values.py added (7 regression tests);
+    (f) compute-environment description unified across manuscript and
+        Reproducibility Guide (Windows x64 workstation, Section 1.3);
+        python-docx and other document-generation dependencies moved out
+        of the analysis requirements list.
+  - Kang et al. IFN-beta PBMC real-perturbation demonstration
+    (notebooks/79_kang_ifnb_demo.py, notebooks/80_kang_demo_figure.py):
+    24,413 singlet cells, six cell types; omega detects the perturbation
+    in all six cell types (median stim-vs-control omega 1.1-2.0x above
+    donor drift), but where IFN-beta moves the housekeeping anchor
+    (CD14+ monocytes) the omega AUC falls to 0.55 while k_f retains
+    0.98 — the anchor-visibility boundary demonstrated on real data.
+    Supplementary Figure S13 + Supplementary Note 4.5 + Results/
+    Discussion text.
+  - Pseudo-region negative control (notebooks/77_pseudoregion_control.py):
+    every region's libraries split uniformly at random into two
+    pseudo-regions per cell type and the identical block-shuffle test
+    re-run (B = 1,000) on 127,756 pseudo-pairs. Cross-origin pairs
+    (n = 127,056; the direct analogue of real cross-region pairs) give
+    near-nominal marginal tail rates (5.79% lower / 6.87% upper vs 5%
+    nominal), closely matching the real analysis (6.17% / 7.90%);
+    same-origin pairs (n = 700) show 37.6% lower tail, demonstrating
+    full power where within-region library similarity exists. The mild
+    over-dispersion of per-pair P-values is thereby attributable to
+    library-level grouping, not to null-width mismatch (Fig. S14;
+    Note 4.6).
+  - Blind-review manuscript revisions (peer-review consensus report):
+    (a) thalamo-temporal endpoint enrichment re-tested with a
+        design-matched permutation null preserving the endpoint
+        co-occurrence structure of the 5,778 mature-oligodendrocyte
+        pairs (10 pairs drawn without replacement, B = 100,000):
+        thalamic-relay 6/10 vs null mean 1.95 (P = 1.005e-5);
+        temporal-fusiform 4/10 vs 0.19; combined axis 9/10 vs 2.27
+        (P <= 1e-5) — replaces the earlier base-rate hypergeometric
+        version in Results/Discussion (full v40 statistics retained
+        in Note 5.1);
+    (b) TCGA composition check extended to a four-panel model adding
+        the myeloid panel (CD68, CD163, LST1, FCGR3A, C1QA) with
+        sample-level cluster bootstrap CIs (B = 200;
+        results/tcga_composition_v2.*): four-panel pooled tumor-pair
+        attenuation -0.5% (95% CI [-3.2%, +2.6%]), strongly
+        heterogeneous per cancer type; three-panel +5.7% [+2.7%,
+        +8.7%]; Spearman rho(k_n, 4-panel delta) = 0.387 pooled,
+        0.23-0.52 per cancer type (Discussion and Note 5.2 updated);
+    (c) CKI expansion renamed to 'Cell-type Ka/Ks-inspired Index'
+        consistently across manuscript and cover letter; references
+        extended from 49 to 55 (intrinsic-noise baseline literature
+        and the Kang et al. 2018 dataset).
+
+=== v40 Changes ===
+  - (1) Brain set-level coherence checks (notebooks/72_brain_setlevel_tests.py;
+    post-hoc, explicitly NOT FDR-controlled discovery):
+    (a) raw-P enrichment is tier-dependent: 79.5% of Strong, 35.6% of
+        Moderate, 16.9% of Weak, 2.4% of unclassified pairs at raw
+        P < 0.05, versus 6.2% overall (hypergeometric P = 9.6e-31;
+        Cochran-Armitage trend z = 61.0; MWU P = 5.3e-24; KS D = 0.846,
+        P = 4.9e-32);
+    (b) thalamo-temporal axis enrichment among the 10 mature-
+        oligodendrocyte Strong candidates: thalamic-relay endpoint 6/10
+        vs 19.4% base (P = 0.005); temporal-fusiform endpoint 4/10 vs
+        1.9% (P = 2.1e-5); combined axis 9/10 vs 22.7% (P = 1.3e-5).
+        Integrated into Discussion with post-hoc framing.
+  - (6) TCGA composition-contribution sanity check
+    (notebooks/73_tcga_composition_check.py): 25,306 sample-labelled
+    NN/TT pairs regenerated with the authoritative per-cancer pipeline
+    (v2: per-cancer gene loading/filtering, kn_floor = 1e-4, seed 42).
+    The TT/NN median k_n ratio replicates exactly (2.18-3.70x across
+    the five cancer types). Lineage marker panels (immune/stromal/
+    epithelial): composition deltas are larger in TT pairs (1.33-1.46x,
+    all P < 1e-300) and correlate with k_n (Spearman rho = 0.21-0.46;
+    pooled 0.377), but adjusting for the three composition deltas
+    attenuates the tumor-pair coefficient by only 6% pooled (2%, 4%,
+    39%, 23%, -12% per cancer) — composition shifts are real but
+    explain a minority of the NN/TT k_n reversal. Integrated into the
+    TCGA Discussion paragraph with the exploratory framing retained.
+  - (7) 'When to use CKI versus standard metrics' decision-guide
+    subsection added to the Discussion (before the practical usage
+    guide): use-CKI rules (relative divergence questions, normalized
+    scale, higher AUC for strong perturbations, design-matched
+    specificity-first screening) versus use-standard-metrics rules
+    (absolute cross-dataset distances, classification/clustering,
+    weak-to-moderate atlas-scale effects, orthogonal-dimension needs,
+    suspect baselines in bulk data).
+  - Supplementary Note 5 (post-hoc coherence checks: 5.1 brain
+    set-level enrichment; 5.2 TCGA composition contribution) added;
+    supplementary TOC updated; Repro Guide 5.3(e) documents both new
+    scripts and their outputs.
+  - Single-version packaging: documents ship as DOCX only (the plain-text
+    extracts remain build-verification artifacts, excluded from the zip);
+    the Graphical Abstract ships as PDF only (png/svg sources stay in
+    results/figures_final/).
+  - New build assertions: verify_v40_additions (24 text checks + 7
+    artifact-existence checks + 4 numeric cross-checks against the
+    source CSVs + 3 zip single-version checks). All v39 checks retained.
+
+=== v38 Changes (v37 peer-review fixes) ===
+  - P0 extract_csr_from_backed() row-allocation fix (v38.1): the backed-
+    h5ad row assignment bug (orig_pos indexed by the wrong order vector)
+    that invalidated all previously published brain numbers was
+    corrected; every brain-derived number in this package was
+    regenerated from the fixed pipeline and re-verified.
+  - R2-C3/R3 circular gene selection: fixed gene-panel ablation
+    (notebooks/46_fixed_panel_ablation.py) on all 31,764 brain
+    comparisons. The reported per-pair top-200 scheme (S0) was reproduced
+    exactly (max per-pair diff 6.4e-13); three non-circular alternatives
+    (fixed top-2000 panel, leave-pair-out top-200, all 5,000 non-HK
+    genes) preserve pair-level rankings (Spearman rho 0.918/0.937/0.931),
+    the astrocyte-vs-Bergmann-glia gradient (6.10x, 6.53x/7.67x/6.57x
+    under the alternatives), and the block-shuffle significance pattern
+    (astrocytes, OPCs and committed OPCs at the P = 0.005 permutation
+    floor under leave-pair-out; fibroblasts P = 0.020; vascular P =
+    0.035; remaining classes n.s.). Circularity inflates k_f by a median
+    1.61x (IQR 1.27-2.07). Absolute omega is scheme-specific (grand mean
+    38.55 -> 26.5/6.5/5.3), so absolute tier thresholds do not transfer
+    across schemes; Bergmann glia is not significant under either scheme
+    (P = 0.998 reported; P = 0.980 under leave-pair-out), disclosed.
+  - Ground-truth simulation (notebooks/45_groundtruth_simulation.py,
+    1,750 replicates on Tabula Muris marrow B cells): omega rejects
+    neutral housekeeping-gene drift (type-I 0.00, vs 0.55/0.58 for raw
+    JS/cosine; 0.02 under global overdispersion) and ranks first of six
+    metrics for functional-vs-neutral discrimination (AUC = 0.80);
+    detection power background-dependent (marrow needs fourfold shifts
+    on >= 200 genes; the skin replication background reaches 91%
+    detection at twofold shifts), confirming k_f as an upper-bound
+    estimator.
+  - R3-C3 phaseB CI recomputation (notebooks/44_fix_phaseB_cis.py):
+    brain rows from brain_bs_null_observed_pairs.csv, human all-pairs
+    from phase35_all_metrics_pairs.csv (n = 4,851); 16 human per-CT
+    pseudo-CIs removed; phaseC_calibrated_cis.csv patched.
+  - R5-C4 PAM50 rewritten to actual implementation (cBioPortal
+    brca_tcga_pub PAM50_SUBTYPE; 522 samples with subtype calls,
+    506 with matched expression data analyzed; local cache).
+  - R5-C5 Dockerfile (python:3.14-slim) in repository; R5-M1 scanpy
+    1.12.1 in reproducibility guide. Version note: the package code,
+    metadata, manuscript, cover letter, and reproducibility guide are
+    all at v0.4.4 (v0.4.3 was tagged and released on GitHub with v39),
+    tagged and released on GitHub (v0.4.4) and archived on Zenodo
+    (concept DOI 10.5281/zenodo.20405458).
+  - kn_floor contract unified: single-cell analyses use the package
+    default (kn_floor = 0, positivity guard only; brain per-pair k_n
+    min 9.2e-5; only 1 of 31,764 pairs below 1e-4, uncapped); TCGA bulk
+    uses 1e-4 (3 of 5 cancer types saturate).
+  - Upper-tail disclosure: 2,510 of 31,764 pairs (7.9%) with upper-tail
+    P < 0.05, reported alongside the lower-tail candidate screen.
+  - Abstract recompressed to <= 200 words after adding the two new
+    validation sentences.
+
+=== v39 Changes (Genome Biology conversion, no content change) ===
+  - Journal target switched from NAR to Genome Biology (Methodology
+    article). Manuscript regenerated by generate_manuscript_gb.py:
+    structured abstract (Background/Results/Conclusions, <=250 words);
+    section order Background -> Results -> Discussion -> Conclusions ->
+    Methods; new Conclusions section; Methods moved after Conclusions;
+    LLM-use statement relocated into Methods per GB policy; List of
+    abbreviations added; consolidated Declarations block (Ethics /
+    Consent / Availability of data and materials / Competing interests /
+    Funding / Authors' contributions / Acknowledgements); Additional
+    files section (Additional file 1 = supplementary notes);
+    [n] square-bracket citations; Vancouver reference list (49 refs);
+    supplementary citations rewritten as 'Additional file 1: Fig./Table/
+    Note S..'. Cover letter was already Genome Biology-formatted.
+  - References renumbered by first appearance in GB layout
+    (_renumber_gb_citations.py; Methods-only refs 13, 15-22, 26-28 moved
+    to 36-44, 45-47); the omega-cap grid range in Methods was restored
+    to a parenthetical value range after a false 'caps [12-25]' citation
+    was found; reference list now explicitly numbered (1..49 at v39,
+    extended to 1..55 in v41 by the Kang perturbation demonstration and
+    its intrinsic-noise baseline references; checked by E4-8). Reference
+    order and content are otherwise identical to v38.
+  - All scientific content, numbers, and claims are identical to v38.
+  - Round-7 expert-review fixes (E1/E2/E3/E4, scores 8.9/9.0/8.9/8.6):
+    (a) count parentheses restored: 'oligodendrocytes 10 (10), ...' and
+        Fig S7 caption 'oligodendrocytes (10) and fibroblasts (6)' were
+        falsely converted to [10]/[4]/[3]/[1] citations; converter now
+        guards these strings (E4-M1/E2/E3-M1);
+    (b) Supplementary Notes reference numbers updated to GB numbering:
+        HRT Atlas (14) -> [13]; Siletti (12) -> [12] bracket style
+        (E4-M2/E3-M2);
+    (c) Fig S2 now cited in the Discussion cross-species sentence
+        (E3-M4; previously referenced only in the caption list);
+    (d) Cover Letter: 'with cross-species consistency in Tabula Muris'
+        replaced by 'complemented by mouse Tabula Muris analyses' to
+        match the null cross-species result (r = -0.17, P = 0.55;
+        source: full_matrix_pairs.csv x phase35_all_metrics_pairs.csv,
+        15 shared cell types; E1-M);
+    (e) inline cross-references remapped 'Materials and Methods' ->
+        'Methods' (E4-m);
+    (f) terminology unified to 'permutation test' where P-values are
+        meant, 'bootstrap' reserved for CIs (E1-m5); Efron&Tibshirani
+        citation reworded as resampling-based inference;
+    (g) wording/anchor fixes: OPC expansion at first Results use,
+        Fig S5 'same-CT' -> 'same-cell-type', Table 1 'CKI omega' ->
+        Greek omega, Fig S2 caption retitled 'Cross-species comparison
+        details' with the null result stated, thalamo-temporal sentences
+        rewritten (Results + Discussion), k_f class-mean anchors added
+        (0.197/0.054/0.048), dual-background AUC rankings spelled out,
+        PMI/single-nucleus Limitations sentences added, FDR-floor
+        sentence aligned with Methods, brain k_n sensitivity sentence
+        relocated to the brain robustness paragraph;
+    (h) SN 3.12: second-background replication paragraph added (marrow
+        vs skin numbers from groundtruth_simulation_background2.csv).
+  - All v37 checks retained. Brain candidates remain
+    hypothesis-generating signals: no candidate survived Benjamini-
+    Hochberg FDR correction under the block-shuffle null (minimum
+    q = 0.520); no formal FDR discovery is claimed.
+  - Additional file 1 coverage verified in-build (check E4-9): all four
+    table headings (Table S1-S4) present; notes cite Figures S8-S12;
+    word count reported in the build log. Internal self-references use
+    the 'Figure S..'/'Table S..' style (drop 'Supplementary' prefix,
+    since this document IS Additional file 1; round-7 m2).
+
+  - Round-8 expert-review fixes (E1 8.7 / E2 9.2 / E3 8.5 / E4 8.9,
+    weighted ~8.8; all Major/Minor items cross-verified against source
+    data before fixing):
+    (a) E3-M1 pre-fix/post-fix data mixing resolved: phaseC_kn_stats
+        recomputed from results/reviewer_brain_pair_kf_kn.csv (the
+        authoritative per-pair k_f/k_n file matching
+        brain_bs_null_observed_pairs.csv to 6.4e-13) — k_n CV 92.89% ->
+        97.52%, mean 0.0027 -> 0.0035, median 0.0017 -> 0.0022,
+        Spearman rho 0.181 -> 0.142 (P = 7.07e-143), per-CT CV range
+        36.5-69.8% -> 36.9-70.1%; Fig S11 regenerated; 09c C-M3 data
+        source updated;
+    (b) imbalance reference-frame corrected (vs signal delta = 1):
+        omega -27% -> -32% (8.47 versus 12.46), k_f +81% -> +67%,
+        cosine +103% -> +108%;
+    (c) median baseline k_f 0.029 -> 0.025 (the 0.029 figure was the
+        mean 0.0287, not the median 0.0249);
+    (d) E3-M2 SN 3.2 now reports the mean bootstrap CIs shipped in
+        phaseB_bootstrap_cis.csv (astrocytes 82.75 [81.56, 83.89],
+        Bergmann glia 13.56 [11.31, 16.14]) instead of median CIs
+        recomputed inline; Guide adds the cross-species matching rule
+        note (case-insensitive + prefix matching, 15 shared types);
+    (e) E4-M1 Additional file 1 tables now cited in the main text:
+        Table S1 (parameter sweep), Table S3 (brain landscape),
+        Table S4 (candidate tiers), and Supplementary Fig. S9
+        (block-shuffle null diagnostics);
+    (f) E1-m terminology: 'per-cancer bootstrap' -> 'per-cancer
+        permutation test', 'bootstrap: m = 10' -> 'group-level tests:
+        m = 10', SN/Guide bootstrap-vs-permutation wording unified;
+    (g) E2 sensitivity claims background-qualified in Limitations and
+        Cover Letter (marrow needs fourfold shifts; skin reaches 91%
+        detection at twofold); skin imbalance range re-attributed to
+        delta = 0.25 and delta = 1 (seed 42 only), not module seeds;
+    (h) Table1-2.docx now extracted from the GB manuscript docx
+        (CKI_Manuscript_GB.docx), fixing the stale NAR-derived 'CKI
+        omega' ASCII header.
+
+Contents:
+1. CKI_Manuscript.docx - Main manuscript (peer-review revised)
+2. CKI_Supplementary.docx - Supplementary materials (SN 3.12, 3.13,
+   3.20-3.23)
+3. CKI_Cover_Letter.docx - Cover letter (four-dataset validation
+   summary)
+4. CKI_Reproducibility_Guide.docx - Reproducibility guide (notebooks
+   05-101, incl. v45 analyses 88-91b)
+5. Table1-2.docx - Standalone parameter tables
+6. figure1.pdf through figure6.pdf - Main figures
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S13.pdf - Supplementary figures
+8. CKI_graphical_abstract.pdf - Graphical Abstract; the png/svg renders
+   are included for convenience as review aids and are not part of the
+   journal submission.
+9. Plain-text extracts of the DOCX files (*_fulltext.txt) are included
+   for convenience as review aids (build-verification artifacts); they
+   are not part of the journal submission.
+  10. CKI_Reproducibility_Package.zip - Full reproducibility package
+     (code + reference results; v47 additions: hk_stability_sweep.csv,
+     phase32_sweep_results.csv, figure_data_module_variance.csv,
+     phase35_cross_organ_conservation.csv, data/kang_ifnb/ensg2sym.tsv)
+     addressing first-author Q1/Q3. Included as a review aid; the
+     journal receives the GitHub repository + Zenodo DOI instead.
+
+SHA-256 checksums (document deliverables):
+  9d5c761f5aec9f311062cfba05f62bd9c5730fe295ede15e6bb9bd57984b027c  CKI_Manuscript.docx (90,105 bytes)
+  5131acd4e64eccd4c8130849bde40636cfdf8ced1065089cf2b24af1b294e728  CKI_Supplementary.docx (74,134 bytes)
+  61e3c2f5f6e23644d0cc44b5c54598251d4f36e3b783a7ef19f6afe33f548cbc  CKI_Cover_Letter.docx (37,434 bytes)
+  1a432218c548f8f33e5b25687a58832405d79c11e703fb8b07c96119f228fd00  CKI_Reproducibility_Guide.docx (38,515 bytes)
+  5c27e05e90d0b1852443617fa3d3d68c3456ac3c688e4dfac823cfe5df570067  Table1-2.docx (36,385 bytes)
+
+SHA-256 checksums (figure deliverables):
+  27b5f1a300878e20404ec246930c3db2ff6e24c03fd9c2381a2e26d0e609192a  figure1.pdf (581,675 bytes)
+  5c8cb355e939300515323887ae39478582f901880ff9da4979e3f759c40c7f1f  figure2.pdf (329,639 bytes)
+  4460565ca7199ede190de49fbe164a5049447629272d0545272dde8ef9bddc7a  figure3.pdf (102,434 bytes)
+  500dfc255e3d52edbca74874e15002a1ab7b77e16c58109d6b4f7dbeb425f70a  figure4.pdf (26,479 bytes)
+  cb2c19d9912f1311cf19e228891e4a3a48a1bc1a79701779e22dc2c373994e92  figure5.pdf (852,789 bytes)
+  c3699f7238a4f7efded8895474918c4d685f55d1c89b54d514dca1f8f71f04ec  figure6.pdf (5,667,859 bytes)
+  37e2a63a600d193bbc8f3f2049c0a7078ca07a1ecb38f0f4c125d5251786978a  Supplementary_Figure_S1.pdf (55,172 bytes)
+  f9399ce4e7054b3d5b20698e9e2f019734322b030059b5a5fe246e0bc3d6bad8  Supplementary_Figure_S2.pdf (338,431 bytes)
+  0c72be7c06c3d0a95e00fb32e1385b19ccc1cef3764a85f4a93712767618fb94  Supplementary_Figure_S3.pdf (33,749 bytes)
+  bdd96f595ee1dcc7b488999affe598ac69d40a8b2a7834e46f93799cd51a391f  Supplementary_Figure_S4.pdf (441,535 bytes)
+  f8a42273764c52968d581240ef17d03ad2699262486830d12536c32865845ec6  Supplementary_Figure_S5.pdf (435,265 bytes)
+  03a415b202effe26c5fcf8d715fa2f98c89ae6b60632b1642d11fd4900d8f021  Supplementary_Figure_S6.pdf (4,467,901 bytes)
+  bc38336e8b3a9c581b5f7aa18c224b5dc2a7514acdcff12ae3e72fae742f28c4  Supplementary_Figure_S7.pdf (673,628 bytes)
+  b0313e0772e617c6f6c9213e3245fdd0168a28e4f7134ecb225c3083e033c09f  Supplementary_Figure_S8.pdf (338,670 bytes)
+  519180f81d01eedbbf658f8b93df6948bf6a10217fa774e15c357a05e418652d  Supplementary_Figure_S9.pdf (324,116 bytes)
+  716d75b3b1c3d71d7cde7acad221f6fcd291eae9e45993afc78e2787a13552d1  Supplementary_Figure_S10.pdf (770,996 bytes)
+  22cef0e242d891535864e3e27bebe67c4ec83351cace4afb45b3be94d0b74904  Supplementary_Figure_S11.pdf (135,481 bytes)
+  aac03e9b37223dc783770bb32e93c8d62a3be86583d449093ba69d4cebbd2ac6  Supplementary_Figure_S12.pdf (181,664 bytes)
+  e3a1b5d731fbdab790f2d5a13bb5875e93230229b6e2e5be2c79fdb472384857  Supplementary_Figure_S13.pdf (29,709 bytes)
+  c8529c93bc3197f0a8838a7a0d4be6000aff4bb03f906f04d338d59d603c3299  CKI_graphical_abstract.pdf
+  046833c7a727ee8ea299a571def3e266daaf0cb03be0d9c90c84b6270ea1e3af  CKI_Reproducibility_Package.zip (52,570,440 bytes) (382,594 bytes)

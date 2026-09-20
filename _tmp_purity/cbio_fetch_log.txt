@@ -1,0 +1,7 @@
+OK: 21085 clinical-data records -> c:/Users/KnightZ/Desktop/细胞受选择/data/tcga/luad_patient_clinical_cbioportal.json
+attr TOBACCO_SMOKING_HISTORY_INDICATOR: 508 records
+attr SMOKING_PACK_YEARS: 356 records
+attr SEX: 522 records
+attr AGE: 503 records
+attr AJCC_PATHOLOGIC_TUMOR_STAGE: 514 records
+smoking indicator distinct values: ["1", "2", "3", "4", "5"]

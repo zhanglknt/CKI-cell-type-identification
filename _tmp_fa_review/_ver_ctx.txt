@@ -1,0 +1,15 @@
+=== README.md
+   'r image (see `Dockerfile` in the repository root):\n\n```bash\ndocker build -t cki:0.4.9 .\ndocker run --rm cki:0.4.9\n```\n\n## Quick Start (3 lines)\n\n'
+   ' the repository root):\n\n```bash\ndocker build -t cki:0.4.9 .\ndocker run --rm cki:0.4.9\n```\n\n## Quick Start (3 lines)\n\n```python\nimport scanpy as s'
+=== notebooks/68_gen_supplementary_en.py
+   "_format.space_before = Pt(0)\n\nadd_para(\n    'Note: in the released cki package (v0.4.9), bootstrap_test() reproduces lines 9-15 '\n    'by default "
+   "for every pair and both tails are reported. In the released '\n    'cki package (v0.4.9), the tested tail is selected by the tail parameter of '\n  "
+=== generate_cover_letter_nar.py
+   'ation of China "\n        "(grant 32370682). The CKI Python package (release tag v0.4.9, MIT "\n        "License; implemented in Python (\\u22653.10)'
+=== notebooks/100_gen_reproducibility_docx.js
+   'tes, and this guide."),\n\n      heading("1.2 CKI Package", 3),\n      p("Version: 0.4.9 (editable install from project root)"),\n      p("Repository'
+   '      heading("7. Reproducibility Checklist", 2),\n      p("[\\u2713] Install CKI v0.4.9: pip install -e ."),\n      p("[\\u2713] Verify Python 3.14.4'
+=== cki/__init__.py
+   'species_config, load_reference_hk_genes, list_supported_species\n\n__version__ = "0.4.9"\n\n__all__ = [\n    # High-level API\n    "compute",\n    # Cor'
+=== pyproject.toml
+   'el"]\nbuild-backend = "setuptools.build_meta"\n\n[project]\nname = "cki"\nversion = "0.4.9"\ndescription = "Cell-type Identity Index: A Ka/Ks-inspired '

@@ -1,0 +1,41 @@
+Choroid plexus T1 pairs:
+           roi_a            roi_b    donor_a  n_cells_a  n_cells_b     omega  cal_omega  exceed_omega      k_f    cal_k_f
+Human DGR-CA4Rpy Human DGR-CA4Rpy H19.30.001         31         34 15.943118   2.077053             1 0.086080   2.123136
+      Human MoAN       Human MoAN H19.30.001        488        569 20.100728   2.306246             1 0.008269   3.005833
+      Human MoSR       Human MoSR H19.30.002        155        182  8.062429   0.994103             0 0.015668   1.007225
+       Human SEP        Human SEP H18.30.002        597        533 24.222131   2.245532             0 0.004032   2.451560
+       Human SEP        Human SEP H18.30.002        597       2455 58.696033   4.233240             1 0.115840 131.151673
+       Human SEP        Human SEP H18.30.002        597       2528 58.804285   4.199636             1 0.118194 137.678098
+       Human SEP        Human SEP H18.30.002        533       2455 61.389148   4.406464             1 0.132755 139.080805
+       Human SEP        Human SEP H18.30.002        533       2528 61.290357   4.272147             1 0.134934 135.563475
+       Human SEP        Human SEP H18.30.002       2455       2528 12.787815   0.970295             0 0.000349   1.139888
+
+Bergmann glia T1: n_min distribution
+count     27.000000
+mean     381.962963
+std      156.860909
+min       28.000000
+25%      332.000000
+50%      408.000000
+75%      494.000000
+max      619.000000
+cal_omega by n_min bin:
+n_min
+(20, 50]      0.917678
+(50, 100]     1.062967
+(100, 500]    1.390092
+
+Oligodendrocyte T1: cal_omega by n_min bin
+             cal_omega  exceed_omega
+n_min                               
+(20, 50]      0.977164      0.000000
+(50, 100]     1.046126      0.333333
+(100, 200]    1.034151      0.307018
+(200, 500]    1.066244      0.358696
+(500, 8000]   1.149900      0.537143
+
+T1 all: rho between log n_min and cal metrics
+  cal_omega: Spearman rho=0.230
+  cal_raw_js: Spearman rho=0.364
+  cal_k_n: Spearman rho=0.342
+  cal_k_f: Spearman rho=0.334

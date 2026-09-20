@@ -1,0 +1,13 @@
+464 | baseline-driven | a, KRAS-mutant tumors show elevated tissue-level divergence (P = 7.8 \u00d7 10\u207b\u2077), mostly baseline-driven, with the functional component carried mainly by the KRAS\u2013EGFR contrast; EGFR-mutant tumors did not differ from wild-type. Brain analysis r
+---
+540 | every tier | u2014lowest misreporting among the continuous divergence metrics (raw JS, cosine, Spearman, k_f) at every tier, with sensitivity to genuine regional divergence preserved (Fig. 4; audit trails in the companion repository; Section 3.12 of the Supplementary Infor
+---
+561 | baseline-driven |  the ratio; the EGFR association, by contrast, is best described as baseline-associated rather than baseline-driven: EGFR-mutant and wild-type tumors did not differ in \u03c9 (P = 0.39), no k_f difference was detected (all Holm-adjusted P > 0.09), and the k_n 
+561 | TODO-nc49 |  adjustment (no age, sex, or smoking metadata were available locally; smoking-adjusted sensitivity: TODO-nc49-fix), and tumor purity differences between driver classes cannot be excluded. Within-cancer-type stratification analyses beyond LUAD (LIHC Edmondson g
+---
+563 | TODO-nc49 | oxy it bounds rather than settles the question (Supplementary Note 8; consensus-purity sensitivity: TODO-nc49-fix). Second, all reported TCGA statistics were recomputed under a linear probability mapping (p_i = (TPM + 1)/\u03a3(TPM + 1), replacing the softmax-
+---
+632 | every tier |  supports exactly this reading (\u03c9 misreported least among the continuous divergence metrics at every tier of the drift ladder while retaining sensitivity to genuine regional divergence; marker Jaccard was more conservative still but offers no k_n/k_f deco
+---
+706 | TODO-nc49 | o patient-level covariate adjustment (smoking, sex, stage) is performed for the LUAD driver groups (TODO-nc49-fix: smoking-adjusted sensitivity pending). The LIHC survival analysis used Cox proportional-hazards regression (statsmodels PHReg) with per-tumor \u0
+---

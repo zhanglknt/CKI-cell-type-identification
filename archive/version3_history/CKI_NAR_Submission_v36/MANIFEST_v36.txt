@@ -1,0 +1,37 @@
+CKI NAR Submission Package v36
+Built: 2026-08-28 21:10
+Status: Expert-review revision (E1-E4) applied across all four documents; calibration CI unified.
+
+=== v36 Changes (expert review fixes) ===
+  - Calibration CI [4.24, 9.24] unified: manuscript (6x), reproducibility guide
+    (4x: parameter table, Sec 3.1, Sec 5.4a, Sec 7 checklist), supplementary
+    SN12 (1x), cover letter (1x).
+  - Cover letter rewritten: four-dataset validation paragraph with current
+    numbers; reviewer email corrected (welchjd@umich.edu); AI-use declaration
+    aligned with manuscript ("computational debugging, statistical code
+    review, and language editing").
+  - Reproducibility guide rewritten: Python 3.14.4, full-dataset per-pair k_n
+    coverage, brain_bs_null_* observed-pair file pointers, superseded-output
+    annotations (09b / phaseC 47.74 superseded).
+  - Brain numbers (block-shuffle null era): 31,764 pairs, 6.88-fold gradient,
+    Bergmann glia 11.17, astrocytes 76.83, grand mean 32.56; 55 Strong
+    candidates (37 raw P < 0.05), none surviving BH (minimum q = 0.949),
+    presented as hypothesis-generating signals.
+  - Human Tabula Sapiens: n = 4,851 pairs, mean omega 21.61, median 19.65;
+    Spearman r = -0.36 to -0.46 vs all four standard metrics.
+  - TCGA NN/TT ratios: LIHC 1.23 (smallest) to LUAD 2.32 (largest),
+    exploratory framing.
+  - Method-comparison AUCs unchanged: CKI omega = 0.6797, Raw JS = 0.8488,
+    Cosine = 0.8865, Marker Jaccard = 0.8007, Spearman = 0.6904.
+  - Per-pair k_n variability: CV = 92.89%, Spearman rho = 0.181.
+
+Contents:
+1. CKI_NAR_Manuscript.docx - Main manuscript (expert-revised numbers)
+2. CKI_NAR_Supplementary.docx - Supplementary materials
+3. CKI_NAR_Cover_Letter.docx - Cover letter (rewritten validation paragraph)
+4. CKI_NAR_Reproducibility_Guide.docx - Reproducibility guide (rewritten)
+5. Table1-2.docx - Standalone parameter tables
+6. figure1.pdf through figure6.pdf - Main figures
+7. Supplementary_Figure_S1.pdf through Supplementary_Figure_S12.pdf - Supplementary figures
+8. CKI_graphical_abstract.png/pdf/svg - Graphical Abstract
+9. *_fulltext.txt - Plain-text extracts

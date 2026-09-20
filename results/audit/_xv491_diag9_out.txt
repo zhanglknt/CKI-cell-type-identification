@@ -1,0 +1,5 @@
+pair-table LUAD tumors: 493 ; matrix LUAD tumors: 495
+matrix-only (excluded): ['TCGA-44-3398-01', 'TCGA-MP-A4SY-01']
+pair-table-only: []
+matrix-matched: EGFR 62, KRAS 122, doubles 1 ['TCGA-86-A4JF-01']
+pair-table label counts: Counter({'WT': 311, 'KRAS': 120, 'EGFR': 61, 'DOUBLE': 1})

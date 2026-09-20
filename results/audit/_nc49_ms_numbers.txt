@@ -1,0 +1,71 @@
+== KANG PILOT (n=30) ==
+k_n      obs_med=0.01389 null_med=0.01411 cal_med=0.993 cal_q25=0.949 cal_q75=1.030 FPR=0.0333 (1/30)
+k_f      obs_med=0.11 null_med=0.1187 cal_med=0.936 cal_q25=0.908 cal_q75=0.977 FPR=0.0000 (0/30)
+omega    obs_med=8.479 null_med=8.836 cal_med=0.963 cal_q25=0.918 cal_q75=0.998 FPR=0.0000 (0/30)
+raw_js   obs_med=0.005109 null_med=0.005089 cal_med=1.019 cal_q25=0.991 cal_q75=1.077 FPR=0.3667 (11/30)
+cosine   obs_med=0.05148 null_med=0.05111 cal_med=1.006 cal_q25=0.993 cal_q75=1.025 FPR=0.2333 (7/30)
+
+== BRAIN LADDER ==
+--- T1_techrep (n=2161) ---
+k_n              obs_med=0.001677 cal_med=1.047 [0.993,1.168] FPR=0.3568 (771/2161)
+k_f              obs_med=0.01795 cal_med=1.055 [0.993,1.427] FPR=0.3758 (812/2161)
+omega            obs_med=8.861 cal_med=1.038 [0.966,1.213] FPR=0.2864 (619/2161)
+raw_js           obs_med=0.002437 cal_med=1.073 [1.006,1.517] FPR=0.4521 (977/2161)
+cosine           obs_med=0.007703 cal_med=1.041 [1.003,1.256] FPR=0.4405 (952/2161)
+spearman         obs_med=0.03956 cal_med=1.029 [1.000,1.180] FPR=0.4063 (878/2161)
+marker_jaccard   obs_med=0.1308 cal_med=1.048 [0.963,1.211] FPR=0.1990 (430/2161)
+--- T2_cross_donor (n=1089) ---
+k_n              obs_med=0.0047 cal_med=1.690 [1.213,2.985] FPR=0.8861 (965/1089)
+k_f              obs_med=0.07586 cal_med=3.217 [1.847,7.062] FPR=0.9871 (1075/1089)
+omega            obs_med=15.33 cal_med=1.764 [1.385,2.491] FPR=0.9091 (990/1089)
+raw_js           obs_med=0.01122 cal_med=3.320 [1.873,7.440] FPR=0.9844 (1072/1089)
+cosine           obs_med=0.02619 cal_med=2.277 [1.422,4.514] FPR=0.9780 (1065/1089)
+spearman         obs_med=0.1046 cal_med=1.788 [1.233,3.122] FPR=0.9642 (1050/1089)
+marker_jaccard   obs_med=0.2063 cal_med=1.392 [1.161,1.833] FPR=0.7466 (813/1089)
+--- T3_cross_roi (n=1656) ---
+k_n              obs_med=0.006514 cal_med=1.487 [1.189,2.149] FPR=0.8484 (1405/1656)
+k_f              obs_med=0.105 cal_med=2.878 [1.757,5.673] FPR=0.9420 (1560/1656)
+omega            obs_med=16.73 cal_med=1.802 [1.339,2.788] FPR=0.8478 (1404/1656)
+raw_js           obs_med=0.01507 cal_med=2.976 [1.902,6.137] FPR=0.9680 (1603/1656)
+cosine           obs_med=0.03677 cal_med=2.005 [1.445,3.599] FPR=0.9547 (1581/1656)
+spearman         obs_med=0.1319 cal_med=1.574 [1.256,2.363] FPR=0.9517 (1576/1656)
+marker_jaccard   obs_med=0.2609 cal_med=1.405 [1.191,1.808] FPR=0.8013 (1327/1656)
+
+== T1 per-CT FPR comparison ==
+                                       n  FPR_omega  FPR_raw_js  FPR_cosine  FPR_spearman  cal_omega_med  omega_lowest_vs_rawjs  omega_lowest_vs_cosine  omega_lowest_vs_spearman
+cell_type                                                                                                                                                                        
+Astrocyte                            467     0.2612      0.4368      0.3983        0.3640         1.0320                   True                    True                      True
+Bergmann glia                         27     0.5185      0.7778      0.7407        0.7407         1.1607                   True                    True                      True
+Choroid plexus                         9     0.6667      0.7778      0.7778        0.5556         2.3062                   True                    True                     False
+Committed oligodendrocyte precursor   14     0.2143      0.2857      0.2143        0.2143         0.9942                   True                   False                     False
+Ependymal                             50     0.2600      0.3400      0.3400        0.3000         1.0352                   True                    True                      True
+Fibroblast                            81     0.1235      0.2840      0.2963        0.2593         1.0020                   True                    True                      True
+Microglia                            427     0.2740      0.3934      0.4028        0.3864         1.0230                   True                    True                      True
+Oligodendrocyte                      503     0.4036      0.6103      0.6083        0.5606         1.0734                   True                    True                      True
+Oligodendrocyte precursor            464     0.2371      0.4267      0.4073        0.3513         1.0382                   True                    True                      True
+Vascular                             119     0.1765      0.2353      0.2353        0.2857         1.0070                   True                    True                      True
+omega < raw_js in 10/10 CTs
+omega < cosine in 9/10 CTs
+omega < spearman in 8/10 CTs
+raw_js/omega FPR ratio range: 1.17-2.30
+
+== T1 FPR by n_min bin ==
+                n  FPR_omega  FPR_raw_js
+n_min                                   
+(20, 30]      181     0.1381      0.2873
+(30, 500]    1693     0.2729      0.4282
+(500, 5000]   268     0.4776      0.7239
+n_min<=30: n=199 FPR_omega=0.1407 FPR_raw=0.2864
+n_min>500: n=269 FPR_omega=0.4796 FPR_raw=0.7249
+Choroid plexus: n=9 cal_omega_med=2.306 FPR_omega=0.667
+Bergmann glia: n=27 cal_omega_med=1.161 FPR_omega=0.519
+
+== Wilson 95% CI for headline FPRs ==
+Kang omega 0             p=0.0000 CI=[-0.000,0.114] n=30
+Kang raw_js              p=0.3667 CI=[0.219,0.545] n=30
+Kang cosine              p=0.2333 CI=[0.118,0.409] n=30
+Brain T1 omega           p=0.2864 CI=[0.268,0.306] n=2161
+Brain T1 raw_js          p=0.4521 CI=[0.431,0.473] n=2161
+Brain T1 cosine          p=0.4405 CI=[0.420,0.462] n=2161
+Brain T1 spearman        p=0.4063 CI=[0.386,0.427] n=2161
+Brain T1 marker_jaccard  p=0.1990 CI=[0.183,0.216] n=2161

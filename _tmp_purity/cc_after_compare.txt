@@ -1,0 +1,19 @@
+== pair table before/after ==
+total pairs: 35306 -> 35306
+TCGA-LUAD  old: TT=2000/493T NN=2850/76N TN=2000  new: TT=2000/493T NN=2850/76N TN=2000
+TCGA-LUSC  old: TT=2000/567T NN=1653/58N TN=2000  new: TT=2000/534T NN=1653/58N TN=2000
+TCGA-LIHC  old: TT=2000/365T NN=1596/57N TN=2000  new: TT=2000/398T NN=1596/57N TN=2000
+TCGA-KIRC  old: TT=2000/746T NN=3321/82N TN=2000  new: TT=2000/750T NN=3321/82N TN=2000
+TCGA-BRCA  old: TT=2000/1010T NN=5886/109N TN=2000  new: TT=2000/1010T NN=5886/109N TN=2000
+TCGA-RG-A7D4-01: cancers=['TCGA-LIHC'], pairs={'TT': np.int64(14), 'TN': np.int64(9)}
+TCGA-CC-*: cancers=['TCGA-LIHC'], n_pairs=478
+
+== pancancer before/after ==
+   cancer  n_tumor_old  n_normal_old  NN_TT_ratio_old  NN_TT_ratio_CI95_lower_old  NN_TT_ratio_CI95_upper_old  kn_TT_NN_median_ratio_old  kn_TT_NN_mean_ratio_old  kn_TT_NN_mean_ratio_CI95_lower_old  kn_TT_NN_mean_ratio_CI95_upper_old  n_tumor_new  n_normal_new  NN_TT_ratio_new  NN_TT_ratio_CI95_lower_new  NN_TT_ratio_CI95_upper_new  kn_TT_NN_median_ratio_new  kn_TT_NN_mean_ratio_new  kn_TT_NN_mean_ratio_CI95_lower_new  kn_TT_NN_mean_ratio_CI95_upper_new
+TCGA-LUAD          493            76            2.464                       2.128                       2.863                       2.60                    2.548                               2.088                               3.314          493            76            2.464                       2.128                       2.863                       2.60                    2.548                               2.088                               3.314
+TCGA-LUSC          567            58            1.822                       1.462                       2.251                       2.69                    2.097                               1.625                               2.935          534            58            1.708                       1.378                       2.087                       2.53                    1.891                               1.463                               2.594
+TCGA-LIHC          365            57            1.133                       0.968                       1.342                       2.12                    1.410                               1.080                               1.977          398            57            1.104                       0.933                       1.286                       2.08                    1.347                               1.019                               1.882
+TCGA-KIRC          746            82            1.895                       1.652                       2.175                       3.64                    3.210                               2.510                               4.281          750            82            1.880                       1.632                       2.161                       3.61                    3.292                               2.544                               4.350
+TCGA-BRCA         1010           109            1.567                       1.354                       1.828                       2.78                    2.270                               1.843                               2.803         1010           109            1.567                       1.340                       1.845                       2.78                    2.270                               1.835                               2.907
+old: CI excluding 1 in 4/5
+new: CI excluding 1 in 4/5

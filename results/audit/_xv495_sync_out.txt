@@ -1,0 +1,178 @@
+results/CKI_Manuscript_NC.docx 2026-09-19 12:30:10.191815 99266
+results/CKI_Manuscript_NC_fulltext.txt 2026-09-19 12:30:13.353058 163056
+results/CKI_Supplementary_NC.docx 2026-09-19 12:30:12.576002 84600
+results/CKI_Supplementary_NC_fulltext.txt 2026-09-19 12:30:13.375077 113987
+--- docx para 47 ---
+We applied CKI to TCGA bulk RNA-seq data across five cancer types (LUAD, LUSC, LIHC, KIRC, BRCA) 10,11, totalling 3,567 samples, and asked how tissue-level functional divergence is reorganized when cancer develops. Because bulk RNA-seq averages over tumor, stromal, and immune compartments, ω here quantifies divergence between tissue states rather than between cell types; we therefore compare tumor–tumor (TT), normal–normal (NN), and tumor–normal (TN) pairs within each cancer type (Fig. 5; Supplementary Fig. 4). A consistent pan-cancer reversal emerged: in all five cancer types, NN pairs were more divergent than TT pairs—the ratio of mean NN to mean TT ω ranked LUAD 2.46 (95% CI 2.13–2.86; sample-level cluster bootstrap, B = 1,000), KIRC 1.88 (1.63–2.16), LUSC 1.71 (1.38–2.09), BRCA 1.57 (1.34–1.84), and LIHC 1.10 (0.93–1.29)—with the bootstrap CI excluding 1 in four of five cancers (LIHC CI including 1, direction consistent in all five; pair-level Mann-Whitney P-values, which ignore dyadic dependence between pairs, are reported as descriptive only in Section 3.13 of the Supplementary Information). Component decomposition identified the mechanism: in every cancer type the housekeeping baseline was elevated in tumors—TT k_n exceeded NN k_n by 1.3–3.3-fold (mean ratios; 95% CIs excluding 1 in all five cancers, e.g. KIRC 3.29 [2.54, 4.35], LIHC 1.35 [1.02, 1.88])—whereas TT k_f was equal to or higher than NN k_f (e.g. LUAD 0.282 versus 0.226). The reversal therefore reflects a more stable housekeeping baseline among adjacent non-tumor specimens, not smaller functional-gene divergence of tumor cells (Fig. 5a).
+
+--- docx references ---
+docx n refs: 56
+REF 1 DIFF:
+  docx: 1. Regev, A. et al. The Human Cell Atlas. eLife 6, e27041 (2017).
+  txt : Regev, A. et al. The Human Cell Atlas. eLife 6, e27041 (2017).
+REF 2 DIFF:
+  docx: 2. Korsunsky, I. et al. Fast, sensitive and accurate integration of single-cell data with Harmony. Nat. Methods 16, 1289–1296 (2019).
+  txt : Korsunsky, I. et al. Fast, sensitive and accurate integration of single-cell data with Harmony. Nat. Methods 16, 1289–1296 (2019).
+REF 3 DIFF:
+  docx: 3. Lopez, R., Regier, J., Cole, M. B., Jordan, M. I. & Yosef, N. Deep generative modeling for single-cell transcriptomics. Nat. Methods 15, 1053–1058 (2018).
+  txt : Lopez, R., Regier, J., Cole, M. B., Jordan, M. I. & Yosef, N. Deep generative modeling for single-cell transcriptomics. Nat. Methods 15, 1053–1058 (2018).
+REF 4 DIFF:
+  docx: 4. Rosen, Y. et al. Toward universal cell embeddings: integrating single-cell RNA-seq datasets across species with SATURN. Nat. Methods 21, 1492–1500 (2024).
+  txt : Rosen, Y. et al. Toward universal cell embeddings: integrating single-cell RNA-seq datasets across species with SATURN. Nat. Methods 21, 1492–1500 (2024).
+REF 5 DIFF:
+  docx: 5. Tran, H. T. N. et al. A benchmark of batch-effect correction methods for single-cell RNA sequencing data. Genome Biol. 21, 12 (2020).
+  txt : Tran, H. T. N. et al. A benchmark of batch-effect correction methods for single-cell RNA sequencing data. Genome Biol. 21, 12 (2020).
+REF 6 DIFF:
+  docx: 6. Nei, M. & Gojobori, T. Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. Mol. Biol. Evol. 3, 418–426 (1986).
+  txt : Nei, M. & Gojobori, T. Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. Mol. Biol. Evol. 3, 418–426 (1986).
+REF 7 DIFF:
+  docx: 7. Yang, Z. PAML 4: phylogenetic analysis by maximum likelihood. Mol. Biol. Evol. 24, 1586–1591 (2007).
+  txt : Yang, Z. PAML 4: phylogenetic analysis by maximum likelihood. Mol. Biol. Evol. 24, 1586–1591 (2007).
+REF 8 DIFF:
+  docx: 8. Tabula Muris Consortium. Single-cell transcriptomics of 20 mouse organs creates a Tabula Muris. Nature 562, 367–372 (2018).
+  txt : Tabula Muris Consortium. Single-cell transcriptomics of 20 mouse organs creates a Tabula Muris. Nature 562, 367–372 (2018).
+REF 9 DIFF:
+  docx: 9. Tabula Sapiens Consortium. The Tabula Sapiens: a multiple-organ, single-cell transcriptomic atlas of humans. Science 376, eabl4896 (2022).
+  txt : Tabula Sapiens Consortium. The Tabula Sapiens: a multiple-organ, single-cell transcriptomic atlas of humans. Science 376, eabl4896 (2022).
+REF 10 DIFF:
+  docx: 10. Cancer Genome Atlas Research Network. Comprehensive molecular profiling of lung adenocarcinoma. Nature 511, 543–550 (2014).
+  txt : Cancer Genome Atlas Research Network. Comprehensive molecular profiling of lung adenocarcinoma. Nature 511, 543–550 (2014).
+REF 11 DIFF:
+  docx: 11. Cancer Genome Atlas Network. Comprehensive molecular portraits of human breast tumours. Nature 490, 61–70 (2012).
+  txt : Cancer Genome Atlas Network. Comprehensive molecular portraits of human breast tumours. Nature 490, 61–70 (2012).
+REF 12 DIFF:
+  docx: 12. Siletti, K. et al. Transcriptomic diversity of cell types across the adult human brain. Science 382, eadd7046 (2023).
+  txt : Siletti, K. et al. Transcriptomic diversity of cell types across the adult human brain. Science 382, eadd7046 (2023).
+REF 13 DIFF:
+  docx: 13. Hounkpe, B. W., Chenou, F., de Lima, F. & De Paula, E. V. HRT Atlas v1.0 database: redefining human and mouse housekeeping genes and candidate reference transcripts by mining massive RNA-seq datas
+  txt : Hounkpe, B. W., Chenou, F., de Lima, F. & De Paula, E. V. HRT Atlas v1.0 database: redefining human and mouse housekeeping genes and candidate reference transcripts by mining massive RNA-seq datasets.
+REF 14 DIFF:
+  docx: 14. Kang, H. M. et al. Multiplexed droplet single-cell RNA-sequencing using natural genetic variation. Nat. Biotechnol. 36, 89–94 (2018).
+  txt : Kang, H. M. et al. Multiplexed droplet single-cell RNA-sequencing using natural genetic variation. Nat. Biotechnol. 36, 89–94 (2018).
+REF 15 DIFF:
+  docx: 15. Edmondson, H. A. & Steiner, P. E. Primary carcinoma of the liver: a study of 100 cases among 48,900 necropsies. Cancer 7, 462–503 (1954).
+  txt : Edmondson, H. A. & Steiner, P. E. Primary carcinoma of the liver: a study of 100 cases among 48,900 necropsies. Cancer 7, 462–503 (1954).
+REF 16 DIFF:
+  docx: 16. Perou, C. M. et al. Molecular portraits of human breast tumours. Nature 406, 747–752 (2000).
+  txt : Perou, C. M. et al. Molecular portraits of human breast tumours. Nature 406, 747–752 (2000).
+REF 17 DIFF:
+  docx: 17. Parker, J. S. et al. Supervised risk predictor of breast cancer based on intrinsic subtypes. J. Clin. Oncol. 27, 1160–1167 (2009).
+  txt : Parker, J. S. et al. Supervised risk predictor of breast cancer based on intrinsic subtypes. J. Clin. Oncol. 27, 1160–1167 (2009).
+REF 18 DIFF:
+  docx: 18. Wälchli, T. et al. Single-cell atlas of the human brain vasculature across development, adulthood and disease. Nature 632, 603–613 (2024).
+  txt : Wälchli, T. et al. Single-cell atlas of the human brain vasculature across development, adulthood and disease. Nature 632, 603–613 (2024).
+REF 19 DIFF:
+  docx: 19. Pfau, S. J. et al. Characteristics of blood-brain barrier heterogeneity between brain regions revealed by profiling vascular and perivascular cells. Nat. Neurosci. 27, 1892–1903 (2024).
+  txt : Pfau, S. J. et al. Characteristics of blood-brain barrier heterogeneity between brain regions revealed by profiling vascular and perivascular cells. Nat. Neurosci. 27, 1892–1903 (2024).
+REF 20 DIFF:
+  docx: 20. Jones, H. E. et al. Meningeal origins and dynamics of perivascular fibroblast development on the mouse cerebral vasculature. Development 150, dev201805 (2023).
+  txt : Jones, H. E. et al. Meningeal origins and dynamics of perivascular fibroblast development on the mouse cerebral vasculature. Development 150, dev201805 (2023).
+REF 21 DIFF:
+  docx: 21. Tan, Y. L., Yuan, Y. & Tian, L. Microglial regional heterogeneity and its role in the brain. Mol. Psychiatry 25, 351–367 (2020).
+  txt : Tan, Y. L., Yuan, Y. & Tian, L. Microglial regional heterogeneity and its role in the brain. Mol. Psychiatry 25, 351–367 (2020).
+REF 22 DIFF:
+  docx: 22. Barry-Carroll, L. & Gomez-Nicola, D. The molecular determinants of microglial developmental dynamics. Nat. Rev. Neurosci. 25, 414–427 (2024).
+  txt : Barry-Carroll, L. & Gomez-Nicola, D. The molecular determinants of microglial developmental dynamics. Nat. Rev. Neurosci. 25, 414–427 (2024).
+REF 23 DIFF:
+  docx: 23. Menassa, D. A. et al. The spatiotemporal dynamics of microglia across the human lifespan. Dev. Cell 57, 2127–2139.e6 (2022).
+  txt : Menassa, D. A. et al. The spatiotemporal dynamics of microglia across the human lifespan. Dev. Cell 57, 2127–2139.e6 (2022).
+REF 24 DIFF:
+  docx: 24. Barry-Carroll, L. et al. Microglia colonize the developing brain by clonal expansion of highly proliferative progenitors, following allometric scaling. Cell Rep. 42, 112425 (2023).
+  txt : Barry-Carroll, L. et al. Microglia colonize the developing brain by clonal expansion of highly proliferative progenitors, following allometric scaling. Cell Rep. 42, 112425 (2023).
+REF 25 DIFF:
+  docx: 25. Tsai, H. H. et al. Oligodendrocyte precursors migrate along vasculature in the developing nervous system. Science 351, 379–384 (2016).
+  txt : Tsai, H. H. et al. Oligodendrocyte precursors migrate along vasculature in the developing nervous system. Science 351, 379–384 (2016).
+REF 26 DIFF:
+  docx: 26. Su, Y. et al. Astrocyte endfoot formation controls the termination of oligodendrocyte precursor cell perivascular migration during development. Neuron 111, 190–201.e8 (2023).
+  txt : Su, Y. et al. Astrocyte endfoot formation controls the termination of oligodendrocyte precursor cell perivascular migration during development. Neuron 111, 190–201.e8 (2023).
+REF 27 DIFF:
+  docx: 27. Foerster, S. et al. Developmental origin of oligodendrocytes determines their function in the adult brain. Nat. Neurosci. 27, 1545–1554 (2024).
+  txt : Foerster, S. et al. Developmental origin of oligodendrocytes determines their function in the adult brain. Nat. Neurosci. 27, 1545–1554 (2024).
+REF 28 DIFF:
+  docx: 28. Reeber, S. L., Arancillo, M. & Sillitoe, R. V. Bergmann glia are patterned into topographic molecular zones in the developing and adult mouse cerebellum. Cerebellum 17, 392–403 (2018).
+  txt : Reeber, S. L., Arancillo, M. & Sillitoe, R. V. Bergmann glia are patterned into topographic molecular zones in the developing and adult mouse cerebellum. Cerebellum 17, 392–403 (2018).
+REF 29 DIFF:
+  docx: 29. Yang, L. et al. Single-cell multi-omics analysis of lineage development and spatial organization in the human fetal cerebellum. Cell Discov. 10, 22 (2024).
+  txt : Yang, L. et al. Single-cell multi-omics analysis of lineage development and spatial organization in the human fetal cerebellum. Cell Discov. 10, 22 (2024).
+REF 30 DIFF:
+  docx: 30. Zhang, Y. et al. Astrocyte allocation during brain development is controlled by Tcf4-mediated fate restriction. EMBO J. 43, 5114–5140 (2024).
+  txt : Zhang, Y. et al. Astrocyte allocation during brain development is controlled by Tcf4-mediated fate restriction. EMBO J. 43, 5114–5140 (2024).
+REF 31 DIFF:
+  docx: 31. Vandesompele, J. et al. Accurate normalization of real-time quantitative RT-PCR data by geometric averaging of multiple internal control genes. Genome Biol. 3, RESEARCH0034 (2002).
+  txt : Vandesompele, J. et al. Accurate normalization of real-time quantitative RT-PCR data by geometric averaging of multiple internal control genes. Genome Biol. 3, RESEARCH0034 (2002).
+REF 32 DIFF:
+  docx: 32. Eisenberg, E. & Levanon, E. Y. Human housekeeping genes, revisited. Trends Genet. 29, 569–574 (2013).
+  txt : Eisenberg, E. & Levanon, E. Y. Human housekeeping genes, revisited. Trends Genet. 29, 569–574 (2013).
+REF 33 DIFF:
+  docx: 33. Elowitz, M. B., Levine, A. J., Siggia, E. D. & Swain, P. S. Stochastic gene expression in a single cell. Science 297, 1183–1186 (2002).
+  txt : Elowitz, M. B., Levine, A. J., Siggia, E. D. & Swain, P. S. Stochastic gene expression in a single cell. Science 297, 1183–1186 (2002).
+REF 34 DIFF:
+  docx: 34. Newman, J. R. S. et al. Single-cell proteomic analysis of S. cerevisiae reveals the architecture of biological noise. Nature 441, 840–846 (2006).
+  txt : Newman, J. R. S. et al. Single-cell proteomic analysis of S. cerevisiae reveals the architecture of biological noise. Nature 441, 840–846 (2006).
+REF 35 DIFF:
+  docx: 35. Raj, A. & van Oudenaarden, A. Nature, nurture, or chance: stochastic gene expression variation and its consequences on individual cellular fitness. Cell 135, 216–226 (2008).
+  txt : Raj, A. & van Oudenaarden, A. Nature, nurture, or chance: stochastic gene expression variation and its consequences on individual cellular fitness. Cell 135, 216–226 (2008).
+REF 36 DIFF:
+  docx: 36. Tarashansky, A. J. et al. Mapping single-cell atlases throughout Metazoa unravels cell type evolution. eLife 10, e66747 (2021).
+  txt : Tarashansky, A. J. et al. Mapping single-cell atlases throughout Metazoa unravels cell type evolution. eLife 10, e66747 (2021).
+REF 37 DIFF:
+  docx: 37. Jiang, J. et al. CACIMAR: cross-species analysis of cell identities, markers, regulations, and interactions. Brief. Bioinform. 25, bbae283 (2024).
+  txt : Jiang, J. et al. CACIMAR: cross-species analysis of cell identities, markers, regulations, and interactions. Brief. Bioinform. 25, bbae283 (2024).
+REF 38 DIFF:
+  docx: 38. Skinnider, M. A. et al. Cell type prioritization in single-cell data. Nat. Biotechnol. 39, 30–34 (2021).
+  txt : Skinnider, M. A. et al. Cell type prioritization in single-cell data. Nat. Biotechnol. 39, 30–34 (2021).
+REF 39 DIFF:
+  docx: 39. Waxman, S. & Wurmbach, E. De-regulation of common housekeeping genes in hepatocellular carcinoma. BMC Genomics 8, 243 (2007).
+  txt : Waxman, S. & Wurmbach, E. De-regulation of common housekeeping genes in hepatocellular carcinoma. BMC Genomics 8, 243 (2007).
+REF 40 DIFF:
+  docx: 40. Bakken, T. E. et al. Comparative cellular analysis of motor cortex in human, marmoset and mouse. Nature 598, 111–119 (2021).
+  txt : Bakken, T. E. et al. Comparative cellular analysis of motor cortex in human, marmoset and mouse. Nature 598, 111–119 (2021).
+REF 41 DIFF:
+  docx: 41. Marques, S. et al. Oligodendrocyte heterogeneity in the mouse juvenile and adult central nervous system. Science 352, 1326–1329 (2016).
+  txt : Marques, S. et al. Oligodendrocyte heterogeneity in the mouse juvenile and adult central nervous system. Science 352, 1326–1329 (2016).
+REF 42 DIFF:
+  docx: 42. Spitzer, S. O. et al. Oligodendrocyte progenitor cells become regionally diverse and heterogeneous with age. Neuron 101, 459–471.e5 (2019).
+  txt : Spitzer, S. O. et al. Oligodendrocyte progenitor cells become regionally diverse and heterogeneous with age. Neuron 101, 459–471.e5 (2019).
+REF 43 DIFF:
+  docx: 43. Luecken, M. D. & Theis, F. J. Current best practices in single-cell RNA-seq analysis: a tutorial. Mol. Syst. Biol. 15, e8746 (2019).
+  txt : Luecken, M. D. & Theis, F. J. Current best practices in single-cell RNA-seq analysis: a tutorial. Mol. Syst. Biol. 15, e8746 (2019).
+REF 44 DIFF:
+  docx: 44. Lin, J. Divergence measures based on the Shannon entropy. IEEE Trans. Inf. Theory 37, 145–151 (1991).
+  txt : Lin, J. Divergence measures based on the Shannon entropy. IEEE Trans. Inf. Theory 37, 145–151 (1991).
+REF 45 DIFF:
+  docx: 45. Benjamini, Y. & Hochberg, Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. J. R. Stat. Soc. Series B Stat. Methodol. 57, 289–300 (1995).
+  txt : Benjamini, Y. & Hochberg, Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. J. R. Stat. Soc. Series B Stat. Methodol. 57, 289–300 (1995).
+REF 46 DIFF:
+  docx: 46. Wolf, F. A., Angerer, P. & Theis, F. J. SCANPY: large-scale single-cell gene expression data analysis. Genome Biol. 19, 15 (2018).
+  txt : Wolf, F. A., Angerer, P. & Theis, F. J. SCANPY: large-scale single-cell gene expression data analysis. Genome Biol. 19, 15 (2018).
+REF 47 DIFF:
+  docx: 47. Hao, Y. et al. Integrated analysis of multimodal single-cell data. Cell 184, 3573–3587 (2021).
+  txt : Hao, Y. et al. Integrated analysis of multimodal single-cell data. Cell 184, 3573–3587 (2021).
+REF 48 DIFF:
+  docx: 48. Hao, Y. et al. Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nat. Biotechnol. 42, 293–304 (2024).
+  txt : Hao, Y. et al. Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nat. Biotechnol. 42, 293–304 (2024).
+REF 49 DIFF:
+  docx: 49. Weinstein, J. N. et al. The Cancer Genome Atlas Pan-Cancer analysis project. Nat. Genet. 45, 1113–1120 (2013).
+  txt : Weinstein, J. N. et al. The Cancer Genome Atlas Pan-Cancer analysis project. Nat. Genet. 45, 1113–1120 (2013).
+REF 50 DIFF:
+  docx: 50. Colaprico, A. et al. TCGAbiolinks: an R/Bioconductor package for integrative analysis of TCGA data. Nucleic Acids Res. 44, e71 (2016).
+  txt : Colaprico, A. et al. TCGAbiolinks: an R/Bioconductor package for integrative analysis of TCGA data. Nucleic Acids Res. 44, e71 (2016).
+REF 51 DIFF:
+  docx: 51. Cerami, E. et al. The cBio cancer genomics portal: an open platform for exploring multidimensional cancer genomics data. Cancer Discov. 2, 401–404 (2012).
+  txt : Cerami, E. et al. The cBio cancer genomics portal: an open platform for exploring multidimensional cancer genomics data. Cancer Discov. 2, 401–404 (2012).
+REF 52 DIFF:
+  docx: 52. Waskom, M. L. seaborn: statistical data visualization. J. Open Source Softw. 6, 3021 (2021).
+  txt : Waskom, M. L. seaborn: statistical data visualization. J. Open Source Softw. 6, 3021 (2021).
+REF 53 DIFF:
+  docx: 53. Pedregosa, F. et al. Scikit-learn: machine learning in Python. J. Mach. Learn. Res. 12, 2825–2830 (2011).
+  txt : Pedregosa, F. et al. Scikit-learn: machine learning in Python. J. Mach. Learn. Res. 12, 2825–2830 (2011).
+REF 54 DIFF:
+  docx: 54. Efron, B. & Tibshirani, R. J. An Introduction to the Bootstrap (Chapman and Hall/CRC, 1994).
+  txt : Efron, B. & Tibshirani, R. J. An Introduction to the Bootstrap (Chapman and Hall/CRC, 1994).
+REF 55 DIFF:
+  docx: 55. CZI Cell Science Program. CZ CELLxGENE Discover: a single-cell data platform for scalable exploration, analysis and modeling of aggregated data. Nucleic Acids Res. 53, D886–D900 (2025).
+  txt : CZI Cell Science Program. CZ CELLxGENE Discover: a single-cell data platform for scalable exploration, analysis and modeling of aggregated data. Nucleic Acids Res. 53, D886–D900 (2025).
+REF 56 DIFF:
+  docx: 56. Liberzon, A. et al. The Molecular Signatures Database Hallmark Gene Set Collection. Cell Syst. 1, 417–425 (2015).
+  txt : Liberzon, A. et al. The Molecular Signatures Database Hallmark Gene Set Collection. Cell Syst. 1, 417–425 (2015).
+ref list diffs: 56

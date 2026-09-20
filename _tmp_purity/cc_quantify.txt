@@ -1,0 +1,262 @@
+pairs involving TCGA-CC-* : 333
+cancer     pair_type
+TCGA-LUSC  TN           117
+           TT           216
+dtype: int64
+
+unique CC samples in pairs: 255
+  TCGA-18-3408-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-18-3414-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-18-3419-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-18-4721-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-18-5592-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-21-1070-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-21-1071-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-21-5786-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-21-A5DI-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-22-1000-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-22-4591-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-22-4593-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-22-4607-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-22-4609-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-22-5471-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-22-5471-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-22-5472-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-22-5472-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-22-5478-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-22-5479-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-22-5481-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-22-5482-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-22-5483-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-22-5491-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-33-4532-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-33-4538-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-4566-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-4583-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-33-4586-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-4587-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-4587-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-33-6737-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-33-A5GW-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-33-AAS8-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-AASB-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-AASD-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-AASI-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-AASJ-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-33-AASL-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-34-5239-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-34-5928-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-34-5929-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-34-7107-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-34-8454-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-37-3789-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-37-4130-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-37-4133-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-37-4135-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-37-A5EL-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-37-A5EM-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-37-A5EN-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-39-5021-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-39-5027-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-39-5028-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-39-5039-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-39-5040-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-39-5040-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-43-3394-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-43-3394-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-43-3920-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-43-5670-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-43-5670-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(4)}
+  TCGA-43-6143-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-43-6647-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(4)}
+  TCGA-43-6770-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-43-6771-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-43-6771-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-43-6773-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-43-7657-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-43-7657-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-43-8115-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-43-A56U-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-51-4079-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-51-4079-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-51-4080-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-51-4081-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-51-4081-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-52-7812-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-1622-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-5897-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-6546-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-7223-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-7580-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-56-7582-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-56-7730-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-56-7731-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(6)}
+  TCGA-56-7823-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-7823-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-56-8082-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-56-8083-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-56-8201-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-56-8308-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-56-8309-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-56-8622-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-8623-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-56-8624-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-A4ZJ-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-56-A4ZK-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-60-2698-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-60-2706-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-60-2716-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-60-2723-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(3)}
+  TCGA-60-2726-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-63-7020-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-63-A5MG-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-63-A5MH-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-63-A5ML-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-63-A5MN-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-63-A5MR-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(3)}
+  TCGA-63-A5MT-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-63-A5MU-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-63-A5MW-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-66-2744-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-66-2754-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-66-2755-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(3)}
+  TCGA-66-2757-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-66-2759-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-66-2765-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-66-2766-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-66-2773-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-66-2780-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-66-2782-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-66-2794-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-68-7756-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-68-8250-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-68-8251-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-70-6723-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-6845-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-7138-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-7138-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-77-7141-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-7142-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-77-7335-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(4)}
+  TCGA-77-7337-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-77-7338-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-77-7463-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-7465-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-8007-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-77-8008-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-77-8128-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-8130-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-8131-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-8133-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-8139-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-8144-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-8145-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-77-8146-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-8148-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-A5G3-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-77-A5GH-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-6175-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-6561-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-85-7710-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-7710-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-85-8048-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-85-8276-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-8277-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-8350-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-8354-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-8479-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-8481-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-85-8580-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-85-8582-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-8666-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-A4CL-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-85-A4QQ-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-A4QR-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-A511-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-A512-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-85-A5B5-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-90-6837-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(1)}
+  TCGA-90-7767-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-90-A59Q-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-92-7340-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(6)}
+  TCGA-92-8063-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-92-8064-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-92-8065-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-94-7557-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-96-7544-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-96-7545-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-96-8169-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-98-7454-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-98-A538-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-98-A53C-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-98-A53I-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-98-A53J-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-CC-5258-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(7), 'TN': np.int64(1)}
+  TCGA-CC-5259-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(8), 'TN': np.int64(3)}
+  TCGA-CC-5260-01: cancers=['TCGA-LUSC'], types={'TN': np.int64(11), 'TT': np.int64(4)}
+  TCGA-CC-5261-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(5)}
+  TCGA-CC-5262-01: cancers=['TCGA-LUSC'], types={'TN': np.int64(6), 'TT': np.int64(3)}
+  TCGA-CC-5263-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(11), 'TN': np.int64(1)}
+  TCGA-CC-5264-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(10), 'TN': np.int64(3)}
+  TCGA-CC-A123-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(8), 'TN': np.int64(1)}
+  TCGA-CC-A1HT-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(5), 'TN': np.int64(1)}
+  TCGA-CC-A3M9-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(3), 'TN': np.int64(2)}
+  TCGA-CC-A3MA-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(11), 'TN': np.int64(4)}
+  TCGA-CC-A3MB-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(4), 'TN': np.int64(1)}
+  TCGA-CC-A3MC-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(7), 'TN': np.int64(4)}
+  TCGA-CC-A5UC-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(9), 'TN': np.int64(4)}
+  TCGA-CC-A5UD-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(7), 'TN': np.int64(5)}
+  TCGA-CC-A5UE-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(6), 'TN': np.int64(1)}
+  TCGA-CC-A7IE-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(6), 'TN': np.int64(5)}
+  TCGA-CC-A7IF-01: cancers=['TCGA-LUSC'], types={'TN': np.int64(6), 'TT': np.int64(5)}
+  TCGA-CC-A7IG-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(8), 'TN': np.int64(3)}
+  TCGA-CC-A7IH-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(5), 'TN': np.int64(3)}
+  TCGA-CC-A7II-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(11), 'TN': np.int64(6)}
+  TCGA-CC-A7IJ-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(6), 'TN': np.int64(3)}
+  TCGA-CC-A7IK-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(11), 'TN': np.int64(2)}
+  TCGA-CC-A7IL-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(5), 'TN': np.int64(5)}
+  TCGA-CC-A8HS-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(5), 'TN': np.int64(2)}
+  TCGA-CC-A8HT-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(4), 'TN': np.int64(3)}
+  TCGA-CC-A8HU-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(11), 'TN': np.int64(5)}
+  TCGA-CC-A8HV-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(10), 'TN': np.int64(8)}
+  TCGA-CC-A9FS-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(11), 'TN': np.int64(4)}
+  TCGA-CC-A9FU-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(6), 'TN': np.int64(5)}
+  TCGA-CC-A9FV-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(5), 'TN': np.int64(3)}
+  TCGA-CC-A9FW-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(7), 'TN': np.int64(6)}
+  TCGA-IE-A4EI-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IE-A4EJ-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IE-A4EK-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IF-A3RQ-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IF-A4AJ-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IG-A3I8-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IG-A3I8-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-IG-A3YA-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IG-A3YC-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IG-A4QT-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IG-A50L-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IG-A5S3-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IG-A625-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-IG-A97I-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-L5-A43C-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-L5-A4OF-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-L5-A4OG-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(3)}
+  TCGA-L5-A4OH-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-L5-A4OJ-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-L5-A4OM-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-L5-A4OM-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(4)}
+  TCGA-L5-A4OO-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(4)}
+  TCGA-L5-A4OQ-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(4)}
+  TCGA-L5-A4OR-11: cancers=['TCGA-LUSC'], types={'TN': np.int64(2)}
+  TCGA-L5-A4OS-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-L5-A88S-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-L5-A88Z-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-L5-A8NF-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-L5-A8NI-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-L5-A8NS-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-L5-A8NU-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-NK-A5CR-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-NK-A5D1-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-Q1-A6DT-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-Q1-A6DV-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}
+  TCGA-Q1-A6DW-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(2)}
+  TCGA-Q1-A73P-01: cancers=['TCGA-LUSC'], types={'TT': np.int64(1)}

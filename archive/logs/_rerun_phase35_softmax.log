@@ -1,0 +1,246 @@
+============================================================
+E0. Loading TS Human data & building CT pseudobulks...
+============================================================
+  TS_Liver: 5007 cells, 13 CTs
+  TS_Kidney: 9641 cells, 7 CTs
+  TS_Heart: 11505 cells, 6 CTs
+  TS_Bone_Marrow: 12297 cells, 17 CTs
+  TS_Spleen: 34004 cells, 24 CTs
+  TS_Lung: 35682 cells, 40 CTs
+
+  Common genes: 58870
+  Unified: 108136 cells x 58870 genes
+  After QC: 107399 cells x 51852 genes
+  log1p-normalized
+  Global HK genes in data: 1129
+  Viable CT entries: 99
+    Liver|hepatocyte (donor=TSP14, n=1491)
+    Liver|macrophage (donor=TSP6, n=1379)
+    Liver|monocyte (donor=TSP6, n=605)
+    Liver|endothelial cell of hepatic sinusoid (donor=TSP6, n=341)
+    Liver|endothelial cell (donor=TSP14, n=267)
+    Liver|nk cell (donor=TSP6, n=231)
+    Liver|t cell (donor=TSP14, n=126)
+    Liver|erythrocyte (donor=TSP14, n=89)
+    Liver|fibroblast (donor=TSP6, n=70)
+    Liver|neutrophil (donor=TSP6, n=63)
+    Liver|intrahepatic cholangiocyte (donor=TSP14, n=31)
+    Liver|liver dendritic cell (donor=TSP6, n=34)
+    Liver|plasma cell (donor=TSP6, n=19)
+    Kidney|kidney epithelial cell (donor=TSP2, n=8290)
+    Kidney|b cell (donor=TSP2, n=340)
+    Kidney|macrophage (donor=TSP2, n=318)
+    Kidney|cd8-positive, alpha-beta t cell (donor=TSP2, n=238)
+    Kidney|cd4-positive helper t cell (donor=TSP2, n=181)
+    Kidney|nk cell (donor=TSP2, n=131)
+    Kidney|endothelial cell (donor=TSP2, n=95)
+    Heart|cardiac muscle cell (donor=TSP12, n=7204)
+    Heart|cardiac endothelial cell (donor=TSP12, n=2665)
+    Heart|hepatocyte (donor=TSP12, n=1086)
+    Heart|fibroblast of cardiac tissue (donor=TSP12, n=250)
+    Heart|smooth muscle cell (donor=TSP12, n=222)
+    Heart|macrophage (donor=TSP12, n=72)
+    Bone_Marrow|cd24 neutrophil (donor=TSP14, n=2106)
+    Bone_Marrow|cd4-positive, alpha-beta t cell (donor=TSP14, n=833)
+    Bone_Marrow|monocyte (donor=TSP2, n=557)
+    Bone_Marrow|cd8-positive, alpha-beta t cell (donor=TSP2, n=439)
+    Bone_Marrow|granulocyte (donor=TSP14, n=454)
+    Bone_Marrow|plasma cell (donor=TSP11, n=365)
+    Bone_Marrow|erythroid progenitor (donor=TSP14, n=334)
+    Bone_Marrow|nk cell (donor=TSP2, n=345)
+    Bone_Marrow|hematopoietic stem cell (donor=TSP2, n=256)
+    Bone_Marrow|nampt neutrophil (donor=TSP14, n=381)
+    Bone_Marrow|memory b cell (donor=TSP14, n=160)
+    Bone_Marrow|myeloid progenitor (donor=TSP14, n=177)
+    Bone_Marrow|macrophage (donor=TSP2, n=157)
+    Bone_Marrow|naive b cell (donor=TSP2, n=85)
+    Bone_Marrow|neutrophil (donor=TSP14, n=73)
+    Bone_Marrow|erythrocyte (donor=TSP14, n=83)
+    Spleen|memory b cell (donor=TSP14, n=2774)
+    Spleen|neutrophil (donor=TSP14, n=3814)
+    Spleen|classical monocyte (donor=TSP14, n=2959)
+    Spleen|cd8-positive, alpha-beta memory t cell (donor=TSP14, n=2756)
+    Spleen|plasma cell (donor=TSP14, n=1814)
+    Spleen|nk cell (donor=TSP14, n=1239)
+    Spleen|cd4-positive, alpha-beta memory t cell (donor=TSP14, n=1042)
+    Spleen|macrophage (donor=TSP14, n=522)
+    Spleen|naive thymus-derived cd4-positive, alpha-beta t cell (donor=TSP14, n=661)
+    Spleen|naive b cell (donor=TSP2, n=566)
+    Spleen|type i nk t cell (donor=TSP14, n=589)
+    Spleen|naive thymus-derived cd8-positive, alpha-beta t cell (donor=TSP2, n=378)
+    Spleen|endothelial cell (donor=TSP7, n=310)
+    Spleen|mature nk t cell (donor=TSP2, n=426)
+    Spleen|regulatory t cell (donor=TSP14, n=145)
+    Spleen|intermediate monocyte (donor=TSP7, n=100)
+    Spleen|innate lymphoid cell (donor=TSP14, n=66)
+    Spleen|erythrocyte (donor=TSP14, n=99)
+    Spleen|hematopoietic stem cell (donor=TSP14, n=45)
+    Spleen|cd1c-positive myeloid dendritic cell (donor=TSP2, n=25)
+    Spleen|cd141-positive myeloid dendritic cell (donor=TSP2, n=33)
+    Spleen|cd8-positive, alpha-beta t cell (donor=TSP2, n=43)
+    Spleen|plasmacytoid dendritic cell (donor=TSP14, n=37)
+    Spleen|platelet (donor=TSP14, n=10)
+    Lung|macrophage (donor=TSP1, n=8568)
+    Lung|type ii pneumocyte (donor=TSP2, n=4091)
+    Lung|basal cell (donor=TSP2, n=2136)
+    Lung|classical monocyte (donor=TSP2, n=1103)
+    Lung|club cell (donor=TSP2, n=983)
+    Lung|non-classical monocyte (donor=TSP2, n=848)
+    Lung|capillary endothelial cell (donor=TSP2, n=804)
+    Lung|respiratory goblet cell (donor=TSP2, n=479)
+    Lung|basophil (donor=TSP1, n=494)
+    Lung|lung ciliated cell (donor=TSP2, n=315)
+    Lung|capillary aerocyte (donor=TSP2, n=506)
+    Lung|cd8-positive, alpha-beta t cell (donor=TSP2, n=393)
+    Lung|cd4-positive, alpha-beta t cell (donor=TSP2, n=381)
+    Lung|vein endothelial cell (donor=TSP2, n=370)
+    Lung|lung microvascular endothelial cell (donor=TSP2, n=462)
+    Lung|adventitial cell (donor=TSP2, n=271)
+    Lung|alveolar fibroblast (donor=TSP1, n=167)
+    Lung|dendritic cell (donor=TSP1, n=278)
+    Lung|intermediate monocyte (donor=TSP2, n=252)
+    Lung|pericyte cell (donor=TSP2, n=192)
+    Lung|type i pneumocyte (donor=TSP1, n=147)
+    Lung|endothelial cell of artery (donor=TSP2, n=103)
+    Lung|neutrophil (donor=TSP14, n=136)
+    Lung|cd4-positive alpha-beta t cell (donor=TSP14, n=132)
+    Lung|nk cell (donor=TSP2, n=94)
+    Lung|plasma cell (donor=TSP2, n=92)
+    Lung|b cell (donor=TSP1, n=64)
+    Lung|vascular associated smooth muscle cell (donor=TSP1, n=43)
+    Lung|cd8-positive alpha-beta t cell (donor=TSP14, n=80)
+    Lung|bronchial smooth muscle cell (donor=TSP2, n=48)
+    Lung|bronchial vessel endothelial cell (donor=TSP14, n=47)
+    Lung|endothelial cell of lymphatic vessel (donor=TSP1, n=28)
+    Lung|smooth muscle cell (donor=TSP14, n=25)
+
+============================================================
+E1. Computing 5 distance metrics for all pairs...
+============================================================
+  Total pairs: 4851
+  Computing per-CT marker gene sets...
+  Computing pairwise metrics...
+  Progress: row 10/99
+  Progress: row 20/99
+  Progress: row 30/99
+  Progress: row 40/99
+  Progress: row 50/99
+  Progress: row 60/99
+  Progress: row 70/99
+  Progress: row 80/99
+  Progress: row 90/99
+  Complete: 4851 pairs
+
+============================================================
+E2. Inter-metric correlation matrix...
+============================================================
+
+  Spearman correlation matrix:
+                        CKI omega     Raw JS Spearman dist Cosine dist Marker Jaccard dist
+             CKI omega   1.000***  -0.439***  -0.469***  -0.427***  -0.386***
+                Raw JS  -0.439***   1.000***   0.604***   0.895***   0.858***
+         Spearman dist  -0.469***   0.604***   1.000***   0.737***   0.569***
+           Cosine dist  -0.427***   0.895***   0.737***   1.000***   0.895***
+   Marker Jaccard dist  -0.386***   0.858***   0.569***   0.895***   1.000***
+  Saved: phase35_metric_correlation.csv
+  Saved: phase35_metric_correlation_heatmap.png
+
+============================================================
+E3. ROC-AUC analysis: same-CT vs diff-CT...
+============================================================
+               CKI omega: AUC = 0.6306
+                  Raw JS: AUC = 0.7982
+           Spearman dist: AUC = 0.6904
+             Cosine dist: AUC = 0.8865
+     Marker Jaccard dist: AUC = 0.8007
+  Saved: phase35_roc_curves.png
+  Saved: phase35_auc_bars.png
+
+============================================================
+E4. Cross-organ conservation ranking analysis...
+============================================================
+  Same-CT cross-organ pairs: 59
+
+  Cross-organ conservation pairs (sorted by CKI omega):
+  CT                             Org1         Org2            omega   js_raw spearman
+  macrophage                     Heart        Bone_Marrow     75.67     0.00   0.2750
+  erythrocyte                    Bone_Marrow  Spleen         131.22     0.00   0.3268
+  neutrophil                     Liver        Lung           150.78     0.00   0.6043
+  macrophage                     Kidney       Bone_Marrow    154.54     0.00   0.2146
+  macrophage                     Liver        Heart          156.79     0.00   0.3064
+  plasma cell                    Liver        Lung           158.19     0.00   0.3062
+  neutrophil                     Liver        Spleen         164.68     0.00   0.6263
+  macrophage                     Heart        Lung           168.81     0.00   0.3198
+  b cell                         Kidney       Lung           179.31     0.00   0.2585
+  neutrophil                     Liver        Bone_Marrow    182.35     0.00   0.6110
+  plasma cell                    Liver        Bone_Marrow    223.10     0.00   0.3817
+  cd8-positive, alpha-beta t..   Spleen       Lung           227.96     0.00   0.1775
+  plasma cell                    Bone_Marrow  Lung           255.15     0.00   0.2988
+  cd8-positive, alpha-beta t..   Kidney       Spleen         274.06     0.00   0.2031
+  macrophage                     Kidney       Heart          285.03     0.00   0.2944
+  macrophage                     Heart        Spleen         291.14     0.00   0.3011
+  cd8-positive, alpha-beta t..   Bone_Marrow  Spleen         293.84     0.00   0.2098
+  hepatocyte                     Liver        Heart          300.43     0.00   0.2581
+  hematopoietic stem cell        Bone_Marrow  Spleen         326.75     0.00   0.2214
+  cd8-positive, alpha-beta t..   Kidney       Lung           335.42     0.00   0.1813
+  Saved: phase35_cross_organ_conservation.csv
+  Saved: phase35_cross_organ_summary.csv (17 cell types)
+    b cell                                   mean=179.31  SD=—  n=1
+    hepatocyte                               mean=300.43  SD=—  n=1
+    plasma cell                              mean=307.49  SD=110.70  n=6
+    neutrophil                               mean=326.30  SD=187.56  n=6
+    hematopoietic stem cell                  mean=326.75  SD=—  n=1
+    cd8-positive, alpha-beta t cell          mean=336.38  SD=97.49  n=6
+    smooth muscle cell                       mean=372.46  SD=—  n=1
+    monocyte                                 mean=413.73  SD=—  n=1
+    macrophage                               mean=431.18  SD=268.49  n=15
+    cd4-positive, alpha-beta t cell          mean=467.25  SD=—  n=1
+    classical monocyte                       mean=489.03  SD=—  n=1
+    intermediate monocyte                    mean=492.92  SD=—  n=1
+    nk cell                                  mean=550.32  SD=116.41  n=10
+    naive b cell                             mean=601.00  SD=—  n=1
+    memory b cell                            mean=623.69  SD=—  n=1
+    endothelial cell                         mean=733.65  SD=212.74  n=3
+    erythrocyte                              mean=739.67  SD=862.92  n=3
+
+  Ranking consistency across metrics (Spearman r on cross-organ pairs):
+               CKI omega   1.000  -0.279  -0.541  -0.258  -0.007
+                  Raw JS  -0.279   1.000   0.567   0.879   0.744
+           Spearman dist  -0.541   0.567   1.000   0.574   0.286
+             Cosine dist  -0.258   0.879   0.574   1.000   0.810
+     Marker Jaccard dist  -0.007   0.744   0.286   0.810   1.000
+
+============================================================
+E5. Summary Statistics...
+============================================================
+               CKI omega: min=31.4787 max=2928.9849 mean=567.8759 median=522.0917 std=302.3691
+                  Raw JS: min=0.0000 max=0.0000 mean=0.0000 median=0.0000 std=0.0000
+           Spearman dist: min=0.1020 max=0.7092 mean=0.2940 median=0.2834 std=0.0835
+             Cosine dist: min=0.0101 max=0.7206 mean=0.3042 median=0.2941 std=0.1260
+     Marker Jaccard dist: min=0.1567 max=0.9899 mean=0.7233 median=0.7220 std=0.1610
+
+  Per-category breakdown:
+               CKI omega: SameCT_mean=448.7886 DiffCT_mean=569.3421 EffectSep=1.27 SameOrg=647.6663 DiffOrg=546.1548
+                  Raw JS: SameCT_mean=0.0000 DiffCT_mean=0.0000 EffectSep=0.01 SameOrg=0.0000 DiffOrg=0.0000
+           Spearman dist: SameCT_mean=0.2568 DiffCT_mean=0.2945 EffectSep=1.15 SameOrg=0.2675 DiffOrg=0.3013
+             Cosine dist: SameCT_mean=0.1347 DiffCT_mean=0.3063 EffectSep=2.27 SameOrg=0.2754 DiffOrg=0.3121
+     Marker Jaccard dist: SameCT_mean=0.5389 DiffCT_mean=0.7255 EffectSep=1.35 SameOrg=0.7014 DiffOrg=0.7292
+
+============================================================
+Saving pair-level data...
+============================================================
+  Saved: phase35_all_metrics_pairs.csv (4851 pairs)
+
+============================================================
+Generating scatter comparison plots...
+============================================================
+  Saved: phase35_scatter_comparison.png
+
+============================================================
+Writing comprehensive report...
+============================================================
+  Saved: phase35_method_comparison_report.md
+
+============================================================
+Phase 3.5 COMPLETE.
+============================================================

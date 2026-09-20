@@ -1,0 +1,74 @@
+============================================================
+C-M1: Calibrated Normalization
+============================================================
+  Baseline omega: 6.67
+  Brain raw mean: 47.74 -> cal: 7.16
+  Mouse control: 6.67 -> cal: 1.00
+  Human mean: 21.63 -> cal: 3.24
+  Bergmann glia: raw=16.42 cal=2.46 (n=21)
+  Vascular: raw=18.47 cal=2.77 (n=3321)
+  Fibroblast: raw=24.26 cal=3.64 (n=3403)
+  Microglia: raw=31.99 cal=4.80 (n=5671)
+  Ependymal: raw=32.33 cal=4.85 (n=780)
+  Committed oligodendrocyte precursor: raw=33.78 cal=5.06 (n=1326)
+  Oligodendrocyte: raw=41.08 cal=6.16 (n=5778)
+  Choroid plexus: raw=48.21 cal=7.23 (n=15)
+  Oligodendrocyte precursor: raw=50.62 cal=7.59 (n=5671)
+  Astrocyte: raw=103.08 cal=15.45 (n=5778)
+
+============================================================
+C-M2: JS Divergence Dimensionality Matching
+============================================================
+  dim=   50: mean JS=0.154901 +/- 0.027929
+  dim=  100: mean JS=0.157217 +/- 0.020024
+  dim=  200: mean JS=0.158049 +/- 0.014315
+  dim=  500: mean JS=0.158024 +/- 0.009081
+  dim= 1000: mean JS=0.158591 +/- 0.006395
+  dim= 1130: mean JS=0.158306 +/- 0.005797
+  dim= 2000: mean JS=0.158475 +/- 0.004566
+  dim= 5000: mean JS=0.158555 +/- 0.002833
+
+  Ratio JS(2000)/JS(1130) = 1.001
+  Ratio JS(2000)/JS(200) = 1.003
+
+============================================================
+C-M3: Pair-Specific k_n Variability
+============================================================
+  Overall k_n: mean=0.002719, median=0.001742, CV=0.9289
+  Astrocyte: kn_mean=0.001451, CV=0.6251, n=5778
+  Bergmann glia: kn_mean=0.004634, CV=0.5256, n=21
+  Choroid plexus: kn_mean=0.003167, CV=0.4164, n=15
+  Committed oligodendrocyte precursor: kn_mean=0.005727, CV=0.3650, n=1326
+  Ependymal: kn_mean=0.004615, CV=0.5457, n=780
+  Fibroblast: kn_mean=0.005206, CV=0.4371, n=3403
+  Microglia: kn_mean=0.002135, CV=0.5874, n=5671
+  Oligodendrocyte: kn_mean=0.001422, CV=0.6976, n=5778
+  Oligodendrocyte precursor: kn_mean=0.001125, CV=0.6585, n=5671
+  Vascular: kn_mean=0.006696, CV=0.4330, n=3321
+
+  Spearman rho (per-pair vs global-kn omega): 0.1809 (P=9.38e-232)
+  k_n CV: 0.9289 (92.89%)
+
+============================================================
+Generating Phase C figures...
+============================================================
+  Saved ed_fig10_dimensionality.pdf/png
+  Saved ed_fig11_kn_variability.pdf/png
+  Saved ed_fig12_calibrated_omega.pdf/png
+
+============================================================
+Phase C analysis complete!
+============================================================
+
+Output files:
+  results/phaseC_calibration.json
+  results/phaseC_calibrated_omega_brain.csv
+  results/phaseC_calibrated_cis.csv
+  results/phaseC_dimensionality.json
+  results/phaseC_dimensionality_simulation.csv
+  results/phaseC_kn_variability.json
+  results/phaseC_kn_stats.csv
+  results/phaseC_omega_pair_vs_global.csv
+  results/figures_final/ed_fig10_dimensionality.pdf/png
+  results/figures_final/ed_fig11_kn_variability.pdf/png
+  results/figures_final/ed_fig12_calibrated_omega.pdf/png

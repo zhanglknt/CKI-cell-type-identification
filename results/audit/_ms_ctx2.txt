@@ -1,0 +1,26 @@
+35 | _tc = DATA['tcga']
+
+77 | tcga_cancers = _tc['cancers']
+
+103 |     for c in _tc['cancers']
+
+515 | p(f'CKI showed moderate cell-type classification performance (AUC = {_au["cki_omega"]:.3f}, ranked 5th of 5 methods; Table 1). The pair-level bootstrap 95% CI ([0.609, 0.745], B = 2,000) widens to [0.540, 0.804] under cell-type-entry clustering: the classification advantage is weak and resampling-unit dependent. The lower ranking is expected by design: CKI down-weights shared HK patterns to isolat
+
+549 | p(f'We applied CKI to TCGA bulk RNA-seq data across five cancer types (LUAD, LUSC, LIHC, KIRC, BRCA) [10,11], totalling {_tc["n_total"]:,} samples, and asked how tissue-level functional divergence is reorganized when cancer develops. Because bulk RNA-seq averages over tumor, stromal, and immune compartments, \u03c9 here quantifies divergence between tissue states rather than between cell types; we
+
+553 | p('Three controls bound the interpretation of the pan-cancer reversal. First, a four-panel marker composition check (immune, myeloid, stromal, epithelial) with sample-level cluster bootstrap found the pooled tumor-pair k_n coefficient essentially unchanged after composition adjustment (\u22121.2%, bootstrap 95% CI \u22124.1% to +2.6%; per cancer type \u221216% to +37%), so marker-measurable compos
+
+652 | p('For populations A and B with pseudobulk vectors \u03b5_A and \u03b5_B, each vector is normalized to a probability distribution before Jensen-Shannon (JS) divergence computation by a softmax over log-transformed values, which in count space is exactly the operation of adding a +1 pseudo-count followed by L1 normalization: p_i = (c_i + 1)/\u03a3_j(c_j + 1), where c denotes the pseudobulk count. T
+
+667 | p(f'TCGA bulk RNA-seq [49]: five cancer types from NCI Genomic Data Commons, accessed via TCGAbiolinks [50] and cBioPortal [51] APIs. LUAD: 495 tumor + 76 normal; LUSC: 567 tumor + 58 normal; LIHC: 365 tumor + 57 normal; KIRC: 755 tumor + 82 normal; BRCA: 1032 tumor + 109 normal. TPM values from UCSC Xena; within each cancer type, genes with mean expression below 0.5 TPM were removed, and the reta
+
+696 | p('Per-tumor statistics were derived from the linear-normalization pair table (35,306 pairs: 2,000 TT pairs per cancer type drawn by seeded subsampling, complete NN pairs, and 2,000 TN pairs per cancer type; sample-labelled), as the mean of \u03c9, k_f, and k_n over all pairs in which a given sample participates (median 4\u201311 pairs per tumor across cancer types). Group-level NN/TT and k_n rati
+
+699 | p('In supplementary within-cancer-type stratification analyses, we computed intratumoral \u03c9 for samples within each clinical stratum using the hybrid scheme. BRCA PAM50 subtype calls [16,17] were retrieved directly from the cBioPortal API (brca_tcga_pub study, PAM50_SUBTYPE clinical attribute; 522 samples with subtype calls, cached locally for reproducibility, of which 506 had matched expressi
+
+709 | p('Statistical conventions. All P-values are from one-sided permutation tests (B = 1,000 for mouse/human/TCGA/brain and for the multiplicative residual model block-shuffle null) unless otherwise specified. Benjamini-Hochberg FDR correction was applied within each dataset. Non-parametric tests (Spearman correlation, Mann-Whitney U, Kruskal-Wallis, Jonckheere-Terpstra) are two-sided and reported wit
+
+720 | p('Tabula Muris data: GEO accession GSE109774. Tabula Sapiens data: CZ CELLxGENE Discover (https://cellxgene.cziscience.com/, accessed July 2025). TCGA data: NCI Genomic Data Commons (https://portal.gdc.cancer.gov/). HRT Atlas (optional human/mouse housekeeping-gene reference): https://www.housekeeping.unicamp.br. Human brain atlas: CZ CELLxGENE Discover, collection ID 283d65eb-dd53-496d-adb7-7570
+
+760 | p('Figure 2. CKI calibration on Tabula Muris mouse data. (a) k_n calibration across six Tabula Muris cell types from control comparisons (C category: random split of same population). k_n values are stable across cell types, consistent with constrained baseline behavior. (b) Component decomposition of k_n and k_f across four comparison categories: C (random split of the same population), S (same c
+

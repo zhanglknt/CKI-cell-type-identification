@@ -1,0 +1,2 @@
+doubles among labelled (15-char): 2 ['TCGA-86-A4JF-01', 'TCGA-95-7039-01']
+egfr 15-char: 75 kras 15-char: 161

@@ -1,0 +1,16 @@
+﻿=== GUIDE lines 340-354 ===
+
+  f. Competitor benchmark (MELD, scDist approximation):
+     Script: notebooks/101_competitors_v44.py
+     Benchmarks CKI against MELD 1.0.2 and a Python approximation of scDist on the Kang IFN-beta PBMC data and additive mean-shift simulations, including donor-paired power curves that delimit the per-donor working range. Outputs: results/competitors_v44_* (summary in results/competitors_v44_report.md).
+5.9 v45 Analyses
+The following analyses were added for the v45 revision. All reuse the authoritative gene sets, pseudobulks, and nulls of the corresponding main analyses; no result above is altered.
+
+  a. Ratio-estimator bias-variance characterization:
+     Script: notebooks/88_ratio_estimator_v45.py
+     Bias-variance characterization of the ratio estimator omega = k_f / k_n under the null (split-half data): part 1 quantifies ratio-estimator bias with a delta-method cross-check, binned by k_n (<1e-4 / 1e-4-1e-3 / >1e-3); part 2 reports class-level robust-summary sensitivity. Outputs: results/ratio_estimator_biasvar_v45.json, results/ratio_estimator_biasvar_v45_report.md.
+
+  b. Small-cluster bootstrap corrections:
+     Script: notebooks/89_cluster_boot_v45.py
+     Small-cluster corrections for the region-clustered bootstrap confidence intervals: (a) percentile, (b) wild cluster bootstrap with Rademacher weights, and (c) studentized (bootstrap-t) intervals, with a Monte Carlo coverage simulation (studentized coverage 0.953/0.951 versus percentile 0.876/0.873); the studentized intervals ground the v45 qualitative downgrade of the Bergmann-glia endpoint. Outputs: results/cluster_boot_v45.json, results/cluster_boot_v45_report.md.
+

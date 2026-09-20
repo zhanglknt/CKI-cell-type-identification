@@ -1,0 +1,34 @@
+===== CL + Guide checks =====
+[PASS] CL word count <= 530 522 words
+[PASS] CL no rebuttal framing 
+[PASS] CL no 5th of 5 
+[PASS] CL new-evidence paragraph 
+[PASS] CL specificity-first AUC 0.680 
+[PASS] CL drift claim qualified 
+[PASS] CL no "least of seven metrics" 
+[PASS] CL below raw JS 10/10 
+[PASS] CL 3,563 
+[PASS] CL no 3,596 
+[PASS] CL no baseline-driven/baseline-associated 
+[PASS] CL KRAS dual-adjusted upgrade 
+[PASS] CL EGFR dissolved 
+[PASS] CL Fig. 4 / Fig. 5 refs 
+[PASS] Guide drift section = Result 4 (Fig. 4) 
+[PASS] Guide TCGA = Result 5 (Fig. 5) 
+[PASS] Guide cross-organ = Result 6, Fig. 6 
+[PASS] Guide brain = Result 7 (Fig. 7) 
+[PASS] Guide 3,563 
+[PASS] Guide no 3,596 
+[PASS] Guide mean-ratio caliber 
+[PASS] Guide no median NN/TT caliber 
+[PASS] Guide SF12 -> SF11 (2 places) 
+[PASS] Guide SF10 -> SF3 
+[PASS] Guide 5.10 v49 Analyses 
+[PASS] Guide nc49 scripts listed 
+[PASS] Guide nc49 outputs listed 
+[PASS] Guide v49 checklist entries 
+[PASS] Guide SI param-justification ref updated 
+[PASS] Guide Jaccard honest framing 
+[PASS] Guide B-group scripts listed 
+[PASS] Guide B-group outputs listed 
+TOTAL: 32 checks, 0 failures

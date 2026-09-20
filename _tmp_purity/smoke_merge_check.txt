@@ -1,0 +1,3 @@
+LUAD TT unique samples: 493, patients: 493
+smoking known: 428
+smoke code distribution among matched: {'2': 103, '3': 120, '1': 65, '5': 3, '4': 137}

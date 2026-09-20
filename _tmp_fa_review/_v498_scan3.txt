@@ -1,0 +1,36 @@
+=== line 461 ===
+cted neutral housekeeping drift (false-positive rate 0.00 versus 0.55\u20130.58 for raw JS and cosine) and ranked first for functional-versus-neutral discrimination (AUC = 0.80). On real technical replicates\u201430 cross-lane pairs from Kang IFN-\u03b2\u2014\u03c9 raised no false reports; under stronger brain li
+
+=== line 611 ===
+p('CKI is a divergence index, not a classifier\u2014and this is by design. Classifying cell types from transcriptomic data is largely a solved problem; CKI answers a complementary question: reg
+
+=== line 617 ===
+kings overlap; the shared signal localizes to the k_f numerator rather than k_n, whose regional variation is largely invisible to whole-transcriptome classifier separability. CKI is therefore complementary to, not redundant with, perturbation-prioritization tools. A multiclass macro-OvR sensitivity run gav
+
+=== line 621 ===
+minimum q = 0.520); the raw-P enrichment is strongly tier-dependent (raw P < 0.05 in 79.5% of Strong, 35.6% of Moderate, 16.9% of Weak, and 2.4% of unclassified pairs, versus 6.2% overall), which we report as a post-hoc coherence check\u2014its statistical caveats, including the mathematical coupling betwe
+
+=== line 625 ===
+dataset and gene-selection scheme? CKI then offers (i) a normalized, interpretable scale (\u03c9 relative to the split-half calibration), (ii) higher discrimination than raw distances for strong perturbations (simulation AUC 0.80 for \u03c9 versus 0.72 for k_f, 0.64 for raw JS, and 0.58 for cosine\u2014under the 
+
+=== line 625 ===
+absolute distances with cross-dataset meaning are required (\u03c9 does not transfer across datasets or schemes\u2014compare ranks only); the task is classification or clustering of cell types (a largely solved problem where normalization adds little); weak-to-moderate effects must be detected at atlas sca
+
+=== line 634 ===
+ shifts on at least 200 genes)\u2014and \u03c9 ranked below raw JS and cosine in raw detection power while ranking first in functional-versus-neutral discrimination (AUC = 0.80). The simulation was restricted to two backgrounds (one cell type each: marrow B cells and skin keratinocyte stem cells), a single module
+
+=== line 672 ===
+er [47] (collection ID: 283d65eb-dd53-496d-adb7-7570c7caa443). We used the Nonneurons.h5ad dataset (888,263 nuclei, 59,480 genes, 108 brain regions), classified by supercluster_term annotation into 10 major non-neuronal classes; after filtering (\u2265 20 nuclei per (region, cell_type) group, \u2265 50 per
+
+=== line 675 ===
+he most QC-passing cells); the method comparison therefore does not capture inter-donor variability. Inter-metric Spearman correlations and cell-type classification ROC-AUC were computed using scikit-learn.')
+
+=== line 702 ===
+with subtype calls, cached locally for reproducibility, of which 506 had matched expression data and entered the analysis); no de novo centroid-based classification was performed in this work. LIHC Edmondson grades [53] came from cBioPortal (n = 288 tumors), and LUAD mutation status (EGFR, KRAS, WT) from c
+
+=== line 763 ===
+ CKI \u03c9 ranked first of six metrics (AUC = 0.80); independent replication on a skin keratinocyte background gave AUC = 0.91 (rank 1/6). Cell-type classification performance on Tabula Sapiens is reported in Table 1.')
+
+=== line 777 ===
+ity-only configuration of k_f. (c) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs).')
+

@@ -1,0 +1,413 @@
+================================================================================
+COMMENTS (批注)
+================================================================================
+
+--- Comment 56 by Microsoft Office User ---
+  ANCHOR: 
+  COMMENT: Figure S3没有存在必要，信息与Figure3重复，图中“mean AUC”没有任何意义
+
+--- Comment 63 by Microsoft Office User ---
+  ANCHOR: Additional file 1: Figure S⟦INS:4⟧. Cross-organ conservation raw data.⟦INS: ⟧⟦INS:Blue = well-sampled (n ≥ 5 pairs); gray = sparsely sampled (n < 5 pairs). Panel A shows mean ± SD; Panel B shows raw pair-level distribution.⟧.
+  COMMENT: 表放在图的legend里不合适
+
+--- Comment 69 by Microsoft Office User ---
+  ANCHOR: Additional file 1: Figure S⟦INS:5⟧. Brain regional analysis details. ⟦INS:(A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-⟧⟦INS:shuffle null (p < 0.05 and |⟧⟦INS:standardised⟧⟦INS: effect size (SES)| ≥ 2; SES = [observed
+  COMMENT: 原来S6的A-E都是错误的和无用的，新的S6是我根据个人看法重做的
+
+--- Comment 71 by Microsoft Office User ---
+  ANCHOR: Additional file 1: Figure S⟦INS:5⟧. Brain regional analysis details. ⟦INS:(A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-⟧⟦INS:shuffle null (p < 0.05 and |⟧⟦INS:standardised⟧⟦INS: effect size (SES)| ≥ 2; SES = [observed
+  COMMENT: 图D稿件中没有相关内容，图E与figure6C重复
+
+--- Comment 72 by Microsoft Office User ---
+  ANCHOR: Additional file 1: Figure S⟦INS:5⟧. Brain regional analysis details. ⟦INS:(A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-⟧⟦INS:shuffle null (p < 0.05 and |⟧⟦INS:standardised⟧⟦INS: effect size (SES)| ≥ 2; SES = [observed
+  COMMENT: 
+
+--- Comment 99 by Microsoft Office User ---
+  ANCHOR: Additional file 1: Figure S10. Cross-species comparison details. (A) Cross-species ω comparison: scatter plot of human vs. mouse per-cell-type mean ω for the 15 shared cell types (Spearman r = −0.17, P = 0.55; no significant correlation). 
+  COMMENT: 图B是随机生成的四个数据集，内容在稿件中也没有对应内容；图C没看出来比较的逻辑，也对稿件无贡献
+
+================================================================================
+TRACKED CHANGES (修订)
+================================================================================
+
+[1] INS by Microsoft Office User 2026-09-10T16:40:00Z
+  + '648'
+  CTX: A parameter sweep on Tabula Muris mouse data (703 cell-type pairs across 6 organs) showed that adding pathway enrichment scores to k_f does not improve performance: the identity-only configuration (w_identity = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = 0.648, Additional file 1: Fig. S1; Additional file 1: Table S1). Partitioning expression into constrained baseline an
+
+[2] DEL by Microsoft Office User 2026-09-10T16:40:00Z
+  - '786'
+  CTX: A parameter sweep on Tabula Muris mouse data (703 cell-type pairs across 6 organs) showed that adding pathway enrichment scores to k_f does not improve performance: the identity-only configuration (w_identity = 1.0, w_pathway = 0.0) achieved the best cell-type discrimination (AUC = 0.648, Additional file 1: Fig. S1; Additional file 1: Table S1). Partitioning expression into constrained baseline an
+
+[3] INS by Microsoft Office User 2026-09-08T20:41:00Z
+  + 'C'
+  CTX: Beyond controls, ω values increased monotonically with biological distance (Fig. 2B, C). Same cell type across different organs (S category: mean ω = 21.31, n = 4 pairs) had lower ω than different cell types within the same organ (D category: mean ω = 43.19, n = 3 pairs). With only 2–4 pairs per category we report observed ranges (S: 8.8–42.8; D: 30.1–61.7; X: 23.0–31.6) and read category means as
+
+[4] DEL by Microsoft Office User 2026-09-08T20:41:00Z
+  - 'D'
+  CTX: Beyond controls, ω values increased monotonically with biological distance (Fig. 2B, C). Same cell type across different organs (S category: mean ω = 21.31, n = 4 pairs) had lower ω than different cell types within the same organ (D category: mean ω = 43.19, n = 3 pairs). With only 2–4 pairs per category we report observed ranges (S: 8.8–42.8; D: 30.1–61.7; X: 23.0–31.6) and read category means as
+
+[5] DEL by Microsoft Office User 2026-09-11T09:27:00Z
+  - '; Additional file 1: Fig. S3'
+  CTX: CKI showed moderate cell-type classification performance (AUC = 0.680, ranked 5th of 5 methods; Table 1). The pair-level bootstrap 95% CI ([0.609, 0.745], B = 2,000) widens to [0.540, 0.804] under cell-type-entry clustering: the classification advantage is weak and resampling-unit dependent. The lower ranking is expected by design: CKI down-weights shared HK patterns to isolate functional divergen
+
+[6] INS by Microsoft Office User 2026-09-11T14:16:00Z
+  + '3'
+  CTX: We applied CKI to TCGA bulk RNA-seq data across five cancer types (LUAD, LUSC, LIHC, KIRC, BRCA) [10,11], totalling 3,596 samples. We asked a simple question: when cancer develops, how much functional transcriptional divergence occurs? CKI provides a principled answer by comparing tumor-tumor (TT), normal-normal (NN), and tumor-normal (TN) ω values (Fig. 4; Additional file 1: Fig. S3).
+
+[7] DEL by Microsoft Office User 2026-09-11T14:16:00Z
+  - '4'
+  CTX: We applied CKI to TCGA bulk RNA-seq data across five cancer types (LUAD, LUSC, LIHC, KIRC, BRCA) [10,11], totalling 3,596 samples. We asked a simple question: when cancer develops, how much functional transcriptional divergence occurs? CKI provides a principled answer by comparing tumor-tumor (TT), normal-normal (NN), and tumor-normal (TN) ω values (Fig. 4; Additional file 1: Fig. S3).
+
+[8] INS by Microsoft Office User 2026-09-11T21:11:00Z
+  + '4'
+  CTX: Of the 4,851 Tabula Sapiens cell-type pairs, 59 are same-cell-type cross-organ comparisons, which ask which cell types maintain their identity regardless of residence and which are shaped by their organ environment (Fig. 5; Table 2; Additional file 1: Fig. S4). The cross-organ ω ranking reveals a broad spectrum of conservation across 17 cell types, of which only the extremes reproduce under k_f (A
+
+[9] DEL by Microsoft Office User 2026-09-11T21:11:00Z
+  - '5'
+  CTX: Of the 4,851 Tabula Sapiens cell-type pairs, 59 are same-cell-type cross-organ comparisons, which ask which cell types maintain their identity regardless of residence and which are shaped by their organ environment (Fig. 5; Table 2; Additional file 1: Fig. S4). The cross-organ ω ranking reveals a broad spectrum of conservation across 17 cell types, of which only the extremes reproduce under k_f (A
+
+[10] INS by Microsoft Office User 2026-09-11T21:11:00Z
+  + '5'
+  CTX: We applied CKI to the Siletti et al. human brain single-nucleus atlas [12] (~3.3 million nuclei, 108 regions), asking how much functional divergence separates the same cell type across regions. We focused on 888,263 non-neuronal nuclei in 10 major classes (886,808 passing the ≥ 20-nuclei filter); neurons were excluded because supercluster_term does not resolve neuronal subtypes, violating the same
+
+[11] DEL by Microsoft Office User 2026-09-11T21:11:00Z
+  - '6'
+  CTX: We applied CKI to the Siletti et al. human brain single-nucleus atlas [12] (~3.3 million nuclei, 108 regions), asking how much functional divergence separates the same cell type across regions. We focused on 888,263 non-neuronal nuclei in 10 major classes (886,808 passing the ≥ 20-nuclei filter); neurons were excluded because supercluster_term does not resolve neuronal subtypes, violating the same
+
+[12] INS by Microsoft Office User 2026-09-11T21:10:00Z
+  + '6'
+  CTX: Four analyses probe the robustness of the gradient. First, with only four donors and 94.5% of region pairs sharing at least one, the pooled gradient could reflect donor identity rather than regional biology. Restricting comparisons to same-donor region pairs preserved the extremes: astrocytes remained the most divergent class (mean ω = 75.18 across 11,139 within-donor pairs, versus 82.75 pooled) a
+
+[13] DEL by Microsoft Office User 2026-09-11T21:10:00Z
+  - '7'
+  CTX: Four analyses probe the robustness of the gradient. First, with only four donors and 94.5% of region pairs sharing at least one, the pooled gradient could reflect donor identity rather than regional biology. Restricting comparisons to same-donor region pairs preserved the extremes: astrocytes remained the most divergent class (mean ω = 75.18 across 11,139 within-donor pairs, versus 82.75 pooled) a
+
+[14] INS by Microsoft Office User 2026-09-11T21:12:00Z
+  + '7'
+  CTX: The screen uses a multiplicative model: for each (cell_type, region_pair), expected_ω = μ_ct × μ_pair / μ_grand (μ_ct the cell type’s global mean ω, μ_pair the pair’s mean ω, μ_grand = 38.55). A residual (observed / expected) well below 1 marks a cell type far less differentiated between two regions than expected from its own plasticity and the pair’s divergence—a signature of shared transcription
+
+[15] DEL by Microsoft Office User 2026-09-11T21:12:00Z
+  - '8'
+  CTX: The screen uses a multiplicative model: for each (cell_type, region_pair), expected_ω = μ_ct × μ_pair / μ_grand (μ_ct the cell type’s global mean ω, μ_pair the pair’s mean ω, μ_grand = 38.55). A residual (observed / expected) well below 1 marks a cell type far less differentiated between two regions than expected from its own plasticity and the pair’s divergence—a signature of shared transcription
+
+[16] INS by Microsoft Office User 2026-09-11T21:12:00Z
+  + '8'
+  CTX: Among 31,764 cross-region comparisons, threshold criteria identified 39 (0.12%) Strong candidates, with 1,171 (3.69%) Moderate and 5,381 (16.94%) Weak (Additional file 1: Table S4). Under the block-shuffle null (B = 1,000; Additional file 1: Fig. S8), 31 of the 39 Strong candidates showed raw one-sided P < 0.05, but none survived Benjamini-Hochberg correction (minimum q = 0.520); the selection-rul
+
+[17] DEL by Microsoft Office User 2026-09-11T21:12:00Z
+  - '9'
+  CTX: Among 31,764 cross-region comparisons, threshold criteria identified 39 (0.12%) Strong candidates, with 1,171 (3.69%) Moderate and 5,381 (16.94%) Weak (Additional file 1: Table S4). Under the block-shuffle null (B = 1,000; Additional file 1: Fig. S8), 31 of the 39 Strong candidates showed raw one-sided P < 0.05, but none survived Benjamini-Hochberg correction (minimum q = 0.520); the selection-rul
+
+[18] INS by Microsoft Office User 2026-09-12T16:37:00Z
+  + '9'
+  CTX: The cross-organ and cross-brain-region analyses indicate that CKI can serve as a general tool for measuring functional differentiation at multiple spatial scales. The brain analysis showed a 6.10-fold ω gradient across 10 cell classes (from 13.56 in Bergmann glia and vascular cells to 82.75 in astrocytes; excluding Bergmann glia, whose comparisons are all intra-cerebellar, the gradient remains 6.1
+
+[19] DEL by Microsoft Office User 2026-09-12T16:37:00Z
+  - '10'
+  CTX: The cross-organ and cross-brain-region analyses indicate that CKI can serve as a general tool for measuring functional differentiation at multiple spatial scales. The brain analysis showed a 6.10-fold ω gradient across 10 cell classes (from 13.56 in Bergmann glia and vascular cells to 82.75 in astrocytes; excluding Bergmann glia, whose comparisons are all intra-cerebellar, the gradient remains 6.1
+
+[20] INS by Microsoft Office User 2026-09-12T17:38:00Z
+  + '0'
+  CTX: Scope of the index, parameters, and test direction. CKI currently operates at the pseudobulk level; single-cell extensions would need to address sparsity and dropout. Key parameters (the +1 normalization pseudo-count, the ε = 1e-9 numerical guard, top-200 differentially expressed (DE) genes for k_f, HVG count of 2,000, log-base 2 for JS divergence) were chosen based on practical considerations rat
+
+[21] DEL by Microsoft Office User 2026-09-12T17:38:00Z
+  - '1'
+  CTX: Scope of the index, parameters, and test direction. CKI currently operates at the pseudobulk level; single-cell extensions would need to address sparsity and dropout. Key parameters (the +1 normalization pseudo-count, the ε = 1e-9 numerical guard, top-200 differentially expressed (DE) genes for k_f, HVG count of 2,000, log-base 2 for JS divergence) were chosen based on practical considerations rat
+
+[22] INS by Microsoft Office User 2026-09-12T17:49:00Z
+  + '1'
+  CTX: Because k_n is computed on ~1,130 HK genes and k_f on 200–2,000 HVG genes, we verified that JS divergence is not systematically biased by gene set dimensionality. A simulation of 2,000 random Dirichlet distribution pairs across dimensions 50–5,000 showed mean JS divergence effectively constant (0.155–0.159, ratio = 1.001 between d = 1,130 and d = 2,000; Additional file 1: Fig. S11). The systematic
+
+[23] DEL by Microsoft Office User 2026-09-12T17:49:00Z
+  - '2'
+  CTX: Because k_n is computed on ~1,130 HK genes and k_f on 200–2,000 HVG genes, we verified that JS divergence is not systematically biased by gene set dimensionality. A simulation of 2,000 random Dirichlet distribution pairs across dimensions 50–5,000 showed mean JS divergence effectively constant (0.155–0.159, ratio = 1.001 between d = 1,130 and d = 2,000; Additional file 1: Fig. S11). The systematic
+
+[24] INS by Microsoft Office User 2026-09-08T20:42:00Z
+  + 'C'
+  CTX: Statistical conventions. All P-values are from one-sided permutation tests (B = 1,000 for mouse/human/TCGA/brain and for the multiplicative residual model block-shuffle null) unless otherwise specified. Benjamini-Hochberg FDR correction was applied within each dataset. Non-parametric tests (Spearman correlation, Mann-Whitney U, Kruskal-Wallis, Jonckheere-Terpstra) are two-sided and reported with e
+
+[25] DEL by Microsoft Office User 2026-09-08T20:42:00Z
+  - 'D'
+  CTX: Statistical conventions. All P-values are from one-sided permutation tests (B = 1,000 for mouse/human/TCGA/brain and for the multiplicative residual model block-shuffle null) unless otherwise specified. Benjamini-Hochberg FDR correction was applied within each dataset. Non-parametric tests (Spearman correlation, Mann-Whitney U, Kruskal-Wallis, Jonckheere-Terpstra) are two-sided and reported with e
+
+[26] INS by Microsoft Office User 2026-09-08T20:35:00Z
+  + 'C'
+  CTX: Figure 2. CKI calibration on Tabula Muris mouse data. (A) k_n calibration across six Tabula Muris cell types from control comparisons (C category: random split of same population). k_n values are stable across cell types, consistent with constrained baseline behavior. (B) Component decomposition of k_n and k_f across four comparison categories: C (random split of the same population), S (same cell
+
+[27] DEL by Microsoft Office User 2026-09-08T20:35:00Z
+  - '(C) Spearman correlation between CKI ω and four standard metrics (Cosine, Raw JS, Marker Jaccard, Spearman) on Tabula Muris data (703 pairs across 38 cell types). On the mouse calibration data ω is only weakly correlated with the standard metrics (|r| ≤ 0.28, with Raw JS near zero at +0.05), whereas on the human data all four correlations are negative (Results, “Correlation structure between CKI and standard metrics”; Fig. 3); in neither case should the correlation pattern be read as evidence that ω captures an independent information dimension, because it partly reflects the ω denominator. '
+  CTX: Figure 2. CKI calibration on Tabula Muris mouse data. (A) k_n calibration across six Tabula Muris cell types from control comparisons (C category: random split of same population). k_n values are stable across cell types, consistent with constrained baseline behavior. (B) Component decomposition of k_n and k_f across four comparison categories: C (random split of the same population), S (same cell
+
+[28] DEL by Microsoft Office User 2026-09-08T20:35:00Z
+  - 'D'
+  CTX: Figure 2. CKI calibration on Tabula Muris mouse data. (A) k_n calibration across six Tabula Muris cell types from control comparisons (C category: random split of same population). k_n values are stable across cell types, consistent with constrained baseline behavior. (B) Component decomposition of k_n and k_f across four comparison categories: C (random split of the same population), S (same cell
+
+[29] INS by Microsoft Office User 2026-09-09T09:58:00Z
+  + 'B'
+  CTX: Figure 3. Correlation structure between CKI and standard metrics. (A) Spearman correlation heatmap of five metrics on n = 4,851 Tabula Sapiens pairs. CKI ω is negatively correlated with all four standard metrics; because k_n is itself positively correlated with the standard metrics, this negativity partly reflects the ω denominator (see Results). Standard metrics form a positive cluster. (B) ROC c
+
+[30] DEL by Microsoft Office User 2026-09-09T09:58:00Z
+  - ''
+  CTX: Figure 3. Correlation structure between CKI and standard metrics. (A) Spearman correlation heatmap of five metrics on n = 4,851 Tabula Sapiens pairs. CKI ω is negatively correlated with all four standard metrics; because k_n is itself positively correlated with the standard metrics, this negativity partly reflects the ω denominator (see Results). Standard metrics form a positive cluster. (B) ROC c
+
+[31] DEL by Microsoft Office User 2026-09-09T09:58:00Z
+  - '(B) Scatter plot of CKI ω vs. k_n (baseline rate) on Tabula Sapiens data (n = 4,851 pairs), colored by same-organ vs. cross-organ pairs, with Spearman r. '
+  CTX: Figure 3. Correlation structure between CKI and standard metrics. (A) Spearman correlation heatmap of five metrics on n = 4,851 Tabula Sapiens pairs. CKI ω is negatively correlated with all four standard metrics; because k_n is itself positively correlated with the standard metrics, this negativity partly reflects the ω denominator (see Results). Standard metrics form a positive cluster. (B) ROC c
+
+[32] DEL by Microsoft Office User 2026-09-09T09:58:00Z
+  - 'C'
+  CTX: Figure 3. Correlation structure between CKI and standard metrics. (A) Spearman correlation heatmap of five metrics on n = 4,851 Tabula Sapiens pairs. CKI ω is negatively correlated with all four standard metrics; because k_n is itself positively correlated with the standard metrics, this negativity partly reflects the ω denominator (see Results). Standard metrics form a positive cluster. (B) ROC c
+
+[33] DEL by Microsoft Office User 2026-09-09T09:58:00Z
+  - '(D) ω by comparison category: S (same cell type, different organ), D (different cell type, same organ), X (different cell type, different organ); the C category (random split of the same population) has no pairs in this dataset and is not shown. Box plots show log10(ω) distribution. (E) AUC (cell-type classification) vs. interpretability (decomposability) comparison across five metrics. CKI ω had the lowest AUC of all five metrics (0.680, versus 0.690 for Spearman, 0.801 for marker Jaccard, 0.849 for raw JS, and 0.887 for cosine) but is the only fully decomposable metric into baseline (k_n) and functional (k_f) components.'
+  CTX: Figure 3. Correlation structure between CKI and standard metrics. (A) Spearman correlation heatmap of five metrics on n = 4,851 Tabula Sapiens pairs. CKI ω is negatively correlated with all four standard metrics; because k_n is itself positively correlated with the standard metrics, this negativity partly reflects the ω denominator (see Results). Standard metrics form a positive cluster. (B) ROC c
+
+[34] DEL by Microsoft Office User 2026-09-09T09:59:00Z
+  - ''
+  CTX: Figure 4. TCGA pan-cancer perturbation analysis. (A) Median NN/TT ω ratio across five cancer types. NN > TT in all cancers (all ratios > 1.0), indicating that adjacent non-tumor specimens differ more from each other than tumors differ from each other at bulk resolution (exploratory; TCGA normal samples are adjacent non-tumor tissues, not healthy donor tissue; pending single-cell or deconvolution-b
+
+[35] DEL by Microsoft Office User 2026-09-09T09:59:00Z
+  - '(C) Mean ω by PAM50 intrinsic subtype in BRCA (per-sample PAM50 labels; mean tumor-tumor ω within each subtype). (D) Permutation standardized effect size (SES) for NN vs. TT comparisons per cancer type. (E) Tissue-level pairwise ω matrix heatmap across five cancer types.'
+  CTX: Figure 4. TCGA pan-cancer perturbation analysis. (A) Median NN/TT ω ratio across five cancer types. NN > TT in all cancers (all ratios > 1.0), indicating that adjacent non-tumor specimens differ more from each other than tumors differ from each other at bulk resolution (exploratory; TCGA normal samples are adjacent non-tumor tissues, not healthy donor tissue; pending single-cell or deconvolution-b
+
+[36] INS by Microsoft Office User 2026-09-09T09:59:00Z
+  + ''
+  CTX: 
+
+[37] INS by Microsoft Office User 2026-09-11T09:30:00Z
+  + 'T'
+  CTX: Figure 5. Cross-organ cell-type conservation. (A) CKI ω ranking of 17 cell types with cross-organ comparisons (n = 59 pairs) within the Tabula Sapiens human atlas, with well-sampled cell types (n ≥ 5 pairs) ranked first and sparsely sampled types (n < 5) listed separately. Among well-sampled types, CD8+ T cells, plasma cells, and neutrophils rank lowest; endothelial cells and erythrocytes rank hig
+
+[38] INS by Microsoft Office User 2026-09-11T09:30:00Z
+  + ' 5'
+  CTX: Figure 5. Cross-organ cell-type conservation. (A) CKI ω ranking of 17 cell types with cross-organ comparisons (n = 59 pairs) within the Tabula Sapiens human atlas, with well-sampled cell types (n ≥ 5 pairs) ranked first and sparsely sampled types (n < 5) listed separately. Among well-sampled types, CD8+ T cells, plasma cells, and neutrophils rank lowest; endothelial cells and erythrocytes rank hig
+
+[39] DEL by Microsoft Office User 2026-09-11T09:30:00Z
+  - 'Table of '
+  CTX: Figure 5. Cross-organ cell-type conservation. (A) CKI ω ranking of 17 cell types with cross-organ comparisons (n = 59 pairs) within the Tabula Sapiens human atlas, with well-sampled cell types (n ≥ 5 pairs) ranked first and sparsely sampled types (n < 5) listed separately. Among well-sampled types, CD8+ T cells, plasma cells, and neutrophils rank lowest; endothelial cells and erythrocytes rank hig
+
+[40] DEL by Microsoft Office User 2026-09-11T09:30:00Z
+  - 't'
+  CTX: Figure 5. Cross-organ cell-type conservation. (A) CKI ω ranking of 17 cell types with cross-organ comparisons (n = 59 pairs) within the Tabula Sapiens human atlas, with well-sampled cell types (n ≥ 5 pairs) ranked first and sparsely sampled types (n < 5) listed separately. Among well-sampled types, CD8+ T cells, plasma cells, and neutrophils rank lowest; endothelial cells and erythrocytes rank hig
+
+[41] INS by Microsoft Office User 2026-09-09T16:00:00Z
+  + 'C'
+  CTX: Figure 6. Brain regional cell-type differentiation and region-association inference. (A) Brain region map schematic showing anatomical regions analyzed in the Siletti et al. atlas. (B) ω gradient across 10 non-neuronal cell classes (mean ω per class, block-shuffle observed landscape). Bergmann glia and vascular cells (mean ω = 13.56) show the lowest regional divergence; astrocytes (mean ω = 82.75)
+
+[42] INS by Microsoft Office User 2026-09-10T08:58:00Z
+  + 'D'
+  CTX: Figure 6. Brain regional cell-type differentiation and region-association inference. (A) Brain region map schematic showing anatomical regions analyzed in the Siletti et al. atlas. (B) ω gradient across 10 non-neuronal cell classes (mean ω per class, block-shuffle observed landscape). Bergmann glia and vascular cells (mean ω = 13.56) show the lowest regional divergence; astrocytes (mean ω = 82.75)
+
+[43] DEL by Microsoft Office User 2026-09-09T16:00:00Z
+  - '(C) Astrocyte ω across representative brain regions (region × region matrix; warmer colors, higher ω). '
+  CTX: Figure 6. Brain regional cell-type differentiation and region-association inference. (A) Brain region map schematic showing anatomical regions analyzed in the Siletti et al. atlas. (B) ω gradient across 10 non-neuronal cell classes (mean ω per class, block-shuffle observed landscape). Bergmann glia and vascular cells (mean ω = 13.56) show the lowest regional divergence; astrocytes (mean ω = 82.75)
+
+[44] DEL by Microsoft Office User 2026-09-09T16:00:00Z
+  - 'D'
+  CTX: Figure 6. Brain regional cell-type differentiation and region-association inference. (A) Brain region map schematic showing anatomical regions analyzed in the Siletti et al. atlas. (B) ω gradient across 10 non-neuronal cell classes (mean ω per class, block-shuffle observed landscape). Bergmann glia and vascular cells (mean ω = 13.56) show the lowest regional divergence; astrocytes (mean ω = 82.75)
+
+[45] DEL by Microsoft Office User 2026-09-09T16:00:00Z
+  - 'E'
+  CTX: Figure 6. Brain regional cell-type differentiation and region-association inference. (A) Brain region map schematic showing anatomical regions analyzed in the Siletti et al. atlas. (B) ω gradient across 10 non-neuronal cell classes (mean ω per class, block-shuffle observed landscape). Bergmann glia and vascular cells (mean ω = 13.56) show the lowest regional divergence; astrocytes (mean ω = 82.75)
+
+[46] INS by Microsoft Office User 2026-09-10T16:48:00Z
+  + 'k_n decreases monotonically with increasing HK gene number (250–1,000), indicating that the baseline rate is gene-set-size-dependent; absolute w values are therefore scheme-specific, consistent with the fixed-panel ablation (Results).'
+  CTX: Additional file 1: Figure S1. Parameter sweep and pathway analysis. (A) k_n stability as a function of housekeeping gene set size, k_n decreases monotonically with increasing HK gene number (250–1,000), indicating that the baseline rate is gene-set-size-dependent; absolute w values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (B) Variance of module-level GSVA 
+
+[47] INS by Microsoft Office User 2026-09-10T16:39:00Z
+  + '648'
+  CTX: Additional file 1: Figure S1. Parameter sweep and pathway analysis. (A) k_n stability as a function of housekeeping gene set size, k_n decreases monotonically with increasing HK gene number (250–1,000), indicating that the baseline rate is gene-set-size-dependent; absolute w values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (B) Variance of module-level GSVA 
+
+[48] DEL by Microsoft Office User 2026-09-10T16:48:00Z
+  - 'showing convergence at ~200-300 HK genes.'
+  CTX: Additional file 1: Figure S1. Parameter sweep and pathway analysis. (A) k_n stability as a function of housekeeping gene set size, k_n decreases monotonically with increasing HK gene number (250–1,000), indicating that the baseline rate is gene-set-size-dependent; absolute w values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (B) Variance of module-level GSVA 
+
+[49] DEL by Microsoft Office User 2026-09-10T16:39:00Z
+  - '786'
+  CTX: Additional file 1: Figure S1. Parameter sweep and pathway analysis. (A) k_n stability as a function of housekeeping gene set size, k_n decreases monotonically with increasing HK gene number (250–1,000), indicating that the baseline rate is gene-set-size-dependent; absolute w values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (B) Variance of module-level GSVA 
+
+[50] INS by Microsoft Office User 2026-09-10T21:15:00Z
+  + 'Calibrated ω under two baselines. (A) Raw ω and calibrated ω (ω_cal = ω / 7.70, mouse FACS baseline; ω / 9.73, brain-internal baseline) by brain cell type (log scale). Dashed line indicates the split-half expectation (ω_cal = 1.0). (B) Calibrated ω distributions across all 31,764 brain region pairs under both baselines; calibrating with the mouse baseline overstates brain ω_cal by 1.26-fold (9.73 / 7.70).'
+  CTX: Additional file 1: Figure S2. Calibrated ω under two baselines. (A) Raw ω and calibrated ω (ω_cal = ω / 7.70, mouse FACS baseline; ω / 9.73, brain-internal baseline) by brain cell type (log scale). Dashed line indicates the split-half expectation (ω_cal = 1.0). (B) Calibrated ω distributions across all 31,764 brain region pairs under both baselines; calibrating with the mouse baseline overstates b
+
+[51] DEL by Microsoft Office User 2026-09-10T21:15:00Z
+  - 'Calibrated omega. (A) Raw vs. calibrated ω (ω_cal = ω / 7.70) by brain cell type. (B) Calibrated ω distribution across all 31,764 brain pairs, with calibration baseline (ω_cal = 1.0) and mean indicated.'
+  CTX: Additional file 1: Figure S2. Calibrated ω under two baselines. (A) Raw ω and calibrated ω (ω_cal = ω / 7.70, mouse FACS baseline; ω / 9.73, brain-internal baseline) by brain cell type (log scale). Dashed line indicates the split-half expectation (ω_cal = 1.0). (B) Calibrated ω distributions across all 31,764 brain region pairs under both baselines; calibrating with the mouse baseline overstates b
+
+[52] DEL by Microsoft Office User 2026-09-11T10:20:00Z
+  - ''
+  CTX: 
+
+[53] DEL by Microsoft Office User 2026-09-11T10:20:00Z
+  - 'Additional file 1: Figure S3. Method comparison performance. ROC-AUC bar plot for cell-type classification across five metrics.'
+  CTX: 
+
+[54] INS by Microsoft Office User 2026-09-11T14:16:00Z
+  + '3'
+  CTX: Additional file 1: Figure S3. TCGA per-cancer matrices. Pairwise ω matrices for five cancer types (BRCA, KIRC, LIHC, LUAD, LUSC) showing tissue-level transcriptomic divergence structure within each cancer cohort.
+
+[55] DEL by Microsoft Office User 2026-09-11T14:16:00Z
+  - '4'
+  CTX: Additional file 1: Figure S3. TCGA per-cancer matrices. Pairwise ω matrices for five cancer types (BRCA, KIRC, LIHC, LUAD, LUSC) showing tissue-level transcriptomic divergence structure within each cancer cohort.
+
+[56] INS by Microsoft Office User 2026-09-11T14:59:00Z
+  + '4'
+  CTX: Additional file 1: Figure S4. Cross-organ conservation raw data. Blue = well-sampled (n ≥ 5 pairs); gray = sparsely sampled (n < 5 pairs). Panel A shows mean ± SD; Panel B shows raw pair-level distribution..
+
+[57] INS by Microsoft Office User 2026-09-11T14:59:00Z
+  + ' Blue = well-sampled (n ≥ 5 pairs); gray = sparsely sampled (n < 5 pairs). Panel A shows mean ± SD; Panel B shows raw pair-level distribution.'
+  CTX: Additional file 1: Figure S4. Cross-organ conservation raw data. Blue = well-sampled (n ≥ 5 pairs); gray = sparsely sampled (n < 5 pairs). Panel A shows mean ± SD; Panel B shows raw pair-level distribution..
+
+[58] DEL by Microsoft Office User 2026-09-11T14:59:00Z
+  - '5'
+  CTX: Additional file 1: Figure S4. Cross-organ conservation raw data. Blue = well-sampled (n ≥ 5 pairs); gray = sparsely sampled (n < 5 pairs). Panel A shows mean ± SD; Panel B shows raw pair-level distribution..
+
+[59] DEL by Microsoft Office User 2026-09-11T14:42:00Z
+  - ' Complete table of 59 same-cell-type cross-organ pairs (Additional file 1: Table S2)'
+  CTX: Additional file 1: Figure S4. Cross-organ conservation raw data. Blue = well-sampled (n ≥ 5 pairs); gray = sparsely sampled (n < 5 pairs). Panel A shows mean ± SD; Panel B shows raw pair-level distribution..
+
+[60] INS by Microsoft Office User 2026-09-11T16:24:00Z
+  + '5'
+  CTX: Additional file 1: Figure S5. Brain regional analysis details. (A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| ≥ 2; SES = [observed ω − null mean] / null SD), grey otherwise. (B) ω versus number of sampled regions (n_regions) per cell type; Spearman ρ is repor
+
+[61] INS by Microsoft Office User 2026-09-11T16:23:00Z
+  + '(A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| ≥ 2; SES = [observed ω − null mean] / null SD), grey otherwise. (B) ω versus number of sampled regions (n_regions) per cell type; Spearman ρ is reported (broader spatial coverage is not significantly associated with divergence at n = 10). (C) Distribution of multiplicative residuals (observed/expected ω) across all 31,764 cross-region pairs; colours indicate confidence tier (Strong: < 0.3; Moderate: < 0.5; Weak). '
+  CTX: Additional file 1: Figure S5. Brain regional analysis details. (A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| ≥ 2; SES = [observed ω − null mean] / null SD), grey otherwise. (B) ω versus number of sampled regions (n_regions) per cell type; Spearman ρ is repor
+
+[62] DEL by Microsoft Office User 2026-09-11T16:24:00Z
+  - '6'
+  CTX: Additional file 1: Figure S5. Brain regional analysis details. (A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| ≥ 2; SES = [observed ω − null mean] / null SD), grey otherwise. (B) ω versus number of sampled regions (n_regions) per cell type; Spearman ρ is repor
+
+[63] DEL by Microsoft Office User 2026-09-11T16:22:00Z
+  - '(A) Cell type nuclei counts per brain region, showing the distribution of non-neuronal nuclei across sampled regions. (B) ω distribution per cell class (log scale; boxes: median and IQR, whiskers 1.5× IQR), from the block-shuffle observed landscape. (C) ω vs. number of regions (n_regions) per cell type, with Spearman ρ reported; broader spatial distribution is associated with greater transcriptomic divergence. '
+  CTX: Additional file 1: Figure S5. Brain regional analysis details. (A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| ≥ 2; SES = [observed ω − null mean] / null SD), grey otherwise. (B) ω versus number of sampled regions (n_regions) per cell type; Spearman ρ is repor
+
+[64] DEL by Microsoft Office User 2026-09-11T15:31:00Z
+  - '(D) Region-region ω matrix for astrocytes across representative brain regions. (E) Top region-associated candidates (Strong tier) by 1 − residual.'
+  CTX: Additional file 1: Figure S5. Brain regional analysis details. (A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| ≥ 2; SES = [observed ω − null mean] / null SD), grey otherwise. (B) ω versus number of sampled regions (n_regions) per cell type; Spearman ρ is repor
+
+[65] INS by Microsoft Office User 2026-09-11T20:29:00Z
+  + '6'
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[66] INS by Microsoft Office User 2026-09-11T20:28:00Z
+  + 'Pair-specific k_n variability (brain).\u200b (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of '
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[67] INS by Microsoft Office User 2026-09-11T20:29:00Z
+  + 'k_n'
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[68] INS by Microsoft Office User 2026-09-11T20:28:00Z
+  + ', from light (low CV, stable '
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[69] INS by Microsoft Office User 2026-09-11T20:29:00Z
+  + 'k_n'
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[70] INS by Microsoft Office User 2026-09-11T20:28:00Z
+  + ') to dark (high CV, variable '
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[71] INS by Microsoft Office User 2026-09-11T20:29:00Z
+  + 'k_n'
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[72] INS by Microsoft Office User 2026-09-11T20:28:00Z
+  + '). (B) Per-pair ω (pair-specific '
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[73] INS by Microsoft Office User 2026-09-11T20:29:00Z
+  + 'k_n'
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[74] INS by Microsoft Office User 2026-09-11T20:28:00Z
+  + ') versus ω estimated with the global mean '
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[75] INS by Microsoft Office User 2026-09-11T20:29:00Z
+  + 'k_n'
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[76] INS by Microsoft Office User 2026-09-11T20:28:00Z
+  + '; red line is y = x. Spearman ρ = 0.142 (P = 7.07×10⁻¹⁴³, n = 31,764). '
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[77] DEL by Microsoft Office User 2026-09-11T20:29:00Z
+  - '7'
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[78] DEL by Microsoft Office User 2026-09-11T20:29:00Z
+  - 'Per-pair k_n variability. '
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[79] DEL by Microsoft Office User 2026-09-11T20:28:00Z
+  - '(A) Per-pair k_n (mean ± SD) by cell type in the brain atlas, showing substantial cross-pair variability (CV = 97.52%). (B) Scatter plot of ω computed with per-pair k_n vs. global k_n (Spearman ρ = 0.142), indicating that pair-specific k_n yields substantially different rankings.'
+  CTX: Additional file 1: Figure S6. Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x. Spearman ρ = 0.142 (P
+
+[80] INS by Microsoft Office User 2026-09-12T08:43:00Z
+  + '7'
+  CTX: Additional file 1: Figure S7. Developmental signature detection. (A) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The 
+
+[81] INS by Microsoft Office User 2026-09-12T08:01:00Z
+  + '(B) '
+  CTX: Additional file 1: Figure S7. Developmental signature detection. (A) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The 
+
+[82] INS by Microsoft Office User 2026-09-12T08:33:00Z
+  + 'Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The number and percentage (to two decimal places) of Strong pairs\u200b are annotated on each bar — e.g., Microglia: Strong 16 (0.96%); Oligodendrocyte: Strong 10 (0.95%); Astrocyte: Strong 3 (0.47%). '
+  CTX: Additional file 1: Figure S7. Developmental signature detection. (A) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The 
+
+[83] INS by Microsoft Office User 2026-09-12T08:01:00Z
+  + '(C) '
+  CTX: Additional file 1: Figure S7. Developmental signature detection. (A) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The 
+
+[84] INS by Microsoft Office User 2026-09-12T08:33:00Z
+  + 'The ten Strong candidates with the smallest residual, shown as horizontal bars (residual and ω value annotated on each bar); bars are coloured by oligodendrocyte (OL) lineage\u200b membership (purple, OL-lineage; red, non-OL). Inset: OL-lineage representation among Strong candidates — 12 of 39 Strong, fold = 0.77, hypergeometric P = 0.92 (no enrichment). Cell types and region pairs are given in full.'
+  CTX: Additional file 1: Figure S7. Developmental signature detection. (A) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The 
+
+[85] DEL by Microsoft Office User 2026-09-12T08:43:00Z
+  - '8'
+  CTX: Additional file 1: Figure S7. Developmental signature detection. (A) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The 
+
+[86] DEL by Microsoft Office User 2026-09-12T08:41:00Z
+  - '(B) Strong candidate counts by cell type: microglia contribute the largest share (16 of 39), followed by oligodendrocytes (10) and fibroblasts (6); the candidate list is dominated by microglia, while the oligodendrocyte lineage as a whole shows no enrichment (12 of 39 versus a 40.2% share of comparisons; fold 0.77, P = 0.92). Because no candidate survives FDR correction (minimum q = 0.520), these counts describe a hypothesis-generating screen rather than validated region-association events. '
+  CTX: Additional file 1: Figure S7. Developmental signature detection. (A) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The 
+
+[87] DEL by Microsoft Office User 2026-09-12T08:43:00Z
+  - '(C) Top 10 Strong candidates (lowest multiplicative residuals), showing observed ω for each cell-type/region pair; bars are colored by oligodendrocyte-lineage (purple) vs. non-OL (red) membership. 12/39 Strong-tier candidates are oligodendrocyte-lineage (fold enrichment 0.77, P = 0.92); microglia account for 16/39 (fold 2.30 versus their share of comparisons, P = 6.0e-4, but fold 0.31 versus the null-rule composition—see Results; no class-composition claim is made). (D) Region-associated candidates by cell type and confidence tier, showing tier distribution across all 10 non-neuronal cell classes.'
+  CTX: Additional file 1: Figure S7. Developmental signature detection. (A) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The 
+
+[88] INS by Microsoft Office User 2026-09-12T10:18:00Z
+  + '8'
+  CTX: Additional file 1: Figure S8. Block-shuffle permutation null for the residual model. Distribution of multiplicative residuals under block-shuffle permutation of library-to-region assignments (B = 1,000), compared against observed residuals for Strong candidates.
+
+[89] DEL by Microsoft Office User 2026-09-12T10:18:00Z
+  - '9'
+  CTX: Additional file 1: Figure S8. Block-shuffle permutation null for the residual model. Distribution of multiplicative residuals under block-shuffle permutation of library-to-region assignments (B = 1,000), compared against observed residuals for Strong candidates.
+
+[90] DEL by Microsoft Office User 2026-09-12T16:38:00Z
+  - '(B) HK gene set detection stability: overlap between human and mouse HK gene sets detected by the combined criterion. (C) ω distribution comparison between mouse (n = 15 shared cell types) and human (n = 4,851 pairs).'
+  CTX: Additional file 1: Figure S10. Cross-species comparison details. (A) Cross-species ω comparison: scatter plot of human vs. mouse per-cell-type mean ω for the 15 shared cell types (Spearman r = −0.17, P = 0.55; no significant correlation). 
+
+[91] INS by Microsoft Office User 2026-09-12T17:39:00Z
+  + '0'
+  CTX: Additional file 1: Figure S10. ω distribution characterization. Histograms and Q-Q plots of ω distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D’Agostino-Pearson, P < 2.2 × 10⁻¹⁶) and human (Shapiro-Wilk, P = 7.6 × 10⁻⁴²), while the mouse pilot (n = 15 pairs) does not reject normality (P = 0.071) , although the small sample size limits th
+
+[92] INS by Microsoft Office User 2026-09-12T17:30:00Z
+  + ' , although the small sample size limits the power of this test'
+  CTX: Additional file 1: Figure S10. ω distribution characterization. Histograms and Q-Q plots of ω distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D’Agostino-Pearson, P < 2.2 × 10⁻¹⁶) and human (Shapiro-Wilk, P = 7.6 × 10⁻⁴²), while the mouse pilot (n = 15 pairs) does not reject normality (P = 0.071) , although the small sample size limits th
+
+[93] DEL by Microsoft Office User 2026-09-12T17:38:00Z
+  - '1'
+  CTX: Additional file 1: Figure S10. ω distribution characterization. Histograms and Q-Q plots of ω distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D’Agostino-Pearson, P < 2.2 × 10⁻¹⁶) and human (Shapiro-Wilk, P = 7.6 × 10⁻⁴²), while the mouse pilot (n = 15 pairs) does not reject normality (P = 0.071) , although the small sample size limits th
+
+[94] INS by Microsoft Office User 2026-09-12T17:49:00Z
+  + '1'
+  CTX: Additional file 1: Figure S11. JS divergence dimensionality invariance. (A) Mean JS divergence between random Dirichlet distribution pairs as a function of dimensionality (50–5,000 genes, n = 2,000 trials per dimension), showing that JS divergence is effectively constant across dimensions (ratio = 1.001 between d = 1,130 and d = 2,000). (B) Dimensionality ratio relative to the HK gene set (d = 1,1
+
+[95] DEL by Microsoft Office User 2026-09-12T17:49:00Z
+  - '2'
+  CTX: Additional file 1: Figure S11. JS divergence dimensionality invariance. (A) Mean JS divergence between random Dirichlet distribution pairs as a function of dimensionality (50–5,000 genes, n = 2,000 trials per dimension), showing that JS divergence is effectively constant across dimensions (ratio = 1.001 between d = 1,130 and d = 2,000). (B) Dimensionality ratio relative to the HK gene set (d = 1,1
+
+TOTAL changes: 95

@@ -1,0 +1,5 @@
+PASS Introduction 鏈浠?'Here, we show' 寮€澶?| Here, we show that CKI provides a baseline-normalized index of cell-state divergence acros
+PASS 鏃犳偓绌?'(Results; Limitations)' 
+PASS 鏃犳偓绌?'; Limitations)' 
+PASS 'Limitations' 澶у啓娈嬬暀 = 1锛堜粎 'Limitations replicated too' 姒傚康鍙ワ級 | count=1
+CHECKS: 85 pass, 0 fail

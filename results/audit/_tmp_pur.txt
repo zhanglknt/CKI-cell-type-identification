@@ -1,0 +1,24 @@
+===== generate_manuscript_nc.py
+0\.21 532 | s 0.72 for k_f alone, 0.64 for raw JS, 0.58 for cosine, and 0.21 for k_n alone; bootstrap 95% CI 0.804 [0.777, 0.831], the a
+0\.21 538 | hereas raw JS misreported 36.7% of the pairs (11 of 30, CI [0.219, 0.545]) and cosine distance 23.3% (7 of 30, CI [0.118, 0.
+0\.21 563 | ring in all five cancer types (e.g., LUAD adjusted log gap +0.21, P = 8 \u00d7 10\u207b\u2078\u2070; Section 3.13 of the Sup
+2\.86 559 | ean NN to mean TT \u03c9 ranked LUAD 2.46 (95% CI 2.13\u20132.86; sample-level cluster bootstrap, B = 1,000), KIRC 1.88 (1.6
+2\.86 563 |  the NN/TT ratio in all five cancer types (LUAD 2.46 \u2192 2.86, 95% CI 2.41\u20133.45; LIHC 1.10 \u2192 1.17, its CI still
+8\.9 509 | , while calibrated levels compress (astrocytes \u03c9_cal = 8.9; Bergmann glia \u03c9_cal = 1.49, joint 95% CI [0.99, 2.12]
+5\.5 717 | ndscape statistics recomputed per resample): gradient 6.10 [5.55, 9.63], grand mean \u03c9 38.55 [36.35, 40.73], Strong-can
+0\.42 563 | ith admixture in every cancer type (r = \u22120.23 to \u22120.42), so admixture can only weaken, not create, the TT k_n elev
+1\.17 563 | D 2.46 \u2192 2.86, 95% CI 2.41\u20133.45; LIHC 1.10 \u2192 1.17, its CI still including 1, so the four-of-five CI caliber i
+1\.17 717 | ions were right-skewed (brain 2.22; mouse pilot 0.99; human 1.17), and normality was rejected for the large datasets (brain 
+0\.23 563 | d negatively with admixture in every cancer type (r = \u22120.23 to \u22120.42), so admixture can only weaken, not create, t
+0\.23 573 | u03c9 and mean k_f are only weakly concordant (Spearman r = 0.23, organ-clustered bootstrap 95% CI [\u22120.08, 0.38], P = 0
+0\.23 624 | f \u03c1 = 0.564 (P = 0.090), and versus k_n \u03c1 = \u22120.236 (P = 0.511). Astrocytes\u2014the top class by \u03c9 (82.7
+0\.23 626 | nel composition difference (Spearman \u03c1 = 0.387 pooled; 0.23\u20130.52 per cancer type); however, in regressions of log 
+===== notebooks/68_gen_supplementary_nc.py
+0\.21 1387 | rdering in all five cancer types (adjusted log '     'gaps +0.21 to +0.82, all P \u2264 8.2 \u00d7 '     '10\u207b\u2078\u20
+0\.21 1533 |      'raw JS 0.640 > cosine 0.584 > k_f/k_total 0.437 > k_n 0.213. Under a fourfold '     'cell-count imbalance (n_B = 50, d
+8\.9 1824 | rol 19.3-33.4, donor-donor '     '9.9-25.7, split-half 6.7-18.9 (omega_cal for the perturbation class '     '1.8-3.4 versus
+5\.5 578 | re intervals for landscape-level quantities: gradient 6.10 [5.55, 9.63], '     'grand mean \u03c9 38.55 [36.35, 40.73], Str
+5\.5 1976 | RC +18.3% [+13.9%, +23.4%], BRCA '     '\u221216.2% [\u221225.5%, \u22127.5%], LUAD \u22121.6%, LUSC '     '\u221211.1%; th
+0\.23 1927 |  'overall four-panel composition difference (Spearman rho = 0.23-0.52 per cancer '     'type; pooled rho = 0.387, P < 10^-30
+0\.23 2016 | _v44.py): the cell-type-level \u03c1(\u03c9, k_f) "     f"= 0.23 has 95% CI [\u22120.08, +0.38], spanning zero, whereas \u03
+0\.23 2311 | 'k_f \u03c1 = +0.564 (P = 0.090); versus k_n \u03c1 = \u22120.236 '     '(P = 0.511)\u2014moderate concordance, limited by t

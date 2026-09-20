@@ -1,0 +1,192 @@
+============================================================
+1. Computing common genes across all organs...
+============================================================
+  Liver: 58870 genes
+  Kidney: 58870 genes
+  Heart: 58870 genes
+  Bone_Marrow: 58870 genes
+  Spleen: 58870 genes
+  Lung: 58870 genes
+
+  Common genes: 58870
+
+============================================================
+2. Loading human housekeeping genes (GLOBAL)...
+============================================================
+  Global HK genes in common set: 1129
+
+============================================================
+3. Building CT pseudobulks (per organ, memory-optimized)...
+============================================================
+  Loading Liver...
+    Liver|hepatocyte: 1491 cells
+    Liver|macrophage: 1379 cells
+    Liver|monocyte: 605 cells
+    Liver|endothelial cell of hepatic sinusoid: 341 cells
+    Liver|endothelial cell: 267 cells
+    Liver|nk cell: 231 cells
+    Liver|t cell: 126 cells
+    Liver|erythrocyte: 89 cells
+    Liver|fibroblast: 70 cells
+    Liver|neutrophil: 63 cells
+    Liver|intrahepatic cholangiocyte: 31 cells
+    Liver|liver dendritic cell: 34 cells
+    Liver|plasma cell: 19 cells
+  Loading Kidney...
+    Kidney|kidney epithelial cell: 8290 cells
+    Kidney|b cell: 340 cells
+    Kidney|macrophage: 318 cells
+    Kidney|cd8-positive, alpha-beta t cell: 238 cells
+    Kidney|cd4-positive helper t cell: 181 cells
+    Kidney|nk cell: 131 cells
+    Kidney|endothelial cell: 95 cells
+  Loading Heart...
+    Heart|cardiac muscle cell: 7204 cells
+    Heart|cardiac endothelial cell: 2665 cells
+    Heart|hepatocyte: 1086 cells
+    Heart|fibroblast of cardiac tissue: 250 cells
+    Heart|smooth muscle cell: 222 cells
+    Heart|macrophage: 72 cells
+  Loading Bone_Marrow...
+    Bone_Marrow|cd24 neutrophil: 2106 cells
+    Bone_Marrow|cd4-positive, alpha-beta t cell: 833 cells
+    Bone_Marrow|monocyte: 557 cells
+    Bone_Marrow|cd8-positive, alpha-beta t cell: 439 cells
+    Bone_Marrow|granulocyte: 454 cells
+    Bone_Marrow|plasma cell: 365 cells
+    Bone_Marrow|erythroid progenitor: 334 cells
+    Bone_Marrow|nk cell: 345 cells
+    Bone_Marrow|hematopoietic stem cell: 256 cells
+    Bone_Marrow|nampt neutrophil: 381 cells
+    Bone_Marrow|memory b cell: 160 cells
+    Bone_Marrow|myeloid progenitor: 177 cells
+    Bone_Marrow|macrophage: 157 cells
+    Bone_Marrow|naive b cell: 85 cells
+    Bone_Marrow|neutrophil: 73 cells
+    Bone_Marrow|erythrocyte: 83 cells
+  Loading Spleen...
+    Spleen|memory b cell: 2774 cells
+    Spleen|neutrophil: 3814 cells
+    Spleen|classical monocyte: 2959 cells
+    Spleen|cd8-positive, alpha-beta memory t cell: 2756 cells
+    Spleen|plasma cell: 1814 cells
+    Spleen|nk cell: 1239 cells
+    Spleen|cd4-positive, alpha-beta memory t cell: 1042 cells
+    Spleen|macrophage: 522 cells
+    Spleen|naive thymus-derived cd4-positive, alpha-beta t cell: 661 cells
+    Spleen|naive b cell: 566 cells
+    Spleen|type i nk t cell: 589 cells
+    Spleen|naive thymus-derived cd8-positive, alpha-beta t cell: 378 cells
+    Spleen|endothelial cell: 310 cells
+    Spleen|mature nk t cell: 426 cells
+    Spleen|regulatory t cell: 145 cells
+    Spleen|intermediate monocyte: 100 cells
+    Spleen|innate lymphoid cell: 66 cells
+    Spleen|erythrocyte: 99 cells
+    Spleen|hematopoietic stem cell: 45 cells
+    Spleen|cd1c-positive myeloid dendritic cell: 25 cells
+    Spleen|cd141-positive myeloid dendritic cell: 33 cells
+    Spleen|cd8-positive, alpha-beta t cell: 43 cells
+    Spleen|plasmacytoid dendritic cell: 37 cells
+    Spleen|platelet: 10 cells
+  Loading Lung...
+    Lung|macrophage: 8568 cells
+    Lung|type ii pneumocyte: 4091 cells
+    Lung|basal cell: 2136 cells
+    Lung|classical monocyte: 1103 cells
+    Lung|club cell: 983 cells
+    Lung|non-classical monocyte: 848 cells
+    Lung|capillary endothelial cell: 804 cells
+    Lung|respiratory goblet cell: 479 cells
+    Lung|basophil: 494 cells
+    Lung|lung ciliated cell: 315 cells
+    Lung|capillary aerocyte: 506 cells
+    Lung|cd8-positive, alpha-beta t cell: 393 cells
+    Lung|cd4-positive, alpha-beta t cell: 381 cells
+    Lung|vein endothelial cell: 370 cells
+    Lung|lung microvascular endothelial cell: 462 cells
+    Lung|adventitial cell: 271 cells
+    Lung|alveolar fibroblast: 167 cells
+    Lung|dendritic cell: 278 cells
+    Lung|intermediate monocyte: 252 cells
+    Lung|pericyte cell: 192 cells
+    Lung|type i pneumocyte: 147 cells
+    Lung|endothelial cell of artery: 103 cells
+    Lung|neutrophil: 136 cells
+    Lung|cd4-positive alpha-beta t cell: 132 cells
+    Lung|nk cell: 94 cells
+    Lung|plasma cell: 92 cells
+    Lung|b cell: 64 cells
+    Lung|vascular associated smooth muscle cell: 43 cells
+    Lung|cd8-positive alpha-beta t cell: 80 cells
+    Lung|bronchial smooth muscle cell: 48 cells
+    Lung|bronchial vessel endothelial cell: 47 cells
+    Lung|endothelial cell of lymphatic vessel: 28 cells
+    Lung|smooth muscle cell: 25 cells
+    Lung|pulmonary ionocyte: 19 cells
+    Lung|plasmacytoid dendritic cell: 18 cells
+    Lung|mesothelial cell: 10 cells
+
+  Total viable CT entries: 102
+
+============================================================
+4. Computing omega (global k_n, per-pair k_f top-200)...
+============================================================
+  Total pairs: 5151
+  Progress: row 10/102
+  Progress: row 20/102
+  Progress: row 30/102
+  Progress: row 40/102
+  Progress: row 50/102
+  Progress: row 60/102
+  Progress: row 70/102
+  Progress: row 80/102
+  Progress: row 90/102
+  Progress: row 100/102
+  Complete: 5151 pairs
+
+============================================================
+5. Building labels and category analysis...
+============================================================
+  Same organ (n=1140): mean=24.71 median=22.33
+  Diff organ (n=4011): mean=20.56 median=19.16
+  Same CT (n=60): mean=15.82 median=15.10
+  Diff CT (n=5091): mean=21.55 median=19.64
+  Same-CT Cross-organ (n=60): mean=15.82
+C:\Users\KnightZ\Desktop\细胞受选择\cki_env\Lib\site-packages\numpy\_core\fromnumeric.py:3824: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+C:\Users\KnightZ\Desktop\细胞受选择\cki_env\Lib\site-packages\numpy\_core\_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+  Same-CT Same-organ (n=0): mean=nan
+  Diff-CT Same-organ (n=1140): mean=24.71
+  AUC (same CT vs diff CT): 0.679
+
+  Overall omega: min=1.35, max=87.69, mean=21.48, median=19.58
+
+============================================================
+6. Saving matrices...
+============================================================
+  Saved: phase33_v3_human_omega.csv
+  Saved: phase33_v3_human_kn.csv
+  Saved: phase33_v3_human_kf.csv
+  Saved: phase33_v3_human_pairs.csv
+
+============================================================
+7. Generating heatmap...
+============================================================
+C:\Users\KnightZ\Desktop\细胞受选择\notebooks\05_phase33_v3_fixed.py:308: ClusterWarning: The symmetric non-negative hollow observation matrix looks suspiciously like an uncondensed distance matrix
+  linkage_matrix = linkage(condensed_dist, method="ward")
+  Saved: phase33_v3_human_heatmap.png
+
+============================================================
+8. Generating report...
+============================================================
+C:\Users\KnightZ\Desktop\细胞受选择\cki_env\Lib\site-packages\numpy\_core\fromnumeric.py:3824: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+C:\Users\KnightZ\Desktop\细胞受选择\cki_env\Lib\site-packages\numpy\_core\_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+  Saved: phase33_v3_report.md
+
+============================================================
+Phase 3.3 v3 complete!
+============================================================

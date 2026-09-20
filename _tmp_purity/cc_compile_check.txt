@@ -1,0 +1,13 @@
+OK notebooks/06_phase34_tcga.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/06_phase34_v2.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/07_phase34_clinical.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/08a_tcga_bootstrap.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/08a_tcga_permutation.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/83_kf_only_ordering.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/85_tcga_linear_norm_v44.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/nc49_tcga_purity.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/06_phase34_v2.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/07_phase34_clinical.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/08a_tcga_bootstrap.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/83_kf_only_ordering.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True
+OK notebooks/85_tcga_linear_norm_v44.py: CC->LUSC=False, CC->LIHC=True, RG->KIRC=False, RG->LIHC=True

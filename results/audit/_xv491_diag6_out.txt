@@ -1,0 +1,15 @@
+KIRC rows: 754 max err: 0.0
+bad rows: 0
+Empty DataFrame
+Columns: [sample, admix, admix_z, z_manual, err]
+Index: []
+
+vs pooled-tumor z:
+Empty DataFrame
+Columns: [sample, admix_z, z_pooled]
+Index: []
+pooled err max: nan
+vs all-samples-of-cancer z max err: nan
+
+group sizes: {'TCGA-BRCA': 1032, 'TCGA-KIRC': 754, 'TCGA-LIHC': 366, 'TCGA-LUAD': 495, 'TCGA-LUSC': 567}
+ok rows: 754

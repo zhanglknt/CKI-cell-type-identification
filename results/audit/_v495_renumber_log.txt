@@ -1,0 +1,55 @@
+A1 Raj title fixed (old ref 35 -> new 33)
+A2 Jiang CACIMAR title completed (old ref 37 -> new 35)
+A3 Hao 2021 pages -> 3573-3587.e29 (old ref 47 -> new 45)
+B  _refs_nc reordered (56 entries)
+B  new-position spot checks PASS (15, 16, 33, 35, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56)
+C  in-text remap: 41 groups rewritten on 22 lines
+   [56] -> [15]
+   [18] -> [16]
+   [19] -> [17]
+   [20] -> [18]
+   [21] -> [19]
+   [22-24] -> [20-22]
+   [25,26] -> [23,24]
+   [21] -> [19]
+   [27] -> [25]
+   [28,29] -> [26,27]
+   [30] -> [28]
+   [28] -> [26]
+   [31] -> [29]
+   [13,32] -> [13,30]
+   [33-35] -> [31-33]
+   [36] -> [34]
+   [37] -> [35]
+   [38] -> [36]
+   [39] -> [37]
+   [27] -> [25]
+   [40] -> [38]
+   [41,42] -> [39,40]
+   [27] -> [25]
+   [39] -> [37]
+   [43] -> [41]
+   [44] -> [42]
+   [45] -> [43]
+   [46] -> [44]
+   [47,48] -> [45,46]
+   [49] -> [48]
+   [50] -> [49]
+   [51] -> [50]
+   [16,17] -> [51,52]
+   [15] -> [53]
+   [16,17] -> [51,52]
+   [15] -> [53]
+   [46] -> [44]
+   [52] -> [54]
+   [53] -> [55]
+   [54] -> [56]
+   [45] -> [43]
+D1 [47] added at Tabula Sapiens methods paragraph
+D2 [47] added at brain atlas methods paragraph
+E  cite count assertion 73 -> 75
+F  written + py_compile PASS
+G  AST re-extract: 75 groups, first-appearance == 1..56 monotonic PASS
+H  per-line key group expectations PASS
+
+ALL RENUMBER STEPS PASS

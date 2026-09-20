@@ -1,0 +1,8 @@
+'Supplementary Note N' occurrences: 1 (expected 1); distinct: ['Supplementary Note 13']
+'Section 3.11 of the Supplementary Information (Parameter Justification)': 1 (expected 1)
+distinct 'Supplementary Fig. N': ['Supplementary Fig. 1', 'Supplementary Fig. 10', 'Supplementary Fig. 12', 'Supplementary Fig. 8']
+'Supplementary Information' occurrences: 1
+artifact path Supplementary_Figure_S13.pdf kept: 1
+VERIFY PASS
+
+EXIT_MARKER

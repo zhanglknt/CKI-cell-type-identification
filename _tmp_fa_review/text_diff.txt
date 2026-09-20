@@ -1,0 +1,100 @@
+sentences only in OURS: 73
+  O: (A) Cell type nuclei counts per brain region, showing the distribution of non-neuronal nuclei across sampled regions.
+  O: (A) Per-pair k_n (mean ± SD) by cell type in the brain atlas, showing substantial cross-pair variability (CV = 97.52%).
+  O: (A) Raw vs.
+  O: (A) k_n stability as a function of housekeeping gene set size, showing convergence at ~200-300 HK genes.
+  O: (B) Calibrated ω distribution across all 31,764 brain pairs, with calibration baseline (ω_cal = 1.0) and mean indicated.
+  O: (B) HK gene set detection stability: overlap between human and mouse HK gene sets detected by the combined criterion.
+  O: (B) Scatter plot of CKI ω vs.
+  O: (B) Scatter plot of ω computed with per-pair k_n vs.
+  O: (B) Strong candidate counts by cell type: microglia contribute the largest share (16 of 39), followed by oligodendrocytes (10) and fibroblasts (6); the candidate list is dominated 
+  O: (B) ω distribution per cell class (log scale; boxes: median and IQR, whiskers 1.5× IQR), from the block-shuffle observed landscape.
+  O: (C) Astrocyte ω across representative brain regions (region × region matrix; warmer colors, higher ω).
+  O: (C) Mean ω by PAM50 intrinsic subtype in BRCA (per-sample PAM50 labels; mean tumor-tumor ω within each subtype).
+  O: (C) ROC curves for cell-type classification across five metrics on Tabula Sapiens data.
+  O: (C) Spearman correlation between CKI ω and four standard metrics (Cosine, Raw JS, Marker Jaccard, Spearman) on Tabula Muris data (703 pairs across 38 cell types).
+  O: (C) Top 10 Strong candidates (lowest multiplicative residuals), showing observed ω for each cell-type/region pair; bars are colored by oligodendrocyte-lineage (purple) vs.
+  O: (C) ω distribution comparison between mouse (n = 15 shared cell types) and human (n = 4,851 pairs).
+  O: (C) ω vs.
+  O: (D) Permutation standardized effect size (SES) for NN vs.
+  O: (D) Region-associated candidate detection: multiplicative residual model identifies 39 Strong candidates (residual < 0.3, ω < 15, lowest ω in pair) among 31,764 cross-region compar
+  O: (D) Region-associated candidates by cell type and confidence tier, showing tier distribution across all 10 non-neuronal cell classes.
+  O: (D) Region-region ω matrix for astrocytes across representative brain regions.
+  O: (D) Table of top conservative cell-type pairs with the lowest cross-organ ω values.
+  O: (D) ω by comparison category: S (same cell type, different organ), D (different cell type, same organ), X (different cell type, different organ); the C category (random split of th
+  O: (D) ω distribution by comparison category (log scale) from the mouse pilot calibration dataset.
+  O: (E) AUC (cell-type classification) vs.
+  O: (E) Observed vs.
+  O: (E) Tissue-level pairwise ω matrix heatmap across five cancer types.
+  O: (E) Top region-associated candidates (Strong tier) by 1 − residual.
+  O: 12/39 Strong-tier candidates are oligodendrocyte-lineage (fold enrichment 0.77, P = 0.92); microglia account for 16/39 (fold 2.30 versus their share of comparisons, P = 6.0e-4, but
+  O: 2B, D).
+  O: 2D) uses a one-sided Mann-Whitney U test (H1: ω_X > ω_C) matching the directional calibration hypothesis; as an exploratory pilot (n = 15) this contrast is reported for transparenc
+  O: 3); in neither case should the correlation pattern be read as evidence that ω captures an independent information dimension, because it partly reflects the ω denominator.
+  O: A parameter sweep on Tabula Muris mouse data (703 cell-type pairs across 6 organs) showed that adding pathway enrichment scores to k_f does not improve performance: the identity-on
+  O: Additional file 1: Figure S12.
+  O: Additional file 1: Figure S9.
+  O: Because no candidate survives FDR correction (minimum q = 0.520), these counts describe a hypothesis-generating screen rather than validated region-association events.
+  O: Body paragraphs come first; ALL tables are appended verbatim at the end of this file, which does NOT reflect their in-document positions.
+  O: Box plots show log10(ω) distribution.
+  O: CKI ranks cell types by cross-organ conservation Table 2.
+  O: CKI showed moderate cell-type classification performance (AUC = 0.680, ranked 5th of 5 methods; Table 1; Additional file 1: Fig.
+  O: CKI ω had the lowest AUC of all five metrics (0.680, versus 0.690 for Spearman, 0.801 for marker Jaccard, 0.849 for raw JS, and 0.887 for cosine) but is the only fully decomposable
+  O: Calibrated omega.
+  O: Classification AUC (area under the ROC curve) of five metrics on Tabula Sapiens (99 of 102 cell-type entries analyzed; 4,851 pairs).
+  O: Complete table of 59 same-cell-type cross-organ pairs (Additional file 1: Table S2).
+  O: Cross-organ conservation ranking by cell type (Tabula Sapiens, n=59 same-cell-type cross-organ pairs).
+  O: Histograms and Q-Q plots of ω distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D'Agostino-Pearson, P < 2.2 × 10⁻¹⁶) and 
+  O: Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs).
+  O: In the source DOCX each table sits at its referenced location.] CKI: a Ka/Ks-inspired index for quantifying functional cell-type divergence in single-cell transcriptomics Xianming 
+  O: Method comparison performance.
+  O: Metric | ROC-AUC Cosine distance | 0.887 Raw JS divergence | 0.849 Marker Jaccard distance | 0.801 Spearman distance | 0.690 CKI ω | 0.680 Cell type | Mean ω | SD | n pairs CD8+ T 
+  O: Of the 4,851 Tabula Sapiens cell-type pairs, 59 are same-cell-type cross-organ comparisons, which ask which cell types maintain their identity regardless of residence and which are
+  O: On the mouse calibration data ω is only weakly correlated with the standard metrics (|r| ≤ 0.28, with Raw JS near zero at +0.05), whereas on the human data all four correlations ar
+  O: Per-pair k_n variability.
+  O: ROC-AUC bar plot for cell-type classification across five metrics.
+  O: S10), so cell-type-level cross-species transferability of ω remains unestablished; absolute values also differ with the computation scheme (global top-2,000-HVG full matrix for mou
+  O: S11), so SES is reported as a descriptive measure of effect size rather than a parametric test statistic.
+  O: S12).
+  O: S5).
+  O: S6; Additional file 1: Table S3).
+  O: S8).
+
+sentences only in FA: 37
+  F: (A) Mean regional divergence (ω, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size
+  F: (A) Raw ω and calibrated ω (ω_cal = ω / 7.70, mouse FACS baseline; ω / 9.73, brain-internal baseline) by brain cell type (log scale).
+  F: (A) k_n stability as a function of housekeeping gene set size, k_n decreases monotonically with increasing HK gene number (250–1,000), indicating that the baseline rate is gene-set
+  F: (B) Calibrated ω distributions across all 31,764 brain region pairs under both baselines; calibrating with the mouse baseline overstates brain ω_cal by 1.26-fold (9.73 / 7.70).
+  F: (B) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending).
+  F: (B) Per-pair ω (pair-specific k_n) versus ω estimated with the global mean k_n; red line is y = x.
+  F: (B) ROC curves for cell-type classification across five metrics on Tabula Sapiens data.
+  F: (B) ω versus number of sampled regions (n_regions) per cell type; Spearman ρ is reported (broader spatial coverage is not significantly associated with divergence at n = 10).
+  F: (C) Distribution of multiplicative residuals (observed/expected ω) across all 31,764 cross-region pairs; colours indicate confidence tier (Strong: < 0.3; Moderate: < 0.5; Weak).
+  F: (C) Region-associated candidate detection: multiplicative residual model identifies 39 Strong candidates (residual < 0.3, ω < 15, lowest ω in pair) among 31,764 cross-region compar
+  F: (C) The ten Strong candidates with the smallest residual, shown as horizontal bars (residual and ω value annotated on each bar); bars are coloured by oligodendrocyte (OL) lineage​ 
+  F: (C) ω distribution by comparison category (log scale) from the mouse pilot calibration dataset.
+  F: (D) Observed vs.
+  F: (D) Top 5 conservative cell-type pairs with the lowest cross-organ ω values.
+  F: 2B, C).
+  F: 2C) uses a one-sided Mann-Whitney U test (H1: ω_X > ω_C) matching the directional calibration hypothesis; as an exploratory pilot (n = 15) this contrast is reported for transparenc
+  F: A parameter sweep on Tabula Muris mouse data (703 cell-type pairs across 6 organs) showed that adding pathway enrichment scores to k_f does not improve performance: the identity-on
+  F: Blue = well-sampled (n ≥ 5 pairs); gray = sparsely sampled (n < 5 pairs).
+  F: CKI ranks cell types by cross-organ conservation Of the 4,851 Tabula Sapiens cell-type pairs, 59 are same-cell-type cross-organ comparisons, which ask which cell types maintain the
+  F: CKI showed moderate cell-type classification performance (AUC = 0.680, ranked 5th of 5 methods; Table 1).
+  F: CKI: a Ka/Ks-inspired index for quantifying functional cell-type divergence in single-cell transcriptomics Xianming Wu1, Li Zhang1,2 * 1Chinese Institute for Brain Research, Beijin
+  F: Calibrated ω under two baselines.
+  F: Cell types and region pairs are given in full.
+  F: Dashed line indicates the split-half expectation (ω_cal = 1.0).
+  F: Histograms and Q-Q plots of ω distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D'Agostino-Pearson, P < 2.2 × 10⁻¹⁶) and 
+  F: Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.648, n = 703 mouse cell-type pairs, 6 organs).
+  F: Inset: OL-lineage representation among Strong candidates — 12 of 39 Strong, fold = 0.77, hypergeometric P = 0.92 (no enrichment).
+  F: Pair-specific k_n variability (brain).​ (A) Distribution of per-pair k_n values by cell type (bars: mean ± SD); bar colour reflects the cross-pair coefficient of variation (CV) of 
+  F: Panel A shows mean ± SD; Panel B shows raw pair-level distribution..
+  F: S10), so SES is reported as a descriptive measure of effect size rather than a parametric test statistic.
+  F: S11).
+  F: S5; Additional file 1: Table S3).
+  F: S6).
+  F: S8), 31 of the 39 Strong candidates showed raw one-sided P < 0.05, but none survived Benjamini-Hochberg correction (minimum q = 0.520); the selection-rule empirical FDR analysis gi
+  F: S9), so cell-type-level cross-species transferability of ω remains unestablished; absolute values also differ with the computation scheme (global top-2,000-HVG full matrix for mous
+  F: Spearman ρ = 0.142 (P = 7.07×10⁻¹⁴³, n = 31,764).
+  F: The number and percentage (to two decimal places) of Strong pairs​ are annotated on each bar — e.g., Microglia: Strong 16 (0.96%); Oligodendrocyte: Strong 10 (0.95%); Astrocyte: St

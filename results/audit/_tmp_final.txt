@@ -1,0 +1,12 @@
+===== results/audit/_rerun_ms3.log
+Superscripted citation groups: 73
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_Manuscript_NC.docx
+MS exit: 0
+===== results/audit/_verify_ms2.log
+[PASS] Abstract word count <= 200 197 words
+[FAIL] CC ratio list new values 
+[FAIL] Cox limitation sentence 
+TOTAL: 91 checks, 2 failures
+===== results/audit/_verify_si2.log
+[FAIL] CC post-fix ratios (table) 
+TOTAL: 89 checks, 1 failures

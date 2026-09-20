@@ -1,0 +1,74 @@
+== nc49 purity sensitivity (R2-P0-1) ==
+stromal sig: 141 genes; immune sig: 141 genes
+samples to load: 3596 (5 cancers, codes 01/11)
+qualifying genes: 45504
+expression matrix: (3596, 45504)
+stromal: 141/141 mapped; unmapped: []
+immune: 141/141 mapped; unmapped: []
+
+admix (stromal+immune) summary by cancer/type:
+                   count     mean     std
+cancer    type                           
+TCGA-BRCA Normal   109.0  25833.9  3612.4
+          Tumor   1032.0  24396.9  5834.1
+TCGA-KIRC Normal    82.0  17638.7  6266.1
+          Tumor    754.0  24112.8  7731.6
+TCGA-LIHC Normal    57.0  14578.7  6524.6
+          Tumor    398.0  12835.1  8953.1
+TCGA-LUAD Normal    76.0  26846.6  6578.0
+          Tumor    495.0  24719.7  6687.1
+TCGA-LUSC Normal    58.0  28668.0  7129.0
+          Tumor    535.0  23081.3  6728.6
+
+per-tumour TT metrics matched with admix score: n=3185 (by cancer: {'TCGA-BRCA': 1010, 'TCGA-KIRC': 750, 'TCGA-LIHC': 398, 'TCGA-LUAD': 493, 'TCGA-LUSC': 534})
+
+== (a) per-tumour metric ~ admixture (stromal+immune ssGSEA) ==
+TCGA-LUAD kn: r=-0.420, P=1.82e-22, r2=17.6% (n=493)
+TCGA-LUAD omega: r=+0.474, P=6.36e-29, r2=22.4% (n=493)
+TCGA-LUAD kf: r=-0.151, P=0.000751, r2=2.3% (n=493)
+TCGA-LUSC kn: r=-0.236, P=3.42e-08, r2=5.6% (n=534)
+TCGA-LUSC omega: r=+0.244, P=1.1e-08, r2=6.0% (n=534)
+TCGA-LUSC kf: r=-0.220, P=2.69e-07, r2=4.9% (n=534)
+TCGA-LIHC kn: r=-0.229, P=3.92e-06, r2=5.2% (n=398)
+TCGA-LIHC omega: r=+0.171, P=0.000634, r2=2.9% (n=398)
+TCGA-LIHC kf: r=-0.256, P=2.37e-07, r2=6.5% (n=398)
+TCGA-KIRC kn: r=-0.298, P=8.26e-17, r2=8.9% (n=750)
+TCGA-KIRC omega: r=+0.404, P=9.61e-31, r2=16.3% (n=750)
+TCGA-KIRC kf: r=-0.173, P=1.9e-06, r2=3.0% (n=750)
+TCGA-BRCA kn: r=-0.324, P=4.34e-26, r2=10.5% (n=1010)
+TCGA-BRCA omega: r=+0.285, P=2.16e-20, r2=8.1% (n=1010)
+TCGA-BRCA kf: r=-0.152, P=1.15e-06, r2=2.3% (n=1010)
+
+== (b) LUAD WT/EGFR/KRAS: admixture and adjusted comparisons ==
+LUAD per-tumour: WT=311, EGFR=61, KRAS=120
+admix KW: H=11.53, P=0.00314; means WT=23869.8 EGFR=27064.1 KRAS=25655.4
+--- omega ~ group + admix_z (OLS) ---
+  admix_z coefficient: 17.7683 (SE 1.5257), P=7.88e-28
+  EGFR - WT: -1.6454 (SE 4.7269), P=0.728
+  KRAS - WT: 16.8258 (SE 3.6073), P=4e-06
+  KRAS - EGFR: 18.4712 (SE 5.2544), P=0.00048
+  group F-test (adj admix): F=11.92, P=8.8e-06
+--- kf ~ group + admix_z (OLS) ---
+  admix_z coefficient: -0.0070 (SE 0.0020), P=0.000567
+  EGFR - WT: -0.0048 (SE 0.0062), P=0.437
+  KRAS - WT: 0.0124 (SE 0.0047), P=0.00921
+  KRAS - EGFR: 0.0172 (SE 0.0069), P=0.0129
+  group F-test (adj admix): F=4.41, P=0.0126
+--- kn ~ group + admix_z (OLS) ---
+  admix_z coefficient: -0.0006 (SE 0.0001), P=7.98e-21
+  EGFR - WT: -0.0001 (SE 0.0002), P=0.423
+  KRAS - WT: -0.0004 (SE 0.0001), P=0.00293
+  KRAS - EGFR: -0.0003 (SE 0.0002), P=0.184
+  group F-test (adj admix): F=4.48, P=0.0118
+omega admix-residual KW: H=23.67, P=7.23e-06; EGFR vs KRAS P_holm=0.000701; WT vs KRAS P_holm=1.07e-05; WT vs EGFR P_holm=0.647
+kf admix-residual KW: H=8.71, P=0.0129; EGFR vs KRAS P_holm=0.0201; WT vs KRAS P_holm=0.0376; WT vs EGFR P_holm=0.214
+kn admix-residual KW: H=8.95, P=0.0114; EGFR vs KRAS P_holm=0.138; WT vs KRAS P_holm=0.00912; WT vs EGFR P_holm=0.817
+
+== (c) NN/TT restricted to low-admixture (high-purity) tumour half ==
+TCGA-LUAD: NN/TT all=2.464; low-admix half=2.863 [2.410,3.451] (pairs 2000 -> 482)
+TCGA-LUSC: NN/TT all=1.708; low-admix half=1.817 [1.442,2.245] (pairs 2000 -> 506)
+TCGA-LIHC: NN/TT all=1.104; low-admix half=1.167 [0.968,1.412] (pairs 2000 -> 486)
+TCGA-KIRC: NN/TT all=1.880; low-admix half=2.269 [1.944,2.668] (pairs 2000 -> 493)
+TCGA-BRCA: NN/TT all=1.567; low-admix half=1.740 [1.488,2.082] (pairs 2000 -> 496)
+
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_tcga_purity.csv, C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_tcga_admix_scores.csv

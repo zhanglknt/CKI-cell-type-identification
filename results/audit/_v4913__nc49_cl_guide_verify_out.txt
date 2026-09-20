@@ -1,0 +1,41 @@
+===== CL + Guide checks =====
+[PASS] CL word count <= 530 468 words
+[PASS] CL no rebuttal framing 
+[PASS] CL no 5th of 5 
+[PASS] CL new-evidence paragraph 
+[PASS] CL change-detection framing (no classification AUC) 
+[PASS] CL drift claim qualified 
+[PASS] CL no "least of seven metrics" 
+[PASS] CL below raw JS 10/10 
+[PASS] CL 3,567 
+[PASS] CL no 3,563/3,596 
+[PASS] CL CC new ranges 
+[PASS] CL no baseline-driven/baseline-associated 
+[PASS] CL KRAS dual-adjusted upgrade 
+[PASS] CL EGFR dissolved 
+[PASS] CL Fig. 3 / Fig. 4 refs 
+[PASS] Guide drift section = Result 4 (Fig. 3) 
+[PASS] Guide TCGA = Result 5 (Fig. 4) 
+[PASS] Guide cross-organ = Result 6, Fig. 5 
+[PASS] Guide brain = Result 7 (Fig. 6) 
+[PASS] Guide 3,567 
+[PASS] Guide no 3,563/3,596 
+[PASS] Guide CC attrition 29 
+[PASS] Guide mean-ratio caliber 
+[PASS] Guide no median NN/TT caliber 
+[PASS] Guide SF12 -> SF11 (2 places) 
+[PASS] Guide SF10 -> SF3 
+[PASS] Guide 5.10 v49 Analyses 
+[PASS] Guide nc49 scripts listed 
+[PASS] Guide nc49 outputs listed 
+[PASS] Guide v49 checklist entries 
+[PASS] Guide NEW-5 brain ladder B values 
+[PASS] Guide NEW-4 iteration labels cleared 
+[PASS] Guide baseline-/denominator-driven zero 
+[PASS] Guide EGFR admixture sync 
+[PASS] Guide SI param-justification ref updated 
+[PASS] Guide Jaccard honest framing 
+[PASS] Guide B-group scripts listed 
+[PASS] Guide B-group outputs listed 
+[PASS] Guide kf_composition listed 
+TOTAL: 39 checks, 0 failures

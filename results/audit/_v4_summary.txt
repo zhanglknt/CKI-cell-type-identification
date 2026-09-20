@@ -1,0 +1,3 @@
+_verify4_ms_out.txt -> TOTAL: 83 checks, 2 failures FAILS: [FAIL] no stale 85%/0.097 decomposition  | [FAIL] KRAS magnitude sentence restored 
+_verify4_si_out.txt -> TOTAL: 84 checks, 0 failures
+_verify4_clguide_out.txt -> TOTAL: 37 checks, 0 failures

@@ -1,0 +1,4 @@
+Title words: 11
+Abstract words: 144
+Main text (Abstract..Discussion end) words: 13027
+Methods words (incl Data/Code avail + LLM): 5076

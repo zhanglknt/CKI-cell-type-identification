@@ -1,0 +1,18 @@
+529 | misreported least | l signal. At T2 the picture is not immunity but relative calibration: all metrics fire on most pairs (donor differences contain real biology), and \u03c9 again misreported least (90.9% versus 98.4\u201398.7% for raw JS and k_f; calibration ratio 1.76 versus 3.32 and 3.22). At T3, every metric rose (\u03c9 calibration 1.80; raw JS 2.98), confirming that \u03c9 retains sensitivit
+
+529 | lowest misreporting | ical plus inter-individual drift; 1,089 pairs); T3 crosses regions within a donor (regional biology; positive control; 1,656 pairs) [12]. On T1, \u03c9 had the lowest misreporting rate of the seven metrics except marker Jaccard (FPR 28.6%, CI [26.8, 30.6], versus 45.2% for raw JS, 44.1% for cosine, 40.6% for Spearman distance, 37.6% for k_f alone, and 35.7% for k_n; Fig. 4b, c)
+
+530 | every tier |  of absolute neutral-drift immunity thus transfers to real data only as a relative-calibration advantage\u2014lowest misreporting among all compared metrics at every tier, with sensitivity to genuine regional divergence preserved (Fig. 4; audit trails in the companion repository; Section 3.20 of the Supplementary Information).')
+
+530 | lowest misreporting | n technical divergence. The simulation-level claim of absolute neutral-drift immunity thus transfers to real data only as a relative-calibration advantage\u2014lowest misreporting among all compared metrics at every tier, with sensitivity to genuine regional divergence preserved (Fig. 4; audit trails in the companion repository; Section 3.20 of the Supplementary Information).')
+
+622 | every tier |  ranking; the real-data neutral-drift calibration on technical replicates supports exactly this reading (\u03c9 misreported least among all compared metrics at every tier of the drift ladder while retaining sensitivity to genuine regional divergence; Results). A real perturbation demonstration (Kang et al. [14]; Results) supports this boundary within the limits of its lane-conf
+
+622 | misreported least | g HK-anchored neutral drift\u2014rather than for ranking; the real-data neutral-drift calibration on technical replicates supports exactly this reading (\u03c9 misreported least among all compared metrics at every tier of the drift ladder while retaining sensitivity to genuine regional divergence; Results). A real perturbation demonstration (Kang et al. [14]; Results) supports 
+
+622 | least among | d neutral drift\u2014rather than for ranking; the real-data neutral-drift calibration on technical replicates supports exactly this reading (\u03c9 misreported least among all compared metrics at every tier of the drift ladder while retaining sensitivity to genuine regional divergence; Results). A real perturbation demonstration (Kang et al. [14]; Results) supports this boundar
+
+764 | misreports least | t, light): fraction of pairs whose observed value exceeds its own null 95th percentile, with Wilson 95% CIs; the dotted line marks the nominal 5% level. \u03c9 misreports least among divergence metrics at both tiers; marker Jaccard is low at T1 but responds weakest to real regional divergence (T3 calibration 1.41 versus 1.80 for \u03c9 and 2.98 for raw JS; panel b). (d) Replica
+
+764 | least among | fraction of pairs whose observed value exceeds its own null 95th percentile, with Wilson 95% CIs; the dotted line marks the nominal 5% level. \u03c9 misreports least among divergence metrics at both tiers; marker Jaccard is low at T1 but responds weakest to real regional divergence (T3 calibration 1.41 versus 1.80 for \u03c9 and 2.98 for raw JS; panel b). (d) Replication in the
+

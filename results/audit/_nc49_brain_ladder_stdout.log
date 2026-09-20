@@ -1,0 +1,67 @@
+[      0s] === pass 0: global + per-CT gene sums (sequential) ===
+[      0s] shape: (888263, 59480)
+[      0s] HK genes matched: 1115
+[      0s] === pass 0: global + per-CT gene sums (sequential) ===
+[      0s] shape: (888263, 59480)
+[      0s] HK genes matched: 1115
+[      0s] === pass 0: global + per-CT gene sums (sequential) ===
+[      0s] shape: (888263, 59480)
+[      0s] HK genes matched: 1115
+[    154s] pass 0 done; CT sizes: {'Astrocyte': 155025, 'Bergmann glia': 8041, 'Choroid plexus': 7689, 'Committed oligodendrocyte precursor': 4720, 'Ependymal': 5882, 'Fibroblast': 9156, 'Microglia': 91838, 'Oligodendrocyte': 490246, 'Oligodendrocyte precursor': 105734, 'Vascular': 9932}
+[    154s] reduced set: 6115 genes (HK=1115, HVG=5000)
+[    154s] === building groups ===
+[    154s] valid groups (>= 20 cells): 2732
+[    154s] T1 potential pairs: 2161
+[    154s] === pass 1: per-group sums on reduced genes (sequential) ===
+[    304s] pass 1 done
+[    306s] marker sets computed
+[    322s] total pairs: 4906; per tier: {'T1_techrep': 2161, 'T3_cross_roi': 1656, 'T2_cross_donor': 1089}
+[    322s] === pass 2: per-CT extraction + observed & null metrics ===
+[    342s]   [Astrocyte] extracted 154846 cells (263M nnz, 19s); pairs: 867
+[    827s]   [Astrocyte] done in 505s (867 pair rows so far)
+[    828s]   [Bergmann glia] extracted 7872 cells (14M nnz, 1s); pairs: 131
+[    883s]   [Bergmann glia] done in 55s (998 pair rows so far)
+[    884s]   [Choroid plexus] extracted 7593 cells (21M nnz, 1s); pairs: 17
+[    911s]   [Choroid plexus] done in 28s (1015 pair rows so far)
+[    952s]   [Committed oligodendrocyte precursor] extracted 2609 cells (4M nnz, 41s); pairs: 215
+[    979s]   [Committed oligodendrocyte precursor] done in 68s (1230 pair rows so far)
+[    980s]   [Ependymal] extracted 5278 cells (9M nnz, 1s); pairs: 280
+[   1024s]   [Ependymal] done in 45s (1510 pair rows so far)
+[   1024s]   [Fibroblast] extracted 6340 cells (8M nnz, 1s); pairs: 380
+[   1074s]   [Fibroblast] done in 51s (1890 pair rows so far)
+[   1081s]   [Microglia] extracted 91268 cells (101M nnz, 7s); pairs: 827
+[   1385s]   [Microglia] done in 311s (2717 pair rows so far)
+[   1484s]   [Oligodendrocyte] extracted 490150 cells (822M nnz, 99s); pairs: 903
+[   3003s]   [Oligodendrocyte] done in 1618s (3620 pair rows so far)
+[   3019s]   [Oligodendrocyte precursor] extracted 105471 cells (203M nnz, 15s); pairs: 864
+[   3430s]   [Oligodendrocyte precursor] done in 427s (4484 pair rows so far)
+[   3431s]   [Vascular] extracted 7305 cells (8M nnz, 1s); pairs: 422
+[   3497s]   [Vascular] done in 67s (4906 pair rows so far)
+[   3497s] saved C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_brain_drift_ladder.csv (4906 rows)
+[   3497s] 
+=== summary: median cal [IQR] and FPR by tier x metric ===
+[   3497s] --- T1_techrep (n=2161) ---
+[   3497s]   k_n              obs_med= 0.001677 cal_med=  1.047 [0.993,1.168] FPR=35.7%
+[   3497s]   k_f              obs_med=  0.01795 cal_med=  1.055 [0.993,1.427] FPR=37.6%
+[   3497s]   omega            obs_med=    8.861 cal_med=  1.038 [0.966,1.213] FPR=28.6%
+[   3497s]   raw_js           obs_med= 0.002437 cal_med=  1.073 [1.006,1.517] FPR=45.2%
+[   3497s]   cosine           obs_med= 0.007703 cal_med=  1.041 [1.003,1.256] FPR=44.1%
+[   3497s]   spearman         obs_med=  0.03956 cal_med=  1.029 [1.000,1.180] FPR=40.6%
+[   3497s]   marker_jaccard   obs_med=   0.1308 cal_med=  1.048 [0.963,1.211] FPR=19.9%
+[   3497s] --- T2_cross_donor (n=1089) ---
+[   3497s]   k_n              obs_med=   0.0047 cal_med=  1.690 [1.213,2.985] FPR=88.6%
+[   3497s]   k_f              obs_med=  0.07586 cal_med=  3.217 [1.847,7.062] FPR=98.7%
+[   3497s]   omega            obs_med=    15.33 cal_med=  1.764 [1.385,2.491] FPR=90.9%
+[   3497s]   raw_js           obs_med=  0.01122 cal_med=  3.320 [1.873,7.440] FPR=98.4%
+[   3497s]   cosine           obs_med=  0.02619 cal_med=  2.277 [1.422,4.514] FPR=97.8%
+[   3497s]   spearman         obs_med=   0.1046 cal_med=  1.788 [1.233,3.122] FPR=96.4%
+[   3497s]   marker_jaccard   obs_med=   0.2063 cal_med=  1.392 [1.161,1.833] FPR=74.7%
+[   3497s] --- T3_cross_roi (n=1656) ---
+[   3497s]   k_n              obs_med= 0.006514 cal_med=  1.487 [1.189,2.149] FPR=84.8%
+[   3497s]   k_f              obs_med=    0.105 cal_med=  2.878 [1.757,5.673] FPR=94.2%
+[   3497s]   omega            obs_med=    16.73 cal_med=  1.802 [1.339,2.788] FPR=84.8%
+[   3497s]   raw_js           obs_med=  0.01507 cal_med=  2.976 [1.902,6.137] FPR=96.8%
+[   3497s]   cosine           obs_med=  0.03677 cal_med=  2.005 [1.445,3.599] FPR=95.5%
+[   3497s]   spearman         obs_med=   0.1319 cal_med=  1.574 [1.256,2.363] FPR=95.2%
+[   3497s]   marker_jaccard   obs_med=   0.2609 cal_med=  1.405 [1.191,1.808] FPR=80.1%
+[   3497s] DONE

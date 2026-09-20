@@ -1,0 +1,12 @@
+== old LIHC severity keys: ['stratification', 'groups', 'tests']
+{'stratification': 'Edmondson_grade', 'tests': {'omega': {'test': 'Jonckheere-Terpstra', 'stat': 12185.0, 'p': 0.0}, 'kf': {'test': 'Jonckheere-Terpstra', 'stat': 15767.0, 'p': 1.0469403122215226e-12}, 'kn': {'test': 'Jonckheere-Terpstra', 'stat': 14211.0, 'p': 0.0}}}
+  G1: n=39, omega=82.36, kn=0.00461
+  G2: n=133, omega=74.66, kn=0.00515
+  G3: n=105, omega=74.92, kn=0.00533
+  G4: n=11, omega=75.04, kn=0.00607
+== new LIHC severity keys: ['stratification', 'groups', 'tests']
+{'stratification': 'Edmondson_grade', 'tests': {'omega': {'test': 'Jonckheere-Terpstra', 'stat': 16412.0, 'p': 0.0}, 'kf': {'test': 'Jonckheere-Terpstra', 'stat': 19377.0, 'p': 6.8833827526759706e-15}, 'kn': {'test': 'Jonckheere-Terpstra', 'stat': 17377.0, 'p': 0.0}}}
+  G1: n=48, omega=78.18, kn=0.00484
+  G2: n=150, omega=76.82, kn=0.00489
+  G3: n=112, omega=77.87, kn=0.00514
+  G4: n=11, omega=72.58, kn=0.00606

@@ -1,0 +1,888 @@
+[safe-delete][SAFE_DELETE_FAIL_CLOSED] {"target": "C:\\Users\\KnightZ\\Desktop\\细胞受选择\\version3\\CKI_Submission_v47", "reason": "trash-failed", "detail": "[safe-delete] 操作失败: ERROR C:\\Users\\KnightZ\\Desktop\\细胞受选择\\version3\\CKI_Submission_v47: Error during a `trash` operation: Unknown { description: \"Some operations were aborted\" }"}
+============================================================
+  CKI Submission Package v47 (Genome Biology) Builder
+  First-author revision integration + fresh DOCX rebuild
+============================================================
+
+[0] Collecting figures into figures_submission ...
+  OK: 19 figure PDFs + GA copied
+
+[1] Preparing CKI_Submission_v47...
+  Copied figures into CKI_Submission_v47
+
+[2] Regenerating DOCX files...
+
+============================================================
+  Generate Manuscript (GB)
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_Manuscript_GB.docx
+
+  OK
+
+============================================================
+  Generate Supplementary
+============================================================
+Saved: results/CKI_Supplementary.docx
+Paragraphs: 183
+
+  OK
+
+============================================================
+  Generate Cover Letter
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_GenomeBiology_Cover_Letter.docx
+
+  OK
+
+============================================================
+  Generate Repro Guide
+============================================================
+  WARNING: rc=1
+  STDERR: ϵͳ�Ҳ���ָ����·����
+
+
+============================================================
+  Extract Table1-2
+============================================================
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\Table1-2.docx (2 tables extracted)
+
+  OK
+  CKI_Manuscript.docx: 88.0 KB
+  CKI_Supplementary.docx: 72.4 KB
+  CKI_Cover_Letter.docx: 36.6 KB
+  CKI_Reproducibility_Guide.docx: 37.6 KB
+  Table1-2.docx: 35.5 KB
+
+[2f] Extracting fulltext...
+  CKI_Manuscript_fulltext.txt: 146,447 bytes
+  CKI_Supplementary_fulltext.txt: 97,094 bytes
+  CKI_Cover_Letter_fulltext.txt: 4,145 bytes
+  CKI_Reproducibility_Guide_fulltext.txt: 64,631 bytes
+  Table1-2_fulltext.txt: 1,703 bytes
+
+[3] Writing MANIFEST_v47.txt...
+
+[4] Creating ZIP...
+
+============================================================
+  v47 (GB) Package: C:\Users\KnightZ\Desktop\细胞受选择\version3\CKI_Submission_v47.zip
+  Size: 12.2 MB
+  Files: 33
+        37,434  CKI_Submission_v47/CKI_Cover_Letter.docx
+         4,145  CKI_Submission_v47/CKI_Cover_Letter_fulltext.txt
+        90,095  CKI_Submission_v47/CKI_Manuscript.docx
+       146,447  CKI_Submission_v47/CKI_Manuscript_fulltext.txt
+        38,515  CKI_Submission_v47/CKI_Reproducibility_Guide.docx
+        64,631  CKI_Submission_v47/CKI_Reproducibility_Guide_fulltext.txt
+        74,134  CKI_Submission_v47/CKI_Supplementary.docx
+        97,094  CKI_Submission_v47/CKI_Supplementary_fulltext.txt
+       382,594  CKI_Submission_v47/CKI_graphical_abstract.pdf
+       278,539  CKI_Submission_v47/CKI_graphical_abstract.png
+       410,347  CKI_Submission_v47/CKI_graphical_abstract.svg
+        33,576  CKI_Submission_v47/MANIFEST_v47.txt
+        55,172  CKI_Submission_v47/Supplementary_Figure_S1.pdf
+       770,996  CKI_Submission_v47/Supplementary_Figure_S10.pdf
+       135,481  CKI_Submission_v47/Supplementary_Figure_S11.pdf
+       181,664  CKI_Submission_v47/Supplementary_Figure_S12.pdf
+        29,709  CKI_Submission_v47/Supplementary_Figure_S13.pdf
+       338,431  CKI_Submission_v47/Supplementary_Figure_S2.pdf
+        33,749  CKI_Submission_v47/Supplementary_Figure_S3.pdf
+       441,535  CKI_Submission_v47/Supplementary_Figure_S4.pdf
+       435,265  CKI_Submission_v47/Supplementary_Figure_S5.pdf
+     4,467,901  CKI_Submission_v47/Supplementary_Figure_S6.pdf
+       673,628  CKI_Submission_v47/Supplementary_Figure_S7.pdf
+       338,670  CKI_Submission_v47/Supplementary_Figure_S8.pdf
+       324,116  CKI_Submission_v47/Supplementary_Figure_S9.pdf
+        36,385  CKI_Submission_v47/Table1-2.docx
+         1,703  CKI_Submission_v47/Table1-2_fulltext.txt
+       581,675  CKI_Submission_v47/figure1.pdf
+       329,639  CKI_Submission_v47/figure2.pdf
+       102,434  CKI_Submission_v47/figure3.pdf
+        26,479  CKI_Submission_v47/figure4.pdf
+       852,789  CKI_Submission_v47/figure5.pdf
+     5,667,859  CKI_Submission_v47/figure6.pdf
+
+============================================================
+  v47 Final Verification
+============================================================
+
+──────────────────────────────────────────────────
+  File Integrity
+──────────────────────────────────────────────────
+  CKI_Manuscript.docx: 88.0 KB
+  CKI_Supplementary.docx: 72.4 KB
+  CKI_Cover_Letter.docx: 36.6 KB
+  CKI_Reproducibility_Guide.docx: 37.6 KB
+  Table1-2.docx: 35.5 KB
+
+──────────────────────────────────────────────────
+  Core numbers in manuscript (v37 authoritative)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  Legacy Checks
+──────────────────────────────────────────────────
+  OK: Strong candidate = 39
+
+──────────────────────────────────────────────────
+  P1 Checks
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E1: Computational Methods & Reproducibility
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E2: Quantitative Biology & Statistics
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E3: Transcriptomics & Single-cell Applications
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  P2-E4: Academic Publishing & Peer Review
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v34 Expert Panel Fixes (retained)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v37 Expert-Review Fixes (E1-E4, #939-#950)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v37 Peer-Review Fixes (C-A/C-B/C-C/C-D/C-F/C-G/C-J)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v38 Peer-Review Fixes (#971/#972/#974)
+──────────────────────────────────────────────────
+    [FAIL] V38-3g version 0.5.0 in MS + guide (no 0.4.2-0.4.8 residue; MS v0.4.9 only on phase-1 Zenodo line)
+
+──────────────────────────────────────────────────
+  v38.1 P2 Text Revisions
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  R2 Numeric Re-derivation Layer (data-level)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  Round-8 expert-review fixes (E1 8.7 / E2 9.2 / E3 8.5 / E4 8.9)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v40 additions (post-hoc coherence checks + when-to-use guide)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v41 additions (E4 fixes + Kang demo + pseudo-region control)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v42 additions (blind-review round-1 P0 fixes)
+
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v42 additions (blind-review round-1 P1 substantive fixes)
+
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v42 round-2 re-review fixes (E1-E4 P2 + E3 P1)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v42 P0-6 superseded consolidation
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v44 Additions (blind-review round-3)
+──────────────────────────────────────────────────
+
+──────────────────────────────────────────────────
+  v45 Additions (blind-review round-4)
+──────────────────────────────────────────────────
+
+--------------------------------------------------
+  v46 Additions (reviewer cross-check)
+--------------------------------------------------
+    [FAIL] V46-i1 MS/SN/CL/Guide cite v0.5.0 (v47)
+    [FAIL] V46-i3 SN/CL/Guide free of stale v0.4.8/v0.4.9 (v47)
+
+-================================================
+  v47 Additions (first-author revision integration)
+==================================================
+    [FAIL] V47-10d SN/CL/Guide on v0.5.0
+
+============================================================
+  v47 Verification Summary
+============================================================
+  Passed: 660  Failed: 4
+  [OK] File: CKI_Manuscript.docx
+  [OK] File: CKI_Supplementary.docx
+  [OK] File: CKI_Cover_Letter.docx
+  [OK] File: CKI_Reproducibility_Guide.docx
+  [OK] File: Table1-2.docx
+  [OK] Figure 1
+  [OK] Figure 2
+  [OK] Figure 3
+  [OK] Figure 4
+  [OK] Figure 5
+  [OK] Figure 6
+  [OK] Supp Fig S1
+  [OK] Supp Fig S2
+  [OK] Supp Fig S3
+  [OK] Supp Fig S4
+  [OK] Supp Fig S5
+  [OK] Supp Fig S6
+  [OK] Supp Fig S7
+  [OK] Supp Fig S8
+  [OK] Supp Fig S9
+  [OK] Supp Fig S10
+  [OK] Supp Fig S11
+  [OK] Supp Fig S12
+  [OK] Supp Fig S13
+  [OK] GA png
+  [OK] GA pdf
+  [OK] GA svg
+  [OK] human pairs = 4,851
+  [OK] human mean omega ~21.6
+  [OK] human median omega ~19.7
+  [OK] CKI AUC = 0.6797
+  [OK] Raw JS AUC = 0.8488
+  [OK] Cosine AUC = 0.8865
+  [OK] Spearman r = -0.36 to -0.46
+  [OK] brain pairs = 31,764
+  [OK] Bergmann glia mean omega = 13.56
+  [OK] Astrocyte mean omega = 82.75
+  [OK] 6.10-fold brain gradient
+  [OK] brain grand mean omega = 38.55
+  [OK] 39 Strong candidates
+  [OK] 31 of 39 raw P < 0.05
+  [OK] minimum q = 0.520
+  [OK] block-shuffle null terminology
+  [OK] LIHC median NN/TT = 1.23
+  [OK] LUAD median NN/TT = 2.32
+  [OK] kn CV = 97.52% (post-fix)
+  [OK] per-pair/global kn Spearman ~0.142
+  [OK] pre-fix kn values (92.89/0.181) absent
+  [OK] P0-1 Strong counts=39
+  [OK] P0-2 FDR statement unified
+  [OK] P0-3 Bootstrap CI [7.37, 8.02] (9 locations)
+  [OK] P0-3b stale CI [4.24, 9.24] absent from MS (v44: 7.70 calibration)
+  [OK] N5 Refs first-citation order (44 refs)
+  [OK] N5b All 55 refs cited in body (55/55)
+  [OK] N10 Python versions consistent (3.14.4)
+  [OK] P1-4 TCGA bulk RNA-seq qualifier
+  [OK] P1-5 SES + bootstrap CI complement
+  [OK] P1-1 Strong-candidate screen section
+  [OK] P1-6 k_n floor = 1e-4 mentioned
+  [OK] P1-7 Neuron exclusion rationale
+  [OK] P1-8 Bergmann glia signal documented
+  [OK] E1-1 Repro Guide covers environment setup
+  [OK] E1-2 CELLxGENE Discover access documented
+  [OK] E1-3 Abstract mentions calibration + CI (v45: baseline 7.70)
+  [OK] E1-4 Spell check (0 suspect patterns)
+  [OK] E1-5 Table1-2 parameter documentation
+  [OK] E1-6 Repro Guide completeness
+  [OK] E2-1 One-sided test justification
+  [OK] E2-2 Bootstrap CI definition in Methods
+  [OK] E2-3 Seed sensitivity / Monte Carlo SE
+  [OK] E2-4 n=1 cases as descriptive (no formal SD)
+  [OK] E2-5 P-value precision stated
+  [OK] E2-6 SN 3.11 / cross-species data
+  [OK] E3-1 Cross-species validation noted
+  [OK] E3-2 Mechanism boundary clarification
+  [OK] E3-3 Limitations consolidated single section (4/4 themes)
+  [OK] E3-4 JS divergence / info-theoretic methods
+  [OK] E3-5 OPC candidate concentration documented
+  [OK] E3-6 HK cancer dysregulation discussed
+  [OK] E4-1 Abstract word count = 243 (GB structured, target <=250)
+  [OK] E4-2 AUC rank 5th/5 explanation
+  [OK] E4-3 Acknowledgements expanded
+  [OK] E4-4 Reference count (Vancouver) = 55
+  [OK] E4-8 Reference list numbered 1..56 (56 entries, sequence OK)
+  [OK] E4-5 Bergmann glia signal documented
+  [OK] E4-6 Supplementary figures S1-S12 complete
+  [OK] E4-7 Tables as separate Table1-2.docx
+  [OK] E4-9 Additional file 1: 4/4 table headings present, 14141 words, figures S8-S12 cited in notes
+  [OK] M1 Repro Guide §2.1 parameter table (not §6)
+  [OK] M3 S1-S12 cited in body (30 supp fig refs)
+  [OK] M4 Orphan refs cited in body (7/7)
+  [OK] m8 permutation support wording
+  [OK] m9 Limitations thematic paragraphs present
+  [OK] m17 orthogonal->complementary (1 remaining)
+  [OK] V37-1a CI in manuscript (9, need >=5)
+  [OK] V37-1b CI in repro guide (8, need >=4)
+  [OK] V37-1c CI in supplementary (4, need >=1)
+  [OK] V37-1d CI in cover letter (1, need >=1)
+  [OK] V37-1e legacy CI [4.24, 9.24] confined to SN legacy sentence (2)
+  [OK] V37-2 stale v35 numbers absent ([])
+  [OK] V37-3a Welch email = welchjd@umich.edu
+  [OK] V37-3b old Welch email absent
+  [OK] V37-3c cover letter four-dataset paragraph
+  [OK] V37-3d cover letter 6.10-fold
+  [OK] V37-3e manuscript NN/TT 1.23-2.32
+  [OK] V37-3f cover letter AI declaration aligned
+  [OK] V37-4a guide Python 3.14.4
+  [OK] V37-4b guide human pairs 4,851
+  [OK] V37-4c guide brain_bs_null pointers
+  [OK] V37-4d guide superseded annotations
+  [OK] V37-4e guide mu_grand 38.55
+  [OK] V37-4f guide per-pair k_n coverage
+  [OK] V37-4g guide block-shuffle B = 1,000
+  [OK] V37-5a brain candidates hypothesis-generating
+  [OK] V37-5b block-shuffle null in manuscript
+  [OK] V37-5c TCGA exploratory framing
+  [OK] V37-1a brain internal baseline 9.73 in MS
+  [OK] V37-1b brain internal CI
+  [OK] V37-1c TS internal baseline 7.67 in MS
+  [OK] V37-1d dataset-relative framing in MS
+  [OK] V37-1e brain internal baseline in supp
+  [OK] V37-1f TS internal baseline in supp
+  [OK] V37-1g dataset-relative framing in supp
+  [OK] V37-2a old Bergmann claim absent (MS)
+  [OK] V37-2b old all-ten claim absent (supp)
+  [OK] V37-2c over-precise omega_cal values absent (MS)
+  [OK] V37-3a Limitation Tenth revised
+  [OK] V37-3b Limitation Seventeenth revised
+  [OK] V37-4a aggregate-first rho 0.988 in MS
+  [OK] V37-4b aggregate-first gradient 6.51x in MS
+  [OK] V37-4c global-kn reversal in MS
+  [OK] V37-4d kf 2.0-fold vs kn 3.2-fold decomposition in MS
+  [OK] V37-5a within-donor 4.50-fold in MS
+  [OK] V37-5b 11,139 within-donor pairs in MS
+  [OK] V37-5c astrocyte within-donor 75.18 in MS
+  [OK] V37-6a microglia fold 2.30 in MS
+  [OK] V37-6b hypergeometric P = 6.0e-4 in MS
+  [OK] V37-6c 16 of 39 Strong from microglia in MS
+  [OK] V37-7a oligodendrocyte-lineage null enrichment (fold 0.77) in MS
+  [OK] V37-7b lineage enrichment P = 0.92 (null) in MS
+  [OK] V37-8a Figure 3 retitled in MS
+  [OK] V37-8b old Figure 3 title absent
+  [OK] V37-9a Methods robustness subsection in MS
+  [OK] V37-9b TS split-half 71 populations in MS
+  [OK] V37-10a guide Sec 5.6 present
+  [OK] V37-10b script 41 documented
+  [OK] V37-10c script 42 documented
+  [OK] V37-10d script 43 documented
+  [OK] V37-10e brain splithalf output pointer
+  [OK] V37-10f TS splithalf output pointer
+  [OK] V38-1a ground-truth headings in MS
+  [OK] V38-1b background 1,848 cells in MS
+  [OK] V38-1c AUC = 0.80 in MS
+  [OK] V38-1d omega type-I 0.00 in MS
+  [OK] V38-1e cosine 0.58 in MS
+  [OK] V38-1f SN 3.12 in supplementary
+  [OK] V38-1g script 45 in repro guide
+  [OK] V38-1h 1,750 replicates documented
+  [OK] V38-2a ablation headings in MS
+  [OK] V38-2b circularity 1.6/1.61-fold in MS
+  [OK] V38-2c LOO gradient 6.53 in MS
+  [OK] V38-2d reproduction 6.4e-13 in MS
+  [OK] V38-2e Bergmann P = 0.980 under LOO in SN (v45: moved to SN)
+  [OK] V38-2f residual retention 32 of 50 (64%) in SN (v45: moved to SN)
+  [OK] V38-2g LOO grand mean 26.5 in MS/SN
+  [OK] V38-2h SN 3.13 in supplementary
+  [OK] V38-2i script 46 in repro guide
+  [OK] V38-2j ablation in cover letter
+  [OK] V38-3a PAM50 actual implementation in MS
+  [OK] V38-3b stale PAM50 wording absent
+  [OK] V38-3c PAM50 522 samples in MS
+  [OK] V38-3d brain kn caliber 1 pair below 1e-4 in MS
+  [OK] V38-3e kn_floor = 0 contract in MS
+  [OK] V38-3f upper-tail 2,510 (7.9%) in MS
+  [FAIL] V38-3g version 0.5.0 in MS + guide (no 0.4.2-0.4.8 residue; MS v0.4.9 only on phase-1 Zenodo line)
+  [OK] REL-1 package version = 0.5.0 in cki/__init__.py + pyproject.toml (v47)
+  [OK] V38-3h Dockerfile mention in MS
+  [OK] V38-3i scanpy 1.12.1 in guide
+  [OK] V38-3j cover letter overclaim retracted (negated)
+  [OK] V38-3k data-level brain min k_n = 9.228e-05 (1 of 31,764 pairs < 1e-4)
+  [OK] V38-4a abstract word count = 243 (GB structured, target <=250)
+  [OK] V38-4b abstract retains both new validation claims
+  [OK] T1 'Kinetic' removed from all four documents
+  [OK] T2 new title (Ka/Ks-inspired index) in MS + CL + Supp
+  [OK] T3 CKI expansion renamed (Ka/Ks-inspired) in MS + CL
+  [OK] T4 'softmax' confined to the manuscript + SN + guide (v44)
+  [OK] T4b per-dataset aggregation order stated (log-of-mean vs mean-of-log)
+  [OK] T4c guide states softmax normalization (v43)
+  [OK] T5 '+1 pseudo-count followed by L1 normalization' wording in MS + SN/guide
+  [OK] T6 'migration candidate' removed from all four documents
+  [OK] T7 'region-associated candidate' terminology in MS + SN/guide
+  [OK] T8 omega fixed cut-off framework removed from MS
+  [OK] T9 distribution-anchored omega interpretation in MS + SN
+  [OK] T10 no ordinal numbering in consolidated Limitations (0 found)
+  [OK] T11 abstract hedged ('evaluated' not 'validated')
+  [OK] T12 cover letter toned down (no 'robust, interpretable' / 'rigorous')
+  [OK] T13 TODO-STATS in MS all filled (0 remaining)
+  [OK] T14 TODO-STATS in SN/CL/guide all filled (0/0/0 remaining)
+  [OK] R2-N1 block-shuffle pairs = 31,764 (expect 31,764)
+  [OK] R2-N2 Strong = 39, raw P < 0.05 in 31/39 (expect 39 / 31)
+  [OK] R2-N3 BH recompute: min q = 0.5202, q < 0.05 in 0 pairs (expect 0.520 / 0)
+  [OK] R2-N4 upper-tail excess = 2,510 (7.90%) (expect 2,510 / 7.9%)
+  [OK] R2-N5 lower-tail classes: microglia 8.06%, oligodendrocyte 6.01%, astrocyte 7.60%, Bergmann 8/21 = 38.1% (expect 8.06 / 6.01 / 7.60 / 38.1%)
+  [OK] R2-N6 astrocyte 82.75 / Bergmann 13.56 / grand mean 38.55 / gradient 6.10 (expect 82.75/13.56/38.55/6.10)
+  [OK] R2-N7 tier counts Strong/Moderate/Weak = 39/1171/5381 (expect 39/1,171/5,381)
+  [OK] R2-N8 brain split-half = 9.7261 [9.0271, 10.5310] (expect 9.7261 [9.0271, 10.5310])
+  [OK] R2-N9 TS split-half = 7.6708 [7.3898, 7.9975] (expect 7.6708 [7.3898, 7.9975])
+  [OK] R2-N10 within-donor astro 75.18 / Bergmann 16.73 / gradient 4.50 (expect 75.18/16.73/4.50)
+  [OK] R2-N11 per-pair k_n CV = 97.52%, Spearman(per-pair, global) = 0.142 over 31,764 pairs (expect 97.52% / 0.142; post-fix from reviewer_brain_pair_kf_kn.csv)
+  [OK] R2-N12 simulation AUC(omega) = 0.804, AUC(k_f) = 0.716, background mean = 11.6, q95 = 20.8 (expect 0.804/0.716/11.6/20.8)
+  [OK] R2-N13 ablation Spearman rho pair-level (LPO/fixed/all) = 0.937/0.918/0.931, class-level = 0.99/0.90/0.93 (expect 0.937/0.918/0.931 and 0.99/0.90/0.93)
+  [OK] R2-N14 ablation grand means 38.55/26.52/6.54/5.26, gradient 82.75/13.56 = 6.10, Strong(s0) = 39 (all match)
+  [OK] R2-N15 circularity k_f ratios: LPO 1.61 [1.27, 2.07], fixed 6.1, all 7.3 (expect 1.61 [1.27, 2.07] / 6.1 / 7.3)
+  [OK] R2-N16 tail-count V_obs = 1960 vs null mean 1588.2, P = 0.011 (expect 1960/1588.2/0.011)
+  [OK] R2-N17 TCGA median NN/TT = BRCA 1.51, KIRC 2.19, LIHC 1.23, LUAD 2.32, LUSC 1.77 (expect BRCA 1.51, KIRC 2.19, LIHC 1.23, LUAD 2.32, LUSC 1.77)
+  [OK] R2-N18 human pairs = 4,851, mean omega = 21.61, median = 19.65 (expect 4,851 / 21.6 / 19.7)
+  [OK] R2-N19 legacy mouse baseline mean = 6.67 (n = 6), committed CI = [4.24, 9.24] (legacy 6-split values, superseded by R2-N19b in v44)
+  [OK] R2-N19b v44 mouse calibration: 300 values, mean = 7.696, SD = 1.146, CI = [7.37, 8.02] (expect 7.70/1.15/[7.37, 8.02])
+  [OK] R2-N20 tier grid: 20 combinations, Strong 1-259, min hypergeometric P = 0.432 (expect 20 rows / 1-259 / 0.432)
+  [OK] R2-N21 JS dimensionality ratio d=2000/d=1130 = 1.001 (expect 1.001)
+  [OK] pre-fix kn values (92.89/0.181/9.38e-232) absent
+  [OK] rho P = 7.07e-143 present
+  [OK] SN 3.7 variance now ~2% / rho^2 0.02
+  [OK] SN 3.7 'only ~2% of the variance'
+  [OK] imbalance omega 8.47 versus 12.46
+  [OK] imbalance k_f +67%
+  [OK] imbalance cosine +108%
+  [OK] old imbalance numbers (-27/9.15/+81/+103) absent
+  [OK] median baseline k_f = 0.025
+  [OK] old 'median null k_f = 0.029' absent
+  [OK] SN 3.2 mean CI definition
+  [OK] SN 3.2 astro mean 82.75 present
+  [OK] SN 3.2 astro mean CI lower 81.56
+  [OK] median CI values (71.93/75.10) absent from SN
+  [OK] Guide cross-species matching rule note
+  [OK] Table S1 cited
+  [OK] Table S3 cited
+  [OK] Table S4 cited
+  [OK] Fig S9 cited in text
+  [OK] SN double-word 'performed performed' fixed
+  [OK] 'per-cancer bootstrap' absent
+  [OK] 'per-cancer permutation test' in MS
+  [OK] 'group-level tests: m = 10' in MS
+  [OK] Guide 'Bootstrap iterations' rows renamed
+  [OK] Guide 5.1 retitled 'Permutation Test'
+  [OK] Guide kn stats updated
+  [OK] Guide file-list 'bootstrap P-values' wording fixed (round-9)
+  [OK] MS sensitivity background-qualified
+  [OK] MS skin 0.91 vs marrow 0.00 power sentence
+  [OK] CL/Limitations fourfold marrow claim
+  [OK] CL old '≥2-fold shifts' claim absent
+  [OK] CL skin 91% detection
+  [OK] SN skin imbalance range re-attributed to delta levels
+  [OK] Table1-2 header 'CKI ω' (unicode omega)
+  [OK] V40-1 'When to use CKI versus standard metrics' heading in MS
+  [OK] V40-2 decision guide cites simulation AUC ranking (0.80/0.72/0.64/0.58)
+  [OK] V40-3 decision guide 'specificity-first screen' framing
+  [OK] V40-4 tier dose-response rates in MS
+  [OK] V40-5 Cochran-Armitage trend z = 61 in Supp SN 5.1
+  [OK] V40-6 Strong-tier hypergeometric P = 9.6e-31 in Supp SN 5.1
+  [OK] V40-7 thalamic-relay enrichment (6/10 vs null mean 1.95) in MS
+  [OK] V40-8 combined thalamo-temporal enrichment (9/10 vs null mean 2.27) in MS
+  [OK] V40-9 post-hoc framing present in MS
+  [OK] V40-10 TCGA composition check referenced in MS
+  [OK] V40-11 TCGA v2 composition attenuation -0.5% pooled (4-panel) in MS
+  [OK] V40-12 TCGA v2 per-cancer attenuation heterogeneity in MS
+  [OK] V40-13 TCGA v2 composition Spearman pooled 0.387 in MS
+  [OK] V40-14 MS cites Additional file 1: Note 5.2 (v42 reword)
+  [OK] V40-15 SN5 heading in supplementary
+  [OK] V40-16 SN 5.1 brain set-level subsection
+  [OK] V40-17 SN 5.2 TCGA composition subsection
+  [OK] V40-18 SN 5.2 pair count 25,306
+  [OK] V40-19 SN 5.2 pooled Spearman 0.377
+  [OK] V40-20 SN 5.1 cites script 72
+  [OK] V40-21 SN 5.2 cites script 73
+  [OK] V40-22 SN5 in supplementary TOC
+  [OK] V40-23 Guide cites script 72
+  [OK] V40-24 Guide cites script 73
+  [OK] V40-A results/brain_setlevel_tests.csv exists
+  [OK] V40-A results/brain_setlevel_tests.txt exists
+  [OK] V40-A results/tcga_composition_check.csv exists
+  [OK] V40-A results/tcga_composition_check.txt exists
+  [OK] V40-A results/tcga_composition_pairs.csv exists
+  [OK] V40-A notebooks/72_brain_setlevel_tests.py exists
+  [OK] V40-A notebooks/73_tcga_composition_check.py exists
+  [OK] V40-B source thalamo-temporal P matches 1.3e-5 claim
+  [OK] V40-C source pooled attenuation matches 6% claim
+  [OK] V40-D all five C1 TT/NN k_n ratios in [2, 4]
+  [OK] V40-E plain-text extracts ship in zip as review aids (v46 policy)
+  [OK] V40-F GA png/svg ship in zip as review aids (v46 policy)
+  [OK] V40-G exactly the five DOCX deliverables in zip
+  [OK] V41-1 bootstrap P denominator (B+1)
+  [OK] V41-2 bootstrap NaN-in-denominator comment
+  [OK] V41-3 blocknull tail parameter
+  [OK] V41-4 blocknull two-sided option
+  [OK] V41-5 core.py docstring baseline 9.73
+  [OK] V41-6 run_all cites spot_check.py
+  [OK] V41-7 run_all has no v19 reference
+  [OK] V41-8 scripts/spot_check.py exists
+  [OK] V41-9 spot_check_v19.py removed
+  [OK] V41-10 tests/test_reference_values.py exists
+  [OK] V41-11 spot_check reads Kang JSON
+  [OK] V41-12 spot_check reads setlevel CSV
+  [OK] V41-13 MS environment description (Windows x64)
+  [OK] V41-14 MS points to Repro Guide Section 1.3
+  [OK] V41-15 no stale 'Apple M2' claim in MS
+  [OK] V41-16 Kang cell count 24,413 in MS
+  [OK] V41-17 Kang split-half multiple in MS
+  [OK] V41-18 Kang AUC ranges in MS
+  [OK] V41-19 Kang CD14 anchor-visibility statement in MS
+  [OK] V41-20 Kang k_n rise range in MS
+  [OK] V41-21 MS cites Additional file 1 Fig. S12 (v47: Kang)
+  [OK] V41-22 S12 caption in MS (v47: Kang renumbered)
+  [OK] V41-23 SN 4.5 heading in supplementary
+  [OK] V41-24 SN 4.5 GSE96583
+  [OK] V41-25 SN 3.15 references Fig. S12 (v47)
+  [OK] V41-A results/kang_ifnb_demo_summary.json exists
+  [OK] V41-A results/kang_ifnb_demo_pairs.csv exists
+  [OK] V41-A results/figures_final/Supplementary_Figure_S13.pdf exists
+  [OK] V41-A notebooks/79_kang_ifnb_demo.py exists
+  [OK] V41-A notebooks/80_kang_demo_figure.py exists
+  [OK] V41-B CD14 omega AUC matches 0.55 claim
+  [OK] V41-C CD14 k_f AUC matches 0.98 claim
+  [OK] V41-26 pseudo-pair count in MS Results
+  [OK] V41-27 pseudo tail rates in MS Results
+  [OK] V41-28 same-origin rate in MS Results
+  [OK] V41-29 MS cites Additional file 1 Fig. S13 (v47: QQ)
+  [OK] V41-30 S13 caption in MS (v47: QQ renumbered)
+  [OK] V41-31 additional-files figure range S1-S13 (v47)
+  [OK] V41-32 SN 4.6 heading in supplementary
+  [OK] V41-33 SN 4.6 tail rates
+  [OK] V41-34 SN 4.6 split seed
+  [OK] V41-D results/pseudoregion_control_summary.json exists
+  [OK] V41-D results/pseudoregion_control_pairs.csv exists
+  [OK] V41-D results/pseudoregion_control_summary.txt exists
+  [OK] V41-D results/figures_final/pseudoregion_control_qq.pdf exists
+  [OK] V41-D notebooks/77_pseudoregion_control.py exists
+  [OK] V41-E source total pseudo-pairs = 127,756
+  [OK] V41-F cross-origin lower tail matches 5.79% claim
+  [OK] V41-G cross-origin upper tail matches 6.87% claim
+  [OK] V41-H same-origin lower tail matches 37.6% claim
+  [OK] V41-I real-data lower-tail reference 6.17%
+  [OK] V41-J1 v2 pooled 4-panel attenuation = -0.5% (source file)
+  [OK] V41-J2 v2 pooled bootstrap CI brackets zero (source file)
+  [OK] V41-J3 v2 pooled Spearman rho = 0.387 (source file)
+  [OK] V42-1 refs first-occurrence order 1..55 (55 unique cited)
+  [OK] V42-2 Kang et al. cited as [14] in body
+  [OK] V42-3 no stale Kang [55] citation
+  [OK] V42-4 housekeeping-dysregulation ref renumbered to [38]
+  [OK] V42-5 reference list numbered 1..56 intact after renumbering (v45: +Augur [56])
+  [OK] V42-6 MS region-clustered CI [8.49, 19.52] cited as superseded value (v45)
+  [OK] V42-7 no stale [9.09, 19.35] in MS
+  [OK] V42-8 SN 3.5 region-clustered CI [8.49, 19.52]
+  [OK] V42-9 no stale [9.09, 19.35] in SN
+  [OK] V42-10 seed-sensitivity note (7 regions) in SN (v45: moved to SN)
+  [OK] V42-11 SN per-class count 9 of 10 classes
+  [OK] V42-12 MS brain mean k_n 0.0035
+  [OK] V42-13 MS TCGA per-cancer Spearman range 0.27-0.46
+  [OK] V42-14 abstract metric ordering 'raw JS and cosine'
+  [OK] V42-15 no stale abstract '0.55-0.58 for cosine and raw JS'
+  [OK] V42-16 SN 5.1 permutation P = 1.005e-5
+  [OK] V42-17 MS TCGA filter (mean expression below 0.5 TPM)
+  [OK] V42-18 Guide TCGA filter 0.5 TPM
+  [OK] V42-19 Guide section 5.7 heading
+  [OK] V42-20 Guide Siletti collection ID
+  [OK] V42-21 Guide Kang GSE96583 download entry
+  [OK] V42-22 Guide step 7 median NN/TT
+  [OK] V42-G74 Guide 5.7 cites notebook 74_*
+  [OK] V42-G75 Guide 5.7 cites notebook 75_*
+  [OK] V42-G76 Guide 5.7 cites notebook 76_*
+  [OK] V42-G77 Guide 5.7 cites notebook 77_*
+  [OK] V42-G78 Guide 5.7 cites notebook 78_*
+  [OK] V42-G79 Guide 5.7 cites notebook 79_*
+  [OK] V42-G80 Guide 5.7 cites notebook 80_*
+  [OK] V42-23 Guide 5.3(e) four-panel v2 wording
+  [OK] V42-24 Guide 5.3(e) pooled rho 0.387
+  [OK] V42-25 no stale three-panel 5.3(e) wording in Guide
+  [OK] V42-26 Guide affiliation order (1 = CIBR before 2 = IBT)
+  [OK] V42-27 Guide documents axis permutation outputs
+  [OK] V42-28 Guide documents tcga_composition_v2 outputs
+  [OK] V42-29 Guide cites scripts/spot_check.py
+  [OK] V42-30 Guide cites tests/test_reference_values.py
+  [OK] V42-31 no stale '(Supplementary Note 5)' in MS
+  [OK] V42-32 MS cites Additional file 1: Note 5.2
+  [OK] V42-33 MS Kang lane-confounded wording (Results + Discussion)
+  [OK] V42-34 MS Kang downgraded to relative architecture demonstration
+  [OK] V42-35 Kang multiplicity disclosure (2/37 expected) in SN (v45: moved to SN)
+  [OK] V42-36 MS Methods lane-confound sentence
+  [OK] V42-37 SN 3.15 lane-confound disclosure wording
+  [OK] V42-38 MS joint CI [4.12, 9.18] 3x (was iid [4.86, 7.42])
+  [OK] V42-39 MS Bergmann-glia joint CI [0.99, 2.12]
+  [OK] V42-40 SN 3.5 joint CI [4.12, 9.18]
+  [OK] V42-41 Guide cites notebook 81
+  [OK] V42-42 SN 9/10 joint CI classification
+  [OK] V42-43 MS rule-matched null (Results/Discussion)
+  [OK] V42-44 MS claim narrowed to axis concentration
+  [OK] V42-45 rule-matched null survivor mean 43.7 in MS and SN
+  [OK] V42-46 Guide cites notebook 82
+  [OK] V42-47 MS Background anchor-scope statement
+  [OK] V42-48 MS severity downgraded to exploratory vignette (v44)
+  [OK] V42-49 SN LIHC k_f reversal (JT P = 1.05e-12, v44)
+  [OK] V42-50 SN BRCA PAM50 k_f-only reversal (v44)
+  [OK] V42-51 MS LUAD mutation contrast persists in k_f (v44)
+  [OK] V42-52 MS cross-organ omega-vs-k_f r = 0.23 with clustered CI (v44)
+  [OK] V42-53 well-sampled k_f concordance r = 0.10 in SN (v45: moved to SN)
+  [OK] V42-54 MS cross-organ ranking read as composite
+  [OK] V42-55 MS Methods cites notebook 83
+  [OK] V42-56 MS Discussion decision-rule list updated
+  [OK] V42-57 MS cites Note 3.16 in all six locations
+  [OK] V42-58 MS Table 2 caption points to Note 3.16
+  [OK] V42-59 SN 3.16 heading
+  [OK] V42-60 SN 3.16 sanity statement
+  [OK] V42-61 SN 3.16 v44 linear re-analysis mirrors softmax run
+  [OK] V42-62 Guide 5.7i entry
+  [OK] V42-63 Guide documents kf_only outputs
+  [OK] V42-P1src results/kf_only_ordering.json exists
+  [OK] V42-P1src results/kf_only_ordering.csv exists
+  [OK] V42-P1src results/kf_only_ordering.txt exists
+  [OK] V42-P1src results/kf_only_severity.csv exists
+  [OK] V42-P1src results/perclass_uncertainty.json exists
+  [OK] V42-P1src results/perclass_uncertainty.csv exists
+  [OK] V42-P1src results/axis_rule_matched_null.json exists
+  [OK] V42-P1src results/axis_rule_matched_null.txt exists
+  [OK] V42-P1src notebooks/81_perclass_uncertainty.py exists
+  [OK] V42-P1src notebooks/82_axis_rule_matched_null.py exists
+  [OK] V42-P1src notebooks/83_kf_only_ordering.py exists
+  [OK] V42-64 kf_only json: per-CT Spearman r = 0.233
+  [OK] V42-65 kf_only json: well-sampled r = 0.100
+  [OK] V42-66 kf_only json: Part A reproduces phase35 summary
+  [OK] V42-67 kf_only json: Part B reproduces published severity
+  [OK] V42-68 LIHC k_f increases with grade (omega gradient reverses)
+  [OK] V42-69 BRCA Basal-like k_f > Luminal A (PAM50 ordering reverses)
+  [OK] V42-70 LUAD mutation contrast in k_f (KW P = 0.015)
+  [OK] V42-71 axis rule-matched null survivor mean 43.7
+  [OK] V42-72 perclass uncertainty joint CI [4.12, 9.18]
+  [OK] R2-1 Guide 5.7h human pairs = 4,851 (phase35 caliber)
+  [OK] R2-2 spot_check asserts 4,851 from phase35 pairs file
+  [OK] R2-3 MS Kang results sentence uses 'consistent with' (v45 wording)
+  [OK] R2-4 Fig S12 (Kang) caption uses 'consistent with' (v47)
+  [OK] R2-5 MS Methods describes joint region-clustered bootstrap
+  [OK] R2-6 SN 5.1 clarifies 43.7 vs 148.3 pool calibers
+  [OK] R2-7 MS Discussion lists TF endpoint in rule-matched null
+  [OK] R2-8 SN 5.2 Monte-Carlo error note at B = 200
+  [OK] R2-9 MS severity summary exempts LUAD contrast
+  [OK] R2-10 SN 3.16 nominal-P post-hoc annotation
+  [OK] R2-11 Guide 5.7i nominal-P annotation
+  [OK] R2-12 MS cross-organ topic sentence composite qualifier (v45 wording)
+  [OK] R2-13 per-pair P unified to 5.7 x 10^-4 (MS + SN)
+  [OK] R2-14 axis null JSON TF uniform-draw reference populated
+  [OK] R2-15 Guide 5.7i JT implementation note
+  [OK] R2-16 MANIFEST includes SHA-256 checksums
+  [OK] R2-17 Guide spot_check assertion count corrected to 40
+  [OK] P0-6 brain_siletti_omega_pairs_v3.csv present under results/superseded/
+  [OK] P0-6 brain_siletti_omega_pairs_v3.csv absent from results/ root
+  [OK] P0-6 brain_siletti_ct_summary_v3.csv present under results/superseded/
+  [OK] P0-6 brain_siletti_ct_summary_v3.csv absent from results/ root
+  [OK] P0-6 brain_siletti_key_values_v3.csv present under results/superseded/
+  [OK] P0-6 brain_siletti_key_values_v3.csv absent from results/ root
+  [OK] P0-6 brain_siletti_migration_candidates_v3.csv present under results/superseded/
+  [OK] P0-6 brain_siletti_migration_candidates_v3.csv absent from results/ root
+  [OK] P0-6 human_bootstrap_results.csv present under results/superseded/
+  [OK] P0-6 human_bootstrap_results.csv absent from results/ root
+  [OK] P0-6 brain_bootstrap_results.csv present under results/superseded/
+  [OK] P0-6 brain_bootstrap_results.csv absent from results/ root
+  [OK] P0-6 phaseB_residual_null.json present under results/superseded/
+  [OK] P0-6 phaseB_residual_null.json absent from results/ root
+  [OK] P0-6 phaseB_residual_pervisign.csv present under results/superseded/
+  [OK] P0-6 phaseB_residual_pervisign.csv absent from results/ root
+  [OK] P0-6 phaseC_calibration.json present under results/superseded/
+  [OK] P0-6 phaseC_calibration.json absent from results/ root
+  [OK] P0-6 phaseC_calibrated_omega_brain.csv present under results/superseded/
+  [OK] P0-6 phaseC_calibrated_omega_brain.csv absent from results/ root
+  [OK] P0-6 Guide references results/superseded/ paths
+  [OK] P0-6 Guide lists all superseded/ paths (>=10 mentions)
+  [OK] V43-1a MS carries the corrected CELLxGENE collection ID
+  [OK] V43-1b Guide carries the corrected CELLxGENE collection ID
+  [OK] V43-1c dead CELLxGENE ID absent from MS
+  [OK] V43-1c dead CELLxGENE ID absent from guide
+  [OK] V43-1c dead CELLxGENE ID absent from CL
+  [OK] V43-2 Guide Siletti repo = linnarsson-lab/adult-human-brain
+  [OK] V43-3 dead Siletti repo name absent from Guide
+  [OK] V43-4 Guide probeMap described as bundled local file
+  [OK] V43-5 dead probeMap S3 URL absent from Guide
+  [OK] V43-6 Guide states softmax normalization with cki/utils.py ref
+  [OK] V43-7 Guide parameter table has omega positivity guard row
+  [OK] V43-8 Guide checklist positivity-guard item
+  [OK] V43-9 stale epsilon checklist item absent
+  [OK] V43-10 Guide discloses seed 20260903 exceptions (77/78/79)
+  [OK] V43-11a Guide cross-species truncation = 18 characters
+  [OK] V43-11b stale 'prefix matching' claim absent
+  [OK] V43-11c Guide cross-species 11-match disclosure
+  [OK] V43-12 Guide Strong tier attributed to 08d with 07d variant note
+  [OK] V43-13 Guide TPM size 0.74 GB
+  [OK] V43-14 stale TPM size absent
+  [OK] V43-15 cover letter release tag v0.5.0 (v47)
+  [OK] V43-16 Guide attributes the >=20-cells entry filter to 13_phase35
+  [OK] V43-17 README docker tag 0.5.0 (v47)
+  [OK] V43-18 data README release link v0.5.0 (v47)
+  [OK] V43-19 dead tabula-muris portal link removed
+  [OK] V43-20 data README points to the live Tabula Muris repo
+  [OK] V44-1a MS omega baseline 7.70 with legacy 6.67 note
+  [OK] V44-1b MS omega_cal denominator 7.70
+  [OK] V44-2a MS discloses softmax(log2) power transform
+  [OK] V44-2b MS linear-normalization robustness rerun
+  [OK] V44-2c TCGA severity downgraded to exploratory vignette
+  [OK] V44-2d MS kn_floor saturation = 0 under linear mapping
+  [OK] V44-3 MS cross-organ organ-clustered CI [-0.08, 0.38]
+  [OK] V44-4a MS k_n vs log10(nuclei) rho = -0.648
+  [OK] V44-4b MS equal-n downsample gradient 1.74 [1.64, 1.84]
+  [OK] V44-4c MS full-data amplitude inflation disclosed
+  [OK] V44-4d threshold sensitivity + Bergmann/Vascular near-tie in SN (v45: moved to SN)
+  [OK] V44-5a MS benchmarking subsection present
+  [OK] V44-5b MS MELD + scDist-approximation labelled
+  [OK] V44-5c MS working range 50-200 cells/donor/condition
+  [OK] V44-5d MS Limitations anchor-visibility boundary
+  [OK] V44-6a MS seed exceptions disclosed (77/78/79)
+  [OK] V44-6b MS Limitations direction -> tail parameter
+  [OK] V44-6c MS Availability carries GSE96583
+  [OK] V44-6d MS concept DOI + archived-release note
+  [OK] V44-6e MS declares Additional file 2 (Reproducibility Guide)
+  [OK] V44-6f MS explicit mouse Tabula Muris wording
+  [OK] V44-6g MS ORCID attributed to Li Zhang
+  [OK] V44-6h MS class-level SDs unified to ddof = 1
+  [OK] V44-6i no v0.4.6 residue in MS
+  [OK] V44-7a SN Note 2 aligned with v0.4.7 bootstrap
+  [OK] V44-7b SN competitor section labels scDist approximation
+  [OK] V44-7c SN TCGA severity v44 values (LIHC/BRCA/LUAD)
+  [OK] V44-7d SN 50-replicate mouse calibration (300 values)
+  [OK] V44-7e SN normalization power-transform disclosure
+  [OK] V44-8a CL omega baseline 7.70 [7.37, 8.02]
+  [OK] V44-8b CL mouse Tabula Muris analyses wording
+  [OK] V44-8c CL free of legacy calibration values
+  [OK] V44-9a Guide cites mouse_splithalf_v44
+  [OK] V44-9b Guide documents v44 analysis scripts
+  [OK] V44-10 TCGA linear-norm summary artifact (tcga_linear_norm_v44_summary.csv)
+  [OK] V44-10 TCGA composition v44 artifact (tcga_composition_v44.csv)
+  [OK] V44-10 cross-organ rho CI artifact (cross_organ_rho_ci_v44.csv)
+  [OK] V44-10 brain threshold sensitivity artifact (brain_v44_threshold_sensitivity.csv)
+  [OK] V44-10 brain confound table artifact (brain_v44_class_confound.csv)
+  [OK] V44-10 mouse 50-rep split-half artifact (mouse_splithalf_v44.csv)
+  [OK] V44-10 competitor simulation artifact (competitors_v44_simulation.csv)
+  [OK] V44-10 CKI power formalization artifact (competitors_v44_power.csv)
+  [OK] V44-11 cross-organ CI [-0.083, 0.382] in source CSV
+  [OK] V44-12a unified guard constants in cki/core.py
+  [OK] V44-12b compute() exposes kn_floor
+  [OK] V44-12c densify() warning helper in utils
+  [OK] V44-12d bootstrap_test ses + two-sided tail
+  [OK] V44-12e (informational) tail naming in bootstrap
+  [OK] V44-13 MANIFEST includes figure-PDF SHA-256 checksums (v47: S13)
+  [OK] V44-14 MANIFEST version banner = v44
+  [OK] V45-1a 1.3-fold correction present (MS + SN)
+  [OK] V45-1b stale 1.5-fold absent (MS + SN)
+  [OK] V45-2a MS Zenodo version DOI for v0.4.9 (10.5281/zenodo.22333850)
+  [OK] V45-2b stale v0.4.7 version DOI absent from MS
+  [OK] V45-2c MS 'Four analyses' (was Two)
+  [OK] V45-2d MS unified >= 20 cells per entry threshold
+  [OK] V45-2e omega_cal at most two significant figures
+  [OK] V45-2f MS availability block fully on v0.5.0 (phase-1 DOI line excepted)
+  [OK] V45-3a Figure 1C source = 300-value split-half (median/baseline lines)
+  [OK] V45-3b Figure 1C values: bootstrap median 7.69 (7.69) / baseline 7.70 (7.70)
+  [OK] V45-3c SN Algorithm 1 explicit softmax (c_i+1)
+  [OK] V45-4a SN Note 3.20 present
+  [OK] V45-4b SN ratio bias +0.2% median / +6.5% worst bin
+  [OK] V45-4c MS robust gradient summary (6.00 median)
+  [OK] V45-4d SN k_n >= 5e-4 subset raises gradient to 6.52
+  [OK] V45-5a SN Note 3.21 present
+  [OK] V45-5b Bergmann bootstrap-t [5.76, 28.59] (MS + SN)
+  [OK] V45-5c gradient bootstrap-t [4.43, 7.69] (MS + SN)
+  [OK] V45-5d choroid bootstrap-t [25.93, 76.30]
+  [OK] V45-5e SN bootstrap-t nominal coverage 0.953/0.951
+  [OK] V45-5f MS Bergmann claim downgraded to qualitative
+  [OK] V45-6a SN Note 3.22 present
+  [OK] V45-6b SN N1 omega FPR <= 0.067
+  [OK] V45-6c MS abstract construction-dependence qualifier
+  [OK] V45-6d N2 swap defeats all metrics (MS + SN)
+  [OK] V45-7a SN Note 3.23 present
+  [OK] V45-7b Augur OvR vs omega rho = 0.442 (MS + SN)
+  [OK] V45-7c Augur OvR vs k_f rho = 0.564 (MS + SN)
+  [OK] V45-7d pyaugur 0.1.0 port disclosed (SN)
+  [OK] V45-7e MS complementary-not-redundant conclusion
+  [OK] V45-7f MS 0.127 sensitivity/confound context only
+  [OK] V45-7f SN 0.127 sensitivity/confound context only
+  [OK] V45-8a abstract equal-n 1.74 [1.64, 1.84]
+  [OK] V45-8b MS 'uncorrected upper bound'
+  [OK] V45-8c abstract power window ~50-200 cells per donor per condition
+  [OK] V45-9a MS null expectation 148.3 vs 39 observed
+  [OK] V45-9b MS P(null count >= 39) = 1.0
+  [OK] V45-9c MS conditional hit-rate P-value fencing
+  [OK] V45-10 MS leave-pair-out 1.61-fold upper-bound statement
+  [OK] V45-11 MS mouse pilot observed ranges (n = 2-4, no CI)
+  [OK] V45-12 Results word count = 6130 (target 6,000-6,500)
+  [OK] V45-13a cki __version__ = 0.5.0 (v47)
+  [OK] V45-13b ci_95 renamed null_ci_95 with generic alias mechanism
+  [OK] V45-13c permutation_test alias exported
+  [OK] V45-13d compute(preset) + non-finite null guard
+  [OK] V45-13e cki test suite 29/29 PASS
+  [OK] V45-14 MANIFEST version banner = v47 / tag v0.5.0
+  [OK] V45-15 ratio_estimator_biasvar_v45_report.md (analysis A report)
+  [OK] V45-15 cluster_boot_v45_report.md (analysis B report)
+  [OK] V45-15 nonhk_drift_v45_report.md (analysis C report)
+  [OK] V45-15 augur_comparison_v45_report.md (analysis D report)
+  [OK] V45-15 augur_ovr_sensitivity_v45.json (analysis D OvR JSON)
+  [OK] V46-a MS 'at moderate-to-strong drift' exactly 2x
+  [OK] V46-b abstract <= 250 words (= 250)
+  [OK] V46-c1 Guide section 5.9 'v45 Analyses' present
+  [OK] V46-c2 Guide Bergmann omega_cal ~ 1.4 (stale 1.3 absent)
+  [OK] V46-d1 SN pyaugur fidelity benchmark provenance
+  [OK] V46-d2 SN 3.5 omega_cal 1.4 (raw ...) two sig figs
+  [OK] V46-e1 MS linear run demoted to sensitivity
+  [OK] V46-e2 MS softmax primary -0.5% bootstrap 95% CI
+  [OK] V46-f1 MANIFEST Notes 3.20-3.23 + review-aid wording
+  [OK] V46-f2 MANIFEST stale Contents annotations absent
+  [OK] V46-g1 zip ships review-aid fulltext extracts (v47)
+  [OK] V46-g2 zip figure6.pdf = first-author redrawn render (v47 sha256)
+  [OK] V46-h build script ships all WORK_DIR files (no exclusion)
+  [FAIL] V46-i1 MS/SN/CL/Guide cite v0.5.0 (v47)
+  [OK] V46-i2 MS v0.4.9 only on phase-1 DOI line (1 hits)
+  [FAIL] V46-i3 SN/CL/Guide free of stale v0.4.8/v0.4.9 (v47)
+  [OK] V47-1a Supp Fig S1 present
+  [OK] V47-1a Supp Fig S2 present
+  [OK] V47-1a Supp Fig S3 present
+  [OK] V47-1a Supp Fig S4 present
+  [OK] V47-1a Supp Fig S5 present
+  [OK] V47-1a Supp Fig S6 present
+  [OK] V47-1a Supp Fig S7 present
+  [OK] V47-1a Supp Fig S8 present
+  [OK] V47-1a Supp Fig S9 present
+  [OK] V47-1a Supp Fig S10 present
+  [OK] V47-1a Supp Fig S11 present
+  [OK] V47-1a Supp Fig S12 present
+  [OK] V47-1a Supp Fig S13 present
+  [OK] V47-1b old S14 slot absent from package
+  [OK] V47-2 all 20 packaged figure PDFs + GA == staged sources
+  [OK] V47-3a MS free of S14 references
+  [OK] V47-3b SN free of S14 references
+  [OK] V47-3c old S3 method-comparison caption removed
+  [OK] V47-3d new S3 caption = TCGA per-cancer (old S4)
+  [OK] V47-3e Kang caption = Figure S12
+  [OK] V47-3f QQ caption = Figure S13
+  [OK] V47-3g MS supp legend sequence S1..S13 (got [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])
+  [OK] V47-4a D4 anchor-stationarity sentence in Discussion
+  [OK] V47-4b cross-metric contrasts + Kang [14] attribution
+  [OK] V47-5a S1 legend decreasing-k_n wording
+  [OK] V47-5b S1 identity-only AUC 0.786 kept
+  [OK] V47-5c old convergence wording gone
+  [OK] V47-5d first-author 0.648 AUC NOT adopted
+  [OK] V47-5e rho = -0.648 (class-size) retained
+  [OK] V47-6a Fig 2 citation 2B,C
+  [OK] V47-6b Fig 5 'Top 5' wording
+  [OK] V47-7 SN Table S3/S4 same-file provenance sentence
+  [OK] V47-8a no 'Cell-state Kinetic Index' in any document
+  [OK] V47-8b GA title = 'CKI: a Ka/Ks-inspired index'
+  [OK] V47-9a Table1-2 title = 'Tables'
+  [OK] V47-9b old 'Supplementary Tables' title gone
+  [OK] V47-10a cki __version__ = 0.5.0
+  [OK] V47-10b MS availability on v0.5.0
+  [OK] V47-10c MS phase-1 Zenodo line cites v0.4.9 record
+  [FAIL] V47-10d SN/CL/Guide on v0.5.0
+  [OK] V47-11a zip rooted at CKI_Submission_v47
+  [OK] V47-11b zip free of S14 artifacts
+  [OK] V47-11c zip ships S13 + MANIFEST_v47
+  [OK] V47-12 MANIFEST banner v47 / v0.5.0 / first-author
+
+  *** 4 FAILURES — review above ***

@@ -1,0 +1,18 @@
+== [10,11] ==
+and denominator information rather than a fully independent dimension (see Results). Third, applied to TCGA cancer data [10,11], CKI mapped tissue-level functional divergence across five cancer types and 3,596 samples, uncovering a consistent pan-
+
+== [10,11] ==
+tumors', level=2) |  | p(f'We applied CKI to TCGA bulk RNA-seq data across five cancer types (LUAD, LUSC, LIHC, KIRC, BRCA) [10,11], totalling {_tc["n_total"]:,} samples, and asked how tissue-level functional divergence is reorganized when cancer deve
+
+== [15] ==
+BioPortal (brca_tcga_pub study, PAM50_SUBTYPE clinical attribute; 522 samples with subtype calls). LIHC Edmondson grade [15]: from cBioPortal, 288 tumors. LUAD mutations: from cBioPortal, 492 samples (61 EGFR, 120 KRAS, 311 WT).') |  | p('Human bra
+
+== [15] ==
+a and entered the analysis); no de novo centroid-based classification was performed in this work. LIHC Edmondson grades [15] came from cBioPortal (n = 288 tumors), and LUAD mutation status (EGFR, KRAS, WT) from cBioPortal (n = 492 samples). Bet
+
+== [16,17] ==
+sion below 0.5 TPM were removed, and the retained values were log2(TPM + 1) transformed. BRCA PAM50 subtype assignments [16,17] were retrieved from cBioPortal (brca_tcga_pub study, PAM50_SUBTYPE clinical attribute; 522 samples with subtype calls).
+
+== [16,17] ==
+computed intratumoral \u03c9 for samples within each clinical stratum using the hybrid scheme. BRCA PAM50 subtype calls [16,17] were retrieved directly from the cBioPortal API (brca_tcga_pub study, PAM50_SUBTYPE clinical attribute; 522 samples wit
+

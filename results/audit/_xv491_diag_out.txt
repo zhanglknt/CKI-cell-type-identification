@@ -1,0 +1,6 @@
+admix rows: 3596 unique samples: 3596
+duplicated sample rows in admix_scores: 0
+tumor rows: 3214 unique: 3214
+TCGA-KIRC TT unique samples: 746
+TCGA-KIRC admix rows matching TT samples: 746 unique: 746
+admix median: 26490.20209459297

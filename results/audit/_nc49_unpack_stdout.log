@@ -1,0 +1,9 @@
+C:\Users\KnightZ\Desktop\细胞受选择\notebooks\nc49_unpack_raw.py:15: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  t.extract(m, OUT)
+extracted GSM2560245_A.mat.gz (5127304 bytes)
+extracted GSM2560245_barcodes.tsv.gz (14627 bytes)
+extracted GSM2560246_B.mat.gz (5474492 bytes)
+extracted GSM2560246_barcodes.tsv.gz (16895 bytes)
+extracted GSM2560247_C.mat.gz (7827230 bytes)
+extracted GSM2560247_barcodes.tsv.gz (23665 bytes)
+listing: ['GSM2560245_A.mat.gz', 'GSM2560245_barcodes.tsv.gz', 'GSM2560246_B.mat.gz', 'GSM2560246_barcodes.tsv.gz', 'GSM2560247_C.mat.gz', 'GSM2560247_barcodes.tsv.gz']

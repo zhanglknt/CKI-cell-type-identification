@@ -1,0 +1,193 @@
+{
+  "severity": {
+    "TCGA-LUAD": {
+      "stratification": "mutation",
+      "groups": {
+        "WT": {
+          "n": 311,
+          "omega_mean": 115.37344653274688,
+          "kf_mean": 0.2813640980856394,
+          "kn_mean": 0.00321749371291029
+        },
+        "EGFR": {
+          "n": 61,
+          "omega_mean": 122.21559869891003,
+          "kf_mean": 0.2732156813663619,
+          "kn_mean": 0.0028004389632970586
+        },
+        "KRAS": {
+          "n": 120,
+          "omega_mean": 136.9436246294445,
+          "kf_mean": 0.2918933782219368,
+          "kn_mean": 0.0026538654992771756
+        }
+      },
+      "tests": {
+        "omega": {
+          "test": "Kruskal-Wallis",
+          "stat": 28.119625171895677,
+          "p": 7.832510348041664e-07
+        },
+        "kf": {
+          "test": "Kruskal-Wallis",
+          "stat": 8.385593926675028,
+          "p": 0.015103980459083927
+        },
+        "kn": {
+          "test": "Kruskal-Wallis",
+          "stat": 16.00224709865597,
+          "p": 0.0003350859307509108
+        }
+      }
+    },
+    "TCGA-LIHC": {
+      "stratification": "Edmondson_grade",
+      "groups": {
+        "G1": {
+          "n": 39,
+          "omega_mean": 82.3632350210356,
+          "kf_mean": 0.2946418027985792,
+          "kn_mean": 0.004606765831264143
+        },
+        "G2": {
+          "n": 133,
+          "omega_mean": 74.66401441884041,
+          "kf_mean": 0.2925156631147254,
+          "kn_mean": 0.005150336976562815
+        },
+        "G3": {
+          "n": 105,
+          "omega_mean": 74.92223985877037,
+          "kf_mean": 0.3113307653220369,
+          "kn_mean": 0.005332003263787045
+        },
+        "G4": {
+          "n": 11,
+          "omega_mean": 75.03610481759593,
+          "kf_mean": 0.3195755794977341,
+          "kn_mean": 0.006073043525399249
+        }
+      },
+      "tests": {
+        "omega": {
+          "test": "Jonckheere-Terpstra",
+          "stat": 12185.0,
+          "p": 0.0
+        },
+        "kf": {
+          "test": "Jonckheere-Terpstra",
+          "stat": 15767.0,
+          "p": 1.0469403122215226e-12
+        },
+        "kn": {
+          "test": "Jonckheere-Terpstra",
+          "stat": 14211.0,
+          "p": 0.0
+        }
+      }
+    },
+    "TCGA-BRCA": {
+      "stratification": "PAM50",
+      "groups": {
+        "Basal-like": {
+          "n": 97,
+          "omega_mean": 116.73794407743387,
+          "kf_mean": 0.32380200162202716,
+          "kn_mean": 0.0030979700998349396
+        },
+        "HER2-enriched": {
+          "n": 55,
+          "omega_mean": 121.78126749551538,
+          "kf_mean": 0.3051632027451263,
+          "kn_mean": 0.002857971937932762
+        },
+        "Luminal A": {
+          "n": 224,
+          "omega_mean": 142.04306041516634,
+          "kf_mean": 0.27909056877660526,
+          "kn_mean": 0.0024691096836756453
+        },
+        "Luminal B": {
+          "n": 123,
+          "omega_mean": 136.47191843418648,
+          "kf_mean": 0.30010746767610263,
+          "kn_mean": 0.0025206515182118715
+        },
+        "Normal-like": {
+          "n": 7,
+          "omega_mean": 101.86376016479073,
+          "kf_mean": 0.24384498585450617,
+          "kn_mean": 0.0036307107882983885
+        }
+      },
+      "tests": {
+        "omega": {
+          "test": "Kruskal-Wallis",
+          "stat": 34.12361871727239,
+          "p": 7.029292223182676e-07
+        },
+        "kf": {
+          "test": "Kruskal-Wallis",
+          "stat": 57.82064649423887,
+          "p": 8.32199116335373e-12
+        },
+        "kn": {
+          "test": "Kruskal-Wallis",
+          "stat": 50.01968807305707,
+          "p": 3.5768480389931186e-10
+        }
+      }
+    }
+  },
+  "meta": {
+    "seed": 42,
+    "n_top_kf": 200,
+    "kn_floor_main": 0.0001,
+    "kn_floor_severity": 0.0,
+    "probability_mapping": "linear (TPM+1)/sum(TPM+1)",
+    "identity_gene_ranking_scale": "log2(TPM+1) (unchanged from v2)",
+    "per_cancer": {
+      "TCGA-LUAD": {
+        "time_s": 121.52938032150269,
+        "floor_frac": {
+          "TT": 0.0,
+          "NN": 0.0,
+          "TN": 0.0
+        }
+      },
+      "TCGA-LUSC": {
+        "time_s": 118.18490076065063,
+        "floor_frac": {
+          "TT": 0.0,
+          "NN": 0.0,
+          "TN": 0.0
+        }
+      },
+      "TCGA-LIHC": {
+        "time_s": 89.680002450943,
+        "floor_frac": {
+          "TT": 0.0,
+          "NN": 0.0,
+          "TN": 0.0
+        }
+      },
+      "TCGA-KIRC": {
+        "time_s": 98.30297780036926,
+        "floor_frac": {
+          "TT": 0.0,
+          "NN": 0.00030111412225233364,
+          "TN": 0.0
+        }
+      },
+      "TCGA-BRCA": {
+        "time_s": 117.85383677482605,
+        "floor_frac": {
+          "TT": 0.0,
+          "NN": 0.0,
+          "TN": 0.0
+        }
+      }
+    },
+    "total_time_s": 549.5166702270508
+  }
+}

@@ -1,0 +1,26 @@
+===== generate_cover_letter_nc.py
+3,563 22 | 76->1.80 vs raw JS 1.07->3.32->2.98),   nc49_tcga_main_2026-09-18.md (3,563 samples; NN/TT   1.13-2.46, 4/5 CIs exclude 1; k_n 2.1-3.6x; LUAD KRA
+3,563 103 | us "         "1.07 \u2192 3.32 \u2192 2.98 for raw JS). Third, across 3,563 TCGA "         "samples in five cancer types, tumor specimens were co
+1\.13 23 | ->3.32->2.98),   nc49_tcga_main_2026-09-18.md (3,563 samples; NN/TT   1.13-2.46, 4/5 CIs exclude 1; k_n 2.1-3.6x; LUAD KRAS retained after   pur
+1\.13 106 | vergent than adjacent non-tumor tissue (NN/TT \u03c9 ratio "         "1.13\u20132.46, bootstrap CIs excluding 1 in four of five)\u2014"         
+2\.1 23 | 26-09-18.md (3,563 samples; NN/TT   1.13-2.46, 4/5 CIs exclude 1; k_n 2.1-3.6x; LUAD KRAS retained after   purity + smoking adjustment, EGFR as
+2\.1 107 | otstrap CIs excluding 1 in four of five)\u2014"         "reflecting a 2.1\u20133.6-fold elevated housekeeping baseline, not "         "reduced 
+3\.6 23 | 9-18.md (3,563 samples; NN/TT   1.13-2.46, 4/5 CIs exclude 1; k_n 2.1-3.6x; LUAD KRAS retained after   purity + smoking adjustment, EGFR associ
+3\.6 107 | Is excluding 1 in four of five)\u2014"         "reflecting a 2.1\u20133.6-fold elevated housekeeping baseline, not "         "reduced functiona
+===== notebooks/100_gen_reproducibility_nc.js
+3,563 351 | enabrowser.net/), file: tcga_RSEM_gene_tpm.gz"),       p("Data used:  3,563 samples entering the pair-level analysis (from 10,535 raw TCGA sample
+3,563 789 | sv). (Section 5.10)"),       p("[\u2713] Verify TCGA sample count n = 3,563 and NN/TT mean ratios 1.13\u20132.46 with cluster-bootstrap CIs exclu
+1\.13 789 |  p("[\u2713] Verify TCGA sample count n = 3,563 and NN/TT mean ratios 1.13\u20132.46 with cluster-bootstrap CIs excluding 1 in 4 of 5 cancers (r
+2\.1 176 | e("scipy:               1.17.1"),       code("scanpy:              1.12.1"),       code("pandas:              2.3.3"),       code("matplotlib: 
+2\.1 225 |  expression space) ensures omega is self-calibrated."),        // --- 2.1 Parameter Summary ---       heading("2.1 Parameter Summary", 3),     
+2\.1 226 | calibrated."),        // --- 2.1 Parameter Summary ---       heading("2.1 Parameter Summary", 3),       p("All parameters used in the reported 
+2\.1 435 |  per cancer type, all NN pairs, seed 42); the TT/NN median k_n ratio (2.18-3.70x) replicates exactly, composition deltas are larger in TT pairs
+3\.6 559 | 59 same-cell-type pairs, 17 cell types; reproduces phase35 summary to 3.6e-15): per-cell-type Spearman(mean omega, mean k_f) r = 0.23 (P = 0.37
+3\.6 693 | lds pre-fix cell-type values (e.g. astrocyte"),       p("      omega 83.64, OPC 40.83) that contradict the manuscript; all authoritative brain"
+33 expr 351 | he pair-level analysis (from 10,535 raw TCGA samples after filtering; 33 expression-matrix samples excluded for missing barcode matching or pair co
+excluded 292 | variable genes (HVGs; Scanpy seurat flavor), with HK genes explicitly excluded to maintain k_n/k_f independence (adapted to min(2000, 0.8 * n_total_
+excluded 313 | Compute per-pair k_f with top-200 DE genes (ranked by |mean_diff|, HK excluded)."),       p("  8. Permutation test: n = 1,000 permutations, one-side
+excluded 323 |  checked in notebooks/05_phase33_v3_fixed.py; \"unknown\" annotations excluded), 6 organs (Liver, Kidney, Heart, Bone Marrow, Spleen, Lung)"),      
+excluded 330 |  k_f: top-200 DE genes (ranked by absolute mean difference), HK genes excluded."),       p("  7. Full pairwise omega computed for all 4,851 analyzed
+excluded 351 | 10,535 raw TCGA samples after filtering; 33 expression-matrix samples excluded for missing barcode matching or pair coverage) across 5 cancer types:
+excluded 765 | u2713] Verify identity gene parameters: HVG seurat flavor, n=2000, HK excluded."),       p("[\u2713] Verify permutation iterations: 1000 (mouse, mai
