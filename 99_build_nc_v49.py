@@ -379,6 +379,40 @@ def main():
           "V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile)")
     check('Supplementary Fig. 7)' in gd and 'Supplementary Fig. 8)' not in gd,
           "V49-N52 A4 Guide estimator-comparison pointer = Fig. 7")
+    # ---- v49.12 review-panel leftovers (N1-N5, C2-C7) ----
+    check('which used seed 20260903, and the small-cluster studentized bootstrap-t analysis '
+          '(notebooks/89_cluster_boot_v45.py), which used seed 20260905' in ms,
+          "V49-N56 N1 seed 20260905 declared in MS Methods")
+    check('notebook 89 uses seed 20260905' in gd,
+          "V49-N56b N1 seed 20260905 in Guide checklist")
+    check('supersedes the earlier i.i.d. interval' in ms
+          and 'influence-function (multiplier) sandwich standard error' in ms
+          and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in ms,
+          "V49-N57 C6 studentized bootstrap-t pivot/SE described")
+    check('attenuates by \u22121.2% pooled (bootstrap 95% CI [\u22124.1%, +2.6%])' in ms
+          and 'attenuates by \u22120.5% pooled' not in ms,
+          "V49-N58 N2 Discussion composition numbers = linear caliber")
+    check('with endpoint gradients of 6.60, 6.10, and 4.12 at thresholds 10, 20, and 50 '
+          '(at 100 nuclei the eight retained classes exclude Bergmann glia' in ms,
+          "V49-N59 N3 threshold-sweep gradient values completed")
+    check('Class-mean \u03c9 spanned a 1.74-fold size-balanced regional gradient' in ms
+          and 'The brain analysis showed a regional \u03c9 gradient across 10 cell classes '
+          '(size-balanced 1.74-fold; uncorrected full-data 6.10-fold' in ms,
+          "V49-N60 C5 Results/Discussion lead with size-balanced gradient")
+    check('Pearson r = \u22120.850, P = 0.0018' in ms,
+          "V49-N61 C7 class-size Pearson correlation added")
+    check('Fourth, excluding the 32 cell-line-derived (CC) LIHC samples' in ms
+          and 'NN/TT 1.11, 95% CI [0.93, 1.30]' in ms
+          and 'Four controls bound the interpretation' in ms,
+          "V49-N62 C4 CC sensitivity analysis (fourth control)")
+    check('The ratio earns its increment over k_f under controlled ground truth' in ms,
+          "V49-N63 C2 omega-increment honest framing sentence")
+    check('cross-type gaps in mean \u03c9 are descriptive rather than calibrated'
+          in str(_main_xlsx['Table 1']['A1'].value),
+          "V49-N63b C3 caveat in Table 1 xlsx caption")
+    check('seaborn:             0.13.2' in gd and 'statsmodels:         0.14.6' in gd
+          and 'meld:                1.0.2' in gd and 'pyaugur:             0.1.0' in gd,
+          "V49-N64 N5 Guide environment completes seaborn/statsmodels/meld/pyaugur")
     # ---- v49.11 MK substantive correspondence (R2-C1 ruling: analogy substantive) ----
     check('synonymous-site divergence (Ks) corresponds to HK-gene divergence (k_n)' in ms
           and 'nonsynonymous divergence (Ka) to functional-gene divergence (k_f)' in ms
