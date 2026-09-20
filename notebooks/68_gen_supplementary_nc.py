@@ -1953,7 +1953,10 @@ add_para(
     'tumor-pair phenomenon in these data. Within TT pairs, k_n correlates with the '
     'overall four-panel composition difference (Spearman rho = 0.23-0.52 per cancer '
     'type; pooled rho = 0.387, P < 10^-300; three-panel pooled rho = 0.377). '
-    'In OLS regressions of log k_n on pair type plus the composition deltas, the '
+    'In OLS regressions of log k_n on pair type plus the composition deltas (softmax '
+    'caliber; superseded by the linear-normalization update at the end of this note, '
+    'the authoritative caliber for the regression and correlation estimates cited in '
+    'the manuscript), the '
     'tumor-pair coefficient attenuation depends materially on the panel: the original '
     'three-panel model attenuated the coefficient by +5.7% pooled (95% CI [+2.7%, '
     '+8.7%]; per cancer type +2%, +4%, +39%, +23%, and \u221212%), whereas the four-panel '
@@ -1992,7 +1995,8 @@ add_para(
     'results/tcga_composition_v2.{csv,txt}.'
 )
 add_para(
-    'Linear-normalization update. The composition check was re-run on the '
+    'Linear-normalization update (authoritative caliber). The composition check '
+    'was re-run on the '
     'linear-normalization pair table of Section 1.7 (script '
     'notebooks/86_tcga_composition_linear_norm_v44.py, mirroring script 74 with '
     'the four marker panels and the sample-level cluster bootstrap, B = 200; '
@@ -2006,7 +2010,8 @@ add_para(
     '0.146\u20130.492). Composition covariates still absorb a substantial '
     'share of the tumor-pair coefficient in LIHC and KIRC but not in the '
     'other cancer types, and the pooled near-zero estimate still masks this '
-    'heterogeneity.'
+    'heterogeneity. These linear-normalization estimates are the ones cited in '
+    'the manuscript.'
 )
 
 add_heading('Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)', 2)

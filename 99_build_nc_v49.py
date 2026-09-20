@@ -389,9 +389,23 @@ def main():
           and 'influence-function (multiplier) sandwich standard error' in ms
           and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in ms,
           "V49-N57 C6 studentized bootstrap-t pivot/SE described")
-    check('attenuates by \u22121.2% pooled (bootstrap 95% CI [\u22124.1%, +2.6%])' in ms
-          and 'attenuates by \u22120.5% pooled' not in ms,
+    check('attenuates by \u22120.8% pooled (cluster-bootstrap median \u22121.2%, '
+          '95% CI [\u22124.1%, +2.6%])' in ms
+          and 'attenuates by \u22120.5% pooled' not in ms
+          and 'Spearman \u03c1 = 0.355 pooled; 0.15\u20130.49 per cancer type' in ms
+          and '0.387 pooled' not in ms,
           "V49-N58 N2 Discussion composition numbers = linear caliber")
+    check('\u22120.8% pooled; cluster-bootstrap median \u22121.2%' in ms
+          and 'median |Delta z| 1.30-fold higher for the three-panel composite' in ms,
+          "V49-N58b N2 Results composition caliber (point + bootstrap median, linear)")
+    check('softmax caliber; superseded by the linear-normalization update' in sn
+          and 'These linear-normalization estimates are the ones cited in the manuscript'
+          in sn,
+          "V49-N65 N2 SI Note 8 softmax regression labeled superseded")
+    check('with four fixed exceptions' in gd and 'three fixed exceptions' not in gd
+          and '89_cluster_boot_v45.py (the small-cluster studentized bootstrap-t '
+          'analysis) uses the fixed seed 20260905' in gd,
+          "V49-N66 N1 Guide seed exceptions cover notebook 89")
     check('with endpoint gradients of 6.60, 6.10, and 4.12 at thresholds 10, 20, and 50 '
           '(at 100 nuclei the eight retained classes exclude Bergmann glia' in ms,
           "V49-N59 N3 threshold-sweep gradient values completed")

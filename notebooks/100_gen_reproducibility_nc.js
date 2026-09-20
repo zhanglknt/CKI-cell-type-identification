@@ -207,7 +207,7 @@ const doc = new Document({
       code("LUAD mutations: cBioPortal API (luad_tcga) - bundled in data/tcga/"),
       code("BRCA PAM50:    cBioPortal API (brca_tcga_pub) - fetched live by script"),
       code("Kang IFN-beta PBMC: GEO GSE96583 - download GSE96583_RAW.tar (~76 MB), GSE96583_genes.txt.gz, and the batch2 tsne.df/metadata files into data/kang_ifnb/ (see the header of notebooks/79_kang_ifnb_demo.py for the exact expected files)"),
-      p("All analyses use random seed 42 throughout, with three fixed exceptions: notebooks/77_pseudoregion_control.py, notebooks/78_axis_permutation_test.py, and notebooks/79_kang_ifnb_demo.py use the fixed seed 20260903 (77 additionally uses a permutation-base seed of 777000). These seeds are hard-coded in the scripts."),
+      p("All analyses use random seed 42 throughout, with four fixed exceptions: notebooks/77_pseudoregion_control.py, notebooks/78_axis_permutation_test.py, and notebooks/79_kang_ifnb_demo.py use the fixed seed 20260903 (77 additionally uses a permutation-base seed of 777000), and notebooks/89_cluster_boot_v45.py (the small-cluster studentized bootstrap-t analysis) uses the fixed seed 20260905. These seeds are hard-coded in the scripts."),
 
       // ========================================================
       // 2. CKI ALGORITHM DEFINITION
