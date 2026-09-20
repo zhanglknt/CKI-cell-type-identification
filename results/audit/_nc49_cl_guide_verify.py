@@ -45,8 +45,13 @@ chk('Guide TCGA = Result 5 (Fig. 4)', 'Result 5 (Fig. 4)' in gdfull)
 chk('Guide cross-organ = Result 6, Fig. 5', 'Cross-organ conservation (Result 6, Fig. 5)' in gdfull)
 chk('Guide brain = Result 7 (Fig. 6)', 'Result 7 (Fig. 6)' in gdfull)
 chk('Guide 3,567', '3,567 samples' in gdfull)
-chk('Guide no 3,563/3,596', '3,563' not in gdfull and '3,596' not in gdfull)
-chk('Guide CC attrition 29', '29 expression-matrix samples excluded' in gdfull)
+chk('Guide no 3,563; 3,596 only in attrition breakdown (v49.14)',
+    '3,563' not in gdfull and gdfull.count('3,596') == 1
+    and 'of the 3,596 expression-matrix samples' in gdfull)
+chk('Guide CC attrition breakdown (v49.14)',
+    '3 do not appear in the assembled pair table' in gdfull
+    and '3,593 unique barcodes' in gdfull
+    and '29 expression-matrix samples excluded' not in gdfull)
 chk('Guide mean-ratio caliber',
     'mean(omega_NN) / mean(omega_TT)' in gdfull and 'Fig. 4a' in gdfull)
 chk('Guide no median NN/TT caliber',

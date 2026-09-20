@@ -122,6 +122,11 @@ log(f"KRAS-vs-WT adjusted omega ratio (log-scale model, exponentiated): "
 results.append({"response": "log_omega", "term": "KRAS/WT ratio (exp)",
                 "coef": round(ratio_kras, 3),
                 "p": float(fit.pvalues[3])})
+# v49.14 (R3-M4): archive the bootstrap CI in the CSV itself (previously stdout-only)
+results.append({"response": "log_omega", "term": "KRAS/WT ratio CI low (exp)",
+                "coef": round(float(ci[0]), 3), "p": np.nan})
+results.append({"response": "log_omega", "term": "KRAS/WT ratio CI high (exp)",
+                "coef": round(float(ci[1]), 3), "p": np.nan})
 
 pd.DataFrame(results).to_csv(OUT, index=False)
 log("")

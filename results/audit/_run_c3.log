@@ -1,0 +1,26 @@
+1. Loading mouse data (verbatim 02c pipeline)...
+   unified AnnData after QC: 15057 cells x 22308 genes
+2. Rebuilding the 15 pilot comparisons (same filters, same seeds)...
+   comparisons rebuilt: 15
+3. Computing omega under both orders...
+   C: hepatocyte (Liver): legacy=12.16 -> brain=14.69 (x1.21)
+   C: endothelial cell (Heart): legacy=6.57 -> brain=7.66 (x1.17)
+   C: B cell (Spleen): legacy=6.34 -> brain=7.24 (x1.14)
+   C: B cell (Marrow): legacy=5.22 -> brain=9.90 (x1.90)
+   C: fibroblast (Heart): legacy=8.15 -> brain=11.98 (x1.47)
+   C: neutrophil (Marrow): legacy=1.59 -> brain=15.54 (x9.75)
+   S: B cell (Marrow vs Spleen): legacy=42.77 -> brain=16.92 (x0.40)
+   S: B cell (Spleen vs Lung): legacy=8.80 -> brain=6.77 (x0.77)
+   S: endothelial cell (Heart vs Lung): legacy=19.18 -> brain=13.25 (x0.69)
+   S: natural killer cell (Marrow vs Liver): legacy=14.47 -> brain=17.77 (x1.23)
+   D: hepatocyte vs endothelial cell of hepatic sinusoid (Liver): legacy=30.09 -> brain=25.13 (x0.84)
+   D: B cell vs neutrophil (Marrow): legacy=37.77 -> brain=28.92 (x0.77)
+   D: endothelial cell vs fibroblast (Heart): legacy=61.72 -> brain=58.95 (x0.96)
+   X: hepatocyte(Liver) vs B cell(Marrow): legacy=31.65 -> brain=23.12 (x0.73)
+   X: cardiac muscle cell(Heart) vs neutrophil(Marrow): legacy=22.96 -> brain=19.52 (x0.85)
+
+Spearman rho (15): 0.779 (P=0.00063)
+median fold brain/legacy: 0.96x
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_agg_order_sensitivity.csv
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_agg_order_sensitivity.txt
+DONE

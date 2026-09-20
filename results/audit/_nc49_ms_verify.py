@@ -69,15 +69,19 @@ chk('Abstract new k_n range', bool(abs_paras) and '1.3\u20133.3-fold elevated ho
 # 5. Sample caliber 3,567 everywhere (CC fix 09-19)
 chk('3,567 present', '3,567' in full)
 chk('no 3,563 residue', '3,563' not in full)
-chk('no 3,596 residue', '3,596' not in full)
+chk('no 3,596 stray residue (v49.14: single attrition mention)',
+    full.count('3,596') == 1 and 'of the 3,596 expression-matrix samples' in full)
 chk('Methods per-cancer counts',
     'LUAD: 493 tumor + 76 normal' in full and 'LUSC: 534 tumor + 58 normal' in full
     and 'LIHC: 398 tumor + 57 normal' in full and 'KIRC: 750 tumor + 82 normal' in full
     and 'BRCA: 1010 tumor + 109 normal' in full)
-chk('attrition sentence', '29 expression-matrix samples were excluded' in full)
+chk('attrition three-way arithmetic (v49.14)',
+    '3 do not appear in the assembled pair table' in full
+    and 'spans 3,593 unique barcodes' in full
+    and '29 expression-matrix samples were excluded' not in full)
 chk('CC ratio list new values',
     'KIRC 1.88 (1.63\u20132.16)' in full and 'LUSC 1.71 (1.38\u20132.09)' in full
-    and 'BRCA 1.57 (1.34\u20131.84)' in full and 'LIHC 1.10 (0.93\u20131.29)' in full)
+    and 'BRCA 1.57 (1.34\u20131.85)' in full and 'LIHC 1.10 (0.93\u20131.29)' in full)
 chk('CC old ratio list gone',
     'KIRC 1.90' not in full and 'LUSC 1.82' not in full
     and 'LIHC 1.13 (0.97' not in full and '1.35\u20131.83' not in full)
@@ -108,8 +112,10 @@ chk('EGFR admixture highest', 'highest in EGFR-mutant tumors (Kruskal-Wallis P =
 chk('smoking enrichment 94/63/86',
     '94% versus 63% in EGFR-mutant and 86% in wild-type tumors' in full)
 chk('smoking chi2', '\u03c7\u00b2 = 30.3, P = 2.7 \u00d7 10\u207b\u2077' in full)
-chk('smoking joint model +13.6',
-    '+13.6, P = 3.3 \u00d7 10\u207b\u2074 in the joint model' in full)
+chk('smoking three-model adjustment (v49.14)',
+    'alone, jointly with admixture, or jointly with age and sex' in full
+    and '+13.6, P = 3.3 \u00d7 10\u207b\u2074 with smoking and admixture' in full
+    and '+13.3, P = 1.4 \u00d7 10\u207b\u00b3 with smoking, age, and sex' in full)
 chk('smoking alone +13.9', '\u0394\u03c9 +13.9, P = 5.9 \u00d7 10\u207b\u2074 with smoking alone' in full)
 chk('purity proxy limitation (Results)',
     'monotonically equivalent to published ESTIMATE purity' in full)

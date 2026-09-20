@@ -1,0 +1,22 @@
+n tumours: WT=311, EGFR=61, KRAS=120
+omega ~ group + admix_z: const: coef=117.5813, P=4.21e-233
+omega ~ group + admix_z: admix_z: coef=17.7820, P=7.88e-28
+omega ~ group + admix_z: EGFR: coef=-1.6454, P=0.728
+omega ~ group + admix_z: KRAS: coef=16.8258, P=4e-06
+log_omega ~ group + admix_z: const: coef=4.6872, P=0
+log_omega ~ group + admix_z: admix_z: coef=0.1950, P=3.71e-29
+log_omega ~ group + admix_z: EGFR: coef=0.0170, P=0.735
+log_omega ~ group + admix_z: KRAS: coef=0.1699, P=1.24e-05
+log_kf ~ group + admix_z: const: coef=-1.2868, P=0
+log_kf ~ group + admix_z: admix_z: coef=-0.0206, P=0.00887
+log_kf ~ group + admix_z: EGFR: coef=-0.0175, P=0.472
+log_kf ~ group + admix_z: KRAS: coef=0.0509, P=0.00627
+log_kn ~ group + admix_z: const: coef=-5.8454, P=0
+log_kn ~ group + admix_z: admix_z: coef=-0.1680, P=2.87e-27
+log_kn ~ group + admix_z: EGFR: coef=-0.0290, P=0.521
+log_kn ~ group + admix_z: KRAS: coef=-0.1089, P=0.00169
+
+KRAS-vs-WT adjusted omega ratio (log-scale model, exponentiated): 1.185, bootstrap 95% CI [1.117, 1.257] (B=1000)
+
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_tcga_luad_logomega_sensitivity.csv
+DONE

@@ -225,7 +225,7 @@ const doc = new Document({
       code("where KL(P||M) = sum_i [ P_i * log2(P_i / M_i) ]  for P_i > 0"),
 
       p("Both k_n and k_f use the same computational pipeline: (1) subset the pseudobulk expression vector to the relevant gene indices; (2) convert the vector to a probability distribution by softmax normalization, p_i = exp(x_i - max(x)) / sum_j exp(x_j - max(x)) (cki/utils.py, ensure_probability_distribution; when the pseudobulk is the log1p of linear-scale aggregates, as in the brain pipeline, this is exactly equivalent to adding a +1 pseudo-count followed by L1 normalization on the linear scale, p_i = (y_i + 1) / sum_j (y_j + 1)); (3) compute JS divergence between the two resulting distributions. This internal consistency (same metric, same normalization, same underlying expression space) ensures omega is self-calibrated."),
-      p("Aggregation-order default: single-cell pipelines aggregate raw counts into pseudobulks either before or after the log1p transform. The package default since v0.5.x is the brain order, softmax(log1p(mean counts)), which matches the count-space formula exactly; the reverse order (mean of log1p, as used in the TCGA bulk pipeline) is retained only as a legacy option, and absolute omega values are not comparable across the two orders - cross-pipeline comparisons should use rank statistics only."),
+      p("Aggregation-order default: single-cell pipelines aggregate raw counts into pseudobulks either before or after the log1p transform. The package default since v0.5.x is the brain order, softmax(log1p(mean counts)), which matches the count-space formula exactly; the reverse order (mean of log1p, as used in the mouse Tabula Muris pilot and the human Tabula Sapiens pipelines; the TCGA bulk pipeline likewise operates on already log-transformed profiles) is retained only as a legacy option for reproducing those pilots, and absolute omega values are not comparable across the two orders - cross-pipeline comparisons should use rank statistics only. A same-data quantification of the order switch on the mouse pilot's 15 comparisons (rank correlation rho = 0.78; median omega fold change 0.96, up to 9.8-fold per comparison; split-control baseline 6.46 -> 10.94) is provided in Section 5.11h (results/nc49_agg_order_sensitivity.csv)."),
 
       // --- 2.1 Parameter Summary ---
       heading("2.1 Parameter Summary", 3),
@@ -353,7 +353,7 @@ const doc = new Document({
       heading("4.4 TCGA (Human Cancer) \u2014 Result 5 (Fig. 4)", 3),
       p("Dataset:    TCGA Pan-Cancer (Hutter & Zenklusen, Cell 2018; Liu et al., Cell 2018)"),
       p("Source:     UCSC Xena (https://xenabrowser.net/), file: tcga_RSEM_gene_tpm.gz"),
-      p("Data used:  3,567 samples entering the pair-level analysis (from 10,535 raw TCGA samples after filtering; 29 expression-matrix samples excluded for missing barcode matching or pair coverage) across 5 cancer types: LUAD, LUSC, LIHC, KIRC, BRCA"),
+      p("Data used:  3,567 samples entering the pair-level analysis (from 10,535 raw TCGA samples after filtering; of the 3,596 expression-matrix samples, 3 do not appear in the assembled pair table and 26 appear only in tumor\u2013normal pairs; the pair table spans 3,593 unique barcodes) across 5 cancer types: LUAD, LUSC, LIHC, KIRC, BRCA"),
       p("Processing:", { bold: true }),
       p("  1. Filter: gene-level mean expression >= 0.5 TPM within each cancer type (per-cancer independent filtering; np.mean(expr, axis=0) >= 0.5 in 06_phase34_v2.py)."),
       p("  2. log2(TPM + 1) transformation."),
@@ -575,7 +575,7 @@ const doc = new Document({
       p(""),
       p("  b. TCGA composition check under linear normalization:"),
       p("     Script: notebooks/86_tcga_composition_linear_norm_v44.py"),
-      p("     Repeats the four-panel composition analysis (immune, myeloid, stromal, epithelial) under the linear-normalization mapping with sample-level cluster bootstrap (B = 200). These figures, recomputed on the post-reassignment (CC-corrected) pair table, supersede the softmax v2 values of Section 5.7a and are the version quoted in the manuscript and Supplementary Note 8: within TT pairs k_n correlates with the four-panel composition difference (Spearman rho = 0.364 pooled, P < 1e-300; 0.196-0.513 per cancer type); the myeloid-panel contrast is null (|Delta myeloid| TT/NN effect 0.989, P = 0.998) while the overall three- and four-panel contrasts stand (|Delta overall3| 1.305, P = 3.57e-137; |Delta overall4| 1.216, P = 1.28e-66); four-panel adjustment attenuates the tumor-pair coefficient by -1.3% pooled (bootstrap median -1.2%, 95% CI [-5.0%, +2.3%]; per-cancer LUAD -2.3%, LUSC -9.5%, BRCA -15.9%, KIRC +19.4%, LIHC +31.7% - i.e. -16% to +32%, with LIHC and KIRC retaining positive attenuation). The pre-reassignment linear outputs are archived under results/superseded/tcga_composition_v44_pre_cc_fix_rerun.*. Outputs: results/tcga_composition_v44.txt, results/tcga_composition_v44.csv."),
+      p("     Repeats the four-panel composition analysis (immune, myeloid, stromal, epithelial) under the linear-normalization mapping with sample-level cluster bootstrap (B = 1,000; raised from 200 in v49.14 to match the manuscript-wide default). These figures, recomputed on the post-reassignment (CC-corrected) pair table, supersede the softmax v2 values of Section 5.7a and are the version quoted in the manuscript and Supplementary Note 8: within TT pairs k_n correlates with the four-panel composition difference (Spearman rho = 0.364 pooled, P < 1e-300; 0.196-0.513 per cancer type); the myeloid-panel contrast is null (|Delta myeloid| TT/NN effect 0.989, P = 0.998) while the overall three- and four-panel contrasts stand (|Delta overall3| 1.305, P = 3.57e-137; |Delta overall4| 1.216, P = 1.28e-66); four-panel adjustment attenuates the tumor-pair coefficient by -1.3% pooled (bootstrap median -1.3%, 95% CI [-4.8%, +2.0%]; per-cancer LUAD -2.0% [-7.8%, +4.2%], LUSC -10.0% [-27.8%, +6.8%], BRCA -16.1% [-24.6%, -7.4%], KIRC +19.6% [+14.1%, +25.1%], LIHC +32.8% [+21.5%, +48.1%] - i.e. -16% to +33%, with LIHC and KIRC retaining positive attenuation). The pre-reassignment linear outputs are archived under results/superseded/tcga_composition_v44_pre_cc_fix_rerun.*. Outputs: results/tcga_composition_v44.txt, results/tcga_composition_v44.csv."),
       p(""),
       p("  c. Cross-organ rank-correlation confidence interval:"),
       p("     Script: notebooks/87_cross_organ_rho_ci_v44.py"),
@@ -615,9 +615,9 @@ const doc = new Document({
       p("     Script: notebooks/91_augur_v45.py"),
       p("     Multiclass Augur (pyaugur 0.1.0, pure-Python port of R Augur v1.0.3) on the brain atlas with condition = brain region (33,036 stratified nuclei; random forest, 100 trees, CP10k + log1p input; 5 subsample seeds x 3-fold stratified CV): macro-OvR AUC per class versus CKI omega. This variant is confounded by eligible-region count (AUC versus region count rho = -0.744, P = 0.014) and is reported as sensitivity only. Outputs: results/augur_comparison_v45.json, results/augur_comparison_v45_report.md."),
       p(""),
-      p("  e. Augur binary one-vs-rest variant (confound-controlled, primary):"),
+      p("  e. Augur binary one-vs-rest variant (confound-controlled):"),
       p("     Script: notebooks/91b_augur_ovr_v45.py"),
-      p("     Primary confound-controlled variant: for each eligible region r, r versus the class's other eligible regions (20 versus 20 cells, 3 repeats x 3 folds; class score = mean AUC over regions). Class-level Spearman versus omega rho = +0.442 (P = 0.200), versus k_f rho = +0.564 (P = 0.090), versus k_n rho = -0.236 (P = 0.511). Outputs: results/augur_ovr_sensitivity_v45.json."),
+      p("     Confound-controlled binary variant (reported in parallel with the multiclass variant rather than as primary versus secondary, per the manuscript): for each eligible region r, r versus the class's other eligible regions (20 versus 20 cells, 3 repeats x 3 folds; class score = mean AUC over regions). Class-level Spearman versus omega rho = +0.442 (P = 0.200), versus k_f rho = +0.564 (P = 0.090), versus k_n rho = -0.236 (P = 0.511). Outputs: results/augur_ovr_sensitivity_v45.json."),
       p(""),
       p("  f. Figure 1 clean layout:"),
       p("     Script: notebooks/_fig1_clean.py"),
@@ -651,7 +651,7 @@ const doc = new Document({
       // 5.11 V49.13 ANALYSES
       // ========================================================
       heading("5.11 v49.13 Analyses", 3),
-      p("The following analyses were added for the v49.13 revision (third blind-review round on v49.12). All reuse the authoritative gene sets, pseudobulks, and pair tables of the corresponding main analyses; no prior result is altered except where explicitly marked as a recompute (86_tcga_composition_linear_norm_v44.py was rerun on the post-reassignment CC-corrected pair table; the pre-reassignment outputs are archived under results/superseded/)."),
+      p("The following analyses were added for the v49.13 revision (third blind-review round on v49.12); entries h and i were added in v49.14 (fourth blind-review round). All reuse the authoritative gene sets, pseudobulks, and pair tables of the corresponding main analyses; no prior result is altered except where explicitly marked as a recompute (86_tcga_composition_linear_norm_v44.py was rerun on the post-reassignment CC-corrected pair table, and again in v49.14 with B raised from 200 to 1,000; the pre-reassignment outputs are archived under results/superseded/)."),
       p(""),
       p("  a. Brain span-matched within-cerebellum control:"),
       p("     Script: notebooks/95_brain_region_matched_v49.py"),
@@ -671,7 +671,7 @@ const doc = new Document({
       p(""),
       p("  e. LUAD log-omega scale sensitivity:"),
       p("     Script: notebooks/98_luad_logomega_sensitivity_v49.py"),
-      p("     ANCOVA of omega, log omega, log k_f, and log k_n on driver group with admixture covariate, with bootstrap CIs. On the log-omega scale the KRAS coefficient is 0.1699 (P = 1.24e-05), i.e. a KRAS/wild-type ratio of 1.185 (95% CI [1.117, 1.257]) - the KRAS elevation is not an artefact of the omega scale. Outputs: results/nc49_tcga_luad_logomega_sensitivity.csv."),
+      p("     ANCOVA of omega, log omega, log k_f, and log k_n on driver group with admixture covariate, with bootstrap CIs. On the log-omega scale the KRAS coefficient is 0.1699 (P = 1.24e-05), i.e. a KRAS/wild-type ratio of 1.185 (95% CI [1.117, 1.257]) - the KRAS elevation is not an artefact of the omega scale. The bootstrap CI is archived in the output CSV (v49.14). Outputs: results/nc49_tcga_luad_logomega_sensitivity.csv."),
       p(""),
       p("  f. Cell-caller (CC) audit and exclusion sensitivity:"),
       p("     Script: notebooks/94_cc_audit_sensitivity_v49.py"),
@@ -680,6 +680,14 @@ const doc = new Document({
       p("  g. Donor-stratified library composition table:"),
       p("     Script: notebooks/97_donor_stratified_table_v49.py"),
       p("     Per-class donor-by-library counts underlying the identity-permutation nulls of the brain screen. The exact probability that a random donor assignment reproduces the observed library-to-donor mapping is analytically negligible for every class (at most 4.8e-231), and 3 of the 10 classes have donors recoverable from the published metadata - the nulls are not degenerate. Outputs: results/nc49_donor_stratified_table.csv."),
+      p(""),
+      p("  h. Aggregation-order same-data quantification (v49.14):"),
+      p("     Script: notebooks/nc49_agg_order_sensitivity.py"),
+      p("     The mouse pilot's 15 comparisons recomputed under both aggregation orders on identical cells (legacy softmax(mean(log1p)) versus package-default softmax(log1p(mean counts)); order-matched per-pair top-200 selection): rank ordering largely preserved (Spearman rho = 0.779, P = 0.00063), absolute omega values shifted (median fold 0.96, range 0.40-9.75), and the control-category median baseline itself moves from 6.46 to 10.94 - quantifying the non-transferability of calibration constants across orders. Outputs: results/nc49_agg_order_sensitivity.csv, results/nc49_agg_order_sensitivity.txt."),
+      p(""),
+      p("  i. LIHC ex-CC Cox sensitivity (v49.14):"),
+      p("     Script: notebooks/nc49_lihc_cox_excc.py"),
+      p("     The published LIHC Cox family (omega/k_f/k_n/TN-omega exposures; M1-M6) refit with all 32 ILSBio CC tumours excluded (n = 272 versus 304): the null is unchanged (omega HR/SD 1.083 [0.870, 1.349], P = 0.47, versus 1.075 [0.882, 1.309], P = 0.48 with all tumours). Outputs: results/nc49_lihc_cox_excc.csv, results/audit/nc49_lihc_cox_excc_2026-09-21.md."),
       p(""),
 
       // ========================================================

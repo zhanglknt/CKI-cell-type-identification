@@ -141,9 +141,14 @@ chk('4.3 counts 3,567',
     'LUAD (493 tumor + 76 normal)' in full and 'LUSC (534 + 58)' in full
     and 'LIHC (398 + 57)' in full and 'KIRC (750 + 82)' in full
     and 'BRCA (1,010 + 109)' in full and 'n = 3,567 samples' in full)
-chk('4.3 attrition note', '29 expression-matrix samples were excluded' in full)
+chk('4.3 attrition three-way note (v49.14)',
+    '3 do not appear in the assembled pair table' in full
+    and 'spans 3,593 unique barcodes' in full
+    and '29 expression-matrix samples were excluded' not in full)
 chk('no 3,563 residue', '3,563' not in full and '3,563' not in cellfull)
-chk('no 3,596 residue', '3,596' not in full and '3,596' not in cellfull)
+chk('no 3,596 stray residue (v49.14: single attrition mention)',
+    full.count('3,596') == 1 and 'of the 3,596 expression-matrix samples' in full
+    and '3,596' not in cellfull)
 
 # 9. 1.7 LIHC mapping-sensitivity sentence (in SuppTable 5 caption since v49.5)
 chk('1.7 LIHC mapping caveat',

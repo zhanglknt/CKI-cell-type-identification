@@ -347,8 +347,10 @@ def main():
           and 'expected by design and delineates, rather than limits' in ms,
           "V49-N38 Scope design argument present (HK anchor cell-type-specific)")
     # ---- v49.10 review-panel fixes (A/B classes) ----
-    check('Supplementary Tables 1\u201319' in ms and 'Supplementary Tables 1\u20134' not in ms,
-          "V49-N39 A1 MS availability lists 19 supplementary tables")
+    check('Supplementary Tables 1\u201319' in ms
+          and ms.count('Supplementary Tables 1\u20134') == 1
+          and 'Supplementary Tables 1\u20134 are cited in the main text' in ms,
+          "V49-N39 A1 MS availability lists 19 supplementary tables (v49.14: 1-4 pointer sentence)")
     check('one committed OPC, one OPC) accounting for the remainder (39 in total)' in ms,
           "V49-N40 A5 brain enumeration sums to 39 (OPC lineage included)")
     check('median ratios 2.18\u20133.70 in the Supplementary Information' in ms,
@@ -390,13 +392,13 @@ def main():
           and 'influence-function (multiplier) sandwich standard error' in ms
           and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in ms,
           "V49-N57 C6 studentized bootstrap-t pivot/SE described")
-    check('attenuates by \u22121.3% pooled (cluster-bootstrap median \u22121.2%, '
-          '95% CI [\u22125.0%, +2.3%])' in ms
+    check('attenuates by \u22121.3% pooled (cluster-bootstrap median \u22121.3%, '
+          '95% CI [\u22124.8%, +2.0%])' in ms
           and 'attenuates by \u22120.5% pooled' not in ms
           and 'Spearman \u03c1 = 0.364 pooled, P < 10\u207b\u00b3\u2070\u2070; 0.20\u20130.51 per cancer type' in ms
           and '0.387 pooled' not in ms,
           "V49-N58 N2 Discussion composition numbers = post-CC linear caliber")
-    check('\u22121.3% pooled; cluster-bootstrap median \u22121.2%' in ms
+    check('\u22121.3% pooled; cluster-bootstrap median \u22121.3%' in ms
           and 'median |Delta z| 1.31-fold higher for the three-panel composite' in ms,
           "V49-N58b N2 Results composition caliber (point + bootstrap median, post-CC linear)")
     check('softmax caliber; superseded by the linear-normalization update' in sn
@@ -406,8 +408,8 @@ def main():
     check('median |\u0394z| 1.305-fold for the three-panel '
           'composite, P = 3.57 \u00d7 10\u207b\u00b9\u00b3\u2077, and 1.216-fold with '
           'the myeloid panel included, P = 1.28 \u00d7 10\u207b\u2076\u2076' in sn
-          and 'pooled four-panel attenuation \u22121.3% (cluster-bootstrap '
-          'median \u22121.2%, 95% CI [\u22125.0%, +2.3%])' in sn
+          and           'pooled four-panel attenuation \u22121.3% (cluster-bootstrap '
+          'median \u22121.3%, 95% CI [\u22124.8%, +2.0%])' in sn
           and 'Spearman \u03c1 = 0.364 pooled (n = 10,000 pairs, '
           'P < 10\u207b\u00b3\u2070\u2070; per-cancer 0.196\u20130.513' in sn,
           "V49-N65b A2 SI Note 8 linear update = post-CC caliber")
@@ -488,20 +490,112 @@ def main():
                "results/nc49_donor_stratified_table.csv",
                "results/brain_v49_downsample_kfkn_summary.json"):
         check((BASE / _f).exists(), f"V49-N77 B-group output exists: {_f}")
+    # ---- v49.14 fourth-round fixes (R1-R6, 2026-09-21) ----
+    # A1/B3: NI direction + split-half caveat (MS + SI 1.4)
+    check('parallels the reciprocal of the neutrality index' in ms
+          and 'biased upward' in ms
+          and 'lower bound on the polymorphism class' in ms,
+          "V49-N78 A1 NI reciprocal direction + split-half caveat (MS)")
+    check('reciprocal of the neutrality index' in sn
+          and 'biased upward accordingly' in sn,
+          "V49-N79 A1 SI 1.4 NI direction synced")
+    # A2/B18: ex-CC CI precision + BRCA CI upper
+    check('95% CI [0.997, 1.880], which includes 1' in ms
+          and 'BRCA 1.57 (1.34\u20131.85)' in ms,
+          "V49-N80 A2/B18 CI precision fixes")
+    # B1: sample-count reconciliation
+    check('3 do not appear in the assembled pair table' in ms
+          and '26 further samples appear only in tumor\u2013normal pairs' in ms
+          and 'spans 3,593 unique barcodes' in ms,
+          "V49-N81 B1 sample-count reconciliation (3,596/3,593/3,567)")
+    # B2: smoking model wording
+    check('alone, jointly with admixture, or jointly with age and sex' in ms
+          and '+13.3, P = 1.4 \u00d7 10\u207b\u00b3 with smoking, age, and sex' in ms,
+          "V49-N82 B2 smoking covariate wording matches fitted models")
+    # B7: exact P values
+    check('all P < 10\u207b\u00b9\u2074\u2075' in ms
+          and 'largest per-cancer P = 7.7 \u00d7 10\u207b\u00b9\u2079' in ms,
+          "V49-N83 B7 exact P values replace thresholds")
+    # B13: adaptation -> change
+    check('functional change rather than neutral drift' in ms
+          and 'functional adaptation rather than neutral drift' not in ms,
+          "V49-N84 B13 Introduction adaptation wording")
+    # B6: Supp Tables pointer
+    check('Supplementary Tables 5\u201319 provide the per-analysis numerical tables' in ms,
+          "V49-N85 B6 Supp Tables 5-19 pointer in Data availability")
+    # C1: composition B=1000 unified (MS Methods + SI Note 8 + Guide 5.8b)
+    check('cluster bootstrap confidence intervals (B = 1,000), the tumor-pair coefficient' in ms
+          and 'B = 1,000 for the composition cluster bootstrap' in ms
+          and 'B was raised '
+          'from 200 to 1,000' in sn
+          and 'B = 1,000; raised from 200 in v49.14' in gd,
+          "V49-N86 C1 composition bootstrap B unified to 1,000 (MS/SI/Guide)")
+    check('LIHC +32.8% [+21.5%, +48.1%], KIRC +19.6% [+14.1%, +25.1%], BRCA '
+          '\u221216.1% [\u221224.6%, \u22127.4%], LUAD \u22122.0% [\u22127.8%, +4.2%], LUSC '
+          '\u221210.0% [\u221227.8%, +6.8%]' in sn
+          and '\u221216% to +33%' in ms,
+          "V49-N87 C1 per-cancer attenuation updated (B=1000)")
+    # C3: aggregation-order quantification (MS Methods + Guide 5.11h + Section 2)
+    check('rank ordering is largely preserved (Spearman \u03c1 = 0.78)' in ms
+          and 'mouse Tabula Muris pilot and the human Tabula Sapiens pipelines' in gd
+          and 'Aggregation-order same-data quantification (v49.14)' in gd
+          and 'control-category median baseline itself moves from 6.46 to 10.94' in gd,
+          "V49-N88 C3 aggregation-order quantified + attribution unified")
+    # C2: ex-CC Cox (SI + Guide 5.11i)
+    check('ex-CC refit excluding all ' in sn
+          and 'LIHC ex-CC Cox sensitivity (v49.14)' in gd
+          and 'HR/SD 1.08 [0.87, 1.35], P = 0.47' in sn,
+          "V49-N89 C2 ex-CC Cox sensitivity (SI + Guide)")
+    # C4: log-omega CI archived
+    check('bootstrap CI is archived in the output CSV (v49.14)' in gd,
+          "V49-N90 C4 log-omega CI archived in CSV (Guide 5.11e)")
+    # B9: span-matched decomposition in SI
+    check('k_f 1.39 and k_n 0.33' in sn,
+          "V49-N91 B9 span-matched k_f/k_n decomposition in SI")
+    # B10: ependymal reverse-direction note
+    check('0.021 versus 0.058' in sn and 'not nested' in sn,
+          "V49-N92 B10 ependymal donor-stratified note (SI Note 12)")
+    # B11: Guide 5.9e primary wording aligned
+    check('in parallel with the multiclass variant rather than as primary versus secondary' in gd
+          and '(confound-controlled, primary)' not in gd,
+          "V49-N93 B11 Guide 5.9e parallel wording")
+    # B12: ddof note in Supp Table 3 description
+    check('all SDs are sample SDs with ' in sn and 'ddof = 1' in sn,
+          "V49-N94 B12 ddof = 1 declared for Supp Table 3 SDs")
+    # B15: MC resolution note
+    check('Monte-Carlo estimates at B = 10,000, resolution 10\u207b\u2074' in sn,
+          "V49-N95 B15 permutation MC resolution note (SI 3.13)")
+    # B16: descriptive-only note for composition correlation P
+    check('these correlation ' in sn and 'descriptive only, ' in sn,
+          "V49-N96 B16 composition rho P descriptive note (SI Note 8)")
+    # CL ORCID
+    check('ORCID (corresponding author): Li Zhang 0000-0002-0698-0754' in cl,
+          "V49-N97 B8 CL ORCID line")
+    # v49.14 C-group output files exist
+    for _f in ("results/nc49_agg_order_sensitivity.csv",
+               "results/nc49_agg_order_sensitivity.txt",
+               "results/nc49_lihc_cox_excc.csv",
+               "results/audit/nc49_lihc_cox_excc_2026-09-21.md"):
+        check((BASE / _f).exists(), f"V49-N98 v49.14 C-group output exists: {_f}")
+    # v49.14 stale-value purge
+    for stale in ('[1.00, 1.88]', 'median \u22121.2%', 'CI [\u22125.0%, +2.3%]',
+                  '+31.7% [+21.0%, +45.3%]', '(1.34\u20131.84)'):
+        check(stale not in ms and stale not in sn,
+              f"V49-N99 stale gone from MS/SI: '{stale}'")
     # ---- v49.11 MK substantive correspondence (R2-C1 ruling: analogy substantive) ----
     check('synonymous-site divergence (Ks) to HK-gene divergence (k_n)' in ms
           and 'nonsynonymous divergence (Ka) to functional-gene divergence (k_f)' in ms
           and 'a species pair to the two cell populations being compared' in ms
           and 'the split-half calibration baseline (within-population \u03c9 \u2248 7.70) to the '
           'polymorphism class' in ms
-          and 'parallels the direction of the neutrality index' in ms
+          and 'parallels the reciprocal of the neutrality index' in ms
           and 'substantive rather than nominal' not in ms,
           "V49-N53 MK fourfold correspondence in MS Discussion (self-grading removed)")
     check('the correspondence is threefold' in sn
           and 'a species pair to the two cell ' in sn
           and 'constrained rather than neutral reference class' in sn,
           "V49-N54 SI 1.4 threefold correspondence synced")
-    check('the counterpart of the synonymous baseline' in ms
+    check('the counterpart of the constrained synonymous baseline' in ms
           and 'read against the empirical calibration baseline rather than against 1' in ms,
           "V49-N55 Fig 1a legend counterpart mapping + calibration anchor")
     check("baseline-driven" not in ms and "baseline-associated" not in ms,

@@ -155,6 +155,7 @@ def run():
     add_para("Sincerely,", doc, space_after=12)
     add_para("Li Zhang (Corresponding Author)", doc, space_after=0)
     add_para("Xianming Wu (First Author)", doc, space_after=0)
+    add_para("ORCID (corresponding author): Li Zhang 0000-0002-0698-0754", doc, space_after=0)
 
     # Save
     out = str(OUTPUT_DIR / "CKI_NC_Cover_Letter.docx")

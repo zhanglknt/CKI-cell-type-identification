@@ -5,7 +5,7 @@ TCGA composition check, v44 linear-normalization edition
 
 Line-for-line mirror of 74_tcga_composition_v2.py (four-panel marker set
 including the myeloid panel, per-cancer z-scored panel scores, log(k_n)
-OLS attenuation, sample-level cluster bootstrap B=200 seed 42, Spearman
+OLS attenuation, sample-level cluster bootstrap B=1000 seed 42, Spearman
 rho of k_n vs four-panel |Delta composition|), with ONE change: the pair
 table is the v44 linear-normalization recompute
 (results/tcga_linear_norm_v44_all_pairs.csv, produced by
@@ -82,7 +82,7 @@ TSS_TO_PROJECT = {
 }
 
 RANDOM_SEED = 42
-N_BOOT = 200
+N_BOOT = 1000  # v49.14: unified with the manuscript-wide B=1,000 (was 200 in the v44 original)
 
 def parse_tcga_barcode(barcode):
     parts = barcode.split("-")
@@ -281,7 +281,7 @@ for cancer in TARGET_PROJECTS:
                   f"rho(4-panel)={rho:.3f} (n={len(tt)})", rho, p))
 
 # ====================================================================
-# 6. Sample-level cluster bootstrap (B=200, verbatim 74 scheme)
+# 6. Sample-level cluster bootstrap (B=1000, unified with the manuscript-wide default; was B=200 verbatim 74 scheme)
 # ====================================================================
 print(f"4. Cluster bootstrap by sample (B={N_BOOT}, seed {RANDOM_SEED})...")
 rng = np.random.default_rng(RANDOM_SEED)
