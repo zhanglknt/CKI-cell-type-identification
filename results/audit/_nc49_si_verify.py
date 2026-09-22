@@ -196,9 +196,9 @@ chk('Note 9 no stale severity',
     and 'G1 > G2 \u2248 G3 \u2248 G4' not in cellfull)
 chk('Supp Table 3 Figure 6', '_fig6_clean.py (Figure 6)' in full)
 
-# 12. Notes 1-15 unchanged
+# 12. Notes 1-16 (v50: +Note 16 microglia validation)
 notes = re.findall(r'Supplementary Note (\d+):', full)
-chk('Notes 1-15 count = 15', len(set(notes)) == 15,
+chk('Notes 1-16 count = 16 (v50)', len(set(notes)) == 16,
     f'found {sorted(set(map(int, notes)))}')
 
 # 12b. xv-text round: NEW-1 + P2 clarifications in SI
@@ -223,7 +223,7 @@ chk('3.13b wild-type definition',
     'Wild-type means wild-type for EGFR and KRAS' in capfull)
 chk('3.13b pair-sharing note', 'pair-sharing dependence' in capfull)
 chk('SI title matches MS',
-    'CKI is a Ka/Ks-inspired index quantifying functional divergence in single-cell genomics' in full
+    'CKI: a Ka/Ks-inspired index separating functional divergence from baseline variation in cell atlases' in full
     and 'functional cell-type divergence in single-cell transcriptomics' not in full)
 chk('Data 1 naming unified',
     'Complete Analysis Script Index' not in full

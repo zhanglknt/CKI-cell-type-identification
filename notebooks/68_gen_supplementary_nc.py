@@ -251,7 +251,7 @@ def si_caption(text):
 
 # ===== TITLE PAGE =====
 add_heading('Supplementary Information', 1)
-add_para('CKI is a Ka/Ks-inspired index quantifying functional divergence in single-cell genomics')
+add_para('CKI: a Ka/Ks-inspired index separating functional divergence from baseline variation in cell atlases')
 add_para('Xianming Wu (1), Li Zhang (1,2,*)')
 add_para('(1) Chinese Institute for Brain Research, Beijing 102206, China')
 add_para('(2) Institute of Blood Transfusion, Chinese Academy of Medical Sciences & '
@@ -280,6 +280,7 @@ toc = [
     'Supplementary Note 13: Brain set-level enrichment of the block-shuffle signal (post-hoc)',
     'Supplementary Note 14: Comparison with Augur Cell-Type Prioritization',
     'Supplementary Note 15: JS Divergence Dimensionality Invariance',
+    'Supplementary Note 16: Independent Human-Brain Validation on the Microglia Supercluster',
     'Supplementary Table 1: Parameter Sweep Results',
     'Supplementary Table 2: Cross-Organ Conservation Data',
     'Supplementary Table 3: Human Brain Non-neuronal Cell Regional CKI Data',
@@ -404,6 +405,17 @@ add_para(
     'within-population sampling and technical variability rather than standing '
     'between-individual variation, so it is a lower bound on the polymorphism '
     'class and \u03c9_cal is biased upward accordingly. '
+    'The inversion is structural rather than incidental: in Ka/Ks the denominator '
+    '(Ks) is a putatively neutral standard, whereas the HK anchor is itself the most '
+    'strongly constrained expression class\u2014as if synonymous sites were selected '
+    'along one lineage, where dN/dS loses its interpretation. The TCGA pan-cancer '
+    'reversal, in which the denominator shifts 1.3\u20133.3-fold with disease state, '
+    'is the empirical demonstration of that failure mode; the per-class split-half '
+    'baselines (a 1.65-fold spread) are the analogue of dS varying across lineages, '
+    'handled in molecular evolution by branch models and here by per-class '
+    'calibration. Sensitivity analysis with alternative low-variance gene sets '
+    '(r > 0.95) partially mitigates the empirical-definition concern; CKI also '
+    'lacks a formal phylogenetic framework (e.g., Ornstein-Uhlenbeck models). '
     'Key differences: (1) Ka/Ks operates on sequence alignments with explicit codon '
     'models, while CKI operates on continuous expression vectors; (2) the neutral '
     'reference in Ka/Ks has a mechanistic basis in the genetic code (synonymous changes '
@@ -822,6 +834,15 @@ add_para(
     '5.0\u20135.8 under either baseline).'
 )
 
+
+add_para(
+    'Leave-one-population-out sensitivity. Removing each control population in '
+    'turn moves the 50-split baseline within 6.75\u20138.08 '
+    '(median-of-population-means 7.12); removing hepatocyte lowers it to 6.75 '
+    '(\u221212.3%). All ratio statements are baseline-invariant, but absolute '
+    '\u03c9_cal magnitudes shift by up to 14% under the outlier-free baseline '
+    '(Bergmann glia \u03c9_cal 1.76 \u2192 2.01; astrocytes 10.75 \u2192 12.26).'
+)
 add_para('3.11 Competitor Benchmark: MELD and a Python Approximation of scDist', bold=True)
 add_para(
     'Purpose and methods. CKI was benchmarked against MELD (PyPI meld 1.0.2, '
@@ -1156,7 +1177,7 @@ add_para(
     '95% CIs (B = 1,000; seed 42; tumor and normal samples resampled with '
     'replacement independently, each pair reweighted by the product of its '
     'endpoint resampling weights). LUAD driver groups (61 EGFR, 120 KRAS, '
-    '311 wild-type; 2 double mutants excluded) were tested with '
+    '311 wild-type (negative for both drivers); 2 double mutants excluded) were tested with '
     'Kruskal-Wallis followed by Dunn post-hoc tests with Holm correction '
     '(manual implementation, tie-corrected rank variances); group mean '
     'differences carry within-group bootstrap 95% CIs (B = 1,000). Because '
@@ -1450,6 +1471,28 @@ add_para(
     'results/nc49_tcga_kf_composition.csv.'
 )
 
+
+add_para(
+    'Additional driver-stratification controls (migrated from the main text in '
+    'v50). The admixture-adjusted KRAS\u2013wild-type differences were significant '
+    'for both components (\u0394\u03c9 +16.8, P = 4.0 \u00d7 10\u207b\u2076; '
+    '\u0394k_f +0.012, P = 0.009; \u0394k_n \u22120.0004, P = 0.003; adjusted '
+    'log-\u03c9 ratio 1.19, bootstrap 95% CI [1.12, 1.26]). KRAS-mutant tumors '
+    'were strongly enriched for ever-smokers (94% versus 63% EGFR-mutant and 86% '
+    'wild-type, \u03c7\u00b2 = 30.3, P = 2.7 \u00d7 10\u207b\u2077); '
+    'smoking-adjusted contrasts remained significant (\u0394\u03c9 +13.9, '
+    'P = 5.9 \u00d7 10\u207b\u2074 smoking alone; +13.6, P = 3.3 \u00d7 '
+    '10\u207b\u2074 with admixture; +13.3, P = 1.4 \u00d7 10\u207b\u00b3 '
+    'with smoking, age, and sex; smoking status covered 427 of 492 tumors, 87%). '
+    'KRAS-mutant LUAD also differs from wild-type in TP53 co-mutation rate and '
+    'histological subtype (invasive mucinous adenocarcinoma is KRAS-enriched); '
+    'neither was adjusted for. Excluding the 32 cell-line-derived (CC) LIHC '
+    'samples leaves the LIHC null result and the high-purity-half analysis '
+    'unchanged (NN/TT 1.11 [0.93, 1.30]; TT k_n/NN k_n 1.34 [0.997, 1.880], '
+    'which includes 1; high-purity-half 1.17 versus 1.19 excluding CC, 95% CI [1.01, 1.44]); the full barcode source-code audit is '
+    'documented in the Reproducibility Guide '
+    '(notebooks/94_cc_audit_sensitivity_v49.py).'
+)
 doc.add_page_break()
 
 add_heading('Dataset Quality Control and Filtering Criteria', 2)
@@ -2223,6 +2266,25 @@ si_caption(
     'acceptable.'
 )
 
+
+add_para(
+    'Span-matched and equal-n decomposition controls (migrated from the main text '
+    'in v50). Restricting astrocytes to the 21 intra-cerebellar region pairs that '
+    'define Bergmann glia yields a span-matched gradient of 3.68 (ratio of class '
+    'means; paired per-region-pair median 4.30, bootstrap 95% CI [3.40, 4.95]; '
+    'notebooks/95_brain_region_matched_v49.py), so the gradient persists, at '
+    'reduced magnitude, after size and span controls. Decomposing the equal-n '
+    'residual: the astrocyte/Bergmann-glia k_f ratio is 2.09 (95% CI [2.02, 2.18]) '
+    'under equal-n\u2014essentially the full-data value (2.03)\u2014whereas the k_n '
+    'ratio reverses direction (equal-n 1.29, 95% CI [1.21, 1.41], astrocyte '
+    'higher; full-data 0.31, Bergmann glia higher), so the Bergmann-glia k_n '
+    'elevation in the full data is largely a class-size artefact '
+    '(notebooks/96_brain_downsample_decomp_v49.py). Ordering controls: the '
+    'k_f-only gradient is 4.1-fold and the k_n-only gradient 6.7-fold; the '
+    'class-mean ordering is stable under an aggregate-first k_n estimator '
+    '(Spearman \u03c1 = 0.988, gradient 6.51-fold) but not under a single global '
+    'k_n (\u03c1 = 0.09).'
+)
 add_heading('Supplementary Note 11: Region Glossary (Siletti et al. Dissection Nomenclature)', 2)
 add_para(
     'All brain-region abbreviations used in the manuscript follow the dissection '
@@ -2393,6 +2455,16 @@ add_para(
     'results/axis_permutation_test.txt, and results/axis_rule_matched_null.txt.'
 )
 
+
+add_para(
+    'Microglia composition null (migrated from the main text in v50). The '
+    'microglial share-level enrichment among Strong candidates (16 of 39; raw '
+    'share-level 2.30-fold, hypergeometric P = 6.0 \u00d7 10\u207b\u2074) does '
+    'not survive the design-matched null: the Strong rule fires preferentially on '
+    'low-\u03c9 classes, so 52.0 of the 148.3 null-rule candidates are microglial '
+    '(observed 16, fold 0.31, P = 0.990), and the concentration does not survive '
+    'the leave-pair-out panel.'
+)
 add_heading('Supplementary Note 14: Comparison with Augur Cell-Type Prioritization', 2)
 add_para(
     'Augur (Skinnider et al., Nat. Biotechnol. 2021; main-text ref. 37) '
@@ -2461,6 +2533,51 @@ add_para(
     'absorbs this bias into the empirical baseline, and the permutation null distribution '
     '- constructed using the same gene sets as the observed data - ensures internal '
     'consistency. (Supplementary Fig. 13.)'
+)
+
+doc.add_page_break()
+
+add_heading('Supplementary Note 16: Independent Human-Brain Validation on the Microglia Supercluster', 2)
+add_para(
+    'This note reports an independent validation on data not used in any main-text '
+    'analysis: the Microglia supercluster of the Human Brain Cell Atlas v1.0 '
+    '(Siletti et al.; CZ CELLxGENE Discover, collection '
+    '283d65eb-dd53-496d-adb7-7570c7caa443; 91,838 nuclei, 58,232 genes), which '
+    'carries two cell_type labels\u2014microglial cell (88,494 nuclei) and central '
+    'nervous system macrophage (CNS-M\u03c6; 3,344 nuclei)\u2014across 4 donors, '
+    '598 samples, and 10 brain regions. Pseudobulks were computed per '
+    '(cell_type \u00d7 sample) group (\u2265 20 cells; 563 eligible groups, '
+    '89,533 nuclei) with the Tabula Sapiens pipeline order (per-cell '
+    'normalize_total(1e4) + log1p, then group means); k_n used the HRT Atlas v1.0 '
+    'human HK genes (1,107 matched) and k_f the global seurat HVG 2,000 panel '
+    'excluding HK (1,973 genes), with kn_floor = 1 \u00d7 10\u207b\u2074 and '
+    'seed 42. The functional contrast comprised 35 sample-matched '
+    'microglia-versus-CNS-M\u03c6 pairs (within-sample, controlling donor, '
+    'region, and batch); neutral contrasts comprised 20 random half-splits per '
+    'cell type of the same (cell_type, sample) group (microglia halves \u2265 '
+    '100 cells from 95 groups \u2265 200 cells; CNS-M\u03c6 halves \u2265 50 '
+    'cells from 4 groups \u2265 100 cells, within the recommended 50\u2013200 '
+    'cell operating window).'
+)
+add_para(
+    'CKI \u03c9 separated the functional contrast from the neutral baseline '
+    'completely: \u03c9 = 21.83 \u00b1 7.20 (functional) versus 1.30 \u00b1 '
+    '0.36 (neutral), Mann-Whitney P = 5.5 \u00d7 10\u207b\u00b9\u2074, exact '
+    'rank AUC = 1.00. The margin is carried by the functional component: k_f '
+    '(0.064 \u00b1 0.012 versus 0.0020 \u00b1 0.0016, AUC = 1.00) separates '
+    'perfectly, whereas k_n (0.0033 \u00b1 0.0011 versus 0.0014 \u00b1 0.0009) '
+    'is only partially elevated (AUC = 0.89)\u2014the decomposition-first '
+    'reading argued throughout the manuscript. Standard metrics also separated '
+    'the classes (raw JS, cosine, and marker Jaccard AUC = 1.00; Spearman '
+    '0.90), as expected for two genuinely distinct cell types; the validation '
+    'value lies in \u03c9 tracking the functional contrast far above its own '
+    'neutral baseline on an independent dataset. Note that this analysis uses '
+    'the global-HVG scheme, not the per-pair top-200 hybrid scheme, so absolute '
+    '\u03c9 values sit on a different scale from the 7.70-calibrated hybrid '
+    'baseline and are compared internally only. Scripts: '
+    'notebooks/nc50_brain_atlas_microglia.py and '
+    'notebooks/nc50_fig_microglia.py; outputs: '
+    'results/nc50_brain_atlas_microglia.csv and .txt. (Supplementary Fig. 14.)'
 )
 
 doc.add_page_break()

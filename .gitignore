@@ -32,6 +32,7 @@ data/tcga/
 data/ts_human/
 data/housekeeping/
 data/annotations_FACS.csv
+data/human_brain_atlas_microglia.h5ad
 data/metadata_FACS.csv
 
 # Large archives
@@ -114,6 +115,8 @@ results/CKI_Reproducibility.ipynb
 !results/nc49_tcga_luad_smoking.csv
 !results/nc49_tcga_pancancer.csv
 !results/nc49_tcga_purity.csv
+!results/nc50_brain_atlas_microglia.csv
+!results/nc50_brain_atlas_microglia.txt
 
 # Whitelist: v38 analysis / figure notebooks cited in the reproducibility guide (moved to end of file)
 

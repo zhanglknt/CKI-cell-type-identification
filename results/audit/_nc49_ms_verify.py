@@ -7,6 +7,7 @@ from docx import Document
 doc = Document('results/CKI_Manuscript_NC.docx')
 paras = [p.text for p in doc.paragraphs]
 full = '\n'.join(paras)
+sfull = open('results/CKI_Supplementary_NC_fulltext.txt', encoding='utf-8').read()
 
 checks = []
 
@@ -27,29 +28,32 @@ chk('no stale 85% decomposition (0.097 restored in new sentence)',
     '85% of the log-scale' not in full)
 
 # 2. Section references (SI renumbered 3.20->3.12, 3.21->3.13)
-chk('Results Section 3.12 ref',
-    'audit trails in the companion repository; Section 3.12 of the Supplementary Information' in full)
+chk('Results Section 3.12 ref (v50)',
+    'relative-calibration advantage (Section 3.12 of the Supplementary Information)' in full)
 chk('Methods Section 3.12 ref',
     'Section 3.12 of the Supplementary Information reports the full audit of design, diagnostics, and per-class results' in full)
 chk('Section 3.12 referenced 3x (Results, Methods, class-composition note)',
     full.count('Section 3.12 of the Supplementary Information') == 3,
     f'found {full.count("Section 3.12 of the Supplementary Information")}')
-chk('MWU descriptive -> Section 3.13',
-    'reported as descriptive only in Section 3.13 of the Supplementary Information' in full)
+chk('MWU deleted from main claims; permutation -> Section 3.13 (v50)',
+    'whole-tumor label-permutation tests confirmed all three contrasts (Section 3.13 of the Supplementary Information)' in full
+    and 'per-tumor Mann-Whitney' not in full)
 chk('no stale Section 3.20/3.21 refs',
     'Section 3.20' not in full and 'Section 3.21' not in full)
 
 # 3. P0-1 qualification of misreporting claims
 chk('T1 qualified (continuous metrics)',
-    'lowest misreporting rate among the four continuous divergence metrics' in full)
-chk('marker Jaccard T1 19.9% admitted', 'T1 FPR 19.9%' in full)
-chk('Jaccard below omega 10/10 admitted', 'below \u03c9 in all ten cell classes' in full)
-chk('same-statistic frontier admitted',
-    'T3\u2212T1 FPR gap 0.60 versus 0.56' in full and 'T3/T1 ratio 4.0 versus 3.0' in full)
-chk('final claim qualified',
-    'lowest misreporting among the continuous divergence metrics' in full)
-chk('Discussion decision-rules qualified',
-    'marker Jaccard was more conservative still but offers no k_n/k_f decomposition' in full)
+    'lowest misreporting rate among the continuous divergence metrics' in full)
+chk('marker Jaccard T1 19.9% admitted (v50: MS + SI)',
+    'marker Jaccard distance was lower still (19.9%)' in full and 'T1 FPR 19.9%' in sfull)
+chk('Jaccard weakest on genuine divergence admitted (v50)',
+    'responded weakest to genuine regional divergence' in full)
+chk('same-statistic frontier admitted (v50: SI)',
+    'T3\u2212T1 FPR gap 0.60 versus 0.56' in sfull and 'T3/T1 ratio 4.0 versus 3.0' in sfull)
+chk('final claim qualified (v50)',
+    '\u03c9 misreports least among the continuous divergence metrics at both tiers' in full)
+chk('Discussion decision-rules qualified (v50)',
+    'offers no k_n/k_f decomposition' in full)
 chk('no unqualified "misreported least of seven"',
     'least of seven metrics' not in full and 'of the seven metrics except' not in full)
 
@@ -79,15 +83,13 @@ chk('attrition three-way arithmetic (v49.14)',
     '3 do not appear in the assembled pair table' in full
     and 'spans 3,593 unique barcodes' in full
     and '29 expression-matrix samples were excluded' not in full)
-chk('CC ratio list new values',
-    'KIRC 1.88 (1.63\u20132.16)' in full and 'LUSC 1.71 (1.38\u20132.09)' in full
-    and 'BRCA 1.57 (1.34\u20131.85)' in full and 'LIHC 1.10 (0.93\u20131.29)' in full)
+chk('CC ratio list new values (v50: MS ratios, CIs in SI)',
+    'mean NN/TT \u03c9: LUAD 2.46, KIRC 1.88, LUSC 1.71, BRCA 1.57, LIHC 1.10' in full)
 chk('CC old ratio list gone',
     'KIRC 1.90' not in full and 'LUSC 1.82' not in full
     and 'LIHC 1.13 (0.97' not in full and '1.35\u20131.83' not in full)
-chk('k_n mechanism sentence new range',
-    'TT k_n exceeded NN k_n by 1.3\u20133.3-fold (mean ratios' in full
-    and 'KIRC 3.29 [2.54, 4.35]' in full and 'LIHC 1.35 [1.02, 1.88]' in full)
+chk('k_n mechanism sentence new range (v50: MS range; per-cancer CIs in SI Table 11)',
+    'TT k_n exceeded NN k_n by 1.3\u20133.3-fold in every cancer type (95% CIs excluding 1 in all five)' in full)
 chk('k_n mechanism old examples gone',
     '2.1\u20133.6-fold at the median' not in full
     and 'KIRC 3.21 [2.51, 4.28]' not in full and 'LIHC 1.41 [1.08, 1.98]' not in full)
@@ -95,43 +97,48 @@ chk('Discussion range updated',
     'mean NN/TT 1.10\u20132.46' in full and 'mean NN/TT 1.13\u20132.46' not in full)
 
 # 6. R1-P1-3 / R3-P1-1: MWU deleted from main text, CI presentation
-chk('pair-level MWU P deleted from main claims',
-    'pair-level Mann-Whitney P-values, which ignore dyadic dependence between pairs' in full)
-chk('LIHC mapping-sensitivity honest',
-    'quantitatively weaker under the linear mapping (NN/TT mean ratio 1.10 versus 1.31' in full)
-chk('softmax demoted to SI sensitivity',
-    'softmax-caliber values are archived as a sensitivity analysis in Section 1.7' in full)
+chk('pair-level MWU P deleted from main claims (v50)',
+    'Dunn\u2013Holm P \u2264 0.008 for both KRAS contrasts' in full
+    and 'whole-tumor label-permutation tests confirmed all three contrasts' in full)
+chk('LIHC mapping-sensitivity honest (v50)',
+    'LIHC effect size mapping-sensitive: 1.10 versus 1.31 under softmax' in full)
+chk('softmax demoted to SI sensitivity (v50)',
+    'recomputed under a linear probability mapping (the authoritative caliber)' in full
+    and 'Section 1.7' in full and 'softmax-caliber values are archived here as a sensitivity analysis' in sfull)
 
 # 7. R2-P0/P1: purity + smoking adjustment integrated
-chk('purity adj KRAS omega +16.8',
-    '\u0394\u03c9 +16.8, P = 4.0 \u00d7 10\u207b\u2076' in full)
-chk('purity adj k_f/k_n significant',
-    '\u0394k_f +0.012, P = 0.009' in full and '\u0394k_n \u22120.0004, P = 0.003' in full)
-chk('EGFR null after purity adj', 'all P > 0.4' in full)
-chk('EGFR admixture highest', 'highest in EGFR-mutant tumors (Kruskal-Wallis P = 0.003)' in full)
-chk('smoking enrichment 94/63/86',
-    '94% versus 63% in EGFR-mutant and 86% in wild-type tumors' in full)
-chk('smoking chi2', '\u03c7\u00b2 = 30.3, P = 2.7 \u00d7 10\u207b\u2077' in full)
-chk('smoking three-model adjustment (v49.14)',
-    'alone, jointly with admixture, or jointly with age and sex' in full
-    and '+13.6, P = 3.3 \u00d7 10\u207b\u2074 with smoking and admixture' in full
-    and '+13.3, P = 1.4 \u00d7 10\u207b\u00b3 with smoking, age, and sex' in full)
-chk('smoking alone +13.9', '\u0394\u03c9 +13.9, P = 5.9 \u00d7 10\u207b\u2074 with smoking alone' in full)
+chk('purity adj KRAS omega +16.8 (v50: SI 3.13)',
+    '\u0394\u03c9 +16.8, P = 4.0 \u00d7 10\u207b\u2076' in sfull)
+chk('purity adj k_f/k_n significant (v50: SI 3.13)',
+    '\u0394k_f +0.012, P = 0.009' in sfull and '\u0394k_n \u22120.0004, P = 0.003' in sfull)
+chk('EGFR null after purity adj', 'all adjusted P > 0.4' in full)
+chk('EGFR admixture highest (v50: SI 3.13)',
+    'EGFR-mutant tumors carry the highest admixture scores (Kruskal-Wallis P = 0.003)' in sfull)
+chk('smoking enrichment 94/63/86 (v50: SI 3.13)',
+    '94% versus 63% EGFR-mutant and 86% wild-type' in sfull)
+chk('smoking chi2 (v50: SI 3.13)', '\u03c7\u00b2 = 30.3, P = 2.7 \u00d7 10\u207b\u2077' in sfull)
+chk('smoking three-model adjustment (v50: MS headline; SI models)',
+    'alone or jointly with admixture, age, and sex' in full and '+13.3' in full
+    and '+13.6' in sfull and '+13.9' in sfull)
+chk('smoking alone +13.9 (v50: SI 3.13)', '+13.9' in sfull)
 chk('purity proxy limitation (Results)',
     'monotonically equivalent to published ESTIMATE purity' in full)
-chk('pack-years limitation', 'pack-years data were too sparse to model (smoking status covered 427 of 492 tumors, 87%)' in full)
-chk('batch/center limitation', 'tissue-source site and processing batch' in full)
-chk('GTEx healthy-reference limitation', 'GTEx' in full)
-chk('Discussion epidemiology sentence',
-    'unlikely to be a smoking-field effect' in full)
+chk('pack-years sparsity documented (v50: Methods)',
+    'pack-years for 356' in full)
+chk('batch/center limitation (v50)', 'tissue-source site and batch' in full)
+chk('GTEx healthy-reference limitation (v50 wording)',
+    'adjacent non-tumor tissue is not healthy tissue' in full and 'external healthy reference' in full)
+chk('Discussion epidemiology sentence (v50: adjustment retained)',
+    'Adjusting for smoking' in full and 'essentially unchanged' in full)
 
 # 7b. Pan-cancer purity sensitivity (Results para 3)
 chk('k_n admix correlation range', 'r = \u22120.23 to \u22120.42' in full)
-chk('high-purity half LUAD', 'LUAD 2.46 \u2192 2.86, 95% CI 2.41\u20133.45' in full)
-chk('high-purity half LIHC caliber kept',
-    'LIHC 1.10 \u2192 1.17, its CI still including 1' in full)
-chk('reversal not admixture artefact',
-    'not an artefact of stromal or immune admixture' in full)
+chk('high-purity half LUAD (v50)', 'LUAD 2.46 \u2192 2.86' in full)
+chk('high-purity half LIHC caliber kept (v50: MS + SI 3.13)',
+    'high-purity-half comparisons increased the ratio in all five' in full
+    and 'high-purity-half 1.17 versus 1.19 excluding CC' in sfull)
+chk('reversal not admixture artefact (v50)',
+    'admixture can only weaken, not create, the TT k_n elevation' in full)
 
 # 7c. Methods covariate blocks
 chk('Methods ESTIMATE block',
@@ -161,13 +168,14 @@ chk('Fig 5 legend old EGFR-baseline gone',
 # 7e. xv-text round: P2 clarifications in MS
 chk('B=30 MC noise note', 'resolves to 1/31' in full)
 chk('tier class-composition note', 'mix class composition with drift tier' in full)
-chk('per-tumor cross-group pairing note',
-    'not formed from disjoint pair sets' in full)
-chk('wild-type label qualified', 'wild-type for EGFR and KRAS' in full)
+chk('per-tumor cross-group pairing note (v50: SI 3.13)',
+    'averages overlapping (non-disjoint) pair sets' in sfull)
+chk('wild-type label qualified (v50: SI 3.13)',
+    'wild-type (negative for both drivers)' in sfull)
 chk('seeded subsampling MC note',
     'Monte-Carlo error of roughly 0.01\u20130.02 ratio units' in full)
-chk('TCGA fixed-panel caveat',
-    'fixed-panel ablation of the per-pair top-200 selection was run for the brain pipeline' in full)
+chk('TCGA fixed-panel caveat (v50)',
+    'depend on the per-pair circular selection of k_f genes' in full)
 chk('Fig 4a dual-axis note', 'The two axes use independent scales' in full)
 chk('affiliation postcodes',
     'Beijing 102206, China' in full and 'Chengdu 610052, China' in full)
@@ -178,22 +186,23 @@ chk('short Result 5 heading',
     and 'A pan-cancer map of tissue-level functional divergence in tumors' not in full)
 
 # 7g. Three-in-one round: KRAS magnitude + Hallmark
-chk('KRAS magnitude sentence restored',
-    'The elevation was carried predominantly by the lower baseline (k_n contributed ~84% of the log-\u03c9 gap; the unadjusted k_f contrast was non-significant, Dunn P = 0.097)' in full)
-chk('KRAS magnitude coexists with adjusted',
-    '\u0394k_f +0.012, P = 0.009' in full)
-chk('Hallmark enrichment sentence',
-    'no program surviving multiple-testing correction (all q \u2265 0.24)' in full)
-chk('Hallmark distributed-signal framing',
-    'distributed identity-gene signal rather than a single-pathway artefact' in full)
+chk('KRAS magnitude sentence restored (v50: MS headline; Dunn P in SI)',
+    'carried predominantly by a lower housekeeping baseline (~84% of the log-\u03c9 gap)' in full
+    and '0.097' in sfull)
+chk('KRAS magnitude coexists with adjusted (v50)',
+    'adjusted P = 0.009' in full)
+chk('Hallmark enrichment sentence (v50)',
+    'no enrichment for any MSigDB Hallmark program' in full and 'all q \u2265 0.24' in full)
+chk('Hallmark distributed-signal framing (v50: k_f ordering retained)',
+    'retained the TT \u2265 NN k_f ordering in all five cancer types' in full)
 chk('k_f composition regression sentence',
     'retained the TT \u2265 NN k_f ordering in all five cancer types' in full)
 chk('Data availability Enrichr mirror',
     'accessed via the Enrichr gene-set library (MSigDB_Hallmark_2020' in full)
 
 # 8. R1 P2-4: Kang k_f increment honest
-chk('Kang k_f 0/30 parenthetical',
-    'k_f alone was likewise 0 of 30' in full)
+chk('Kang k_f 0/30 parenthetical (v50)',
+    'k_f alone likewise 0 of 30' in full)
 
 # 9. R4-P1-4: no Additional file 2
 chk('no Additional file 2', 'Additional file 2' not in full)
@@ -201,18 +210,20 @@ chk('SI availability rewritten',
     'Supplementary Information is available for this paper' in full)
 
 # 10. Prior-phase content intact
-chk('severity -> Note 9 + Supp Fig 4b',
-    'reported as denominator-dominated vignettes in the Supplementary Information (Supplementary Note 9; Supplementary Fig. 4b)' in full)
+chk('severity -> Note 9 + Supp Fig 4b (v50: split MS/SI)',
+    'denominator-dominated vignettes (Supplementary Note 9)' in full
+    and 'Supplementary Fig. 4b' in sfull)
 chk('marker Jaccard 1.41 (Results)', 'T3 calibration ratio 1.41 versus 1.80' in full)
 chk('no leftover 1.40 versus 1.80', '1.40 versus 1.80' not in full)
 chk('Result 5 TCGA title',
     'A pan-cancer map of tissue-level divergence in tumors' in full)
 chk('Figure 4 legend (TCGA)', 'Figure 4. Pan-cancer tissue-level divergence in tumors' in full)
-chk('Cox limitation sentence', 'Cox hazard ratio per SD 1.07, 95% CI 0.88\u20131.31, P = 0.48' in full)
+chk('Cox limitation sentence (v50)',
+    'LIHC Cox hazard ratio per SD 1.07, 95% CI 0.88\u20131.31' in full)
 chk('drift Results heading', 'Real-data neutral-drift calibration on technical replicates' in full)
-chk('Kang Wilson CI', 'Wilson 95% CI [0.000, 0.114]' in full)
-chk('Kang-brain size reconciliation',
-    'consistent under the size-dependence of the technical component' in full)
+chk('Kang Wilson CI (v50: SI)', 'Wilson 95% CI [0.000, 0.114]' in sfull)
+chk('Kang-brain size reconciliation (v50)',
+    '0-of-30 Kang outcome sits at the favorable end of this size dependence' in full)
 
 # 11. Figure legends order 1-6 (v49.6: Fig2+Fig3 merged, 3-7 renumbered)
 figs = [t[:12] for t in paras if re.match(r'^Figure \d\.', t)]
@@ -231,8 +242,8 @@ chk('Result 3 anchor narrowed to Fig. 2d',
     'human column) (Fig. 2d).' in full and 'human column) (Fig. 2d, e).' not in full)
 chk('Result 3b AUC sentence cites Fig. 2e',
     'from neutral perturbations (Fig. 2e; AUC = 0.80' in full)
-chk('Result 3b background2 cites Fig. 2e',
-    '= 0.859 (Fig. 2e), with the same metric ranking' in full)
+chk('Result 3b background2 cites Fig. 2e (v50)',
+    'AUC(k_f) = 0.859 (Fig. 2e)' in full)
 
 # 11c. v49.8: classification benchmark fully cut; main Table 2 renumbered to Table 1
 chk('classification benchmark paragraph removed',
@@ -244,9 +255,9 @@ chk('Methods classification ROC-AUC removed',
     'cell-type classification ROC-AUC' not in full)
 chk('main-text Table 2 retired',
     not re.search(r'(?<!Supplementary )Table 2', full))
-chk('cross-organ Table 1 citations',
+chk('cross-organ Table 1 citations (v50)',
     '(Fig. 5; Table 1; Supplementary Fig. 5)' in full
-    and 'upper block of Table 1' in full and 'lower block of Table 1' in full)
+    and 'upper block of Table 1' in full)
 
 # 12. Fig 3 legend honest framing
 chk('Fig 3 legend Jaccard admission',
@@ -275,7 +286,7 @@ for _p in doc.paragraphs[_abs_i + 1:_ref_i]:
     for _r in _p.runs:
         if _r.font.superscript:
             _sup_groups.append(_cite_expand(_r.text))
-chk('superscript citation group count == 76', len(_sup_groups) == 76,
+chk('superscript citation group count == 73 (v50)', len(_sup_groups) == 73,
     f'found {len(_sup_groups)}')
 _first, _seen = [], set()
 for _g in _sup_groups:

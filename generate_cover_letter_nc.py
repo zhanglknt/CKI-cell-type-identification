@@ -73,8 +73,8 @@ def run():
     add_para(
         "On behalf of my co-author, Dr. Xianming Wu (Chinese Institute for "
         "Brain Research, Beijing), I submit our manuscript, "
-        "\u201cCKI is a Ka/Ks-inspired index quantifying functional divergence "
-        "in single-cell genomics\u201d, for consideration as an Article in "
+        "\u201cCKI: a Ka/Ks-inspired index separating functional divergence "
+        "from baseline variation in cell atlases\u201d, for consideration as an Article in "
         "Nature Communications. CKI (Cell-type Ka/Ks-inspired Index) is, to "
         "our knowledge, the first per-comparison, design-testable "
         "implementation of a principled separation of functional divergence "
