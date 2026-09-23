@@ -1,0 +1,25 @@
+# SUPERSEDED 2026-09-24 by results/nc52_tcga_composition_excc.csv (nc52 B1: ex-CC default composition regression).
+# This file contains CC (ILSBio cell-line) samples in the LIHC cohort; the ex-CC cohort is the default from nc52 onward. Retained for audit only.
+test_id,description,effect,p_value
+C3_dcomp_TT_gt_NN_myeloid,|Delta myeloid|: TT median=0.739 NN median=0.747,0.9893566280445537,0.9981040321240718
+C3_dcomp_TT_gt_NN_overall3,|Delta overall3|: TT median=0.814 NN median=0.624,1.3051753771723027,3.5712294985532192e-137
+C3_dcomp_TT_gt_NN_overall4,|Delta overall4|: TT median=0.831 NN median=0.683,1.215653921200716,1.275297044525345e-66
+C4_attenuation_TCGA-LUAD,TT coef +1.0767 -> 3-panel +1.0599 (att +1.6%) -> 4-panel(+myeloid) +1.0978 (att -2.0%),-0.01955836271858069,
+C4_attenuation_TCGA-LUSC,TT coef +0.8489 -> 3-panel +0.8149 (att +4.0%) -> 4-panel(+myeloid) +0.9250 (att -9.0%),-0.08969613392057085,
+C4_attenuation_TCGA-LIHC,TT coef +0.5299 -> 3-panel +0.3138 (att +40.8%) -> 4-panel(+myeloid) +0.3510 (att +33.8%),0.33757477458882246,
+C4_attenuation_TCGA-KIRC,TT coef +1.1805 -> 3-panel +0.9067 (att +23.2%) -> 4-panel(+myeloid) +0.9484 (att +19.7%),0.19665088010228615,
+C4_attenuation_TCGA-BRCA,TT coef +0.9931 -> 3-panel +1.1344 (att -14.2%) -> 4-panel(+myeloid) +1.1514 (att -15.9%),-0.15947522708959339,
+C4_attenuation_pooled,TT coef +1.0416 -> 3-panel +0.9892 (att +5.0%) -> 4-panel(+myeloid) +1.0547 (att -1.3%),-0.012580150186592531,
+C5_spearman_kn_dcomp4_TT_pooled,rho(4-panel)=0.364 (n=10000),0.36421409927633347,0.0
+C5_spearman_kn_dcomp4_TT_TCGA-LUAD,rho(4-panel)=0.352 (n=2000),0.3520903630225908,1.9100711543367623e-59
+C5_spearman_kn_dcomp4_TT_TCGA-LUSC,rho(4-panel)=0.284 (n=2000),0.2838874324718581,2.191461673091045e-38
+C5_spearman_kn_dcomp4_TT_TCGA-LIHC,rho(4-panel)=0.196 (n=2000),0.19640831002329168,7.675703147537018e-19
+C5_spearman_kn_dcomp4_TT_TCGA-KIRC,rho(4-panel)=0.513 (n=2000),0.5131044832761208,9.509674376571993e-135
+C5_spearman_kn_dcomp4_TT_TCGA-BRCA,rho(4-panel)=0.223 (n=2000),0.22277444269361063,6.534190371054032e-24
+BOOT_attenuation_pooled_4panel,"median -1.3%, 95% CI [-4.8%, +2.0%] (B=1000, sample-level cluster bootstrap)",-0.012656574995313696,
+BOOT_attenuation_pooled_3panel,"median +4.9%, 95% CI [+2.1%, +7.6%] (B=1000)",0.0485468380750978,
+BOOT_attenuation_TCGA-LUAD_4panel,"median -2.0%, 95% CI [-7.8%, +4.2%]",-0.020453098151347437,
+BOOT_attenuation_TCGA-LUSC_4panel,"median -10.0%, 95% CI [-27.8%, +6.8%]",-0.10016179174606521,
+BOOT_attenuation_TCGA-LIHC_4panel,"median +32.8%, 95% CI [+21.5%, +48.1%]",0.3275970935364319,
+BOOT_attenuation_TCGA-KIRC_4panel,"median +19.6%, 95% CI [+14.1%, +25.1%]",0.1958630774134607,
+BOOT_attenuation_TCGA-BRCA_4panel,"median -16.1%, 95% CI [-24.6%, -7.4%]",-0.16119639008675313,

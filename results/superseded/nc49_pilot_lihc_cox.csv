@@ -1,3 +1,5 @@
+# SUPERSEDED 2026-09-24 by results/nc52_lihc_cox_excc.csv (nc52 B1: ex-CC default, stage categorical, PH test via cox.zph, k_f model reported).
+# This file contains CC (ILSBio cell-line) samples in the LIHC cohort; the ex-CC cohort is the default from nc52 onward. Retained for audit only.
 model,covariate,n,events,coef,se,HR,HR_lower,HR_upper,z,p
 M1_omega_full,z,304,101,0.07197,0.10076,1.075,0.882,1.309,0.714,0.47510345044488855
 M1_omega_full,stage,304,101,0.57598,0.11323,1.779,1.425,2.221,5.087,3.6434963712750346e-07

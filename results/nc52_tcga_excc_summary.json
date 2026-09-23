@@ -1,0 +1,319 @@
+{
+  "analysis": "nc52 B1: ex-CC default TCGA main chain",
+  "seed": 42,
+  "bootstrap_B": 1000,
+  "cohort": {
+    "pairs_full": 35306,
+    "pairs_cc_touching_dropped": 478,
+    "pairs_excc": 34828,
+    "cc_rule": "sample barcode positions [5:7] == 'CC' (ILSBio cell line)"
+  },
+  "pancancer_excc": [
+    {
+      "cancer": "TCGA-LUAD",
+      "n_tumor": 493,
+      "n_normal": 76,
+      "n_TT_pairs": 2000,
+      "n_NN_pairs": 2850,
+      "omega_TT_mean": 121.66,
+      "omega_NN_mean": 299.76,
+      "NN_TT_ratio": 2.464,
+      "NN_TT_ratio_CI95_lower": 2.128,
+      "NN_TT_ratio_CI95_upper": 2.863,
+      "p_MWU_NN_gt_TT": 0.0,
+      "kn_TT_median": 0.0024488532782279,
+      "kn_NN_median": 0.0009405770813792,
+      "kn_TT_NN_median_ratio": 2.6,
+      "kn_TT_NN_mean_ratio": 2.548,
+      "kn_TT_NN_mean_ratio_CI95_lower": 2.088,
+      "kn_TT_NN_mean_ratio_CI95_upper": 3.314,
+      "kf_TT_median": 0.29100640957313073,
+      "kf_NN_median": 0.2032831498555538,
+      "kf_TT_NN_median_ratio": 1.432,
+      "kf_TT_mean": 0.2823,
+      "kf_NN_mean": 0.2259,
+      "kf_TT_NN_mean_ratio": 1.25,
+      "kf_TT_NN_mean_ratio_CI95_lower": 1.155,
+      "kf_TT_NN_mean_ratio_CI95_upper": 1.364,
+      "rank_by_NN_TT_ratio": 1
+    },
+    {
+      "cancer": "TCGA-LUSC",
+      "n_tumor": 534,
+      "n_normal": 58,
+      "n_TT_pairs": 2000,
+      "n_NN_pairs": 1653,
+      "omega_TT_mean": 122.68,
+      "omega_NN_mean": 209.49,
+      "NN_TT_ratio": 1.708,
+      "NN_TT_ratio_CI95_lower": 1.378,
+      "NN_TT_ratio_CI95_upper": 2.087,
+      "p_MWU_NN_gt_TT": 8.406349164656234e-59,
+      "kn_TT_median": 0.0025324239221890497,
+      "kn_NN_median": 0.0010011309641585,
+      "kn_TT_NN_median_ratio": 2.53,
+      "kn_TT_NN_mean_ratio": 1.891,
+      "kn_TT_NN_mean_ratio_CI95_lower": 1.463,
+      "kn_TT_NN_mean_ratio_CI95_upper": 2.594,
+      "kf_TT_median": 0.31517522982554896,
+      "kf_NN_median": 0.1760379339731006,
+      "kf_TT_NN_median_ratio": 1.79,
+      "kf_TT_mean": 0.3063,
+      "kf_NN_mean": 0.1815,
+      "kf_TT_NN_mean_ratio": 1.688,
+      "kf_TT_NN_mean_ratio_CI95_lower": 1.52,
+      "kf_TT_NN_mean_ratio_CI95_upper": 1.871,
+      "rank_by_NN_TT_ratio": 3
+    },
+    {
+      "cancer": "TCGA-LIHC",
+      "n_tumor": 366,
+      "n_normal": 57,
+      "n_TT_pairs": 1709,
+      "n_NN_pairs": 1596,
+      "omega_TT_mean": 76.75,
+      "omega_NN_mean": 85.34,
+      "NN_TT_ratio": 1.112,
+      "NN_TT_ratio_CI95_lower": 0.943,
+      "NN_TT_ratio_CI95_upper": 1.302,
+      "p_MWU_NN_gt_TT": 0.11298272431854295,
+      "kn_TT_median": 0.0039519824050066,
+      "kn_NN_median": 0.0019166390161310001,
+      "kn_TT_NN_median_ratio": 2.06,
+      "kn_TT_NN_mean_ratio": 1.337,
+      "kn_TT_NN_mean_ratio_CI95_lower": 1.022,
+      "kn_TT_NN_mean_ratio_CI95_upper": 1.886,
+      "kf_TT_median": 0.3101079863489751,
+      "kf_NN_median": 0.1644225038918275,
+      "kf_TT_NN_median_ratio": 1.886,
+      "kf_TT_mean": 0.3025,
+      "kf_NN_mean": 0.1851,
+      "kf_TT_NN_mean_ratio": 1.634,
+      "kf_TT_NN_mean_ratio_CI95_lower": 1.435,
+      "kf_TT_NN_mean_ratio_CI95_upper": 1.892,
+      "rank_by_NN_TT_ratio": 5
+    },
+    {
+      "cancer": "TCGA-KIRC",
+      "n_tumor": 750,
+      "n_normal": 82,
+      "n_TT_pairs": 2000,
+      "n_NN_pairs": 3321,
+      "omega_TT_mean": 125.78,
+      "omega_NN_mean": 236.46,
+      "NN_TT_ratio": 1.88,
+      "NN_TT_ratio_CI95_lower": 1.638,
+      "NN_TT_ratio_CI95_upper": 2.148,
+      "p_MWU_NN_gt_TT": 1.4066893313816804e-232,
+      "kn_TT_median": 0.00260137731792705,
+      "kn_NN_median": 0.0007203153387293,
+      "kn_TT_NN_median_ratio": 3.61,
+      "kn_TT_NN_mean_ratio": 3.292,
+      "kn_TT_NN_mean_ratio_CI95_lower": 2.535,
+      "kn_TT_NN_mean_ratio_CI95_upper": 4.34,
+      "kf_TT_median": 0.25732305195953165,
+      "kf_NN_median": 0.1582423850107663,
+      "kf_TT_NN_median_ratio": 1.626,
+      "kf_TT_mean": 0.2643,
+      "kf_NN_mean": 0.1709,
+      "kf_TT_NN_mean_ratio": 1.547,
+      "kf_TT_NN_mean_ratio_CI95_lower": 1.391,
+      "kf_TT_NN_mean_ratio_CI95_upper": 1.716,
+      "rank_by_NN_TT_ratio": 2
+    },
+    {
+      "cancer": "TCGA-BRCA",
+      "n_tumor": 1010,
+      "n_normal": 109,
+      "n_TT_pairs": 2000,
+      "n_NN_pairs": 5886,
+      "omega_TT_mean": 128.23,
+      "omega_NN_mean": 201.0,
+      "NN_TT_ratio": 1.567,
+      "NN_TT_ratio_CI95_lower": 1.342,
+      "NN_TT_ratio_CI95_upper": 1.815,
+      "p_MWU_NN_gt_TT": 3.328191565817422e-42,
+      "kn_TT_median": 0.0024123047236967,
+      "kn_NN_median": 0.0008691107352548,
+      "kn_TT_NN_median_ratio": 2.78,
+      "kn_TT_NN_mean_ratio": 2.27,
+      "kn_TT_NN_mean_ratio_CI95_lower": 1.836,
+      "kn_TT_NN_mean_ratio_CI95_upper": 2.836,
+      "kf_TT_median": 0.3011570210721367,
+      "kf_NN_median": 0.14521006265966546,
+      "kf_TT_NN_median_ratio": 2.074,
+      "kf_TT_mean": 0.2944,
+      "kf_NN_mean": 0.1422,
+      "kf_TT_NN_mean_ratio": 2.07,
+      "kf_TT_NN_mean_ratio_CI95_lower": 1.922,
+      "kf_TT_NN_mean_ratio_CI95_upper": 2.23,
+      "rank_by_NN_TT_ratio": 4
+    }
+  ],
+  "LIHC_focus": {
+    "NN_TT_ratio_excc": 1.112,
+    "CI95": [
+      0.943,
+      1.302
+    ],
+    "CI_excludes_1": false,
+    "p_MWU_NN_gt_TT": 0.11298272431854295,
+    "kn_TT_NN_mean_ratio": 1.337,
+    "kn_TT_NN_mean_ratio_CI95": [
+      1.022,
+      1.886
+    ],
+    "kn_CI_excludes_1": true,
+    "n_tumor_excc": 366,
+    "reference_full_cohort_ratio": 1.104,
+    "reference_full_cohort_CI95": [
+      0.933,
+      1.286
+    ]
+  },
+  "severity_tests_excc": {
+    "TCGA-LIHC": {
+      "stratification": "Edmondson_grade",
+      "groups": {
+        "G1": {
+          "n": 39,
+          "omega_mean": 78.78744177261787,
+          "kf_mean": 0.2908933793025708,
+          "kn_mean": 0.004543125137470741
+        },
+        "G2": {
+          "n": 134,
+          "omega_mean": 75.79763002736003,
+          "kf_mean": 0.28976028028821194,
+          "kn_mean": 0.004864265329504933
+        },
+        "G3": {
+          "n": 105,
+          "omega_mean": 77.60772979749963,
+          "kf_mean": 0.31162677365878405,
+          "kn_mean": 0.005111221230144799
+        },
+        "G4": {
+          "n": 11,
+          "omega_mean": 72.28762182146225,
+          "kf_mean": 0.3119166757236711,
+          "kn_mean": 0.006090474262068391
+        }
+      },
+      "tests": {
+        "omega": {
+          "test": "Jonckheere-Terpstra",
+          "stat": 13260.0,
+          "p": 0.0
+        },
+        "kf": {
+          "test": "Jonckheere-Terpstra",
+          "stat": 16089.0,
+          "p": 8.414824392843911e-12
+        },
+        "kn": {
+          "test": "Jonckheere-Terpstra",
+          "stat": 14185.0,
+          "p": 0.0
+        }
+      }
+    },
+    "TCGA-BRCA": {
+      "stratification": "PAM50",
+      "groups": {
+        "Basal-like": {
+          "n": 97,
+          "omega_mean": 116.73794407743387,
+          "kf_mean": 0.32380200162202716,
+          "kn_mean": 0.0030979700998348897
+        },
+        "HER2-enriched": {
+          "n": 55,
+          "omega_mean": 121.78126749551538,
+          "kf_mean": 0.3051632027451263,
+          "kn_mean": 0.002857971937932709
+        },
+        "Luminal A": {
+          "n": 224,
+          "omega_mean": 142.04306041516634,
+          "kf_mean": 0.27909056877660515,
+          "kn_mean": 0.002469109683675596
+        },
+        "Luminal B": {
+          "n": 123,
+          "omega_mean": 136.47191843418648,
+          "kf_mean": 0.3001074676761026,
+          "kn_mean": 0.0025206515182118238
+        },
+        "Normal-like": {
+          "n": 7,
+          "omega_mean": 101.86376016479075,
+          "kf_mean": 0.24384498585450617,
+          "kn_mean": 0.0036307107882983395
+        }
+      },
+      "tests": {
+        "omega": {
+          "test": "Kruskal-Wallis",
+          "stat": 34.12361871727239,
+          "p": 7.029292223182676e-07
+        },
+        "kf": {
+          "test": "Kruskal-Wallis",
+          "stat": 57.82064649423887,
+          "p": 8.32199116335373e-12
+        },
+        "kn": {
+          "test": "Kruskal-Wallis",
+          "stat": 50.01968807305707,
+          "p": 3.5768480389931186e-10
+        }
+      }
+    },
+    "TCGA-LUAD": {
+      "stratification": "mutation",
+      "groups": {
+        "WT": {
+          "n": 311,
+          "omega_mean": 115.37344653274688,
+          "kf_mean": 0.28136409808563934,
+          "kn_mean": 0.0032174937129102405
+        },
+        "EGFR": {
+          "n": 61,
+          "omega_mean": 122.21559869891003,
+          "kf_mean": 0.2732156813663618,
+          "kn_mean": 0.0028004389632970096
+        },
+        "KRAS": {
+          "n": 120,
+          "omega_mean": 136.9436246294445,
+          "kf_mean": 0.2918933782219368,
+          "kn_mean": 0.0026538654992771258
+        }
+      },
+      "tests": {
+        "omega": {
+          "test": "Kruskal-Wallis",
+          "stat": 28.119625171895677,
+          "p": 7.832510348041664e-07
+        },
+        "kf": {
+          "test": "Kruskal-Wallis",
+          "stat": 8.385593926675028,
+          "p": 0.015103980459083927
+        },
+        "kn": {
+          "test": "Kruskal-Wallis",
+          "stat": 16.00224709865597,
+          "p": 0.0003350859307509108
+        }
+      }
+    }
+  },
+  "outputs": [
+    "C:\\Users\\KnightZ\\Desktop\\\u7ec6\u80de\u53d7\u9009\u62e9\\results\\nc52_tcga_pancancer_excc.csv",
+    "C:\\Users\\KnightZ\\Desktop\\\u7ec6\u80de\u53d7\u9009\u62e9\\results\\nc52_tcga_excc_severity.csv",
+    "C:\\Users\\KnightZ\\Desktop\\\u7ec6\u80de\u53d7\u9009\u62e9\\results\\nc52_tcga_excc_composition.csv"
+  ]
+}

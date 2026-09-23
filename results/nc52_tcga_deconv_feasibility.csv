@@ -1,0 +1,3 @@
+cancer,n_tumors_excc,split_half_rho,split_half_p,nonpar_vs_kn_spearman,nonpar_vs_kn_p,nonpar_vs_estimate_spearman,nonpar_vs_estimate_p,kn_vs_estimate_spearman,kn_vs_estimate_p,median_sse
+TCGA-LIHC,366,0.934,3.785790467542485e-179,0.2,0.00011728234009074763,0.5863,3.581228505563426e-35,-0.2264,1.2238936281663543e-05,13.1089
+TCGA-KIRC,754,0.9636,0.0,0.2623,2.8615404852600036e-13,0.2385,3.284950296150249e-11,-0.377,9.719162941035744e-27,10.5289

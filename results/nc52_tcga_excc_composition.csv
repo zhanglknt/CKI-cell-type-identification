@@ -1,0 +1,11 @@
+section,cancer,metric,n,test,comparison,stat,se,p,extra
+A1_pair_level_excc,TCGA-LUAD,kf,4850,OLS log ~ is_TT + admix,TT vs NN,0.2078,0.0108,8.208409506047272e-80,unadj_loggap=0.2380
+A1_pair_level_excc,TCGA-LUAD,kn,4850,OLS log ~ is_TT + admix,TT vs NN,0.9908,0.0186,0.0,unadj_loggap=1.0767
+A1_pair_level_excc,TCGA-LUSC,kf,3653,OLS log ~ is_TT + admix,TT vs NN,0.5235,0.0143,1.24912941447096e-250,unadj_loggap=0.5518
+A1_pair_level_excc,TCGA-LUSC,kn,3653,OLS log ~ is_TT + admix,TT vs NN,0.6037,0.0218,5.124928180284891e-153,unadj_loggap=0.8489
+A1_pair_level_excc,TCGA-LIHC,kf,3305,OLS log ~ is_TT + admix,TT vs NN,0.5136,0.0155,1.763297405404648e-208,unadj_loggap=0.5173
+A1_pair_level_excc,TCGA-LIHC,kn,3305,OLS log ~ is_TT + admix,TT vs NN,0.4499,0.0256,5.488002026483051e-66,unadj_loggap=0.5208
+A1_pair_level_excc,TCGA-KIRC,kf,5321,OLS log ~ is_TT + admix,TT vs NN,0.5776,0.0152,5.332673276073469e-280,unadj_loggap=0.4650
+A1_pair_level_excc,TCGA-KIRC,kn,5321,OLS log ~ is_TT + admix,TT vs NN,1.3037,0.023,0.0,unadj_loggap=1.1805
+A1_pair_level_excc,TCGA-BRCA,kf,7886,OLS log ~ is_TT + admix,TT vs NN,0.8237,0.0147,0.0,unadj_loggap=0.8269
+A1_pair_level_excc,TCGA-BRCA,kn,7886,OLS log ~ is_TT + admix,TT vs NN,0.8563,0.0185,0.0,unadj_loggap=0.9931
