@@ -1,0 +1,55 @@
+[      0s] loading extraction ...
+[      3s] donors: ['H18.30.001', 'H18.30.002', 'H19.30.001', 'H19.30.002']; classes: 10
+[      3s] Bergmann regions (full data, >= 20): 7 -> ['Human CBL', 'Human CBV', 'Human IC', 'Human IO', 'Human MoAN', 'Human PnAN', 'Human PnEN']
+[      3s] === observed equal-n (identity donors, R=20 downsample reps) ===
+[     34s] equal-n observed: mean=1.754 [1.654, 1.847] (published 1.74 [1.64, 1.84])
+[     34s] === observed span-matched (identity donors, full depth) ===
+[     36s] span-matched observed: ratio_means=3.685 paired_median=4.298 (published 3.68 / 4.30 [3.40, 4.95])
+[     36s] observed checks PASS (equal-n ~1.74, span ~3.68/4.30)
+[     36s] === A2a: donor cluster bootstrap, equal-n (B=1000) ===
+[    175s]   100/1000 (99 valid)
+[    334s]   200/1000 (199 valid)
+[    479s]   300/1000 (299 valid)
+[    626s]   400/1000 (399 valid)
+[    766s]   500/1000 (499 valid)
+[    904s]   600/1000 (599 valid)
+[   1073s]   700/1000 (698 valid)
+[   1213s]   800/1000 (798 valid)
+[   1372s]   900/1000 (898 valid)
+[   1530s]   1000/1000 (998 valid)
+[   1530s] equal-n donor bootstrap: n=998, median=1.560, 95% CI [0.804, 2.336], min=0.627
+[   1530s] === A2b: leave-one-donor-out, equal-n (R=20 each) ===
+[   1562s]   drop H18.30.001: gradient 1.763 [1.688, 1.860]
+[   1579s]   drop H18.30.002: gradient 1.085 [0.972, 1.262]
+[   1610s]   drop H19.30.001: gradient 0.931 [0.894, 0.960]
+[   1638s]   drop H19.30.002: gradient 1.374 [1.314, 1.432]
+[   1638s] === A2c: donor x region block bootstrap, equal-n (B=1000) ===
+[   1858s]   200/1000 (200 valid)
+[   2086s]   400/1000 (400 valid)
+[   2305s]   600/1000 (600 valid)
+[   2529s]   800/1000 (800 valid)
+[   2745s]   1000/1000 (1000 valid)
+[   2745s] equal-n block bootstrap: n=1000, median=1.385, 95% CI [0.758, 2.134]
+[   2745s] === A2d: donor cluster bootstrap, span-matched (B=1000) ===
+[   3052s]   200/1000 (196 valid)
+[   3343s]   400/1000 (389 valid)
+[   3645s]   600/1000 (587 valid)
+[   3942s]   800/1000 (783 valid)
+[   4236s]   1000/1000 (975 valid)
+[   4236s] span donor bootstrap: n=975; ratio_means median 3.280 [1.670, 3.973]; paired_median median 3.988 [2.558, 4.298]
+[   4236s] === A2e: leave-one-donor-out, span-matched ===
+[   4238s]   drop H18.30.001: ratio_means=3.685 paired_median=4.298 (n_pairs=21)
+[   4239s]   drop H18.30.002: ratio_means=3.280 paired_median=3.611 (n_pairs=6)
+[   4240s]   drop H19.30.001: ratio_means=1.670 paired_median=2.558 (n_pairs=3)
+[   4241s]   drop H19.30.002: ratio_means=3.193 paired_median=4.092 (n_pairs=15)
+[   4241s] === C2: combined equal-n x span-matched (7 cerebellar regions) ===
+[   4271s] combined observed: mean=3.660 [3.598, 3.705] (target=7965)
+[   4539s]   200/1000 (199 valid)
+[   4831s]   400/1000 (397 valid)
+[   5108s]   600/1000 (595 valid)
+[   5383s]   800/1000 (795 valid)
+[   5665s]   1000/1000 (995 valid)
+[   5665s] combined donor bootstrap: n=995, median=3.275, 95% CI [1.918, 3.779], min=1.298
+[   5750s] combined LODO: {'H18.30.001': 3.676, 'H18.30.002': 3.26, 'H19.30.001': 2.306, 'H19.30.002': 3.219}
+[   5750s] saved csv (3989 rows) + json
+[   5750s] DONE
