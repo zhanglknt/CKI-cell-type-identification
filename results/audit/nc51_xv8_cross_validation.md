@@ -54,4 +54,15 @@ microglia headline 从 CSV 重算：ω 21.83±7.20 vs 1.30±0.36，MWU P=5.49e-1
 ## 7. 遗留事项
 
 - MAIN 5,304 超 NC 建议上限（5,000）约 6%——用户已确认接受，投稿时如编辑要求可再做一轮 SI 迁移。
-- 发布链（Release 资产替换 / push / CI）待用户确认后执行（任务 #9）。
+
+## 8. 发布链（2026-09-24 执行完毕）
+
+| 环节 | 结果 |
+|---|---|
+| commit | `89a157d`（40 文件：生成器/构建脚本/zip/审计脚本+报告）|
+| push | `4f6fe68..89a157d main -> main`，`git ls-remote` 核对一致 |
+| Release v0.5.0 资产 | 旧 583048429 已删；新 **584155033**（12,299,140 B）上传 |
+| readback | sha256 `36b9d126e8e51eacbe51009e76e577a91702bdc365f1d03576d45df6a4f4c359` **MATCH** |
+| CI @89a157d | 4/4 success（py 3.10 / 3.11 / 3.12 / 3.13）|
+
+方法备注：gh CLI shim 本机损坏，Release 用 `results/audit/_v51_release_swap.py`（urllib + ~/.git-credentials PAT；DELETE 204 空体需容错），CI 用 api.github.com check-runs 直查。
