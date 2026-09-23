@@ -37,7 +37,7 @@ for p in doc.paragraphs:
             secs[cur][1] += w
 main = sum(secs[k][0] for k in ('Introduction', 'Results', 'Discussion'))
 main_xh = main - sum(secs[k][1] for k in ('Introduction', 'Results', 'Discussion'))
-chk('MAIN (Intro+Results+Discussion) = 5304 (accepted; NC advisory 5000)', main == 5304,
+chk('MAIN (Intro+Results+Discussion) <= 5000 (NC, v51r2)', 0 < main <= 5000,
     f'{main} incl subheadings, {main_xh} excl {secs}')
 chk('Methods < 3000 (NC)', 0 < secs['Methods'][0] < 3000, f"{secs['Methods'][0]} words")
 abs_p = [p.text for p in doc.paragraphs if 'Inspired by the Ka/Ks ratio' in p.text]

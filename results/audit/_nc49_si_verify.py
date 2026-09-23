@@ -146,8 +146,8 @@ chk('4.3 attrition three-way note (v49.14)',
     and 'spans 3,593 unique barcodes' in full
     and '29 expression-matrix samples were excluded' not in full)
 chk('no 3,563 residue', '3,563' not in full and '3,563' not in cellfull)
-chk('no 3,596 stray residue (v49.14: single attrition mention)',
-    full.count('3,596') == 1 and 'of the 3,596 expression-matrix samples' in full
+chk('no 3,596 stray residue (v51: Note + SuppMethods 5.12)',
+    full.count('3,596') == 2 and 'of the 3,596 expression-matrix samples' in full
     and '3,596' not in cellfull)
 
 # 9. 1.7 LIHC mapping-sensitivity sentence (in SuppTable 5 caption since v49.5)
@@ -255,3 +255,4 @@ for name, status, detail in checks:
     if status == 'FAIL':
         nfail += 1
 print(f'TOTAL: {len(checks)} checks, {nfail} failures')
+raise SystemExit(1 if nfail else 0)

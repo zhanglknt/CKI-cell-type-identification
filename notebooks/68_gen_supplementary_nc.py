@@ -2113,7 +2113,7 @@ add_para(
     'the manuscript.'
 )
 
-add_para('Purity sensitivity detail (migrated from the main text in v51): high-purity-half comparisons increased the TT k_n elevation ratio in all five cancer types (e.g. LUAD 2.46 \u2192 2.86).')
+add_para('Purity sensitivity detail (migrated from the main text in v51): high-purity-half comparisons increased the TT k_n elevation ratio in all five cancer types (e.g. LUAD 2.46 \u2192 2.86); per-tumor k_n correlated negatively with admixture, r = \u22120.23 to \u22120.42 across the five cancer types (range restored to the SI in v51r2).')
 
 add_heading('Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)', 2)
 add_para(

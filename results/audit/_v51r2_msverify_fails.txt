@@ -1,0 +1,39 @@
+Results Section 3.12 ref (v50) 
+Methods Section 3.12 ref 
+Section 3.12 referenced 3x (Results, Methods, class-composition note) found 0
+MWU deleted from main claims; permutation -> Section 3.13 (v50) 
+T1 qualified (continuous metrics) 
+marker Jaccard T1 19.9% admitted (v50: MS + SI) 
+Jaccard weakest on genuine divergence admitted (v50) 
+no 3,596 stray residue (v49.14: single attrition mention) 
+Methods per-cancer counts 
+attrition three-way arithmetic (v49.14) 
+k_n mechanism sentence new range (v50: MS range; per-cancer CIs in SI Table 11) 
+pair-level MWU P deleted from main claims (v50) 
+LIHC mapping-sensitivity honest (v50) 
+softmax demoted to SI sensitivity (v50) 
+smoking three-model adjustment (v50: MS headline; SI models) 
+purity proxy limitation (Results) 
+pack-years sparsity documented (v50: Methods) 
+batch/center limitation (v50) 
+GTEx healthy-reference limitation (v50 wording) 
+Discussion epidemiology sentence (v50: adjustment retained) 
+k_n admix correlation range 
+high-purity half LUAD (v50) 
+high-purity half LIHC caliber kept (v50: MS + SI 3.13) 
+reversal not admixture artefact (v50) 
+Methods ESTIMATE block 
+Methods cBioPortal smoking block 
+Methods scripts extended 
+Intro EGFR dissolved 
+B=30 MC noise note 
+tier class-composition note 
+seeded subsampling MC note 
+Hallmark enrichment sentence (v50) 
+Hallmark distributed-signal framing (v50: k_f ordering retained) 
+k_f composition regression sentence 
+Kang k_f 0/30 parenthetical (v50) 
+marker Jaccard 1.41 (Results) 
+Cox limitation sentence (v50) 
+Result 3b background2 cites Fig. 2e (v50) 
+cross-organ Table 1 citations (v50) 

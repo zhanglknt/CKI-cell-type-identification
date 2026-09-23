@@ -66,3 +66,22 @@ microglia headline 从 CSV 重算：ω 21.83±7.20 vs 1.30±0.36，MWU P=5.49e-1
 | CI @89a157d | 4/4 success（py 3.10 / 3.11 / 3.12 / 3.13）|
 
 方法备注：gh CLI shim 本机损坏，Release 用 `results/audit/_v51_release_swap.py`（urllib + ~/.git-credentials PAT；DELETE 204 空体需容错），CI 用 api.github.com check-runs 直查。
+
+## 9. v51r2 严格 NC 合规轮（2026-09-24，用户指令"严格按照 NC 要求"）
+
+**唯一违例项修复**：MAIN 5,304 → **4,964**（含小标题；4,897 不含），NC ≤5,000 达标。
+
+| 指标 | v51 | v51r2 |
+|---|---|---|
+| MAIN | 5,304（超建议 6%，曾接受）| **4,964** |
+| ├ Introduction | 508 | 477 |
+| ├ Results | 3,211 | 3,015 |
+| └ Discussion | 1,585 | 1,472 |
+| Methods | 2,802 | 2,802（不动）|
+
+- **压缩**：`_v51r2_splice_b16.py` 53 处编辑（~340 词）；删除数字全部预探 SI 承载（6.4×10⁻¹³、0.025、9.03/10.53、7.39/8.00、2% overdispersion、group-size threshold sweep）；引用 73 组不变。
+- **信息丢失修复**：k_n–admixture 相关性范围 r = −0.23 to −0.42 在 v51 压缩时丢失（MS/SI 均无），已从 v50 源码（232214e L542）逐字恢复进 SI Note 8 迁移注释（L2116 就地扩展，迁移标记仍为 6）。
+- **verify 门硬化（重要）**：发现三个 verify 脚本恒退出 0，ms_verify 实际 39 项 FAIL、si_verify 1 项 FAIL 被掩盖（此前"原生通过"结论不成立）。`_v51r2_splice_b17_verify.py` 同步全部 40 项断言到 v51r2 措辞，并为三脚本加 `SystemExit(1 if nfail else 0)` 硬门。现 MS 117 / SI 109 / CL+Guide 39 全 0-fail 且真退出 0。
+- **终验**：99_build **221/221 0-fail**（含硬化 verify 门）；XV8 **54/54 PASS**（MAIN 断言更新为 ≤5,000）。
+- **包**：zip 28 项、12,298,400 B、sha256 `a5b8d07cfb52b2369735107a2e730c130a3ebdf05d6bef54d5fc02eb80ec1fb3`。
+- **NC 合规终态**：标题 13 词 / 摘要 197 词无引用 / MAIN 4,964 / Methods 2,802 / 图注 max 302 / 图+表 7 / 文献 57 条 / 结构顺序正确 / Discussion 无子标题 / 声明区块齐备——**全部硬性指标零违例**。

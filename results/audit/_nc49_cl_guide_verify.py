@@ -110,3 +110,4 @@ for name, status, detail in checks:
     if status == 'FAIL':
         nfail += 1
 print(f'TOTAL: {len(checks)} checks, {nfail} failures')
+raise SystemExit(1 if nfail else 0)
