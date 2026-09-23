@@ -2739,7 +2739,8 @@ add_para(
     'Key scripts include: notebooks/04_phase32_sweep.py (parameter sweep and calibration), '
     'notebooks/06_phase34_v2.py (TCGA pan-cancer analysis), '
     'notebooks/05_phase33_v3_fixed.py (Tabula Sapiens cross-organ analysis), '
-    'notebooks/07c_brain_siletti_v3.py (brain regional CKI analysis and region-associated candidate detection), '
+    'notebooks/08d_brain_blockshuffle_null.py with notebooks/08e_brain_blockshuffle_results.py (brain regional CKI analysis and region-associated candidate detection under the block-shuffle null; supersedes the pre-fix 07c_brain_siletti_v3.py outputs archived in results/superseded/), '
+    'notebooks/13_phase35_method_comparison.py (cross-organ method comparison), '
     'and notebooks/30_genome_biology_figures.py with notebooks/_fig1_clean.py to _fig6_clean.py (figure generation).'
 )
 

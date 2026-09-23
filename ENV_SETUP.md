@@ -1,6 +1,6 @@
 # CKI 复现环境设置与数据来源
 
-> **适用版本**: CKI v0.4.4+
+> **适用版本**: CKI v0.5.0+
 > **最后更新**: 2026-08-31
 > **配套 Notebook**: `CKI_Reproducibility.ipynb`
 
@@ -11,7 +11,7 @@
 | 项目 | 最低要求 | 推荐配置 |
 |------|---------|---------|
 | Python | >= 3.10 | 3.11+ |
-| RAM | 16 GB | 32 GB (脑区分区分析) |
+| RAM | 32 GB（与复现指南 Section 1.3 一致；TCGA 矩阵峰值 ~10 GB，脑区分析必需） | 64 GB |
 | 磁盘 | 20 GB 空闲 | 50 GB |
 | OS | Linux / macOS / Windows | Linux |
 
@@ -35,10 +35,13 @@ cki_env\Scripts\activate
 ### 2.2 安装依赖
 
 ```bash
-# 方式一：从 requirements.txt 安装
+# 方式一（推荐，精确复现）：从钉死锁文件安装
+pip install -r requirements-lock.txt
+
+# 方式二：从 requirements.txt 安装（宽松约束，开发用）
 pip install -r requirements.txt
 
-# 方式二：从 pyproject.toml 安装（含 CKI 包本身）
+# 方式三：从 pyproject.toml 安装（含 CKI 包本身）
 pip install -e ".[all]"
 ```
 
@@ -47,7 +50,7 @@ pip install -e ".[all]"
 ```python
 import cki
 from cki.core import js_divergence, compute_omega
-print(f"CKI version: {cki.__version__}")  # 应输出 >= 0.4.4
+print(f"CKI version: {cki.__version__}")  # 应输出 >= 0.5.0
 ```
 
 ---
@@ -117,7 +120,7 @@ data/
 - **论文**: Siletti et al., *Science* 2023, "Transcriptomic diversity of cell types across the adult human brain"
 - **下载**: https://zenodo.org/records/7865491
 - **文件**: `Nonneurons.h5ad`（~4.5 GB）
-- **注意**: 脑区分析需要 >= 16 GB RAM，推荐 >= 32 GB
+- **注意**: 脑区分析需要 >= 32 GB RAM（与复现指南 Section 1.3 一致）
 
 #### E. 管家基因列表（HRT Atlas）
 
@@ -258,7 +261,7 @@ Part 2 → `figure_data_auc.npy`
 检查 `data/` 目录结构是否与 §3.1 一致
 
 ### Q: 内存不足 (Part 4 脑区)
-- 确保 >= 16 GB RAM
+- 确保 >= 32 GB RAM
 - 关闭其他占用内存的程序
 - 可在 `read_h5ad` 时添加 `backed='r'` 参数
 
@@ -277,5 +280,5 @@ grep -n "log2\|kn_min" cki/core.py
 ## 8. 参考信息
 
 - **CKI GitHub**: https://github.com/zhanglknt/CKI-cell-type-identification
-- **CKI 版本**: v0.4.4（代码与发布一致）
+- **CKI 版本**: v0.5.0（代码与发布一致）
 - **关键提交**: cki/core.py 使用 base-2 log（`np.log2`，与稿件一致），支持可选 `kn_floor`（默认 0，仅正性保护；TCGA 分析用 1e-4）
