@@ -140,6 +140,25 @@ bcells = kang["B cells"]
 check("B cells omega AUC", round(bcells["auc_omega"], 2), 0.92, tol=0.005)
 
 # ============================================================
+# 10. nc50 microglia independent validation
+#     (nc50_brain_atlas_microglia.csv; Human Brain Cell Atlas v1.0)
+#     Manuscript: 35 functional vs 40 neutral pairs,
+#     omega 21.83 +/- 7.20 vs 1.30 +/- 0.36, P=5.5e-14, AUC=1.00
+# ============================================================
+print("\n--- 10. nc50 microglia validation ---")
+from scipy.stats import mannwhitneyu
+mg = pd.read_csv(RESULTS / "nc50_brain_atlas_microglia.csv")
+mg_f = mg[mg["pair_class"] == "functional"]
+mg_n = mg[mg["pair_class"] != "functional"]
+check("functional pairs", len(mg_f), 35)
+check("neutral half-splits", len(mg_n), 40)
+check("omega functional mean", round(mg_f["omega"].mean(), 2), 21.83, tol=0.01)
+check("omega neutral mean", round(mg_n["omega"].mean(), 2), 1.30, tol=0.01)
+check("omega MWU P", float(f"{mannwhitneyu(mg_f['omega'], mg_n['omega'], alternative='greater').pvalue:.2e}"), 5.49e-14, tol=1e-15)
+_auc = mannwhitneyu(mg_f["omega"], mg_n["omega"], alternative="greater").statistic / (len(mg_f) * len(mg_n))
+check("omega AUC (functional>neutral)", round(_auc, 3), 1.0)
+
+# ============================================================
 # Summary
 # ============================================================
 print("\n" + "=" * 60)

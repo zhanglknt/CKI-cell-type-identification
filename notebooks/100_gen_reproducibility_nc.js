@@ -189,8 +189,9 @@ const doc = new Document({
       p("Install (editable, recommended):"),
       code("cd <project_root>"),
       code("pip install -e ."),
-      p("Install (fixed dependencies):"),
-      code("pip install -r requirements.txt"),
+      p("Install (pinned dependencies; recommended for exact reproduction):"),
+      code("pip install -r requirements-lock.txt"),
+      p("requirements-lock.txt is a pip-freeze lock of the verified analysis environment of Section 1.1 (the looser requirements.txt is kept for development installs)."),
       p("A Dockerfile pinning the same environment (Linux x86_64 base) is provided in the repository root for containerized reproduction."),
 
       heading("1.3 System Requirements", 3),
@@ -556,7 +557,7 @@ const doc = new Document({
       p("     The full ground-truth simulation repeated in skin keratinocyte stem cells (1,371 cells; 1,750 replicates): AUC(omega) = 0.908 versus AUC(k_f) = 0.859, reproducing the metric ranking of the marrow background. Outputs: results/groundtruth_simulation_background2_raw.csv, results/groundtruth_simulation_background2_summary.csv, results/groundtruth_simulation_background2_metrics.json, results/groundtruth_simulation_background2.csv, results/groundtruth_simulation_background2.md."),
       p(""),
       p("  h. Data-driven verification entry points:"),
-      p("     Script: scripts/spot_check.py (40 assertions recomputing headline numbers directly from the authoritative result files: TCGA NN/TT median ratios and k_n inversion, mouse four-class values, brain class-level astrocyte statistics, Strong 39/31/q = 0.520, set-level S1-S3, internal baselines 9.73/7.67, 4,851 analyzed human pairs (phase35; the 5,151-row phase33_v3 export is the pre-analysis 102-class inventory), Kang CD14 omega AUC 0.55 vs k_f 0.98)."),
+      p("     Script: scripts/spot_check.py (46 assertions recomputing headline numbers directly from the authoritative result files: TCGA NN/TT median ratios and k_n inversion, mouse four-class values, brain class-level astrocyte statistics, Strong 39/31/q = 0.520, set-level S1-S3, internal baselines 9.73/7.67, 4,851 analyzed human pairs (phase35; the 5,151-row phase33_v3 export is the pre-analysis 102-class inventory), Kang CD14 omega AUC 0.55 vs k_f 0.98, and the nc50 microglia functional-versus-neutral separation)."),
       p("     Script: tests/test_reference_values.py (7 pytest regression tests asserting the authoritative result files; auto-skip when results/ is absent)."),
       p(""),
       p("  i. k_f-only ordering controls (cross-organ ranking and TCGA severity):"),
@@ -691,6 +692,21 @@ const doc = new Document({
       p(""),
 
       // ========================================================
+      // 5.12 NC50 ANALYSES (MICROGLIA INDEPENDENT VALIDATION)
+      // ========================================================
+      heading("5.12 nc50 Analyses", 3),
+      p("The following analysis was added for the v50 submission (independent human-brain validation on an atlas not used anywhere else in the study)."),
+      p(""),
+      p("  a. Microglia-supercluster independent validation:"),
+      p("     Script: notebooks/nc50_brain_atlas_microglia.py"),
+      p("     Data: data/human_brain_atlas_microglia.h5ad (Human Brain Cell Atlas v1.0, Microglia supercluster; CELLxGENE collection 283d65eb-dd53-496d-adb7-7570c7caa443; 91,838 nuclei, 58,232 genes; see data/README_data.md for the download link). Design: the functional contrast is 35 sample-matched pairs of microglial cell versus central nervous system macrophage pseudobulks built within the same sample (eligible (cell_type, sample) groups have >= 20 cells; 563 eligible groups); the neutral contrast is 40 random half-splits of the same (cell_type, sample) groups (20 per cell type; half-split eligibility floor: groups of >= 200 cells for microglial cell, >= 100 cells for central nervous system macrophage). Pipeline: per-cell normalize_total(1e4) + log1p, group means (the Tabula Sapiens human aggregation order); k_n on HRT Atlas v1.0 human HK genes (1,107 matched); k_f on global seurat HVG 2,000 excluding HK; kn_floor = 1e-4; random seed 42 throughout (single fixed draw). Result: omega separates the functional pairs from the neutral half-splits at 21.83 +/- 7.20 versus 1.30 +/- 0.36 (Mann-Whitney P = 5.5e-14; AUC(functional > neutral) = 1.00), with k_f, raw JS, cosine and Jaccard at AUC = 1.00 and k_n / Spearman at AUC 0.891 / 0.901. Outputs: results/nc50_brain_atlas_microglia.csv, results/nc50_brain_atlas_microglia.txt."),
+      p(""),
+      p("  b. Microglia validation figure:"),
+      p("     Script: notebooks/nc50_fig_microglia.py"),
+      p("     Supplementary Fig. 14 (panel A: omega distributions, functional versus neutral half-splits per cell type; panel B: per-metric AUC). Outputs: the submission Supplementary Fig. 14 renders (results/figures_final/)."),
+      p(""),
+
+      // ========================================================
       // 6. OUTPUT FILES
       // ========================================================
       heading("6. Output Files", 2),
@@ -804,7 +820,11 @@ const doc = new Document({
       code("      results/nc49_tcga_purity.csv / nc49_tcga_admix_scores.csv  # ESTIMATE admixture purity sensitivity (Section 5.10c)"),
       code("      results/nc49_tcga_luad_smoking.csv               # LUAD smoking-covariate adjustment (Section 5.10c)"),
       code("      results/nc49_tcga_kf_composition.csv             # k_f Hallmark enrichment + composition regressions (Section 5.10c)"),
-      p("Figure scripts: notebooks/30_genome_biology_figures.py"),
+      p(""),
+      p("    nc50 microglia independent validation (Section 5.12):"),
+      code("      results/nc50_brain_atlas_microglia.csv             # per-pair metric values, 35 functional + 40 neutral (Section 5.12a)"),
+      code("      results/nc50_brain_atlas_microglia.txt             # summary statistics (means, Mann-Whitney P, AUC) (Section 5.12a)"),
+      p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Fig. 3), notebooks/nc49_fig_tcga.py (Fig. 4), notebooks/nc50_fig_microglia.py (Supplementary Fig. 14)"),
       heading("7. Reproducibility Checklist", 2),
       p("[\u2713] Install CKI v0.5.0: pip install -e ."),
       p("[\u2713] Verify Python 3.14.4 environment (Section 1.1)."),
@@ -831,13 +851,14 @@ const doc = new Document({
       p("[\u2713] Phase D: Verify one-sided test justification in Methods. (Section 5.5)"),
       p("[\u2713] Phase D: Verify Cover Letter does not use 'orthogonal' or 'confirmed baseline behavior'. (Section 5.5)"),
       p("[\u2713] Phase D: Verify figure legends include 'Statistical conventions' paragraph. (Section 5.5)"),
-      p("[\u2713] Data-driven spot-check: python scripts/spot_check.py (40 assertions recomputing headline numbers directly from the authoritative result files; Section 5.7h)."),
-      p("[\u2713] Regression tests: python -m pytest tests/ -q (7 tests asserting the authoritative result files; auto-skip when results/ is absent; Section 5.7h)."),
+      p("[\u2713] Data-driven spot-check: python scripts/spot_check.py (46 assertions recomputing headline numbers directly from the authoritative result files; Section 5.7h)."),
+      p("[\u2713] Regression tests: python -m pytest tests/ -q (29 tests: 22 smoke + 7 reference-value tests asserting the authoritative result files; auto-skip when results/ is absent; Section 5.7h)."),
       p("[\u2713] Verify drift-calibration spot values: Kang omega 0/30 with raw JS 36.7% (results/nc49_pilot_kang_techrep.csv); brain T1 omega FPR 28.6% (lowest among continuous metrics; marker Jaccard 19.9%) and T3 calibration omega 1.80 / Jaccard 1.41 / raw JS 2.98 (results/nc49_brain_drift_ladder.csv). (Section 5.10)"),
       p("[\u2713] Verify TCGA sample count n = 3,567 and NN/TT mean ratios 1.10\u20132.46 with cluster-bootstrap CIs excluding 1 in 4 of 5 cancers (results/nc49_tcga_pancancer.csv). (Section 5.10)"),
+      p("[✓] nc50 microglia validation: verify 35 functional pairs / 40 neutral half-splits, omega 21.83 ± 7.20 vs 1.30 ± 0.36, Mann-Whitney P = 5.5e-14, AUC = 1.00 (results/nc50_brain_atlas_microglia.csv / .txt; seed 42, kn_floor = 1e-4). (Section 5.12)"),
 
       p(""),
-      p("By following this guide with the exact parameter configurations above, readers should obtain numerically identical results to those reported in the manuscript. Minor floating-point differences (\u00b11e-6) may occur due to hardware differences in transcendental function evaluation (exp, log) but will not affect any biological conclusions."),
+      p("By following this guide with the exact parameter configurations above, readers should reproduce the values reported in the manuscript within Monte-Carlo and floating-point tolerance. Resampling-based quantities (bootstrap CIs, permutation P-values) carry Monte-Carlo error at the reported B (e.g. TCGA subsampling and cluster-bootstrap CIs vary by roughly \u00b10.01-0.02 between seeded runs, and the LUAD KRAS-EGFR permutation P-value is unstable in its last digit; Supplementary Information Section 5.12), and minor floating-point differences (\u00b11e-6) may occur due to hardware differences in transcendental function evaluation (exp, log); neither affects any biological conclusion."),
     ],
   }],
 });

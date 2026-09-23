@@ -1,10 +1,10 @@
-# Dockerfile for the CKI package (v0.4.4)
+# Dockerfile for the CKI package (v0.5.0)
 # ----------------------------------------------------------------------------
 # Builds a minimal container with the CKI package installed, so that the
 # analyses in the manuscript can be reproduced in a controlled environment.
 #
-# Build:    docker build -t cki:0.4.4 .
-# Verify:   docker run --rm cki:0.4.4
+# Build:    docker build -t cki:0.5.0 .
+# Verify:   docker run --rm cki:0.5.0
 #
 # The base image tracks the Python version used for the reported analyses
 # (3.14.4). The container image provides the package and its dependencies;
@@ -14,10 +14,11 @@ FROM python:3.14-slim
 
 WORKDIR /app
 
-# Install the CKI package from the repository root
-COPY pyproject.toml README.md LICENSE ./
+# Install pinned dependencies from the lock file, then the CKI package
+COPY requirements-lock.txt pyproject.toml README.md LICENSE ./
 COPY cki/ ./cki/
-RUN pip install --no-cache-dir .
+RUN pip install --no-cache-dir -r requirements-lock.txt \
+    && pip install --no-cache-dir --no-deps .
 
 # Sanity check: the package imports and ships the HRT Atlas reference
 RUN python -c "import cki; print('CKI', cki.__version__)"
