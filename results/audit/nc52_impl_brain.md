@@ -94,6 +94,21 @@ NC v52 修订：R4（脑图谱）+ R1（统计）Major 对应的四项新分析�
     区域梯度不被 RNA 质量差异解释（调整后反而略升）。
 - 输出：`nc52_brain_quality_regression_classlib.csv`（level 列区分两级）。确定性。
 
+### C1 补充（R4 质询后追加）：线粒体分数协变量（nc52_brain_quality_mito.py）
+
+- 方法：单遍扫描计算 per-nucleus MT-* 基因 UMI 占比（37 个 MT 基因；全图集中位数
+  0.0012，符合 snRNA-seq 特征），聚合到 (ct,library)/(ct,region)，作为 |Δmito_frac|
+  加入上述两级回归。
+- 关键数字：(class,library) 级 T3 系数（含 mito）：k_n 0.389、k_f 0.591、**ω 0.202**
+  （无 mito 时 0.469/0.688/0.219；区域抬升保留，衰减 ~21%）；R²：k_n 0.225→0.271、
+  k_f 0.442→0.504、ω 0.300→0.308（mito 对 k_n/k_f 有解释力，对 ω 增量小）。
+  (class,region) 级：ω R² 0.556→0.564，**梯度 6.10 → 含 mito 质量调整后 6.45**。
+- 声明（与 R4 一致）：depth/detection/mito 代理只能捕捉测序深度/捕获效率/组成偏移型
+  技术变异，不能捕捉 PMI/RIN 降解导致的转录本组成形变（atlas 无此 metadata）；稿面措辞
+  应为"深度/检测/线粒体代理可捕捉的技术变异不驱动梯度"。
+- 输出：`nc52_brain_quality_mito_classlib.csv`、`nc52_brain_quality_mito_classregion.csv`、
+  `nc52_brain_quality_regression_mito.csv`。确定性。
+
 ## C3 候选筛查效应量（nc52_brain_candidate_effectsize.py）
 
 - 输入：`results/phaseC_omega_pair_vs_global.csv`（31,764 对，per-pair 与 global-k_n ω）、
