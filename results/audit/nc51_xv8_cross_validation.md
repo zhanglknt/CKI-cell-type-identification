@@ -85,3 +85,4 @@ microglia headline 从 CSV 重算：ω 21.83±7.20 vs 1.30±0.36，MWU P=5.49e-1
 - **终验**：99_build **221/221 0-fail**（含硬化 verify 门）；XV8 **54/54 PASS**（MAIN 断言更新为 ≤5,000）。
 - **包**：zip 28 项、12,298,400 B、sha256 `a5b8d07cfb52b2369735107a2e730c130a3ebdf05d6bef54d5fc02eb80ec1fb3`。
 - **NC 合规终态**：标题 13 词 / 摘要 197 词无引用 / MAIN 4,964 / Methods 2,802 / 图注 max 302 / 图+表 7 / 文献 57 条 / 结构顺序正确 / Discussion 无子标题 / 声明区块齐备——**全部硬性指标零违例**。
+- **发布链（v51r2）**：commit `426d0da`（19 文件）→ push（ls-remote 一致）；Release v0.5.0 资产旧 584155033 删、新 **584250331**（12,298,400 B）readback sha256 `a5b8d07c…ec1fb3` **MATCH**；CI @426d0da 4/4 success（py 3.10–3.13）。
