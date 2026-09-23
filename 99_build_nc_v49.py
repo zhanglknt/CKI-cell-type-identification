@@ -228,7 +228,7 @@ def main():
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
     check(note_heads == list(range(1, 17)), f"V49-S5 SN Note headings 1..16 (v50) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 9, f"V49-S6 SN Supplementary Fig. refs = 9 (v50: +Fig. 14) ({n_sfig_sn})")
+    check(n_sfig_sn == 10, f"V49-S6 SN Supplementary Fig. refs = 10 (v51: +Supplementary Methods 5.1) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
     check(n_stab_sn == 41, f"V49-S7 SN Supplementary Table refs = 41 post-v49.5 ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
@@ -270,7 +270,7 @@ def main():
         ("148.3", "A9 null expectation"),
         ("AUC = 0.80", "A10 AUC"),
         ("6.10-fold", "A11 regional gradient"),
-        ("1.3-fold", "A13 ratio bias"),
+        ("absorbs ratio bias", "A13 ratio bias (v51 wording)"),
         ("7.70", "A14 omega baseline"),
         ("10.5281/zenodo.22735744", "A15 Zenodo v0.5.0 DOI"),
         ("GSE96583", "A16 Kang GEO"),
@@ -284,28 +284,28 @@ def main():
     print("\n--- v49 new-content anchors ---")
     v49_anchors = [
         # drift calibration (Kang + brain ladder)
-        ("0.963", "N1 Kang omega calibration median"),
         ("36.7", "N2 Kang raw-JS FPR"),
         ("23.3", "N3 Kang cosine FPR"),
         ("2,161", "N4 brain T1 pairs"),
         ("28.6", "N5 brain T1 omega FPR"),
-        ("90.9", "N6 brain T2 omega FPR"),
         ("1.41", "N7 marker-Jaccard T3 calibration"),
         ("relative-calibration advantage", "N8 relative-calibration phrasing"),
-        ("Section 3.12 of the Supplementary Information", "N9 Section 3.12 pointer x2"),
+        ("Section 3.12", "N9 Section 3.12 pointers present (v51 short form)"),
         # pan-cancer map
         ("2.46", "N10 LUAD NN/TT ratio"),
         ("LIHC 1.10;", "N11 LIHC NN/TT ratio (post-CC, v50 wording)"),
         ("1.3\u20133.3-fold in every cancer type", "N12 k_n fold elevation (v50 wording)"),
         ("136.9", "N13 LUAD KRAS mean omega"),
         ("115.4", "N14 LUAD WT mean omega"),
-        ("tissue-level functional divergence", "N15 bulk positioning phrase"),
+        ("tissue-level divergence at bulk resolution", "N15 bulk positioning phrase (v51 wording)"),
         ("0.88\u20131.31", "N16 Cox HR CI post-CC (NO-GO)"),
     ]
     for pat, name in v49_anchors:
         check(pat in ms, f"V49-{name}")
-    check(ms.count("Section 3.12 of the Supplementary Information") == 3,
-          "V49-N17 exactly 3 Section 3.12 pointers in MS (post-CC)")
+    check("0.963" in sn, "V49-N1 Kang omega calibration median (v51: SI)")
+    check("90.9" in sn, "V49-N6 brain T2 omega FPR (v51: SI)")
+    check(ms.count("Section 3.12") == 3,
+          "V49-N17 exactly 3 Section 3.12 pointers in MS (v51 short form)")
     # old exploratory phrasing must be gone
     for stale in ("TCGA; exploratory", "apparent tumor homogeneity", "TODO-nc49"):
         check(stale not in ms, f"V49-N18 stale gone: '{stale}'")
@@ -326,8 +326,8 @@ def main():
     check(0 < len(ab_text.split()) <= 200,
           f"V49-N22 Abstract words <= 200 ({len(ab_text.split())})")
     # v49.1 post-repair anchors (purity / smoking / EGFR-dissolved)
-    check("2.86" in ms, "V49-N25 high-purity LUAD ratio")
-    check("fully explained by admixture" in ms, "V49-N27 admixture caveat phrase (v50)")
+    check("2.86" in sn, "V49-N25 high-purity LUAD ratio (v51: SI Note 8)")
+    check("abolished the apparent EGFR elevation" in ms, "V49-N27 admixture caveat phrase (v51 wording)")
     # v50: adjusted-delta details migrated to SI 3.13
     check("\u0394\u03c9 +16.8" in sn, "V49-N23 purity-adjusted KRAS omega (v50: SI 3.13)")
     check("+13.6" in sn, "V49-N24 joint-adjusted KRAS omega (v50: SI 3.13)")
@@ -343,20 +343,20 @@ def main():
     check('cell-type classification performance' not in ms and '0.680' not in ms
           and 'ranked 5th of 5 methods' not in ms,
           "V49-N36 classification benchmark cut from MS")
-    check('(Fig. 5; Table 1; Supplementary Fig. 5)' in ms and 'upper block of Table 1' in ms
+    check('(Fig. 5; Table 1; Supplementary Fig. 5)' in ms and '(n \u2265 5 pairs; Table 1)' in ms
           and not re.search(r'(?<!Supplementary )Table 2', ms),
           "V49-N37 main Table 2 renumbered to Table 1")
-    check('not to discriminate cell-type identity' in ms
-          and 'housekeeping gene sets may differ across cell types' in ms
-          and 'expected by design and delineates, rather than limits' in ms,
-          "V49-N38 Scope design argument present (HK anchor cell-type-specific)")
+    check('not cell-type identity' in ms
+          and 'the housekeeping anchor is cell-type-specific' in ms
+          and 'delineates, rather than limits, its scope' in ms,
+          "V49-N38 Scope design argument present (HK anchor cell-type-specific, v51 wording)")
     # ---- v49.10 review-panel fixes (A/B classes) ----
     check('Supplementary Tables 1\u201319' in ms
           and ms.count('Supplementary Tables 1\u20134') == 1
           and 'Supplementary Tables 1\u20134 are cited in the main text' in ms,
           "V49-N39 A1 MS availability lists 19 supplementary tables (v49.14: 1-4 pointer sentence)")
-    check('concentrate in microglia (16 Strong) and oligodendrocytes (10)' in ms,
-          "V49-N40 A5 brain candidate concentration (v50 wording)")
+    check('Microglial candidates (16 of 39)' in ms,
+          "V49-N40 A5 brain candidate concentration (v51 wording)")
     check('median TT/NN k_n ratio 2.18, 2.53, 2.18, 3.70, and 2.79' in sn,
           "V49-N41 A6 mean/median caliber cross-pointer (v50: SI carries medians)")
     check('in main-text Fig. 3d.' in sn and 'main-text Fig. 3b,c.' in sn,
@@ -372,38 +372,38 @@ def main():
     check('McDonald\u2013Kreitman-style fourth term' in ms
           and '34. McDonald' in ms and 'Adh locus in Drosophila' in ms,
           "V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)")
-    check('descriptive rather than calibrated differences' in ms,
-          "V49-N47 B3 Table 1 cross-type caveat")
+    check('cross-type gaps should be read descriptively' in ms,
+          "V49-N47 B3 Table 1 cross-type caveat (v51 wording)")
     check('1.74-fold size-balanced regional gradient ([1.64, 1.84]; 6.10-fold '
           'uncorrected; 3.68-fold span-matched intra-cerebellar)' in ms,
           "V49-N48 B4 Abstract leads with size-balanced gradient")
-    check('leaving pair-level nominations subject to donor confounding' in ms,
-          "V49-N49 B5 brain screen donor-confounding disclosure")
-    check('sample-source code (positions 14\u201315)' in ms
-          and 'assigned to LIHC following a barcode audit' in ms,
-          "V49-N50 B7 CC provenance disclosure (32 LUSC->LIHC)")
-    check('2.5th and 97.5th percentiles of the resampled ratios' in ms,
-          "V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile)")
+    check('inheriting the atlas\u2019s four-donor structure' in ms,
+          "V49-N49 B5 brain screen donor-confounding disclosure (v51 wording)")
+    check('sample-source code (positions 14\u201315)' in sn
+          and 'assigned to LIHC following a barcode audit' in sn,
+          "V49-N50 B7 CC provenance disclosure (32 LUSC->LIHC; v51: SI)")
+    check('2.5th and 97.5th percentiles of the resampled ratios' in sn,
+          "V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile; v51: SI)")
     check('Supplementary Fig. 7)' in gd and 'Supplementary Fig. 8)' not in gd,
           "V49-N52 A4 Guide estimator-comparison pointer = Fig. 7")
     # ---- v49.12 review-panel leftovers (N1-N5, C2-C7) ----
-    check('which used seed 20260903, and the small-cluster studentized bootstrap-t analysis '
-          '(notebooks/89_cluster_boot_v45.py), which used seed 20260905' in ms,
-          "V49-N56 N1 seed 20260905 declared in MS Methods")
+    check('seed 20260905' in sn and '89_cluster_boot_v45.py' in sn,
+          "V49-N56 N1 seed 20260905 declared (v51: SI)")
     check('notebook 89 uses seed 20260905' in gd,
           "V49-N56b N1 seed 20260905 in Guide checklist")
-    check('supersedes the earlier i.i.d. interval' in ms
-          and 'influence-function (multiplier) sandwich standard error' in ms
-          and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in ms,
-          "V49-N57 C6 studentized bootstrap-t pivot/SE described")
-    check('attenuates by only \u22121.3% pooled (95% CI [\u22124.8%, +2.0%]; per-cancer \u221216% to +33%)' in ms
+    check('superseding the earlier anti-conservative i.i.d. interval' in ms
+          and 'influence-function sandwich standard error' in ms
+          and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in sn,
+          "V49-N57 C6 studentized bootstrap-t pivot/SE described (v51 wording)")
+    check('attenuates the pooled k_n coefficient by only \u22121.3%' in ms
+          and '\u22121.3% pooled, 95% CI \u22124.8% to +2.0%' in ms
           and 'attenuates by \u22120.5% pooled' not in ms
-          and 'Spearman \u03c1 = 0.364 pooled; 0.20\u20130.51 per cancer type' in ms
+          and 'Spearman \u03c1 = 0.364 pooled' in sn
           and '0.387 pooled' not in ms,
-          "V49-N58 N2 Discussion composition numbers (v50 wording)")
+          "V49-N58 N2 Discussion composition numbers (v51: MS pooled; SI correlation)")
     check('\u22121.3% pooled, 95% CI \u22124.8% to +2.0%' in ms
-          and 'median |Delta z| 1.31-fold higher' in ms,
-          "V49-N58b N2 composition caliber (v50 wording)")
+          and 'median |\u0394z| 1.305-fold' in sn,
+          "V49-N58b N2 composition caliber (v51: MS pooled; SI per-panel)")
     check('softmax caliber; superseded by the linear-normalization update' in sn
           and 'These linear-normalization estimates are the ones cited in the manuscript'
           in sn,
@@ -425,14 +425,14 @@ def main():
     check('6.60' in _si_blob and '4.12' in _si_blob,
           "V49-N59 N3 threshold-sweep gradient values (v50: Supp Table 19)")
     check('attenuates it to 1.74 (95% CI [1.64, 1.84])' in ms
-          and 'co-report 6.10-fold (full-data) and 1.74-fold (size-balanced)' in ms,
-          "V49-N60 C5 Results leads with size-balanced gradient (v50 wording)")
+          and 'uncorrected upper bound inflated by class-size imbalance (equal-n estimate 1.74-fold, 95% CI [1.64, 1.84])' in ms,
+          "V49-N60 C5 Results leads with size-balanced gradient (v51 wording)")
     check('0.850' in sn,
           "V49-N61 C7 class-size Pearson correlation (v50: SI Note 10)")
-    check('Fourth, excluding the 32 cell-line-derived LIHC samples' in ms
-          and 'NN/TT 1.11, 95% CI [0.93, 1.30]' in ms
+    check('excluding the 32 cell-line-derived LIHC samples leaves the LIHC null unchanged' in ms
+          and 'NN/TT 1.11 [0.93, 1.30]' in sn
           and 'Four controls bound the interpretation' in ms,
-          "V49-N62 C4 CC sensitivity analysis (fourth control, v50 wording)")
+          "V49-N62 C4 CC sensitivity analysis (v51 wording)")
     check('The ratio earns its increment over k_f under controlled ground truth' in ms,
           "V49-N63 C2 omega-increment honest framing sentence")
     check('cross-type gaps in mean \u03c9 are descriptive rather than calibrated'
@@ -442,21 +442,20 @@ def main():
           and 'meld:                1.0.2' in gd and 'pyaugur:             0.1.0' in gd,
           "V49-N64 N5 Guide environment completes seaborn/statsmodels/meld/pyaugur")
     # ---- v49.13 third-review-round fixes (A/B/C groups) ----
-    check('span-matched control restricted to the 21 intra-cerebellar region pairs '
-          'defining Bergmann glia yields 3.68' in ms
+    check('span-matched control (21 intra-cerebellar pairs) yields 3.68' in ms
           and 'paired per-region-pair median 4.30, bootstrap 95% CI [3.40, 4.95]' in sn,
-          "V49-N67 B1 span-matched control (MS headline; SI Note 10 details, v50)")
-    check('k_f ratio is 2.09 under equal-n (full-data 2.03)' in ms
-          and 'equal-n 1.29, astrocyte higher; full-data 0.31, Bergmann glia higher' in ms
+          "V49-N67 B1 span-matched control (MS headline; SI Note 10 details, v51)")
+    check('k_f ratio 2.09 equal-n, 2.03 full-data' in ms
+          and 'equal-n 1.29, astrocyte higher; full-data 0.31' in ms
           and '95% CI [2.02, 2.18]' in sn
           and '96_brain_downsample_decomp_v49.py' in sn,
-          "V49-N68 B2 equal-n decomposition (MS headline; SI Note 10 details, v50)")
-    check('leave-one-population-out baseline range 6.75\u20138.08' in ms
+          "V49-N68 B2 equal-n decomposition (MS headline; SI Note 10 details, v51)")
+    check('leave-one-population-out range 6.75\u20138.08' in ms
           and 'removing hepatocyte lowers it to 6.75' in sn,
-          "V49-N69 B3 calibration leave-one-out (MS pointer; SI 3.10 details, v50)")
-    check('whole-tumor label-permutation tests confirmed all three contrasts' in ms
+          "V49-N69 B3 calibration leave-one-out (MS pointer; SI 3.10 details, v51)")
+    check('label-permutation confirmed; Section 3.13' in ms
           and '93_luad_group_permutation_v49.py' in sn,
-          "V49-N70 B4 LUAD whole-tumor label permutation (MS pointer; SI 3.13, v50)")
+          "V49-N70 B4 LUAD whole-tumor label permutation (MS pointer; SI 3.13, v51)")
     check('adjusted log-\u03c9 ratio 1.19, 95% CI [1.12, 1.26]' in ms,
           "V49-N71 C4b log-omega scale sensitivity (v50 wording)")
     check('high-purity-half 1.17 versus 1.19 excluding CC, 95% CI [1.01, 1.44]' in sn
@@ -489,9 +488,9 @@ def main():
         check((BASE / _f).exists(), f"V49-N77 B-group output exists: {_f}")
     # ---- v49.14 fourth-round fixes (R1-R6, 2026-09-21) ----
     # A1/B3: NI direction + split-half caveat (MS + SI 1.4)
-    check('Section 1.4 of the Supplementary Information' in ms
+    check('caveats are in Section 1.4' in ms
           and 'never as evidence of positive selection' in ms,
-          "V49-N78 A1 MK/NI pointer to SI 1.4 (v50)")
+          "V49-N78 A1 MK/NI pointer to SI 1.4 (v51 wording)")
     check('reciprocal of the neutrality index' in sn
           and 'biased upward accordingly' in sn,
           "V49-N79 A1 SI 1.4 NI direction synced")
@@ -499,14 +498,14 @@ def main():
     check('1.34 [0.997, 1.880]' in sn and 'BRCA 1.57' in ms,
           "V49-N80 A2/B18 CI precision (v50: MS ratio; SI CIs)")
     # B1: sample-count reconciliation
-    check('3 do not appear in the assembled pair table' in ms
-          and '26 further samples appear only in tumor\u2013normal pairs' in ms
-          and 'spans 3,593 unique barcodes' in ms,
-          "V49-N81 B1 sample-count reconciliation (3,596/3,593/3,567)")
+    check('3 do not appear in the assembled pair table' in sn
+          and '26 further samples appear only in tumor\u2013normal pairs' in sn
+          and 'spans 3,593 unique barcodes' in sn,
+          "V49-N81 B1 sample-count reconciliation (3,596/3,593/3,567; v51: SI)")
     # B2: smoking model wording
     check('alone or jointly with admixture, age, and sex' in ms
-          and '\u0394\u03c9 +13.3, P = 1.4 \u00d7 10\u207b\u00b3' in ms,
-          "V49-N82 B2 smoking covariate wording (v50)")
+          and '+13.3, P = 1.4 \u00d7 10\u207b\u00b3 with smoking, age, and sex' in sn,
+          "V49-N82 B2 smoking covariate wording (v51: MS phrase; SI numbers)")
     # B7: exact P values
     check('all P < 10\u207b\u00b9\u2074\u2075' in ms
           and '7.7 \u00d7 10\u207b\u00b9\u2079' in sn,
@@ -519,23 +518,22 @@ def main():
     check('Supplementary Tables 5\u201319 provide the per-analysis numerical tables' in ms,
           "V49-N85 B6 Supp Tables 5-19 pointer in Data availability")
     # C1: composition B=1000 unified (MS Methods + SI Note 8 + Guide 5.8b)
-    check('cluster-bootstrap intervals (B = 1,000), the tumor-pair coefficient' in ms
-          and 'B = 1,000 for the composition cluster bootstrap' in ms
+    check('B = 1,000 composition cluster bootstrap' in ms
+          and 'B = 1,000 for the composition cluster bootstrap' in sn
           and 'B was raised '
           'from 200 to 1,000' in sn
           and 'B = 1,000; raised from 200 in v49.14' in gd,
-          "V49-N86 C1 composition bootstrap B unified to 1,000 (MS/SI/Guide)")
+          "V49-N86 C1 composition bootstrap B unified to 1,000 (MS/SI/Guide, v51)")
     check('LIHC +32.8% [+21.5%, +48.1%], KIRC +19.6% [+14.1%, +25.1%], BRCA '
           '\u221216.1% [\u221224.6%, \u22127.4%], LUAD \u22122.0% [\u22127.8%, +4.2%], LUSC '
-          '\u221210.0% [\u221227.8%, +6.8%]' in sn
-          and '\u221216% to +33%' in ms,
-          "V49-N87 C1 per-cancer attenuation updated (B=1000)")
+          '\u221210.0% [\u221227.8%, +6.8%]' in sn,
+          "V49-N87 C1 per-cancer attenuation updated (B=1000; v51: SI only)")
     # C3: aggregation-order quantification (MS Methods + Guide 5.11h + Section 2)
-    check('rank ordering is largely preserved (Spearman \u03c1 = 0.78)' in ms
+    check('rank ordering is largely preserved (Spearman \u03c1 = 0.78)' in sn
           and 'mouse Tabula Muris pilot and the human Tabula Sapiens pipelines' in gd
           and 'Aggregation-order same-data quantification (v49.14)' in gd
           and 'control-category median baseline itself moves from 6.46 to 10.94' in gd,
-          "V49-N88 C3 aggregation-order quantified + attribution unified")
+          "V49-N88 C3 aggregation-order quantified + attribution unified (v51: SI)")
     # C2: ex-CC Cox (SI + Guide 5.11i)
     check('ex-CC refit excluding all ' in sn
           and 'LIHC ex-CC Cox sensitivity (v49.14)' in gd
@@ -579,29 +577,28 @@ def main():
               f"V49-N99 stale gone from MS/SI: '{stale}'")
     # ---- v49.15 fifth-round blind-review fixes (5 Minor + 1 optional) ----
     # m2 (R1): span-matched residual decomposition surfaced in MS
-    check('residual again k_n-driven: k_f 1.39 versus k_n 0.33'
-          in ms and 'Supplementary Note 10' in ms,
-          "V49-N100 m2 span-matched residual decomposition in MS (v50 wording)")
+    check('decomposes the residual 3.68-fold gradient into k_f 1.39 and k_n 0.33'
+          in sn and 'Supplementary Note 10' in ms,
+          "V49-N100 m2 span-matched residual decomposition (v51: SI Note 10)")
     # m3 (R1): ependymal against-direction class noted in MS
-    check('ependymal cells (P 0.058 free versus 0.021 stratified)' in ms
-          and 'stratified q = 0.052' in ms,
-          "V49-N101 m3 ependymal stratified-reversal note in MS")
+    check('ependymal cells\u2014the one class moving against the conservative direction\u2014still do not survive (stratified q = 0.052)' in ms,
+          "V49-N101 m3 ependymal stratified-reversal note in MS (v51 wording)")
     # m4 (R6): exact Mann-Whitney P for cross-organ reversal
-    check('Mann-Whitney U, P = 5.6 \u00d7 10\u207b\u00b9\u2078' in ms
+    check('Mann-Whitney P = 5.6 \u00d7 10\u207b\u00b9\u2078' in ms
           and 'Mann-Whitney U, P < 0.001' not in ms,
-          "V49-N102 m4 exact cross-organ Mann-Whitney P (5.6e-18)")
+          "V49-N102 m4 exact cross-organ Mann-Whitney P (5.6e-18, v51 wording)")
     # m5 (R6, optional): CL per-background replicate count
     check('1,750 replicates per background, two backgrounds' in cl,
           "V49-N103 m5 CL per-background replicate count")
     # R5 optional: median qualifier on aggregation-order baseline
-    check('split-control median baseline itself moves from 6.46 to 10.94' in ms,
-          "V49-N104 R5 median qualifier on agg-order baseline (MS)")
+    check('split-control median baseline itself moves from 6.46 to 10.94' in sn,
+          "V49-N104 R5 median qualifier on agg-order baseline (v51: SI)")
     # m1 (R2): legend word order fixed (asserted in N55, negative here)
     check('constrained counterpart of the synonymous baseline' in ms,
           "V49-N105 m1 legend word order fixed")
     # ---- v49.11 MK substantive correspondence (R2-C1 ruling: analogy substantive) ----
     # v50: MK fourfold correspondence migrated to SI 1.4; MS carries pointer
-    check('Section 1.4 of the Supplementary Information' in ms
+    check('caveats are in Section 1.4' in ms
           and 'synonymous-site divergence (Ks)' in sn
           and 'polymorphism class' in sn
           and 'reciprocal of the neutrality index' in sn
@@ -619,9 +616,9 @@ def main():
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # v49.2 post-CC anchors + stale purge
     for pat, name in [("3,567", "N29 sample total post-CC"),
-                      ("1.10\u20132.46", "N30 Abstract ratio range post-CC"),
-                      ("P = 0.48", "N31 Cox P post-CC")]:
+                      ("1.10\u20132.46", "N30 Abstract ratio range post-CC")]:
         check(pat in ms, f"V49-{name}")
+    check("P = 0.48" in sn, "V49-N31 Cox P post-CC (v51: SI)")
     for stale in ("1.822", "1.133", "1.895", "1.13\u20132.46"):
         check(stale not in ms, f"V49-N32 stale gone from MS: '{stale}'")
     check("78.2, 76.8, 77.9, 72.6" in sn and "6.9 \u00d7 10\u207b\u00b9\u2075" in sn,
