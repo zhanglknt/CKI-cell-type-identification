@@ -29,6 +29,7 @@ data/FACS.zip
 data/FACS/
 data/brain/
 data/tcga/
+data/gtex/
 data/ts_human/
 data/housekeeping/
 data/annotations_FACS.csv
@@ -117,6 +118,9 @@ results/CKI_Reproducibility.ipynb
 !results/nc49_tcga_purity.csv
 !results/nc50_brain_atlas_microglia.csv
 !results/nc50_brain_atlas_microglia.txt
+!results/nc52_gtex_pairs.csv
+!results/nc52_gtex_kn_by_grouptype.csv
+!results/nc52_gtex_summary.json
 
 # Whitelist: nc52 statistical resampling (R1/R2 major revision analyses)
 !results/nc52_stats_baseline_twostage_bootstrap.csv

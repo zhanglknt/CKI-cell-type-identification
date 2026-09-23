@@ -1,0 +1,156 @@
+============================================================
+0. Loading HK gene mapping...
+============================================================
+  HK gene symbols: 1129, probeMap: 60498
+
+============================================================
+1. Sample metadata...
+============================================================
+  TCGA-BRCA: T=1032, N=109
+  TCGA-KIRC: T=754, N=82
+  TCGA-LIHC: T=398, N=57
+  TCGA-LUAD: T=495, N=76
+  TCGA-LUSC: T=535, N=58
+  GTEx Lung: 288 samples (cap 300, seed 42)
+  GTEx Liver: 110 samples (cap 300, seed 42)
+  GTEx Kidney - Cortex: 28 samples (cap 300, seed 42)
+  GTEx Breast - Mammary Tissue: 179 samples (cap 300, seed 42)
+
+============================================================
+2. Loading expression matrices...
+============================================================
+  TCGA: 3596 samples x 60498 genes (107s)
+  GTEx: 605 samples x 60498 genes (35s)
+  gene lists identical: 60498 genes
+
+============================================================
+3. Per-cancer analysis...
+============================================================
+
+--- TCGA-LUAD (Lung; GTEx Lung) ---
+  samples: T=495, N=76, GTEx=288; genes=14464, HK=1125
+    TT: 2000/2000
+    TT: 2000 done, kn median=2.4489e-03
+    NN: 2000/2850
+    NN: 2850 done, kn median=9.4058e-04
+    GG: 2000/2000
+    GG: 2000 done, kn median=1.1354e-03
+    GA: 2000/2000
+    GA: 2000 done, kn median=2.0413e-03
+  k_n medians: GG=1.1354e-03 GA=2.0413e-03 NN=9.4058e-04 TT=2.4489e-03
+  ratios: GG/NN=1.21, TT/NN=2.60, TT/GG=2.16
+  MWU: GG<NN P=1.00e+00; TT>NN P=0.00e+00; TT>GG P=0.00e+00; GA>GG P=1.71e-192
+  JT trend GG<NN<TT: stat=10653298, P=0.00e+00
+  verdict: GTEx~adjacent<tumor: healthy and adjacent baselines coincide, tumor elevated -> supports tumor-specific HK dysregulation (NOT a field effect)
+
+--- TCGA-LUSC (Lung; GTEx Lung) ---
+  samples: T=535, N=58, GTEx=288; genes=14382, HK=1125
+    TT: 2000/2000
+    TT: 2000 done, kn median=2.5324e-03
+    NN: 1653 done, kn median=1.0011e-03
+    GG: 2000/2000
+    GG: 2000 done, kn median=1.1354e-03
+    GA: 2000/2000
+    GA: 2000 done, kn median=2.1131e-03
+  k_n medians: GG=1.1354e-03 GA=2.1131e-03 NN=1.0011e-03 TT=2.5324e-03
+  ratios: GG/NN=1.13, TT/NN=2.53, TT/GG=2.23
+  MWU: GG<NN P=9.43e-01; TT>NN P=3.13e-198; TT>GG P=0.00e+00; GA>GG P=8.51e-197
+  JT trend GG<NN<TT: stat=7708669, P=3.51e-06
+  verdict: GTEx~adjacent<tumor: healthy and adjacent baselines coincide, tumor elevated -> supports tumor-specific HK dysregulation (NOT a field effect)
+
+--- TCGA-LIHC (Liver; GTEx Liver) ---
+  samples: T=398, N=57, GTEx=110; genes=12036, HK=1124
+    TT: 2000/2000
+    TT: 2000 done, kn median=3.9805e-03
+    NN: 1596 done, kn median=1.9166e-03
+    GG: 2000/2000
+    GG: 2000 done, kn median=1.9755e-03
+    GA: 2000/2000
+    GA: 2000 done, kn median=4.5157e-03
+  k_n medians: GG=1.9755e-03 GA=4.5157e-03 NN=1.9166e-03 TT=3.9805e-03
+  ratios: GG/NN=1.03, TT/NN=2.08, TT/GG=2.01
+  MWU: GG<NN P=3.81e-05; TT>NN P=3.16e-84; TT>GG P=2.43e-293; GA>GG P=0.00e+00
+  JT trend GG<NN<TT: stat=7250847, P=0.00e+00
+  verdict: GTEx~adjacent<tumor: healthy and adjacent baselines coincide, tumor elevated -> supports tumor-specific HK dysregulation (NOT a field effect)
+
+--- TCGA-KIRC (Kidney; GTEx Kidney - Cortex) ---
+  samples: T=754, N=82, GTEx=28; genes=13813, HK=1125
+    TT: 2000/2000
+    TT: 2000 done, kn median=2.6014e-03
+    NN: 2000/3321
+    NN: 3321 done, kn median=7.2032e-04
+    GG: 378 done, kn median=2.3757e-03
+    GA: 2000/2000
+    GA: 2000 done, kn median=3.7203e-03
+  k_n medians: GG=2.3757e-03 GA=3.7203e-03 NN=7.2032e-04 TT=2.6014e-03
+  ratios: GG/NN=3.30, TT/NN=3.61, TT/GG=1.09
+  MWU: GG<NN P=1.00e+00; TT>NN P=0.00e+00; TT>GG P=3.39e-01; GA>GG P=1.38e-26
+  JT trend GG<NN<TT: stat=6432979, P=0.00e+00
+  verdict: GTEx~tumor: healthy GTEx k_n already at tumor level -> does NOT support tumor specificity (check tissue-specific technical confounds)
+
+--- TCGA-BRCA (Breast; GTEx Breast - Mammary Tissue) ---
+  samples: T=1032, N=109, GTEx=179; genes=14305, HK=1125
+    TT: 2000/2000
+    TT: 2000 done, kn median=2.4123e-03
+    NN: 2000/5886
+    NN: 4000/5886
+    NN: 5886 done, kn median=8.6911e-04
+    GG: 2000/2000
+    GG: 2000 done, kn median=9.0639e-04
+    GA: 2000/2000
+    GA: 2000 done, kn median=2.0269e-03
+  k_n medians: GG=9.0639e-04 GA=2.0269e-03 NN=8.6911e-04 TT=2.4123e-03
+  ratios: GG/NN=1.04, TT/NN=2.78, TT/GG=2.66
+  MWU: GG<NN P=9.48e-01; TT>NN P=0.00e+00; TT>GG P=0.00e+00; GA>GG P=0.00e+00
+  JT trend GG<NN<TT: stat=19413379, P=0.00e+00
+  verdict: GTEx~adjacent<tumor: healthy and adjacent baselines coincide, tumor elevated -> supports tumor-specific HK dysregulation (NOT a field effect)
+
+============================================================
+4. Summary table...
+============================================================
+  Lung: GG=1.1354e-03 GA=2.0690e-03 NN=9.6455e-04 TT=2.4951e-03 | GG/NN=1.18 TT/NN=2.59 TT/GG=2.20 | GG<NN P=1.00e+00, TT>NN P=0.00e+00, GA>GG P=0.00e+00, JT P=0.00e+00
+    verdict: GTEx~adjacent<tumor: supports tumor-specific HK dysregulation (NOT a field effect)
+  Liver: GG=1.9755e-03 GA=4.5157e-03 NN=1.9166e-03 TT=3.9805e-03 | GG/NN=1.03 TT/NN=2.08 TT/GG=2.01 | GG<NN P=3.81e-05, TT>NN P=3.16e-84, GA>GG P=0.00e+00, JT P=0.00e+00
+    verdict: GTEx~adjacent<tumor: supports tumor-specific HK dysregulation (NOT a field effect)
+  Kidney: GG=2.3757e-03 GA=3.7203e-03 NN=7.2032e-04 TT=2.6014e-03 | GG/NN=3.30 TT/NN=3.61 TT/GG=1.09 | GG<NN P=1.00e+00, TT>NN P=0.00e+00, GA>GG P=1.38e-26, JT P=0.00e+00
+    verdict: GTEx~tumor: does NOT support tumor specificity (check tissue-specific technical confounds)
+  Breast: GG=9.0639e-04 GA=2.0269e-03 NN=8.6911e-04 TT=2.4123e-03 | GG/NN=1.04 TT/NN=2.78 TT/GG=2.66 | GG<NN P=9.48e-01, TT>NN P=0.00e+00, GA>GG P=0.00e+00, JT P=0.00e+00
+    verdict: GTEx~adjacent<tumor: supports tumor-specific HK dysregulation (NOT a field effect)
+
+============================================================
+5. Cross-check vs published v44 (TCGA-only gene filter)...
+============================================================
+  TCGA-LUAD TT: n=2000/2000 v44 median=2.4489e-03, nc52 median=2.4489e-03 (ratio 1.000)
+  TCGA-LUAD NN: n=2850/2850 v44 median=9.4058e-04, nc52 median=9.4058e-04 (ratio 1.000)
+  TCGA-LUSC TT: n=2000/2000 v44 median=2.5324e-03, nc52 median=2.5324e-03 (ratio 1.000)
+  TCGA-LUSC NN: n=1653/1653 v44 median=1.0011e-03, nc52 median=1.0011e-03 (ratio 1.000)
+  TCGA-LIHC TT: n=2000/2000 v44 median=3.9805e-03, nc52 median=3.9805e-03 (ratio 1.000)
+  TCGA-LIHC NN: n=1596/1596 v44 median=1.9166e-03, nc52 median=1.9166e-03 (ratio 1.000)
+  TCGA-KIRC TT: n=2000/2000 v44 median=2.6014e-03, nc52 median=2.6014e-03 (ratio 1.000)
+  TCGA-KIRC NN: n=3321/3321 v44 median=7.2032e-04, nc52 median=7.2032e-04 (ratio 1.000)
+  TCGA-BRCA TT: n=2000/2000 v44 median=2.4123e-03, nc52 median=2.4123e-03 (ratio 1.000)
+  TCGA-BRCA NN: n=5886/5886 v44 median=8.6911e-04, nc52 median=8.6911e-04 (ratio 1.000)
+
+============================================================
+6. Saving outputs...
+============================================================
+  nc52_gtex_pairs.csv: 43684 pairs
+  nc52_gtex_kn_by_grouptype.csv: 36 rows
+
+level  group pair_type  n_pairs    kn_median      kn_mean       kn_q25       kn_q75       kn_iqr floor_frac_kn_lt_1e-4
+organ   Lung        GG     4000 1.135448e-03 1.787989e-03 7.681850e-04 1.722523e-03 9.543377e-04                0.0000
+organ   Lung        GA     4000 2.069020e-03 2.664031e-03 1.419160e-03 3.118138e-03 1.698978e-03                0.0000
+organ   Lung        NN     4503 9.645514e-04 1.321523e-03 5.114891e-04 1.786932e-03 1.275443e-03                0.0000
+organ   Lung        TT     4000 2.495087e-03 2.982582e-03 1.892939e-03 3.377526e-03 1.484587e-03                0.0000
+organ  Liver        GG     2000 1.975522e-03 2.383606e-03 1.400681e-03 2.977917e-03 1.577236e-03                0.0005
+organ  Liver        GA     2000 4.515697e-03 4.971488e-03 3.417866e-03 5.839823e-03 2.421956e-03                0.0000
+organ  Liver        NN     1596 1.916639e-03 3.768292e-03 1.292203e-03 6.163743e-03 4.871540e-03                0.0000
+organ  Liver        TT     2000 3.980456e-03 5.074973e-03 2.970697e-03 5.673120e-03 2.702423e-03                0.0000
+organ Kidney        GG      378 2.375749e-03 8.076283e-03 1.296384e-03 4.455818e-03 3.159433e-03                0.0000
+organ Kidney        GA     2000 3.720273e-03 6.971884e-03 2.641329e-03 6.070116e-03 3.428787e-03                0.0000
+organ Kidney        NN     3321 7.203153e-04 1.003914e-03 4.895895e-04 1.149945e-03 6.603554e-04                0.0003
+organ Kidney        TT     2000 2.601377e-03 3.304786e-03 1.511061e-03 3.880371e-03 2.369310e-03                0.0000
+organ Breast        GG     2000 9.063911e-04 1.074466e-03 6.320994e-04 1.299350e-03 6.672508e-04                0.0000
+organ Breast        GA     2000 2.026866e-03 2.326633e-03 1.598793e-03 2.661414e-03 1.062622e-03                0.0000
+organ Breast        NN     5886 8.691107e-04 1.273048e-03 5.099352e-04 1.625941e-03 1.116006e-03                0.0000
+organ Breast        TT     2000 2.412305e-03 2.890182e-03 1.819504e-03 3.381490e-03 1.561986e-03                0.0000
