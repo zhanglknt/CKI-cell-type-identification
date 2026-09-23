@@ -118,6 +118,14 @@ results/CKI_Reproducibility.ipynb
 !results/nc50_brain_atlas_microglia.csv
 !results/nc50_brain_atlas_microglia.txt
 
+# Whitelist: nc52 statistical resampling (R1/R2 major revision analyses)
+!results/nc52_stats_baseline_twostage_bootstrap.csv
+!results/nc52_stats_baseline_twostage_bootstrap.json
+!results/nc52_stats_tabula_entrycluster.csv
+!results/nc52_stats_auc_ci_methods.csv
+!results/nc52_stats_omega_vs_kf_realdata.csv
+!results/nc52_stats_omega_kf_math_floor.csv
+
 # Whitelist: v38 analysis / figure notebooks cited in the reproducibility guide (moved to end of file)
 
 # Temp/helper scripts

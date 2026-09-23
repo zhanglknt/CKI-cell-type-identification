@@ -1,0 +1,5 @@
+method,mean,ci_lo,ci_hi,note
+two_stage_bootstrap_B5000,7.695773321896474,6.3798,9.8184,stage1: resample 6 populations; stage2: resample 50 split-half values within drawn population
+single_stage_iid300_bootstrap_B5000,7.695773321896474,7.3075,8.1087,"treats 300 split-half values as independent (close to published [7.37, 8.02]); anti-conservative because values are nested in 6 populations"
+t_interval_6pop_means_df5,7.695773321896474,5.1801,10.2115,"t interval on the 6 population means (n=6, df=5)"
+leave_one_population_out_range,7.695773321896474,6.7479,8.0813,range of the 6 LOPO means (not a CI; sensitivity diagnostic)
