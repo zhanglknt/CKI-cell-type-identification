@@ -98,16 +98,16 @@ chk('first-appearance 1..57 monotonic', _first == list(range(1, 58)),
 chk('no orphans (57 cited)', len(_seen) == 57)
 
 # ---------- 5. zip integrity ----------
-z = zipfile.ZipFile('CKI_Submission_v49_NC.zip')
+z = zipfile.ZipFile('CKI_Submission_v50_NC.zip')
 names = z.namelist()
 chk('zip 28 entries', len(names) == 28, f'got {len(names)}')
 chk('zip has Supplementary_Fig_14.pdf',
-    'CKI_Submission_v49_NC/Supplementary_Fig_14.pdf' in names)
+    'CKI_Submission_v50_NC/Supplementary_Fig_14.pdf' in names)
 chk('zip has microglia csv (via MANIFEST or file list not required; skip)', True)
-sha = hashlib.sha256(open('CKI_Submission_v49_NC.zip', 'rb').read()).hexdigest()
+sha = hashlib.sha256(open('CKI_Submission_v50_NC.zip', 'rb').read()).hexdigest()
 print(f'  zip sha256 = {sha}')
-chk('zip size < 15 MB', len(open('CKI_Submission_v49_NC.zip', 'rb').read()) < 15e6,
-    f"{len(open('CKI_Submission_v49_NC.zip', 'rb').read()):,} B")
+chk('zip size < 15 MB', len(open('CKI_Submission_v50_NC.zip', 'rb').read()) < 15e6,
+    f"{len(open('CKI_Submission_v50_NC.zip', 'rb').read()):,} B")
 
 # ---------- 6. SI migration spot-checks ----------
 mig = {

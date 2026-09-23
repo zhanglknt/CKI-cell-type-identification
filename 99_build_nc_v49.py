@@ -41,8 +41,8 @@ NO_ARCHIVE = os.environ.get("CKI_BUILD_NO_ARCHIVE") == "1"
 STAGE = BASE / "results" / "figures_v47_author"
 FIGS_NC = BASE / "results" / "figures_submission_nc"
 FF = BASE / "results" / "figures_final"
-WORK_DIR = BASE / "version3" / "CKI_Submission_v49_NC"
-ZIP_PATH = BASE / "version3" / "CKI_Submission_v49_NC.zip"
+WORK_DIR = BASE / "version3" / "CKI_Submission_v50_NC"
+ZIP_PATH = BASE / "version3" / "CKI_Submission_v50_NC.zip"
 FA = BASE / "_tmp_fa_review"
 AUD = BASE / "results" / "audit"
 
@@ -126,7 +126,7 @@ def main():
     check(n_fig == 21, f"V49-1 figures staged = 21 (6 main + 14 supp + GA pdf; v50) got {n_fig}")
 
     # ---- [1] work dir ----
-    print("\n[1] Preparing CKI_Submission_v49_NC ...")
+    print("\n[1] Preparing CKI_Submission_v50_NC ...")
     if WORK_DIR.exists():
         if not NO_ARCHIVE:
             _arch2 = BASE / "_tmp_archive" / "v49_build_workdir_cleanup"
@@ -177,10 +177,10 @@ def main():
 
     manifest = ["=" * 60,
                 "  CKI Submission Package v49 (Nature Communications)",
-                "  MANIFEST_v49.txt",
+                "  MANIFEST_v50.txt",
                 "  tag: v0.5.x | GB-rebuttal round: real-data drift calibration + pan-cancer map",
                 "=" * 60, ""]
-    entries = sorted(e for e in os.listdir(WORK_DIR) if e != "MANIFEST_v49.txt")
+    entries = sorted(e for e in os.listdir(WORK_DIR) if e != "MANIFEST_v50.txt")
     for i, e in enumerate(entries, 1):
         p = WORK_DIR / e
         manifest.append(f"{i:2d}. {e}  ({p.stat().st_size:,} bytes)")
@@ -189,7 +189,7 @@ def main():
     for e in entries:
         manifest.append(f"  {sha256(WORK_DIR / e)}  {e}")
     mtext = "\n".join(manifest) + "\n"
-    (WORK_DIR / "MANIFEST_v49.txt").write_text(mtext, encoding="utf-8")
+    (WORK_DIR / "MANIFEST_v50.txt").write_text(mtext, encoding="utf-8")
 
     # ---- [4] zip ----
     print("\n[4] Creating ZIP ...")
@@ -199,8 +199,8 @@ def main():
         shutil.move(str(ZIP_PATH), str(_arch3 / ZIP_PATH.name))
     with zipfile.ZipFile(ZIP_PATH, "w", zipfile.ZIP_DEFLATED) as z:
         for e in sorted(os.listdir(WORK_DIR)):
-            z.write(WORK_DIR / e, f"CKI_Submission_v49_NC/{e}")
-    main_copy = BASE / "CKI_Submission_v49_NC.zip"
+            z.write(WORK_DIR / e, f"CKI_Submission_v50_NC/{e}")
+    main_copy = BASE / "CKI_Submission_v50_NC.zip"
     shutil.copy2(ZIP_PATH, main_copy)
     print(f"  zip: {ZIP_PATH.stat().st_size:,} B ({len(zipfile.ZipFile(ZIP_PATH).namelist())} entries)")
 
@@ -641,21 +641,21 @@ def main():
     # ---- package integrity ----
     print("\n--- package integrity ---")
     names = zipfile.ZipFile(ZIP_PATH).namelist()
-    check(all(n.startswith("CKI_Submission_v49_NC/") for n in names), "V49-P1 zip rooted")
-    for must in ["CKI_Submission_v49_NC/CKI_Manuscript_NC.docx",
-                 "CKI_Submission_v49_NC/CKI_Supplementary_NC.docx",
-                 "CKI_Submission_v49_NC/CKI_NC_Cover_Letter.docx",
-                 "CKI_Submission_v49_NC/CKI_Reproducibility_Guide_NC.docx",
-                 "CKI_Submission_v49_NC/MANIFEST_v49.txt",
-                 "CKI_Submission_v49_NC/Supplementary_Fig_1.pdf",
-                 "CKI_Submission_v49_NC/Supplementary_Fig_13.pdf",
-                 "CKI_Submission_v49_NC/Supplementary_Fig_14.pdf",
-                 "CKI_Submission_v49_NC/figure2.pdf",
-                 "CKI_Submission_v49_NC/figure3.pdf",
-                 "CKI_Submission_v49_NC/figure6.pdf",
-                 "CKI_Submission_v49_NC/CKI_graphical_abstract.pdf",
-                 "CKI_Submission_v49_NC/CKI_Tables_NC.xlsx",
-                 "CKI_Submission_v49_NC/CKI_Supplementary_Tables_NC.xlsx"]:
+    check(all(n.startswith("CKI_Submission_v50_NC/") for n in names), "V49-P1 zip rooted")
+    for must in ["CKI_Submission_v50_NC/CKI_Manuscript_NC.docx",
+                 "CKI_Submission_v50_NC/CKI_Supplementary_NC.docx",
+                 "CKI_Submission_v50_NC/CKI_NC_Cover_Letter.docx",
+                 "CKI_Submission_v50_NC/CKI_Reproducibility_Guide_NC.docx",
+                 "CKI_Submission_v50_NC/MANIFEST_v50.txt",
+                 "CKI_Submission_v50_NC/Supplementary_Fig_1.pdf",
+                 "CKI_Submission_v50_NC/Supplementary_Fig_13.pdf",
+                 "CKI_Submission_v50_NC/Supplementary_Fig_14.pdf",
+                 "CKI_Submission_v50_NC/figure2.pdf",
+                 "CKI_Submission_v50_NC/figure3.pdf",
+                 "CKI_Submission_v50_NC/figure6.pdf",
+                 "CKI_Submission_v50_NC/CKI_graphical_abstract.pdf",
+                 "CKI_Submission_v50_NC/CKI_Tables_NC.xlsx",
+                 "CKI_Submission_v50_NC/CKI_Supplementary_Tables_NC.xlsx"]:
         check(must in names, f"V49-P2 {must.split('/')[-1]}")
     n_oldname = [n for n in names if "figure_S" in n or "Supplementary_Figure_S" in n]
     check(not n_oldname, f"V49-P3 no old supp figure naming ({n_oldname})")

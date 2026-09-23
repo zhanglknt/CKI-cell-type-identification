@@ -36,7 +36,7 @@ saved results/Supplementary_Fig_14.pdf
   [OK] run: Regen Supplementary Fig 14 (NC v50 microglia)
   [OK] V49-1 figures staged = 21 (6 main + 14 supp + GA pdf; v50) got 21
 
-[1] Preparing CKI_Submission_v49_NC ...
+[1] Preparing CKI_Submission_v50_NC ...
 
 [2] Regenerating DOCX files ...
 
@@ -74,7 +74,7 @@ Size: 44.0 KB
   [OK] SI Tables xlsx exists
 
 [4] Creating ZIP ...
-  zip: 12,297,929 B (28 entries)
+  zip: 12,297,918 B (28 entries)
 
 ============================================================
   v49 Verification
@@ -305,7 +305,7 @@ TOTAL: 39 checks, 0 failures
   [OK] V49-P2 CKI_Supplementary_NC.docx
   [OK] V49-P2 CKI_NC_Cover_Letter.docx
   [OK] V49-P2 CKI_Reproducibility_Guide_NC.docx
-  [OK] V49-P2 MANIFEST_v49.txt
+  [OK] V49-P2 MANIFEST_v50.txt
   [OK] V49-P2 Supplementary_Fig_1.pdf
   [OK] V49-P2 Supplementary_Fig_13.pdf
   [OK] V49-P2 Supplementary_Fig_14.pdf
