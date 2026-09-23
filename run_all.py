@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
-run_all.py — Complete reproducibility pipeline for CKI Genome Biology manuscript (v40+).
+run_all.py — Complete reproducibility pipeline for the CKI manuscript
+(Nature Communications submission, v50; earlier revision rounds targeted
+other journals, so some script/file names retain historical "gb"/"nar" tags).
 
 Usage:
     python run_all.py              # Run everything (default)
@@ -34,12 +36,23 @@ Execution order (independent groups run in parallel):
         Split-half:      43_ts_splithalf, 44_fix_phaseB_cis
         Simulations:     45_groundtruth_simulation, 49_groundtruth_background2
         TCGA:            73_tcga_composition_check
-    Phase 7 (Figures):  30_genome_biology_figures
+    Phase 6b (v44 analyses): 85/86/87_tcga_*, 86_brain_downsample,
+                             87_mouse_splithalf, 101_competitors
+    Phase 6c (v45 analyses):  88_ratio_estimator, 89_cluster_boot,
+                             90_nonhk_drift, 91_augur, 91b_augur_ovr
+    Phase 6d (nc49 analyses): nc49_pilot_kang_techrep, nc49_brain_drift_ladder,
+                             nc49_tcga_main, nc49_pilot_lihc_cox,
+                             nc49_tcga_purity, nc49_tcga_luad_smoking,
+                             nc49_tcga_kf_composition, nc49_agg_order_sensitivity,
+                             nc49_lihc_cox_excc, 92-98_*_v49
+    Phase 6e (nc50 analyses): nc50_brain_atlas_microglia
+    Phase 7 (Figures):  30_genome_biology_figures, nc49_fig_drift_ladder (Fig. 3),
+                        nc49_fig_tcga (Fig. 4), nc50_fig_microglia (Supp. Fig. 14)
     Phase 8 (Collect):  _collect_submission_figures
 
 Note on verification: scripts/spot_check.py provides a quick numerical
-sanity check only; the comprehensive 285-assertion verification of the
-submission package is performed by 99_build_gb_v40.py.
+sanity check only; the comprehensive verification of the submission
+package is performed by 99_build_nc_v49.py.
 
 Prerequisites:
     1. Install cki: pip install -e .
@@ -171,7 +184,7 @@ def main():
     t_start = time.time()
 
     print(color("=" * 60, Color.BOLD))
-    print(color("CKI Genome Biology — Reproducibility Pipeline", Color.BOLD))
+    print(color("CKI — Reproducibility Pipeline (NC v50)", Color.BOLD))
     print(color("=" * 60, Color.BOLD))
     print(f"Root:      {ROOT}")
     print(f"Python:    {PYTHON}")
@@ -213,6 +226,8 @@ def main():
 
     if args.verify_only:
         run_group("Verify", [("Spot Check", "scripts/spot_check.py")])
+        print("\nFor the comprehensive submission-package verification, run:")
+        print("  python 99_build_nc_v49.py")
         return
 
     # ================================================================
@@ -243,9 +258,10 @@ def main():
         ("Clinical",           "07_phase34_clinical.py"),
     ]
 
-    # Group D: Brain
+    # Group D: Brain (07d is the current landscape script; the 07c v3 outputs
+    # are pre-fix and superseded, see results/superseded/)
     group_d = [
-        ("Brain Siletti",      "07c_brain_siletti_v3.py"),
+        ("Brain Siletti",      "07d_brain_siletti_v4.py"),
     ]
 
     # Method comparison (runs independently — reads raw data)
@@ -323,7 +339,7 @@ def main():
     if not ok:
         all_groups_ok = False
 
-    # Spot check (quick sanity check only; full verification: 99_build_gb_v40.py)
+    # Spot check (quick sanity check only; full verification: 99_build_nc_v49.py)
     spot_check = ROOT / "scripts" / "spot_check.py"
     if spot_check.exists():
         ok, _, _ = run_script("Spot Check", "scripts/spot_check.py", 5)
@@ -444,6 +460,86 @@ def main():
         all_groups_ok = False
 
     # ================================================================
+    # Phase 6c: v45 analyses (see Reproducibility Guide 5.9)
+    # ================================================================
+    print(f"\n{color('[Phase 6c] v45 analyses', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+
+    group_v45 = [
+        ("Ratio Estimator",     "notebooks/88_ratio_estimator_v45.py"),
+        ("Cluster Bootstrap",   "notebooks/89_cluster_boot_v45.py"),
+        ("Non-HK Drift",        "notebooks/90_nonhk_drift_v45.py"),
+    ]
+    if not run_group("V45", group_v45, not args.sequential, 120):
+        all_groups_ok = False
+
+    if not args.skip_brain:
+        group_v45_brain = [
+            ("Augur Multiclass",    "notebooks/91_augur_v45.py"),
+            ("Augur OvR",           "notebooks/91b_augur_ovr_v45.py"),
+        ]
+        if not run_group("V45-Brain", group_v45_brain, not args.sequential, 180):
+            all_groups_ok = False
+    else:
+        print(f"\n{color('[V45-Brain] SKIPPED (--skip-brain)', Color.YELLOW)}")
+
+    # ================================================================
+    # Phase 6d: nc49 analyses (see Reproducibility Guide 5.10/5.11)
+    # ================================================================
+    print(f"\n{color('[Phase 6d] nc49 analyses', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+
+    group_nc49_indep = [
+        ("Kang Tech-Replicate",   "notebooks/nc49_pilot_kang_techrep.py"),
+        ("Calib Leave-One-Out",   "notebooks/92_calib_leave_one_out_v49.py"),
+        ("Agg-Order Sensitivity", "notebooks/nc49_agg_order_sensitivity.py"),
+    ]
+    if not run_group("NC49-calibration", group_nc49_indep, not args.sequential, 60):
+        all_groups_ok = False
+
+    if not args.skip_brain:
+        group_nc49_brain = [
+            ("Brain Drift Ladder",    "notebooks/nc49_brain_drift_ladder.py"),
+            ("Brain Region-Matched",  "notebooks/95_brain_region_matched_v49.py"),
+            ("Brain Downsample kfkn", "notebooks/96_brain_downsample_decomp_v49.py"),
+            ("Donor-Stratified Table", "notebooks/97_donor_stratified_table_v49.py"),
+        ]
+        if not run_group("NC49-Brain", group_nc49_brain, not args.sequential, 180):
+            all_groups_ok = False
+    else:
+        print(f"\n{color('[NC49-Brain] SKIPPED (--skip-brain)', Color.YELLOW)}")
+
+    if not args.skip_tcga:
+        group_nc49_tcga = [
+            ("TCGA Main (nc49)",      "notebooks/nc49_tcga_main.py"),
+            ("LIHC Cox",              "notebooks/nc49_pilot_lihc_cox.py"),
+            ("TCGA Purity",           "notebooks/nc49_tcga_purity.py"),
+            ("LUAD Smoking",          "notebooks/nc49_tcga_luad_smoking.py"),
+            ("k_f Composition",       "notebooks/nc49_tcga_kf_composition.py"),
+            ("LUAD Group Permutation", "notebooks/93_luad_group_permutation_v49.py"),
+            ("LUAD Log-Omega Sens.",  "notebooks/98_luad_logomega_sensitivity_v49.py"),
+            ("CC Audit Sensitivity",  "notebooks/94_cc_audit_sensitivity_v49.py"),
+            ("LIHC Cox ex-CC",        "notebooks/nc49_lihc_cox_excc.py"),
+        ]
+        if not run_group("NC49-TCGA", group_nc49_tcga, not args.sequential, 180):
+            all_groups_ok = False
+    else:
+        print(f"\n{color('[NC49-TCGA] SKIPPED (--skip-tcga)', Color.YELLOW)}")
+
+    # ================================================================
+    # Phase 6e: nc50 microglia independent validation (Guide 5.12)
+    # ================================================================
+    print(f"\n{color('[Phase 6e] nc50 microglia validation', Color.BOLD + Color.CYAN)}")
+    print("=" * 60)
+
+    if (ROOT / "data" / "human_brain_atlas_microglia.h5ad").exists():
+        ok, _, _ = run_script("Microglia Validation", "notebooks/nc50_brain_atlas_microglia.py", 120)
+        if not ok:
+            all_groups_ok = False
+    else:
+        print(f"  {color('SKIP', Color.YELLOW)}: data/human_brain_atlas_microglia.h5ad not found")
+
+    # ================================================================
     # Phase 7: Figure Generation
     # ================================================================
     print(f"\n{color('[Phase 7] Figure Generation', Color.BOLD + Color.CYAN)}")
@@ -451,6 +547,14 @@ def main():
 
     ok, _, _ = run_script("Main + Supp Figures", "notebooks/30_genome_biology_figures.py", 30)
     if not ok:
+        all_groups_ok = False
+
+    group_fig_nc = [
+        ("Fig. 3 Drift Ladder",  "notebooks/nc49_fig_drift_ladder.py"),
+        ("Fig. 4 TCGA",          "notebooks/nc49_fig_tcga.py"),
+        ("Supp. Fig. 14",        "notebooks/nc50_fig_microglia.py"),
+    ]
+    if not run_group("NC Figures", group_fig_nc, not args.sequential, 30):
         all_groups_ok = False
 
     # ================================================================
@@ -479,12 +583,10 @@ def main():
         print(color(f"PIPELINE COMPLETE — All steps passed ({mins}m {secs}s)", Color.GREEN + Color.BOLD))
         print()
         print("Next steps:")
-        print("  1. Generate manuscript:     python generate_manuscript_gb.py")
-        print("  2. Generate supplementary: python notebooks/68_gen_supplementary_en.py")
-        print("  3. Generate cover letter:  python generate_cover_letter_nar.py")
-        print("  4. Generate repro guide:   node notebooks/100_gen_reproducibility_docx.js")
-        print("  5. Extract tables:         python notebooks/_extract_table1_2.py")
-        print("  6. Verify & build package: python 99_build_gb_v44.py  (553-assertion verification)")
+        print("  1. Verify & build package: python 99_build_nc_v49.py")
+        print("     (regenerates the manuscript, supplementary information,")
+        print("      cover letter, reproducibility guide and the submission zip,")
+        print("      then runs the full assertion battery)")
     else:
         print(color(f"PIPELINE FAILED — Some steps failed ({mins}m {secs}s)", Color.RED + Color.BOLD))
         print("Check the output above for FAIL markers.")

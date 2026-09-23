@@ -14,6 +14,8 @@ they must be downloaded from the public sources below.
 | Siletti et al. brain atlas (Nonneurons + Neurons) | CELLxGENE: https://cellxgene.cziscience.com/ | See Siletti et al., Science 2023 for collection links |
 | TCGA bulk RNA-seq (TPM) | UCSC Xena (https://xenabrowser.net/) / GDC https://portal.gdc.cancer.gov/ | Bulk TPM matrices for the five analyzed cancers |
 | HRT Atlas v1.0 (HK genes) | https://www.housekeeping.unicamp.br/ | A copy of the human/mouse common HK gene list ships with the package at `cki/data/hrt_atlas.csv` |
+| Kang et al. IFN-beta PBMC (GSE96583) | GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE96583 | Download `GSE96583_RAW.tar`, `GSE96583_genes.txt.gz` and the batch2 tsne/metadata files into `data/kang_ifnb/` (exact expected files: header of `notebooks/79_kang_ifnb_demo.py`) |
+| Human Brain Cell Atlas v1.0, Microglia supercluster | CELLxGENE collection 283d65eb-dd53-496d-adb7-7570c7caa443: https://cellxgene.cziscience.com/ | `data/human_brain_atlas_microglia.h5ad` (91,838 nuclei); nc50 microglia independent validation (`notebooks/nc50_brain_atlas_microglia.py`) |
 
 ## Processed data
 
@@ -38,7 +40,10 @@ All analysis scripts are in `notebooks/`. The main-figure pipeline is:
 - `13_phase35_method_comparison.py` — 4,851-pair, 5-metric comparison (Phase 3.5)
 - `45_groundtruth_simulation.py` — semi-synthetic ground-truth simulation
 - `46_fixed_panel_ablation.py` — fixed gene-panel circularity ablation
-- `30_genome_biology_figures.py` — main-figure generation
+- `30_genome_biology_figures.py` — earlier main/supplementary figure generation
+- `nc49_fig_drift_ladder.py` — Fig. 3 (drift ladder)
+- `nc49_fig_tcga.py` — Fig. 4 (TCGA per-sample statistics)
+- `nc50_fig_microglia.py` — Supplementary Fig. 14 (microglia validation)
 
 See `run_all.py` for the end-to-end orchestration entry point
 (`--dry-run`, `--skip-tcga`, `--verify-only`).
@@ -52,4 +57,12 @@ There is no `environment.yml` — use the pip route above.
 
 ## Reproducibility
 
-All random seeds are fixed (`random_state=42` throughout).
+All analyses use random seed 42, with four fixed exceptions (matching the
+Reproducibility Guide Section 1.4 and Supplementary Information 5.13):
+`notebooks/77_pseudoregion_control.py`, `78_axis_permutation_test.py` and
+`79_kang_ifnb_demo.py` use the fixed seed 20260903 (77 additionally uses a
+permutation-base seed of 777000), `notebooks/89_cluster_boot_v45.py` uses the
+fixed seed 20260905, and the ground-truth simulation module-sensitivity
+analyses additionally use module seeds 137 and 2024 besides 42
+(`notebooks/45_groundtruth_simulation.py`, `49_groundtruth_sim_background2.py`).
+All seeds are hard-coded in the scripts.
