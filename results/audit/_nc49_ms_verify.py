@@ -91,8 +91,16 @@ chk('Supplementary Fig. 14 legend present (v53 R5-M2)',
 chk('quality-adjustment attribution (class, region) only (v53 R1-5)',
     '(class, region)-level adjustment for detection depth' in full
     and '(class, library)- and (class, region)-level adjustment' not in full)
-chk('deconv fallback cited in Results (v53 R3-C3)',
-    'reference-free composition check:' in full and 'versus k_n; Supplementary Note 8' in full)
+chk('deconv fallback cited in Results (v53 R3-C3; v54 rho referent R2-m2)',
+    'reference-free composition check: non-parenchymal fraction versus k_n' in full
+    and 'Supplementary Note 8' in full)
+chk('Fig 4a k_f orientation explicit (v54 R3-m2)',
+    'while the NN/TT ratio of k_f does not' in full
+    and 'while k_f does not' not in full)
+chk('GTEx tumor fold range 2.0-2.8 (v54 R2-C2)',
+    '2.0\u20132.8-fold higher' in full and '2.0\u20132.7-fold higher' not in full)
+chk('38% misreports tagged simulation (v54 R2-C4)',
+    '(simulation) k_f misreports 38% of neutral pairs' in full)
 chk('attrition three-way arithmetic (v51: SI)',
     '3 do not appear in the assembled pair table' in sfull
     and 'spans 3,593 unique barcodes' in sfull
@@ -208,9 +216,9 @@ chk('KRAS magnitude coexists with adjusted (v50)',
 chk('Hallmark enrichment sentence (v51)',
     'no MSigDB Hallmark enrichment' in full and 'all q \u2265 0.24' in full)
 chk('Hallmark distributed-signal framing (v51: k_f ordering retained)',
-    'retained the TT \u2265 NN k_f ordering in all five' in full)
+    'retained TT \u2265 NN k_f ordering in all five' in full)  # v54: "the" dropped for MAIN word budget
 chk('k_f composition regression sentence (v51)',
-    'retained the TT \u2265 NN k_f ordering in all five' in full)
+    'retained TT \u2265 NN k_f ordering in all five' in full)  # v54: "the" dropped for MAIN word budget
 chk('Data availability Enrichr mirror',
     'accessed via the Enrichr gene-set library (MSigDB_Hallmark_2020' in full)
 

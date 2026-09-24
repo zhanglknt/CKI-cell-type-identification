@@ -53,8 +53,18 @@ chk('Note 9 k_n-permutation floor (v53 R2-A1)',
     'k_n-permutation floor (v52' in full and '0.524 (95% CI [0.506, 0.541])' in full)
 chk('Note 8 deconv fallback (v53 R3-C3)',
     'Reference-free composition fallback (v52)' in full and '0.934 LIHC, 0.964 KIRC' in full)
-chk('GTEx liver caveat + P caliber (v53 R1-4)',
-    'liver healthy is marginally above adjacent' in full and 'P \u2248 0)' not in full)
+chk('GTEx liver direction + P caliber (v54 R1-N1/R3-m1)',
+    'in liver the two medians coincide (ratio 1.03)' in full
+    and 'heavier adjacent upper tail' in full
+    and 'liver healthy is marginally above adjacent' not in full
+    and 'P \u2248 0)' not in full)
+chk('GTEx fold range + independence caveat (v54 R2-C2/R1-N2)',
+    '2.0\u20132.8-fold higher' in full
+    and 'Pair-level P values in this GTEx comparison treat pairs as independent' in full)
+chk('Table 5 caption composition caliber ex-CC (v54 R2-m1)',
+    'attenuation \u22120.9%' in capfull
+    and 'cluster-bootstrap median \u22120.8% [95% CI \u22124.3%, +2.5%]' in capfull
+    and 'median \u22121.3% [95% CI \u22124.8%, +2.0%]' not in capfull)
 
 # 1. Renumbered headings present (no version tags)
 chk('3.12 heading present',

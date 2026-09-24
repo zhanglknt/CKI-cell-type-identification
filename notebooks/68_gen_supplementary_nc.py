@@ -524,8 +524,8 @@ si_caption(
     '\u2192 1.494; BRCA below 1), quantifying the floor dependence; all '
     'three clinical-severity orderings are preserved (full values in '
     'Supplementary Note 9), and the composition-sensitivity conclusion is '
-    'unchanged (pooled tumor-pair coefficient attenuation \u22121.3%, '
-    'cluster-bootstrap median \u22121.3% [95% CI \u22124.8%, +2.0%] at '
+    'unchanged (pooled tumor-pair coefficient attenuation \u22120.9%, '
+    'cluster-bootstrap median \u22120.8% [95% CI \u22124.3%, +2.5%] at '
     'B = 1,000; Supplementary Note 8).'
 )
 
@@ -2190,8 +2190,8 @@ add_para(
     '10\u207b\u00b3; breast 9.1 \u00d7 10\u207b\u2074 / 8.7 \u00d7 '
     '10\u207b\u2074 / 2.41 \u00d7 10\u207b\u00b3\u2014in all three organs '
     'the adjacent-normal baseline is at the healthy level (healthy/adjacent '
-    '\u2248 1.0\u20131.2; liver healthy is marginally above adjacent, one-sided '
-    'P = 3.8 \u00d7 10\u207b\u2075) while tumor is 2.0\u20132.7-fold higher (TT \u226b '
+    '\u2248 1.0\u20131.2; in liver the two medians coincide (ratio 1.03) but the distributions differ, one-sided MWU '
+    'P = 3.8 \u00d7 10\u207b\u2075, with a heavier adjacent upper tail) while tumor is 2.0\u20132.8-fold higher (TT \u226b '
     'NN, P \u2264 3.2 \u00d7 10\u207b\u2078\u2074), so the elevation is tumor-specific rather than a '
     'field effect. Kidney is the exception: GTEx cortex k_n (2.38 \u00d7 '
     '10\u207b\u00b3) \u2248 tumor (2.60 \u00d7 10\u207b\u00b3) \u226b '
@@ -2200,7 +2200,7 @@ add_para(
     'drawn for KIRC. Cross-cohort GTEx\u2013adjacent pairs show k_n elevated '
     'to tumor levels in every organ (P \u2264 1.4 \u00d7 10\u207b\u00b2'
     '\u2076), a cohort-level technical effect; mechanistic claims therefore '
-    'rest on within-cohort orderings only.'
+    'rest on within-cohort orderings only. Pair-level P values in this GTEx comparison treat pairs as independent and are descriptive only.'
 )
 
 add_para(
