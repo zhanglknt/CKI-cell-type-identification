@@ -22,11 +22,15 @@ chk('CL drift claim qualified',
     'lowest false-report rate among the continuous divergence metrics' in clfull)
 chk('CL no "least of seven metrics"', 'least of seven metrics' not in clfull)
 chk('CL below raw JS 10/10', 'below raw JS in all ten cell classes' in clfull)
-chk('CL 3,567', '3,567' in clfull)
+chk('CL 3,535 (v53)', '3,535' in clfull and '3,567' not in clfull)
 chk('CL no 3,563/3,596', '3,563' not in clfull and '3,596' not in clfull)
-chk('CL CC new ranges',
-    '1.10\u20132.46' in clfull and '1.3\u20133.3-fold' in clfull
-    and '1.13\u20132.46' not in clfull and '2.1\u20133.6-fold' not in clfull)
+chk('CL CC new ranges (v53)',
+    '1.11\u20132.46' in clfull and '1.3\u20133.3-fold' in clfull
+    and '1.10\u20132.46' not in clfull and '1.13\u20132.46' not in clfull and '2.1\u20133.6-fold' not in clfull)
+chk('CL GTEx sentence (v53 R5-M3)',
+    'GTEx healthy' in clfull and 'field-effect' in clfull)
+chk('CL bounded-power phrasing (v53 R5-M3)',
+    'bounded power (AUC = 0.80)' in clfull and 'ranked first for' not in clfull)
 chk('CL no baseline-driven/baseline-associated',
     'baseline-driven' not in clfull and 'baseline-associated' not in clfull)
 chk('CL KRAS dual-adjusted upgrade',

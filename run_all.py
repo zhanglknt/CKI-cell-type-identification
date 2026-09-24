@@ -46,6 +46,12 @@ Execution order (independent groups run in parallel):
                              nc49_tcga_kf_composition, nc49_agg_order_sensitivity,
                              nc49_lihc_cox_excc, 92-98_*_v49
     Phase 6e (nc50 analyses): nc50_brain_atlas_microglia
+    Phase 6f (nc52 analyses, not yet wired into run_all): nc52_tcga_excc_main,
+                             nc52_tcga_composition, nc52_lihc_cox_excc (R),
+                             nc52_gtex_kn, nc52_tcga_deconv_feasibility,
+                             nc52 brain gradient/quality scripts,
+                             scripts/nc52_stats_resampling.py; see the
+                             Reproducibility Guide Section 5.13 for commands
     Phase 7 (Figures):  30_genome_biology_figures, nc49_fig_drift_ladder (Fig. 3),
                         nc49_fig_tcga (Fig. 4), nc50_fig_microglia (Supp. Fig. 14)
     Phase 8 (Collect):  _collect_submission_figures

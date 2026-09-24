@@ -1,4 +1,4 @@
-# Dockerfile for the CKI package (v0.5.0)
+# Dockerfile for the CKI package (v0.5.1)
 # ----------------------------------------------------------------------------
 # Builds a minimal container with the CKI package installed, so that the
 # analyses in the manuscript can be reproduced in a controlled environment.

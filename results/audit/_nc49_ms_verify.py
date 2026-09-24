@@ -73,10 +73,26 @@ chk('Abstract new k_n range', bool(abs_paras) and '1.3\u20133.3-fold elevated ho
 # 5. Sample caliber 3,535 ex-CC everywhere (v52: ex-CC default)
 chk('3,535 present (ex-CC, v52)', '3,535' in full)
 chk('no 3,563 residue', '3,563' not in full)
-chk('no 3,596 stray residue (v51: MS clean; SI x2)',
-    '3,596' not in full and sfull.count('3,596') == 2)
+chk('no 3,596 stray residue (v53: MS clean; SI x3)',
+    '3,596' not in full and sfull.count('3,596') == 3)
 chk('Methods per-cancer counts (v51)',
     'LUAD 493 tumor + 76 normal; LUSC 534 + 58; LIHC 398 + 57; KIRC 750 + 82; BRCA 1,010 + 109' in full)
+# 5b. v53 panel-fix round assertions
+chk('Methods ex-CC arithmetic parenthetical (v53)',
+    '3,567 samples, of which 3,535 enter the pair-level analysis' in full)
+chk('Methods pair table ex-CC 34,828 (v53)',
+    '34,828 pairs after dropping the 478 pairs' in full)
+chk('Discussion permute-k_n full-inventory qualifier (v53)',
+    '5,151 full-inventory human pairs' in full)
+chk('Table 1 legend present (v53 R5-M1)',
+    'Table 1. Cross-organ conservation ranking by cell type' in full)
+chk('Supplementary Fig. 14 legend present (v53 R5-M2)',
+    'Supplementary Fig. 14. Human-brain sanity check on the microglia supercluster' in full)
+chk('quality-adjustment attribution (class, region) only (v53 R1-5)',
+    '(class, region)-level adjustment for detection depth' in full
+    and '(class, library)- and (class, region)-level adjustment' not in full)
+chk('deconv fallback cited in Results (v53 R3-C3)',
+    'reference-free composition check:' in full and 'versus k_n; Supplementary Note 8' in full)
 chk('attrition three-way arithmetic (v51: SI)',
     '3 do not appear in the assembled pair table' in sfull
     and 'spans 3,593 unique barcodes' in sfull

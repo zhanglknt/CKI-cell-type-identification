@@ -29,16 +29,32 @@ checks = []
 def chk(name, cond, detail=''):
     checks.append((name, 'PASS' if cond else 'FAIL', detail))
 
-# 0. v49.5 structural: docx has zero tables; xlsx has 15 sheets Table 5..19
+# 0. v53 structural: docx has zero tables; xlsx has 19 sheets Table 1..19
 chk('SI docx zero tables', len(doc.tables) == 0,
     f'found {len(doc.tables)}')
-_expected_sheets = [f'Table {n}' for n in range(5, 20)]
-chk('xlsx 15 sheets named Table 5..19', wb.sheetnames == _expected_sheets,
+_expected_sheets = [f'Table {n}' for n in range(1, 20)]
+chk('xlsx 19 sheets named Table 1..19', wb.sheetnames == _expected_sheets,
     f'found {wb.sheetnames}')
-for _i, _n in enumerate(range(5, 20)):
+for _i, _n in enumerate(range(1, 20)):
     chk(f'xlsx A1 caption SuppTable {_n}',
         caps[_i].startswith(f'Supplementary Table {_n}: '))
 chk('no old-style Table (Section refs in docx', 'Table (Section' not in full)
+
+# 0b. v53 panel-fix round assertions
+chk('k_n ratio parenthetical fixed (v53 R3-C2)',
+    'which includes 1; high-purity-half' not in full
+    and 'excludes 1 ex-CC, so the k_n elevation is nominally significant' in full)
+chk('4.3 cohort hierarchy ex-CC (v53 R1-2)',
+    'totaling n = 3,567 samples in the pair-level analysis before the barcode audit' in full
+    and 'leaving 3,535 samples' in full)
+chk('Note 1 DeLong methods (v53 R1-1)',
+    'AUC interval methods (v52)' in full and 'DeLong' in full)
+chk('Note 9 k_n-permutation floor (v53 R2-A1)',
+    'k_n-permutation floor (v52' in full and '0.524 (95% CI [0.506, 0.541])' in full)
+chk('Note 8 deconv fallback (v53 R3-C3)',
+    'Reference-free composition fallback (v52)' in full and '0.934 LIHC, 0.964 KIRC' in full)
+chk('GTEx liver caveat + P caliber (v53 R1-4)',
+    'liver healthy is marginally above adjacent' in full and 'P \u2248 0)' not in full)
 
 # 1. Renumbered headings present (no version tags)
 chk('3.12 heading present',
@@ -146,8 +162,8 @@ chk('4.3 attrition three-way note (v49.14)',
     and 'spans 3,593 unique barcodes' in full
     and '29 expression-matrix samples were excluded' not in full)
 chk('no 3,563 residue', '3,563' not in full and '3,563' not in cellfull)
-chk('no 3,596 stray residue (v51: Note + SuppMethods 5.12)',
-    full.count('3,596') == 2 and 'of the 3,596 expression-matrix samples' in full
+chk('no 3,596 stray residue (v53: Note x2 + 4.3 hierarchy + 5.12)',
+    full.count('3,596') == 3 and 'of the 3,596 expression-matrix samples' in full
     and '3,596' not in cellfull)
 
 # 9. 1.7 LIHC mapping-sensitivity sentence (in SuppTable 5 caption since v49.5)

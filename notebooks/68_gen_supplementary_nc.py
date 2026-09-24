@@ -693,7 +693,8 @@ add_para(
     f'cell-class level\u2014classes with upward-shifted \u03c9 distributions contribute the upper-tail excess, '
     f'while the lower-tail excess, though concentrated in the below-null classes, also draws a nearly equal '
     f'contribution from the wide astrocyte distribution\u2014and the lower-tail excess in aggregate is not '
-    f'evidence for anomalously low-\u03c9 pairs beyond what the class-level shifts predict. '
+    f'evidence for anomalously low-\u03c9 pairs beyond what the class-level shifts predict '
+ f'(rule-matched null caveat on reading these tail excesses: Supplementary Note 13). '
     'The null FDR outcome for the candidate screen is structural rather than purely empirical: with m = 31,764 tests, '
     'the BH threshold for the smallest ordered P-value (0.05/31,764 \u2248 1.6 \u00d7 10\u207b\u2076) lies roughly '
     '600-fold below the smallest resolvable permutation P (9.99 \u00d7 10\u207b\u2074 at B = 1,000), so '
@@ -1281,7 +1282,7 @@ si_caption(
     'cluster-bootstrap CI is the inferential caliber. The point '
     'estimate exceeds 1 in 5 of 5 cancer types; the CI excludes 1 in 4 of '
     '5 (LIHC includes 1), whereas the k_n mean-ratio CI excludes 1 in all '
-    'five. Ranked by NN/TT effect size (main-text Fig. 5a).'
+    'five. Ranked by NN/TT effect size (main-text Fig. 4a).'
 )
 add_para(
     'LUAD driver-mutation stratification. Mean per-tumor \u03c9 was highest '
@@ -1528,8 +1529,8 @@ add_para(
     'neither was adjusted for. The ex-CC default cohort (the 32 '
     'cell-line-derived (CC) LIHC samples excluded from all v52 analyses) '
     'keeps the LIHC null result and the high-purity-half analysis '
-    'unchanged (NN/TT 1.11 [0.94, 1.30]; TT k_n/NN k_n 1.34 [1.02, 1.89], '
-    'which includes 1; high-purity-half 1.17 versus 1.19 excluding CC, 95% CI [1.01, 1.44]); the full barcode source-code audit is '
+    'unchanged (NN/TT 1.11 [0.94, 1.30], which includes 1; the TT k_n/NN k_n ratio '
+    '1.34 [1.02, 1.89] excludes 1 ex-CC, so the k_n elevation is nominally significant; high-purity-half 1.17 versus 1.19 excluding CC, 95% CI [1.01, 1.44]); the full barcode source-code audit is '
     'documented in the Reproducibility Guide '
     '(notebooks/94_cc_audit_sensitivity_v49.py).'
 )
@@ -1568,10 +1569,14 @@ add_para('4.3 TCGA Bulk RNA-seq', bold=True)
 add_para(
     'Data were obtained from the NCI Genomic Data Commons. Five cancer types were selected: '
     'LUAD (493 tumor + 76 normal), LUSC (534 + 58), LIHC (398 + 57), KIRC (750 + 82), '
-    'BRCA (1,010 + 109), totaling n = 3,567 samples entering the pair-level '
-    'analysis (of the 3,596 expression-matrix samples, 3 do not appear in the '
+    'BRCA (1,010 + 109), totaling n = 3,567 samples in the pair-level analysis '
+    'before the barcode audit (of the 3,596 expression-matrix samples, 3 do not appear in the '
     'assembled pair table, and 26 further samples appear only in tumor\u2013normal '
-    'pairs; the pair table spans 3,593 unique barcodes). '
+    'pairs; the pair table spans 3,593 unique barcodes). The ex-CC default cohort '
+    'excludes the 32 cell-line-derived (CC) LIHC aliquots, leaving 3,535 samples '
+    '(LIHC 366 tumor + 57 normal) for all reported analyses; the GTEx comparison '
+    'and the reference-free composition fallback (Supplementary Note 8) instead use the '
+    'full expression-matrix cohort (3,596 samples, e.g. KIRC 754 tumors). '
     'Normalization: TPM values from UCSC Xena, '
     'followed by log2(TPM + 1) transformation. For paired analysis, tumor-normal pairs were '
     'matched by patient barcode (TCGA-XX-XXXX format). Clinical metadata for stratified '
@@ -1682,6 +1687,15 @@ add_para(
     'shift total library composition, which leaks into k_n and suppresses \u03c9). '
     'Interpretation: \u03c9 is a specificity-first screen; its construction rejects neutral '
     'drift, at the cost of bounded power for weak-to-moderate functional signals.'
+)
+add_para(
+    'AUC interval methods (v52). The main-text AUC 95% CI [0.770, 0.838] is the DeLong '
+    'interval on the 850-replicate ROC (600 signal, 250 neutral replicates). A module-seed '
+    'cluster bootstrap (resampling the three module-seed clusters on the signal side plus '
+    'iid neutral replicates, B = 5,000, seed 42) gives a near-identical interval '
+    '[0.771, 0.836], so the DeLong caliber is robust to the clustered simulation design; '
+    'fixed-specificity sensitivity values are tabulated in '
+    'results/nc52_stats_auc_ci_methods.csv (script scripts/nc52_stats_resampling.py).'
 )
 
 add_para(
@@ -2176,8 +2190,9 @@ add_para(
     '10\u207b\u00b3; breast 9.1 \u00d7 10\u207b\u2074 / 8.7 \u00d7 '
     '10\u207b\u2074 / 2.41 \u00d7 10\u207b\u00b3\u2014in all three organs '
     'the adjacent-normal baseline is at the healthy level (healthy/adjacent '
-    '\u2248 1.0\u20131.2) while tumor is 2.0\u20132.7-fold higher (TT \u226b '
-    'NN, P \u2248 0), so the elevation is tumor-specific rather than a '
+    '\u2248 1.0\u20131.2; liver healthy is marginally above adjacent, one-sided '
+    'P = 3.8 \u00d7 10\u207b\u2075) while tumor is 2.0\u20132.7-fold higher (TT \u226b '
+    'NN, P \u2264 3.2 \u00d7 10\u207b\u2078\u2074), so the elevation is tumor-specific rather than a '
     'field effect. Kidney is the exception: GTEx cortex k_n (2.38 \u00d7 '
     '10\u207b\u00b3) \u2248 tumor (2.60 \u00d7 10\u207b\u00b3) \u226b '
     'adjacent (7.2 \u00d7 10\u207b\u2074), with only n = 28 and very high '
@@ -2186,6 +2201,22 @@ add_para(
     'to tumor levels in every organ (P \u2264 1.4 \u00d7 10\u207b\u00b2'
     '\u2076), a cohort-level technical effect; mechanistic claims therefore '
     'rest on within-cohort orderings only.'
+)
+
+add_para(
+    'Reference-free composition fallback (v52). Full deconvolution tools were not executable '
+    'in the offline revision environment (CIBERSORTx requires an online API token; BayesPrism '
+    'is not installed), so a reference-free non-negative least-squares fallback was run on the '
+    'full expression-matrix cohort (LIHC 366 and KIRC 754 tumors; seed 42, 60 markers per '
+    'compartment): each tumor is decomposed into endothelial, epithelial, immune, and residual '
+    'fractions, and the non-parenchymal fraction is correlated with per-tumor k_n. The '
+    'estimator itself is reproducible (split-half Spearman \u03c1 = 0.934 LIHC, 0.964 KIRC), but the '
+    'non-parenchymal fraction tracks k_n only weakly (Spearman \u03c1 = 0.20 LIHC, 0.26 KIRC), so '
+    'measurable composition shifts explain at most a small share of the per-tumor k_n '
+    'elevation\u2014consistent with the marker-panel check above. Script: '
+    'notebooks/nc52_tcga_deconv_feasibility.py; outputs: '
+    'results/nc52_tcga_deconv_feasibility.{csv,json} and '
+    'results/nc52_tcga_deconv_{lihc,kirc}_pertumor.csv.'
 )
 
 add_heading('Supplementary Note 9: k_f-only Ordering Controls (Cross-Organ Ranking and TCGA Severity)', 2)
@@ -2197,6 +2228,19 @@ add_para(
     'which each ordering is recomputed using k_f alone (and k_n alone), with '
     'the identical pipeline otherwise, to separate functional-divergence '
     'signal from denominator effects.'
+)
+add_para(
+    'k_n-permutation floor (v52; cited in the main-text Discussion). To test whether the '
+    'observed \u03c9\u2013k_f correlation is mathematically forced by the shared k_f numerator, k_n was '
+    'permuted across pairs (B = 1,000, seed 42) and the floor correlation '
+    'corr(k_f/k_n_perm, k_f) computed. On the full-inventory human pair set (5,151 pairs, the '
+    '102-entry inventory before the 99-entry filter that yields the 4,851 analyzed pairs), the '
+    'floor is 0.524 (95% CI [0.506, 0.541]) while the observed Spearman correlation is '
+    '0.089\u2014far below the floor, so the structured baseline decorrelates \u03c9 from k_f. On the '
+    'mouse full matrix (703 pairs) the floor is 0.857 [0.843, 0.870] and the observed 0.821 '
+    'sits essentially at it: the high mouse \u03c9\u2013k_f correlation is mathematically forced and '
+    'dataset-dependent, not biological coupling. Script: scripts/nc52_stats_resampling.py; '
+    'output: results/nc52_stats_omega_kf_math_floor.csv.'
 )
 _a = _kfo['part_a']
 add_para(
@@ -2243,10 +2287,10 @@ add_para(
     'ordering, direction, and significance are identical to the earlier softmax '
     'run, with \u03c9 levels shifted upward by about 5-20). LIHC Edmondson grade: '
     'mean \u03c9 is highest in G1, roughly flat across G2\u2013G3, and lowest in '
-    'G4 (78.8, 75.8, 77.6, 72.3 for G1\u2013G4; Jonckheere-Terpstra P \u2248 0), '
+    'G4 (78.8, 75.8, 77.6, 72.3 for G1\u2013G4; Jonckheere-Terpstra P < 10\u207b\u00b9\u2075), '
     'but k_f increases with grade (JT P = 8.4 \u00d7 10\u207b\u00b9\u00b2) and '
     'k_n increases in parallel '
-    '(JT P \u2248 0), so the \u03c9 gradient is a denominator effect. BRCA PAM50: '
+    '(JT P < 10\u207b\u00b9\u2075), so the \u03c9 gradient is a denominator effect. BRCA PAM50: '
     'mean \u03c9 decreases across Luminal A (142.0), Luminal B (136.5), '
     'HER2-enriched (121.8), Basal-like (116.7), and Normal-like (101.9) '
     '(Kruskal-Wallis P = 7.0 \u00d7 10\u207b\u2077); the ordering largely reverses '
@@ -2273,7 +2317,7 @@ add_table([
     ['Stratum', 'Ordering by mean \u03c9', 'Mean \u03c9 per group',
      '\u03c9 omnibus P', 'k_f P', 'k_n P'],
     ['LIHC Edmondson grade', 'G1 > G2 \u2248 G3 > G4',
-     '78.8 / 75.8 / 77.6 / 72.3', 'JT \u2248 0',
+     '78.8 / 75.8 / 77.6 / 72.3', 'JT < 1e-15',
      'JT 8.4 \u00d7 10\u207b\u00b9\u00b2', 'JT \u2248 0'],
     ['BRCA PAM50', 'LumA > LumB > HER2 > Basal > Normal',
      '142.0 / 136.5 / 121.8 / 116.7 / 101.9', 'KW 7.0 \u00d7 10\u207b\u2077',
@@ -2760,7 +2804,8 @@ add_para(
     f'Phase 3.2 parameter sweep on Tabula Muris mouse data (n = 703 cell type pairs, '
     f'6 organs). The pure identity gene configuration (w1 = 1.0, w2 = 0.0) achieved '
     f'optimal cell type discrimination (AUC = {DATA["sweep"]["identity_auc"]:.3f}). Data file: '
-    'results/phase32_sweep_results.csv. Visualization: results/phase32_sweep_barplot.png.'
+    'results/phase32_sweep_results.csv. Visualization: results/phase32_sweep_barplot.png. '
+    'Table content: CKI_Supplementary_Tables_NC.xlsx (sheet Table 1).'
 )
 
 add_para('')
@@ -2770,7 +2815,8 @@ add_para(
     'Complete dataset of 59 same-cell-type cross-organ pairs in Tabula Sapiens, '
     'including \u03c9, Jensen-Shannon divergence, Spearman distance, Cosine distance, '
     'and Marker Jaccard distance values. Data file: '
-    'results/phase35_cross_organ_conservation.csv.'
+    'results/phase35_cross_organ_conservation.csv. '
+    'Table content: CKI_Supplementary_Tables_NC.xlsx (sheet Table 2).'
 )
 
 add_para('')
@@ -2787,7 +2833,8 @@ add_para(
     f'block-shuffle re-analysis pipeline). '
     f'Summary file: results/brain_bs_null_ct_test.csv (10-row summary). '
     f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py. '
-    f'Figure generation: notebooks/_fig6_clean.py (Figure 6).'
+    f'Figure generation: notebooks/_fig6_clean.py (Figure 6). '
+    f'Table content (per-cell-type summary): CKI_Supplementary_Tables_NC.xlsx (sheet Table 3).'
 )
 
 add_para('')
@@ -2842,6 +2889,7 @@ s4_text = (
     f'with per-cell-type summary statistics, whereas Supplementary Table 4 retains the ' 
     f'{n_candidates:,} threshold-passing rows with their tier, residual, and ' 
     f'\u03c9 annotations. '
+    f'Table content: CKI_Supplementary_Tables_NC.xlsx (sheet Table 4). '
     f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py.'
 )
 add_para(s4_text)
@@ -2880,8 +2928,31 @@ def write_si_tables_xlsx():
     from openpyxl.styles import Font
     assert len(_SI_TABLE_ROWS) == 15, f'expected 15 tables, got {len(_SI_TABLE_ROWS)}'
     assert len(_SI_TABLE_CAPS) == 15, f'expected 15 captions, got {len(_SI_TABLE_CAPS)}'
+    # Tables 1-4: content previously only referenced as repository CSVs (v52 panel fix)
+    _t1 = pd.read_csv('results/phase32_sweep_results.csv')
+    _t2 = pd.read_csv('results/phase35_cross_organ_conservation.csv')
+    _t3 = pd.read_csv('results/brain_bs_null_ct_test.csv')
+    _t4 = _candidates
+    _early = [
+        (_t1, 'Parameter sweep on Tabula Muris mouse data (n = 703 cell type pairs, 6 organs): AUC per weighting configuration; the pure identity configuration (w1 = 1.0, w2 = 0.0) achieves optimal discrimination. Raw data: results/phase32_sweep_results.csv.'),
+        (_t2, 'Complete dataset of 59 same-cell-type cross-organ pairs in Tabula Sapiens: omega, JS divergence, Spearman, cosine, and marker-Jaccard distances. Raw data: results/phase35_cross_organ_conservation.csv.'),
+        (_t3, 'Per-cell-type summary of the Siletti et al. (2023) human-brain regional CKI analysis (10 non-neuronal cell types; omega mean, median, SD, range, k_n and k_f components; SDs are sample SDs, ddof = 1). Raw pair-level data: results/brain_bs_null_observed_pairs.csv (31,764 rows).'),
+        (_t4, f'Threshold-passing inter-regional region-association candidates (residual < 0.75; {len(_t4):,} of 31,764 pairs) from the multiplicative-model block-shuffle re-analysis, with tier, residual, and omega annotations; {int((_t4["tier"] == "Strong").sum())} Strong signals, none FDR-surviving. Raw data: results/brain_bs_null_observed_pairs.csv.'),
+    ]
     wb = Workbook()
     wb.remove(wb.active)
+    for _i, (_df, _cap) in enumerate(_early):
+        _n = _i + 1
+        ws = wb.create_sheet(f'Table {_n}')
+        ws['A1'] = f'Supplementary Table {_n}: {_cap}'
+        ws['A1'].font = Font(bold=True)
+        ws.append([])
+        ws.append(list(_df.columns))
+        for _c in ws[3]:
+            _c.font = Font(bold=True)
+        for _row in _df.itertuples(index=False):
+            ws.append([None if pd.isna(_v) else _v for _v in _row])
+        ws.column_dimensions['A'].width = 28
     for _i, (_rows, _cap) in enumerate(zip(_SI_TABLE_ROWS, _SI_TABLE_CAPS)):
         _n = _i + 5
         ws = wb.create_sheet(f'Table {_n}')

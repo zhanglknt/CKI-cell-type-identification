@@ -19,8 +19,8 @@ Numbers sourced from verified audits only:
   cosine 23.3%), nc49_brain_ladder_2026-09-18.md (T1 2,161 pairs: omega FPR
   28.6% lowest among continuous metrics, below raw JS 10/10 classes; ladder
   1.04->1.76->1.80 vs raw JS 1.07->3.32->2.98),
-  nc49_tcga_main_2026-09-18.md (3,567 samples; NN/TT
-  1.10-2.46, 4/5 CIs exclude 1; k_n 1.3-3.3x; LUAD KRAS retained after
+  nc52_tcga_excc_main_2026-09-24.md (3,535 ex-CC samples; NN/TT
+  1.11-2.46, 4/5 CIs exclude 1; k_n 1.3-3.3x; LUAD KRAS retained after
   purity + smoking adjustment, EGFR association dissolved under purity
   adjustment per nc49_purity/nc49_smoking audits),
   simulation change-detection results (FPR 0.00 vs 0.55-0.58; AUC 0.80
@@ -92,8 +92,8 @@ def run():
         "The manuscript rests on three pillars. First, in ground-truth "
         "simulation (1,750 replicates per background, two backgrounds), \u03c9 alone did not false-trigger on "
         "neutral housekeeping drift (false-positive rate 0.00 versus "
-        "0.55\u20130.58 for JS and cosine) and ranked first for "
-        "functional-versus-neutral discrimination (AUC = 0.80). Second, in "
+        "0.55\u20130.58 for JS and cosine) and gave the best "
+        "functional-versus-neutral discrimination at bounded power (AUC = 0.80). Second, in "
         "real-data drift calibration, \u03c9 raised no false reports on any of the 30 "
         "cross-lane technical-replicate pairs (Kang IFN-\u03b2 PBMC data; "
         "raw JS 36.7%, cosine 23.3%) and, on 2,161 brain technical-drift "
@@ -101,16 +101,19 @@ def run():
         "divergence metrics (28.6% versus 35.7\u201345.2% for the other "
         "five; below raw JS in all ten cell classes), with the shallowest "
         "drift-ladder gradient (1.04 \u2192 1.76 \u2192 1.80 versus "
-        "1.07 \u2192 3.32 \u2192 2.98 for raw JS). Third, across 3,567 TCGA "
+        "1.07 \u2192 3.32 \u2192 2.98 for raw JS). Third, across 3,535 TCGA "
         "samples in five cancer types, tumor specimens were consistently less "
         "divergent than adjacent non-tumor tissue (NN/TT \u03c9 ratio "
-        "1.10\u20132.46, bootstrap CIs excluding 1 in four of five)\u2014"
+        "1.11\u20132.46, bootstrap CIs excluding 1 in four of five)\u2014"
         "reflecting a 1.3\u20133.3-fold elevated housekeeping baseline, not "
         "reduced functional divergence; and in lung adenocarcinoma the k_f/k_n "
         "decomposition separates KRAS-mutant tumors\u2014retaining both a "
         "functional (k_f) and a baseline (k_n) component after purity and "
         "smoking adjustment\u2014from EGFR-mutant tumors, whose apparent "
-        "association dissolved under purity adjustment.",
+        "association dissolved under purity adjustment. A GTEx healthy "
+        "reference further shows adjacent-normal k_n at healthy-tissue levels "
+        "in lung, liver, and breast, arguing against a field-effect reading "
+        "of the pan-cancer reversal.",
         doc,
     )
 
