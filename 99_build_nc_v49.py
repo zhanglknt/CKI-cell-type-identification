@@ -261,7 +261,7 @@ def main():
     print("\n--- scientific anchors (v48 subset) ---")
     anchors = [
         ("[7.37, 8.02]", "A2 calibration CI"),
-        ("3.7-fold regional gradient under combined span- and size-matched control (donor-level 95% CI [1.9, 3.8])", "A3 combined-control gradient (v52)"),
+        ("3.7-fold regional gradient under span- and size-matched control (donor-level 95% CI [1.9, 3.8])", "A3 combined-control gradient (v54 abstract wording)"),
         ("0.442", "A4 Augur OvR vs omega"),
         ("0.564", "A5 Augur OvR vs k_f"),
         ("24,413", "A6 Kang cells"),
@@ -272,7 +272,7 @@ def main():
         ("6.10-fold", "A11 regional gradient"),
         ("absorbs ratio bias", "A13 ratio bias (v51 wording)"),
         ("7.70", "A14 omega baseline"),
-        ("10.5281/zenodo.22938380", "A15 Zenodo v0.5.1 DOI"),
+        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (v0.5.2 version DOI pending phase-2 write-back)"),
         ("GSE96583", "A16 Kang GEO"),
         ("GSE109774", "A17 TCGA/brain GEO in Data availability"),
     ]
@@ -374,7 +374,7 @@ def main():
           "V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)")
     check('cross-type gaps should be read descriptively' in ms,
           "V49-N47 B3 Table 1 cross-type caveat (v51 wording)")
-    check('3.7-fold regional gradient under combined span- and size-matched control '
+    check('3.7-fold regional gradient under span- and size-matched control '
           '(donor-level 95% CI [1.9, 3.8])' in ms,
           "V49-N48 B4 Abstract leads with combined-control gradient (v52)")
     check('inheriting the four-donor structure' in ms,

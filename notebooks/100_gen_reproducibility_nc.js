@@ -184,7 +184,7 @@ const doc = new Document({
       p("Document-build dependencies (python-docx 1.2.0, python-pptx, lxml, reportlab, and related packages) are NOT required for any analysis; they are listed separately under 'Document generation' in requirements.txt and are needed only to rebuild the manuscript, supplementary notes, and this guide."),
 
       heading("1.2 CKI Package", 3),
-      p("Version: 0.5.1 (editable install from project root)"),
+      p("Version: 0.5.2 (editable install from project root)"),
       p("Repository: https://github.com/zhanglknt/CKI-cell-type-identification"),
       p("Install (editable, recommended):"),
       code("cd <project_root>"),
@@ -886,7 +886,7 @@ const doc = new Document({
       code("      results/nc50_brain_atlas_microglia.txt             # summary statistics (means, Mann-Whitney P, AUC) (Section 5.12a)"),
       p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Fig. 3), notebooks/nc49_fig_tcga.py (Fig. 4), notebooks/nc50_fig_microglia.py (Supplementary Fig. 14)"),
       heading("7. Reproducibility Checklist", 2),
-      p("[\u2713] Install CKI v0.5.1: pip install -e ."),
+      p("[\u2713] Install CKI v0.5.2: pip install -e ."),
       p("[\u2713] Verify Python 3.14.4 environment (Section 1.1)."),
       p("[\u2713] Verify random seed = 42 in all analysis scripts (fixed exceptions: notebooks 77/78/79 use seed 20260903; notebook 89 uses seed 20260905)."),
       p("[\u2713] Verify HK gene source: HRT Atlas v1.0 reference (cki/data/hrt_atlas.csv, shipped; analysis scripts read the byte-identical downloaded copy data/housekeeping/Human_Mouse_Common.csv), loaded directly for all datasets."),
