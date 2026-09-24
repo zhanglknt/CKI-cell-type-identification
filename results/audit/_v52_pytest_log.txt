@@ -1,0 +1,28 @@
+.............................                                            [100%]
+============================== warnings summary ===============================
+tests/test_smoke.py::test_pairwise_absdiff_selects_top_delta_genes
+tests/test_smoke.py::test_compute_with_pairwise_absdiff
+tests/test_smoke.py::test_compute_kn_floor_passthrough
+  C:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:506: UserWarning: Only 3 functional genes detected. Consider lowering n_top_genes or using method='hvg_and_markers'.
+    warnings.warn(
+
+tests/test_smoke.py::test_pairwise_absdiff_excludes_hk_before_ranking
+  C:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:600: UserWarning: n_top_genes capped from 100 to 8 (only 8 non-HK candidate genes available).
+    warnings.warn(
+
+tests/test_smoke.py::test_pairwise_absdiff_excludes_hk_before_ranking
+tests/test_smoke.py::test_bootstrap_test_fixed_legacy_and_explicit
+tests/test_smoke.py::test_compute_preset_manuscript
+  C:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:506: UserWarning: Only 8 functional genes detected. Consider lowering n_top_genes or using method='hvg_and_markers'.
+    warnings.warn(
+
+tests/test_smoke.py::test_bootstrap_test_fixed_legacy_and_explicit
+  C:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:443: UserWarning: n_top_genes capped from 2000 to 8 (80% of 10 total genes).
+    warnings.warn(
+
+tests/test_smoke.py::test_compute_preset_manuscript
+  C:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:600: UserWarning: n_top_genes capped from 200 to 8 (only 8 non-HK candidate genes available).
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+29 passed, 9 warnings in 2.16s

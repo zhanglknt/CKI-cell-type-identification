@@ -1,7 +1,7 @@
-"""XV8 cross-validation for v51 (NC format-compression round):
+"""XV8 cross-validation for v52 (NC ex-CC default + panel-recompute round):
 word budgets (NC limits), figure-legend budgets, title length, Discussion
 subheading ban, declaration blocks, citation integrity, zip integrity,
-MS<->SI pointer consistency, and v51 SI-migration spot-checks.
+MS<->SI pointer consistency, and v51/v52 SI-migration spot-checks.
 Run AFTER 99_build_nc_v49.py (fulltexts + zip must be fresh)."""
 import re
 import zipfile
@@ -37,7 +37,7 @@ for p in doc.paragraphs:
             secs[cur][1] += w
 main = sum(secs[k][0] for k in ('Introduction', 'Results', 'Discussion'))
 main_xh = main - sum(secs[k][1] for k in ('Introduction', 'Results', 'Discussion'))
-chk('MAIN (Intro+Results+Discussion) <= 5000 (NC, v51r2)', 0 < main <= 5000,
+chk('MAIN (Intro+Results+Discussion) <= 5000 (NC, v52)', 0 < main <= 5000,
     f'{main} incl subheadings, {main_xh} excl {secs}')
 chk('Methods < 3000 (NC)', 0 < secs['Methods'][0] < 3000, f"{secs['Methods'][0]} words")
 abs_p = [p.text for p in doc.paragraphs if 'Inspired by the Ka/Ks ratio' in p.text]
@@ -47,7 +47,7 @@ chk('Abstract carries no citation superscripts',
     all(not r.font.superscript for p in doc.paragraphs if 'Inspired by the Ka/Ks ratio' in p.text
         for r in p.runs))
 
-H1 = 'CKI: a Ka/Ks-inspired index separating functional divergence from baseline variation in cell atlases'
+H1 = 'CKI: a Ka/Ks-inspired index decomposing functional divergence from baseline variation in cell atlases'
 chk('Title <= 15 words (NC)', len(H1.split()) <= 15, f'{len(H1.split())} words')
 for nm, src in (('MS', ms), ('SI', sn), ('CL', cl)):
     chk(f'title H1 in {nm}', H1 in src)
@@ -121,7 +121,7 @@ chk('zip size < 15 MB', len(open('CKI_Submission_v50_NC.zip', 'rb').read()) < 15
     f"{len(open('CKI_Submission_v50_NC.zip', 'rb').read()):,} B")
 
 # ---------- 7. MS<->SI pointer consistency (v51) ----------
-chk('MS Supplementary Methods 5.x pointers = 19', ms.count('Supplementary Methods 5.') == 19,
+chk('MS Supplementary Methods 5.x pointers = 20 (v52: +5.5 entry-cluster)', ms.count('Supplementary Methods 5.') == 20,
     f"got {ms.count('Supplementary Methods 5.')}")
 chk('MS cites Notes 1-16 span', 'Supplementary Notes 1\u201316' in ms)
 chk('MS cites Figs 1-14 span', 'Supplementary Figs. 1\u201314' in ms)
@@ -146,8 +146,8 @@ mig = {
     'agg-order Spearman 0.78': 'rank ordering is largely preserved (Spearman \u03c1 = 0.78)' in sn,
     'agg-order baseline 6.46 to 10.94': 'moves from 6.46 to 10.94' in sn,
     'span-matched residual k_f 1.39 / k_n 0.33': 'k_f 1.39 and k_n 0.33' in sn,
-    'CC exclusion NN/TT 1.11 [0.93, 1.30]': 'NN/TT 1.11 [0.93, 1.30]' in sn,
-    'composition Spearman 0.364': 'Spearman \u03c1 = 0.364 pooled' in sn,
+    'ex-CC default NN/TT 1.11 [0.94, 1.30] (v52)': 'NN/TT 1.11 [0.94, 1.30]' in sn,
+    'composition Spearman 0.380 (ex-CC, v52)': 'Spearman \u03c1 = 0.380 pooled' in sn,
     'composition median |dz| 1.305': 'median |\u0394z| 1.305-fold' in sn,
     'k_f 0.247/0.250': '0.247' in sn and '0.250' in sn,
     'k_n 0.0130/0.0148': '0.0130' in sn and '0.0148' in sn,
@@ -155,7 +155,16 @@ mig = {
     'grand means 75.18/16.73': '75.18' in sn and '16.73' in sn,
     'IFN 1.1-2.0-fold': '1.1\u20132.0-fold' in sn,
     'skin power 0.98-1.00 / 0.04-0.20': '0.98\u20131.00' in sn and '0.04\u20130.20' in sn,
-    'Cox P = 0.48': 'P = 0.48' in sn,
+    'Cox P = 0.467 (ex-CC, v52)': 'P = 0.467' in sn,
+    'two-stage calibration CI (v52)': 'two-stage population-resampled bootstrap 95% CI [6.38, 9.82]' in sn,
+    'combined control gradient 3.66 (v52)': 'observed gradient of 3.66 [3.60, 3.71]' in sn,
+    'R coxph in SI methods (v52)': 'R survival::coxph' in sn,
+    'GTEx healthy/adjacent ratio (v52)': 'healthy/adjacent' in sn,
+    'ex-CC LIHC severity (v52)': '78.8, 75.8, 77.6, 72.3' in sn,
+    'entry-cluster CIs in SI 5.5 (v52)': 'entry-clustered bootstrap 95% CIs' in sn,
+    'ex-CC pair table 34,828 (v52)': '34,828 pairs' in sn,
+    'Guide 5.13 nc52 section (v52)': '5.13 nc52 Analyses' in gd,
+    'sample count 3,535 ex-CC (v52)': '3,535' in ms and '3,535 samples' in gd,
 }
 for k, v in mig.items():
     chk(f'SI carries: {k}', v)

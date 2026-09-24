@@ -1,0 +1,67 @@
+[FAIL] MAIN (Intro+Results+Discussion) <= 5000 (NC, v52) 5008 incl subheadings, 4941 excl {'Introduction': [502, 0], 'Results': [3004, 67], 'Discussion': [1502, 0], 'Methods': [2891, 56]}
+[PASS] Methods < 3000 (NC) 2891 words
+[PASS] Abstract <= 200 words (NC) 200 words
+[PASS] Abstract carries no citation superscripts 
+[PASS] Title <= 15 words (NC) 13 words
+[PASS] title H1 in MS 
+[FAIL] title H1 in SI 
+[FAIL] title H1 in CL 
+[PASS] main figure legends 1..6 present {1: 222, 2: 261, 3: 302, 4: 212, 5: 108, 6: 229}
+[PASS] every main figure legend <= 350 words (NC) max = Figure 3 at 302
+[PASS] section order Abstract<Intro<Results<Discussion<Methods<References {'Abstract': 6, 'Introduction': 8, 'Results': 14, 'Discussion': 67, 'Methods': 81, 'References': 126}
+[PASS] Discussion has no subheadings (NC) []
+[PASS] declaration present: Acknowledgements 
+[PASS] declaration present: Author contributions 
+[PASS] declaration present: Competing interests 
+[PASS] declaration present: Data availability 
+[PASS] declaration present: Code availability 
+[PASS] citation groups = 73 got 73
+[PASS] first-appearance 1..57 monotonic head [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+[PASS] no orphans (57 cited) 
+[PASS] zip 28 entries got 28
+[PASS] zip has Supplementary_Fig_14.pdf 
+  zip sha256 = 80c9d5c70ca68c9d37b81b5c44fd109780e7a663baaa57a2801704a00fea510d
+[PASS] zip size < 15 MB 12,307,519 B
+[PASS] MS Supplementary Methods 5.x pointers = 20 (v52: +5.5 entry-cluster) got 20
+[PASS] MS cites Notes 1-16 span 
+[PASS] MS cites Figs 1-14 span 
+[PASS] MS Section 3.12 pointers = 3 (v51 short form) 
+[PASS] SI carries Supplementary Methods section 
+[PASS] SI Supplementary Methods 5.1-5.14 headings present []
+[PASS] SI v51 migration markers = 6 got 6
+[PASS] SI carries: Kang calibration median 0.963 
+[PASS] SI carries: brain T2 omega FPR 90.9 
+[PASS] SI carries: high-purity LUAD 2.86 
+[PASS] SI carries: CC provenance (positions 14-15) 
+[PASS] SI carries: percentile bootstrap interval 
+[PASS] SI carries: seed 20260905 
+[PASS] SI carries: sample counts 3,593 
+[PASS] SI carries: smoking +13.3 P=1.4e-3 
+[PASS] SI carries: agg-order Spearman 0.78 
+[PASS] SI carries: agg-order baseline 6.46 to 10.94 
+[PASS] SI carries: span-matched residual k_f 1.39 / k_n 0.33 
+[PASS] SI carries: ex-CC default NN/TT 1.11 [0.94, 1.30] (v52) 
+[PASS] SI carries: composition Spearman 0.380 (ex-CC, v52) 
+[PASS] SI carries: composition median |dz| 1.305 
+[PASS] SI carries: k_f 0.247/0.250 
+[PASS] SI carries: k_n 0.0130/0.0148 
+[PASS] SI carries: ablation rho 0.86-0.88 
+[PASS] SI carries: grand means 75.18/16.73 
+[PASS] SI carries: IFN 1.1-2.0-fold 
+[PASS] SI carries: skin power 0.98-1.00 / 0.04-0.20 
+[PASS] SI carries: Cox P = 0.467 (ex-CC, v52) 
+[FAIL] SI carries: two-stage calibration CI (v52) 
+[PASS] SI carries: combined control gradient 3.66 (v52) 
+[PASS] SI carries: R coxph in SI methods (v52) 
+[PASS] SI carries: GTEx healthy/adjacent ratio (v52) 
+[PASS] SI carries: ex-CC LIHC severity (v52) 
+[PASS] SI carries: entry-cluster CIs in SI 5.5 (v52) 
+[PASS] SI carries: ex-CC pair table 34,828 (v52) 
+[PASS] SI carries: Guide 5.13 nc52 section (v52) 
+[PASS] SI carries: sample count 3,535 ex-CC (v52) 
+[PASS] microglia omega 21.83+/-7.20 vs 1.30+/-0.36 21.83/7.20 vs 1.30/0.36
+[PASS] microglia MWU P = 5.5e-14 5.49e-14
+[PASS] SI Notes 1..16 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+XV8 TOTAL: 63 checks, 4 failures
+FAILURES: ['MAIN (Intro+Results+Discussion) <= 5000 (NC, v52)', 'title H1 in SI', 'title H1 in CL', 'SI carries: two-stage calibration CI (v52)']

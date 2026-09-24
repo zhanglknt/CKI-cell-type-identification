@@ -243,8 +243,8 @@ def main():
     # ---- CL inline checks (v49.1 new-evidence frame) ----
     check(cl.count("Nature Communications") >= 2, "V49-C1 CL names Nature Communications x2+")
     check("Genome Biology" not in cl, "V49-C2 no Genome Biology in CL")
-    check("CKI: a Ka/Ks-inspired index separating functional divergence from baseline variation in cell atlases" in cl,
-          "V49-C3 CL carries the NC title")
+    check("CKI: a Ka/Ks-inspired index decomposing functional divergence from baseline variation in cell atlases" in cl,
+          "V49-C3 CL carries the NC title (v52)")
     check("Two properties" in cl and "Previously raised concerns" not in cl and "5th of 5" not in cl,
           "V49-C4 CL new-evidence frame (no rebuttal-speak, no 5th-of-5)")
     check("0.680" not in cl and "dynamic cell-state changes" in cl,
@@ -261,7 +261,7 @@ def main():
     print("\n--- scientific anchors (v48 subset) ---")
     anchors = [
         ("[7.37, 8.02]", "A2 calibration CI"),
-        ("1.74-fold size-balanced regional gradient ([1.64, 1.84]", "A3 equal-n gradient"),
+        ("3.7-fold regional gradient under combined span- and size-matched control (donor-level 95% CI [1.9, 3.8])", "A3 combined-control gradient (v52)"),
         ("0.442", "A4 Augur OvR vs omega"),
         ("0.564", "A5 Augur OvR vs k_f"),
         ("24,413", "A6 Kang cells"),
@@ -293,12 +293,12 @@ def main():
         ("Section 3.12", "N9 Section 3.12 pointers present (v51 short form)"),
         # pan-cancer map
         ("2.46", "N10 LUAD NN/TT ratio"),
-        ("LIHC 1.10;", "N11 LIHC NN/TT ratio (post-CC, v50 wording)"),
+        ("LIHC 1.11;", "N11 LIHC NN/TT ratio (ex-CC default, v52 wording)"),
         ("1.3\u20133.3-fold in every cancer type", "N12 k_n fold elevation (v50 wording)"),
         ("136.9", "N13 LUAD KRAS mean omega"),
         ("115.4", "N14 LUAD WT mean omega"),
         ("tissue-level divergence at bulk resolution", "N15 bulk positioning phrase (v51 wording)"),
-        ("0.88\u20131.31", "N16 Cox HR CI post-CC (NO-GO)"),
+        ("1.08 [0.88, 1.33]", "N16 Cox HR CI ex-CC stage-categorical (v52)"),
     ]
     for pat, name in v49_anchors:
         check(pat in ms, f"V49-{name}")
@@ -348,8 +348,8 @@ def main():
           "V49-N37 main Table 2 renumbered to Table 1")
     check('not cell-type identity' in ms
           and 'the housekeeping anchor is cell-type-specific' in ms
-          and 'delineates, rather than limits, its scope' in ms,
-          "V49-N38 Scope design argument present (HK anchor cell-type-specific, v51 wording)")
+          and 'limited cross-type discrimination is expected by design' in ms,
+          "V49-N38 Scope design argument present (HK anchor cell-type-specific, v52 wording)")
     # ---- v49.10 review-panel fixes (A/B classes) ----
     check('Supplementary Tables 1\u201319' in ms
           and ms.count('Supplementary Tables 1\u20134') == 1
@@ -374,11 +374,11 @@ def main():
           "V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)")
     check('cross-type gaps should be read descriptively' in ms,
           "V49-N47 B3 Table 1 cross-type caveat (v51 wording)")
-    check('1.74-fold size-balanced regional gradient ([1.64, 1.84]; 6.10-fold '
-          'uncorrected; 3.68-fold span-matched intra-cerebellar)' in ms,
-          "V49-N48 B4 Abstract leads with size-balanced gradient")
-    check('inheriting the atlas\u2019s four-donor structure' in ms,
-          "V49-N49 B5 brain screen donor-confounding disclosure (v51 wording)")
+    check('3.7-fold regional gradient under combined span- and size-matched control '
+          '(donor-level 95% CI [1.9, 3.8])' in ms,
+          "V49-N48 B4 Abstract leads with combined-control gradient (v52)")
+    check('inheriting the four-donor structure' in ms,
+          "V49-N49 B5 brain screen donor-confounding disclosure (v52 wording)")
     check('sample-source code (positions 14\u201315)' in sn
           and 'assigned to LIHC following a barcode audit' in sn,
           "V49-N50 B7 CC provenance disclosure (32 LUSC->LIHC; v51: SI)")
@@ -395,27 +395,28 @@ def main():
           and 'influence-function sandwich standard error' in ms
           and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in sn,
           "V49-N57 C6 studentized bootstrap-t pivot/SE described (v51 wording)")
-    check('attenuates the pooled k_n coefficient by only \u22121.3%' in ms
-          and '\u22121.3% pooled, 95% CI \u22124.8% to +2.0%' in ms
+    check('attenuates the pooled k_n coefficient by only \u22120.9%' in ms
+          and '\u22120.9% pooled, 95% CI \u22124.3% to +2.5%' in ms
           and 'attenuates by \u22120.5% pooled' not in ms
-          and 'Spearman \u03c1 = 0.364 pooled' in sn
+          and 'attenuates the pooled k_n coefficient by only \u22121.3%' not in ms
+          and 'Spearman \u03c1 = 0.380 pooled' in sn
           and '0.387 pooled' not in ms,
-          "V49-N58 N2 Discussion composition numbers (v51: MS pooled; SI correlation)")
-    check('\u22121.3% pooled, 95% CI \u22124.8% to +2.0%' in ms
+          "V49-N58 N2 Discussion composition numbers (v52: MS pooled; SI correlation)")
+    check('\u22120.9% pooled, 95% CI \u22124.3% to +2.5%' in ms
           and 'median |\u0394z| 1.305-fold' in sn,
-          "V49-N58b N2 composition caliber (v51: MS pooled; SI per-panel)")
+          "V49-N58b N2 composition caliber (v52: MS pooled; SI per-panel)")
     check('softmax caliber; superseded by the linear-normalization update' in sn
           and 'These linear-normalization estimates are the ones cited in the manuscript'
           in sn,
           "V49-N65 N2 SI Note 8 softmax regression labeled superseded")
     check('median |\u0394z| 1.305-fold for the three-panel '
-          'composite, P = 3.57 \u00d7 10\u207b\u00b9\u00b3\u2077, and 1.216-fold with '
-          'the myeloid panel included, P = 1.28 \u00d7 10\u207b\u2076\u2076' in sn
-          and           'pooled four-panel attenuation \u22121.3% (cluster-bootstrap '
-          'median \u22121.3%, 95% CI [\u22124.8%, +2.0%])' in sn
-          and 'Spearman \u03c1 = 0.364 pooled (n = 10,000 pairs, '
-          'P < 10\u207b\u00b3\u2070\u2070; per-cancer 0.196\u20130.513' in sn,
-          "V49-N65b A2 SI Note 8 linear update = post-CC caliber")
+          'composite, P = 2.63 \u00d7 10\u207b\u00b9\u00b3\u2075, and 1.216-fold with '
+          'the myeloid panel included, P = 4.67 \u00d7 10\u207b\u2076\u2078' in sn
+          and           'pooled four-panel attenuation \u22120.9% (cluster-bootstrap '
+          'median \u22120.8%, 95% CI [\u22124.3%, +2.5%])' in sn
+          and 'Spearman \u03c1 = 0.380 pooled (n = 9,709 pairs, '
+          'P < 10\u207b\u00b3\u2070\u2070; per-cancer 0.223\u20130.513' in sn,
+          "V49-N65b A2 SI Note 8 linear update = ex-CC caliber (v52)")
     check('with four fixed exceptions' in gd and 'three fixed exceptions' not in gd
           and '89_cluster_boot_v45.py (the small-cluster studentized bootstrap-t '
           'analysis) uses the fixed seed 20260905' in gd,
@@ -424,15 +425,15 @@ def main():
                          for _c in _row if _c.value is not None)
     check('6.60' in _si_blob and '4.12' in _si_blob,
           "V49-N59 N3 threshold-sweep gradient values (v50: Supp Table 19)")
-    check('attenuates it to 1.74 (95% CI [1.64, 1.84])' in ms
-          and 'uncorrected upper bound inflated by class-size imbalance (equal-n estimate 1.74-fold, 95% CI [1.64, 1.84])' in ms,
-          "V49-N60 C5 Results leads with size-balanced gradient (v51 wording)")
+    check('a combined span- and size-matched control yields 3.66 (donor-level bootstrap [1.92, 3.78]' in ms
+          and 'combined span- and size-matched control gives 3.66-fold (donor-level cluster bootstrap 95% CI [1.92, 3.78])' in ms,
+          "V49-N60 C5 Results leads with combined-control gradient (v52 wording)")
     check('0.850' in sn,
           "V49-N61 C7 class-size Pearson correlation (v50: SI Note 10)")
-    check('excluding the 32 cell-line-derived LIHC samples leaves the LIHC null unchanged' in ms
-          and 'NN/TT 1.11 [0.93, 1.30]' in sn
+    check('All TCGA results exclude 32 cell-line-derived aliquots found by barcode audit' in ms
+          and '34,828 pairs' in sn
           and 'Four controls bound the interpretation' in ms,
-          "V49-N62 C4 CC sensitivity analysis (v51 wording)")
+          "V49-N62 C4 ex-CC default cohort (v52 wording)")
     check('The ratio earns its increment over k_f under controlled ground truth' in ms,
           "V49-N63 C2 omega-increment honest framing sentence")
     check('cross-type gaps in mean \u03c9 are descriptive rather than calibrated'
@@ -445,11 +446,10 @@ def main():
     check('span-matched control (21 intra-cerebellar pairs) yields 3.68' in ms
           and 'paired per-region-pair median 4.30, bootstrap 95% CI [3.40, 4.95]' in sn,
           "V49-N67 B1 span-matched control (MS headline; SI Note 10 details, v51)")
-    check('k_f ratio 2.09 equal-n, 2.03 full-data' in ms
-          and 'equal-n 1.29, astrocyte higher; full-data 0.31' in ms
-          and '95% CI [2.02, 2.18]' in sn
+    check('the equal-n decomposition shows the full-data Bergmann-glia k_n elevation is largely a class-size artefact' in ms
+          and 'equal-n 1.29, 95% CI [1.21, 1.41]' in sn
           and '96_brain_downsample_decomp_v49.py' in sn,
-          "V49-N68 B2 equal-n decomposition (MS headline; SI Note 10 details, v51)")
+          "V49-N68 B2 equal-n decomposition (MS pointer; SI Note 10 details, v52)")
     check('leave-one-population-out range 6.75\u20138.08' in ms
           and 'removing hepatocyte lowers it to 6.75' in sn,
           "V49-N69 B3 calibration leave-one-out (MS pointer; SI 3.10 details, v51)")
@@ -495,21 +495,22 @@ def main():
           and 'biased upward accordingly' in sn,
           "V49-N79 A1 SI 1.4 NI direction synced")
     # A2/B18: ex-CC CI precision + BRCA CI upper
-    check('1.34 [0.997, 1.880]' in sn and 'BRCA 1.57' in ms,
-          "V49-N80 A2/B18 CI precision (v50: MS ratio; SI CIs)")
+    check('1.34 [1.02, 1.89]' in sn and 'BRCA 1.57' in ms,
+          "V49-N80 A2/B18 CI precision (v52: MS ratio; SI ex-CC CIs)")
     # B1: sample-count reconciliation
     check('3 do not appear in the assembled pair table' in sn
           and '26 further samples appear only in tumor\u2013normal pairs' in sn
           and 'spans 3,593 unique barcodes' in sn,
           "V49-N81 B1 sample-count reconciliation (3,596/3,593/3,567; v51: SI)")
     # B2: smoking model wording
-    check('alone or jointly with admixture, age, and sex' in ms
+    check('alone or jointly with admixture, or with age and sex' in ms
           and '+13.3, P = 1.4 \u00d7 10\u207b\u00b3 with smoking, age, and sex' in sn,
-          "V49-N82 B2 smoking covariate wording (v51: MS phrase; SI numbers)")
+          "V49-N82 B2 smoking covariate wording (v52: MS phrase; SI numbers)")
     # B7: exact P values
-    check('all P < 10\u207b\u00b9\u2074\u2075' in ms
-          and '7.7 \u00d7 10\u207b\u00b9\u2079' in sn,
-          "V49-N83 B7 exact P values (v50: SI Note 8 per-cancer P)")
+    check('entry-clustered bootstrap 95% CIs excluding 0' in ms
+          and 'entry-clustered bootstrap 95% CIs' in sn
+          and '6.3 \u00d7 10\u207b\u00b2\u00b3' in sn,
+          "V49-N83 B7 entry-clustered CIs (v52: MS+SI cluster CIs; SI exact composition P)")
     # B13: adaptation -> change
     check('functional change rather than neutral drift' in ms
           and 'functional adaptation rather than neutral drift' not in ms,
@@ -520,14 +521,13 @@ def main():
     # C1: composition B=1000 unified (MS Methods + SI Note 8 + Guide 5.8b)
     check('B = 1,000 composition cluster bootstrap' in ms
           and 'B = 1,000 for the composition cluster bootstrap' in sn
-          and 'B was raised '
-          'from 200 to 1,000' in sn
-          and 'B = 1,000; raised from 200 in v49.14' in gd,
-          "V49-N86 C1 composition bootstrap B unified to 1,000 (MS/SI/Guide, v51)")
-    check('LIHC +32.8% [+21.5%, +48.1%], KIRC +19.6% [+14.1%, +25.1%], BRCA '
-          '\u221216.1% [\u221224.6%, \u22127.4%], LUAD \u22122.0% [\u22127.8%, +4.2%], LUSC '
-          '\u221210.0% [\u221227.8%, +6.8%]' in sn,
-          "V49-N87 C1 per-cancer attenuation updated (B=1000; v51: SI only)")
+          and '25,015 ex-CC pairs' in sn
+          and 'B = 1,000 cluster bootstrap' in gd,
+          "V49-N86 C1 composition bootstrap B unified to 1,000 (MS/SI/Guide, v52)")
+    check('LIHC +44.1% [+29.9%, +60.0%], KIRC +19.7% [+14.5%, +25.3%], BRCA '
+          '\u221215.9% [\u221224.5%, \u22127.3%], LUAD \u22122.0% [\u22128.0%, +5.1%], LUSC '
+          '\u22129.0% [\u221226.6%, +6.1%]' in sn,
+          "V49-N87 C1 per-cancer attenuation updated (ex-CC, B=1000; v52: SI only)")
     # C3: aggregation-order quantification (MS Methods + Guide 5.11h + Section 2)
     check('rank ordering is largely preserved (Spearman \u03c1 = 0.78)' in sn
           and 'mouse Tabula Muris pilot and the human Tabula Sapiens pipelines' in gd
@@ -535,10 +535,10 @@ def main():
           and 'control-category median baseline itself moves from 6.46 to 10.94' in gd,
           "V49-N88 C3 aggregation-order quantified + attribution unified (v51: SI)")
     # C2: ex-CC Cox (SI + Guide 5.11i)
-    check('ex-CC refit excluding all ' in sn
-          and 'LIHC ex-CC Cox sensitivity (v49.14)' in gd
-          and 'HR/SD 1.08 [0.87, 1.35], P = 0.47' in sn,
-          "V49-N89 C2 ex-CC Cox sensitivity (SI + Guide)")
+    check('R survival::coxph' in sn
+          and 'LIHC ex-CC Cox family (R survival::coxph)' in gd
+          and 'HR/SD 1.08 [0.88, 1.33], P = 0.467' in sn,
+          "V49-N89 C2 ex-CC Cox default (SI + Guide 5.13b, v52)")
     # C4: log-omega CI archived
     check('bootstrap CI is archived in the output CSV (v49.14)' in gd,
           "V49-N90 C4 log-omega CI archived in CSV (Guide 5.11e)")
@@ -581,8 +581,8 @@ def main():
           in sn and 'Supplementary Note 10' in ms,
           "V49-N100 m2 span-matched residual decomposition (v51: SI Note 10)")
     # m3 (R1): ependymal against-direction class noted in MS
-    check('ependymal cells\u2014the one class moving against the conservative direction\u2014still do not survive (stratified q = 0.052)' in ms,
-          "V49-N101 m3 ependymal stratified-reversal note in MS (v51 wording)")
+    check('ependymal cells, moving against the conservative direction, still do not survive: stratified q = 0.052' in ms,
+          "V49-N101 m3 ependymal stratified-reversal note in MS (v52 wording)")
     # m4 (R6): exact Mann-Whitney P for cross-organ reversal
     check('Mann-Whitney P = 5.6 \u00d7 10\u207b\u00b9\u2078' in ms
           and 'Mann-Whitney U, P < 0.001' not in ms,
@@ -615,14 +615,14 @@ def main():
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # v49.2 post-CC anchors + stale purge
-    for pat, name in [("3,567", "N29 sample total post-CC"),
-                      ("1.10\u20132.46", "N30 Abstract ratio range post-CC")]:
+    for pat, name in [("3,535", "N29 sample total ex-CC (v52)"),
+                      ("1.11\u20132.46", "N30 Abstract ratio range ex-CC (v52)")]:
         check(pat in ms, f"V49-{name}")
     check("P = 0.48" in sn, "V49-N31 Cox P post-CC (v51: SI)")
     for stale in ("1.822", "1.133", "1.895", "1.13\u20132.46"):
         check(stale not in ms, f"V49-N32 stale gone from MS: '{stale}'")
-    check("78.2, 76.8, 77.9, 72.6" in sn and "6.9 \u00d7 10\u207b\u00b9\u2075" in sn,
-          "V49-N33 Note 9 LIHC severity post-CC (SN prose)")
+    check("78.8, 75.8, 77.6, 72.3" in sn and "8.4 \u00d7 10\u207b\u00b9\u00b2" in sn,
+          "V49-N33 Note 9 LIHC severity ex-CC (SN prose, v52)")
     for stale in ("82.4 / 74.7", "1.05 \u00d7 10\u207b\u00b9\u00b2", "about 10-19"):
         check(stale not in sn, f"V49-N34 stale gone from SN: '{stale}'")
 

@@ -44,7 +44,7 @@ chk('Guide drift section = Result 4 (Fig. 3)',
 chk('Guide TCGA = Result 5 (Fig. 4)', 'Result 5 (Fig. 4)' in gdfull)
 chk('Guide cross-organ = Result 6, Fig. 5', 'Cross-organ conservation (Result 6, Fig. 5)' in gdfull)
 chk('Guide brain = Result 7 (Fig. 6)', 'Result 7 (Fig. 6)' in gdfull)
-chk('Guide 3,567', '3,567 samples' in gdfull)
+chk('Guide 3,535 (ex-CC, v52)', '3,535 samples' in gdfull)
 chk('Guide no 3,563; 3,596 only in attrition breakdown (v49.14)',
     '3,563' not in gdfull and gdfull.count('3,596') == 1
     and 'of the 3,596 expression-matrix samples' in gdfull)
@@ -72,10 +72,10 @@ chk('Guide nc49 outputs listed',
     and 'results/nc49_tcga_pancancer.csv' in gdfull
     and 'results/nc49_tcga_luad_mutation.csv' in gdfull
     and 'results/nc49_pilot_lihc_cox.csv' in gdfull)
-chk('Guide v49 checklist entries',
+chk('Guide v49 checklist entries (v52)',
     'Verify drift-calibration spot values' in gdfull
-    and 'Verify TCGA sample count n = 3,567' in gdfull
-    and 'NN/TT mean ratios 1.10\u20132.46' in gdfull
+    and 'Verify TCGA sample count n = 3,535' in gdfull
+    and 'NN/TT mean ratios 1.11\u20132.46' in gdfull
     and 'v49: Verify' not in gdfull)
 chk('Guide NEW-5 brain ladder B values',
     gdfull.count('B = 100 for T1, 30 for T2 and T3') == 2

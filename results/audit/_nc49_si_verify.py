@@ -151,8 +151,8 @@ chk('no 3,596 stray residue (v51: Note + SuppMethods 5.12)',
     and '3,596' not in cellfull)
 
 # 9. 1.7 LIHC mapping-sensitivity sentence (in SuppTable 5 caption since v49.5)
-chk('1.7 LIHC mapping caveat',
-    'mean NN/TT \u03c9 ratio is 1.10 under the linear mapping versus 1.31 under the softmax mapping' in capfull)
+chk('1.7 LIHC mapping caveat (v52)',
+    'mapping-sensitive only through LIHC (four of five linear, five of five softmax)' in capfull)
 
 # 10. Prior-phase numbers intact
 chk('Kang omega cal 0.963', '0.963' in full)
@@ -163,19 +163,19 @@ chk('T2 omega 90.9%', '90.9%' in full)
 chk('marker Jaccard T3 1.41', '1.41 versus 1.80 for \u03c9' in full)
 chk('choroid 137-fold', '137-fold' in full)
 chk('LUAD NN/TT 2.46 CI (table)', '2.46 [2.13, 2.86]' in cellfull)
-chk('CC post-fix ratios (table)',
-    '1.88 [1.63, 2.16]' in cellfull and '1.71 [1.38, 2.09]' in cellfull
-    and '1.10 [0.93, 1.29]' in cellfull and '1.57 [1.34, 1.84]' in cellfull)
-chk('CC post-fix k_n mean ratios (table)',
-    '3.29 [2.54, 4.35]' in cellfull and '1.35 [1.02, 1.88]' in cellfull)
+chk('CC post-fix ratios (table, ex-CC v52)',
+    '1.88 [1.64, 2.15]' in cellfull and '1.71 [1.38, 2.09]' in cellfull
+    and '1.11 [0.94, 1.30]' in cellfull and '1.57 [1.34, 1.81]' in cellfull)
+chk('CC post-fix k_n mean ratios (table, ex-CC v52)',
+    '2.55 [2.09, 3.31]' in cellfull and '1.34 [1.02, 1.89]' in cellfull)
 chk('CC old table values gone',
     '1.13 [0.97, 1.34]' not in cellfull and '1.82 [1.46, 2.25]' not in cellfull
     and '1.90 [1.65, 2.17]' not in cellfull)
 chk('LUAD means (table)',
     '115.4' in cellfull and '122.2' in cellfull and '136.9' in cellfull)
-chk('Cox M1 (table)', '1.07 [0.88, 1.31]' in cellfull)
-chk('Cox caption post-CC',
-    'all P \u2265 0.07; k_f closest at P = 0.072' in capfull
+chk('Cox M1 (table, ex-CC v52)', '1.08 [0.88, 1.33]' in cellfull)
+chk('Cox caption ex-CC (v52)',
+    'ex-CC' in capfull and 'cox.zph' in capfull
     and 'all P \u2265 0.30' not in capfull)
 chk('Kang table omega row', '0.963 [0.918, 0.998]' in cellfull)
 chk('Ladder table T1 omega cell', '1.04 [0.97, 1.21] / 28.6%' in cellfull)
@@ -184,9 +184,9 @@ chk('Ladder table T1 omega cell', '1.04 [0.97, 1.21] / 28.6%' in cellfull)
 chk('Note 9 sync sentence',
     'reported here as denominator-dominated vignettes (Supplementary Fig. 4b)' in full)
 chk('Note 9 cross-organ Fig. 5', '(Table 1 / Fig. 5)' in full)
-chk('Note 9 LIHC severity post-CC',
-    '78.2 / 76.8 / 77.9 / 72.6' in cellfull
-    and 'JT 6.9 \u00d7 10\u207b\u00b9\u2075' in cellfull
+chk('Note 9 LIHC severity ex-CC (v52)',
+    '78.8 / 75.8 / 77.6 / 72.3' in cellfull
+    and 'JT 8.4 \u00d7 10\u207b\u00b9\u00b2' in cellfull
     and 'about 5-20' in full
     and 'G1 > G2 \u2248 G3 > G4' in cellfull)
 chk('Note 9 no stale severity',
@@ -222,8 +222,8 @@ chk('pooled-null note', 'pooled null' in full)
 chk('3.13b wild-type definition',
     'Wild-type means wild-type for EGFR and KRAS' in capfull)
 chk('3.13b pair-sharing note', 'pair-sharing dependence' in capfull)
-chk('SI title matches MS',
-    'CKI: a Ka/Ks-inspired index separating functional divergence from baseline variation in cell atlases' in full
+chk('SI title matches MS (v52)',
+    'CKI: a Ka/Ks-inspired index decomposing functional divergence from baseline variation in cell atlases' in full
     and 'functional cell-type divergence in single-cell transcriptomics' not in full)
 chk('Data 1 naming unified',
     'Complete Analysis Script Index' not in full

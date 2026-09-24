@@ -1,0 +1,63 @@
+============================================================
+0. Loading HK gene mapping...
+============================================================
+  HK gene symbols: 1129, probeMap: 60498
+
+============================================================
+1. Parsing sample metadata...
+============================================================
+  TCGA-LUAD: T=495, N=76
+  TCGA-LUSC: T=535, N=58
+  TCGA-LIHC: T=398, N=57
+  TCGA-KIRC: T=754, N=82
+  TCGA-BRCA: T=1032, N=109
+
+  Usable: 5 cancers
+
+============================================================
+3. Per-cancer omega analysis (softmax mapping, sample-labelled)...
+============================================================
+
+--- TCGA-LUAD ---
+  Loading data...
+  Genes: 14178, HK: 1125, T=495, N=76
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/122265 done
+    NN: 2850 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/37620 done
+  TCGA-LUAD done in 106s
+
+--- TCGA-LUSC ---
+  Loading data...
+  Genes: 14096, HK: 1125, T=535, N=58
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/142845 done
+    NN: 1653 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/31030 done
+  TCGA-LUSC done in 125s
+
+--- TCGA-LIHC ---
+  Loading data...
+  Genes: 12076, HK: 1124, T=398, N=57
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/79003 done
+    NN: 1596 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/22686 done
+  TCGA-LIHC done in 147s
+
+--- TCGA-KIRC ---
+  Loading data...
+  Genes: 13878, HK: 1125, T=754, N=82
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/283881 done
+    NN: 3321 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/61828 done
+  TCGA-KIRC done in 214s
+
+--- TCGA-BRCA ---
+  Loading data...
+  Genes: 14272, HK: 1125, T=1032, N=109
+    TT: 500/2000    TT: 1000/2000    TT: 1500/2000    TT: 2000/2000    TT: 2000/531996 done
+    NN: 5886 done
+    TN: 500/2000    TN: 1000/2000    TN: 1500/2000    TN: 2000/2000    TN: 2000/112488 done
+  TCGA-BRCA done in 221s
+
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc52_tcga_softmax_all_pairs.csv (35306 pairs)
+Total time: 816s
+DONE

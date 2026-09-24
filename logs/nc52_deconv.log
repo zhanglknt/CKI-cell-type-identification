@@ -1,0 +1,25 @@
+== 0. Feasibility checks ==
+CIBERSORTx: NOT FEASIBLE (online API token required; none configured)
+BayesPrism: NOT FEASIBLE (R=R version 4.1.3 (2022-03-10), 30 base pkgs, BayesPrism installed=False; install forbidden)
+Reference scRNA: AVAILABLE -> {"TCGA-LIHC": {"file": "C:\\Users\\KnightZ\\Desktop\\\u7ec6\u80de\u53d7\u9009\u62e9\\data\\ts_human\\TS_Liver.h5ad", "n_cells": 5007, "compartments": {"immune": 2643, "epithelial": 1600, "endothelial": 688, "stromal": 76}}, "TCGA-KIRC": {"file": "C:\\Users\\KnightZ\\Desktop\\\u7ec6\u80de\u53d7\u9009\u62e9\\data\\ts_human\\TS_Kidney.h5ad", "n_cells": 9641, "compartments": {"epithelial": 8331, "immune": 1215, "endothelial": 95}}}
+
+== 1. TS compartment profiles + markers ==
+TCGA-LIHC: compartments ['endothelial', 'epithelial', 'immune', 'stromal'], profile matrix (57316, 4)
+TCGA-KIRC: compartments ['endothelial', 'epithelial', 'immune'], profile matrix (57316, 3)
+TCGA-LIHC markers: endothelial=60; epithelial=60; immune=60; stromal=60
+TCGA-KIRC markers: endothelial=60; epithelial=60; immune=60
+
+== 2. TCGA marker extraction (single pass over matrix) ==
+unique marker symbols: 389, mapped Ensembl: 377
+tumour columns: LIHC=398, KIRC=754
+marker rows extracted: 377
+TCGA-LIHC: marker matrix 231 genes x 398 tumours
+TCGA-KIRC: marker matrix 174 genes x 754 tumours
+
+== 3. Rank-SSE proxy deconvolution ==
+TCGA-LIHC: n=366; split-half rho=0.934 (P=3.79e-179); nonpar vs k_n rho=+0.200 (P=1.17e-04); nonpar vs ESTIMATE rho=+0.586 (P=3.58e-35); k_n vs ESTIMATE rho=-0.226 (P=1.22e-05); median SSE=13.1089
+TCGA-KIRC: n=754; split-half rho=0.964 (P=0.00e+00); nonpar vs k_n rho=+0.262 (P=2.86e-13); nonpar vs ESTIMATE rho=+0.238 (P=3.28e-11); k_n vs ESTIMATE rho=-0.377 (P=9.72e-27); median SSE=10.5289
+
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc52_tcga_deconv_feasibility.csv
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc52_tcga_deconv_feasibility.json
+DONE

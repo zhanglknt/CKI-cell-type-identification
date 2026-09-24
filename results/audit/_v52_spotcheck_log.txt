@@ -1,0 +1,73 @@
+============================================================
+SPOT-CHECK: manuscript claims vs authoritative results
+============================================================
+
+--- 1. TCGA NN/TT median ratios ---
+  LUAD: claim=2.319, actual=2.319 [OK]
+  LUSC: claim=1.769, actual=1.77 [OK]
+  LIHC: claim=1.233, actual=1.233 [OK]
+  KIRC: claim=2.192, actual=2.191 [OK]
+  BRCA: claim=1.509, actual=1.509 [OK]
+
+--- 2. TCGA TT/NN median k_n ratios ---
+  LUAD: claim=2.61, actual=2.61 [OK]
+  LUSC: claim=2.53, actual=2.53 [OK]
+  LIHC: claim=2.18, actual=2.18 [OK]
+  KIRC: claim=3.7, actual=3.7 [OK]
+  BRCA: claim=2.79, actual=2.79 [OK]
+
+--- 3. Mouse pilot category means ---
+  C_control mean (n=6): claim=6.67, actual=6.67 [OK]
+  C_control n: claim=6, actual=6 [OK]
+  S_same_ct mean (n=4): claim=21.31, actual=21.31 [OK]
+  S_same_ct n: claim=4, actual=4 [OK]
+  D_diff_ct mean (n=3): claim=43.19, actual=43.19 [OK]
+  D_diff_ct n: claim=3, actual=3 [OK]
+  X_cross mean (n=2): claim=27.31, actual=27.31 [OK]
+  X_cross n: claim=2, actual=2 [OK]
+  full pairwise matrix pairs: claim=703, actual=703 [OK]
+
+--- 4. Brain class-level (brain_bs_null_ct_test.csv) ---
+  astrocyte omega_mean: claim=82.75, actual=82.75 [OK]
+  astrocyte omega_std: claim=44.98, actual=44.98 [OK]
+  astrocyte p_value: claim=0.000999, actual=0.000999 [OK]
+  astrocyte SES: claim=6.49, actual=6.49 [OK]
+  astrocyte n_pairs: claim=5778, actual=5778 [OK]
+
+--- 5. Brain null summary ---
+  Strong tier n: claim=39, actual=39 [OK]
+  Strong raw p<0.05: claim=31, actual=31 [OK]
+  total pairs: claim=31764, actual=31764 [OK]
+  min q (first Strong row): claim=0.5202, actual=0.5202 [OK]
+
+--- 6. Brain set-level tests ---
+  S1 effect (raw-P rate): claim=0.7949, actual=0.7949 [OK]
+  S1 P: claim=9.57e-31, actual=9.57e-31 [OK]
+  S2 CA trend z: claim=61.0, actual=61.0 [OK]
+  S3 thalamotemporal effect: claim=0.9, actual=0.9 [OK]
+  S3 thalamotemporal P: claim=1.26, actual=1.26 [OK]
+
+--- 7. Internal baselines ---
+  brain split-half mean: claim=9.73, actual=9.73 [OK]
+  TS split-half mean: claim=7.67, actual=7.67 [OK]
+
+--- 8. Human Tabula Sapiens pairs ---
+  human analyzed pairs (phase35): claim=4851, actual=4851 [OK]
+  phase33 inventory rows (102 classes): claim=5151, actual=5151 [OK]
+
+--- 9. Kang IFN-beta demonstration ---
+  CD14 omega AUC: claim=0.55, actual=0.55 [OK]
+  CD14 k_f AUC: claim=0.98, actual=0.98 [OK]
+  B cells omega AUC: claim=0.92, actual=0.92 [OK]
+
+--- 10. nc50 microglia validation ---
+  functional pairs: claim=35, actual=35 [OK]
+  neutral half-splits: claim=40, actual=40 [OK]
+  omega functional mean: claim=21.83, actual=21.83 [OK]
+  omega neutral mean: claim=1.3, actual=1.3 [OK]
+  omega MWU P: claim=5.49e-14, actual=5.49e-14 [OK]
+  omega AUC (functional>neutral): claim=1.0, actual=1.0 [OK]
+
+============================================================
+ALL CHECKS PASSED
+============================================================

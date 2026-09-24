@@ -1,0 +1,378 @@
+============================================================
+  CKI Submission Package v49 (NC, GB-rebuttal round) Builder
+============================================================
+
+[0] Collecting figures into figures_submission_nc ...
+
+--- Regen Fig2 top row (NC v49.6) ---
+Saved: results\figures_final\_fig2_toprow_nc49.pdf
+Saved: results\figures_final\_fig2_toprow_nc49.png
+Panel A: kn mean = 2.23e-4, CV = 34% (n=6)
+Panel B: kn = ['2.2e-04', '8.6e-03', '1.6e-02', '2.6e-02'] kf = ['1.5e-03', '1.6e-01', '6.3e-01', '6.8e-01']
+Panel C: X vs C Mann-Whitney P = 0.036
+DONE.
+  [OK] run: Regen Fig2 top row (NC v49.6)
+
+--- Regen Fig2 bottom row (NC v49.7) ---
+saved results/figures_final/_fig2_bottomrow_nc49.pdf
+size: 178.00 x 72.00 mm
+span sizes: {4.9: 5, 7.0: 69, 7.5: 5, 9.0: 2}
+fonts: ['Arial-BoldMT', 'ArialMT', 'DejaVuSans-Oblique']
+sub-7pt spans (mathtext only): {4.9: 5}
+preview: results/audit/_fig2_bottomrow_v497.png 1052 x 426
+  [OK] run: Regen Fig2 bottom row (NC v49.7)
+
+--- Merge Fig2 (NC v49.7) ---
+saved results/figures_final/figure2_merged_nc49.pdf: 504.6 x 419.9 pt = 178.0 x 148.1 mm
+span sizes: {4.9: 16, 5.6: 2, 6.3: 3, 7.0: 123, 7.5: 5, 8.0: 5, 9.0: 11}
+fonts: ['Arial-BoldMT', 'ArialMT', 'DejaVuSans-Oblique']
+primary text spans >= 7 pt: 144
+mathtext sub/superscript spans (<7 pt): {4.9: 16, 5.6: 2, 6.3: 3}
+preview: results/audit/_merge_final.png 1052 x 875
+  [OK] run: Merge Fig2 (NC v49.7)
+
+--- Regen Supplementary Fig 14 (NC v50 microglia) ---
+saved results/Supplementary_Fig_14.pdf
+  [OK] run: Regen Supplementary Fig 14 (NC v50 microglia)
+  [OK] V49-1 figures staged = 21 (6 main + 14 supp + GA pdf; v50) got 21
+
+[1] Preparing CKI_Submission_v50_NC ...
+
+[2] Regenerating DOCX files ...
+
+--- Generate Manuscript (NC v49) ---
+
+ / "results" / "nc49_tcga_pancancer.csv").set_index('cancer')
+            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ~~~~~~~~~~^
+        f,
+        ^^
+    ...<6 lines>...
+        storage_options=self.options.get("storage_options", None),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+        handle,
+    ...<3 lines>...
+        newline="",
+    )
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\KnightZ\\Desktop\\细胞受选择\\results\\nc49_tcga_pancancer.csv'
+
+  [FAIL] run: Generate Manuscript (NC v49)
+
+--- Generate Supplementary (NC v49) ---
+
+\KnightZ\Desktop\细胞受选择\notebooks\68_gen_supplementary_nc.py", line 116, in <module>
+    _tcga_pc = pd.read_csv(_root49 / "results" / "nc49_tcga_pancancer.csv")
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ~~~~~~~~~~^
+        f,
+        ^^
+    ...<6 lines>...
+        storage_options=self.options.get("storage_options", None),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+        handle,
+    ...<3 lines>...
+        newline="",
+    )
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\KnightZ\\Desktop\\细胞受选择\\results\\nc49_tcga_pancancer.csv'
+
+  [FAIL] run: Generate Supplementary (NC v49)
+
+--- Generate Cover Letter (NC v49) ---
+Saved: C:\Users\KnightZ\Desktop\细胞受选择\results\CKI_NC_Cover_Letter.docx
+  [OK] run: Generate Cover Letter (NC v49)
+
+--- Generate Repro Guide (NC) ---
+Generated: C:/Users/KnightZ/Desktop/细胞受选择/results/CKI_Reproducibility_Guide_NC.docx
+Size: 45.3 KB
+  [OK] run: Generate Repro Guide (NC)
+  [OK] DOCX exists: CKI_Manuscript_NC.docx
+  [OK] DOCX exists: CKI_Supplementary_NC.docx
+  [OK] DOCX exists: CKI_NC_Cover_Letter.docx
+  [OK] DOCX exists: CKI_Reproducibility_Guide_NC.docx
+
+[2f] Extracting fulltext ...
+  CKI_Manuscript_NC_fulltext.txt: 84,367 bytes
+  CKI_Supplementary_NC_fulltext.txt: 162,146 bytes
+  CKI_NC_Cover_Letter_fulltext.txt: 3,592 bytes
+  CKI_Reproducibility_Guide_NC_fulltext.txt: 82,302 bytes
+  [OK] Tables xlsx exists
+  [OK] SI Tables xlsx exists
+
+[4] Creating ZIP ...
+  zip: 12,302,427 B (28 entries)
+
+============================================================
+  v49 Verification
+============================================================
+
+--- nc49 MS self-check ---
+[PASS] ref 48 = CZI CELLxGENE (moved from old 55) 
+[PASS] ref 52/53 = Perou/Parker (moved from old 16/17) 
+[PASS] ref 54 = Edmondson (moved from old 15) 
+[PASS] ref 57 = Efron bootstrap (moved from old 54) 
+[PASS] refs 49-51 = Weinstein/Colaprico/Cerami (moved from old 49-51) 
+TOTAL: 117 checks, 0 failures
+  [OK] run: nc49 MS self-check
+
+--- nc49 SI self-check ---
+[PASS] 3.13 short heading ref 
+[PASS] 3.13 KRAS magnitude restored 
+[PASS] 3.13 Hallmark paragraph 
+[PASS] 3.13 kf_composition output listed 
+[PASS] no TODO in SI 
+TOTAL: 109 checks, 0 failures
+  [OK] run: nc49 SI self-check
+
+--- nc49 CL+Guide self-check ---
+[PASS] Guide SI param-justification ref updated 
+[PASS] Guide Jaccard honest framing 
+[PASS] Guide B-group scripts listed 
+[PASS] Guide B-group outputs listed 
+[PASS] Guide kf_composition listed 
+TOTAL: 39 checks, 0 failures
+  [OK] run: nc49 CL+Guide self-check
+
+--- SN (inline) ---
+  [OK] V49-S1 no decimal Note refs in SN
+  [OK] V49-S2 no Fig. S in SN
+  [OK] V49-S3 no Table S in SN
+  [OK] V49-S4 no Additional file in SN
+  [OK] V49-S5 SN Note headings 1..16 (v50) ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+  [OK] V49-S6 SN Supplementary Fig. refs = 10 (v51: +Supplementary Methods 5.1) (10)
+  [OK] V49-S7 SN Supplementary Table refs = 41 post-v49.5 (41)
+  [OK] V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)
+  [OK] V49-S9 no TODO in SN
+  [OK] V49-G1 Guide cites Supplementary Note 13
+  [OK] V49-G2 Guide Section 3.9 pointer (renumbered from 3.11)
+  [OK] V49-G3 no decimal Note refs in Guide
+  [OK] V49-G4 no S-naming in Guide
+  [OK] V49-C1 CL names Nature Communications x2+
+  [OK] V49-C2 no Genome Biology in CL
+  [OK] V49-C3 CL carries the NC title
+  [OK] V49-C4 CL new-evidence frame (no rebuttal-speak, no 5th-of-5)
+  [OK] V49-C5 CL change-detection framing (no classification AUC)
+  [OK] V49-C5b no baseline-* phrasing in CL (EGFR dissolved)
+  [OK] V49-C6 CL declarations paragraph removed
+  [OK] V49-C7 CL reviewer: Theis
+  [OK] V49-C7 CL reviewer: Welch
+  [OK] V49-C7 CL reviewer: Linnarsson
+  [OK] V49-C7 CL reviewer: Sch
+  [OK] V49-C7 CL reviewer: Zemin Zhang
+  [OK] V49-C8 CL one-page word budget (480)
+
+--- scientific anchors (v48 subset) ---
+  [OK] V49-A2 calibration CI
+  [OK] V49-A3 equal-n gradient
+  [OK] V49-A4 Augur OvR vs omega
+  [OK] V49-A5 Augur OvR vs k_f
+  [OK] V49-A6 Kang cells
+  [OK] V49-A7 human pairs (phase35)
+  [OK] V49-A8 brain pairs
+  [OK] V49-A9 null expectation
+  [OK] V49-A10 AUC
+  [OK] V49-A11 regional gradient
+  [OK] V49-A13 ratio bias (v51 wording)
+  [OK] V49-A14 omega baseline
+  [OK] V49-A15 Zenodo v0.5.0 DOI
+  [OK] V49-A16 Kang GEO
+  [OK] V49-A17 TCGA/brain GEO in Data availability
+  [OK] V49-A12 bootstrap-t coverage (SN)
+
+--- v49 new-content anchors ---
+  [OK] V49-N2 Kang raw-JS FPR
+  [OK] V49-N3 Kang cosine FPR
+  [OK] V49-N4 brain T1 pairs
+  [OK] V49-N5 brain T1 omega FPR
+  [OK] V49-N7 marker-Jaccard T3 calibration
+  [OK] V49-N8 relative-calibration phrasing
+  [OK] V49-N9 Section 3.12 pointers present (v51 short form)
+  [OK] V49-N10 LUAD NN/TT ratio
+  [OK] V49-N11 LIHC NN/TT ratio (post-CC, v50 wording)
+  [OK] V49-N12 k_n fold elevation (v50 wording)
+  [OK] V49-N13 LUAD KRAS mean omega
+  [OK] V49-N14 LUAD WT mean omega
+  [OK] V49-N15 bulk positioning phrase (v51 wording)
+  [OK] V49-N16 Cox HR CI post-CC (NO-GO)
+  [OK] V49-N1 Kang omega calibration median (v51: SI)
+  [OK] V49-N6 brain T2 omega FPR (v51: SI)
+  [OK] V49-N17 exactly 3 Section 3.12 pointers in MS (v51 short form)
+  [OK] V49-N18 stale gone: 'TCGA; exploratory'
+  [OK] V49-N18 stale gone: 'apparent tumor homogeneity'
+  [OK] V49-N18 stale gone: 'TODO-nc49'
+  [OK] V49-N19 Figure 1 legend present
+  [OK] V49-N19 Figure 2 legend present
+  [OK] V49-N19 Figure 3 legend present
+  [OK] V49-N19 Figure 4 legend present
+  [OK] V49-N19 Figure 5 legend present
+  [OK] V49-N19 Figure 6 legend present
+  [OK] V49-N20 Figure 3 legend is drift ladder
+  [OK] V49-N21 Figure 4 legend is pan-cancer map
+  [OK] V49-N21b Figure 2 legend: calibration + TS correlation + change-detection ROC (panels a-e)
+  [OK] V49-N22 Abstract words <= 200 (197)
+  [OK] V49-N25 high-purity LUAD ratio (v51: SI Note 8)
+  [OK] V49-N27 admixture caveat phrase (v51 wording)
+  [OK] V49-N23 purity-adjusted KRAS omega (v50: SI 3.13)
+  [OK] V49-N24 joint-adjusted KRAS omega (v50: SI 3.13)
+  [OK] V49-N26 KIRC kn~admix P post-CC (SuppTable 15 xlsx caption)
+  [OK] V49-N35 main Tables xlsx = single Table 1 sheet (cross-organ)
+  [OK] V49-N36 classification benchmark cut from MS
+  [OK] V49-N37 main Table 2 renumbered to Table 1
+  [OK] V49-N38 Scope design argument present (HK anchor cell-type-specific, v51 wording)
+  [OK] V49-N39 A1 MS availability lists 19 supplementary tables (v49.14: 1-4 pointer sentence)
+  [OK] V49-N40 A5 brain candidate concentration (v51 wording)
+  [OK] V49-N41 A6 mean/median caliber cross-pointer (v50: SI carries medians)
+  [OK] V49-N42 A2 SI main-text figure pointers corrected to Fig. 3
+  [OK] V49-N42b A2 no stale Fig. 4 panel pointers in SI
+  [OK] V49-N43 A3 SI Note 9 points to Table 1
+  [OK] V49-N44 A7 SI Note 14 Augur pointer = ref. 37
+  [OK] V49-N45 B1 SI weight-scheme AUC reconciliation clause
+  [OK] V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)
+  [OK] V49-N47 B3 Table 1 cross-type caveat (v51 wording)
+  [OK] V49-N48 B4 Abstract leads with size-balanced gradient
+  [OK] V49-N49 B5 brain screen donor-confounding disclosure (v51 wording)
+  [OK] V49-N50 B7 CC provenance disclosure (32 LUSC->LIHC; v51: SI)
+  [OK] V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile; v51: SI)
+  [OK] V49-N52 A4 Guide estimator-comparison pointer = Fig. 7
+  [OK] V49-N56 N1 seed 20260905 declared (v51: SI)
+  [OK] V49-N56b N1 seed 20260905 in Guide checklist
+  [OK] V49-N57 C6 studentized bootstrap-t pivot/SE described (v51 wording)
+  [OK] V49-N58 N2 Discussion composition numbers (v51: MS pooled; SI correlation)
+  [OK] V49-N58b N2 composition caliber (v51: MS pooled; SI per-panel)
+  [OK] V49-N65 N2 SI Note 8 softmax regression labeled superseded
+  [OK] V49-N65b A2 SI Note 8 linear update = post-CC caliber
+  [OK] V49-N66 N1 Guide seed exceptions cover notebook 89
+  [OK] V49-N59 N3 threshold-sweep gradient values (v50: Supp Table 19)
+  [OK] V49-N60 C5 Results leads with size-balanced gradient (v51 wording)
+  [OK] V49-N61 C7 class-size Pearson correlation (v50: SI Note 10)
+  [OK] V49-N62 C4 CC sensitivity analysis (v51 wording)
+  [OK] V49-N63 C2 omega-increment honest framing sentence
+  [OK] V49-N63b C3 caveat in Table 1 xlsx caption
+  [OK] V49-N64 N5 Guide environment completes seaborn/statsmodels/meld/pyaugur
+  [OK] V49-N67 B1 span-matched control (MS headline; SI Note 10 details, v51)
+  [OK] V49-N68 B2 equal-n decomposition (MS headline; SI Note 10 details, v51)
+  [OK] V49-N69 B3 calibration leave-one-out (MS pointer; SI 3.10 details, v51)
+  [OK] V49-N70 B4 LUAD whole-tumor label permutation (MS pointer; SI 3.13, v51)
+  [OK] V49-N71 C4b log-omega scale sensitivity (v50 wording)
+  [OK] V49-N72 B5/B6 CC exclusion sensitivity + barcode audit (v50: SI 3.13)
+  [OK] V49-N73 A7 donor-stratified transparency table in SI Note 12
+  [OK] V49-N74 C3 SI Note 14 Augur variants parallel + pyaugur self-report
+  [OK] V49-N75 A4 CL priority claim qualified
+  [OK] V49-N76 A1/A2 Guide softmax superseded labels + 5.11 + aggregation default
+  [OK] V49-N77 B-group output exists: results/nc49_brain_region_matched.txt
+  [OK] V49-N77 B-group output exists: results/nc49_calib_leave_one_out.txt
+  [OK] V49-N77 B-group output exists: results/nc49_tcga_luad_mutation_perm.csv
+  [OK] V49-N77 B-group output exists: results/nc49_tcga_luad_logomega_sensitivity.csv
+  [OK] V49-N77 B-group output exists: results/nc49_cc_barcode_audit.csv
+  [OK] V49-N77 B-group output exists: results/nc49_cc_excl_sensitivity.csv
+  [OK] V49-N77 B-group output exists: results/nc49_donor_stratified_table.csv
+  [OK] V49-N77 B-group output exists: results/brain_v49_downsample_kfkn_summary.json
+  [OK] V49-N78 A1 MK/NI pointer to SI 1.4 (v51 wording)
+  [OK] V49-N79 A1 SI 1.4 NI direction synced
+  [OK] V49-N80 A2/B18 CI precision (v50: MS ratio; SI CIs)
+  [OK] V49-N81 B1 sample-count reconciliation (3,596/3,593/3,567; v51: SI)
+  [OK] V49-N82 B2 smoking covariate wording (v51: MS phrase; SI numbers)
+  [OK] V49-N83 B7 exact P values (v50: SI Note 8 per-cancer P)
+  [OK] V49-N84 B13 Introduction adaptation wording
+  [OK] V49-N85 B6 Supp Tables 5-19 pointer in Data availability
+  [OK] V49-N86 C1 composition bootstrap B unified to 1,000 (MS/SI/Guide, v51)
+  [OK] V49-N87 C1 per-cancer attenuation updated (B=1000; v51: SI only)
+  [OK] V49-N88 C3 aggregation-order quantified + attribution unified (v51: SI)
+  [OK] V49-N89 C2 ex-CC Cox sensitivity (SI + Guide)
+  [OK] V49-N90 C4 log-omega CI archived in CSV (Guide 5.11e)
+  [OK] V49-N91 B9 span-matched k_f/k_n decomposition in SI
+  [OK] V49-N92 B10 ependymal donor-stratified note (SI Note 12)
+  [OK] V49-N93 B11 Guide 5.9e parallel wording
+  [OK] V49-N94 B12 ddof = 1 declared for Supp Table 3 SDs
+  [OK] V49-N95 B15 permutation MC resolution note (SI 3.13)
+  [OK] V49-N96 B16 composition rho P descriptive note (SI Note 8)
+  [OK] V49-N97 B8 CL ORCID line
+  [OK] V49-N98 v49.14 C-group output exists: results/nc49_agg_order_sensitivity.csv
+  [OK] V49-N98 v49.14 C-group output exists: results/nc49_agg_order_sensitivity.txt
+  [OK] V49-N98 v49.14 C-group output exists: results/nc49_lihc_cox_excc.csv
+  [OK] V49-N98 v49.14 C-group output exists: results/audit/nc49_lihc_cox_excc_2026-09-21.md
+  [OK] V49-N99 stale gone from MS/SI: '[1.00, 1.88]'
+  [OK] V49-N99 stale gone from MS/SI: 'median −1.2%'
+  [OK] V49-N99 stale gone from MS/SI: 'CI [−5.0%, +2.3%]'
+  [OK] V49-N99 stale gone from MS/SI: '+31.7% [+21.0%, +45.3%]'
+  [OK] V49-N99 stale gone from MS/SI: '(1.34–1.84)'
+  [OK] V49-N100 m2 span-matched residual decomposition (v51: SI Note 10)
+  [OK] V49-N101 m3 ependymal stratified-reversal note in MS (v51 wording)
+  [OK] V49-N102 m4 exact cross-organ Mann-Whitney P (5.6e-18, v51 wording)
+  [OK] V49-N103 m5 CL per-background replicate count
+  [OK] V49-N104 R5 median qualifier on agg-order baseline (v51: SI)
+  [OK] V49-N105 m1 legend word order fixed
+  [OK] V49-N53 MK fourfold correspondence migrated to SI 1.4 (v50)
+  [OK] V49-N54 SI 1.4 threefold correspondence synced
+  [OK] V49-N55 Fig 1a legend counterpart mapping + calibration anchor (v49.15 word order)
+  [OK] V49-N28 no baseline-* phrasing in MS (EGFR dissolved)
+  [OK] V49-N29 sample total post-CC
+  [OK] V49-N30 Abstract ratio range post-CC
+  [OK] V49-N31 Cox P post-CC (v51: SI)
+  [OK] V49-N32 stale gone from MS: '1.822'
+  [OK] V49-N32 stale gone from MS: '1.133'
+  [OK] V49-N32 stale gone from MS: '1.895'
+  [OK] V49-N32 stale gone from MS: '1.13–2.46'
+  [OK] V49-N33 Note 9 LIHC severity post-CC (SN prose)
+  [OK] V49-N34 stale gone from SN: '82.4 / 74.7'
+  [OK] V49-N34 stale gone from SN: '1.05 × 10⁻¹²'
+  [OK] V49-N34 stale gone from SN: 'about 10-19'
+
+--- structural spot checks ---
+  [OK] V49-SC1 Introduction ends 'Here, we show'
+  [OK] V49-SC3 no 'Conclusions' anywhere
+  [OK] V49-SC4 no Keywords line
+  [OK] V49-SC5 notes cited (v50: 1-16 span)
+  [OK] V49-SC6 supp fig 1 cited
+
+--- package integrity ---
+  [OK] V49-P1 zip rooted
+  [OK] V49-P2 CKI_Manuscript_NC.docx
+  [OK] V49-P2 CKI_Supplementary_NC.docx
+  [OK] V49-P2 CKI_NC_Cover_Letter.docx
+  [OK] V49-P2 CKI_Reproducibility_Guide_NC.docx
+  [OK] V49-P2 MANIFEST_v50.txt
+  [OK] V49-P2 Supplementary_Fig_1.pdf
+  [OK] V49-P2 Supplementary_Fig_13.pdf
+  [OK] V49-P2 Supplementary_Fig_14.pdf
+  [OK] V49-P2 figure2.pdf
+  [OK] V49-P2 figure3.pdf
+  [OK] V49-P2 figure6.pdf
+  [OK] V49-P2 CKI_graphical_abstract.pdf
+  [OK] V49-P2 CKI_Tables_NC.xlsx
+  [OK] V49-P2 CKI_Supplementary_Tables_NC.xlsx
+  [OK] V49-P3 no old supp figure naming ([])
+  [OK] V49-P4 pdf-only figures + word-only docs (no png/svg/txt)
+  [OK] V49-P5 MS docx contains no tables (tables live in CKI_Tables_NC.xlsx)
+  [OK] V49-P6 SI docx contains no tables (tables live in CKI_Supplementary_Tables_NC.xlsx)
+
+============================================================
+  Passed: 219  Failed: 2
+  [FAIL] run: Generate Manuscript (NC v49)
+  [FAIL] run: Generate Supplementary (NC v49)
+
+  *** FAILURES — review above ***

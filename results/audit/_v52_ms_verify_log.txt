@@ -1,0 +1,119 @@
+===== MS checks =====
+[PASS] TODO-nc49-fix count == 0 found 0
+[PASS] no TODO-nc49-drift residue 
+[PASS] no TODO at all 
+[PASS] no baseline-driven/baseline-associated 
+[PASS] no "available locally" 
+[PASS] no stale 85% decomposition (0.097 restored in new sentence) 
+[PASS] Results Section 3.12 ref (v51 short form) 
+[PASS] Methods Section 3.12 ref (v51) 
+[PASS] Section 3.12 referenced 3x (v51 short form) found 3
+[PASS] MWU deleted from main claims; permutation -> Section 3.13 (v51) 
+[PASS] no stale Section 3.20/3.21 refs 
+[PASS] T1 qualified (continuous metrics, v51) 
+[PASS] marker Jaccard T1 19.9% admitted (v51: MS legend + SI) 
+[PASS] Jaccard weakest on genuine divergence admitted (v51) 
+[PASS] same-statistic frontier admitted (v50: SI) 
+[PASS] final claim qualified (v50) 
+[PASS] Discussion decision-rules qualified (v50) 
+[PASS] no unqualified "misreported least of seven" 
+[PASS] Abstract drift sentence present 
+[PASS] Abstract word count <= 200 200 words
+[FAIL] Abstract real-data calibration numbers 
+[FAIL] Abstract 3,567 
+[FAIL] Abstract new ratio range 
+[PASS] Abstract new k_n range 
+[FAIL] 3,567 present 
+[PASS] no 3,563 residue 
+[PASS] no 3,596 stray residue (v51: MS clean; SI x2) 
+[PASS] Methods per-cancer counts (v51) 
+[PASS] attrition three-way arithmetic (v51: SI) 
+[FAIL] CC ratio list new values (v50: MS ratios, CIs in SI) 
+[PASS] CC old ratio list gone 
+[PASS] k_n mechanism sentence new range (v51: MS range; per-cancer CIs in SI Table 11) 
+[PASS] k_n mechanism old examples gone 
+[FAIL] Discussion range updated 
+[PASS] pair-level MWU P deleted from main claims (v51) 
+[FAIL] LIHC mapping-sensitivity honest (v51) 
+[PASS] softmax demoted to SI sensitivity (v51) 
+[PASS] purity adj KRAS omega +16.8 (v50: SI 3.13) 
+[PASS] purity adj k_f/k_n significant (v50: SI 3.13) 
+[PASS] EGFR null after purity adj 
+[PASS] EGFR admixture highest (v50: SI 3.13) 
+[PASS] smoking enrichment 94/63/86 (v50: SI 3.13) 
+[PASS] smoking chi2 (v50: SI 3.13) 
+[FAIL] smoking three-model adjustment (v51: MS headline; SI models) 
+[PASS] smoking alone +13.9 (v50: SI 3.13) 
+[PASS] purity proxy limitation (v51: SI) 
+[PASS] pack-years sparsity documented (v51: MS note; SI detail) 
+[FAIL] batch/center limitation (v51) 
+[FAIL] GTEx healthy-reference limitation (v51 wording) 
+[PASS] Discussion epidemiology sentence (v51: adjustment retained) 
+[PASS] k_n admix correlation range (v51r2: SI Note 8) 
+[PASS] high-purity half LUAD (v51: SI Note 8) 
+[FAIL] high-purity half LIHC caliber kept (v51: MS + SI 3.13) 
+[PASS] reversal not admixture artefact (v51) 
+[PASS] Methods ESTIMATE block (v51: MS count; SI gene sets) 
+[PASS] Methods cBioPortal smoking block (v51: SI) 
+[PASS] Methods scripts extended (v51: SI) 
+[PASS] Abstract KRAS dual-component adjusted 
+[PASS] Abstract EGFR admixture 
+[PASS] Intro EGFR dissolved (v51) 
+[PASS] Fig 5 legend NEW-3 fix 
+[PASS] Fig 5 legend old EGFR-baseline gone 
+[PASS] B=30 MC noise note (v51: SI) 
+[PASS] tier class-composition note (v51: SI) 
+[PASS] per-tumor cross-group pairing note (v50: SI 3.13) 
+[PASS] wild-type label qualified (v50: SI 3.13) 
+[PASS] seeded subsampling MC note (v51: SI) 
+[PASS] TCGA fixed-panel caveat (v50) 
+[PASS] Fig 4a dual-axis note 
+[PASS] affiliation postcodes 
+[PASS] short Result 5 heading 
+[PASS] KRAS magnitude sentence restored (v50: MS headline; Dunn P in SI) 
+[PASS] KRAS magnitude coexists with adjusted (v50) 
+[PASS] Hallmark enrichment sentence (v51) 
+[PASS] Hallmark distributed-signal framing (v51: k_f ordering retained) 
+[PASS] k_f composition regression sentence (v51) 
+[PASS] Data availability Enrichr mirror 
+[FAIL] Kang k_f 0/30 parenthetical (v51) 
+[PASS] no Additional file 2 
+[PASS] SI availability rewritten 
+[PASS] severity -> Note 9 + Supp Fig 4b (v50: split MS/SI) 
+[PASS] marker Jaccard 1.41 (v51: Fig 3 legend) 
+[PASS] no leftover 1.40 versus 1.80 
+[PASS] Result 5 TCGA title 
+[PASS] Figure 4 legend (TCGA) 
+[FAIL] Cox limitation sentence (v51) 
+[PASS] drift Results heading 
+[PASS] Kang Wilson CI (v50: SI) 
+[FAIL] Kang-brain size reconciliation (v50) 
+[PASS] main figure legends 1-6 in order ['Figure 1. Th', 'Figure 2. CK', 'Figure 3. Re', 'Figure 4. Pa', 'Figure 5. Cr', 'Figure 6. Br']
+[PASS] Fig 2 legend new scope 
+[FAIL] Fig 2e legend change-detection ROC 
+[PASS] Fig 2e legend old classification ROC gone 
+[PASS] Result 3 anchor narrowed to Fig. 2d 
+[PASS] Result 3b AUC sentence cites Fig. 2e 
+[PASS] Result 3b background2 cites Fig. 2e (v51) 
+[PASS] classification benchmark paragraph removed 
+[PASS] Fig 2 legend Table 1 pointer removed 
+[PASS] Methods classification ROC-AUC removed 
+[PASS] main-text Table 2 retired 
+[PASS] cross-organ Table 1 citations (v51) 
+[PASS] Fig 3 legend Jaccard admission 
+[PASS] superscript citation group count == 73 (v50) found 73
+[PASS] citation first-appearance order is 1..57 monotonic seq head: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+[PASS] no orphan references (all 57 cited in text) cited: 57
+[PASS] 57 reference entries found 57
+[PASS] references numbered 1..57 sequentially 
+[PASS] ref 15 = Liberzon MSigDB (moved from old 56) 
+[PASS] ref 33 = Raj fixed title 
+[PASS] ref 34 = McDonald-Kreitman (new in v49.10) 
+[PASS] ref 36 = Jiang CACIMAR completed title 
+[PASS] ref 46 = Hao 2021 pages .e29 
+[PASS] ref 48 = CZI CELLxGENE (moved from old 55) 
+[PASS] ref 52/53 = Perou/Parker (moved from old 16/17) 
+[PASS] ref 54 = Edmondson (moved from old 15) 
+[PASS] ref 57 = Efron bootstrap (moved from old 54) 
+[PASS] refs 49-51 = Weinstein/Colaprico/Cerami (moved from old 49-51) 
+TOTAL: 117 checks, 15 failures
