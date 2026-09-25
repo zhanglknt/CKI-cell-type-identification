@@ -564,9 +564,9 @@ def main():
     # B16: descriptive-only note for composition correlation P
     check('these correlation ' in sn and 'descriptive only, ' in sn,
           "V49-N96 B16 composition rho P descriptive note (SI Note 8)")
-    # CL ORCID
-    check('ORCID (corresponding author): Li Zhang 0000-0002-0698-0754' in cl,
-          "V49-N97 B8 CL ORCID line")
+    # CL signature single-line (corresponding author only); ORCID removed 2026-09-25
+    check('ORCID (corresponding author)' not in cl,
+          "V49-N97 B8 CL ORCID line removed (single-line signature)")
     # v49.14 C-group output files exist
     for _f in ("results/nc49_agg_order_sensitivity.csv",
                "results/nc49_agg_order_sensitivity.txt",

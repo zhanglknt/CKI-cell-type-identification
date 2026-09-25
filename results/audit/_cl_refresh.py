@@ -95,7 +95,7 @@ chk("Two properties" in cl_text and "Previously raised concerns" not in cl_text 
 chk("0.680" not in cl_text and "dynamic cell-state changes" in cl_text, "V49-C5 dynamic cell-state")
 chk("baseline-driven" not in cl_text and "baseline-associated" not in cl_text, "V49-C6 no baseline-*")
 chk("Both authors" not in cl_text, "V49-C7 no Both authors")
-chk("ORCID (corresponding author): Li Zhang 0000-0002-0698-0754" in cl_text, "V49-C8 ORCID")
+chk("ORCID (corresponding author)" not in cl_text, "V49-C8 ORCID removed")
 chk("the first per-comparison, design-testable " in cl_text, "V49-C9 design-testable")
 chk("1,750 replicates per background, two backgrounds" in cl_text, "V49-C10 replicates")
 # editorial-change assertions
