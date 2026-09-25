@@ -11,7 +11,7 @@ import urllib.request
 
 CONCEPT = "10.5281/zenodo.20405458"
 TARGET = "v0.5.2"
-DEADLINE = time.time() + 55 * 60
+DEADLINE = time.time() + 90 * 60
 
 
 def fetch():
