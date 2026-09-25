@@ -40,6 +40,14 @@
   - 字节级 readback（octet-stream / browser_download_url）在本环境被代理 502 拦截（curl exit 35 TLS、urllib 挂起），与 Zenodo 代理同症，改以 **size 校验兜底**
   - Release body 已追加 cover-letter 编辑注记；commit fe00e73 已推送（ls-remote 一致）
 
+## 追加修订（2026-09-25 23:5x，签名单行 @8dc02e9）
+
+指令：*"coverletter签名留第一行就可以了"* → 落款再减一行，删除 `ORCID (corresponding author): Li Zhang 0000-0002-0698-0754`
+- 终态落款仅两行：`Sincerely,` + `Li Zhang (Corresponding Author)`（498 词）
+- 断言同步：`99_build_nc_v49.py` **V49-N97** 由 ORCID-in-cl 转**负向**（ORCID 已删，防回归）；`_cl_refresh.py` V49-C8 同步
+- 精准刷新：zip 12,894,480 B；cl 断言 20/20 PASS；LibreOffice 渲染仍 **1 页**
+- commit **8dc02e9** 推送（ls-remote 一致）；Release 资产三刷 588514653→**588730656**（12,894,480 B size MATCH，body 补注）
+
 ## 遗留可选项
 
 若用户接受 cover letter 破单页以换取更大行距，可改 1.08/1.1/1.15（均 2 页）。当前默认 1.05 单页。
