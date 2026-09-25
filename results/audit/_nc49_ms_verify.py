@@ -32,8 +32,8 @@ chk('Results Section 3.12 ref (v51 short form)',
     'relative-calibration advantage' in full and 'Section 3.12' in full)
 chk('Methods Section 3.12 ref (v51)',
     'per-class values in Section 3.12' in full)
-chk('Section 3.12 referenced 3x (v51 short form)',
-    full.count('Section 3.12') == 3,
+chk('Section 3.12 referenced 2x (proof: L37 dedup)',
+    full.count('Section 3.12') == 2,
     f'found {full.count("Section 3.12")}')
 chk('MWU deleted from main claims; permutation -> Section 3.13 (v51)',
     'label-permutation confirmed; Section 3.13' in full
@@ -58,7 +58,7 @@ chk('no unqualified "misreported least of seven"',
     'least of seven metrics' not in full and 'of the seven metrics except' not in full)
 
 # 4. Abstract (drift sentence, word count <= 200)
-abs_paras = [t for t in paras if 'Inspired by the Ka/Ks ratio' in t]
+abs_paras = [t for t in paras if 'Inspired by Ka/Ks' in t]
 chk('Abstract drift sentence present', len(abs_paras) == 1)
 if abs_paras:
     wc = len(abs_paras[0].split())
@@ -177,9 +177,9 @@ chk('Methods scripts extended (v51: SI)',
 
 # 7d. Abstract / Intro / Fig.5 sync
 chk('Abstract KRAS dual-component adjusted',
-    'both survived purity and smoking adjustment' in full)
+    'components survived purity and smoking adjustment' in full)
 chk('Abstract EGFR admixture',
-    'apparent EGFR-mutant association was explained by stromal/immune admixture' in full)
+    'apparent EGFR-mutant association reflected stromal/immune admixture' in full)
 chk('Intro EGFR dissolved (v51)',
     'the apparent EGFR association dissolves' in full)
 chk('Fig 5 legend NEW-3 fix',

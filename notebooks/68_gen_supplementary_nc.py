@@ -1195,7 +1195,7 @@ add_para(
     'participates; per-sample values are not archived as a separate file '
     'and are rebuilt from that pair table plus the cBioPortal mutation '
     'labels by notebooks/nc52_tcga_excc_main.py (Reproducibility Guide, '
-    'Section 5.10c). Group-level ratios carry sample-level cluster bootstrap '
+    'Section 5.13a). Group-level ratios carry sample-level cluster bootstrap '
     '95% CIs (B = 1,000; seed 42; tumor and normal samples resampled with '
     'replacement independently, each pair reweighted by the product of its '
     'endpoint resampling weights). LUAD driver groups (61 EGFR, 120 KRAS, '
@@ -1855,7 +1855,7 @@ add_para(
     'therefore recommend per-class split-half calibration whenever within-dataset class '
     'contrasts are the target, and treat omega_cal as dataset- and class-relative throughout. '
     'The calibrate_omega() function is available in the CKI package (cki.calibrate_omega). '
-    'Both raw and calibrated \u03c9 values are reported in all key results. (Supplementary Fig. 2.)'
+    'Both raw and calibrated \u03c9 values are reported in the calibration-relevant results. (Supplementary Fig. 2.)'
 )
 add_para(
     'Small-cluster correction (Supplementary Note 2). A Monte Carlo coverage study '
@@ -2200,7 +2200,7 @@ add_para(
     'drawn for KIRC. Cross-cohort GTEx\u2013adjacent pairs show k_n elevated '
     'to tumor levels in every organ (P \u2264 1.4 \u00d7 10\u207b\u00b2'
     '\u2076), a cohort-level technical effect; mechanistic claims therefore '
-    'rest on within-cohort orderings only. Pair-level P values in this GTEx comparison treat pairs as independent and are descriptive only.'
+    'rest on within-cohort orderings only. The cross-cohort shift (GTEx\u2013adjacent versus GTEx\u2013GTEx pair k_n, ratio \u2248 1.8\u20132.3\u00d7) bounds the resolution of the healthy\u2013adjacent comparison; the healthy \u2248 adjacent similarity should be read within that tolerance (tentative, GTEx cross-cohort discrepancy unresolved). Pair-level P values in this GTEx comparison treat pairs as independent and are descriptive only.'
 )
 
 add_para(
@@ -2646,7 +2646,7 @@ add_para(
     'single-cell expression. We asked whether its class-level prioritization '
     'of the brain atlas (condition = brain region) agrees with CKI\u2019s '
     'regional divergence ordering. Because the reference Python port '
-    'augurpy is not distributed for Python 3.13, we used pyaugur 0.1.0, a '
+    'augurpy is not distributed for Python 3.14, we used pyaugur 0.1.0, a '
     'pure-Python port of R Augur v1.0.3; the port\u2019s own validation '
     'benchmark (shipped with the pyaugur package) reports Spearman '
     '\u03c1 = 1.0 against the R reference implementation\u2014we note '

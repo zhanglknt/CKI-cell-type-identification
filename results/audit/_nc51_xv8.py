@@ -40,11 +40,11 @@ main_xh = main - sum(secs[k][1] for k in ('Introduction', 'Results', 'Discussion
 chk('MAIN (Intro+Results+Discussion) <= 5000 (NC, v52)', 0 < main <= 5000,
     f'{main} incl subheadings, {main_xh} excl {secs}')
 chk('Methods < 3000 (NC)', 0 < secs['Methods'][0] < 3000, f"{secs['Methods'][0]} words")
-abs_p = [p.text for p in doc.paragraphs if 'Inspired by the Ka/Ks ratio' in p.text]
+abs_p = [p.text for p in doc.paragraphs if 'Inspired by Ka/Ks' in p.text]
 chk('Abstract <= 200 words (NC)', len(abs_p) == 1 and len(abs_p[0].split()) <= 200,
     f'{len(abs_p[0].split()) if abs_p else 0} words')
 chk('Abstract carries no citation superscripts',
-    all(not r.font.superscript for p in doc.paragraphs if 'Inspired by the Ka/Ks ratio' in p.text
+    all(not r.font.superscript for p in doc.paragraphs if 'Inspired by Ka/Ks' in p.text
         for r in p.runs))
 
 H1 = 'CKI: a Ka/Ks-inspired index decomposing functional divergence from baseline variation in cell atlases'
@@ -99,7 +99,7 @@ for _p in paras[_ai + 1:_ri]:
     for _r in _p.runs:
         if _r.font.superscript:
             groups.append(_cite_expand(_r.text))
-chk('citation groups = 73', len(groups) == 73, f'got {len(groups)}')
+chk('citation groups = 72', len(groups) == 72, f'got {len(groups)}')
 _first, _seen = [], set()
 for g in groups:
     for n in g:
@@ -125,7 +125,7 @@ chk('MS Supplementary Methods 5.x pointers = 20 (v52: +5.5 entry-cluster)', ms.c
     f"got {ms.count('Supplementary Methods 5.')}")
 chk('MS cites Notes 1-16 span', 'Supplementary Notes 1\u201316' in ms)
 chk('MS cites Figs 1-14 span', 'Supplementary Figs. 1\u201314' in ms)
-chk('MS Section 3.12 pointers = 3 (v51 short form)', ms.count('Section 3.12') == 3)
+chk('MS Section 3.12 pointers = 2 (proof: L37 dedup)', ms.count('Section 3.12') == 2)
 chk('SI carries Supplementary Methods section', 'Supplementary Methods' in sn)
 _sm_heads = [f'5.{i} ' for i in range(1, 15)]
 _missing = [h for h in _sm_heads if not re.search(rf'^{re.escape(h)}', sn, re.M)]

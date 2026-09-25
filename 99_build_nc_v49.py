@@ -261,7 +261,7 @@ def main():
     print("\n--- scientific anchors (v48 subset) ---")
     anchors = [
         ("[7.37, 8.02]", "A2 calibration CI"),
-        ("3.7-fold regional gradient under span- and size-matched control (donor-level 95% CI [1.9, 3.8])", "A3 combined-control gradient (v54 abstract wording)"),
+        ("3.7-fold regional gradient (k_n-dominated) under span- and size-matched control (donor-level 95% CI [1.9, 3.8])", "A3 combined-control gradient (proof: k_n-dominated)"),
         ("0.442", "A4 Augur OvR vs omega"),
         ("0.564", "A5 Augur OvR vs k_f"),
         ("24,413", "A6 Kang cells"),
@@ -304,8 +304,8 @@ def main():
         check(pat in ms, f"V49-{name}")
     check("0.963" in sn, "V49-N1 Kang omega calibration median (v51: SI)")
     check("90.9" in sn, "V49-N6 brain T2 omega FPR (v51: SI)")
-    check(ms.count("Section 3.12") == 3,
-          "V49-N17 exactly 3 Section 3.12 pointers in MS (v51 short form)")
+    check(ms.count("Section 3.12") == 2,
+          "V49-N17 exactly 2 Section 3.12 pointers in MS (proof: L37 dedup)")
     # old exploratory phrasing must be gone
     for stale in ("TCGA; exploratory", "apparent tumor homogeneity", "TODO-nc49"):
         check(stale not in ms, f"V49-N18 stale gone: '{stale}'")
@@ -374,9 +374,9 @@ def main():
           "V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)")
     check('cross-type gaps should be read descriptively' in ms,
           "V49-N47 B3 Table 1 cross-type caveat (v51 wording)")
-    check('3.7-fold regional gradient under span- and size-matched control '
+    check('3.7-fold regional gradient (k_n-dominated) under span- and size-matched control '
           '(donor-level 95% CI [1.9, 3.8])' in ms,
-          "V49-N48 B4 Abstract leads with combined-control gradient (v52)")
+          "V49-N48 B4 Abstract leads with combined-control gradient (proof: k_n-dominated)")
     check('inheriting the four-donor structure' in ms,
           "V49-N49 B5 brain screen donor-confounding disclosure (v52 wording)")
     check('sample-source code (positions 14\u201315)' in sn
@@ -395,7 +395,7 @@ def main():
           and 'influence-function sandwich standard error' in ms
           and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in sn,
           "V49-N57 C6 studentized bootstrap-t pivot/SE described (v51 wording)")
-    check('attenuates the pooled k_n coefficient by only \u22120.9%' in ms
+    check('shifts the pooled k_n coefficient by only \u22120.9%' in ms
           and '\u22120.9% pooled, 95% CI \u22124.3% to +2.5%' in ms
           and 'attenuates by \u22120.5% pooled' not in ms
           and 'attenuates the pooled k_n coefficient by only \u22121.3%' not in ms
