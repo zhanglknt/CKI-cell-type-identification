@@ -103,17 +103,26 @@ try:
             and "nc57-residual build" in rel["body"])
 except Exception as e:
     chk("D3-D5 release API", False, repr(e))
-try:
-    req = urllib.request.Request("https://zenodo.org/api/records/22958249",
-                                 headers={"User-Agent": "Mozilla/5.0 cki-xv"})
-    zd = json.loads(urllib.request.urlopen(req, timeout=60).read())
+zd = None
+zen_err = None
+import time as _time
+for _a in range(5):
+    try:
+        req = urllib.request.Request("https://zenodo.org/api/records/22958249",
+                                     headers={"User-Agent": "Mozilla/5.0 cki-xv"})
+        zd = json.loads(urllib.request.urlopen(req, timeout=60).read())
+        break
+    except Exception as e:  # proxy 502 tunnel flakiness
+        zen_err = e
+        _time.sleep(5)
+if zd is not None:
     md = zd["metadata"]
     chk("D6 Zenodo 22958249 = v0.5.4 done", zd["doi"] == "10.5281/zenodo.22958249"
         and md["version"] == "v0.5.4" and zd["state"] == "done")
     chk("D7 Zenodo related -> tree v0.5.4",
         any("tree/v0.5.4" in (ri.get("identifier") or "") for ri in md.get("related_identifiers", [])))
-except Exception as e:
-    chk("D6-D7 zenodo API", False, repr(e))
+else:
+    chk("D6-D7 zenodo API", False, repr(zen_err))
 
 print("== E. data <-> manuscript recomputation ==")
 import pandas as pd
