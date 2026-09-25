@@ -37,7 +37,7 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 def add_para(text, doc, space_after=4, align=None, bold=False, size=None):
     """Add a paragraph with controlled spacing — no empty-paragraph spacers."""
     para = doc.add_paragraph()
-    para.paragraph_format.line_spacing = 1.0
+    para.paragraph_format.line_spacing = 1.05
     para.paragraph_format.space_after = Pt(space_after)
     para.paragraph_format.space_before = Pt(0)
     run = para.add_run(text)
@@ -157,7 +157,6 @@ def run():
     # ── Closing ──
     add_para("Sincerely,", doc, space_after=12)
     add_para("Li Zhang (Corresponding Author)", doc, space_after=0)
-    add_para("Xianming Wu (First Author)", doc, space_after=0)
     add_para("ORCID (corresponding author): Li Zhang 0000-0002-0698-0754", doc, space_after=0)
 
     # Save
