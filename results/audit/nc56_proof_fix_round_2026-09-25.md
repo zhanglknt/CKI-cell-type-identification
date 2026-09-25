@@ -49,3 +49,19 @@ R3-⑤ 摘要区间升序 vs Results 降序（升序惯例+Fig 4a ranked by effe
 - v0.5.3 发布链（版本面/tag/Release/Zenodo/DOI 写回）= #86，本轮不动版本号
 - 根目录 `nul` + `_tmp_nultest\nul`：用户手动删除项
 - MAIN 余量仅 1 词：proof 后任何新增强制性插入须先找对冲
+
+## 七、v0.5.3 发布链闭环（2026-09-25 17:0x GMT+8，#86 完成）
+
+| 环节 | 终态 |
+|---|---|
+| tag v0.5.3 | 00e3652（phase-1，13 处版本面 0.5.2→0.5.3） |
+| phase-2 commit | cbaea40（MS Code availability 写回 version DOI + A15 断言同步），push 后 ls-remote 核对一致 |
+| Zenodo | record **22954782**，version DOI **10.5281/zenodo.22954782**，state done，title=v0.5.3，related→GitHub tree v0.5.3，源码归档 1,566,413,599 B |
+| GitHub Release | id 396368672，资产 587716572→**587973498**（12,894,486 B，sha256 246f1bfa… readback MATCH），body 已补 version DOI |
+| 验证 | 重建 221/221（含 ms 127/si 121）；MS fulltext 新 DOI 在/旧 DOI 缺/措辞三项 True；XV8 63/63；spot_check ALL PASS；pytest 29 |
+
+### Zenodo 延迟根因与处置（教训）
+- 06:38 UTC 四事件：released 202 → released 409 → published **500** → edited 202；202 ≠ 建档，首个 released 的异步 deposit 静默失败，90+ 分钟无 record。
+- 处置：GitHub redeliver API（POST /repos/.../hooks/631553889/deliveries/3844679329269153792/attempts → 202）；重投递初返 409（处理中去重），约 10 分钟后 record 22954782 上线。
+- 监控口径：匿名 API /api/records?q=conceptdoi:10.5281/zenodo.20405458 直查版本列表，免 doi.org 重定向跟踪。
+- 1.5GB 源码归档（仓库含数据文件）是处理慢的客观因素；phase-2 期间首次 push 被会话中断吞掉，ls-remote 发现后重推——push 后必核对再次验证。
