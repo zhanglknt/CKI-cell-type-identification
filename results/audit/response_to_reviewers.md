@@ -125,11 +125,11 @@ Fig 14 图注 "validation value lies" → "sanity-check value lies"（沿留 pro
 **Dockerfile L6/L7（cki:0.5.0→0.5.2）已在 v0.5.2 版本面同步时顺手关闭（@fb782c9）。**
 
 ### v0.5.2 发布链（本轮决策 A 处置）
-tag v0.5.2 = fb782c9（phase-1：版本面 0.5.1→0.5.2 全同步 + 摘要 196/200）；Release v0.5.2 id 396170102，资产 id 587110399（12,894,059 B，readback sha256 MATCH）；Zenodo webhook 202 Accepted（record 生成后 phase-2 写回 version DOI 并恢复 A15 断言）。MS Code availability 当前为 concept-DOI-only 过渡口径（concept DOI 10.5281/zenodo.20405458 恒解析至最新版），无错误陈述。
+tag v0.5.2 = fb782c9（phase-1：版本面 0.5.1→0.5.2 全同步 + 摘要 196/200）；Release v0.5.2 id 396170102；Zenodo webhook 202 Accepted → version record **22949350**（v0.5.2，2026-09-25）上线。**phase-2 已闭环**：MS Code availability 写回 "concept DOI: 10.5281/zenodo.20405458; version DOI for v0.5.2: 10.5281/zenodo.22949350"（镜像 v0.5.1 句式），A15 断言恢复新 version DOI；重建 221/221 + ms 127/127 + si 121/121；zip 重建后 Release 资产替换（新 id 587262273，12,894,040 B，readback sha256 1271fc40… MATCH，Release body 补 version DOI）。
 
 ---
 
-## 附：验证矩阵（@fb782c9，phase-1）
+## 附：验证矩阵（phase-2 终态）
 
 | 项 | 结果 |
 |---|---|
@@ -138,7 +138,8 @@ tag v0.5.2 = fb782c9（phase-1：版本面 0.5.1→0.5.2 全同步 + 摘要 196/
 | XV8 | 63/63（MAIN 4,999/5,000；摘要 196/200；Methods 2,918；图注 max 302） |
 | pytest tests/ | 29 passed |
 | spot_check | ALL PASS |
-| git | 远端 main = tag v0.5.2 = fb782c9（ls-remote 核对） |
-| Release 资产 | 587110399，readback sha256 5b84f2f1… MATCH |
+| git | tag v0.5.2 = fb782c9；远端 main 已含 phase-2 提交（ls-remote 核对） |
+| Zenodo | record 22949350（v0.5.2），version DOI 10.5281/zenodo.22949350 |
+| Release 资产 | 587262273（phase-2 重建，手稿含 version DOI），readback sha256 1271fc40… MATCH |
 
 沿留 proof 清单（各审已确认接受）：R2-B1/B2、R3-m3/m4、R4①+Fig 14 措辞、R5 五条、R6 外观项四条。摘要余量 4 词已备（196/200）。

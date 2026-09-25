@@ -37,10 +37,10 @@
 |---|---|
 | 版本面 | pyproject/__init__/MS/SI/Guide/Dockerfile 全 0.5.2（Dockerfile L6/L7 镜像标签同步，R6 外观项顺手关闭） |
 | tag | v0.5.2 = fb782c9（注解提交），ls-remote 核对一致 |
-| GitHub Release | id **396170102**，资产 id **587110399**（12,894,059 B），readback sha256 **5b84f2f1… MATCH** |
-| Zenodo | webhook 202 Accepted（00:01:50Z）；version record 排队中（v0.5.1 当时 ~41 min；本次已超，轮询继续，90 min 窗口） |
-| phase-2 | record 生成后：MS Code availability 写回 version DOI + A15 断言恢复 → 重建 → 提交推送 → 本报告补终态 |
+| GitHub Release | id **396170102**；phase-1 资产 587110399 已替换 → phase-2 资产 id **587262273**（12,894,040 B，手稿含 version DOI），readback sha256 **1271fc40… MATCH**；Release body 已补 version DOI |
+| Zenodo | webhook 202 Accepted（00:01:50Z）；version record **22949350**（v0.5.2，2026-09-25）已上线，version DOI **10.5281/zenodo.22949350**（轮询 34m41s 于第 18 轮捕获，期间 8 次 502 重试） |
+| phase-2 | **已闭环**：MS Code availability 写回 version DOI（镜像 v0.5.1 句式 "concept DOI…; version DOI for v0.5.2: 10.5281/zenodo.22949350"）+ A15 断言恢复新 DOI → 重建 **221/221 + ms 127/127 + si 121/121** → zip 重建（手稿新旧 DOI 在/缺核验）→ Release 资产替换 readback MATCH → 提交推送 → 本报告补终态 |
 
 ## 五、结论
 
-nc54 全部七项修复 + 摘要减重 + 版本面切换经独立复算**零失配**；交叉验证发现的问题全部判定为验证脚本自身 bug（肾癌例外适用范围、错列、行提取方式），稿面与数据零缺陷。唯一开口：Zenodo v0.5.2 version record（外部队列，不阻塞稿面正确性——MS 当前 concept-DOI-only 口径恒真）。
+nc54 全部七项修复 + 摘要减重 + 版本面切换经独立复算**零失配**；交叉验证发现的问题全部判定为验证脚本自身 bug（肾癌例外适用范围、错列、行提取方式），稿面与数据零缺陷。v0.5.2 发布链四件套（tag / Release 资产 / Zenodo record / DOI 写回 + A15）已全部闭环，零开口。
