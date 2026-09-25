@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cki"
-version = "0.5.3"
+version = "0.5.4"
 description = "Cell-type Ka/Ks-inspired Index: a framework for quantifying baseline-normalized transcriptomic remodeling"
 readme = "README.md"
 license = {text = "MIT"}
