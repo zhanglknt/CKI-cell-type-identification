@@ -34,7 +34,11 @@
 ## 版本与发布决策
 
 - **不切 v0.5.5**：本改为投稿信编辑性改动，非 CKI 包/代码版本；MS/SI/Guide 未动，包版本 v0.5.4 不变
-- **Release 资产刷新**：投稿包 zip 已变，需将新根 zip 重新上传至 GitHub Release 396502805（替换资产 588422612），readback 比对 sha256 后汇报（待执行）
+- **Release 资产刷新（已执行）**：新根 zip 重新上传至 GitHub Release 396502805
+  - 旧资产 588422612 删除 → 新资产 id **588514653**，size **12,894,515 B**
+  - 资产元数据 size 与本地 zip 完全一致（上传为直传本地字节）→ 内容一致强证据
+  - 字节级 readback（octet-stream / browser_download_url）在本环境被代理 502 拦截（curl exit 35 TLS、urllib 挂起），与 Zenodo 代理同症，改以 **size 校验兜底**
+  - Release body 已追加 cover-letter 编辑注记；commit fe00e73 已推送（ls-remote 一致）
 
 ## 遗留可选项
 
