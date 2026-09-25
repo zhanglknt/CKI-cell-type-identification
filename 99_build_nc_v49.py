@@ -272,7 +272,7 @@ def main():
         ("6.10-fold", "A11 regional gradient"),
         ("absorbs ratio bias", "A13 ratio bias (v51 wording)"),
         ("7.70", "A14 omega baseline"),
-        ("10.5281/zenodo.22954782", "A15 Zenodo v0.5.3 DOI"),
+        ("10.5281/zenodo.22958249", "A15 Zenodo v0.5.4 DOI"),
         ("GSE96583", "A16 Kang GEO"),
         ("GSE109774", "A17 TCGA/brain GEO in Data availability"),
     ]
