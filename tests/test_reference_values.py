@@ -90,14 +90,22 @@ def test_mouse_calibration_categories():
     }
 
 
-def test_tcga_nn_tt_medians():
-    """Median NN/TT omega ratios 1.23-2.32 across the five cancer types."""
+def test_tcga_nn_tt_ratios_excc():
+    """Mean NN/TT omega ratios (ex-CC linear caliber) match the manuscript
+    headline 1.11-2.46 (MS Results / abstract; same source as spot_check
+    Section 1). Replaces the retired median-caliber assertion."""
     import pandas as pd
 
-    df = pd.read_csv(_find("phase34_v2_summary.csv"))
-    ratios = df["omega_NN_median"] / df["omega_TT_median"]
-    assert ratios.min() == pytest.approx(1.233, abs=0.005)
-    assert ratios.max() == pytest.approx(2.319, abs=0.005)
+    df = pd.read_csv(_find("nc52_tcga_pancancer_excc.csv")).set_index("cancer")
+    expected = {
+        "TCGA-LUAD": 2.464,
+        "TCGA-LUSC": 1.708,
+        "TCGA-LIHC": 1.112,
+        "TCGA-KIRC": 1.880,
+        "TCGA-BRCA": 1.567,
+    }
+    for cancer, ratio in expected.items():
+        assert df.loc[cancer, "NN_TT_ratio"] == pytest.approx(ratio, abs=0.005)
 
 
 def test_kang_ifnb_demo_auc():

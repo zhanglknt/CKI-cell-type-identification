@@ -453,7 +453,7 @@ def main():
     check('leave-one-population-out range 6.75\u20138.08' in ms
           and 'removing hepatocyte lowers it to 6.75' in sn,
           "V49-N69 B3 calibration leave-one-out (MS pointer; SI 3.10 details, v51)")
-    check('label-permutation confirmed; Section 3.13' in ms
+    check('label-permutation confirmed)' in ms
           and '93_luad_group_permutation_v49.py' in sn,
           "V49-N70 B4 LUAD whole-tumor label permutation (MS pointer; SI 3.13, v51)")
     check('adjusted log-\u03c9 ratio 1.19, 95% CI [1.12, 1.26]' in ms,

@@ -2200,7 +2200,7 @@ add_para(
     'drawn for KIRC. Cross-cohort GTEx\u2013adjacent pairs show k_n elevated '
     'to tumor levels in every organ (P \u2264 1.4 \u00d7 10\u207b\u00b2'
     '\u2076), a cohort-level technical effect; mechanistic claims therefore '
-    'rest on within-cohort orderings only. The cross-cohort shift (GTEx\u2013adjacent versus GTEx\u2013GTEx pair k_n, ratio \u2248 1.8\u20132.3\u00d7) bounds the resolution of the healthy\u2013adjacent comparison; the healthy \u2248 adjacent similarity should be read within that tolerance (tentative, GTEx cross-cohort discrepancy unresolved). Pair-level P values in this GTEx comparison treat pairs as independent and are descriptive only.'
+    'rest on within-cohort orderings only. The cross-cohort shift (GTEx\u2013adjacent versus GTEx\u2013GTEx pair k_n, ratio \u2248 1.8\u20132.3\u00d7 in lung, liver, and breast; kidney 1.6\u00d7) bounds the resolution of the healthy\u2013adjacent comparison; the healthy \u2248 adjacent similarity should be read within that tolerance (tentative, GTEx cross-cohort discrepancy unresolved). Pair-level P values in this GTEx comparison treat pairs as independent and are descriptive only.'
 )
 
 add_para(
@@ -2743,7 +2743,7 @@ add_para(
     'is only partially elevated (AUC = 0.89)\u2014the decomposition-first '
     'reading argued throughout the manuscript. Standard metrics also separated '
     'the classes (raw JS, cosine, and marker Jaccard AUC = 1.00; Spearman '
-    '0.90), as expected for two genuinely distinct cell types; the validation '
+    '0.90), as expected for two genuinely distinct cell types; the sanity-check '
     'value lies in \u03c9 tracking the functional contrast far above its own '
     'neutral baseline on an independent dataset. Note that this analysis uses '
     'the global-HVG scheme, not the per-pair top-200 hybrid scheme, so absolute '
