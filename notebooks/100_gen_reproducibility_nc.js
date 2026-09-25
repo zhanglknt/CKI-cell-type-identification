@@ -184,7 +184,7 @@ const doc = new Document({
       p("Document-build dependencies (python-docx 1.2.0, python-pptx, lxml, reportlab, and related packages) are NOT required for any analysis; they are listed separately under 'Document generation' in requirements.txt and are needed only to rebuild the manuscript, supplementary notes, and this guide."),
 
       heading("1.2 CKI Package", 3),
-      p("Version: 0.5.2 (editable install from project root)"),
+      p("Version: 0.5.3 (editable install from project root)"),
       p("Repository: https://github.com/zhanglknt/CKI-cell-type-identification"),
       p("Install (editable, recommended):"),
       code("cd <project_root>"),
@@ -762,7 +762,7 @@ const doc = new Document({
       // ========================================================
       heading("6. Output Files", 2),
       p("All results are written to results/. Ten pre-fix output files whose values contradict the manuscript are consolidated under results/superseded/ (v42 P0-6, three-reviewer consensus); they are retained for provenance and ship with the release tag, but must not be used as numerical sources - each entry below marks the authoritative replacement."),
-      p("Repository tracking policy: only the curated verification subset of results/ cited in this guide is tracked in git (whitelist in .gitignore); the tracked subset covers every input read by scripts/spot_check.py and tests/test_reference_values.py. Additional reference outputs are mirrored byte-identically under archive/CKI_Reproducibility_Package/reference_results/ (CKI_Reproducibility_Package/reference_results/ in tag v0.5.2). Files neither tracked nor mirrored are regenerated with the scripts listed in Section 5."),
+      p("Repository tracking policy: only the curated verification subset of results/ cited in this guide is tracked in git (whitelist in .gitignore); the tracked subset covers every input read by scripts/spot_check.py and tests/test_reference_values.py. Additional reference outputs are mirrored byte-identically under archive/CKI_Reproducibility_Package/reference_results/ (CKI_Reproducibility_Package/reference_results/ in tag v0.5.3). Files neither tracked nor mirrored are regenerated with the scripts listed in Section 5."),
       p(""),
       p("    Mouse (02b_pilot_v2.py, authoritative pilot and calibration output; the v2b re-validation 02c_pilot_v2b.py writes the parallel *v2b_* files):"),
       code("      results/mouse_pilot_v2_results.csv        # omega per pair (authoritative; feeds the legacy 6.67 baseline, superseded by results/mouse_splithalf_v44.csv, 7.70)"),
@@ -887,7 +887,7 @@ const doc = new Document({
       code("      results/nc50_brain_atlas_microglia.txt             # summary statistics (means, Mann-Whitney P, AUC) (Section 5.12a)"),
       p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Fig. 3), notebooks/nc49_fig_tcga.py (Fig. 4), notebooks/nc50_fig_microglia.py (Supplementary Fig. 14)"),
       heading("7. Reproducibility Checklist", 2),
-      p("[\u2713] Install CKI v0.5.2: pip install -e ."),
+      p("[\u2713] Install CKI v0.5.3: pip install -e ."),
       p("[\u2713] Verify Python 3.14.4 environment (Section 1.1)."),
       p("[\u2713] Verify random seed = 42 in all analysis scripts (fixed exceptions: notebooks 77/78/79 use seed 20260903; notebook 89 uses seed 20260905)."),
       p("[\u2713] Verify HK gene source: HRT Atlas v1.0 reference (cki/data/hrt_atlas.csv, shipped; analysis scripts read the byte-identical downloaded copy data/housekeeping/Human_Mouse_Common.csv), loaded directly for all datasets."),
