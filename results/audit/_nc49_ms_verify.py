@@ -310,7 +310,7 @@ for _p in doc.paragraphs[_abs_i + 1:_ref_i]:
     for _r in _p.runs:
         if _r.font.superscript:
             _sup_groups.append(_cite_expand(_r.text))
-chk('superscript citation group count == 73 (v50)', len(_sup_groups) == 73,
+chk('superscript citation group count == 72 (nc55 F1: dangling [19] removed)', len(_sup_groups) == 72,
     f'found {len(_sup_groups)}')
 _first, _seen = [], set()
 for _g in _sup_groups:

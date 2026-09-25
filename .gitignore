@@ -28,7 +28,7 @@ _build/
 data/FACS.zip
 data/FACS/
 data/brain/
-data/tcga/
+data/tcga/*
 data/gtex/
 data/ts_human/
 data/housekeeping/
@@ -280,3 +280,13 @@ notebooks/fix_*.py
 !notebooks/69_generate_graphical_abstract_nar.py
 !notebooks/100_gen_reproducibility_docx.js
 !results/mouse_pilot_v2_results.csv
+
+# Whitelist: nc55 reproducibility fixes (spot_check/guide inputs + MS-cited mirror)
+!results/brain_setlevel_tests.csv
+!results/reviewer_brain_splithalf_summary.txt
+!results/reviewer_ts_splithalf_summary.txt
+!results/phase33_v3_human_pairs.csv
+!results/kang_ifnb_demo_summary.json
+!results/mouse_splithalf_v44.csv
+!results/mouse_splithalf_v44_summary.json
+!data/tcga/hallmark_2020.gmt

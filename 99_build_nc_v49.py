@@ -352,9 +352,9 @@ def main():
           "V49-N38 Scope design argument present (HK anchor cell-type-specific, v52 wording)")
     # ---- v49.10 review-panel fixes (A/B classes) ----
     check('Supplementary Tables 1\u201319' in ms
-          and ms.count('Supplementary Tables 1\u20134') == 1
-          and 'Supplementary Tables 1\u20134 are cited in the main text' in ms,
-          "V49-N39 A1 MS availability lists 19 supplementary tables (v49.14: 1-4 pointer sentence)")
+          and 'All Supplementary Tables (1\u201319) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
+          and 'Supplementary Tables 1\u20134 are cited' not in ms,
+          "V49-N39 A1 MS availability lists 19 supplementary tables (nc55: single-xlsx pointer)")
     check('Microglial candidates (16 of 39)' in ms,
           "V49-N40 A5 brain candidate concentration (v51 wording)")
     check('median TT/NN k_n ratio 2.18, 2.53, 2.18, 3.70, and 2.79' in sn,
@@ -515,9 +515,12 @@ def main():
     check('functional change rather than neutral drift' in ms
           and 'functional adaptation rather than neutral drift' not in ms,
           "V49-N84 B13 Introduction adaptation wording")
-    # B6: Supp Tables pointer
-    check('Supplementary Tables 5\u201319 provide the per-analysis numerical tables' in ms,
-          "V49-N85 B6 Supp Tables 5-19 pointer in Data availability")
+    # B6: Supp Tables pointer (nc55 F2: single-xlsx pointer per R5; the cited-in-main-text
+    # tables 5 and 14 must still be cited in the main text itself)
+    check('All Supplementary Tables (1\u201319) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
+          and 'Supplementary Tables 5\u201319 provide the per-analysis numerical tables' not in ms
+          and 'Supplementary Table 5)' in ms and 'Supplementary Table 14)' in ms,
+          "V49-N85 B6 Supp Tables pointer in Data availability (nc55: single-xlsx)")
     # C1: composition B=1000 unified (MS Methods + SI Note 8 + Guide 5.8b)
     check('B = 1,000 composition cluster bootstrap' in ms
           and 'B = 1,000 for the composition cluster bootstrap' in sn

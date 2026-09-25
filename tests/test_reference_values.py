@@ -4,7 +4,7 @@ Guards against silent regressions in the key numbers quoted by the paper
 (brain class-level statistics, set-level enrichment, internal baselines,
 TCGA ratios, mouse calibration). The authoritative files live under
 ``results/`` (repo root) and are mirrored byte-identically in
-``CKI_Reproducibility_Package/reference_results/``; either location
+``archive/CKI_Reproducibility_Package/reference_results/``; either location
 satisfies these tests. Skipped automatically when no results directory
 is present (e.g. a fresh clone before running the pipeline).
 """
@@ -18,7 +18,7 @@ import pytest
 RESULTS = Path(__file__).resolve().parent.parent / "results"
 MIRROR = (
     Path(__file__).resolve().parent.parent
-    / "CKI_Reproducibility_Package" / "reference_results"
+    / "archive" / "CKI_Reproducibility_Package" / "reference_results"
 )
 
 

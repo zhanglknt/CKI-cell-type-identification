@@ -113,7 +113,7 @@ new_strings = [
     "(v0.5.2) is publicly available",
     "tag v0.5.2",
     "package v0.5.2",
-    "10.5281/zenodo.20405458, which always resolves to the latest version",
+    "concept DOI: 10.5281/zenodo.20405458; version DOI for v0.5.2: 10.5281/zenodo.22949350",
     "best bounded-power discrimination",
     "under span- and size-matched control",
     "CKI is available as an open-source Python package",

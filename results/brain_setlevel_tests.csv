@@ -1,0 +1,8 @@
+test_id,description,effect,p_value
+S1_global_enrichment,Strong-tier pairs with raw p<0.05: 31/39 (79.5%) vs overall 1960/31764 (6.2%); hypergeometric enrichment,0.7948717948717948,9.570361187575286e-31
+S2_dose_response_CA,Raw p<0.05 rate by tier: Unclassified 603/25173 (2.4%); Weak 909/5381 (16.9%); Moderate 417/1171 (35.6%); Strong 31/39 (79.5%); Cochran-Armitage trend z=61.02,61.0238272322516,0.0
+S2_strong_vs_rest_MWU,Strong raw p_perm stochastically smaller than rest; MWU U=44292,44292.0,5.299587183993492e-24
+S2_strong_vs_rest_KS,KS two-sample on raw p_perm; D=0.846,0.8461005031217796,4.8855013206298457e-32
+S3_OL_thalamic_endpoint,Mature-OL Strong candidates with thalamic-relay endpoint: 6/10 (60%) vs base rate 1122/5778 (19.4%); hypergeometric enrichment,0.6,0.005422181224756749
+S3_OL_TF_endpoint,Mature-OL Strong candidates with temporal-fusiform (TF) endpoint: 4/10 (40%) vs base rate 107/5778 (1.9%); hypergeometric enrichment,0.4,2.1431948518342803e-05
+S3_OL_thalamotemporal,Mature-OL Strong candidates with thalamo-temporal axis endpoint (thalamic relay ∪ STH ∪ TF): 9/10 (90%) vs base rate 1313/5778 (22.7%); hypergeometric enrichment,0.9,1.2600314092140653e-05

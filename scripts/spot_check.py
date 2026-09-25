@@ -30,27 +30,22 @@ def check(name, actual, expected, tol=0.0):
 
 
 # ============================================================
-# 1. TCGA median NN/TT omega ratios (phase34_v2 pipeline)
-#    Manuscript: 1.23-2.32 across the five cancer types
+# 1. TCGA mean NN/TT omega ratios (ex-CC linear caliber)
+#    Manuscript: 1.11-2.46 across the five cancer types
 # ============================================================
-print("\n--- 1. TCGA NN/TT median ratios ---")
-df = pd.read_csv(RESULTS / "phase34_v2_summary.csv")
-expected_nn_tt = {"LUAD": 2.319, "LUSC": 1.769, "LIHC": 1.233, "KIRC": 2.192, "BRCA": 1.509}
-for _, r in df.iterrows():
-    name = r["Project"].replace("TCGA-", "")
-    actual = r["omega_NN_median"] / r["omega_TT_median"]
-    check(name, round(actual, 3), expected_nn_tt[name], tol=0.005)
+print("\n--- 1. TCGA NN/TT mean ratios (ex-CC) ---")
+df = pd.read_csv(RESULTS / "nc52_tcga_pancancer_excc.csv").set_index("cancer")
+expected_nn_tt = {"LUAD": 2.464, "LUSC": 1.708, "LIHC": 1.112, "KIRC": 1.880, "BRCA": 1.567}
+for cancer, exp in expected_nn_tt.items():
+    check(cancer, round(df.loc[f"TCGA-{cancer}", "NN_TT_ratio"], 3), exp, tol=0.005)
 
 # ============================================================
-# 2. TCGA k_n reversal: TT/NN median k_n ratios 2.18-3.70x
-#    (tcga_composition_check.txt, C1 rows)
+# 2. TCGA k_n reversal: TT/NN median k_n ratios 2.06-3.61x
+#    (nc52_tcga_pancancer_excc.csv, same source as Section 1)
 # ============================================================
 print("\n--- 2. TCGA TT/NN median k_n ratios ---")
-txt = (RESULTS / "tcga_composition_check.txt").read_text()
-ratios = {m.group(1): float(m.group(2)) for m in re.finditer(
-    r"C1_kn_reversal_TCGA-(\w+)\].*ratio\(TT/NN\)=([\d.]+)x", txt)}
-for cancer, exp in {"LUAD": 2.61, "LUSC": 2.53, "LIHC": 2.18, "KIRC": 3.70, "BRCA": 2.79}.items():
-    check(cancer, ratios[cancer], exp, tol=0.01)
+for cancer, exp in {"LUAD": 2.60, "LUSC": 2.53, "LIHC": 2.06, "KIRC": 3.61, "BRCA": 2.78}.items():
+    check(cancer, round(df.loc[f"TCGA-{cancer}", "kn_TT_NN_median_ratio"], 2), exp, tol=0.01)
 
 # ============================================================
 # 3. Mouse pilot category means (calibration basis)
@@ -90,7 +85,8 @@ m = re.search(r"Strong\s+n=\s*(\d+).*p<0\.05:\s*(\d+)", summary)
 check("Strong tier n", int(m.group(1)), 39)
 check("Strong raw p<0.05", int(m.group(2)), 31)
 check("total pairs", int(re.search(r"Total pairs = (\d+)", summary).group(1)), 31764)
-check("min q (first Strong row)", 0.5202, 0.5202)
+min_q = pd.read_csv(RESULTS / "brain_bs_null_results.csv")["q_fdr"].min()
+check("min q_fdr (brain null)", round(min_q, 4), 0.5202, tol=0.0005)
 
 # ============================================================
 # 6. Brain set-level tests (brain_setlevel_tests.csv)
