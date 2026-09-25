@@ -43,7 +43,7 @@ chk('no stale Section 3.20/3.21 refs',
 
 # 3. P0-1 qualification of misreporting claims
 chk('T1 qualified (continuous metrics, v51)',
-    'misreported least among the continuous divergence metrics' in full)
+    'misreported least among continuous divergence metrics' in full)
 chk('marker Jaccard T1 19.9% admitted (v51: MS legend + SI)',
     'marker Jaccard is lower still on the false-positive statistic (T1 19.9%' in full and 'T1 FPR 19.9%' in sfull)
 chk('Jaccard weakest on genuine divergence admitted (v51)',
