@@ -60,9 +60,9 @@ chk('Guide mean-ratio caliber',
     'mean(omega_NN) / mean(omega_TT)' in gdfull and 'Fig. 4a' in gdfull)
 chk('Guide no median NN/TT caliber',
     'median(omega_NN) / median(omega_TT)' not in gdfull)
-chk('Guide SF12 -> SF11 (2 places)',
-    'Supplementary Fig. 12' not in gdfull
-    and gdfull.count('Supplementary Fig. 11') >= 1)
+chk('Guide cross-species pointer = SF12 (v58: 11->12, 2 places)',
+    gdfull.count('Supplementary Fig. 12') == 2
+    and 'Supplementary Fig. 11' not in gdfull)
 chk('Guide SF10 -> SF3', '(Supplementary Fig. 3)' in gdfull
     and '80_kang_demo_figure.py (Supplementary Fig. 10)' not in gdfull)
 chk('Guide 5.10 v49 Analyses', '5.10 v49 Analyses' in gdfull)

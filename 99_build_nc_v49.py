@@ -38,7 +38,7 @@ NODE_ENV = dict(os.environ, NODE_PATH=r"C:\Users\KnightZ\.workbuddy\binaries\nod
 # already backed up under _tmp_archive/v49_build_zip_backup by the first run.
 NO_ARCHIVE = os.environ.get("CKI_BUILD_NO_ARCHIVE") == "1"
 
-STAGE = BASE / "results" / "figures_v47_author"
+STAGE = BASE / "results" / "figures_v58_author"
 FIGS_NC = BASE / "results" / "figures_submission_nc"
 FF = BASE / "results" / "figures_final"
 WORK_DIR = BASE / "version3" / "CKI_Submission_v50_NC"
@@ -102,24 +102,28 @@ def main():
     #       correlation heatmap + E change-detection ROC (ground-truth
     #       simulation, omega AUC-first scenario; v49.7 native regen);
     #   3 = drift ladder; 4 = TCGA map; 5 = cross-organ; 6 = brain
-    run([PY, str(BASE / "notebooks" / "_regen_fig2_toprow_nc49.py")],
-        "Regen Fig2 top row (NC v49.6)")
-    run([PY, str(BASE / "notebooks" / "_regen_fig2_bottomrow_v497.py")],
-        "Regen Fig2 bottom row (NC v49.7)")
-    run([PY, str(BASE / "notebooks" / "_merge_fig2_v497.py")],
-        "Merge Fig2 (NC v49.7)")
+    # v58 (first-author v5 round): all main figures ship the first-author
+    # redrawn versions staged in results/figures_v58_author (figure4 carries
+    # mechanically added C/D panel labels). The fig2 regen scripts are no
+    # longer run here because their output would overwrite the v5 artwork.
     shutil.copy2(STAGE / "figure1.pdf", FIGS_NC / "figure1.pdf")
-    shutil.copy2(FF / "figure2_merged_nc49.pdf", FIGS_NC / "figure2.pdf")
-    shutil.copy2(FF / "nc49_fig_drift_ladder.pdf", FIGS_NC / "figure3.pdf")
-    shutil.copy2(FF / "nc49_fig_tcga.pdf", FIGS_NC / "figure4.pdf")
+    shutil.copy2(STAGE / "figure2.pdf", FIGS_NC / "figure2.pdf")
+    shutil.copy2(STAGE / "figure3.pdf", FIGS_NC / "figure3.pdf")
+    shutil.copy2(STAGE / "figure4.pdf", FIGS_NC / "figure4.pdf")
     shutil.copy2(STAGE / "figure5.pdf", FIGS_NC / "figure5.pdf")
     shutil.copy2(STAGE / "figure6.pdf", FIGS_NC / "figure6.pdf")
-    for i in range(1, 14):
+    # v58 supplementary figures: fully monotone renumbering by MS first-
+    # citation order (microglia UMAP panel added -> new SF3; former SF3 ->
+    # SF14). STAGE files already carry the NEW numbers; SF3 is regenerated
+    # below by nc50_fig_microglia.py, so skip it in the copy loop.
+    for i in range(1, 15):
+        if i == 3:
+            continue
         shutil.copy2(STAGE / f"figure_S{i}.pdf", FIGS_NC / f"Supplementary_Fig_{i}.pdf")
     run([PY, str(BASE / "notebooks" / "nc50_fig_microglia.py")],
-        "Regen Supplementary Fig 14 (NC v50 microglia)")
-    shutil.copy2(BASE / "results" / "Supplementary_Fig_14.pdf",
-                 FIGS_NC / "Supplementary_Fig_14.pdf")
+        "Regen Supplementary Fig 3 (v58 microglia UMAP + omega + AUC)")
+    shutil.copy2(BASE / "results" / "Supplementary_Fig_3.pdf",
+                 FIGS_NC / "Supplementary_Fig_3.pdf")
     shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
                  FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
@@ -261,7 +265,7 @@ def main():
     print("\n--- scientific anchors (v48 subset) ---")
     anchors = [
         ("[7.37, 8.02]", "A2 calibration CI"),
-        ("3.7-fold regional gradient (k_n-dominated) under span- and size-matched control (donor-level 95% CI [1.9, 3.8])", "A3 combined-control gradient (proof: k_n-dominated)"),
+        ("combined span- and size-matched control yields 3.66 (donor-level bootstrap [1.92, 3.78]", "A3 combined-control gradient (proof: k_n-dominated; v58 wording)"),
         ("0.442", "A4 Augur OvR vs omega"),
         ("0.564", "A5 Augur OvR vs k_f"),
         ("24,413", "A6 Kang cells"),
@@ -343,7 +347,7 @@ def main():
     check('cell-type classification performance' not in ms and '0.680' not in ms
           and 'ranked 5th of 5 methods' not in ms,
           "V49-N36 classification benchmark cut from MS")
-    check('(Fig. 5; Table 1; Supplementary Fig. 5)' in ms and '(n \u2265 5 pairs; Table 1)' in ms
+    check('(Fig. 5; Table 1; Supplementary Fig. 6)' in ms and '(n \u2265 5 pairs; Table 1)' in ms
           and not re.search(r'(?<!Supplementary )Table 2', ms),
           "V49-N37 main Table 2 renumbered to Table 1")
     check('not cell-type identity' in ms
@@ -374,9 +378,9 @@ def main():
           "V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)")
     check('cross-type gaps should be read descriptively' in ms,
           "V49-N47 B3 Table 1 cross-type caveat (v51 wording)")
-    check('3.7-fold regional gradient (k_n-dominated) under span- and size-matched control '
-          '(donor-level 95% CI [1.9, 3.8])' in ms,
-          "V49-N48 B4 Abstract leads with combined-control gradient (proof: k_n-dominated)")
+    check('quantified a regional differentiation gradient and provided a statistically '
+          'calibrated framework' in ms,
+          "V49-N48 B4 Abstract states brain gradient + calibrated framework (v58 wording)")
     check('inheriting the four-donor structure' in ms,
           "V49-N49 B5 brain screen donor-confounding disclosure (v52 wording)")
     check('sample-source code (positions 14\u201315)' in sn
@@ -384,8 +388,8 @@ def main():
           "V49-N50 B7 CC provenance disclosure (32 LUSC->LIHC; v51: SI)")
     check('2.5th and 97.5th percentiles of the resampled ratios' in sn,
           "V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile; v51: SI)")
-    check('Supplementary Fig. 7)' in gd and 'Supplementary Fig. 8)' not in gd,
-          "V49-N52 A4 Guide estimator-comparison pointer = Fig. 7")
+    check('Supplementary Fig. 8)' in gd and 'Supplementary Fig. 7)' not in gd,
+          "V49-N52 A4 Guide estimator-comparison pointer = Fig. 8 (v58: 7->8)")
     # ---- v49.12 review-panel leftovers (N1-N5, C2-C7) ----
     check('seed 20260905' in sn and '89_cluster_boot_v45.py' in sn,
           "V49-N56 N1 seed 20260905 declared (v51: SI)")

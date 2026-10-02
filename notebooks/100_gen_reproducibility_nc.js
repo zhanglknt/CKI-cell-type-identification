@@ -297,7 +297,7 @@ const doc = new Document({
       p("Identity (functional) genes are defined as:"),
       p("Default (CKI): top-2,000 highly variable genes (HVGs; Scanpy seurat flavor), with HK genes explicitly excluded to maintain k_n/k_f independence (adapted to min(2000, 0.8 * n_total_genes))."),
       p("Hybrid mode: per-pair k_n computed on the shared HK gene set (a single HK reference applied to all pairs, keeping k_n on a consistent scale across the atlas); per-pair k_f uses the top-200 differentially expressed genes (ranked by |mean_diff| between the two groups), excluding HK genes."),
-      p("The default mode (global HVG 2,000) is used only for the Tabula Muris full pairwise matrix (03_full_matrix.py, 703 pairs, Fig. 2 heatmap). The hybrid mode (per-pair k_n with per-pair top-200 DE k_f) is used for all other reported analyses: Tabula Muris pilot analyses (calibration controls + validation, 02b_pilot_v2.py), Tabula Sapiens (human), TCGA, and the Siletti brain atlas. In every dataset, k_n is computed per pair on the shared HK gene set: a sensitivity analysis contrasting this per-pair estimator with a global-k_n variant (k_n computed once from the full gene-by-cell-type pseudobulk matrix) showed that brain k_n exhibits substantial cross-pair variability (CV = 97.52%) that is poorly captured by a global mean, and that the two estimators yield substantially different omega rankings (Spearman rho = 0.142; Supplementary Fig. 7). The parameter sweep (Supplementary Fig. 1) confirmed that the identity-only configuration (w1 = 1.0, w2 = 0.0) achieves the best cell-type discrimination without external pathway databases."),
+      p("The default mode (global HVG 2,000) is used only for the Tabula Muris full pairwise matrix (03_full_matrix.py, 703 pairs, Fig. 2 heatmap). The hybrid mode (per-pair k_n with per-pair top-200 DE k_f) is used for all other reported analyses: Tabula Muris pilot analyses (calibration controls + validation, 02b_pilot_v2.py), Tabula Sapiens (human), TCGA, and the Siletti brain atlas. In every dataset, k_n is computed per pair on the shared HK gene set: a sensitivity analysis contrasting this per-pair estimator with a global-k_n variant (k_n computed once from the full gene-by-cell-type pseudobulk matrix) showed that brain k_n exhibits substantial cross-pair variability (CV = 97.52%) that is poorly captured by a global mean, and that the two estimators yield substantially different omega rankings (Spearman rho = 0.142; Supplementary Fig. 8). The parameter sweep (Supplementary Fig. 1) confirmed that the identity-only configuration (w1 = 1.0, w2 = 0.0) achieves the best cell-type discrimination without external pathway databases."),
 
       // ========================================================
       // 4. DATA SOURCES & PREPROCESSING
@@ -320,7 +320,7 @@ const doc = new Document({
       p("  8. Permutation test: n = 1,000 permutations, one-sided test (P = (count(\u03c9_null \u2265 \u03c9_obs) + 1)/(B + 1))."),
       p("Controls: Six random-split comparisons (same cell population divided into two halves) tested baseline behavior (empirical baseline omega = 7.70, two-stage bootstrap 95% CI [6.38, 9.82] (B = 5,000, scripts/nc52_stats_resampling.py; supersedes the pseudo-replicated [7.37, 8.02]), from 50 split-half replicates across the six control populations, 300 omega values; data: results/mouse_splithalf_v44.csv; the legacy six-split estimate 6.67 [4.24, 9.24] is superseded; see Section 5.4 a for reproduction)."),
       p("Total pairs: 703 cell-type pairs across 6 organs."),
-      p("Cross-species matching note (Supplementary Fig. 11): the mouse-human cell-type matching used for the cross-species comparison is case-insensitive exact matching over a small explicit alias table (notebooks/_ed_fig2_clean.py), because cell-type names in results/full_matrix_pairs.csv are truncated to 18 characters. This rule matches 15 shared cell types between the Tabula Muris and Tabula Sapiens annotations; case-sensitive exact-string matching alone would match 11. Re-running the comparison with a different matching rule will change the plotted cell-type set."),
+      p("Cross-species matching note (Supplementary Fig. 12): the mouse-human cell-type matching used for the cross-species comparison is case-insensitive exact matching over a small explicit alias table (notebooks/_ed_fig2_clean.py), because cell-type names in results/full_matrix_pairs.csv are truncated to 18 characters. This rule matches 15 shared cell types between the Tabula Muris and Tabula Sapiens annotations; case-sensitive exact-string matching alone would match 11. Re-running the comparison with a different matching rule will change the plotted cell-type set."),
 
       heading("4.2 Tabula Sapiens (Human) \u2014 Result 3 (Fig. 2d, e)", 3),
       p("Dataset:    Tabula Sapiens (Jones et al., Science 2022)"),
@@ -480,7 +480,7 @@ const doc = new Document({
       p(""),
       p("  k. omega 38.55 vs 82.75 (M-S6): Clarified in Results that grand mean is lower because it is dominated by cell types with many pairs and low omega."),
       p(""),
-      p("  l. Cross-species analysis (M-B1): Added mention in Discussion that preliminary cross-species validation was performed (Supplementary Fig. 11)."),
+      p("  l. Cross-species analysis (M-B1): Added mention in Discussion that preliminary cross-species validation was performed (Supplementary Fig. 12)."),
       p(""),
       p("  m. Cover Letter fixes (M-W1, M-W2, M-W3): Removed 'orthogonal' overclaim, changed 'confirmed baseline behavior' to 'empirical baseline', changed 'developmental origin signatures' to 'developmental signatures'."),
       p(""),
@@ -549,7 +549,7 @@ const doc = new Document({
       p("     Endpoint-co-occurrence-preserving permutation test: candidate sets of size 10 are resampled from the same 5,778-pair oligodendrocyte pool (B = 100,000; null mean hit counts 1.95 thalamic-relay, 0.19 temporal-fusiform, 2.27 combined). Observed 6/10, 4/10, and 9/10 give P = 1.005e-5, P <= 1e-5, and P <= 1e-5. This replaces the base-rate hypergeometric P-values in the manuscript text (the set-level raw-P tier enrichment with hypergeometric P = 9.6e-31 and Cochran-Armitage z = 61.0 remains in Supplementary Note 13). A selection-rule-matched null (notebooks/82_axis_rule_matched_null.py, B = 1,000, the Strong rule re-evaluated on each block-shuffle permutation at the same specification as the microglia composition check) qualifies these values: the rule-matched null generates more survivors than observed (mean 43.7 vs 10), so absolute hit counts are not extreme (6 vs 6.58 P = 0.48; 9 vs 8.49 P = 0.38), while the per-candidate hit rate remains concentrated (0.60/0.90 vs 0.15/0.19; P = 0.005/0.001) - the supported claim is axis concentration of surviving candidates, not an axis excess. Outputs: results/axis_permutation_test.txt, results/axis_permutation_test.json, results/axis_rule_matched_null.txt, results/axis_rule_matched_null.json."),
       p(""),
       p("  f. Real perturbation demonstration (IFN-beta PBMC):"),
-      p("     Script: notebooks/79_kang_ifnb_demo.py (analysis), notebooks/80_kang_demo_figure.py (Supplementary Fig. 3)"),
+      p("     Script: notebooks/79_kang_ifnb_demo.py (analysis), notebooks/80_kang_demo_figure.py (Supplementary Fig. 4)"),
       p("     Kang et al. 2018 (GSE96583) droplet-arm PBMCs: same-donor stimulated-vs-control (perturbation) and same-condition cross-donor (drift) comparisons per cell type (24,413 cells, 6 classes; HK 1,099 genes; 709 pairs). IFN-beta stimulation raises k_n itself 1.2-5.7-fold above the donor-drift level, and where it does so most strongly (CD14+ monocytes) the omega AUC falls to 0.55 while k_f retains 0.98 - an empirical demonstration of the anchor-visibility boundary. Condition is fully confounded with 10x lane in this dataset (all control cells in one lane), so only cross-metric AUC contrasts are interpreted. Outputs: results/kang_ifnb_demo_pairs.csv, results/kang_ifnb_demo_summary.json, results/kang_ifnb_demo_summary.txt, results/figures_submission/Supplementary_Figure_S13.pdf."),
       p(""),
       p("  g. Second simulation background:"),
@@ -703,7 +703,7 @@ const doc = new Document({
       p(""),
       p("  b. Microglia validation figure:"),
       p("     Script: notebooks/nc50_fig_microglia.py"),
-      p("     Supplementary Fig. 14 (panel A: omega distributions, functional versus neutral half-splits per cell type; panel B: per-metric AUC). Outputs: the submission Supplementary Fig. 14 renders (results/figures_final/)."),
+      p("     Supplementary Fig. 3 (panel A: UMAP embedding, precomputed X_UMAP in the h5ad, coloured by cell type; panel B: omega distributions, functional versus neutral half-splits per cell type; panel C: per-metric AUC). Output: results/Supplementary_Fig_3.pdf."),
       p(""),
 
       // ========================================================
@@ -885,7 +885,7 @@ const doc = new Document({
       p("    nc50 microglia independent validation (Section 5.12):"),
       code("      results/nc50_brain_atlas_microglia.csv             # per-pair metric values, 35 functional + 40 neutral (Section 5.12a)"),
       code("      results/nc50_brain_atlas_microglia.txt             # summary statistics (means, Mann-Whitney P, AUC) (Section 5.12a)"),
-      p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Fig. 3), notebooks/nc49_fig_tcga.py (Fig. 4), notebooks/nc50_fig_microglia.py (Supplementary Fig. 14)"),
+      p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Fig. 3), notebooks/nc49_fig_tcga.py (Fig. 4), notebooks/nc50_fig_microglia.py (Supplementary Fig. 3)"),
       heading("7. Reproducibility Checklist", 2),
       p("[\u2713] Install CKI v0.5.4: pip install -e ."),
       p("[\u2713] Verify Python 3.14.4 environment (Section 1.1)."),

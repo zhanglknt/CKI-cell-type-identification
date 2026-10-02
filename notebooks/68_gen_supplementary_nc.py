@@ -709,8 +709,8 @@ add_para(
     'the P-value floor) because per-pair shuffling ignores the block structure of 10x libraries; that '
     'implementation was superseded by the block-shuffle null reported here. Per-signal tests are not '
     'independent (the same cell type or region pair appears in multiple comparisons); interpretation is '
-    'therefore restricted to the predefined Strong tier. (Supplementary Fig. 12: \u03c9 distribution '
-    'characterization; Supplementary Fig. 9: block-shuffle null distribution for the residual model.)'
+    'therefore restricted to the predefined Strong tier. (Supplementary Fig. 14: \u03c9 distribution '
+    'characterization; Supplementary Fig. 10: block-shuffle null distribution for the residual model.)'
 )
 
 add_para('3.4 Reporting Conventions', bold=True)
@@ -745,7 +745,7 @@ add_para(
     'global-k_n simplification would preserve only ~2% of the variance in \u03c9 orderings '
     '(\u03c1\u00b2 \u2248 0.02). This justifies the per-pair k_n approach used throughout and '
     'highlights that fine-grained \u03c9 orderings should be interpreted with the estimator '
-    'choice in mind. (Supplementary Fig. 7.)'
+    'choice in mind. (Supplementary Fig. 8.)'
 )
 
 add_para('3.6 TCGA Exploratory Analysis Caveats', bold=True)
@@ -2002,7 +2002,7 @@ add_para(
     'anchor-visibility boundary: perturbations '
     'that touch the housekeeping anchor deflate \u03c9, and k_f-only with '
     'a design-matched null is the more honest statistic in that regime '
-    '(Supplementary Fig. 3). '
+    '(Supplementary Fig. 4). '
     'Script: notebooks/79_kang_ifnb_demo.py; outputs: '
     'results/kang_ifnb_demo_pairs.csv (709 pairs), '
     'results/kang_ifnb_demo_summary.json.'
@@ -2303,7 +2303,7 @@ add_para(
     'denominator-driven. The main text reports only the LUAD driver-mutation '
     'contrast as a primary result; the LIHC Edmondson and BRCA PAM50 '
     'gradients are reported here as denominator-dominated vignettes '
-    '(Supplementary Fig. 4b), and the full values '
+    '(Supplementary Fig. 5b), and the full values '
     'and test details are given in Supplementary Table 18. The k_f-only controls are post-hoc; the P-values '
     'reported here (three severity analyses crossed with three metrics) are '
     'nominal and carry no multiplicity correction. Scripts: '
@@ -2522,7 +2522,7 @@ add_para(
     'minute deviations), and binomial tail tests quantify the practical '
     'magnitude: an excess of ~0.8-1.9 percentage points over nominal '
     '(binom P = 9.2e-37 and 6.8e-185). The QQ plots are shown in '
-    'Supplementary Fig. 10.'
+    'Supplementary Fig. 11.'
 )
 add_para(
     'Interpretation. Because the random split destroys regional structure '
@@ -2751,7 +2751,7 @@ add_para(
     'baseline and are compared internally only. Scripts: '
     'notebooks/nc50_brain_atlas_microglia.py and '
     'notebooks/nc50_fig_microglia.py; outputs: '
-    'results/nc50_brain_atlas_microglia.csv and .txt. (Supplementary Fig. 14.)'
+    'results/nc50_brain_atlas_microglia.csv and .txt. (Supplementary Fig. 3.)'
 )
 
 doc.add_page_break()

@@ -63,12 +63,13 @@ chk('Abstract drift sentence present', len(abs_paras) == 1)
 if abs_paras:
     wc = len(abs_paras[0].split())
     chk('Abstract word count <= 200', wc <= 200, f'{wc} words')
-chk('Abstract real-data calibration numbers (v52)',
-    bool(abs_paras) and '\u03c9 raised no false reports' in abs_paras[0]
-    and 'specificity decays with group size' in abs_paras[0])
+chk('Abstract real-data calibration sentence (v58)',
+    bool(abs_paras) and 'lowest false-report rate among continuous divergence metrics' in abs_paras[0])
 chk('Abstract 3,535 (ex-CC, v52)', bool(abs_paras) and '3,535' in abs_paras[0])
-chk('Abstract new ratio range', bool(abs_paras) and 'ratio 1.11\u20132.46' in abs_paras[0])
-chk('Abstract new k_n range', bool(abs_paras) and '1.3\u20133.3-fold elevated housekeeping baseline' in abs_paras[0])
+chk('Abstract pan-cancer pattern (v58)',
+    bool(abs_paras) and 'tumors appear less divergent than adjacent non-tumor tissue' in abs_paras[0])
+chk('Abstract k_n-driven attribution (v58)',
+    bool(abs_paras) and 'driven by an elevated housekeeping baseline rather than reduced functional divergence' in abs_paras[0])
 
 # 5. Sample caliber 3,535 ex-CC everywhere (v52: ex-CC default)
 chk('3,535 present (ex-CC, v52)', '3,535' in full)
@@ -86,8 +87,8 @@ chk('Discussion permute-k_n full-inventory qualifier (v53)',
     '5,151 full-inventory human pairs' in full)
 chk('Table 1 legend present (v53 R5-M1)',
     'Table 1. Cross-organ conservation ranking by cell type' in full)
-chk('Supplementary Fig. 14 legend present (v53 R5-M2)',
-    'Supplementary Fig. 14. Human-brain sanity check on the microglia supercluster' in full)
+chk('Supplementary Fig. 3 legend present (v58: microglia 14->3)',
+    'Supplementary Fig. 3. Human-brain sanity check on the microglia supercluster' in full)
 chk('quality-adjustment attribution (class, region) only (v53 R1-5)',
     '(class, region)-level adjustment for detection depth' in full
     and '(class, library)- and (class, region)-level adjustment' not in full)
@@ -176,12 +177,12 @@ chk('Methods scripts extended (v51: SI)',
     and 'results/nc49_tcga_admix_scores.csv' in sfull)
 
 # 7d. Abstract / Intro / Fig.5 sync
-chk('Abstract KRAS dual-component adjusted',
-    'components survived purity and smoking adjustment' in full)
-chk('Abstract EGFR admixture',
-    'apparent EGFR-mutant association reflected stromal/immune admixture' in full)
-chk('Intro EGFR dissolved (v51)',
-    'the apparent EGFR association dissolves' in full)
+chk('KRAS dual-component k_f contrast (v58: Results)',
+    'KRAS versus EGFR under k_f alone, P = 0.015; Fig. 4c, d' in full)
+chk('EGFR admixture adjustment (v58: Results)',
+    'Adjusting for ESTIMATE stromal/immune admixture left the KRAS' in full)
+chk('EGFR elevation abolished under adjustment (v58)',
+    'abolished the apparent EGFR elevation (all adjusted P > 0.4)' in full)
 chk('Fig 5 legend NEW-3 fix',
     'apparent EGFR elevation dissolved under purity adjustment (all adjusted P > 0.4)' in full)
 chk('Fig 5 legend old EGFR-baseline gone',
@@ -232,9 +233,9 @@ chk('SI availability rewritten',
     'Supplementary Information is available for this paper' in full)
 
 # 10. Prior-phase content intact
-chk('severity -> Note 9 + Supp Fig 4b (v50: split MS/SI)',
+chk('severity -> Note 9 + Supp Fig 5b (v58: 4->5 renumber)',
     'denominator-dominated vignettes (Supplementary Note 9)' in full
-    and 'Supplementary Fig. 4b' in sfull)
+    and 'Supplementary Fig. 5b' in sfull)
 chk('marker Jaccard 1.41 (v51: Fig 3 legend)', 'T3 calibration 1.41 versus 1.80' in full)
 chk('no leftover 1.40 versus 1.80', '1.40 versus 1.80' not in full)
 chk('Result 5 TCGA title',
@@ -244,8 +245,8 @@ chk('Cox limitation sentence (v52)',
     'ex-CC LIHC Cox, stage categorical' in full and '1.08 [0.88, 1.33]' in full)
 chk('drift Results heading', 'Real-data neutral-drift calibration on technical replicates' in full)
 chk('Kang Wilson CI (v50: SI)', 'Wilson 95% CI [0.000, 0.114]' in sfull)
-chk('Kang-brain size reconciliation (v52: abstract + SI Note 10)',
-    'specificity decays with group size' in full
+chk('Kang-brain size reconciliation (v58: Results + SI Note 10)',
+    'the absolute \u03c9 FPR grows with group size' in full
     and 'essentially fully explained by class size' in sfull)
 
 # 11. Figure legends order 1-6 (v49.6: Fig2+Fig3 merged, 3-7 renumbered)
@@ -279,8 +280,8 @@ chk('Methods classification ROC-AUC removed',
     'cell-type classification ROC-AUC' not in full)
 chk('main-text Table 2 retired',
     not re.search(r'(?<!Supplementary )Table 2', full))
-chk('cross-organ Table 1 citations (v51)',
-    '(Fig. 5; Table 1; Supplementary Fig. 5)' in full
+chk('cross-organ Table 1 citations (v58: SF5->6)',
+    '(Fig. 5; Table 1; Supplementary Fig. 6)' in full
     and 'n \u2265 5 pairs; Table 1' in full)
 
 # 12. Fig 3 legend honest framing

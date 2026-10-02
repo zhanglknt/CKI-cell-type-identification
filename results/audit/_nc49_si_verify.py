@@ -207,8 +207,8 @@ chk('Kang table omega row', '0.963 [0.918, 0.998]' in cellfull)
 chk('Ladder table T1 omega cell', '1.04 [0.97, 1.21] / 28.6%' in cellfull)
 
 # 11. Note 9 sync + figure refs
-chk('Note 9 sync sentence',
-    'reported here as denominator-dominated vignettes (Supplementary Fig. 4b)' in full)
+chk('Note 9 sync sentence (v58: SF4b->5b)',
+    'reported here as denominator-dominated vignettes (Supplementary Fig. 5b)' in full)
 chk('Note 9 cross-organ Fig. 5', '(Table 1 / Fig. 5)' in full)
 chk('Note 9 LIHC severity ex-CC (v52)',
     '78.8 / 75.8 / 77.6 / 72.3' in cellfull
