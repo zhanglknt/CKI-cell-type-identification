@@ -262,7 +262,7 @@ chk('3.13 short heading ref',
 
 # 12c. Three-in-one round: KRAS magnitude + Hallmark in SI
 chk('3.13 KRAS magnitude restored',
-    'contributed ~84% of the log-\u03c9 gap' in full
+    'contributed ~73% of the log-\u03c9 gap' in full
     and 'Dunn P = 0.097' in full)
 chk('3.13 Hallmark paragraph',
     'Panel semantics and composition correction for k_f' in full

@@ -36,7 +36,7 @@ chk('Section 3.12 referenced 2x (proof: L37 dedup)',
     full.count('Section 3.12') == 2,
     f'found {full.count("Section 3.12")}')
 chk('MWU deleted from main claims; permutation -> Section 3.13 (v51)',
-    'label-permutation confirmed)' in full
+    'label-permutation confirmed; Supplementary Tables 13, 14)' in full
     and 'per-tumor Mann-Whitney' not in full)
 chk('no stale Section 3.20/3.21 refs',
     'Section 3.20' not in full and 'Section 3.21' not in full)
@@ -87,8 +87,8 @@ chk('Discussion permute-k_n full-inventory qualifier (v53)',
     '5,151 full-inventory human pairs' in full)
 chk('Table 1 legend present (v53 R5-M1)',
     'Table 1. Cross-organ conservation ranking by cell type' in full)
-chk('Supplementary Fig. 3 legend present (v58: microglia 14->3)',
-    'Supplementary Fig. 3. Human-brain sanity check on the microglia supercluster' in full)
+chk('Supplementary Fig. 3 legend present (v58: microglia 14->3; nc60 A11: legends in SI)',
+    'Supplementary Fig. 3. Human-brain sanity check on the microglia supercluster' in sfull)
 chk('quality-adjustment attribution (class, region) only (v53 R1-5)',
     '(class, region)-level adjustment for detection depth' in full
     and '(class, library)- and (class, region)-level adjustment' not in full)
@@ -122,7 +122,7 @@ chk('Discussion range updated (v52)',
 # 6. R1-P1-3 / R3-P1-1: MWU deleted from main text, CI presentation
 chk('pair-level MWU P deleted from main claims (v51)',
     'Dunn\u2013Holm P \u2264 0.008 for both KRAS contrasts' in full
-    and 'label-permutation confirmed)' in full)
+    and 'label-permutation confirmed; Supplementary Tables 13, 14)' in full)
 chk('LIHC mapping-sensitivity honest (v52)',
     'linear 1.11 [0.94, 1.30] versus softmax 1.29 [1.09, 1.53]' in full)
 chk('softmax demoted to SI sensitivity (v51)',
@@ -159,7 +159,7 @@ chk('k_n admix correlation range (v51r2: SI Note 8)', 'r = \u22120.23 to \u22120
 chk('high-purity half LUAD (v51: SI Note 8)', 'LUAD 2.46 \u2192 2.86' in sfull)
 chk('high-purity half LIHC caliber kept (v52: MS + SI 3.13)',
     'high-purity-half comparisons increased the NN/TT ratio in all five' in full
-    and 'high-purity-half 1.17 versus 1.19 excluding CC' in sfull)
+    and 'high-purity-half 1.17 full-cohort (95% CI [0.97, 1.41]) versus 1.19 excluding CC' in sfull)
 chk('reversal not admixture artefact (v51)',
     'admixture can only weaken, not create' in full)
 
@@ -210,7 +210,7 @@ chk('short Result 5 heading',
 
 # 7g. Three-in-one round: KRAS magnitude + Hallmark
 chk('KRAS magnitude sentence restored (v50: MS headline; Dunn P in SI)',
-    'carried predominantly by a lower housekeeping baseline (~84% of the log-\u03c9 gap)' in full
+    'carried predominantly by a lower housekeeping baseline (~73% of the log-\u03c9 gap)' in full
     and '0.097' in sfull)
 chk('KRAS magnitude coexists with adjusted (v50)',
     'adjusted P = 0.009' in full)
@@ -259,7 +259,7 @@ chk('Fig 2 legend new scope',
     'functional-change detection in the ground-truth simulation' in full)
 chk('Fig 2e legend change-detection ROC (v52)',
     'ROC curves for discriminating injected functional signal' in full
-    and 'highest AUC of six metrics (0.80, DeLong 95% CI [0.770, 0.838])' in full
+    and 'highest AUC of six metrics (0.80, DeLong 95% CI [0.770, 0.838]; paired DeLong' in full
     and 'AUC = 0.91' in full)
 chk('Fig 2e legend old classification ROC gone',
     'ROC curves for cell-type classification across five metrics on Tabula Sapiens data' not in full)
@@ -286,7 +286,7 @@ chk('cross-organ Table 1 citations (v58: SF5->6)',
 
 # 12. Fig 3 legend honest framing
 chk('Fig 3 legend Jaccard admission',
-    'marker Jaccard is lower still on the false-positive statistic (T1 19.9%, T2 74.7%)' in full)
+    'marker Jaccard is lower still on the false-positive statistic (T1 19.9%, T2 74.7%; versus \u03c9 on T1, paired McNemar P = 5.6 \u00d7 10\u207b\u00b2\u00b9)' in full)
 
 # 13. Citation order (v49.5 refs renumber): superscript citation groups between
 # the Abstract heading and the References heading must first-appear in strict

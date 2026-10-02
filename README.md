@@ -74,8 +74,8 @@ import cki
 Or build the Docker image (see `Dockerfile` in the repository root):
 
 ```bash
-docker build -t cki:0.5.0 .
-docker run --rm cki:0.5.0
+docker build -t cki:0.5.5 .
+docker run --rm cki:0.5.5
 ```
 
 ## Quick Start (3 lines)
@@ -162,7 +162,7 @@ boot = bootstrap_test(
 print(f"omega={boot['omega']:.4f}, P={boot['p_value']:.4f}")
 ```
 
-The result key `null_ci_95` is the central 95% range of the permutation **null** distribution — not a confidence interval for omega (the legacy key `ci_95` is retained as a deprecated alias). The permutation test operates in a window of ~50–200 cells per donor per condition; power collapses for large pseudobulks (n ≳ 500 cells per group), and the function warns in that regime (see manuscript Note 3.19).
+The result key `null_ci_95` is the central 95% range of the permutation **null** distribution — not a confidence interval for omega (the legacy key `ci_95` is retained as a deprecated alias). The permutation test operates in a window of ~50–200 cells per donor per condition; power collapses for large pseudobulks (n ≳ 500 cells per group), and the function warns in that regime (see Supplementary Note 8 of the manuscript).
 
 By default (`reselect_identity=True`) the test reproduces the procedure reported in the paper: the HK (k_n) gene set is resolved once and held fixed, while the k_f gene set is re-selected at every permutation from the permuted pseudobulks (top `n_reselect_genes=200` non-HK genes by |Δ pseudobulk|), so the null incorporates the gene-selection step. Pass `reselect_identity=False` for the legacy fixed-gene-set null (faster, but anti-conservative relative to the re-selection null); explicitly supplied `functional_genes` / `identity_indices` always pin a fixed gene set. For block-structured data (cells correlated within libraries/samples) use `block_shuffle_test` instead.
 
@@ -170,14 +170,14 @@ By default (`reselect_identity=True`) the test reproduces the procedure reported
 
 ```
 omega = k_f / k_n
-omega_cal = omega / 6.67  (empirically calibrated)
+omega_cal = omega / 7.70  (empirically calibrated)
 
 omega_cal < 0.75    Below calibration range (relative constraint)
 omega_cal ~ 0.75-1.5  Calibration range (equivalent populations)
 omega_cal > 1.5    Above calibration range (divergent transcriptome)
 ```
 
-Calibration against split-half controls of equivalent populations yields an empirical baseline of omega = 6.67 (not the theoretical ideal of 1.0), reflecting systematic inflation from HVG gene selection. The `calibrate_omega()` function rescales all values so that equivalent populations yield omega_cal ~ 1.0. omega is a heuristic index of identity-gene divergence relative to housekeeping-gene divergence, not a formal measure of Darwinian selection. The 6.67 baseline is dataset-internal (mouse split-half); brain split-half calibration yields 9.73 and Tabula Sapiens 7.67, so the factor is not transferable across datasets.
+Calibration against split-half controls of equivalent populations yields an empirical baseline of omega = 7.70 (not the theoretical ideal of 1.0), reflecting systematic inflation from HVG gene selection. The `calibrate_omega()` function rescales all values so that equivalent populations yield omega_cal ~ 1.0. omega is a heuristic index of identity-gene divergence relative to housekeeping-gene divergence, not a formal measure of Darwinian selection. The 7.70 baseline is dataset-internal (mouse split-half); brain split-half calibration yields 9.73 and Tabula Sapiens 7.67, so the factor is not transferable across datasets.
 
 ## Statistical Testing
 
@@ -185,7 +185,7 @@ All bootstrap tests use one-sided permutation testing (B = 1,000) with Benjamini
 
 ## Publication
 
-Li Zhang. *CKI: A Cell-type Identity Index for Quantifying Baseline-Normalized Divergence.* Submitted to Genome Biology (2026).
+Li Zhang. *CKI: A Cell-type Identity Index for Quantifying Baseline-Normalized Divergence.* Submitted to Nature Communications (2026).
 
 ## License & Citation
 
@@ -212,7 +212,7 @@ redistributed under the CC-BY-4.0 grant:
 **Citation.** If you use CKI, please cite:
 
 > Li Zhang. *CKI: A Cell-type Identity Index for Quantifying Baseline-Normalized
-> Divergence.* Submitted to Genome Biology
+> Divergence.* Submitted to Nature Communications
 > (2026). Zenodo, DOI: [10.5281/zenodo.20405458](https://doi.org/10.5281/zenodo.20405458).
 
 Concept DOI (all versions): [10.5281/zenodo.20405458](https://doi.org/10.5281/zenodo.20405458).

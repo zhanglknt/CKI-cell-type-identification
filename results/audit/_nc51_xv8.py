@@ -121,7 +121,7 @@ chk('zip size < 15 MB', len(open('CKI_Submission_v50_NC.zip', 'rb').read()) < 15
     f"{len(open('CKI_Submission_v50_NC.zip', 'rb').read()):,} B")
 
 # ---------- 7. MS<->SI pointer consistency (v51) ----------
-chk('MS Supplementary Methods 5.x pointers = 20 (v52: +5.5 entry-cluster)', ms.count('Supplementary Methods 5.') == 20,
+chk('MS Supplementary Methods 5.x pointers = 21 (nc60 A3: barcode-audit pointer 1.7->5.3)', ms.count('Supplementary Methods 5.') == 21,
     f"got {ms.count('Supplementary Methods 5.')}")
 chk('MS cites Notes 1-16 span', 'Supplementary Notes 1\u201316' in ms)
 chk('MS cites Figs 1-14 span', 'Supplementary Figs. 1\u201314' in ms)

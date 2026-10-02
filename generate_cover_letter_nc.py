@@ -123,9 +123,10 @@ def run():
         "reference further shows adjacent-normal k_n at healthy-tissue levels "
         "in lung, liver, and breast, arguing against a field-effect reading "
         "of the pan-cancer reversal. Fourth, in a human brain atlas "
-        "spanning 108 regions, CKI quantified a regional differentiation "
-        "gradient and provides a statistically calibrated framework for "
-        "atlas-scale comparisons.",
+        "spanning 108 regions (non-neuronal nuclei), CKI quantified a "
+        "regional differentiation gradient, largely k_n-driven, and "
+        "provides a statistically calibrated framework for atlas-scale "
+        "hypothesis generation.",
         doc,
     )
 

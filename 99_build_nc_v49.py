@@ -232,7 +232,7 @@ def main():
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
     check(note_heads == list(range(1, 17)), f"V49-S5 SN Note headings 1..16 (v50) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 10, f"V49-S6 SN Supplementary Fig. refs = 10 (v51: +Supplementary Methods 5.1) ({n_sfig_sn})")
+    check(n_sfig_sn == 24, f"V49-S6 SN Supplementary Fig. refs = 24 (nc60 A11: 14 legends moved into SI) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
     check(n_stab_sn == 41, f"V49-S7 SN Supplementary Table refs = 41 post-v49.5 ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
@@ -265,7 +265,7 @@ def main():
     print("\n--- scientific anchors (v48 subset) ---")
     anchors = [
         ("[7.37, 8.02]", "A2 calibration CI"),
-        ("combined span- and size-matched control yields 3.66 (donor-level bootstrap [1.92, 3.78]", "A3 combined-control gradient (proof: k_n-dominated; v58 wording)"),
+        ("combined span- and size-matched control yields 3.66 observed (donor-level median 3.28 [1.92, 3.78]", "A3 combined-control gradient (nc60 B11: donor-CI attribution)"),
         ("0.442", "A4 Augur OvR vs omega"),
         ("0.564", "A5 Augur OvR vs k_f"),
         ("24,413", "A6 Kang cells"),
@@ -363,8 +363,8 @@ def main():
           "V49-N40 A5 brain candidate concentration (v51 wording)")
     check('median TT/NN k_n ratio 2.18, 2.53, 2.18, 3.70, and 2.79' in sn,
           "V49-N41 A6 mean/median caliber cross-pointer (v50: SI carries medians)")
-    check('in main-text Fig. 3d.' in sn and 'main-text Fig. 3b,c.' in sn,
-          "V49-N42 A2 SI main-text figure pointers corrected to Fig. 3")
+    check('in main-text Fig. 3a.' in sn and 'main-text Fig. 3b,c.' in sn,
+          "V49-N42 A2 SI main-text figure pointers corrected to Fig. 3 (nc60 A1: 3d->3a)")
     check('Fig. 4d' not in sn and 'Fig. 4b,c' not in sn,
           "V49-N42b A2 no stale Fig. 4 panel pointers in SI")
     check('(Table 1 / Fig. 5)' in sn and '(Table 2 / Fig. 5)' not in sn,
@@ -378,9 +378,9 @@ def main():
           "V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)")
     check('cross-type gaps should be read descriptively' in ms,
           "V49-N47 B3 Table 1 cross-type caveat (v51 wording)")
-    check('quantified a regional differentiation gradient and provided a statistically '
+    check('quantified a regional differentiation gradient, largely k_n-driven, and provided a statistically '
           'calibrated framework' in ms,
-          "V49-N48 B4 Abstract states brain gradient + calibrated framework (v58 wording)")
+          "V49-N48 B4 Abstract states brain gradient + calibrated framework (nc60 B1 wording)")
     check('inheriting the four-donor structure' in ms,
           "V49-N49 B5 brain screen donor-confounding disclosure (v52 wording)")
     check('sample-source code (positions 14\u201315)' in sn
@@ -429,9 +429,9 @@ def main():
                          for _c in _row if _c.value is not None)
     check('6.60' in _si_blob and '4.12' in _si_blob,
           "V49-N59 N3 threshold-sweep gradient values (v50: Supp Table 19)")
-    check('a combined span- and size-matched control yields 3.66 (donor-level bootstrap [1.92, 3.78]' in ms
-          and 'combined span- and size-matched control gives 3.66-fold (donor-level cluster bootstrap 95% CI [1.92, 3.78])' in ms,
-          "V49-N60 C5 Results leads with combined-control gradient (v52 wording)")
+    check('a combined span- and size-matched control yields 3.66 observed (donor-level median 3.28 [1.92, 3.78]' in ms
+          and 'combined span- and size-matched control gives 3.66-fold observed (donor-level bootstrap median 3.28, 95% CI [1.92, 3.78])' in ms,
+          "V49-N60 C5 Results leads with combined-control gradient (nc60 B11 wording)")
     check('0.850' in sn,
           "V49-N61 C7 class-size Pearson correlation (v50: SI Note 10)")
     check('All TCGA results exclude 32 cell-line-derived aliquots found by barcode audit' in ms
@@ -457,14 +457,14 @@ def main():
     check('leave-one-population-out range 6.75\u20138.08' in ms
           and 'removing hepatocyte lowers it to 6.75' in sn,
           "V49-N69 B3 calibration leave-one-out (MS pointer; SI 3.10 details, v51)")
-    check('label-permutation confirmed)' in ms
+    check('label-permutation confirmed; Supplementary Tables 13, 14)' in ms
           and '93_luad_group_permutation_v49.py' in sn,
-          "V49-N70 B4 LUAD whole-tumor label permutation (MS pointer; SI 3.13, v51)")
+          "V49-N70 B4 LUAD whole-tumor label permutation (MS pointer; SI 3.13, nc60 A12)")
     check('adjusted log-\u03c9 ratio 1.19, 95% CI [1.12, 1.26]' in ms,
           "V49-N71 C4b log-omega scale sensitivity (v50 wording)")
-    check('high-purity-half 1.17 versus 1.19 excluding CC, 95% CI [1.01, 1.44]' in sn
+    check('high-purity-half 1.17 full-cohort (95% CI [0.97, 1.41]) versus 1.19 excluding CC (95% CI [1.01, 1.44])' in sn
           and '94_cc_audit_sensitivity_v49.py' in sn,
-          "V49-N72 B5/B6 CC exclusion sensitivity + barcode audit (v50: SI 3.13)")
+          "V49-N72 B5/B6 CC exclusion sensitivity + barcode audit (nc60 R3-m3: dual-CI attribution)")
     check('nc49_donor_stratified_table.csv' in sn
           and '4.8 \u00d7 10\u207b\u00b2\u00b3\u00b9' in sn
           and '97_donor_stratified_table_v49.py' in sn,
@@ -621,6 +621,31 @@ def main():
           "V49-N55 Fig 1a legend counterpart mapping + calibration anchor (v49.15 word order)")
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
+    # ---- nc60 B-class substantive anchors ----
+    check('i.e. depletion, not enrichment' in ms,
+          "NC60-B2 anti-enrichment direction clause in Results")
+    check('tentatively support as largely tumor-specific' in ms
+          and 'tentatively consistent with tumor-specific elevation' in ms,
+          "NC60-B3 GTEx tentative qualifiers (Intro + Results)")
+    check('This cross-cohort reference is descriptive only (processing shifts k_n 1.8\u20132.3-fold)' in ms,
+          "NC60-B4 cross-cohort GTEx descriptive-only caveat")
+    check('showed the highest bulk tissue-state divergence' in ms,
+          "NC60-B5 LUAD bulk tissue-state qualification")
+    check('rankings are positively but non-significantly associated' in ms,
+          "NC60-B9 Augur softened association wording")
+    check('monotone in the same \u03c9, not independent evidence (Supplementary Note 14)' in ms,
+          "NC60-B10 tier/P monotone caveat in Limitations")
+    check('(~73% of the log-\u03c9 gap)' in ms
+          and 'contributed ~73% of the log-\u03c9 gap (mean-log identity estimand)' in sn,
+          "NC60-R3m2 KRAS log-omega gap decomposition ~73% (MS + SI)")
+    check('paired DeLong P = 2.4 \u00d7 10\u207b\u00b9\u2077 versus k_f' in ms
+          and 'module-seed cluster bootstrap [0.070, 0.108]' in ms,
+          "NC60-R2M1 paired DeLong dAUC (MS text + Fig 2e caption)")
+    check('McNemar P \u2264 4.1 \u00d7 10\u207b\u00b9\u00b2' in ms
+          and 'paired McNemar exact P' in ms,
+          "NC60-R2M2 T1 McNemar (MS text + Fig 3c caption)")
+    check('Paired T1 comparisons (nc60)' in sn and 'Paired AUC contrasts (nc60)' in sn,
+          "NC60-R2 paired-stats SI paragraphs")
     # v49.2 post-CC anchors + stale purge
     for pat, name in [("3,535", "N29 sample total ex-CC (v52)"),
                       ("1.11\u20132.46", "N30 Abstract ratio range ex-CC (v52)")]:

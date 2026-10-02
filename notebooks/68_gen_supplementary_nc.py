@@ -283,10 +283,11 @@ toc = [
     'Supplementary Note 16: JS Divergence Dimensionality Invariance',
     'Supplementary Methods',
     'Supplementary Table 1: Parameter Sweep Results',
+    'Supplementary Table 2: TCGA Linear-Normalization Robustness',
+    'Supplementary Table 3: LIHC Overall-Survival Cox Models',
     'Supplementary Table 4: Cross-Organ Conservation Data',
     'Supplementary Table 5: Human Brain Non-neuronal Cell Regional CKI Data',
     'Supplementary Table 6: Inter-regional Region-Associated Candidate Data',
-    'Supplementary Table 2: TCGA Linear-Normalization Robustness',
     'Supplementary Table 7: Kang IFN-beta Per-Cell-Type Effects',
     'Supplementary Table 8: Target-Detection AUC in Mean-Shift Simulation',
     'Supplementary Table 9: Donor-Paired Detection Power',
@@ -295,16 +296,21 @@ toc = [
     'Supplementary Table 12: Pan-Cancer NN/TT Ratios',
     'Supplementary Table 13: LUAD Driver-Group Means',
     'Supplementary Table 14: LUAD Pairwise Contrasts',
-    'Supplementary Table 3: LIHC Overall-Survival Cox Models',
     'Supplementary Table 15: Purity Sensitivity of the Pan-Cancer Reversal',
     'Supplementary Table 16: LUAD Admixture-Adjusted Contrasts',
     'Supplementary Table 17: LUAD Smoking-Covariate Adjustment',
     'Supplementary Table 18: TCGA Clinical-Severity Gradients',
     'Supplementary Table 19: Brain min-cells Threshold Sensitivity',
     'Supplementary Data 1: Analysis Script Index',
+    'Supplementary Figures (legends for Supplementary Figs. 1-14)',
 ]
 for item in toc:
     add_para(item)
+
+add_para('Supplementary Tables 1-19 are provided as a single workbook '
+         '(CKI_Supplementary_Tables_NC.xlsx, sheets Table 1-19 in numeric order); '
+         'in-text references in this document appear at first use, so mention '
+         'order follows the narrative rather than table numbering.')
 
 doc.add_page_break()
 
@@ -566,7 +572,7 @@ for line in pseudo:
     p.paragraph_format.space_before = Pt(0)
 
 add_para(
-    'Note: in the released cki package (v0.5.4), bootstrap_test() reproduces lines 9-15 '
+    'Note: in the released cki package (v0.5.5), bootstrap_test() reproduces lines 9-15 '
     'by default (reselect_identity = True): the HK set H is resolved once before the '
     'permutation loop and held fixed, while the k_f gene set is re-selected at every '
     'permutation (and for the observed value) as the top 200 non-HK genes by absolute '
@@ -745,7 +751,15 @@ add_para(
     'global-k_n simplification would preserve only ~2% of the variance in \u03c9 orderings '
     '(\u03c1\u00b2 \u2248 0.02). This justifies the per-pair k_n approach used throughout and '
     'highlights that fine-grained \u03c9 orderings should be interpreted with the estimator '
-    'choice in mind. (Supplementary Fig. 8.)'
+    'choice in mind. (Supplementary Fig. 8.) '
+    'Concretely for the regional candidate screen: re-deriving the multiplicative '
+    'expected-value model and the full Strong rule (residual < 0.3, \u03c9 < 15, lowest \u03c9 '
+    'in region pair) on global-k_n \u03c9 values yields 107 Strong candidates, of which '
+    'only 3 of the 39 published Strong candidates persist (36 lost, 104 newly gained; '
+    'persist fraction 0.077; median |log2 fold change| of \u03c9 between estimators 1.14; '
+    'residual rank correlation \u03c1 = 0.337), so the catalogue is strictly '
+    'hypothesis-generating (notebooks/nc52_brain_candidate_effectsize.py; '
+    'results/nc52_brain_candidate_effectsize.csv).'
 )
 
 add_para('3.6 TCGA Exploratory Analysis Caveats', bold=True)
@@ -792,7 +806,7 @@ add_para(
     'formula P = (count(omega_null \u2264 omega_obs) + 1)/(B + 1), because region-associated '
     'candidates are defined by anomalously low \u03c9; the complementary upper-tail '
     'P-value is computed for every pair and both tails are reported. In the released '
-    'cki package (v0.5.4), the tested tail is selected by the tail parameter of '
+    'cki package (v0.5.5), the tested tail is selected by the tail parameter of '
     'bootstrap_test() and block_shuffle_test() (tail = "upper", "lower", or '
     '"two-sided"); earlier releases used the parameter name "direction".'
 )
@@ -1040,7 +1054,7 @@ add_para(
     f'[{_wcos49[0]:.3f}, {_wcos49[1]:.3f}]) as divergence; k_n alone fired '
     f'once ({_km49["k_n"]["k"]} of {_km49["k_n"]["n"]}). The per-metric '
     'values are given in Supplementary Table 10; the replication is shown '
-    'in main-text Fig. 3d.'
+    'in main-text Fig. 3a.'
 )
 _rows_kang49 = [['Metric', 'Calibration median [IQR]', 'FPR (k/n)', 'Wilson 95% CI']]
 for _m in ['k_n', 'k_f', 'omega', 'raw_js', 'cosine']:
@@ -1116,6 +1130,24 @@ add_para(
     'Per-tier values '
     'for all seven metrics are given in Supplementary Table 11; main-text '
     'Fig. 3b,c.'
+)
+add_para(
+    'Paired T1 comparisons (nc60). The 2,161 T1 flags are paired across metrics '
+    '(same pairs, same nulls), so per-metric FPR contrasts were tested with '
+    'McNemar-style discordant-pair analysis: \u03c9 versus raw JS (discordants '
+    '58/416, exact two-sided P = 8.4 \u00d7 10\u207b\u2076\u2078), cosine '
+    '(66/399, P = 4.1 \u00d7 10\u207b\u2075\u2079), Spearman (93/352, P = 1.6 '
+    '\u00d7 10\u207b\u00b3\u2076), k_n (165/317, P = 4.1 \u00d7 '
+    '10\u207b\u00b9\u00b2), and k_f (40/233, P = 2.7 \u00d7 '
+    '10\u207b\u00b3\u2074) are all significant in favor of \u03c9, while '
+    'marker Jaccard is significantly lower than \u03c9 (302/113, P = 5.6 '
+    '\u00d7 10\u207b\u00b2\u00b9). Donor-cluster bootstrap 95% intervals '
+    '(4 donors resampled, B = 10,000, seed 42) exclude zero for every '
+    'contrast (\u0394FPR versus \u03c9: raw JS +0.166 [+0.154, +0.185], '
+    'cosine +0.154 [+0.149, +0.166], Spearman +0.120 [+0.113, +0.132], '
+    'k_n +0.070 [+0.063, +0.077], k_f +0.089 [+0.065, +0.107], marker '
+    'Jaccard \u22120.087 [\u22120.102, \u22120.083]); script '
+    'results/audit/_nc60_paired_stats.py, table results/nc60_mcnemar_t1.csv.'
 )
 _rows_lad49 = [['Metric', 'T1 cal [IQR] / FPR', 'T2 cal [IQR] / FPR', 'T3 cal [IQR] / FPR']]
 for _m in _METRICS49:
@@ -1295,7 +1327,7 @@ add_para(
     '0.002-0.019) accompanied by a lower k_n (wild-type > KRAS, '
     'Dunn-Holm P = 4.2 \u00d7 10\u207b\u2074), both of which raise the '
     'ratio; the unadjusted elevation is denominator-dominated (k_n '
-    'contributed ~84% of the log-\u03c9 gap; the unadjusted k_f contrast '
+    'contributed ~73% of the log-\u03c9 gap (mean-log identity estimand); the unadjusted k_f contrast '
     'KRAS versus WT was non-significant, Dunn P = 0.097), so both the '
     'unadjusted decomposition and the covariate-adjusted estimates below '
     'are reported; the EGFR association shows no significant k_f difference (all '
@@ -1351,7 +1383,7 @@ add_table(_rows_luc49)
 si_caption(
     'Supplementary Table 14. LUAD pairwise contrasts: Dunn post-hoc P-values '
     'with Holm correction, and within-group bootstrap mean differences with '
-    '95% CIs (B = 1,000). Main-text Fig. 5b-d.'
+    '95% CIs (B = 1,000). Main-text Fig. 4b-d.'
 )
 _coxz49 = _tcga_cox[_tcga_cox['covariate'].str.startswith('z_')].set_index('model')
 _coxlab49 = {'M1_omega_full_exCC': 'M1: \u03c9, full adjustment',
@@ -1530,7 +1562,7 @@ add_para(
     'cell-line-derived (CC) LIHC samples excluded from all v52 analyses) '
     'keeps the LIHC null result and the high-purity-half analysis '
     'unchanged (NN/TT 1.11 [0.94, 1.30], which includes 1; the TT k_n/NN k_n ratio '
-    '1.34 [1.02, 1.89] excludes 1 ex-CC, so the k_n elevation is nominally significant; high-purity-half 1.17 versus 1.19 excluding CC, 95% CI [1.01, 1.44]); the full barcode source-code audit is '
+    '1.34 [1.02, 1.89] excludes 1 ex-CC, so the k_n elevation is nominally significant; high-purity-half 1.17 full-cohort (95% CI [0.97, 1.41]) versus 1.19 excluding CC (95% CI [1.01, 1.44])); the full barcode source-code audit is '
     'documented in the Reproducibility Guide '
     '(notebooks/94_cc_audit_sensitivity_v49.py).'
 )
@@ -1696,6 +1728,20 @@ add_para(
     '[0.771, 0.836], so the DeLong caliber is robust to the clustered simulation design; '
     'fixed-specificity sensitivity values are tabulated in '
     'results/nc52_stats_auc_ci_methods.csv (script scripts/nc52_stats_resampling.py).'
+)
+add_para(
+    'Paired AUC contrasts (nc60). All six metrics are scored on the same 850 '
+    'replicates, so their AUCs are correlated; a paired DeLong test on the '
+    '\u03c9-versus-k_f contrast (the two best metrics) gives \u0394AUC = '
+    '+0.088 (SE 0.010; 95% CI [0.068, 0.109]; z = 8.5; P = 2.4 \u00d7 '
+    '10\u207b\u00b9\u2077), and a module-seed cluster bootstrap of the '
+    'difference (three module-seed clusters resampled on the signal side plus '
+    'iid neutral replicates, B = 5,000, seed 42) gives [0.070, 0.108] with no '
+    'non-positive replicate. Paired contrasts against k_total, cosine, '
+    'k_f/k_total, and k_n are likewise significant (all P < 10\u207b\u2078; '
+    'table results/nc60_paired_dauc.csv; script '
+    'results/audit/_nc60_paired_stats.py, whose DeLong implementation '
+    'reproduces the nc52 single-metric intervals above to 4 decimals).'
 )
 
 add_para(
@@ -2908,6 +2954,39 @@ add_para(
     'notebooks/13_phase35_method_comparison.py (cross-organ method comparison), '
     'and notebooks/30_genome_biology_figures.py with notebooks/_fig1_clean.py to _fig6_clean.py (figure generation).'
 )
+
+# ===== Supplementary Figures (legends migrated from the main text, nc60) =====
+add_heading('Supplementary Figures', 2)
+add_para('Legends for Supplementary Figs. 1-14. Figure files are provided separately (results/ figures listed in the Reproducibility Guide).')
+
+add_para('Supplementary Fig. 1. Parameter sweep and pathway analysis. (a) k_n stability as a function of housekeeping gene set size; k_n decreases monotonically with increasing HK gene number (250\u20131,000), indicating that the baseline rate is gene-set-size-dependent; absolute \u03c9 values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (b) Variance of module-level GSVA enrichment scores across 38 mouse cell-type entries for the 20 HVG-partition modules (sorted by variance). Cell-type divergence is broadly distributed across modules rather than concentrated in a single module, consistent with the identity-only configuration of k_f. (c) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs).')
+
+add_para('Supplementary Fig. 2. Calibrated \u03c9 under two baselines. (a) Raw \u03c9 and calibrated \u03c9 (\u03c9_cal = \u03c9 / 7.70, mouse FACS baseline; \u03c9 / 9.73, brain-internal baseline) by brain cell type (log scale). Dashed line indicates the split-half expectation (\u03c9_cal = 1.0). (b) Calibrated \u03c9 distributions across all 31,764 brain region pairs under both baselines; calibrating with the mouse baseline overstates brain \u03c9_cal by 1.26-fold (9.73 / 7.70).')
+
+add_para('Supplementary Fig. 3. Human-brain sanity check on the microglia supercluster (Supplementary Note 7). (a) UMAP embedding of the CELLxGENE Microglia supercluster (Human Brain Cell Atlas v1.0; 91,838 nuclei; precomputed embedding), coloured by cell type: microglial cell (88,494 nuclei) versus CNS macrophage (CNS-M\u03c6; 3,344). (b) CKI \u03c9 for the functional contrast (35 sample-matched microglia-versus-CNS-M\u03c6 pairs) versus neutral half-splits (20 per cell type): \u03c9 = 21.83 \u00b1 7.20 (functional) versus \u03c9 = 1.30 \u00b1 0.36 (neutral); Mann-Whitney P = 5.5 \u00d7 10\u207b\u00b9\u2074. (c) Per-metric exact rank AUC for the same contrast: the margin is carried by k_f (AUC = 1.00), whereas k_n is only partially elevated (AUC = 0.89); standard metrics also separate the classes (raw JS, cosine, marker Jaccard AUC = 1.00; Spearman 0.90), as expected for two genuinely distinct cell types. This analysis uses the global-HVG scheme, not the per-pair top-200 hybrid scheme, so absolute \u03c9 values sit on a different scale from the 7.70-calibrated hybrid baseline and are compared internally only.')
+
+add_para('Supplementary Fig. 4. Real perturbation demonstration (Kang et al. IFN-\u03b2-stimulated PBMCs). (a) Area under the ROC curve (AUC) for separating within-donor stim-versus-control pairs (perturbation) from cross-donor same-condition pairs (donor drift) per cell type, for \u03c9 (blue), k_f alone (green), and raw JS divergence (grey); bars start at the chance level of 0.5. Where IFN-\u03b2 moves the housekeeping anchor hardest (CD14+ monocytes), the \u03c9 AUC falls to 0.55 while k_f retains 0.98 \u2014 the anchor-visibility boundary. (b) Median per-pair k_n (JS divergence on housekeeping genes) by comparison class, donor-drift pairs (steel) versus stim-versus-control pairs (red), on a logarithmic scale; red annotations give the stim-versus-control-to-donor-drift median ratio (1.2\u20135.7-fold), consistent with the perturbation raising the housekeeping anchor itself. Condition is fully confounded with capture lane in this dataset; cross-metric contrasts, not absolute detection, are the informative quantity.')
+
+add_para('Supplementary Fig. 5. TCGA per-cancer matrices and supplementary stratification vignettes. (a) Pairwise \u03c9 matrices for five cancer types (BRCA, KIRC, LIHC, LUAD, LUSC) showing tissue-level transcriptomic divergence structure within each cancer cohort. (b) Within-cancer-type stratification (exploratory): per-tumor \u03c9 by LIHC Edmondson grade and BRCA PAM50 subtype; both orderings are denominator-dominated and reverse or largely reverse under k_f alone, unlike the LUAD driver-mutation contrast (Results).')
+
+add_para('Supplementary Fig. 6. Cross-organ conservation raw data. Blue = well-sampled (n \u2265 5 pairs); gray = sparsely sampled (n < 5 pairs). panel a shows mean \u00b1 SD; panel b shows raw pair-level distribution.')
+
+add_para('Supplementary Fig. 7. Brain regional analysis details. (a) Mean regional divergence (\u03c9, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| \u2265 2; SES = [observed \u03c9 \u2212 null mean] / null SD), grey otherwise. (b) \u03c9 versus number of sampled regions (n_regions) per cell type; Spearman \u03c1 is reported (broader spatial coverage is not significantly associated with divergence at n = 10). (c) Distribution of multiplicative residuals (observed/expected \u03c9) across all 31,764 cross-region pairs; colours indicate confidence tier (Strong: < 0.3; Moderate: < 0.5; Weak).')
+
+add_para('Supplementary Fig. 8. Pair-specific k_n variability (brain). (a) Distribution of per-pair k_n values by cell type (bars: mean \u00b1 SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (b) Per-pair \u03c9 (pair-specific k_n) versus \u03c9 estimated with the global mean k_n; red line is y = x. Spearman \u03c1 = 0.142 (P = 7.07\u00d710\u207b\u00b9\u2074\u00b3, n = 31,764).')
+
+add_para('Supplementary Fig. 9. Developmental signature detection. (a) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (b) The ten Strong candidates with the smallest residual, shown as horizontal bars (residual and \u03c9 value annotated on each bar); bars are coloured by oligodendrocyte (OL) lineage membership (purple, OL-lineage; red, non-OL). Inset: OL-lineage representation among Strong candidates \u2014 12 of 39 Strong, fold = 0.77, hypergeometric P = 0.92 (no enrichment). Cell types and region pairs are given in full. (c) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The number and percentage (to two decimal places) of Strong pairs are annotated on each bar \u2014 e.g., Microglia: Strong 16 (0.96%); Oligodendrocyte: Strong 10 (0.95%); Astrocyte: Strong 3 (0.47%).')
+
+add_para('Supplementary Fig. 10. Block-shuffle permutation null for the residual model. Distribution of multiplicative residuals under block-shuffle permutation of library-to-region assignments (B = 1,000), compared against observed residuals for Strong candidates.')
+
+add_para('Supplementary Fig. 11. Pseudo-region negative control for the brain block-shuffle null (QQ plots of per-pair permutation P-values against the uniform distribution). (a) Lower-tail P-values; (b) upper-tail P-values. Every region\u2019s libraries were split uniformly at random into two pseudo-regions per cell type and the identical block-shuffle test (B = 1,000) was re-run on the 127,756 pseudo-pairs. Pseudo-pairs between halves of different real regions (cross-origin, n = 127,056) track the diagonal closely (marginal tail rates 5.79% lower / 6.87% upper versus the 5% nominal level), closely matching the real analysis (6.17% / 7.90%), while pairs between the two halves of the same region (same-origin, n = 700) deviate strongly in the lower tail (37.6%), demonstrating both the null\u2019s calibration under the design-matched null and its power to detect within-region library similarity.')
+
+add_para('Supplementary Fig. 12. Cross-species comparison details. (a) Cross-species \u03c9 comparison: scatter plot of human vs. mouse per-cell-type mean \u03c9 for the 15 shared cell types (Spearman r = \u22120.17, P = 0.55; no significant correlation).')
+
+add_para('Supplementary Fig. 13. JS divergence dimensionality invariance. (a) Mean JS divergence between random Dirichlet distribution pairs as a function of dimensionality (50\u20135,000 genes, n = 2,000 trials per dimension), showing that JS divergence is effectively constant across dimensions (ratio = 1.001 between d = 1,130 and d = 2,000). (b) Dimensionality ratio relative to the HK gene set (d = 1,130), confirming that k_n and k_f are dimensionally comparable.')
+
+add_para('Supplementary Fig. 14. \u03c9 distribution characterization. Histograms and Q-Q plots of \u03c9 distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D\u2019Agostino-Pearson, P < 2.2 \u00d7 10\u207b\u00b9\u2076) and human (Shapiro-Wilk, P = 7.6 \u00d7 10\u207b\u2074\u00b2), while the mouse pilot (n = 15 pairs) does not reject normality (P = 0.071), although the small sample size limits the power of this test.')
+
 
 # ===== Add line numbers (continuous, every line) =====
 for sec in doc.sections:
