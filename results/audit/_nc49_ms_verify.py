@@ -233,8 +233,8 @@ chk('SI availability rewritten',
     'Supplementary Information is available for this paper' in full)
 
 # 10. Prior-phase content intact
-chk('severity -> Note 9 + Supp Fig 5b (v58: 4->5 renumber)',
-    'denominator-dominated vignettes (Supplementary Note 9)' in full
+chk('severity -> Note 5 + Supp Fig 5b (v59: Note 9->5 renumber)',
+    'denominator-dominated vignettes (Supplementary Note 5)' in full
     and 'Supplementary Fig. 5b' in sfull)
 chk('marker Jaccard 1.41 (v51: Fig 3 legend)', 'T3 calibration 1.41 versus 1.80' in full)
 chk('no leftover 1.40 versus 1.80', '1.40 versus 1.80' not in full)

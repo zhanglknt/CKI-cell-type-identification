@@ -239,7 +239,7 @@ def main():
     check("TODO" not in sn, "V49-S9 no TODO in SN")
 
     # ---- Guide inline checks (v49 caliber) ----
-    check("Supplementary Note 13" in gd, "V49-G1 Guide cites Supplementary Note 13")
+    check("Supplementary Note 14" in gd, "V49-G1 Guide cites Supplementary Note 14 (v59: 13->14)")
     check("Section 3.9 of the Supplementary Information" in gd, "V49-G2 Guide Section 3.9 pointer (renumbered from 3.11)")
     check(not re.search(r"Note [345]\.\d", gd), "V49-G3 no decimal Note refs in Guide")
     check("Fig. S" not in gd and "Table S" not in gd, "V49-G4 no S-naming in Guide")
@@ -523,7 +523,7 @@ def main():
     # tables 5 and 14 must still be cited in the main text itself)
     check('All Supplementary Tables (1\u201319) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
           and 'Supplementary Tables 5\u201319 provide the per-analysis numerical tables' not in ms
-          and 'Supplementary Table 5)' in ms and 'Supplementary Table 14)' in ms,
+          and 'Supplementary Table 2)' in ms and 'Supplementary Table 3)' in ms,
           "V49-N85 B6 Supp Tables pointer in Data availability (nc55: single-xlsx)")
     # C1: composition B=1000 unified (MS Methods + SI Note 8 + Guide 5.8b)
     check('B = 1,000 composition cluster bootstrap' in ms
@@ -585,8 +585,8 @@ def main():
     # ---- v49.15 fifth-round blind-review fixes (5 Minor + 1 optional) ----
     # m2 (R1): span-matched residual decomposition surfaced in MS
     check('decomposes the residual 3.68-fold gradient into k_f 1.39 and k_n 0.33'
-          in sn and 'Supplementary Note 10' in ms,
-          "V49-N100 m2 span-matched residual decomposition (v51: SI Note 10)")
+          in sn and 'Supplementary Note 11' in ms,
+          "V49-N100 m2 span-matched residual decomposition (v59: MS Note 10->11)")
     # m3 (R1): ependymal against-direction class noted in MS
     check('ependymal cells, moving against the conservative direction, still do not survive: stratified q = 0.052' in ms,
           "V49-N101 m3 ependymal stratified-reversal note in MS (v52 wording)")

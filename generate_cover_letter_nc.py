@@ -25,6 +25,15 @@ Numbers sourced from verified audits only:
   adjustment per nc49_purity/nc49_smoking audits),
   simulation change-detection results (FPR 0.00 vs 0.55-0.58; AUC 0.80
   rank 1/6, skin replication 0.91).
+
+v59 changes (nc59, 2026-10-02):
+  * Pillar 3 TCGA wording aligned to the revised abstract: range numbers
+    (NN/TT ratio, k_n fold) dropped from the letter body; phrasing now
+    "tumors appear consistently less divergent ... driven by an elevated
+    housekeeping baseline rather than reduced functional divergence".
+  * Fourth pillar added: human brain atlas (108 regions) regional
+    differentiation gradient + statistically calibrated framework,
+    mirroring the revised abstract's closing point.
 """
 from pathlib import Path
 from docx.shared import Pt, Inches
@@ -87,9 +96,9 @@ def run():
         doc,
     )
 
-    # ── Body: core argument — three pillars ──
+    # ── Body: core argument — four pillars (v59: brain-atlas pillar added) ──
     add_para(
-        "The manuscript rests on three pillars. First, in ground-truth "
+        "The manuscript rests on four pillars. First, in ground-truth "
         "simulation (1,750 replicates per background, two backgrounds), \u03c9 alone did not false-trigger on "
         "neutral housekeeping drift (false-positive rate 0.00 versus "
         "0.55\u20130.58 for JS and cosine) and gave the best "
@@ -102,18 +111,21 @@ def run():
         "five; below raw JS in all ten cell classes), with the shallowest "
         "drift-ladder gradient (1.04 \u2192 1.76 \u2192 1.80 versus "
         "1.07 \u2192 3.32 \u2192 2.98 for raw JS). Third, across 3,535 TCGA "
-        "samples in five cancer types, tumor specimens were consistently less "
-        "divergent than adjacent non-tumor tissue (NN/TT \u03c9 ratio "
-        "1.11\u20132.46, bootstrap CIs excluding 1 in four of five)\u2014"
-        "reflecting a 1.3\u20133.3-fold elevated housekeeping baseline, not "
-        "reduced functional divergence; and in lung adenocarcinoma the k_f/k_n "
+        "samples in five cancer types, tumors appear consistently less "
+        "divergent than adjacent non-tumor tissue\u2014a pan-cancer "
+        "reversal driven by an elevated housekeeping baseline rather "
+        "than reduced functional divergence; and in lung adenocarcinoma "
+        "the k_f/k_n "
         "decomposition separates KRAS-mutant tumors\u2014retaining both a "
         "functional (k_f) and a baseline (k_n) component after purity and "
         "smoking adjustment\u2014from EGFR-mutant tumors, whose apparent "
         "association dissolved under purity adjustment. A GTEx healthy "
         "reference further shows adjacent-normal k_n at healthy-tissue levels "
         "in lung, liver, and breast, arguing against a field-effect reading "
-        "of the pan-cancer reversal.",
+        "of the pan-cancer reversal. Fourth, in a human brain atlas "
+        "spanning 108 regions, CKI quantified a regional differentiation "
+        "gradient and provides a statistically calibrated framework for "
+        "atlas-scale comparisons.",
         doc,
     )
 

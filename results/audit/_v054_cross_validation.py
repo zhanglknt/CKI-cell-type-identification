@@ -146,15 +146,15 @@ lines = [ln for ln in ms.split("\n") if "Inspired by the Ka/Ks ratio" in ln]
 wc = len(lines[0].split()) if lines else -1
 chk("abstract = 196 words (margin 4)", wc == 196, f"wc={wc}")
 
-print("== 7. SI xlsx Table 5 caption (capfull caliber) ==")
+print("== 7. SI xlsx Table 2 caption (v59: old Table 5, capfull caliber) ==")
 import openpyxl
 wb = openpyxl.load_workbook(R / "CKI_Supplementary_Tables_NC.xlsx")
-ws = wb.worksheets[4]
+ws = wb.worksheets[1]  # nc59 renumber: old Table 5 (two-caliber NN/TT) -> new Table 2
 a1 = str(ws["A1"].value or "")
-chk("Table 5 A1 attenuation -0.9%", "attenuation \u22120.9%" in a1 or "attenuation -0.9%" in a1, a1[:80])
-chk("Table 5 A1 median -0.8% [-4.3, +2.5]",
+chk("Table 2 A1 attenuation -0.9%", "attenuation \u22120.9%" in a1 or "attenuation -0.9%" in a1, a1[:80])
+chk("Table 2 A1 median -0.8% [-4.3, +2.5]",
     ("\u22120.8% [95% CI \u22124.3%, +2.5%]" in a1) or ("-0.8% [95% CI -4.3%, +2.5%]" in a1))
-chk("Table 5 A1 clean of superseded -1.3%", "1.3%" not in a1)
+chk("Table 2 A1 clean of superseded -1.3%", "1.3%" not in a1)
 
 print("== 8. release chain state ==")
 chk("v0.5.2 release asset sha256 readback MATCH (recorded in _v054_release_create.py run)",
