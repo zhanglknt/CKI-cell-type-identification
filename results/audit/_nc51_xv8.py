@@ -110,15 +110,15 @@ chk('first-appearance 1..57 monotonic', _first == list(range(1, 58)),
 chk('no orphans (57 cited)', len(_seen) == 57)
 
 # ---------- 6. zip integrity ----------
-z = zipfile.ZipFile('CKI_Submission_v50_NC.zip')
+z = zipfile.ZipFile('CKI_Submission_NC.zip')
 names = z.namelist()
 chk('zip 28 entries', len(names) == 28, f'got {len(names)}')
 chk('zip has Supplementary_Fig_14.pdf',
-    'CKI_Submission_v50_NC/Supplementary_Fig_14.pdf' in names)
-sha = hashlib.sha256(open('CKI_Submission_v50_NC.zip', 'rb').read()).hexdigest()
+    'CKI_Submission_NC/Supplementary_Fig_14.pdf' in names)
+sha = hashlib.sha256(open('CKI_Submission_NC.zip', 'rb').read()).hexdigest()
 print(f'  zip sha256 = {sha}')
-chk('zip size < 15 MB', len(open('CKI_Submission_v50_NC.zip', 'rb').read()) < 15e6,
-    f"{len(open('CKI_Submission_v50_NC.zip', 'rb').read()):,} B")
+chk('zip size < 15 MB', len(open('CKI_Submission_NC.zip', 'rb').read()) < 15e6,
+    f"{len(open('CKI_Submission_NC.zip', 'rb').read()):,} B")
 
 # ---------- 7. MS<->SI pointer consistency (v51) ----------
 chk('MS Supplementary Methods 5.x pointers = 21 (nc60 A3: barcode-audit pointer 1.7->5.3)', ms.count('Supplementary Methods 5.') == 21,

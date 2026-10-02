@@ -13,9 +13,9 @@ from docx import Document
 
 BASE = Path("C:/Users/KnightZ/Desktop/细胞受选择")
 PY = "C:/Users/KnightZ/.workbuddy/binaries/python/envs/default/Scripts/python.exe"
-WORK_DIR = BASE / "version3" / "CKI_Submission_v50_NC"
-ZIP_PATH = BASE / "version3" / "CKI_Submission_v50_NC.zip"
-MAIN_ZIP = BASE / "CKI_Submission_v50_NC.zip"
+WORK_DIR = BASE / "version3" / "CKI_Submission_NC"
+ZIP_PATH = BASE / "version3" / "CKI_Submission_NC.zip"
+MAIN_ZIP = BASE / "CKI_Submission_NC.zip"
 
 def sha256(p):
     h = hashlib.sha256()
@@ -61,10 +61,10 @@ assert not bad, "line spacing not 1.15 everywhere"
 shutil.copy2(cl_docx, WORK_DIR / "CKI_NC_Cover_Letter.docx")
 
 # [4] recompute MANIFEST
-entries = sorted(e for e in os.listdir(WORK_DIR) if e != "MANIFEST_v50.txt")
+entries = sorted(e for e in os.listdir(WORK_DIR) if e != "MANIFEST.txt")
 manifest = ["=" * 60,
             "  CKI Submission Package v49 (Nature Communications)",
-            "  MANIFEST_v50.txt",
+            "  MANIFEST.txt",
             "  tag: v0.5.x | GB-rebuttal round: real-data drift calibration + pan-cancer map",
             "=" * 60, ""]
 for i, e in enumerate(entries, 1):
@@ -74,12 +74,12 @@ manifest.append("")
 manifest.append("SHA-256 checksums:")
 for e in entries:
     manifest.append(f"  {sha256(WORK_DIR / e)}  {e}")
-(WORK_DIR / "MANIFEST_v50.txt").write_text("\n".join(manifest) + "\n", encoding="utf-8")
+(WORK_DIR / "MANIFEST.txt").write_text("\n".join(manifest) + "\n", encoding="utf-8")
 
 # [5] re-zip
 with zipfile.ZipFile(ZIP_PATH, "w", zipfile.ZIP_DEFLATED) as z:
     for e in sorted(os.listdir(WORK_DIR)):
-        z.write(WORK_DIR / e, f"CKI_Submission_v50_NC/{e}")
+        z.write(WORK_DIR / e, f"CKI_Submission_NC/{e}")
 shutil.copy2(ZIP_PATH, MAIN_ZIP)
 print(f"  zip: {ZIP_PATH.stat().st_size:,} B ({len(zipfile.ZipFile(str(ZIP_PATH)).namelist())} entries)")
 
