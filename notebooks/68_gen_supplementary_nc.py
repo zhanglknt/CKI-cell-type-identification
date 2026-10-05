@@ -281,6 +281,7 @@ toc = [
     'Supplementary Note 14: Brain set-level enrichment of the block-shuffle signal (post-hoc)',
     'Supplementary Note 15: Comparison with Augur Cell-Type Prioritization',
     'Supplementary Note 16: JS Divergence Dimensionality Invariance',
+    'Supplementary Note 17: Lineage-Distance Validation across Atlases',
     'Supplementary Methods',
     'Supplementary Table 1: Parameter Sweep Results',
     'Supplementary Table 2: TCGA Linear-Normalization Robustness',
@@ -301,14 +302,16 @@ toc = [
     'Supplementary Table 17: LUAD Smoking-Covariate Adjustment',
     'Supplementary Table 18: TCGA Clinical-Severity Gradients',
     'Supplementary Table 19: Brain min-cells Threshold Sensitivity',
+    'Supplementary Table 20: Tabula Sapiens Lineage-Distance Pair Data',
+    'Supplementary Table 21: Siletti Brain Lineage-Distance Pair Data',
     'Supplementary Data 1: Analysis Script Index',
-    'Supplementary Figures (legends for Supplementary Figs. 1-14)',
+    'Supplementary Figures (legends for Supplementary Figs. 1-16)',
 ]
 for item in toc:
     add_para(item)
 
-add_para('Supplementary Tables 1-19 are provided as a single workbook '
-         '(CKI_Supplementary_Tables_NC.xlsx, sheets Table 1-19 in numeric order); '
+add_para('Supplementary Tables 1-21 are provided as a single workbook '
+         '(CKI_Supplementary_Tables_NC.xlsx, sheets Table 1-21 in numeric order); '
          'in-text references in this document appear at first use, so mention '
          'order follows the narrative rather than table numbering.')
 
@@ -2800,6 +2803,55 @@ add_para(
     'consistency. (Supplementary Fig. 13.)'
 )
 
+add_heading('Supplementary Note 17: Lineage-Distance Validation across Atlases', 2)
+add_para(
+    'To test whether k_f carries lineage information beyond the organ baseline, we mapped '
+    'every Tabula Sapiens cell type to Cell Ontology (CL) identifiers (releases/2026-06-08) '
+    'and computed pairwise lineage distance as the shortest-path length over the CL ancestor '
+    'graph. Across 1,054 same-organ cross-cell-type pairs spanning 6 organs, k_f increased '
+    'systematically with lineage distance (Spearman \u03c1 = 0.227, P = 9.5 \u00d7 '
+    '10\u207b\u00b9\u2074; organ-stratified permutation, 10,000 draws, P = 1.0 \u00d7 '
+    '10\u207b\u2074), rising from a median of 0.127 at distance 1\u20132 to 0.271 at '
+    'distance \u22659 (2.1-fold monotone ladder; Supplementary Figs. 15a, 16a). '
+    'Same-cell-type cross-organ pairs at distance 0 anchored the ladder at a much lower '
+    'median k_f of 0.106 (n = 69). Critically, k_n showed no lineage gradient (\u03c1 = '
+    '0.052, P = 0.092), confirming that the organ baseline is distance-independent; the '
+    'partial correlation of \u03c9 with distance given k_n was \u03c1 = 0.265 (P = 1.9 '
+    '\u00d7 10\u207b\u00b9\u2078). (Supplementary Table 20.)'
+)
+add_para(
+    'We then replicated the design in an independent brain atlas with a fundamentally '
+    'different pairing structure: 888,263 non-neuronal nuclei from Siletti et al., yielding '
+    '1,537 same-region cross-cell-type pairs scored on a fixed 5,000-gene non-HK panel '
+    '(k_f_fixed). Despite the coarser panel and the absence of any organ contrast, '
+    'k_f_fixed again increased with lineage distance (\u03c1 = 0.181, P = 9.9 \u00d7 '
+    '10\u207b\u00b9\u00b3; region-stratified permutation, 10,000 draws, P = 1.0 \u00d7 '
+    '10\u207b\u2074), although the increase was not monotone across coarse distance bins '
+    '(Supplementary Fig. 15b). The oligodendrocyte lineage chain provided a directed '
+    'within-lineage test: median k_f_fixed rose from 0.063 (OPC\u2013COP) to 0.075 '
+    '(COP\u2013oligodendrocyte) to 0.130 (OPC\u2013oligodendrocyte; 2.06-fold), and the '
+    'chain ordering held in 52 of 52 shared brain regions (paired Wilcoxon P = 1.8 \u00d7 '
+    '10\u207b\u00b9\u2070; Supplementary Fig. 15c). Distance-0 anchors (same cell type '
+    'across regions, n = 31,764 pairs) sat far below the closest cross-lineage pair '
+    '(median 0.006\u20130.033 versus 0.063 for OPC\u2013COP; Supplementary Fig. 16c), and '
+    'a germ-layer prediction was confirmed: microglia (mesoderm) were more distant from '
+    'macroglia (ectoderm) than macroglia were from each other (median k_f_fixed 0.163 '
+    'versus 0.123; Mann\u2013Whitney P = 4.5 \u00d7 10\u207b\u00b9\u2074\u2076; '
+    'Supplementary Fig. 16b). (Supplementary Table 21.)'
+)
+add_para(
+    'The two atlases also delineate the portability boundary of k_n. In the brain design, '
+    'k_n correlated positively with lineage distance (\u03c1 = 0.300, P = 2.1 \u00d7 '
+    '10\u207b\u00b3\u00b3), reversing its null behaviour in Tabula Sapiens, so that '
+    '\u03c9 decreased with distance (\u03c1 = \u22120.134) and carried no independent '
+    'signal after partialling out k_n (\u03c1 = \u22120.009, P = 0.74). Together with '
+    'the main-text denominator guidance, these results identify k_f, rather than \u03c9, '
+    'as the only lineage signal that is portable across pairing designs: k_n tracks '
+    'whatever baseline variation a given design happens to fix (organ identity in Tabula '
+    'Sapiens; region identity in the brain atlas), and only k_f responds to lineage '
+    'distance in both. (Supplementary Figs. 15, 16; Supplementary Tables 20, 21.)'
+)
+
 doc.add_page_break()
 
 # ===== Supplementary Methods (v51: procedural detail migrated verbatim from main-text Methods) =====
@@ -2957,7 +3009,7 @@ add_para(
 
 # ===== Supplementary Figures (legends migrated from the main text, nc60) =====
 add_heading('Supplementary Figures', 2)
-add_para('Legends for Supplementary Figs. 1-14. Figure files are provided separately (results/ figures listed in the Reproducibility Guide).')
+add_para('Legends for Supplementary Figs. 1-16. Figure files are provided separately (results/ figures listed in the Reproducibility Guide).')
 
 add_para('Supplementary Fig. 1. Parameter sweep and pathway analysis. (a) k_n stability as a function of housekeeping gene set size; k_n decreases monotonically with increasing HK gene number (250\u20131,000), indicating that the baseline rate is gene-set-size-dependent; absolute \u03c9 values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (b) Variance of module-level GSVA enrichment scores across 38 mouse cell-type entries for the 20 HVG-partition modules (sorted by variance). Cell-type divergence is broadly distributed across modules rather than concentrated in a single module, consistent with the identity-only configuration of k_f. (c) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs).')
 
@@ -2965,13 +3017,13 @@ add_para('Supplementary Fig. 2. Calibrated \u03c9 under two baselines. (a) Raw \
 
 add_para('Supplementary Fig. 3. Human-brain sanity check on the microglia supercluster (Supplementary Note 7). (a) UMAP embedding of the CELLxGENE Microglia supercluster (Human Brain Cell Atlas v1.0; 91,838 nuclei; precomputed embedding), coloured by cell type: microglial cell (88,494 nuclei) versus CNS macrophage (CNS-M\u03c6; 3,344). (b) CKI \u03c9 for the functional contrast (35 sample-matched microglia-versus-CNS-M\u03c6 pairs) versus neutral half-splits (20 per cell type): \u03c9 = 21.83 \u00b1 7.20 (functional) versus \u03c9 = 1.30 \u00b1 0.36 (neutral); Mann-Whitney P = 5.5 \u00d7 10\u207b\u00b9\u2074. (c) Per-metric exact rank AUC for the same contrast: the margin is carried by k_f (AUC = 1.00), whereas k_n is only partially elevated (AUC = 0.89); standard metrics also separate the classes (raw JS, cosine, marker Jaccard AUC = 1.00; Spearman 0.90), as expected for two genuinely distinct cell types. This analysis uses the global-HVG scheme, not the per-pair top-200 hybrid scheme, so absolute \u03c9 values sit on a different scale from the 7.70-calibrated hybrid baseline and are compared internally only.')
 
-add_para('Supplementary Fig. 4. Real perturbation demonstration (Kang et al. IFN-\u03b2-stimulated PBMCs). (a) Area under the ROC curve (AUC) for separating within-donor stim-versus-control pairs (perturbation) from cross-donor same-condition pairs (donor drift) per cell type, for \u03c9 (blue), k_f alone (green), and raw JS divergence (grey); bars start at the chance level of 0.5. Where IFN-\u03b2 moves the housekeeping anchor hardest (CD14+ monocytes), the \u03c9 AUC falls to 0.55 while k_f retains 0.98 \u2014 the anchor-visibility boundary. (b) Median per-pair k_n (JS divergence on housekeeping genes) by comparison class, donor-drift pairs (steel) versus stim-versus-control pairs (red), on a logarithmic scale; red annotations give the stim-versus-control-to-donor-drift median ratio (1.2\u20135.7-fold), consistent with the perturbation raising the housekeeping anchor itself. Condition is fully confounded with capture lane in this dataset; cross-metric contrasts, not absolute detection, are the informative quantity.')
+add_para('Supplementary Fig. 4. Real perturbation demonstration (Kang et al. IFN-\u03b2-stimulated PBMCs). (a) Area under the ROC curve (AUC) for separating within-donor stim-versus-control pairs (perturbation) from cross-donor same-condition pairs (donor drift) per cell type, for \u03c9 (red), k_f alone (purple), and raw JS divergence (grey); bars start at the chance level of 0.5. Where IFN-\u03b2 moves the housekeeping anchor hardest (CD14+ monocytes), the \u03c9 AUC falls to 0.55 while k_f retains 0.98 \u2014 the anchor-visibility boundary. (b) Median per-pair k_n (JS divergence on housekeeping genes) by comparison class, donor-drift pairs (steel) versus stim-versus-control pairs (red), on a logarithmic scale; red annotations give the stim-versus-control-to-donor-drift median ratio (1.2\u20135.7-fold), consistent with the perturbation raising the housekeeping anchor itself. Condition is fully confounded with capture lane in this dataset; cross-metric contrasts, not absolute detection, are the informative quantity.')
 
 add_para('Supplementary Fig. 5. TCGA per-cancer matrices and supplementary stratification vignettes. (a) Pairwise \u03c9 matrices for five cancer types (BRCA, KIRC, LIHC, LUAD, LUSC) showing tissue-level transcriptomic divergence structure within each cancer cohort. (b) Within-cancer-type stratification (exploratory): per-tumor \u03c9 by LIHC Edmondson grade and BRCA PAM50 subtype; both orderings are denominator-dominated and reverse or largely reverse under k_f alone, unlike the LUAD driver-mutation contrast (Results).')
 
 add_para('Supplementary Fig. 6. Cross-organ conservation raw data. Blue = well-sampled (n \u2265 5 pairs); gray = sparsely sampled (n < 5 pairs). panel a shows mean \u00b1 SD; panel b shows raw pair-level distribution.')
 
-add_para('Supplementary Fig. 7. Brain regional analysis details. (a) Mean regional divergence (\u03c9, with SD) per cell type, ranked ascending; red bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| \u2265 2; SES = [observed \u03c9 \u2212 null mean] / null SD), grey otherwise. (b) \u03c9 versus number of sampled regions (n_regions) per cell type; Spearman \u03c1 is reported (broader spatial coverage is not significantly associated with divergence at n = 10). (c) Distribution of multiplicative residuals (observed/expected \u03c9) across all 31,764 cross-region pairs; colours indicate confidence tier (Strong: < 0.3; Moderate: < 0.5; Weak).')
+add_para('Supplementary Fig. 7. Brain regional analysis details. (a) Mean regional divergence (\u03c9, with SD) per cell type, ranked ascending; purple bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| \u2265 2; SES = [observed \u03c9 \u2212 null mean] / null SD), grey otherwise. (b) \u03c9 versus number of sampled regions (n_regions) per cell type; Spearman \u03c1 is reported (broader spatial coverage is not significantly associated with divergence at n = 10). (c) Distribution of multiplicative residuals (observed/expected \u03c9) across all 31,764 cross-region pairs; colours indicate confidence tier (Strong: < 0.3; Moderate: < 0.5; Weak).')
 
 add_para('Supplementary Fig. 8. Pair-specific k_n variability (brain). (a) Distribution of per-pair k_n values by cell type (bars: mean \u00b1 SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n). (b) Per-pair \u03c9 (pair-specific k_n) versus \u03c9 estimated with the global mean k_n; red line is y = x. Spearman \u03c1 = 0.142 (P = 7.07\u00d710\u207b\u00b9\u2074\u00b3, n = 31,764).')
 
@@ -2986,6 +3038,10 @@ add_para('Supplementary Fig. 12. Cross-species comparison details. (a) Cross-spe
 add_para('Supplementary Fig. 13. JS divergence dimensionality invariance. (a) Mean JS divergence between random Dirichlet distribution pairs as a function of dimensionality (50\u20135,000 genes, n = 2,000 trials per dimension), showing that JS divergence is effectively constant across dimensions (ratio = 1.001 between d = 1,130 and d = 2,000). (b) Dimensionality ratio relative to the HK gene set (d = 1,130), confirming that k_n and k_f are dimensionally comparable.')
 
 add_para('Supplementary Fig. 14. \u03c9 distribution characterization. Histograms and Q-Q plots of \u03c9 distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D\u2019Agostino-Pearson, P < 2.2 \u00d7 10\u207b\u00b9\u2076) and human (Shapiro-Wilk, P = 7.6 \u00d7 10\u207b\u2074\u00b2), while the mouse pilot (n = 15 pairs) does not reject normality (P = 0.071), although the small sample size limits the power of this test.')
+
+add_para('Supplementary Fig. 15. Lineage-distance validation of k_f across two independent atlases (Supplementary Note 17). (a) Tabula Sapiens same-organ cross-cell-type pairs (n = 1,054, 6 organs): median k_f by Cell Ontology lineage-distance bin rises monotonically from 0.127 (distance 1\u20132) to 0.271 (distance \u22659); the grey bar anchors same-cell-type cross-organ pairs at distance 0 (median 0.106, n = 69). Spearman \u03c1 = 0.227, P = 9.5 \u00d7 10\u207b\u00b9\u2074; organ-stratified permutation (10,000 draws) P = 1.0 \u00d7 10\u207b\u2074. Pair counts per bin are annotated inside the bars. (b) Siletti et al. brain atlas same-region cross-cell-type pairs (n = 1,537; k_f on a fixed 5,000-gene non-HK panel): median k_f_fixed by lineage-distance bin; the increase is significant (\u03c1 = 0.181, P = 9.9 \u00d7 10\u207b\u00b9\u00b3; region-stratified permutation P = 1.0 \u00d7 10\u207b\u2074) but not monotone across coarse bins. (c) Oligodendrocyte lineage chain across 52 shared brain regions: per-region k_f_fixed for OPC\u2013COP (distance 2), COP\u2013oligodendrocyte (distance 5), and OPC\u2013oligodendrocyte (distance 5); medians 0.063 / 0.075 / 0.130 (2.06-fold), with the ordering holding in 52 of 52 regions (paired Wilcoxon P = 1.8 \u00d7 10\u207b\u00b9\u2070). Grey lines connect matched regions; the purple line connects medians.')
+
+add_para('Supplementary Fig. 16. k_n is design-dependent; k_f is the portable lineage signal (Supplementary Note 17). (a) Spearman correlation of each metric with Cell Ontology lineage distance in Tabula Sapiens (orange; same-organ cross-cell-type pairs) and the Siletti brain atlas (purple; same-region cross-cell-type pairs). k_f correlates positively in both atlases (\u03c1 = 0.227 and 0.181; both permutation P = 1.0 \u00d7 10\u207b\u2074), whereas k_n is null in Tabula Sapiens (\u03c1 = 0.052, P = 0.092) but reverses to strongly positive in the brain (\u03c1 = 0.300, P = 2.1 \u00d7 10\u207b\u00b3\u00b3), so \u03c9 inherits a negative brain gradient (\u03c1 = \u22120.134) with no signal after partialling out k_n (\u03c1 = \u22120.009, P = 0.74). ***, P < 0.001; NS, not significant. (b) Germ-layer test in the brain atlas: microglia (mesoderm) are more divergent from macroglia (median k_f_fixed 0.163, n = 420 region pairs) than macroglia are from each other (0.123, n = 652); Mann\u2013Whitney P = 4.5 \u00d7 10\u207b\u00b9\u2074\u2076. (c) Distance-0 anchors in the brain atlas: median k_f_fixed for same-cell-type cross-region pairs per cell type (n = 31,764 pairs; range 0.006\u20130.033), all far below the closest cross-lineage pair (OPC\u2013COP, red dashed line at 0.063).')
 
 
 # ===== Add line numbers (continuous, every line) =====
@@ -3034,7 +3090,12 @@ def write_si_tables_xlsx():
         _plan.append(('rows', _SI_TABLE_ROWS[_k], _SI_TABLE_CAPS[_k]))
     for _k in range(10, 15):                           # old 15-19 -> new 15-19
         _plan.append(('rows', _SI_TABLE_ROWS[_k], _SI_TABLE_CAPS[_k]))
-    assert len(_plan) == 19
+    # nc63 B2: lineage-distance pair-level tables (Supplementary Note 17)
+    _t20 = pd.read_csv('results/nc61_lineage_distance.csv')
+    _t21 = pd.read_csv('results/nc62_brain_lineage_pairs.csv')
+    _plan.append(('df', _t20, 'Tabula Sapiens pair-level data for the lineage-distance validation (Supplementary Note 17): all 5,151 cell-type pairs with k_f, k_n, omega, Cell Ontology identifiers and lineage distance, plus same_organ / same_ct / ambiguous flags; the primary analysis uses the 1,054 same-organ cross-cell-type non-ambiguous pairs and the 69 distance-0 cross-organ anchors. Raw data: results/nc61_lineage_distance.csv.'))
+    _plan.append(('df', _t21, 'Siletti et al. brain atlas pair-level data for the lineage-distance validation (Supplementary Note 17): 2,032 same-region cross-cell-type pairs with k_f on the fixed 5,000-gene non-HK panel (kf_fixed), per-pair top-200 k_f (kf_pp200), k_n, both omega variants, Cell Ontology identifiers and lineage distance; the primary analysis excludes the Vascular supertype (n = 1,537), and the full 2,032 rows form the vascular-inclusive sensitivity set. Raw data: results/nc62_brain_lineage_pairs.csv.'))
+    assert len(_plan) == 21
     for _n, (_kind, _payload, _cap) in enumerate(_plan, start=1):
         ws = wb.create_sheet(f'Table {_n}')
         ws['A1'] = f'Supplementary Table {_n}: {_cap}'

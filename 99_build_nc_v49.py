@@ -112,22 +112,18 @@ def main():
     shutil.copy2(STAGE / "figure4.pdf", FIGS_NC / "figure4.pdf")
     shutil.copy2(STAGE / "figure5.pdf", FIGS_NC / "figure5.pdf")
     shutil.copy2(STAGE / "figure6.pdf", FIGS_NC / "figure6.pdf")
-    # v58 supplementary figures: fully monotone renumbering by MS first-
-    # citation order (microglia UMAP panel added -> new SF3; former SF3 ->
-    # SF14). STAGE files already carry the NEW numbers; SF3 is regenerated
-    # below by nc50_fig_microglia.py, so skip it in the copy loop.
-    for i in range(1, 15):
-        if i == 3:
-            continue
+    # v63 (first-author v6 round + nc63 B2 lineage note): all 16 supplementary
+    # figures ship from STAGE. SF1-14 are the v6 first-author redrawn versions
+    # (red/purple/orange palette, self-consistent with SI legends); SF15/SF16
+    # are the new nc63 B2 lineage-distance panels rendered by
+    # results/audit/_nc63_b2_figures.py. The nc50_fig_microglia regen is NO
+    # LONGER run here: it would overwrite the v6-palette SF3.
+    for i in range(1, 17):
         shutil.copy2(STAGE / f"figure_S{i}.pdf", FIGS_NC / f"Supplementary_Fig_{i}.pdf")
-    run([PY, str(BASE / "notebooks" / "nc50_fig_microglia.py")],
-        "Regen Supplementary Fig 3 (v58 microglia UMAP + omega + AUC)")
-    shutil.copy2(BASE / "results" / "Supplementary_Fig_3.pdf",
-                 FIGS_NC / "Supplementary_Fig_3.pdf")
     shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
                  FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
-    check(n_fig == 21, f"V49-1 figures staged = 21 (6 main + 14 supp + GA pdf; v50) got {n_fig}")
+    check(n_fig == 23, f"V49-1 figures staged = 23 (6 main + 16 supp + GA pdf; v63) got {n_fig}")
 
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_NC ...")
@@ -230,11 +226,11 @@ def main():
     check("Table S" not in sn, "V49-S3 no Table S in SN")
     check("Additional file" not in sn, "V49-S4 no Additional file in SN")
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
-    check(note_heads == list(range(1, 17)), f"V49-S5 SN Note headings 1..16 (v50) ({note_heads})")
+    check(note_heads == list(range(1, 18)), f"V49-S5 SN Note headings 1..17 (nc63 B2) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 24, f"V49-S6 SN Supplementary Fig. refs = 24 (nc60 A11: 14 legends moved into SI) ({n_sfig_sn})")
+    check(n_sfig_sn == 30, f"V49-S6 SN Supplementary Fig. refs = 30 (nc63 B2: +legends 15/16, +4 in-Note-17 refs) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
-    check(n_stab_sn == 41, f"V49-S7 SN Supplementary Table refs = 41 post-v49.5 ({n_stab_sn})")
+    check(n_stab_sn == 45, f"V49-S7 SN Supplementary Table refs = 45 (nc63 B2: +2 TOC entries 20/21 +2 Note-17 refs) ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
     check("TODO" not in sn, "V49-S9 no TODO in SN")
 
@@ -355,10 +351,10 @@ def main():
           and 'limited cross-type discrimination is expected by design' in ms,
           "V49-N38 Scope design argument present (HK anchor cell-type-specific, v52 wording)")
     # ---- v49.10 review-panel fixes (A/B classes) ----
-    check('Supplementary Tables 1\u201319' in ms
-          and 'All Supplementary Tables (1\u201319) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
+    check('Supplementary Tables 1\u201321' in ms
+          and 'All Supplementary Tables (1\u201321) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
           and 'Supplementary Tables 1\u20134 are cited' not in ms,
-          "V49-N39 A1 MS availability lists 19 supplementary tables (nc55: single-xlsx pointer)")
+          "V49-N39 A1 MS availability lists 21 supplementary tables (nc63 B2: +Tables 20/21)")
     check('Microglial candidates (16 of 39)' in ms,
           "V49-N40 A5 brain candidate concentration (v51 wording)")
     check('median TT/NN k_n ratio 2.18, 2.53, 2.18, 3.70, and 2.79' in sn,
@@ -521,7 +517,7 @@ def main():
           "V49-N84 B13 Introduction adaptation wording")
     # B6: Supp Tables pointer (nc55 F2: single-xlsx pointer per R5; the cited-in-main-text
     # tables 5 and 14 must still be cited in the main text itself)
-    check('All Supplementary Tables (1\u201319) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
+    check('All Supplementary Tables (1\u201321) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
           and 'Supplementary Tables 5\u201319 provide the per-analysis numerical tables' not in ms
           and 'Supplementary Table 2)' in ms and 'Supplementary Table 3)' in ms,
           "V49-N85 B6 Supp Tables pointer in Data availability (nc55: single-xlsx)")
@@ -663,8 +659,8 @@ def main():
     check("Here, we show" in ms, "V49-SC1 Introduction ends 'Here, we show'")
     check(ms.count("Conclusions") == 0, "V49-SC3 no 'Conclusions' anywhere")
     check("Keywords:" not in ms, "V49-SC4 no Keywords line")
-    check("Supplementary Note 1" in ms and "Supplementary Notes 1\u201316" in ms,
-          "V49-SC5 notes cited (v50: 1-16 span)")
+    check("Supplementary Note 1" in ms and "Supplementary Notes 1\u201317" in ms,
+          "V49-SC5 notes cited (nc63 B2: 1-17 span)")
     check("Supplementary Fig. 1" in ms, "V49-SC6 supp fig 1 cited")
 
     # ---- package integrity ----
@@ -679,6 +675,8 @@ def main():
                  "CKI_Submission_NC/Supplementary_Fig_1.pdf",
                  "CKI_Submission_NC/Supplementary_Fig_13.pdf",
                  "CKI_Submission_NC/Supplementary_Fig_14.pdf",
+                 "CKI_Submission_NC/Supplementary_Fig_15.pdf",
+                 "CKI_Submission_NC/Supplementary_Fig_16.pdf",
                  "CKI_Submission_NC/figure2.pdf",
                  "CKI_Submission_NC/figure3.pdf",
                  "CKI_Submission_NC/figure6.pdf",
