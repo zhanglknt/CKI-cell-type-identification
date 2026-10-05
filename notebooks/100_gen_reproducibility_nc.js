@@ -160,7 +160,7 @@ const doc = new Document({
       }),
       new Paragraph({
         children: [new TextRun({ text: "3", font: FONT, size: 18, color: BLACK, superScript: true }),
-                   new TextRun({ text: " Weifang No.2 People's Hospital, Weifang, China", font: FONT, size: SIZE, color: BLACK })],
+                   new TextRun({ text: " Translational Medical Center, Weifang Second People's Hospital, Weifang, China", font: FONT, size: SIZE, color: BLACK })],
         alignment: AlignmentType.CENTER,
         spacing: { after: 20 },
       }),
