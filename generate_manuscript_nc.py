@@ -425,7 +425,7 @@ run5.font.name = 'Arial'
 run5.font.size = Pt(10)
 set_black(run5)
 set_superscript(run5)
-run6 = auth3.add_run("Translational Medical Center, Weifang Second People's Hospital, Weifang, China")
+run6 = auth3.add_run("Translational Medical Center, Weifang Second People's Hospital, Weifang 261041, China")
 run6.font.name = 'Arial'
 run6.font.size = Pt(10)
 set_black(run6)

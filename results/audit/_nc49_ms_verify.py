@@ -202,7 +202,7 @@ chk('TCGA fixed-panel caveat (v50)',
 chk('Fig 4a dual-axis note', 'The two axes use independent scales' in full)
 chk('affiliation postcodes',
     'Beijing 102206, China' in full and 'Chengdu 610052, China' in full
-    and "Weifang Second People's Hospital, Weifang, China" in full)
+    and "Weifang Second People's Hospital, Weifang 261041, China" in full)
 
 # 7f. R4-P2-4 subtitle <= 60 chars
 chk('short Result 5 heading',
