@@ -201,7 +201,8 @@ chk('TCGA fixed-panel caveat (v50)',
     'depend on the per-pair circular selection of k_f genes' in full)
 chk('Fig 4a dual-axis note', 'The two axes use independent scales' in full)
 chk('affiliation postcodes',
-    'Beijing 102206, China' in full and 'Chengdu 610052, China' in full)
+    'Beijing 102206, China' in full and 'Chengdu 610052, China' in full
+    and 'Weifang 261041, China' in full)
 
 # 7f. R4-P2-4 subtitle <= 60 chars
 chk('short Result 5 heading',

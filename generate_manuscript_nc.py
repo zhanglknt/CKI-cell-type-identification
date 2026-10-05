@@ -381,7 +381,7 @@ run = sub.add_run('Li Zhang')
 run.font.name = 'Arial'
 run.font.size = Pt(14)
 set_black(run)
-for ch in ['1', ',', '2', ' ']:
+for ch in ['1', ',', '2', ',', '3', ' ']:
     r = sub.add_run(ch)
     r.font.name = 'Arial'
     r.font.size = Pt(11)
@@ -417,6 +417,18 @@ run4 = auth2.add_run('Institute of Blood Transfusion, Chinese Academy of Medical
 run4.font.name = 'Arial'
 run4.font.size = Pt(10)
 set_black(run4)
+
+auth3 = doc.add_paragraph()
+auth3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+run5 = auth3.add_run('3')
+run5.font.name = 'Arial'
+run5.font.size = Pt(10)
+set_black(run5)
+set_superscript(run5)
+run6 = auth3.add_run("Weifang No.2 People's Hospital, Weifang 261041, China")
+run6.font.name = 'Arial'
+run6.font.size = Pt(10)
+set_black(run6)
 
 # Correspondence
 cor = doc.add_paragraph()
