@@ -29,7 +29,16 @@ from pathlib import Path
 
 BASE = Path(r"C:\Users\KnightZ\Desktop\细胞受选择")
 PY = r"C:\Users\KnightZ\.workbuddy\binaries\python\envs\default\Scripts\python.exe"
-NODE = r"C:\Users\KnightZ\.workbuddy\binaries\node\versions\22.22.2-3\node.exe"
+def _find_node():
+    """Resolve the managed node.exe. The versioned directory name changes when
+    the runtime is updated (e.g. 22.22.2-3 -> 22.22.2-6), which used to break
+    the build with FileNotFoundError; glob the latest instead of hard-coding."""
+    root = Path(r"C:\Users\KnightZ\.workbuddy\binaries\node\versions")
+    cands = sorted(root.glob("*/node.exe"))
+    return str(cands[-1]) if cands else "node"
+
+
+NODE = _find_node()
 NODE_ENV = dict(os.environ, NODE_PATH=r"C:\Users\KnightZ\.workbuddy\binaries\node\workspace\node_modules")
 
 # Rerun mode: skip the three _tmp_archive move blocks (safe-delete guard counts
