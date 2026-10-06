@@ -290,3 +290,7 @@ notebooks/fix_*.py
 !results/mouse_splithalf_v44.csv
 !results/mouse_splithalf_v44_summary.json
 !data/tcga/hallmark_2020.gmt
+
+# Working artefacts (not part of the submission)
+v6/
+*.obo

@@ -100,7 +100,7 @@ print('AUC check OK: marrow omega=%.4f, skin omega=%.4f' % (aucs['omega'], bg2_o
 
 # ============================ figure layout =================================
 FIG_W_MM = 178.0
-FIG_H_MM = 215.0
+FIG_H_MM = 203.0
 fig = plt.figure(figsize=(FIG_W_MM * MM, FIG_H_MM * MM), dpi=DPI)
 
 # hspace is sized so every tier gap clears the longest rotated tick label of the
@@ -108,9 +108,9 @@ fig = plt.figure(figsize=(FIG_W_MM * MM, FIG_H_MM * MM), dpi=DPI)
 # horizontal 6-entry legend that sits under panel (e).
 gs = gridspec.GridSpec(
     3, 2, figure=fig,
-    left=0.075, right=0.935, top=0.9674, bottom=0.0744,
-    hspace=0.587, wspace=0.30,
-    height_ratios=[1.105, 1.00, 1.526],
+    left=0.075, right=0.935, top=0.9655, bottom=0.0788,
+    hspace=0.643, wspace=0.30,
+    height_ratios=[1.105, 1.00, 1.211],   # (e): full width, flattened to 46 mm
 )
 
 axA = fig.add_subplot(gs[0, 0])
@@ -270,7 +270,10 @@ leg = axE.legend(loc='upper center', bbox_to_anchor=(0.5, -0.155), ncol=6,
                  handletextpad=0.5)
 leg.set_zorder(20)
 st.despine(axE)
-panel_label(axE, '(e)', dx=-0.05)
+# dy lifted: at dy=1.05 the label box landed on the topmost y tick ('1.0'),
+# which for a full-width panel sits right under the label.  +0.07 of the axes
+# height (= 9 pt) clears it while staying well below the (d) tick labels.
+panel_label(axE, '(e)', dx=-0.05, dy=1.12)
 
 # ================================= save =====================================
 fig.savefig(OUT_PDF, dpi=DPI, facecolor='white',
