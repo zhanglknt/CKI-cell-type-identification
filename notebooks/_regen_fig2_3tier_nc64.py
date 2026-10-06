@@ -100,14 +100,16 @@ print('AUC check OK: marrow omega=%.4f, skin omega=%.4f' % (aucs['omega'], bg2_o
 
 # ============================ figure layout =================================
 FIG_W_MM = 178.0
-FIG_H_MM = 205.0
+FIG_H_MM = 208.0
 fig = plt.figure(figsize=(FIG_W_MM * MM, FIG_H_MM * MM), dpi=DPI)
 
+# hspace is sized so the tier gap clears the longest rotated tick label of the
+# tier above plus the title block of the tier below.
 gs = gridspec.GridSpec(
     3, 2, figure=fig,
-    left=0.075, right=0.935, top=0.945, bottom=0.055,
-    hspace=0.36, wspace=0.30,
-    height_ratios=[1.10, 1.00, 1.45],
+    left=0.075, right=0.935, top=0.966, bottom=0.034,
+    hspace=0.493, wspace=0.30,
+    height_ratios=[1.105, 1.00, 1.737],
 )
 
 axA = fig.add_subplot(gs[0, 0])
@@ -116,10 +118,12 @@ axC = fig.add_subplot(gs[1, 0])
 axD = fig.add_subplot(gs[1, 1])
 axE = fig.add_subplot(gs[2, :])
 
-# centre tier 3 and shrink it so the ROC box stays close to square
+# Tier 3: align (e) with the FIRST column (same x as a and c) and make it tall.
+# Centring it would put it under (d), whose rotated x tick labels hang ~14 mm
+# below its axes and would collide with (e)'s two-line title.
 posE = axE.get_position()
-_w = 0.47
-axE.set_position([(1 - _w) / 2, posE.y0, _w, posE.height])
+_w = 0.4494                       # 80 mm wide: stops 6 mm short of column 2
+axE.set_position([axA.get_position().x0, posE.y0, _w, posE.height])
 
 
 def panel_label(ax, text, dx=-0.115, dy=1.05):
@@ -223,8 +227,9 @@ for i in range(5):
     for j in range(5):
         axD.text(j, i, f'{C[i, j]:.2f}', ha='center', va='center',
                  fontsize=SMALL, color='black' if abs(C[i, j]) < 0.75 else 'white')
+# left-aligned: a centred title would reach back over the '(d)' label
 axD.set_title('Tabula Sapiens pairs: metric correlation', fontsize=TITLE,
-              fontweight='bold', pad=5)
+              fontweight='bold', pad=5, loc='left')
 for s in axD.spines.values():
     s.set_visible(False)
 axD.tick_params(length=0)
@@ -258,14 +263,14 @@ axE.set_ylabel('True positive rate', fontsize=BODY)
 axE.tick_params(labelsize=SMALL)
 axE.set_title('Functional-change vs neutral-drift detection\n'
               f'replicated on skin background: CKI \u03c9 AUC = {bg2_omega:.2f} (rank 1/6)',
-              fontsize=TITLE, fontweight='bold', pad=5)
+              fontsize=TITLE, fontweight='bold', pad=5, loc='left')
 leg = axE.legend(loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=SMALL,
                  frameon=True, framealpha=1.0, edgecolor='#CCCCCC',
                  borderpad=0.5, labelspacing=0.45, handlelength=1.7,
                  handletextpad=0.6)
 leg.set_zorder(20)
 st.despine(axE)
-panel_label(axE, '(e)', dx=-0.075)
+panel_label(axE, '(e)', dx=-0.095)
 
 # ================================= save =====================================
 fig.savefig(OUT_PDF, dpi=DPI, facecolor='white',
@@ -305,6 +310,34 @@ print(f'  (d) label vertical extent ~{d_ext:.1f} mm vs tier gap {gap2_mm:.1f} mm
 eb = axE.get_position()
 print(f'  (e) axes right edge {(eb.x0+eb.width)*FIG_W_MM:.1f} mm, legend anchored at '
       f'{((eb.x0+eb.width)+0.02*eb.width)*FIG_W_MM:.1f} mm (outside axes)')
+
+# ---- cross-tier clearance: upper tick labels vs lower title block ----------
+def gap_mm(upper, lower):
+    return (upper.get_position().y0
+            - (lower.get_position().y0 + lower.get_position().height)) * FIG_H_MM
+
+
+def xmm(ax):
+    p = ax.get_position()
+    return p.x0 * FIG_W_MM, (p.x0 + p.width) * FIG_W_MM
+
+
+a_ext = 18.0 * math.sin(math.radians(42)) + 5.0 * math.cos(math.radians(42))
+d_ext = 20.0 * math.sin(math.radians(38)) + 2.5 * math.cos(math.radians(38))
+c_lab = 3.2                 # horizontal single-line tick label + pad
+title1 = 5.0                # one-line title block (9 pt + pad)
+title2 = 10.0               # two-line title block
+g12, g23 = gap_mm(axA, axC), gap_mm(axC, axE)
+print(f'  tier1->2 gap {g12:.1f} mm vs need {a_ext + title1:.1f} mm '
+      f'(a labels {a_ext:.1f} + c title {title1:.1f}) -> {"OK" if g12 > a_ext + title1 else "OVERLAP RISK"}')
+print(f'  tier2->3 gap {g23:.1f} mm vs need {c_lab + title2:.1f} mm '
+      f'(c label {c_lab:.1f} + e title {title2:.1f}) -> {"OK" if g23 > c_lab + title2 else "OVERLAP RISK"}')
+ex0, ex1 = xmm(axE)
+dx0, _dx1 = xmm(axD)
+print(f'  (e) x {ex0:.1f}-{ex1:.1f} mm vs (d) x {dx0:.1f}-{_dx1:.1f} mm -> '
+      f'{"column-disjoint (d labels cannot reach e)" if ex1 < dx0 else "X-OVERLAP: d labels may hit e title"}')
+print(f'  (d) labels hang {d_ext:.1f} mm below tier 2; (e) top at '
+      f'{(axE.get_position().y0 + axE.get_position().height) * FIG_H_MM:.1f} mm')
 
 # -------------------------------- self-check --------------------------------
 import fitz
