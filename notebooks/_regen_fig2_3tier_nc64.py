@@ -100,16 +100,17 @@ print('AUC check OK: marrow omega=%.4f, skin omega=%.4f' % (aucs['omega'], bg2_o
 
 # ============================ figure layout =================================
 FIG_W_MM = 178.0
-FIG_H_MM = 208.0
+FIG_H_MM = 215.0
 fig = plt.figure(figsize=(FIG_W_MM * MM, FIG_H_MM * MM), dpi=DPI)
 
-# hspace is sized so the tier gap clears the longest rotated tick label of the
-# tier above plus the title block of the tier below.
+# hspace is sized so every tier gap clears the longest rotated tick label of the
+# tier above plus the title block of the tier below.  Bottom margin carries the
+# horizontal 6-entry legend that sits under panel (e).
 gs = gridspec.GridSpec(
     3, 2, figure=fig,
-    left=0.075, right=0.935, top=0.966, bottom=0.034,
-    hspace=0.493, wspace=0.30,
-    height_ratios=[1.105, 1.00, 1.737],
+    left=0.075, right=0.935, top=0.9674, bottom=0.0744,
+    hspace=0.587, wspace=0.30,
+    height_ratios=[1.105, 1.00, 1.526],
 )
 
 axA = fig.add_subplot(gs[0, 0])
@@ -118,12 +119,9 @@ axC = fig.add_subplot(gs[1, 0])
 axD = fig.add_subplot(gs[1, 1])
 axE = fig.add_subplot(gs[2, :])
 
-# Tier 3: align (e) with the FIRST column (same x as a and c) and make it tall.
-# Centring it would put it under (d), whose rotated x tick labels hang ~14 mm
-# below its axes and would collide with (e)'s two-line title.
-posE = axE.get_position()
-_w = 0.4494                       # 80 mm wide: stops 6 mm short of column 2
-axE.set_position([axA.get_position().x0, posE.y0, _w, posE.height])
+# Tier 3: (e) spans the FULL figure width -- left margin to right margin, the
+# same span as (a)+(b) or (c)+(d) above it.  No set_position override: gs[2, :]
+# already stretches across both columns.
 
 
 def panel_label(ax, text, dx=-0.115, dy=1.05):
@@ -264,13 +262,15 @@ axE.tick_params(labelsize=SMALL)
 axE.set_title('Functional-change vs neutral-drift detection\n'
               f'replicated on skin background: CKI \u03c9 AUC = {bg2_omega:.2f} (rank 1/6)',
               fontsize=TITLE, fontweight='bold', pad=5, loc='left')
-leg = axE.legend(loc='center left', bbox_to_anchor=(1.02, 0.5), fontsize=SMALL,
-                 frameon=True, framealpha=1.0, edgecolor='#CCCCCC',
-                 borderpad=0.5, labelspacing=0.45, handlelength=1.7,
-                 handletextpad=0.6)
+# (e) is full width, so there is no room to the right: the legend goes BELOW
+# the axes as a single horizontal row -- it cannot cover any curve.
+leg = axE.legend(loc='upper center', bbox_to_anchor=(0.5, -0.155), ncol=6,
+                 fontsize=SMALL, frameon=False, borderpad=0.3,
+                 labelspacing=0.3, columnspacing=1.4, handlelength=1.6,
+                 handletextpad=0.5)
 leg.set_zorder(20)
 st.despine(axE)
-panel_label(axE, '(e)', dx=-0.095)
+panel_label(axE, '(e)', dx=-0.05)
 
 # ================================= save =====================================
 fig.savefig(OUT_PDF, dpi=DPI, facecolor='white',
@@ -306,10 +306,10 @@ gap2_mm = (axC.get_position().y0 - (axE.get_position().y0 + axE.get_position().h
 print(f'  (d) label vertical extent ~{d_ext:.1f} mm vs tier gap {gap2_mm:.1f} mm '
       f'-> {"OK" if d_ext < gap2_mm else "OVERLAP RISK"}')
 
-# (e) legend placed outside the axes -> cannot cover any curve
+# (e) legend sits below the axes as one horizontal row -> cannot cover a curve
 eb = axE.get_position()
-print(f'  (e) axes right edge {(eb.x0+eb.width)*FIG_W_MM:.1f} mm, legend anchored at '
-      f'{((eb.x0+eb.width)+0.02*eb.width)*FIG_W_MM:.1f} mm (outside axes)')
+print(f'  (e) axes {eb.x0*FIG_W_MM:.1f}-{(eb.x0+eb.width)*FIG_W_MM:.1f} mm '
+      f'(full width), legend row below the x label')
 
 # ---- cross-tier clearance: upper tick labels vs lower title block ----------
 def gap_mm(upper, lower):
@@ -330,14 +330,19 @@ title2 = 10.0               # two-line title block
 g12, g23 = gap_mm(axA, axC), gap_mm(axC, axE)
 print(f'  tier1->2 gap {g12:.1f} mm vs need {a_ext + title1:.1f} mm '
       f'(a labels {a_ext:.1f} + c title {title1:.1f}) -> {"OK" if g12 > a_ext + title1 else "OVERLAP RISK"}')
-print(f'  tier2->3 gap {g23:.1f} mm vs need {c_lab + title2:.1f} mm '
-      f'(c label {c_lab:.1f} + e title {title2:.1f}) -> {"OK" if g23 > c_lab + title2 else "OVERLAP RISK"}')
+need23 = max(c_lab, d_ext) + title2      # (e) is full width: (d) labels land above it too
+print(f'  tier2->3 gap {g23:.1f} mm vs need {need23:.1f} mm '
+      f'(max(c label {c_lab:.1f}, d labels {d_ext:.1f}) + e title {title2:.1f}) '
+      f'-> {"OK" if g23 > need23 else "OVERLAP RISK"}')
 ex0, ex1 = xmm(axE)
-dx0, _dx1 = xmm(axD)
-print(f'  (e) x {ex0:.1f}-{ex1:.1f} mm vs (d) x {dx0:.1f}-{_dx1:.1f} mm -> '
-      f'{"column-disjoint (d labels cannot reach e)" if ex1 < dx0 else "X-OVERLAP: d labels may hit e title"}')
-print(f'  (d) labels hang {d_ext:.1f} mm below tier 2; (e) top at '
-      f'{(axE.get_position().y0 + axE.get_position().height) * FIG_H_MM:.1f} mm')
+a0, _a1 = xmm(axA)
+_b0, b1 = xmm(axB)
+print(f'  (e) spans {ex0:.1f}-{ex1:.1f} mm; (a)+(b) span {a0:.1f}-{b1:.1f} mm -> '
+      f'{"full width matched" if abs(ex0 - a0) < 0.6 and abs(ex1 - b1) < 0.6 else "WIDTH MISMATCH"}')
+_eh = axE.get_position().height * FIG_H_MM
+leg_y = axE.get_position().y0 * FIG_H_MM - 0.155 * _eh      # legend row below the axes
+print(f'  legend row at {leg_y:.1f} mm from page bottom (needs > 4 mm) -> '
+      f'{"OK" if leg_y > 4 else "CLIPPED"}')
 
 # -------------------------------- self-check --------------------------------
 import fitz
