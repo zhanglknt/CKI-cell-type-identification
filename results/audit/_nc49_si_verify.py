@@ -254,9 +254,13 @@ chk('SI title matches MS (v52)',
 chk('Data 1 naming unified',
     'Complete Analysis Script Index' not in full
     and full.count('Supplementary Data 1: Analysis Script Index') >= 1)
-chk('SI affiliation postcodes',
-    'Beijing 102206, China' in full and 'Chengdu 610052, China' in full
+chk('SI affiliation postcodes (nc65: 4 affiliations, XJTU first)',
+    "School of Mathematics and Statistics, Xi'an Jiaotong University, Xi'an 710049, China" in full
+    and 'Beijing 102206, China' in full and 'Chengdu 610052, China' in full
     and "Weifang Second People's Hospital, Weifang 261041, China" in full)
+chk('SI author list (nc65)',
+    'Wenting Liu (1), Jian Zu (1), Li Zhang (2,3,4,*)' in full
+    and 'Xianming Wu' not in full)
 chk('3.13 short heading ref',
     'A pan-cancer map of tissue-level divergence in tumors' in full
     and 'tissue-level functional divergence in tumors' not in full)

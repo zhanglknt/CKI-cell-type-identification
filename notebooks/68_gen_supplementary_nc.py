@@ -252,11 +252,12 @@ def si_caption(text):
 # ===== TITLE PAGE =====
 add_heading('Supplementary Information', 1)
 add_para('CKI: a Ka/Ks-inspired index decomposing functional divergence from baseline variation in cell atlases')
-add_para('Xianming Wu (1), Li Zhang (1,2,3,*)')
-add_para('(1) Chinese Institute for Brain Research, Beijing 102206, China')
-add_para('(2) Institute of Blood Transfusion, Chinese Academy of Medical Sciences & '
+add_para('Wenting Liu (1), Jian Zu (1), Li Zhang (2,3,4,*)')
+add_para("(1) School of Mathematics and Statistics, Xi'an Jiaotong University, Xi'an 710049, China")
+add_para('(2) Chinese Institute for Brain Research, Beijing 102206, China')
+add_para('(3) Institute of Blood Transfusion, Chinese Academy of Medical Sciences & '
          'Peking Union Medical College, Chengdu 610052, China')
-add_para("(3) Translational Medical Center, Weifang Second People's Hospital, Weifang 261041, China")
+add_para("(4) Translational Medical Center, Weifang Second People's Hospital, Weifang 261041, China")
 add_para('(*) Corresponding author')
 add_para('')
 

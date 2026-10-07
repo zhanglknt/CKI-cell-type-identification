@@ -200,9 +200,18 @@ chk('seeded subsampling MC note (v51: SI)',
 chk('TCGA fixed-panel caveat (v50)',
     'depend on the per-pair circular selection of k_f genes' in full)
 chk('Fig 4a dual-axis note', 'The two axes use independent scales' in full)
-chk('affiliation postcodes',
-    'Beijing 102206, China' in full and 'Chengdu 610052, China' in full
+chk('affiliation postcodes (nc65: 4 affiliations, XJTU first)',
+    "School of Mathematics and Statistics, Xi'an Jiaotong University, Xi'an 710049, China" in full
+    and 'Beijing 102206, China' in full and 'Chengdu 610052, China' in full
     and "Weifang Second People's Hospital, Weifang 261041, China" in full)
+chk('author list (nc65: Liu / Zu / Zhang, Wu removed)',
+    'Wenting Liu' in full and 'Jian Zu' in full and 'Li Zhang' in full
+    and 'Xianming Wu' not in full)
+chk('author contributions (nc65)',
+    'W.L. performed the analyses and wrote the first draft' in full
+    and 'J.Z. participated in the revision of the manuscript' in full
+    and 'All authors read and approved the final manuscript' in full
+    and 'X.W.' not in full and 'Both authors' not in full)
 
 # 7f. R4-P2-4 subtitle <= 60 chars
 chk('short Result 5 heading',

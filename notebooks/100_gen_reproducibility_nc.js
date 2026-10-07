@@ -139,27 +139,36 @@ const doc = new Document({
 
       // Authors
       new Paragraph({
-        children: [new TextRun({ text: "Xianming Wu", font: FONT, size: SIZE, italics: true, color: BLACK }),
+        children: [new TextRun({ text: "Wenting Liu", font: FONT, size: SIZE, italics: true, color: BLACK }),
+                   new TextRun({ text: "1", font: FONT, size: 18, color: BLACK, superScript: true }),
+                   new TextRun({ text: ", ", font: FONT, size: SIZE, color: BLACK }),
+                   new TextRun({ text: "Jian Zu", font: FONT, size: SIZE, italics: true, color: BLACK }),
                    new TextRun({ text: "1", font: FONT, size: 18, color: BLACK, superScript: true }),
                    new TextRun({ text: ", ", font: FONT, size: SIZE, color: BLACK }),
                    new TextRun({ text: "Li Zhang", font: FONT, size: SIZE, italics: true, color: BLACK }),
-                   new TextRun({ text: "1,2,3,*", font: FONT, size: 18, color: BLACK, superScript: true })],
+                   new TextRun({ text: "2,3,4,*", font: FONT, size: 18, color: BLACK, superScript: true })],
         alignment: AlignmentType.CENTER,
       }),
       new Paragraph({
         children: [new TextRun({ text: "1", font: FONT, size: 18, color: BLACK, superScript: true }),
-                   new TextRun({ text: " Chinese Institute for Brain Research, Beijing, China", font: FONT, size: SIZE, color: BLACK })],
+                   new TextRun({ text: " School of Mathematics and Statistics, Xi'an Jiaotong University, Xi'an, China", font: FONT, size: SIZE, color: BLACK })],
         alignment: AlignmentType.CENTER,
         spacing: { after: 20 },
       }),
       new Paragraph({
         children: [new TextRun({ text: "2", font: FONT, size: 18, color: BLACK, superScript: true }),
-                   new TextRun({ text: " Institute of Blood Transfusion, Chinese Academy of Medical Sciences & Peking Union Medical College, Chengdu, China", font: FONT, size: SIZE, color: BLACK })],
+                   new TextRun({ text: " Chinese Institute for Brain Research, Beijing, China", font: FONT, size: SIZE, color: BLACK })],
         alignment: AlignmentType.CENTER,
         spacing: { after: 20 },
       }),
       new Paragraph({
         children: [new TextRun({ text: "3", font: FONT, size: 18, color: BLACK, superScript: true }),
+                   new TextRun({ text: " Institute of Blood Transfusion, Chinese Academy of Medical Sciences & Peking Union Medical College, Chengdu, China", font: FONT, size: SIZE, color: BLACK })],
+        alignment: AlignmentType.CENTER,
+        spacing: { after: 20 },
+      }),
+      new Paragraph({
+        children: [new TextRun({ text: "4", font: FONT, size: 18, color: BLACK, superScript: true }),
                    new TextRun({ text: " Translational Medical Center, Weifang Second People's Hospital, Weifang, China", font: FONT, size: SIZE, color: BLACK })],
         alignment: AlignmentType.CENTER,
         spacing: { after: 20 },

@@ -362,8 +362,22 @@ t.paragraph_format.space_after = Pt(14)
 sub = doc.add_paragraph()
 sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-# Xianming Wu (first author)
-run = sub.add_run('Xianming Wu')
+# Wenting Liu (first author)
+run = sub.add_run('Wenting Liu')
+run.font.name = 'Arial'
+run.font.size = Pt(14)
+set_black(run)
+for ch in ['1']:
+    r = sub.add_run(ch)
+    r.font.name = 'Arial'
+    r.font.size = Pt(11)
+    set_black(r)
+    set_superscript(r)
+
+sub.add_run(', ')
+
+# Jian Zu (second author)
+run = sub.add_run('Jian Zu')
 run.font.name = 'Arial'
 run.font.size = Pt(14)
 set_black(run)
@@ -381,7 +395,7 @@ run = sub.add_run('Li Zhang')
 run.font.name = 'Arial'
 run.font.size = Pt(14)
 set_black(run)
-for ch in ['1', ',', '2', ',', '3', ' ']:
+for ch in ['2', ',', '3', ',', '4', ' ']:
     r = sub.add_run(ch)
     r.font.name = 'Arial'
     r.font.size = Pt(11)
@@ -393,7 +407,8 @@ r.font.size = Pt(11)
 set_black(r)
 set_superscript(r)
 
-# Affiliations
+# Affiliations -- numbered in order of first appearance: (1) Xi'an Jiaotong
+# University carries the first two authors, (2)-(4) the corresponding author.
 auth = doc.add_paragraph()
 auth.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run1 = auth.add_run('1')
@@ -401,7 +416,7 @@ run1.font.name = 'Arial'
 run1.font.size = Pt(10)
 set_black(run1)
 set_superscript(run1)
-run2 = auth.add_run('Chinese Institute for Brain Research, Beijing 102206, China')
+run2 = auth.add_run("School of Mathematics and Statistics, Xi'an Jiaotong University, Xi'an 710049, China")
 run2.font.name = 'Arial'
 run2.font.size = Pt(10)
 set_black(run2)
@@ -413,7 +428,7 @@ run3.font.name = 'Arial'
 run3.font.size = Pt(10)
 set_black(run3)
 set_superscript(run3)
-run4 = auth2.add_run('Institute of Blood Transfusion, Chinese Academy of Medical Sciences & Peking Union Medical College, Chengdu 610052, China')
+run4 = auth2.add_run('Chinese Institute for Brain Research, Beijing 102206, China')
 run4.font.name = 'Arial'
 run4.font.size = Pt(10)
 set_black(run4)
@@ -425,10 +440,22 @@ run5.font.name = 'Arial'
 run5.font.size = Pt(10)
 set_black(run5)
 set_superscript(run5)
-run6 = auth3.add_run("Translational Medical Center, Weifang Second People's Hospital, Weifang 261041, China")
+run6 = auth3.add_run('Institute of Blood Transfusion, Chinese Academy of Medical Sciences & Peking Union Medical College, Chengdu 610052, China')
 run6.font.name = 'Arial'
 run6.font.size = Pt(10)
 set_black(run6)
+
+auth4 = doc.add_paragraph()
+auth4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+run7 = auth4.add_run('4')
+run7.font.name = 'Arial'
+run7.font.size = Pt(10)
+set_black(run7)
+set_superscript(run7)
+run8 = auth4.add_run("Translational Medical Center, Weifang Second People's Hospital, Weifang 261041, China")
+run8.font.name = 'Arial'
+run8.font.size = Pt(10)
+set_black(run8)
 
 # Correspondence
 cor = doc.add_paragraph()
@@ -732,7 +759,7 @@ heading('Acknowledgements', level=1)
 p('This work was supported by the National Natural Science Foundation of China (NSFC) under grant number 32370682. We thank the Tabula Muris Consortium, Tabula Sapiens Consortium, TCGA Research Network, and the Siletti et al. brain atlas team for making their data publicly available. We also thank the developers of scanpy, scipy, scikit-learn, and the broader open-source scientific Python ecosystem for the computational infrastructure that made this work possible. We are grateful to the HRT Atlas team for maintaining the housekeeping gene reference resource.')
 
 heading('Author contributions', level=1)
-p('X.W. performed the analyses and wrote the first draft of the manuscript. L.Z. conceived and supervised the study, developed the CKI algorithm, acquired funding, and finalized the manuscript. Both authors read and approved the final manuscript.')
+p('W.L. performed the analyses and wrote the first draft of the manuscript. J.Z. participated in the revision of the manuscript. L.Z. conceived and supervised the study, developed the CKI algorithm, acquired funding, and finalized the manuscript. All authors read and approved the final manuscript.')
 
 heading('Competing interests', level=1)
 p('The authors declare no competing interests.')
