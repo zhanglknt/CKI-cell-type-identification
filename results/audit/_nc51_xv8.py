@@ -59,7 +59,7 @@ for p in doc.paragraphs:
     m = re.match(r'^Figure (\d+)\.', t)
     if m:
         leg[int(m.group(1))] = len(t.split())
-chk('main figure legends 1..6 present', sorted(leg) == [1, 2, 3, 4, 5, 6], str(leg))
+chk('main figure legends 1..7 present (nc67: +Fig 7 neuron superclass)', sorted(leg) == [1, 2, 3, 4, 5, 6, 7], str(leg))
 chk('every main figure legend <= 350 words (NC)', all(v <= 350 for v in leg.values()),
     f'max = Figure {max(leg, key=leg.get)} at {max(leg.values())}')
 
@@ -112,7 +112,7 @@ chk('no orphans (57 cited)', len(_seen) == 57)
 # ---------- 6. zip integrity ----------
 z = zipfile.ZipFile('CKI_Submission_NC.zip')
 names = z.namelist()
-chk('zip 32 entries (nc66: +Supplementary_Fig_17/18.pdf)', len(names) == 32, f'got {len(names)}')
+chk('zip 33 entries (nc67: +figure7.pdf)', len(names) == 33, f'got {len(names)}')
 chk('zip has Supplementary_Fig_14.pdf',
     'CKI_Submission_NC/Supplementary_Fig_14.pdf' in names)
 sha = hashlib.sha256(open('CKI_Submission_NC.zip', 'rb').read()).hexdigest()

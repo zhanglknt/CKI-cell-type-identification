@@ -262,7 +262,7 @@ chk('Kang-brain size reconciliation (v58: Results + SI Note 10)',
 # 11. Figure legends order 1-6 (v49.6: Fig2+Fig3 merged, 3-7 renumbered)
 figs = [t[:12] for t in paras if re.match(r'^Figure \d\.', t)]
 fignums = [int(re.match(r'^Figure (\d)\.', t).group(1)) for t in paras if re.match(r'^Figure \d\.', t)]
-chk('main figure legends 1-6 in order', fignums == list(range(1, 7)), str(figs))
+chk('main figure legends 1-7 in order (nc67: Fig 7 neuron superclass)', fignums == list(range(1, 8)), str(figs))
 
 # 11b. v49.7: Fig 2e = change-detection ROC
 chk('Fig 2 legend new scope',

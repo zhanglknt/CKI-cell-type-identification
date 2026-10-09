@@ -121,6 +121,7 @@ def main():
     shutil.copy2(STAGE / "figure4.pdf", FIGS_NC / "figure4.pdf")
     shutil.copy2(STAGE / "figure5.pdf", FIGS_NC / "figure5.pdf")
     shutil.copy2(STAGE / "figure6.pdf", FIGS_NC / "figure6.pdf")
+    shutil.copy2(STAGE / "figure7.pdf", FIGS_NC / "figure7.pdf")
     # v63 (first-author v6 round + nc63 B2 lineage note + nc66 ABCD brain notes):
     # all 18 supplementary figures ship from STAGE. SF1-14 are the v6 first-author
     # redrawn versions (red/purple/orange palette, self-consistent with SI legends);
@@ -133,7 +134,7 @@ def main():
     shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
                  FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
-    check(n_fig == 25, f"V49-1 figures staged = 25 (6 main + 18 supp + GA pdf; nc66) got {n_fig}")
+    check(n_fig == 26, f"V49-1 figures staged = 26 (7 main + 18 supp + GA pdf; nc67) got {n_fig}")
 
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_NC ...")
@@ -319,8 +320,8 @@ def main():
     # old exploratory phrasing must be gone
     for stale in ("TCGA; exploratory", "apparent tumor homogeneity", "TODO-nc49"):
         check(stale not in ms, f"V49-N18 stale gone: '{stale}'")
-    # figure legends 1-6 order + new figure identity (v49.6: 6 main figures)
-    for i in range(1, 7):
+    # figure legends 1-7 order + new figure identity (nc67: 7 main figures)
+    for i in range(1, 8):
         check(f"Figure {i}." in ms, f"V49-N19 Figure {i} legend present")
     check("drift" in ms[ms.find("Figure 3."):ms.find("Figure 3.") + 400].lower(),
           "V49-N20 Figure 3 legend is drift ladder")
@@ -692,6 +693,7 @@ def main():
                  "CKI_Submission_NC/figure2.pdf",
                  "CKI_Submission_NC/figure3.pdf",
                  "CKI_Submission_NC/figure6.pdf",
+                 "CKI_Submission_NC/figure7.pdf",
                  "CKI_Submission_NC/CKI_graphical_abstract.pdf",
                  "CKI_Submission_NC/CKI_Tables_NC.xlsx",
                  "CKI_Submission_NC/CKI_Supplementary_Tables_NC.xlsx"]:
