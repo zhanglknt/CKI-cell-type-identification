@@ -88,8 +88,7 @@ def run():
         "Nature Communications. CKI (Cell-type Ka/Ks-inspired Index) is, to "
         "our knowledge, the first per-comparison, design-testable "
         "implementation of a principled separation of functional divergence "
-        "from background drift in transcriptomic "
-        "comparisons: adapting the "
+        "from background drift: adapting the "
         "Ka/Ks ratio\u2019s logic, it decomposes divergence into a "
         "housekeeping baseline k_n and an identity-gene rate k_f "
         "(\u03c9 = k_f/k_n). The work fits Nature Communications\u2019 scope "
@@ -104,7 +103,7 @@ def run():
         "neutral housekeeping drift (false-positive rate 0.00 versus "
         "0.55\u20130.58 for JS and cosine) and gave the best "
         "functional-versus-neutral discrimination at bounded power (AUC = 0.80). Second, in "
-        "real-data drift calibration, \u03c9 raised no false reports on any of the 30 "
+        "real-data drift calibration, \u03c9 raised no false reports on the 30 "
         "cross-lane technical-replicate pairs (Kang IFN-\u03b2 PBMC data; "
         "raw JS 36.7%, cosine 23.3%) and, on 2,161 brain technical-drift "
         "pairs, had the lowest false-report rate among the continuous "
@@ -127,7 +126,9 @@ def run():
         "spanning 108 regions (non-neuronal nuclei), CKI quantified a "
         "regional differentiation gradient, largely k_n-driven, and "
         "provides a statistically calibrated framework for atlas-scale "
-        "hypothesis generation.",
+        "hypothesis generation; extending into neuronal superclasses, "
+        "divergence far exceeds the non-neuronal median "
+        "(P < 10\u207b\u00b3\u2070\u2070).",
         doc,
     )
 
