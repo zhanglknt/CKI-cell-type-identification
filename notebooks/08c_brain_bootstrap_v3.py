@@ -322,7 +322,10 @@ for ct in cts_present:
     region_mask = np.isin(adata.obs[region_col].values, regions)
     ct_mask = ct_mask & region_mask
     ct_global_indices = np.where(ct_mask)[0]
-    region_of_cell = adata.obs[region_col].values[ct_global_indices]
+    # NB: .values is a pandas Categorical — np.argsort would sort by category
+    # codes, NOT lexicographically; cast to str so block order == region_order
+    region_of_cell = np.asarray(
+        adata.obs[region_col].values[ct_global_indices]).astype(str)
     
     sort_idx = np.argsort(region_of_cell)
     sorted_region = region_of_cell[sort_idx]

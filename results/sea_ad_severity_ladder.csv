@@ -1,0 +1,31 @@
+cell_class,gene_set,level,n_donors,mean_progression,omega_within
+Microglia-PVM,DAM_core,Not AD,9,0.2599536275777778,4.377172973594651
+Microglia-PVM,DAM_core,Reference,3,0.0,2.6708553843189344
+Microglia-PVM,DAM_core,Low,12,0.3501262577083333,4.744967106454627
+Microglia-PVM,DAM_core,Intermediate,21,0.6022887401666667,3.778543495937666
+Microglia-PVM,DAM_core,High,42,0.7857288002595239,4.109374364914185
+Microglia-PVM,Pan_reactive_astro,Not AD,9,0.2599536275777778,5.190521145954355
+Microglia-PVM,Pan_reactive_astro,Reference,3,0.0,0.35652594154554623
+Microglia-PVM,Pan_reactive_astro,Low,12,0.3501262577083333,2.516120506121451
+Microglia-PVM,Pan_reactive_astro,Intermediate,21,0.6022887401666667,2.637685734180276
+Microglia-PVM,Pan_reactive_astro,High,42,0.7857288002595239,2.9242142954952435
+Microglia-PVM,Homeostatic_microglia,Not AD,9,0.2599536275777778,2.5285828586067067
+Microglia-PVM,Homeostatic_microglia,Reference,3,0.0,0.2738193678898201
+Microglia-PVM,Homeostatic_microglia,Low,12,0.3501262577083333,4.440876104336828
+Microglia-PVM,Homeostatic_microglia,Intermediate,21,0.6022887401666667,3.4425652816279815
+Microglia-PVM,Homeostatic_microglia,High,42,0.7857288002595239,3.1676168654497445
+Astrocyte,DAM_core,Not AD,9,0.2599536275777778,2.550990605729229
+Astrocyte,DAM_core,Reference,3,0.0,4.4143209577385285
+Astrocyte,DAM_core,Low,12,0.35012625770833333,3.9565281697709165
+Astrocyte,DAM_core,Intermediate,21,0.6022887401666667,3.4173105144161644
+Astrocyte,DAM_core,High,42,0.7857288002595236,3.7939406313243422
+Astrocyte,Pan_reactive_astro,Not AD,9,0.2599536275777778,12.247329288686597
+Astrocyte,Pan_reactive_astro,Reference,3,0.0,0.523806217544614
+Astrocyte,Pan_reactive_astro,Low,12,0.35012625770833333,6.999266143343124
+Astrocyte,Pan_reactive_astro,Intermediate,21,0.6022887401666667,8.429205460157252
+Astrocyte,Pan_reactive_astro,High,42,0.7857288002595236,6.477200478227984
+Astrocyte,Homeostatic_microglia,Not AD,9,0.2599536275777778,1.0330906716105897
+Astrocyte,Homeostatic_microglia,Reference,3,0.0,0.6995140319841623
+Astrocyte,Homeostatic_microglia,Low,12,0.35012625770833333,0.9511460538421624
+Astrocyte,Homeostatic_microglia,Intermediate,21,0.6022887401666667,1.0782693400570704
+Astrocyte,Homeostatic_microglia,High,42,0.7857288002595236,0.7766639455727955

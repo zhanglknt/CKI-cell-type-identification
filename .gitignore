@@ -291,6 +291,18 @@ notebooks/fix_*.py
 !results/mouse_splithalf_v44_summary.json
 !data/tcga/hallmark_2020.gmt
 
+# Whitelist: ABCD atlas extension result CSVs (2026-10-09)
+# B: Hallmark program decomposition | C: TMS ageing ladder | D: SEA-AD DAM
+!results/brain_hallmark_program_omega.csv
+!results/tms_age_ladder.csv
+!results/sea_ad_dam_positive_control.csv
+!results/sea_ad_severity_ladder.csv
+
+# Large raw atlas downloads (not part of the submission)
+data/sea_ad/
+data/tms/
+data/brain/neurons/
+
 # Working artefacts (not part of the submission)
 v6/
 *.obo
