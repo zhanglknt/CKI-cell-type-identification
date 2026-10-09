@@ -29,13 +29,13 @@ checks = []
 def chk(name, cond, detail=''):
     checks.append((name, 'PASS' if cond else 'FAIL', detail))
 
-# 0. v53 structural: docx has zero tables; xlsx has 21 sheets Table 1..21 (nc63 B2: +Table 20/21)
+# 0. v53 structural: docx has zero tables; xlsx has 23 sheets Table 1..23 (nc66: +Table 22/23)
 chk('SI docx zero tables', len(doc.tables) == 0,
     f'found {len(doc.tables)}')
-_expected_sheets = [f'Table {n}' for n in range(1, 22)]
-chk('xlsx 21 sheets named Table 1..21 (nc63 B2)', wb.sheetnames == _expected_sheets,
+_expected_sheets = [f'Table {n}' for n in range(1, 24)]
+chk('xlsx 23 sheets named Table 1..23 (nc66)', wb.sheetnames == _expected_sheets,
     f'found {wb.sheetnames}')
-for _i, _n in enumerate(range(1, 22)):
+for _i, _n in enumerate(range(1, 24)):
     chk(f'xlsx A1 caption SuppTable {_n}',
         caps[_i].startswith(f'Supplementary Table {_n}: '))
 chk('no old-style Table (Section refs in docx', 'Table (Section' not in full)
@@ -222,9 +222,9 @@ chk('Note 9 no stale severity',
     and 'G1 > G2 \u2248 G3 \u2248 G4' not in cellfull)
 chk('Supp Table 3 Figure 6', '_fig6_clean.py (Figure 6)' in full)
 
-# 12. Notes 1-17 (nc63 B2: +Note 17 lineage-distance validation)
+# 12. Notes 1-19 (nc66: +Notes 18/19 neuron superclass + diffuseness/SEA-AD)
 notes = re.findall(r'Supplementary Note (\d+):', full)
-chk('Notes 1-17 count = 17 (nc63 B2)', len(set(notes)) == 17,
+chk('Notes 1-19 count = 19 (nc66)', len(set(notes)) == 19,
     f'found {sorted(set(map(int, notes)))}')
 
 # 12b. xv-text round: NEW-1 + P2 clarifications in SI

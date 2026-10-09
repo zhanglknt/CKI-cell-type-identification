@@ -28,6 +28,12 @@ from scipy import stats
 # Brain block-shuffle observed pairs (current pipeline: 08d/08e)
 _obs = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "brain_bs_null_observed_pairs.csv")
 
+# nc66 ABCD brain-extension results (Supplementary Notes 18/19)
+_neu_bs = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "brain_neuron_blockshuffle.csv")
+_neu_sc = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "brain_neuron_superclass_omega.csv")
+_hm = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "brain_hallmark_program_omega.csv")
+_sea = pd.read_csv(Path(__file__).resolve().parent.parent / "results" / "sea_ad_dam_positive_control.csv")
+
 # Region-associated candidates for S4 top-5 (Strong tier from the block-shuffle re-analysis)
 _mig = _obs
 _strong = _mig[_mig['tier'] == 'Strong'].sort_values('residual').head(5)
@@ -284,6 +290,8 @@ toc = [
     'Supplementary Note 15: Comparison with Augur Cell-Type Prioritization',
     'Supplementary Note 16: JS Divergence Dimensionality Invariance',
     'Supplementary Note 17: Lineage-Distance Validation across Atlases',
+    'Supplementary Note 18: Neuronal Superclass Regional Divergence and Block-Shuffle Control',
+    'Supplementary Note 19: Program-Level Diffuseness and a Disease-Anchor Positive Control',
     'Supplementary Methods',
     'Supplementary Table 1: Parameter Sweep Results',
     'Supplementary Table 2: TCGA Linear-Normalization Robustness',
@@ -306,14 +314,16 @@ toc = [
     'Supplementary Table 19: Brain min-cells Threshold Sensitivity',
     'Supplementary Table 20: Tabula Sapiens Lineage-Distance Pair Data',
     'Supplementary Table 21: Siletti Brain Lineage-Distance Pair Data',
+    'Supplementary Table 22: Neuronal Superclass Pair Data and Block-Shuffle Test',
+    'Supplementary Table 23: SEA-AD Disease-Anchor Positive Control',
     'Supplementary Data 1: Analysis Script Index',
-    'Supplementary Figures (legends for Supplementary Figs. 1-16)',
+    'Supplementary Figures (legends for Supplementary Figs. 1-18)',
 ]
 for item in toc:
     add_para(item)
 
-add_para('Supplementary Tables 1-21 are provided as a single workbook '
-         '(CKI_Supplementary_Tables_NC.xlsx, sheets Table 1-21 in numeric order); '
+add_para('Supplementary Tables 1-23 are provided as a single workbook '
+         '(CKI_Supplementary_Tables_NC.xlsx, sheets Table 1-23 in numeric order); '
          'in-text references in this document appear at first use, so mention '
          'order follows the narrative rather than table numbering.')
 
@@ -2856,6 +2866,94 @@ add_para(
 
 doc.add_page_break()
 
+# ===== SN18 (nc66): Neuronal superclass regional divergence + block-shuffle control =====
+add_heading('Supplementary Note 18: Neuronal Superclass Regional Divergence and Block-Shuffle Control', 2)
+add_para(
+    'The main-text brain analysis is restricted to non-neuronal classes because the '
+    'Siletti supercluster_term annotation does not resolve neuronal subtypes below the '
+    'superclass tier. To test whether that restriction understates atlas-wide regional '
+    'divergence, we analysed three well-sampled neuronal superclasses from per-superclass '
+    'slices of the same collection (MGE interneurons, 222,434 nuclei; thalamic excitatory '
+    'neurons, 85,546; upper-layer intratelencephalic neurons, 455,006) with the identical '
+    'pipeline: per-file HRT Atlas HK genes (1,115 matched) plus the 5,000 highest-mean '
+    'non-HK genes, regions retained at \u2265 50 nuclei of the superclass, norm-10,000 '
+    'log1p region pseudobulks, k_n on HK genes and per-pair top-200 k_f. Observed mean '
+    '\u03c9 was 69.32 (MGE interneurons; 1,770 pairs across 60 regions), 67.91 (thalamic '
+    'excitatory; 190 pairs, 20 regions), and 63.48 (upper-layer intratelencephalic; 1,035 '
+    'pairs, 46 regions), against a non-neuronal grand mean of 38.55.'
+)
+add_para(
+    'The sample-level block-shuffle null of the main analysis (sample_id-to-region '
+    'permutation preserving the per-region library-count multiset; B = 1,000; seed 42) '
+    'was applied to each superclass. Regional structure significantly elevated mean '
+    '\u03c9 for MGE interneurons (observed 69.32 versus null 52.39 \u00b1 2.35; '
+    'P = 0.001, the permutation floor; SES = 7.2) and for upper-layer intratelencephalic '
+    'neurons (63.48 versus 55.62 \u00b1 3.24; P = 0.014; SES = 2.4); thalamic excitatory '
+    'neurons did not individually exceed their null (67.91 versus 62.46 \u00b1 5.63; '
+    'P = 0.163), mirroring the non-neuronal landscape where 4 of 10 classes reject and '
+    '6 do not (Results).'
+)
+add_para(
+    'The cross-class contrast is decisive at the pair level. Neuronal pairs (n = 2,995; '
+    'median \u03c9 62.17) exceed the full non-neuronal landscape (n = 31,764; median '
+    '28.68; 24.50 excluding astrocytes): one-sided Mann\u2013Whitney z = 52.6, '
+    'P \u2248 10\u207b\u2076\u2070\u00b2 (normal approximation), rank-biserial 0.58, '
+    'P(neuronal > non-neuronal) = 0.79, and every superclass is individually significant '
+    '(weakest, thalamic excitatory: P = 8.5 \u00d7 10\u207b\u00b3\u2077). Astrocytes are '
+    'the sole non-neuronal exception (median 73.37, above the neuronal median; '
+    'P = 0.41 for neuronal > astrocytic) and themselves exceed the remaining nine '
+    'non-neuronal classes (z = 94.1, P \u2248 10\u207b\u00b9\u2079\u00b2\u2076), '
+    'consistent with their known regional specialization (Results). At the subcluster '
+    'tier the same pipeline yields 48,450 pairs (median \u03c9 21.22) dominated by '
+    'region-restricted subclusters with few pairs, so superclass-level values are the '
+    'appropriate tier for cross-class comparison. The non-neuronal screen therefore '
+    'understates atlas-wide regional divergence: neuronal superclasses\u2014like '
+    'astrocytes\u2014carry substantially higher cross-region divergence than the '
+    'remaining non-neuronal classes. (Supplementary Fig. 17; Supplementary Table 22.)'
+)
+
+doc.add_page_break()
+
+# ===== SN19 (nc66): Hallmark diffuseness + SEA-AD disease anchor =====
+add_heading('Supplementary Note 19: Program-Level Diffuseness and a Disease-Anchor Positive Control', 2)
+add_para(
+    'To ask whether the non-neuronal regional signal concentrates in specific functional '
+    'programs, we recomputed the landscape with k_f restricted to MSigDB Hallmark gene '
+    'sets (\u2229 non-HK; 40 programs with \u2265 20 genes) for the 10 non-neuronal '
+    'classes, against a size-bucketed random-gene-set null (2,000 draws per size bucket; '
+    'Benjamini\u2013Hochberg across all 400 tests). No test survived correction (minimum '
+    'q = 0.233): regional drift is diffuse rather than program-specific. The only '
+    'sub-threshold concentration is peroxisomal\u2013lipid metabolism: all 11 tests with '
+    'empirical P \u2264 0.01 (4.0 expected under the global null) are the Peroxisome or '
+    'Bile Acid Metabolism programs, spanning 7 of 10 classes and strongest in Bergmann '
+    'glia and microglia (mean \u03c9 11.4\u201317.7 versus null means 1.5\u20132.5). We '
+    'read this as hypothesis-generating metabolic structure, not detection. Raw data: '
+    'results/brain_hallmark_program_omega.csv.'
+)
+add_para(
+    'As an external disease anchor we applied a donor-level design to SEA-AD (CELLxGENE '
+    'collection 1ca90a2d; middle temporal gyrus; microglia-PVM and astrocyte slices): '
+    'pseudobulks per donor, ADNC \u2018High\u2019 (42 donors) versus \u2018Not '
+    'AD\u2019/\u2018Reference\u2019 controls (donors with \u2265 50 nuclei), testing '
+    'pre-registered gene sets\u2014the Keren-Shaul disease-associated-microglia (DAM) '
+    'core set (18 genes), Liddelow-2017 pan-reactive/A1/A2 astrocyte sets, and the '
+    'Krasemann homeostatic-microglia set\u2014with the pre-registered genes merged into '
+    'the reduced panel and excluded from the null sampling pool (under the standard HVG '
+    'panel only 12 of 18 DAM genes map; LPL, CST7, CSF1, CCL2, CD9 and LYZ rank below '
+    'the top-5,000 HVGs). The pan-reactive-astrocyte set was elevated in astrocytes '
+    '(\u03c9 6.87 versus null 2.40 \u00b1 1.39; P = 0.0145) and the DAM core set in '
+    'astrocytes (\u03c9 4.49; P = 0.041), with a directional but non-significant '
+    'elevation in microglia (\u03c9 4.39 versus null 2.58; P = 0.073); the negative '
+    'controls behaved cleanly\u2014the homeostatic-microglia set in astrocytes sat far '
+    'below the null (\u03c9 0.74; P = 0.996) and the A2-astrocyte set in microglia at '
+    'the floor (\u03c9 0.04; P = 1.0). Benjamini\u2013Hochberg across the 10 tests left '
+    'nothing significant (minimum q = 0.145), so the anchor provides directional, '
+    'sub-threshold evidence that the pipeline responds to known Alzheimer\u2019s '
+    'biology, not detection. (Supplementary Fig. 18; Supplementary Table 23.)'
+)
+
+doc.add_page_break()
+
 # ===== Supplementary Methods (v51: procedural detail migrated verbatim from main-text Methods) =====
 add_heading('Supplementary Methods', 2)
 add_para('Sections 5.1\u20135.14 collect, verbatim, the full procedural detail compressed out of the main-text Methods in v51. All parameter values, scripts, and output files are preserved; subsection numbering follows the main-text Methods order.')
@@ -3045,6 +3143,10 @@ add_para('Supplementary Fig. 15. Lineage-distance validation of k_f across two i
 
 add_para('Supplementary Fig. 16. k_n is design-dependent; k_f is the portable lineage signal (Supplementary Note 17). (a) Spearman correlation of each metric with Cell Ontology lineage distance in Tabula Sapiens (orange; same-organ cross-cell-type pairs) and the Siletti brain atlas (purple; same-region cross-cell-type pairs). k_f correlates positively in both atlases (\u03c1 = 0.227 and 0.181; both permutation P = 1.0 \u00d7 10\u207b\u2074), whereas k_n is null in Tabula Sapiens (\u03c1 = 0.052, P = 0.092) but reverses to strongly positive in the brain (\u03c1 = 0.300, P = 2.1 \u00d7 10\u207b\u00b3\u00b3), so \u03c9 inherits a negative brain gradient (\u03c1 = \u22120.134) with no signal after partialling out k_n (\u03c1 = \u22120.009, P = 0.74). ***, P < 0.001; NS, not significant. (b) Germ-layer test in the brain atlas: microglia (mesoderm) are more divergent from macroglia (median k_f_fixed 0.163, n = 420 region pairs) than macroglia are from each other (0.123, n = 652); Mann\u2013Whitney P = 4.5 \u00d7 10\u207b\u00b9\u2074\u2076. (c) Distance-0 anchors in the brain atlas: median k_f_fixed for same-cell-type cross-region pairs per cell type (n = 31,764 pairs; range 0.006\u20130.033), all far below the closest cross-lineage pair (OPC\u2013COP, red dashed line at 0.063).')
 
+add_para('Supplementary Fig. 17. Neuronal superclass regional divergence and block-shuffle control (Supplementary Note 18). (a) Sample-level block-shuffle null for the three neuronal superclasses (grey violins, B = 1,000 permutations of the sample-to-region assignment preserving the per-region library-count multiset; dark dash = null mean; red dot = observed mean regional \u03c9). MGE interneurons sit at the permutation floor (P = 0.001, SES = 7.2); upper-layer intratelencephalic neurons P = 0.014; thalamic excitatory neurons P = 0.163. (b) Median pair \u03c9 across the three neuronal superclasses (purple) and the ten non-neuronal classes (grey; astrocytes highlighted in red): neuronal medians 59.3\u201364.2 versus a non-neuronal median of 24.5 excluding astrocytes (one-sided Mann\u2013Whitney z = 52.6, P < 10\u207b\u00b3\u2070\u2070). (c) Pair-level \u03c9 ECDFs (log scale) for neuronal superclasses (purple), non-neuronal classes excluding astrocytes (grey), and astrocytes (red); medians 62.2 / 24.5 / 73.4, with astrocytes the only non-neuronal class in the neuronal range.')
+
+add_para('Supplementary Fig. 18. Program-level diffuseness and the SEA-AD disease-anchor positive control (Supplementary Note 19). (a) SEA-AD donor-level test (10 pre-registered gene-set \u00d7 cell-class tests): bars give observed \u03c9 between ADNC-high and reference donors; the dark dash marks the null mean and the line its 95% range (2,000-draw size-matched null with pre-registered genes excluded from the sampling pool). Red = pan-reactive astrocyte set (P = 0.0145) and DAM core set (P = 0.041) in astrocytes; orange = negative controls (homeostatic-microglia set in astrocytes, \u03c9 0.74, P = 0.996; A2 set in microglia, \u03c9 0.04, P = 1.0); grey = remaining tests. Benjamini\u2013Hochberg across the 10 tests: minimum q = 0.145. (b) Hallmark-program diffuseness: histogram of the 400 empirical P-values (10 non-neuronal classes \u00d7 40 programs; size-bucketed random-gene-set null, B = 2,000), with Peroxisome and Bile Acid Metabolism programs in purple. All 11 tests with P \u2264 0.01 (4.0 expected) are peroxisomal\u2013lipid programs; none of the 400 survives Benjamini\u2013Hochberg correction (minimum q = 0.233).')
+
 
 # ===== Add line numbers (continuous, every line) =====
 for sec in doc.sections:
@@ -3097,7 +3199,12 @@ def write_si_tables_xlsx():
     _t21 = pd.read_csv('results/nc62_brain_lineage_pairs.csv')
     _plan.append(('df', _t20, 'Tabula Sapiens pair-level data for the lineage-distance validation (Supplementary Note 17): all 5,151 cell-type pairs with k_f, k_n, omega, Cell Ontology identifiers and lineage distance, plus same_organ / same_ct / ambiguous flags; the primary analysis uses the 1,054 same-organ cross-cell-type non-ambiguous pairs and the 69 distance-0 cross-organ anchors. Raw data: results/nc61_lineage_distance.csv.'))
     _plan.append(('df', _t21, 'Siletti et al. brain atlas pair-level data for the lineage-distance validation (Supplementary Note 17): 2,032 same-region cross-cell-type pairs with k_f on the fixed 5,000-gene non-HK panel (kf_fixed), per-pair top-200 k_f (kf_pp200), k_n, both omega variants, Cell Ontology identifiers and lineage distance; the primary analysis excludes the Vascular supertype (n = 1,537), and the full 2,032 rows form the vascular-inclusive sensitivity set. Raw data: results/nc62_brain_lineage_pairs.csv.'))
-    assert len(_plan) == 21
+    # nc66 ABCD: neuron superclass pairs + SEA-AD positive control (Supplementary Notes 18/19)
+    _t22 = pd.read_csv('results/brain_neuron_superclass_omega.csv')
+    _t23 = pd.read_csv('results/sea_ad_dam_positive_control.csv')
+    _plan.append(('df', _t22, 'Neuronal superclass pair-level data for the block-shuffle control (Supplementary Note 18): all 2,995 same-superclass cross-region pairs (MGE interneuron, Thalamic excitatory, Upper-layer intratelencephalic) with omega, k_n and k_f. Block-shuffle test summary (B = 1,000): MGE P = 0.001 (permutation floor, SES = 7.2), Upper-layer IT P = 0.014, Thalamic P = 0.163 (results/brain_neuron_blockshuffle.csv). Raw data: results/brain_neuron_superclass_omega.csv.'))
+    _plan.append(('df', _t23, 'SEA-AD disease-anchor positive control (Supplementary Note 19): 10 pre-registered gene-set x cell-class tests (donor-level pseudobulks, ADNC High versus Not AD/Reference) with observed omega, null mean/sd/max, empirical P and BH q. Pan-reactive astrocyte set P = 0.0145, DAM core P = 0.041, negative controls at the null; minimum q = 0.145. Raw data: results/sea_ad_dam_positive_control.csv.'))
+    assert len(_plan) == 23
     for _n, (_kind, _payload, _cap) in enumerate(_plan, start=1):
         ws = wb.create_sheet(f'Table {_n}')
         ws['A1'] = f'Supplementary Table {_n}: {_cap}'

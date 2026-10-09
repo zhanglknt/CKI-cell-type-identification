@@ -99,7 +99,7 @@ for _p in paras[_ai + 1:_ri]:
     for _r in _p.runs:
         if _r.font.superscript:
             groups.append(_cite_expand(_r.text))
-chk('citation groups = 72', len(groups) == 72, f'got {len(groups)}')
+chk('citation groups = 71 (nc66: refs 20-24 merged)', len(groups) == 71, f'got {len(groups)}')
 _first, _seen = [], set()
 for g in groups:
     for n in g:
@@ -112,7 +112,7 @@ chk('no orphans (57 cited)', len(_seen) == 57)
 # ---------- 6. zip integrity ----------
 z = zipfile.ZipFile('CKI_Submission_NC.zip')
 names = z.namelist()
-chk('zip 30 entries (nc63 B2: +Supplementary_Fig_15/16.pdf)', len(names) == 30, f'got {len(names)}')
+chk('zip 32 entries (nc66: +Supplementary_Fig_17/18.pdf)', len(names) == 32, f'got {len(names)}')
 chk('zip has Supplementary_Fig_14.pdf',
     'CKI_Submission_NC/Supplementary_Fig_14.pdf' in names)
 sha = hashlib.sha256(open('CKI_Submission_NC.zip', 'rb').read()).hexdigest()
@@ -127,8 +127,8 @@ chk('zip every entry <= 10 MB (NC per-file limit)',
 # ---------- 7. MS<->SI pointer consistency (v51) ----------
 chk('MS Supplementary Methods 5.x pointers = 21 (nc60 A3: barcode-audit pointer 1.7->5.3)', ms.count('Supplementary Methods 5.') == 21,
     f"got {ms.count('Supplementary Methods 5.')}")
-chk('MS cites Notes 1-17 span (nc63 B2)', 'Supplementary Notes 1\u201317' in ms)
-chk('MS cites Figs 1-16 span (nc63 B2)', 'Supplementary Figs. 1\u201316' in ms)
+chk('MS cites Notes 1-19 span (nc66)', 'Supplementary Notes 1\u201319' in ms)
+chk('MS cites Figs 1-18 span (nc66)', 'Supplementary Figs. 1\u201318' in ms)
 chk('MS Section 3.12 pointers = 2 (proof: L37 dedup)', ms.count('Section 3.12') == 2)
 chk('SI carries Supplementary Methods section', 'Supplementary Methods' in sn)
 _sm_heads = [f'5.{i} ' for i in range(1, 15)]
@@ -188,7 +188,7 @@ chk('microglia MWU P = 5.5e-14', f'{u.pvalue:.1e}' == '5.5e-14', f'{u.pvalue:.2e
 
 # ---------- 10. SI Notes structure ----------
 heads = sorted(set(int(m.group(1)) for m in re.finditer(r'Supplementary Note (\d+):', sn)))
-chk('SI Notes 1..17 (nc63 B2)', heads == list(range(1, 18)), str(heads))
+chk('SI Notes 1..19 (nc66)', heads == list(range(1, 20)), str(heads))
 
 print(f'\nXV8 TOTAL: {len(P) + len(F)} checks, {len(F)} failures')
 if F:

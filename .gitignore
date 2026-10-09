@@ -298,6 +298,7 @@ notebooks/fix_*.py
 !results/sea_ad_dam_positive_control.csv
 !results/sea_ad_severity_ladder.csv
 !results/brain_neuron_superclass_omega.csv
+!results/brain_neuron_blockshuffle.csv
 !results/brain_neuron_subcluster_omega.csv
 
 # Large raw atlas downloads (not part of the submission)
