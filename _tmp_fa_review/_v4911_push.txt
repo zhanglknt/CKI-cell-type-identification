@@ -1,2 +1,0 @@
-To github.com:zhanglknt/CKI-cell-type-identification.git
-   b8a7acc..688f1f9  main -> main
