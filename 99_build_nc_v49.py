@@ -129,12 +129,12 @@ def main():
     # neuron-superclass / SEA-AD panels, both rendered under results/audit/. The
     # nc50_fig_microglia regen is NO LONGER run here: it would overwrite the
     # v6-palette SF3.
-    for i in range(1, 19):
+    for i in range(1, 20):
         shutil.copy2(STAGE / f"figure_S{i}.pdf", FIGS_NC / f"Supplementary_Fig_{i}.pdf")
     shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
                  FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
-    check(n_fig == 26, f"V49-1 figures staged = 26 (7 main + 18 supp + GA pdf; nc67) got {n_fig}")
+    check(n_fig == 27, f"V49-1 figures staged = 27 (7 main + 19 supp + GA pdf; nc68) got {n_fig}")
 
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_NC ...")
@@ -237,9 +237,9 @@ def main():
     check("Table S" not in sn, "V49-S3 no Table S in SN")
     check("Additional file" not in sn, "V49-S4 no Additional file in SN")
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
-    check(note_heads == list(range(1, 20)), f"V49-S5 SN Note headings 1..19 (nc66: +Notes 18/19) ({note_heads})")
+    check(note_heads == list(range(1, 21)), f"V49-S5 SN Note headings 1..20 (nc68: +Note 20 theory) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 34, f"V49-S6 SN Supplementary Fig. refs = 34 (nc66: +legends 17/18, +2 in-Note refs) ({n_sfig_sn})")
+    check(n_sfig_sn == 36, f"V49-S6 SN Supplementary Fig. refs = 36 (nc68: +legend 19, +1 in-Note ref) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
     check(n_stab_sn == 49, f"V49-S7 SN Supplementary Table refs = 49 (nc66: +2 TOC entries 22/23, +2 in-Note refs) ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
@@ -670,7 +670,7 @@ def main():
     check("Here, we show" in ms, "V49-SC1 Introduction ends 'Here, we show'")
     check(ms.count("Conclusions") == 0, "V49-SC3 no 'Conclusions' anywhere")
     check("Keywords:" not in ms, "V49-SC4 no Keywords line")
-    check("Supplementary Note 1" in ms and "Supplementary Notes 1\u201319" in ms,
+    check("Supplementary Note 1" in ms and "Supplementary Notes 1\u201320" in ms,
           "V49-SC5 notes cited (nc66: 1-19 span)")
     check("Supplementary Fig. 1" in ms, "V49-SC6 supp fig 1 cited")
 
@@ -690,6 +690,7 @@ def main():
                  "CKI_Submission_NC/Supplementary_Fig_16.pdf",
                  "CKI_Submission_NC/Supplementary_Fig_17.pdf",
                  "CKI_Submission_NC/Supplementary_Fig_18.pdf",
+                 "CKI_Submission_NC/Supplementary_Fig_19.pdf",
                  "CKI_Submission_NC/figure2.pdf",
                  "CKI_Submission_NC/figure3.pdf",
                  "CKI_Submission_NC/figure6.pdf",

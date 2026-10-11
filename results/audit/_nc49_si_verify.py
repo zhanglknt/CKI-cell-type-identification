@@ -222,9 +222,9 @@ chk('Note 9 no stale severity',
     and 'G1 > G2 \u2248 G3 \u2248 G4' not in cellfull)
 chk('Supp Table 3 Figure 6', '_fig6_clean.py (Figure 6)' in full)
 
-# 12. Notes 1-19 (nc66: +Notes 18/19 neuron superclass + diffuseness/SEA-AD)
+# 12. Notes 1-20 (nc68: +Note 20 scoped theory framework)
 notes = re.findall(r'Supplementary Note (\d+):', full)
-chk('Notes 1-19 count = 19 (nc66)', len(set(notes)) == 19,
+chk('Notes 1-20 count = 20 (nc68)', len(set(notes)) == 20,
     f'found {sorted(set(map(int, notes)))}')
 
 # 12b. xv-text round: NEW-1 + P2 clarifications in SI

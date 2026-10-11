@@ -1,0 +1,36 @@
+.............................                                            [100%]
+============================== warnings summary ===============================
+notebooks\08c_brain_bootstrap_v2_test.py:63
+  c:\Users\KnightZ\Desktop\细胞受选择\notebooks\08c_brain_bootstrap_v2_test.py:63: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+    groups = adata.obs.groupby([region_col, ct_col]).size().reset_index(name="count")
+
+notebooks\08c_brain_bootstrap_v3_test.py:88
+  c:\Users\KnightZ\Desktop\细胞受选择\notebooks\08c_brain_bootstrap_v3_test.py:88: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+    groups = adata.obs.groupby([region_col, ct_col]).size().reset_index(name="count")
+
+tests/test_smoke.py::test_pairwise_absdiff_selects_top_delta_genes
+tests/test_smoke.py::test_compute_with_pairwise_absdiff
+tests/test_smoke.py::test_compute_kn_floor_passthrough
+  c:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:506: UserWarning: Only 3 functional genes detected. Consider lowering n_top_genes or using method='hvg_and_markers'.
+    warnings.warn(
+
+tests/test_smoke.py::test_pairwise_absdiff_excludes_hk_before_ranking
+  c:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:600: UserWarning: n_top_genes capped from 100 to 8 (only 8 non-HK candidate genes available).
+    warnings.warn(
+
+tests/test_smoke.py::test_pairwise_absdiff_excludes_hk_before_ranking
+tests/test_smoke.py::test_bootstrap_test_fixed_legacy_and_explicit
+tests/test_smoke.py::test_compute_preset_manuscript
+  c:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:506: UserWarning: Only 8 functional genes detected. Consider lowering n_top_genes or using method='hvg_and_markers'.
+    warnings.warn(
+
+tests/test_smoke.py::test_bootstrap_test_fixed_legacy_and_explicit
+  c:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:443: UserWarning: n_top_genes capped from 2000 to 8 (80% of 10 total genes).
+    warnings.warn(
+
+tests/test_smoke.py::test_compute_preset_manuscript
+  c:\Users\KnightZ\Desktop\细胞受选择\cki\gene_sets.py:600: UserWarning: n_top_genes capped from 200 to 8 (only 8 non-HK candidate genes available).
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+29 passed, 11 warnings in 201.02s (0:03:21)

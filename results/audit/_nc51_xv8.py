@@ -112,7 +112,7 @@ chk('no orphans (57 cited)', len(_seen) == 57)
 # ---------- 6. zip integrity ----------
 z = zipfile.ZipFile('CKI_Submission_NC.zip')
 names = z.namelist()
-chk('zip 33 entries (nc67: +figure7.pdf)', len(names) == 33, f'got {len(names)}')
+chk('zip 34 entries (nc68: +Supplementary_Fig_19.pdf)', len(names) == 34, f'got {len(names)}')
 chk('zip has Supplementary_Fig_14.pdf',
     'CKI_Submission_NC/Supplementary_Fig_14.pdf' in names)
 sha = hashlib.sha256(open('CKI_Submission_NC.zip', 'rb').read()).hexdigest()
@@ -127,8 +127,8 @@ chk('zip every entry <= 10 MB (NC per-file limit)',
 # ---------- 7. MS<->SI pointer consistency (v51) ----------
 chk('MS Supplementary Methods 5.x pointers = 21 (nc60 A3: barcode-audit pointer 1.7->5.3)', ms.count('Supplementary Methods 5.') == 21,
     f"got {ms.count('Supplementary Methods 5.')}")
-chk('MS cites Notes 1-19 span (nc66)', 'Supplementary Notes 1\u201319' in ms)
-chk('MS cites Figs 1-18 span (nc66)', 'Supplementary Figs. 1\u201318' in ms)
+chk('MS cites Notes 1-20 span (nc68)', 'Supplementary Notes 1\u201320' in ms)
+chk('MS cites Figs 1-19 span (nc68)', 'Supplementary Figs. 1\u201319' in ms)
 chk('MS Section 3.12 pointers = 2 (proof: L37 dedup)', ms.count('Section 3.12') == 2)
 chk('SI carries Supplementary Methods section', 'Supplementary Methods' in sn)
 _sm_heads = [f'5.{i} ' for i in range(1, 15)]
@@ -188,7 +188,7 @@ chk('microglia MWU P = 5.5e-14', f'{u.pvalue:.1e}' == '5.5e-14', f'{u.pvalue:.2e
 
 # ---------- 10. SI Notes structure ----------
 heads = sorted(set(int(m.group(1)) for m in re.finditer(r'Supplementary Note (\d+):', sn)))
-chk('SI Notes 1..19 (nc66)', heads == list(range(1, 20)), str(heads))
+chk('SI Notes 1..20 (nc68)', heads == list(range(1, 21)), str(heads))
 
 print(f'\nXV8 TOTAL: {len(P) + len(F)} checks, {len(F)} failures')
 if F:

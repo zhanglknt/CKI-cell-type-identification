@@ -292,6 +292,7 @@ toc = [
     'Supplementary Note 17: Lineage-Distance Validation across Atlases',
     'Supplementary Note 18: Neuronal Superclass Regional Divergence and Block-Shuffle Control',
     'Supplementary Note 19: Program-Level Diffuseness and a Disease-Anchor Positive Control',
+    'Supplementary Note 20: A Scoped Theoretical Framework for \u03c9',
     'Supplementary Methods',
     'Supplementary Table 1: Parameter Sweep Results',
     'Supplementary Table 2: TCGA Linear-Normalization Robustness',
@@ -3039,6 +3040,143 @@ add_para(
     'biology, not detection. (Supplementary Fig. 18; Supplementary Table 23.)'
 )
 
+add_heading('Supplementary Note 20: A Scoped Theoretical Framework for \u03c9', 2)
+add_para(
+    'This note states precisely what \u03c9 estimates, under which conditions, and '
+    'with what error, connecting the operational algorithm (Methods) to the '
+    'interpretation used in the main text. We adopt a generative factor model for '
+    'the log-expression of a population, log x = \u03c3 + \u03b2 + \u03c6, where '
+    '\u03c3 is a global scale (sequencing depth, capture efficiency), \u03b2 a '
+    'background factor (technical variation plus neutral drift), and \u03c6 a '
+    'functional factor that vanishes on genes whose regulation does not change. '
+    'All statements are scoped to this model class and to the brain-order '
+    'normalization p = softmax(log1p(c)); no claim is made outside them. Raw '
+    'diagnostics: results/theory_diagnostics.csv (script '
+    'notebooks/85_theory_diagnostics.py; Supplementary Fig. 19).'
+)
+add_para(
+    'Lemma 1 (exact cancellation of global scale). Under log-softmax '
+    'normalization, multiplying all counts of a population by any positive '
+    'constant leaves its probability vector unchanged: the additive log-space '
+    'shift cancels between numerator and denominator, so \u03c3 contributes '
+    'exactly nothing to k_n, k_f, or \u03c9. The implemented log1p transform '
+    'deviates from a pure logarithm by terms of order 1/x per gene, negligible '
+    'at pseudobulk count scales; depth differences are removed by construction, '
+    'not by approximation (consistent with the twofold-depth robustness scenario '
+    'of Supplementary Note 1).'
+)
+add_para(
+    'Lemma 2 (second-order expansion of JS with explicit remainder). For '
+    'probability vectors p and q = p + \u03b4 on a panel, coordinate-separability '
+    'of the Shannon entropy gives, by a third-order Taylor expansion of '
+    'JS(p, q) = H((p + q)/2) \u2212 (H(p) + H(q))/2 (base-2): '
+    'JS(p, q) = (1/(8 ln 2)) \u03a3_i \u03b4_i\u00b2/p_i + R, with exact Lagrange '
+    'remainder |R| \u2264 (5/(48 ln 2)) \u03a3_i |\u03b4_i|\u00b3/(p_i \u2212 '
+    '|\u03b4_i|)_+\u00b2. The linear term vanishes pointwise, so no \u03a3\u03b4 '
+    '= 0 assumption is needed. Diagnostic (2,937 real pairs): the median '
+    'relative error |JS \u2212 Q|/JS of the quadratic form Q was 0.23% on the HK '
+    'panel under split-half nulls (brain and Tabula Sapiens) and 2.5\u20134.0% '
+    'on observed cross-region/cross-organ pairs (90th percentile \u2264 9.7%); '
+    'on the pair-specific top-200 panel the error was 1.1\u20132.1% under nulls '
+    'but 10\u201318% on observed pairs (90th percentile up to 103% in brain), '
+    'where per-gene relative displacements exceed 1. The expansion is therefore '
+    'quantitative at the k_n scale and approximate at the k_f scale; statements '
+    'below inherit this scoping (condition C1).'
+)
+add_para(
+    'Conditions. C1 (quadratic regime): per-gene relative displacement '
+    '|\u03b4_i|/p_i is small, so |R| is negligible against Q\u2014verified above '
+    'for k_n, approximate for k_f. C2 (stable selection inflation): the '
+    'pair-specific top-200 selection inflates the per-gene background energy '
+    'e_i = \u03b4_i\u00b2/p_i by a roughly pair-independent factor \u03b1: on '
+    'split-half null pairs the ratio of mean per-gene energy (top-200 versus HK '
+    'panel) had median 14 (brain; 10\u201390% 10.3\u201322.1) and 8.5 (Tabula '
+    'Sapiens; 7.0\u201314.5)\u2014an order-statistic (winner\u2019s-curse) '
+    'effect of selecting the largest |difference| genes, remarkably close to the '
+    'empirical split-half baselines 6.67\u20139.73 (Supplementary Note 3), which '
+    'the calibration constant therefore admits a theoretical reading of. C3 '
+    '(stable functional panel): the pair-specific panel is not noise-driven '
+    'beyond C2; quantified by the leave-pair-out ablation (Supplementary Note '
+    '9). C4 (adequate count depth): multinomial sampling contributes '
+    '(d \u2212 1)/(4N ln 2) to JS, below the background energy at the '
+    'pseudobulk depths used here (Supplementary Note 16; notebooks/84).'
+)
+add_para(
+    'Proposition 3 (estimand). Under C1\u2013C4 and the generative model, '
+    'k_n \u2248 (1/(8 ln 2)) E_b and k_f \u2248 (1/(8 ln 2)) (E_f + \u03b1E_b), '
+    'where E_b = \u03a3_i \u03b2_i\u00b2/p_i is the background displacement '
+    'energy and E_f = \u03a3_i \u03c6_i\u00b2/p_i the functional displacement '
+    'energy on the panel. Hence \u03c9 = \u03b1 + E_f/E_b + \u03b5, with |\u03b5| '
+    'bounded by the Lemma-2 remainders, the C4 sampling term, and the '
+    'pair-to-pair spread of \u03b1 (C2)\u2014the dominant term, which is exactly '
+    'why absolute \u03c9 is dataset-relative. In words: \u03c9 measures the '
+    'ratio of functional to background displacement energy on the probability '
+    'simplex, shifted by the selection constant \u03b1 that the split-half '
+    'baseline estimates; the calibrated statistic satisfies '
+    '\u03c9_cal \u2212 1 \u2248 E_f/(\u03b1E_b). This is the precise biological '
+    'quantity \u03c9 corresponds to within the model class.'
+)
+add_para(
+    'Proposition 4 (local monotonicity, global saturation). Wherever C1 holds, '
+    'strengthening the functional factor (\u03c6 \u2192 \u03bb\u03c6, \u03bb > '
+    '1) with background fixed scales E_f \u2192 \u03bb\u00b2E_f and leaves E_b '
+    'unchanged, so \u2202\u03c9/\u2202E_f = 1/E_b > 0: \u03c9 increases strictly '
+    'with functional change, independently of \u03b1. Globally this cannot '
+    'persist\u2014JS is bounded by 1 bit\u2014so the mapping is local. '
+    'Ground-truth check (factorial grid of Supplementary Note 1): at zero '
+    'background drift \u03c9 rose monotonically with the injected shift \u03b4 '
+    '(Spearman \u03c1 = 0.688, P = 5.1 \u00d7 10\u207b\u00b9\u2076\u00b2; grid '
+    'means 10.2 \u2192 27.2 over \u03b4 = 0\u20132, baseline offset '
+    '\u2248 \u03b1 as predicted) while k_n stayed flat (\u03c1 = 0.004); under '
+    'pure HK-anchored drift (\u03b4 = 0) \u03c9 declined (\u03c1 = \u22120.821, '
+    'driven by the k_n denominator, \u03c1 = +0.888)\u2014background drift moves '
+    '\u03c9 downward, never upward, matching the drift-rejection specificity of '
+    'Supplementary Notes 1 and 6.'
+)
+add_para(
+    'Proposition 5 (calibration bias, delta method). The ratio estimator '
+    'inherits second-order bias E[\u03c9] \u2248 (\u03bc_f/\u03bc_n)(1 + '
+    'CV_n\u00b2 \u2212 \u03c1 CV_f CV_n). From the split-half products '
+    '(Supplementary Note 3): CV_n = 0.056 (brain) / 0.091 (mouse), CV_f = '
+    '0.096 / 0.240, \u03c1(k_f, k_n) = 0.92 / 0.73, giving relative bias '
+    '\u22120.18% (brain) and \u22120.76% (mouse)\u2014negligible against '
+    'reported effects, and dominated by the between-population spread of the '
+    'calibration denominator that the joint bootstrap propagates (Supplementary '
+    'Note 3).'
+)
+add_para(
+    'What the HK denominator adds beyond k_f with a correct null. (i) '
+    'Identifiability: k_f alone estimates the sum E_f + \u03b1E_b; functional '
+    'and background energy cannot be separated from k_f by any calibration that '
+    'does not measure E_b independently\u2014the HK panel supplies that '
+    'measurement, making E_f/E_b identifiable. (ii) Studentization: a valid '
+    'per-pair null for k_f must condition on the pair\u2019s own background '
+    'magnitude, which is unobservable; dividing by k_n yields a statistic whose '
+    'null is approximately ancillary to it\u2014the same logic by which dividing '
+    'by the sample standard deviation turns a mean difference into a '
+    't-statistic. Empirically, the cross-class dispersion of the split-half '
+    'null collapses under studentization: across the 10 brain classes the '
+    'coefficient of variation of the class-level null median falls from 1.21 '
+    '(k_f) to 0.148 (\u03c9), and the max/min ratio from 195 to 1.63; across '
+    'mouse tissue-cell-type populations from 0.436 to 0.251 (max/min 3.87 to '
+    '2.06)\u2014the \u03c9 null is up to eightfold more portable across classes, '
+    'which is what licenses a single global calibration. (iii) Measured error '
+    'rates: under injected neutral drift, k_f-only false-positive rates were '
+    '0.81\u20131.00 versus 0.00\u20130.067 for \u03c9 (Supplementary Notes 1, '
+    '6), and the TCGA reversal is a k_n phenomenon invisible to any k_f-only '
+    'analysis (Supplementary Note 10).'
+)
+add_para(
+    'Scope. Lemma 1 is exact for the stated normalization; Lemma 2 is exact '
+    'mathematics with an explicit remainder; Propositions 3\u20135 are '
+    'model-relative and conditional on C1\u2013C4, each checked on real data '
+    'above or in the referenced notes. Where a condition holds only '
+    'approximately (C1 at the k_f scale; C2 as a stable-but-variable \u03b1), '
+    'the corresponding statements are approximations, and the main-text claims '
+    'relying on them are phrased accordingly.'
+)
+
+
 doc.add_page_break()
 
 # ===== Supplementary Methods (v51: procedural detail migrated verbatim from main-text Methods) =====
@@ -3196,7 +3334,7 @@ add_para(
 
 # ===== Supplementary Figures (legends migrated from the main text, nc60) =====
 add_heading('Supplementary Figures', 2)
-add_para('Legends for Supplementary Figs. 1-16. Figure files are provided separately (results/ figures listed in the Reproducibility Guide).')
+add_para('Legends for Supplementary Figs. 1-19. Figure files are provided separately (results/ figures listed in the Reproducibility Guide).')
 
 add_para('Supplementary Fig. 1. Parameter sweep and pathway analysis. (a) k_n stability as a function of housekeeping gene set size; k_n decreases monotonically with increasing HK gene number (250\u20131,000), indicating that the baseline rate is gene-set-size-dependent; absolute \u03c9 values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (b) Variance of module-level GSVA enrichment scores across 38 mouse cell-type entries for the 20 HVG-partition modules (sorted by variance). Cell-type divergence is broadly distributed across modules rather than concentrated in a single module, consistent with the identity-only configuration of k_f. (c) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs).')
 
@@ -3233,6 +3371,8 @@ add_para('Supplementary Fig. 16. k_n is design-dependent; k_f is the portable li
 add_para('Supplementary Fig. 17. Pair-level distributions and the subcluster tier for the neuronal superclass analysis (Supplementary Note 18; main Fig. 7). (a) Pair-level \u03c9 ECDFs (log scale) for neuronal superclasses (purple; n = 2,995), non-neuronal classes excluding astrocytes (grey; n = 25,986), and astrocytes (red; n = 5,778); medians 62.2 / 24.5 / 73.4, with astrocytes the only non-neuronal class in the neuronal range. (b) Subcluster-tier pair \u03c9 per supercluster (grey boxes, log scale, 48,450 pairs total; boxes = IQR, whiskers = 1.5 \u00d7 IQR, outliers suppressed) with the superclass-tier median overlaid (purple bars): subcluster medians 18.5\u201329.4 are pulled down by region-restricted subclusters with few pairs, so superclass-level values are the appropriate tier for cross-class comparison (Supplementary Note 18).')
 
 add_para('Supplementary Fig. 18. Program-level diffuseness and the SEA-AD disease-anchor positive control (Supplementary Note 19). (a) SEA-AD donor-level test (10 pre-registered gene-set \u00d7 cell-class tests): bars give observed \u03c9 between ADNC-high and reference donors; the dark dash marks the null mean and the line its 95% range (2,000-draw size-matched null with pre-registered genes excluded from the sampling pool). Red = pan-reactive astrocyte set (P = 0.0145) and DAM core set (P = 0.041) in astrocytes; orange = negative controls (homeostatic-microglia set in astrocytes, \u03c9 0.74, P = 0.996; A2 set in microglia, \u03c9 0.04, P = 1.0); grey = remaining tests. Benjamini\u2013Hochberg across the 10 tests: minimum q = 0.145. (b) Hallmark-program diffuseness: histogram of the 400 empirical P-values (10 non-neuronal classes \u00d7 40 programs; size-bucketed random-gene-set null, B = 2,000), with Peroxisome and Bile Acid Metabolism programs in purple. All 11 tests with P \u2264 0.01 (4.0 expected) are peroxisomal\u2013lipid programs; none of the 400 survives Benjamini\u2013Hochberg correction (minimum q = 0.233).')
+
+add_para('Supplementary Fig. 19. Theory diagnostics for the scoped framework (Supplementary Note 20; notebooks/85_theory_diagnostics.py; results/theory_diagnostics.csv). (a) Second-order expansion error |JS \u2212 Q| / JS (log scale) for the HK panel (steel; k_n scale) and the pair-specific top-200 panel (purple; k_f scale) across 2,937 real pairs: brain cross-region observed (n = 1,500), brain within-region split-half nulls (n = 900), Tabula Sapiens cross-organ observed (n = 37) and split-half nulls (n = 500); boxes = IQR, whiskers = 1.5 \u00d7 IQR, outliers suppressed. The expansion is quantitative at the k_n scale (median error 0.23% under nulls, 2.5\u20134.0% observed) and approximate at the k_f scale (10\u201318% observed). (b) Background-energy exchangeability under split-half nulls: distribution of the per-gene mean-energy ratio (top-200 versus HK panel), median 14 (brain) and 8.5 (Tabula Sapiens)\u2014the order-statistic selection inflation \u03b1 estimated by the split-half baseline (6.67\u20139.73). (c) Ground-truth estimand: mean \u03c9 \u2212 1 (log scale) versus the injected functional shift \u03b4 at each background-drift level \u03b7 (factorial grid, \u03b5 = 0; Supplementary Note 1); \u03c9 \u2212 1 rises monotonically with \u03b4 from the selection-inflated baseline offset and collapses toward 0 under strong HK-anchored drift. (d) Null ancillarity: cross-class coefficient of variation of the split-half null median for k_f, k_n and \u03c9 (10 brain classes; 38 mouse tissue\u2013cell-type populations)\u2014studentization by the HK denominator contracts the null dispersion up to eightfold (brain CV 1.21 \u2192 0.148).')
 
 
 # ===== Add line numbers (continuous, every line) =====

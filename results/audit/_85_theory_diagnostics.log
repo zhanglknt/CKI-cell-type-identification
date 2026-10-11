@@ -1,0 +1,144 @@
+============================================================
+Loading TS human data (6-organ pipeline)...
+  Liver: 5007 cells
+  Kidney: 9641 cells
+  Heart: 11505 cells
+  Bone_Marrow: 12297 cells
+  Spleen: 34004 cells
+  Lung: 35682 cells
+  Pooled: 107399 cells x 51852 genes
+  HK genes: 1129
+
+--- TS: population pseudobulks ---
+  Populations >=100 cells: 77
+  Cross-organ same-CT pairs: 37
+  A/ts_observed recorded: 37 pairs
+
+--- TS: split-half null pairs ---
+  Null populations: 71
+  A+B/ts_splithalf recorded: 500 null pairs
+Checkpoint: 1574 TS rows -> theory_diagnostics_partial_ts.csv
+
+============================================================
+Brain (Siletti non-neurons, 08d observed recipe)
+============================================================
+  Shape: (888263, 59480)
+  Matched HK genes: 1115
+  Global gene means pass...
+  Means in 186s
+  Reduced: 6115 genes (HK=1115 + HVG=5000)
+
+  --- Astrocyte: 108 regions ---
+      Extraction chunk 5/8 (100000/155025 sorted cells)
+    Extracted 155025 cells x 6115 genes (263M nnz, 18s)
+    A/brain_observed: 500 pairs
+    A+B/brain_splithalf: 300 null pairs
+    Checkpoint: 1900 rows -> theory_diagnostics_partial_brain_Astrocyte.csv
+
+  --- Microglia: 107 regions ---
+    Extracted 91826 cells x 6115 genes (102M nnz, 6s)
+    A/brain_observed: 500 pairs
+    A+B/brain_splithalf: 300 null pairs
+    Checkpoint: 1900 rows -> theory_diagnostics_partial_brain_Microglia.csv
+
+  --- Oligodendrocyte: 108 regions ---
+      Extraction chunk 5/25 (100000/490246 sorted cells)
+      Extraction chunk 10/25 (200000/490246 sorted cells)
+      Extraction chunk 15/25 (300000/490246 sorted cells)
+      Extraction chunk 20/25 (400000/490246 sorted cells)
+      Extraction chunk 25/25 (490246/490246 sorted cells)
+    Extracted 490246 cells x 6115 genes (822M nnz, 107s)
+    A/brain_observed: 500 pairs
+    A+B/brain_splithalf: 300 null pairs
+    Checkpoint: 1900 rows -> theory_diagnostics_partial_brain_Oligodendrocyte.csv
+
+--- Part C: cross-class null dispersion (k_f vs omega) ---
+  C recorded (js=CV, quad_approx=max/min, rel_err=IQR/median)
+
+--- Part D: ground-truth monotonicity / invariance ---
+  D recorded (js=Spearman rho / grid mean)
+
+============================================================
+# Theory diagnostics summary (notebooks/85)
+
+
+## A. Quadratic-regime |JS - Q| / JS
+
+| dataset | panel | n | JS median | rel-err median | rel-err p90 | cubic/quad median | max|d|/p median |
+|---|---|---|---|---|---|---|---|
+| brain_observed | hk | 1500 | 0.001731 | 0.0245 | 0.0875 | 0.22 | 0.556 |
+| brain_observed | top200 | 1500 | 0.06031 | 0.178 | 1.03 | 1.21 | 3.32 |
+| brain_splithalf | hk | 900 | 0.0004165 | 0.00227 | 0.0129 | 0.0817 | 0.191 |
+| brain_splithalf | top200 | 900 | 0.003917 | 0.0106 | 0.047 | 0.168 | 0.333 |
+| ts_observed | hk | 37 | 0.004552 | 0.0397 | 0.0968 | 0.315 | 0.754 |
+| ts_observed | top200 | 37 | 0.07298 | 0.102 | 0.437 | 1.03 | 2.58 |
+| ts_splithalf | hk | 500 | 0.0005861 | 0.00226 | 0.00898 | 0.0947 | 0.224 |
+| ts_splithalf | top200 | 500 | 0.004768 | 0.0214 | 0.0733 | 0.19 | 0.309 |
+
+## B. Background-energy exchangeability (null pairs)
+
+| dataset | n | mean-energy ratio (top200/HK) median | p10 | p90 |
+|---|---|---|---|---|
+| brain_splithalf | len=900 | 14 | 10.3 | 22.1 |
+| ts_splithalf | len=500 | 8.47 | 7.04 | 14.5 |
+
+## C. Cross-class null dispersion (CV / max-min / IQR-median)
+
+| dataset | metric | CV | max/min | IQR/median |
+|---|---|---|---|---|
+| brain_by_ct | kf | 1.21 | 195 | 5.16 |
+| brain_by_ct | kn | 1.15 | 156 | 3.76 |
+| brain_by_ct | omega | 0.148 | 1.63 | 0.0873 |
+| mouse_by_tissue_ct | kf | 0.436 | 3.87 | 0.494 |
+| mouse_by_tissue_ct | kn | 0.268 | 2.41 | 0.329 |
+| mouse_by_tissue_ct | omega | 0.251 | 2.06 | 0.127 |
+
+## D. Ground-truth contrasts (Spearman rho, p)
+
+| contrast | metric | rho | p |
+|---|---|---|---|
+| mono_delta_bg0 | omega | 0.688 | 5.1e-162 |
+| mono_delta_bg0 | k_f | 0.644 | 7e-136 |
+| mono_delta_bg0 | k_n | 0.004 | 0.89 |
+| mono_delta_bg0 | k_total | 0.799 | 2.7e-256 |
+| invar_eta_d0 | omega | -0.821 | 1.2e-86 |
+| invar_eta_d0 | k_f | -0.489 | 2.1e-22 |
+| invar_eta_d0 | k_n | 0.888 | 2.2e-119 |
+| invar_eta_d0 | k_total | 0.823 | 1.9e-87 |
+
+### Non-HK drift series (rho vs eta)
+
+| series | metric | rho | p |
+|---|---|---|---|
+| drift_N0_hk_drift | omega | -0.762 | 2.9e-18 |
+| drift_N0_hk_drift | k_f | -0.460 | 5e-06 |
+| drift_N0_hk_drift | k_n | 0.930 | 5.9e-40 |
+| drift_N1_lowvar_drift_s1042 | omega | -0.520 | 1.5e-07 |
+| drift_N1_lowvar_drift_s1042 | k_f | -0.516 | 1.9e-07 |
+| drift_N1_lowvar_drift_s1042 | k_n | 0.111 | 0.3 |
+| drift_N1_lowvar_drift_s2042 | omega | -0.731 | 2.8e-16 |
+| drift_N1_lowvar_drift_s2042 | k_f | -0.666 | 7.7e-13 |
+| drift_N1_lowvar_drift_s2042 | k_n | 0.149 | 0.16 |
+| drift_N1_lowvar_drift_s3042 | omega | -0.524 | 1.2e-07 |
+| drift_N1_lowvar_drift_s3042 | k_f | -0.538 | 4.4e-08 |
+| drift_N1_lowvar_drift_s3042 | k_n | 0.053 | 0.62 |
+
+### Estimand grid: mean omega / k_f / k_n by (eta, delta)
+
+| eta | delta | omega | k_f | k_n |
+|---|---|---|---|---|
+| 0.00 | 0.0 | 10.23 | 0.0112 | 0.001097 |
+| 0.00 | 0.125 | 10.6 | 0.01174 | 0.001112 |
+| 0.00 | 0.25 | 10.19 | 0.01493 | 0.001508 |
+| 0.00 | 0.5 | 12.01 | 0.01324 | 0.001108 |
+| 0.00 | 1.0 | 15.84 | 0.02105 | 0.001396 |
+| 0.00 | 2.0 | 27.24 | 0.03073 | 0.001137 |
+| 0.25 | 0.0 | 8 | 0.01127 | 0.001413 |
+| 0.25 | 0.5 | 8.025 | 0.01162 | 0.001452 |
+| 0.50 | 0.0 | 4.552 | 0.009632 | 0.002128 |
+| 0.50 | 0.5 | 4.515 | 0.00997 | 0.002212 |
+| 1.00 | 0.0 | 1.083 | 0.004938 | 0.00458 |
+| 1.00 | 0.5 | 1.289 | 0.00609 | 0.004748 |
+
+Saved -> results/theory_diagnostics.{csv,md} (676s)
+DONE.
