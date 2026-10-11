@@ -318,7 +318,7 @@ toc = [
     'Supplementary Table 22: Neuronal Superclass Pair Data and Block-Shuffle Test',
     'Supplementary Table 23: SEA-AD Disease-Anchor Positive Control',
     'Supplementary Data 1: Analysis Script Index',
-    'Supplementary Figures (legends for Supplementary Figs. 1-18)',
+    'Supplementary Figures (legends for Supplementary Figs. 1-19)',
 ]
 for item in toc:
     add_para(item)
@@ -327,6 +327,21 @@ add_para('Supplementary Tables 1-23 are provided as a single workbook '
          '(CKI_Supplementary_Tables_NC.xlsx, sheets Table 1-23 in numeric order); '
          'in-text references in this document appear at first use, so mention '
          'order follows the narrative rather than table numbering.')
+add_para('Roadmap. Readers short on time can navigate by question. '
+         'Specificity and ground-truth behaviour of \u03c9: Supplementary '
+         'Notes 1, 6, 7. Calibration, ratio-estimator properties, and '
+         'interval coverage: Notes 2\u20134. Ordering and component '
+         'controls (k_f-only, k_n-only): Note 5. Real-perturbation '
+         'demonstration and fixed-panel ablation: Notes 8, 9. TCGA '
+         'mechanism and composition checks: Note 10. Brain analyses '
+         '(class-size controls, pseudo-region null, region glossary, '
+         'set-level enrichment, Augur comparison, lineage distance, '
+         'neuronal superclasses): Notes 11\u201315, 17, 18. '
+         'Program-level diffuseness and the disease-anchor positive '
+         'control: Note 19. Theory (generative model, estimand, '
+         'conditions C1\u2013C4, and what the HK denominator adds): Note '
+         '20. JS dimensionality invariance: Note 16. Procedural detail: '
+         'Supplementary Methods 5.1\u20135.14.')
 
 doc.add_page_break()
 
@@ -1978,7 +1993,9 @@ add_para(
     '76.30] (was [27.30, 56.19])\u2014the lower bound remains far above '
     'its baseline 10.66, so the choroid claim stands; the '
     'astrocyte/Bergmann-glia gradient 5.99 [4.43, 7.69] (was [4.12, 9.18])'
-    '\u2014the gradient claim remains quantitative.'
+    '\u2014the gradient claim remains quantitative. The six-population '
+    'baseline interval [6.38, 9.82] quoted in the main text shares this '
+    'limitation and is labelled slightly anti-conservative there.'
 )
 
 add_heading('Supplementary Note 4: Ratio-Estimator Bias\u2013Variance Characterization', 2)
@@ -3092,9 +3109,15 @@ add_para(
     'split-half null pairs the ratio of mean per-gene energy (top-200 versus HK '
     'panel) had median 14 (brain; 10\u201390% 10.3\u201322.1) and 8.5 (Tabula '
     'Sapiens; 7.0\u201314.5)\u2014an order-statistic (winner\u2019s-curse) '
-    'effect of selecting the largest |difference| genes, remarkably close to the '
-    'empirical split-half baselines 6.67\u20139.73 (Supplementary Note 3), which '
-    'the calibration constant therefore admits a theoretical reading of. C3 '
+    'effect of selecting the largest |difference| genes, of the same order '
+    'as the empirical split-half baselines 6.67\u20139.73 (Supplementary '
+    'Note 3). The residual gap (median 14 in brain versus the 9.73 brain '
+    'baseline, which sits near the 10th percentile of the \u03b1 '
+    'distribution) is directionally expected: \u03b1 is a per-gene energy '
+    'ratio, whereas the baseline additionally folds in panel-size and '
+    'composition differences between the 200-gene and ~1,130-gene sets and '
+    'the k_f-scale expansion error diagnosed above, so the calibration '
+    'constant admits a theoretical reading only up to these factors. C3 '
     '(stable functional panel): the pair-specific panel is not noise-driven '
     'beyond C2; quantified by the leave-pair-out ablation (Supplementary Note '
     '9). C4 (adequate count depth): multinomial sampling contributes '
@@ -3113,8 +3136,12 @@ add_para(
     'ratio of functional to background displacement energy on the probability '
     'simplex, shifted by the selection constant \u03b1 that the split-half '
     'baseline estimates; the calibrated statistic satisfies '
-    '\u03c9_cal \u2212 1 \u2248 E_f/(\u03b1E_b). This is the precise biological '
-    'quantity \u03c9 corresponds to within the model class.'
+    '\u03c9_cal \u2212 1 \u2248 E_f/(\u03b1E_b). Within the model class this '
+    'is the quantity \u03c9 corresponds to\u2014an approximation '
+    'conditional on the post-selection panel (the pair-specific top-200 set '
+    'is itself data-selected, so E_f and \u03b1 are defined relative to '
+    'that selection rather than to a fixed gene set) and quantitative only '
+    'at the k_n scale under C1.'
 )
 add_para(
     'Proposition 4 (local monotonicity, global saturation). Wherever C1 holds, '
@@ -3142,7 +3169,12 @@ add_para(
     '\u22120.18% (brain) and \u22120.76% (mouse)\u2014negligible against '
     'reported effects, and dominated by the between-population spread of the '
     'calibration denominator that the joint bootstrap propagates (Supplementary '
-    'Note 3).'
+    'Note 3). These class-level predictions reconcile with the pooled '
+    'empirical estimate of Supplementary Note 4 (median +0.2% across groups, '
+    'pooled \u22121.8%): the pooled figure aggregates all 1,450 replicates '
+    'including the smallest-denominator groups (bias up to +6.5%), whereas '
+    'the delta-method inputs above are class-level means; the two '
+    'aggregations bracket the same small effect.'
 )
 add_para(
     'What the HK denominator adds beyond k_f with a correct null. (i) '
@@ -3161,10 +3193,17 @@ add_para(
     'mouse tissue-cell-type populations from 0.436 to 0.251 (max/min 3.87 to '
     '2.06)\u2014the \u03c9 null is up to eightfold more portable across classes, '
     'which is what licenses a single global calibration. (iii) Measured error '
-    'rates: under injected neutral drift, k_f-only false-positive rates were '
-    '0.81\u20131.00 versus 0.00\u20130.067 for \u03c9 (Supplementary Notes 1, '
-    '6), and the TCGA reversal is a k_n phenomenon invisible to any k_f-only '
-    'analysis (Supplementary Note 10).'
+    'rates: the measurable gain of the denominator is against anchor-free '
+    'global metrics\u2014under injected compositional drift, raw JS and '
+    'cosine false-positive rates reach 0.55\u20131.00 versus 0.000\u2013'
+    '0.067 for \u03c9 (Supplementary Notes 1, 6)\u2014whereas k_f-only is '
+    'itself specific under the same drift (0.007\u20130.020), so false-'
+    'positive rates alone do not separate \u03c9 from a k_f-only analysis; '
+    'under a composition-preserving gene-identity swap, \u03c9 and all '
+    'comparators fire at 1.00 (Supplementary Note 6, N2). The error-rate '
+    'argument thus supports the ratio structure against anchor-free '
+    'baselines, and the TCGA reversal is a k_n phenomenon invisible to any '
+    'k_f-only analysis (Supplementary Note 10).'
 )
 add_para(
     'Scope. Lemma 1 is exact for the stated normalization; Lemma 2 is exact '
