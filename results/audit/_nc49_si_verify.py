@@ -208,8 +208,8 @@ chk('Ladder table T1 omega cell', '1.04 [0.97, 1.21] / 28.6%' in cellfull)
 
 # 11. Note 9 sync + figure refs
 chk('Note 9 sync sentence (v58: SF4b->5b)',
-    'reported here as denominator-dominated vignettes (Supplementary Fig. 5b)' in full)
-chk('Note 9 cross-organ Fig. 5', '(Table 1 / Fig. 5)' in full)
+    'reported here as denominator-dominated vignettes (Supplementary Fig. 2d)' in full)
+chk('Note 9 cross-organ Fig. 4 (nc70: 5->4)', '(Table 1 / Fig. 4)' in full)
 chk('Note 9 LIHC severity ex-CC (v52)',
     '78.8 / 75.8 / 77.6 / 72.3' in cellfull
     and 'JT 8.4 \u00d7 10\u207b\u00b9\u00b2' in cellfull
@@ -220,7 +220,7 @@ chk('Note 9 no stale severity',
     and 'JT 1.05' not in cellfull
     and 'about 10-19' not in full
     and 'G1 > G2 \u2248 G3 \u2248 G4' not in cellfull)
-chk('Supp Table 3 Figure 6', '_fig6_clean.py (Figure 6)' in full)
+chk('Supp Table 3 Figure 5 (nc70: brain 6->5)', '_fig6_clean.py (Figure 5)' in full)
 
 # 12. Notes 1-20 (nc68: +Note 20 scoped theory framework)
 notes = re.findall(r'Supplementary Note (\d+):', full)

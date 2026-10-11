@@ -59,7 +59,7 @@ for p in doc.paragraphs:
     m = re.match(r'^Figure (\d+)\.', t)
     if m:
         leg[int(m.group(1))] = len(t.split())
-chk('main figure legends 1..7 present (nc67: +Fig 7 neuron superclass)', sorted(leg) == [1, 2, 3, 4, 5, 6, 7], str(leg))
+chk('main figure legends 1..5 present (nc70: panel-consolidation round)', sorted(leg) == [1, 2, 3, 4, 5], str(leg))
 chk('every main figure legend <= 350 words (NC)', all(v <= 350 for v in leg.values()),
     f'max = Figure {max(leg, key=leg.get)} at {max(leg.values())}')
 
@@ -112,9 +112,9 @@ chk('no orphans (57 cited)', len(_seen) == 57)
 # ---------- 6. zip integrity ----------
 z = zipfile.ZipFile('CKI_Submission_NC.zip')
 names = z.namelist()
-chk('zip 34 entries (nc68: +Supplementary_Fig_19.pdf)', len(names) == 34, f'got {len(names)}')
-chk('zip has Supplementary_Fig_14.pdf',
-    'CKI_Submission_NC/Supplementary_Fig_14.pdf' in names)
+chk('zip 22 entries (nc70: 5 main + 9 supp figures)', len(names) == 22, f'got {len(names)}')
+chk('zip has Supplementary_Fig_9.pdf',
+    'CKI_Submission_NC/Supplementary_Fig_9.pdf' in names)
 sha = hashlib.sha256(open('CKI_Submission_NC.zip', 'rb').read()).hexdigest()
 print(f'  zip sha256 = {sha}')
 chk('zip size < 20 MB (nc63: author v6 figure set baseline 16.2 MB; B2 package 17.0 MB)',
@@ -128,7 +128,7 @@ chk('zip every entry <= 10 MB (NC per-file limit)',
 chk('MS Supplementary Methods 5.x pointers = 21 (nc60 A3: barcode-audit pointer 1.7->5.3)', ms.count('Supplementary Methods 5.') == 21,
     f"got {ms.count('Supplementary Methods 5.')}")
 chk('MS cites Notes 1-20 span (nc68)', 'Supplementary Notes 1\u201320' in ms)
-chk('MS cites Figs 1-19 span (nc68)', 'Supplementary Figs. 1\u201319' in ms)
+chk('MS cites Figs 1-9 span (nc70)', 'Supplementary Figs. 1\u20139' in ms)
 chk('MS Section 3.12 pointers = 2 (proof: L37 dedup)', ms.count('Section 3.12') == 2)
 chk('SI carries Supplementary Methods section', 'Supplementary Methods' in sn)
 _sm_heads = [f'5.{i} ' for i in range(1, 15)]

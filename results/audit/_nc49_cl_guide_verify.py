@@ -43,7 +43,8 @@ chk('CL KRAS dual-adjusted upgrade',
     'after purity and smoking adjustment' in clfull)
 chk('CL EGFR dissolved',
     'whose apparent association dissolved under purity adjustment' in clfull)
-chk('CL Fig. 3 / Fig. 4 refs', '(Fig. 3)' in clfull and '(Fig. 4)' in clfull)
+chk('CL Fig. 2 / Fig. 3 refs (nc70: 3->2, 4->3)',
+    '(Fig. 2)' in clfull and '(Fig. 3)' in clfull and '(Fig. 4)' not in clfull)
 chk('CL co-authors (nc65: Liu + Zu at XJTU, Wu removed)',
     'Wenting Liu and Jian Zu' in clfull
     and "Xi'an Jiaotong University" in clfull
@@ -58,11 +59,11 @@ chk('Guide authors + affiliations (nc65: Liu/Zu XJTU = 1, Zhang 2,3,4)',
     and "School of Mathematics and Statistics, Xi'an Jiaotong University, Xi'an, China" in gdfull
     and 'Translational Medical Center, Weifang Second' in gdfull
     and 'Xianming Wu' not in gdfull)
-chk('Guide drift section = Result 4 (Fig. 3)',
-    'Real-Data Drift Calibration' in gdfull and 'Result 4 (Fig. 3)' in gdfull)
-chk('Guide TCGA = Result 5 (Fig. 4)', 'Result 5 (Fig. 4)' in gdfull)
-chk('Guide cross-organ = Result 6, Fig. 5', 'Cross-organ conservation (Result 6, Fig. 5)' in gdfull)
-chk('Guide brain = Result 7 (Fig. 6)', 'Result 7 (Fig. 6)' in gdfull)
+chk('Guide drift section = Result 4 (Fig. 2) (nc70)',
+    'Real-Data Drift Calibration' in gdfull and 'Result 4 (Fig. 2)' in gdfull)
+chk('Guide TCGA = Result 5 (Fig. 3) (nc70)', 'Result 5 (Fig. 3)' in gdfull)
+chk('Guide cross-organ = Result 6, Fig. 4 (nc70)', 'Cross-organ conservation (Result 6, Fig. 4)' in gdfull)
+chk('Guide brain = Result 7 (Fig. 5) (nc70)', 'Result 7 (Fig. 5)' in gdfull)
 chk('Guide 3,535 (ex-CC, v52)', '3,535 samples' in gdfull)
 chk('Guide no 3,563; 3,596 only in attrition breakdown (v49.14)',
     '3,563' not in gdfull and gdfull.count('3,596') == 1
@@ -72,12 +73,12 @@ chk('Guide CC attrition breakdown (v49.14)',
     and '3,593 unique barcodes' in gdfull
     and '29 expression-matrix samples excluded' not in gdfull)
 chk('Guide mean-ratio caliber',
-    'mean(omega_NN) / mean(omega_TT)' in gdfull and 'Fig. 4a' in gdfull)
+    'mean(omega_NN) / mean(omega_TT)' in gdfull and 'Fig. 3a' in gdfull)
 chk('Guide no median NN/TT caliber',
     'median(omega_NN) / median(omega_TT)' not in gdfull)
-chk('Guide cross-species pointer = SF12 (v58: 11->12, 2 places)',
-    gdfull.count('Supplementary Fig. 12') == 2
-    and 'Supplementary Fig. 11' not in gdfull)
+chk('Guide cross-species pointer = SF6 (v58: 11->12; nc70: 12->6, 2 places)',
+    gdfull.count('Supplementary Fig. 6') == 2
+    and 'Supplementary Fig. 12' not in gdfull)
 chk('Guide SF10 -> SF3', '(Supplementary Fig. 3)' in gdfull
     and '80_kang_demo_figure.py (Supplementary Fig. 10)' not in gdfull)
 chk('Guide 5.10 v49 Analyses', '5.10 v49 Analyses' in gdfull)

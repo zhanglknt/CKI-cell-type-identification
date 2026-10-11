@@ -105,36 +105,24 @@ def main():
         for old in os.listdir(FIGS_NC):
             _arch1.mkdir(parents=True, exist_ok=True)
             shutil.move(str(FIGS_NC / old), str(_arch1 / old))
-    # main figures v49.7: 6 main figures (Fig2 5-panel merged)
-    #   1 = schematic (unchanged); 2 = merged: top row = mouse calibration
-    #       (regenerated at 178 mm, Arial >= 7 pt); bottom row = D TS metric-
-    #       correlation heatmap + E change-detection ROC (ground-truth
-    #       simulation, omega AUC-first scenario; v49.7 native regen);
-    #   3 = drift ladder; 4 = TCGA map; 5 = cross-organ; 6 = brain
-    # v58 (first-author v5 round): all main figures ship the first-author
-    # redrawn versions staged in results/figures_v58_author (figure4 carries
-    # mechanically added C/D panel labels). The fig2 regen scripts are no
-    # longer run here because their output would overwrite the v5 artwork.
-    shutil.copy2(STAGE / "figure1.pdf", FIGS_NC / "figure1.pdf")
-    shutil.copy2(STAGE / "figure2.pdf", FIGS_NC / "figure2.pdf")
-    shutil.copy2(STAGE / "figure3.pdf", FIGS_NC / "figure3.pdf")
-    shutil.copy2(STAGE / "figure4.pdf", FIGS_NC / "figure4.pdf")
-    shutil.copy2(STAGE / "figure5.pdf", FIGS_NC / "figure5.pdf")
-    shutil.copy2(STAGE / "figure6.pdf", FIGS_NC / "figure6.pdf")
-    shutil.copy2(STAGE / "figure7.pdf", FIGS_NC / "figure7.pdf")
-    # v63 (first-author v6 round + nc63 B2 lineage note + nc66 ABCD brain notes):
-    # all 18 supplementary figures ship from STAGE. SF1-14 are the v6 first-author
-    # redrawn versions (red/purple/orange palette, self-consistent with SI legends);
-    # SF15/SF16 are the nc63 B2 lineage-distance panels and SF17/SF18 the nc66
-    # neuron-superclass / SEA-AD panels, both rendered under results/audit/. The
-    # nc50_fig_microglia regen is NO LONGER run here: it would overwrite the
-    # v6-palette SF3.
-    for i in range(1, 20):
+    # main figures nc70: 5 main figures (panel-consolidation round)
+    #   1 = schematic (1a+1b merged, relettered); 2 = 6-panel merge of old
+    #       Fig2 (a-d) + old Fig3 drift ladder (e,f); 3 = TCGA map (old Fig4);
+    #   4 = cross-organ (old Fig5); 5 = brain (old Fig6 a-d + old Fig7 as e,f).
+    # All five are band-level vector recompositions of the first-author v6
+    # artwork, built by results/audit/_nc70_mainfigs.py into STAGE.
+    for i in range(1, 6):
+        shutil.copy2(STAGE / f"figure{i}.pdf", FIGS_NC / f"figure{i}.pdf")
+    # nc70: 9 supplementary figures ship from STAGE, built by
+    # results/audit/_nc70_suppfigs.py as merges of the v6 first-author set
+    # (SF1=S1+S13+S14, SF2=S2+S5, SF3=S3+S4, SF4=S7+S8, SF5=S9+S10,
+    # SF6=S11+S12+S6, SF7=S15+S16, SF8=S17+S18, SF9=S19 copy).
+    for i in range(1, 10):
         shutil.copy2(STAGE / f"figure_S{i}.pdf", FIGS_NC / f"Supplementary_Fig_{i}.pdf")
     shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
                  FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
-    check(n_fig == 27, f"V49-1 figures staged = 27 (7 main + 19 supp + GA pdf; nc68) got {n_fig}")
+    check(n_fig == 15, f"V49-1 figures staged = 15 (5 main + 9 supp + GA pdf; nc70) got {n_fig}")
 
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_NC ...")
@@ -239,7 +227,7 @@ def main():
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
     check(note_heads == list(range(1, 21)), f"V49-S5 SN Note headings 1..20 (nc68: +Note 20 theory) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 36, f"V49-S6 SN Supplementary Fig. refs = 36 (nc68: +legend 19, +1 in-Note ref) ({n_sfig_sn})")
+    check(n_sfig_sn == 28, f"V49-S6 SN Supplementary Fig. refs = 28 (nc70: 9 merged legends + Fig. 7a,d group ref) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
     check(n_stab_sn == 49, f"V49-S7 SN Supplementary Table refs = 49 (nc66: +2 TOC entries 22/23, +2 in-Note refs) ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
@@ -320,16 +308,16 @@ def main():
     # old exploratory phrasing must be gone
     for stale in ("TCGA; exploratory", "apparent tumor homogeneity", "TODO-nc49"):
         check(stale not in ms, f"V49-N18 stale gone: '{stale}'")
-    # figure legends 1-7 order + new figure identity (nc67: 7 main figures)
-    for i in range(1, 8):
+    # figure legends 1-5 order + new figure identity (nc70: 5 main figures)
+    for i in range(1, 6):
         check(f"Figure {i}." in ms, f"V49-N19 Figure {i} legend present")
-    check("drift" in ms[ms.find("Figure 3."):ms.find("Figure 3.") + 400].lower(),
-          "V49-N20 Figure 3 legend is drift ladder")
-    check("pan-cancer" in ms[ms.find("Figure 4."):ms.find("Figure 4.") + 400].lower(),
-          "V49-N21 Figure 4 legend is pan-cancer map")
+    check("pan-cancer" in ms[ms.find("Figure 3."):ms.find("Figure 3.") + 400].lower(),
+          "V49-N20 Figure 3 legend is pan-cancer map (nc70: old Fig 4)")
+    check("cross-organ" in ms[ms.find("Figure 4."):ms.find("Figure 4.") + 400].lower(),
+          "V49-N21 Figure 4 legend is cross-organ conservation (nc70: old Fig 5)")
     check("functional-change detection" in ms[ms.find("Figure 2."):ms.find("Figure 2.") + 300].lower()
-          and "(e) ROC curves for discriminating injected functional signal" in ms[ms.find("Figure 2."):ms.find("Figure 3.")],
-          "V49-N21b Figure 2 legend: calibration + TS correlation + change-detection ROC (panels a-e)")
+          and "(d) ROC curves for discriminating injected functional signal" in ms[ms.find("Figure 2."):ms.find("Figure 3.")],
+          "V49-N21b Figure 2 legend: calibration + TS correlation + change-detection ROC at (d) + drift ladder at (e,f)")
     # Abstract word count <= 200 (v49.1: NC abstract limit is 200)
     ai = ms.find("Abstract")
     ab_para = ms[ai:].split("\n")
@@ -354,7 +342,7 @@ def main():
     check('cell-type classification performance' not in ms and '0.680' not in ms
           and 'ranked 5th of 5 methods' not in ms,
           "V49-N36 classification benchmark cut from MS")
-    check('(Fig. 5; Table 1; Supplementary Fig. 6)' in ms and '(n \u2265 5 pairs; Table 1)' in ms
+    check('(Fig. 4; Table 1; Supplementary Fig. 6)' in ms and '(n \u2265 5 pairs; Table 1)' in ms
           and not re.search(r'(?<!Supplementary )Table 2', ms),
           "V49-N37 main Table 2 renumbered to Table 1")
     check('not cell-type identity' in ms
@@ -370,12 +358,12 @@ def main():
           "V49-N40 A5 brain candidate concentration (v51 wording)")
     check('median TT/NN k_n ratio 2.18, 2.53, 2.18, 3.70, and 2.79' in sn,
           "V49-N41 A6 mean/median caliber cross-pointer (v50: SI carries medians)")
-    check('in main-text Fig. 3a.' in sn and 'main-text Fig. 3b,c.' in sn,
-          "V49-N42 A2 SI main-text figure pointers corrected to Fig. 3 (nc60 A1: 3d->3a)")
+    check('in main-text Fig. 2e.' in sn and 'main-text Fig. 2e, f.' in sn,
+          "V49-N42 A2 SI main-text figure pointers corrected to Fig. 2e,f (nc70: drift ladder merged into Fig 2)")
     check('Fig. 4d' not in sn and 'Fig. 4b,c' not in sn,
           "V49-N42b A2 no stale Fig. 4 panel pointers in SI")
-    check('(Table 1 / Fig. 5)' in sn and '(Table 2 / Fig. 5)' not in sn,
-          "V49-N43 A3 SI Note 9 points to Table 1")
+    check('(Table 1 / Fig. 4)' in sn and '(Table 2 / Fig. 4)' not in sn,
+          "V49-N43 A3 SI Note 9 points to Table 1 (nc70: cross-organ = Fig 4)")
     check('main-text ref. 37' in sn and 'main-text ref. 56' not in sn,
           "V49-N44 A7 SI Note 14 Augur pointer = ref. 37")
     check('gene-set configuration criterion only' in sn,
@@ -395,8 +383,8 @@ def main():
           "V49-N50 B7 CC provenance disclosure (32 LUSC->LIHC; v51: SI)")
     check('2.5th and 97.5th percentiles of the resampled ratios' in sn,
           "V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile; v51: SI)")
-    check('Supplementary Fig. 8)' in gd and 'Supplementary Fig. 7)' not in gd,
-          "V49-N52 A4 Guide estimator-comparison pointer = Fig. 8 (v58: 7->8)")
+    check('Supplementary Fig. 4)' in gd and 'Supplementary Fig. 8)' not in gd,
+          "V49-N52 A4 Guide estimator-comparison pointer = Fig. 4 (nc70: 8->4)")
     # ---- v49.12 review-panel leftovers (N1-N5, C2-C7) ----
     check('seed 20260905' in sn and '89_cluster_boot_v45.py' in sn,
           "V49-N56 N1 seed 20260905 declared (v51: SI)")
@@ -684,17 +672,11 @@ def main():
                  "CKI_Submission_NC/CKI_Reproducibility_Guide_NC.docx",
                  "CKI_Submission_NC/MANIFEST.txt",
                  "CKI_Submission_NC/Supplementary_Fig_1.pdf",
-                 "CKI_Submission_NC/Supplementary_Fig_13.pdf",
-                 "CKI_Submission_NC/Supplementary_Fig_14.pdf",
-                 "CKI_Submission_NC/Supplementary_Fig_15.pdf",
-                 "CKI_Submission_NC/Supplementary_Fig_16.pdf",
-                 "CKI_Submission_NC/Supplementary_Fig_17.pdf",
-                 "CKI_Submission_NC/Supplementary_Fig_18.pdf",
-                 "CKI_Submission_NC/Supplementary_Fig_19.pdf",
+                 "CKI_Submission_NC/Supplementary_Fig_5.pdf",
+                 "CKI_Submission_NC/Supplementary_Fig_9.pdf",
                  "CKI_Submission_NC/figure2.pdf",
                  "CKI_Submission_NC/figure3.pdf",
-                 "CKI_Submission_NC/figure6.pdf",
-                 "CKI_Submission_NC/figure7.pdf",
+                 "CKI_Submission_NC/figure5.pdf",
                  "CKI_Submission_NC/CKI_graphical_abstract.pdf",
                  "CKI_Submission_NC/CKI_Tables_NC.xlsx",
                  "CKI_Submission_NC/CKI_Supplementary_Tables_NC.xlsx"]:

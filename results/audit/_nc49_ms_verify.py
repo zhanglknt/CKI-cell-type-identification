@@ -177,8 +177,8 @@ chk('Methods scripts extended (v51: SI)',
     and 'results/nc49_tcga_admix_scores.csv' in sfull)
 
 # 7d. Abstract / Intro / Fig.5 sync
-chk('KRAS dual-component k_f contrast (v58: Results)',
-    'KRAS versus EGFR under k_f alone, P = 0.015; Fig. 4c, d' in full)
+chk('KRAS dual-component k_f contrast (v58: Results; nc70: Fig 4->3)',
+    'KRAS versus EGFR under k_f alone, P = 0.015; Fig. 3c, d' in full)
 chk('EGFR admixture adjustment (v58: Results)',
     'Adjusting for ESTIMATE stromal/immune admixture left the KRAS' in full)
 chk('EGFR elevation abolished under adjustment (v58)',
@@ -243,14 +243,14 @@ chk('SI availability rewritten',
     'Supplementary Information is available for this paper' in full)
 
 # 10. Prior-phase content intact
-chk('severity -> Note 5 + Supp Fig 5b (v59: Note 9->5 renumber)',
+chk('severity -> Note 5 + Supp Fig 2d (v59: Note 9->5 renumber; nc70: S5b->2d)',
     'denominator-dominated vignettes (Supplementary Note 5)' in full
-    and 'Supplementary Fig. 5b' in sfull)
+    and 'Supplementary Fig. 2d' in sfull)
 chk('marker Jaccard 1.41 (v51: Fig 3 legend)', 'T3 calibration 1.41 versus 1.80' in full)
 chk('no leftover 1.40 versus 1.80', '1.40 versus 1.80' not in full)
 chk('Result 5 TCGA title',
     'A pan-cancer map of tissue-level divergence in tumors' in full)
-chk('Figure 4 legend (TCGA)', 'Figure 4. Pan-cancer tissue-level divergence in tumors' in full)
+chk('Figure 3 legend (TCGA; nc70: 4->3)', 'Figure 3. Pan-cancer tissue-level divergence in tumors' in full)
 chk('Cox limitation sentence (v52)',
     'ex-CC LIHC Cox, stage categorical' in full and '1.08 [0.88, 1.33]' in full)
 chk('drift Results heading', 'Real-data neutral-drift calibration on technical replicates' in full)
@@ -262,7 +262,7 @@ chk('Kang-brain size reconciliation (v58: Results + SI Note 10)',
 # 11. Figure legends order 1-6 (v49.6: Fig2+Fig3 merged, 3-7 renumbered)
 figs = [t[:12] for t in paras if re.match(r'^Figure \d\.', t)]
 fignums = [int(re.match(r'^Figure (\d)\.', t).group(1)) for t in paras if re.match(r'^Figure \d\.', t)]
-chk('main figure legends 1-7 in order (nc67: Fig 7 neuron superclass)', fignums == list(range(1, 8)), str(figs))
+chk('main figure legends 1-5 in order (nc70: panel-consolidation round)', fignums == list(range(1, 6)), str(figs))
 
 # 11b. v49.7: Fig 2e = change-detection ROC
 chk('Fig 2 legend new scope',
@@ -273,12 +273,12 @@ chk('Fig 2e legend change-detection ROC (v52)',
     and 'AUC = 0.91' in full)
 chk('Fig 2e legend old classification ROC gone',
     'ROC curves for cell-type classification across five metrics on Tabula Sapiens data' not in full)
-chk('Result 3 anchor narrowed to Fig. 2d',
-    'human column) (Fig. 2d).' in full and 'human column) (Fig. 2d, e).' not in full)
-chk('Result 3b AUC sentence cites Fig. 2e',
-    'from neutral perturbations (Fig. 2e; AUC = 0.80' in full)
-chk('Result 3b background2 cites Fig. 2e (v51)',
-    'AUC(k_f) = 0.859; Fig. 2e' in full)
+chk('Result 3 anchor narrowed to Fig. 2c (nc70: 2d->2c)',
+    'human column) (Fig. 2c).' in full and 'human column) (Fig. 2c, d).' not in full)
+chk('Result 3b AUC sentence cites Fig. 2d (nc70: 2e->2d)',
+    'from neutral perturbations (Fig. 2d; AUC = 0.80' in full)
+chk('Result 3b background2 cites Fig. 2d (v51; nc70: 2e->2d)',
+    'AUC(k_f) = 0.859; Fig. 2d' in full)
 
 # 11c. v49.8: classification benchmark fully cut; main Table 2 renumbered to Table 1
 chk('classification benchmark paragraph removed',
@@ -290,8 +290,8 @@ chk('Methods classification ROC-AUC removed',
     'cell-type classification ROC-AUC' not in full)
 chk('main-text Table 2 retired',
     not re.search(r'(?<!Supplementary )Table 2', full))
-chk('cross-organ Table 1 citations (v58: SF5->6)',
-    '(Fig. 5; Table 1; Supplementary Fig. 6)' in full
+chk('cross-organ Table 1 citations (v58: SF5->6; nc70: Fig 5->4)',
+    '(Fig. 4; Table 1; Supplementary Fig. 6)' in full
     and 'n \u2265 5 pairs; Table 1' in full)
 
 # 12. Fig 3 legend honest framing
