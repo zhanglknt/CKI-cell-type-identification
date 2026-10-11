@@ -87,8 +87,8 @@ chk('Discussion permute-k_n full-inventory qualifier (v53)',
     '5,151 full-inventory human pairs' in full)
 chk('Table 1 legend present (v53 R5-M1)',
     'Table 1. Cross-organ conservation ranking by cell type' in full)
-chk('Supplementary Fig. 3 legend present (v58: microglia 14->3; nc60 A11: legends in SI)',
-    'Supplementary Fig. 3. Human-brain sanity check on the microglia supercluster' in sfull)
+chk('Supplementary Fig. 4 legend present (nc72: 3->4 first-citation order; legends in SI)',
+    'Supplementary Fig. 4. Human-brain sanity check on the microglia supercluster' in sfull)
 chk('quality-adjustment attribution (class, region) only (v53 R1-5)',
     '(class, region)-level adjustment for detection depth' in full
     and '(class, library)- and (class, region)-level adjustment' not in full)
@@ -243,9 +243,9 @@ chk('SI availability rewritten',
     'Supplementary Information is available for this paper' in full)
 
 # 10. Prior-phase content intact
-chk('severity -> Note 5 + Supp Fig 2d (v59: Note 9->5 renumber; nc70: S5b->2d)',
+chk('severity -> Note 5 + Supp Fig 3d (nc72: 2d->3d)',
     'denominator-dominated vignettes (Supplementary Note 5)' in full
-    and 'Supplementary Fig. 2d' in sfull)
+    and 'Supplementary Fig. 3d' in sfull)
 chk('marker Jaccard 1.41 (v51: Fig 3 legend)', 'T3 calibration 1.41 versus 1.80' in full)
 chk('no leftover 1.40 versus 1.80', '1.40 versus 1.80' not in full)
 chk('Result 5 TCGA title',
@@ -290,8 +290,8 @@ chk('Methods classification ROC-AUC removed',
     'cell-type classification ROC-AUC' not in full)
 chk('main-text Table 2 retired',
     not re.search(r'(?<!Supplementary )Table 2', full))
-chk('cross-organ Table 1 citations (v58: SF5->6; nc70: Fig 5->4)',
-    '(Fig. 4; Table 1; Supplementary Fig. 6)' in full
+chk('cross-organ Table 1 citations (nc72: SF 6->5)',
+    '(Fig. 4; Table 1; Supplementary Fig. 5)' in full
     and 'n \u2265 5 pairs; Table 1' in full)
 
 # 12. Fig 3 legend honest framing

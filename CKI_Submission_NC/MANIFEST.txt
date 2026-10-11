@@ -4,22 +4,22 @@
   tag: v0.5.x | GB-rebuttal round: real-data drift calibration + pan-cancer map
 ============================================================
 
- 1. CKI_Manuscript_NC.docx  (71,033 bytes)
+ 1. CKI_Manuscript_NC.docx  (71,032 bytes)
  2. CKI_NC_Cover_Letter.docx  (38,729 bytes)
- 3. CKI_Reproducibility_Guide_NC.docx  (50,753 bytes)
- 4. CKI_Supplementary_NC.docx  (115,250 bytes)
- 5. CKI_Supplementary_Tables_NC.xlsx  (1,579,185 bytes)
- 6. CKI_Tables_NC.xlsx  (5,828 bytes)
+ 3. CKI_Reproducibility_Guide_NC.docx  (50,756 bytes)
+ 4. CKI_Supplementary_NC.docx  (115,313 bytes)
+ 5. CKI_Supplementary_Tables_NC.xlsx  (1,579,188 bytes)
+ 6. CKI_Tables_NC.xlsx  (5,829 bytes)
  7. CKI_graphical_abstract.pdf  (382,594 bytes)
  8. Supplementary_Fig_1.pdf  (1,491,906 bytes)
- 9. Supplementary_Fig_2.pdf  (811,514 bytes)
-10. Supplementary_Fig_3.pdf  (816,544 bytes)
-11. Supplementary_Fig_4.pdf  (2,773,954 bytes)
-12. Supplementary_Fig_5.pdf  (966,501 bytes)
-13. Supplementary_Fig_6.pdf  (833,816 bytes)
-14. Supplementary_Fig_7.pdf  (674,256 bytes)
-15. Supplementary_Fig_8.pdf  (652,336 bytes)
-16. Supplementary_Fig_9.pdf  (59,453 bytes)
+ 9. Supplementary_Fig_2.pdf  (59,453 bytes)
+10. Supplementary_Fig_3.pdf  (811,514 bytes)
+11. Supplementary_Fig_4.pdf  (816,544 bytes)
+12. Supplementary_Fig_5.pdf  (833,816 bytes)
+13. Supplementary_Fig_6.pdf  (2,773,954 bytes)
+14. Supplementary_Fig_7.pdf  (652,336 bytes)
+15. Supplementary_Fig_8.pdf  (966,501 bytes)
+16. Supplementary_Fig_9.pdf  (674,256 bytes)
 17. figure1.pdf  (791,755 bytes)
 18. figure2.pdf  (735,010 bytes)
 19. figure3.pdf  (1,897,765 bytes)
@@ -27,22 +27,22 @@
 21. figure5.pdf  (3,350,153 bytes)
 
 SHA-256 checksums:
-  aea44af85c8c4c4add89e7085bc70d323eaba6ae9e7dce578dc4eb804dca828a  CKI_Manuscript_NC.docx
-  b53fbcfd92c6b6b3f99fda97b27f46816260bc8dbc07f1971afb5ff224f46f48  CKI_NC_Cover_Letter.docx
-  c63b52c3a46293493f746230495f11484c7899a4956acc511e20ef2cf702d005  CKI_Reproducibility_Guide_NC.docx
-  25b2d337e749a1d6592586b11585dd7fea270c984c0914332a92e455b03b335f  CKI_Supplementary_NC.docx
-  671c5dd64f31266a753d64a244dd448fbc39e3c0deee2368c89bebae949ee09b  CKI_Supplementary_Tables_NC.xlsx
-  96be7a75a2ef31f750c9e32f6c0480d6b857f38c27fba292163c7120f8425ca1  CKI_Tables_NC.xlsx
+  02b757a67678fca1ad19b961cd5680a911bc32fc9454b9f582595fdb400c472e  CKI_Manuscript_NC.docx
+  956b9b62ae3e529852dc30b84873af66f342205ea56ff344dac07fb9454ef542  CKI_NC_Cover_Letter.docx
+  03f6f13a0e6a4894b8a1178a02e70892d380c3f3c1c76339b8ba1acda6116864  CKI_Reproducibility_Guide_NC.docx
+  eae9f8775cac5b8cfb7e35333974a3110141e3816752e189c35c24cd7b629150  CKI_Supplementary_NC.docx
+  ca780f3fbc6bb41c400d2b556719a2819faa02234f974d8898c2287e13ce6d9c  CKI_Supplementary_Tables_NC.xlsx
+  7c8c08667da21f196dd8971e122179cea524e324f61cf24879b2ec6f843ab6a1  CKI_Tables_NC.xlsx
   c8529c93bc3197f0a8838a7a0d4be6000aff4bb03f906f04d338d59d603c3299  CKI_graphical_abstract.pdf
   977626cd235ab5fb0e6e5b8cbf51979b202b8f4792aec61a3eec4e184ead95b5  Supplementary_Fig_1.pdf
-  ad22dd9e644fa53d745ce9d22a465010489715e1f5870ea7cc253e0bcf3cb427  Supplementary_Fig_2.pdf
-  a97bad051034070f9dee3d1e0ba5a5d51b9128670bfcdc1ca8495b7f7f555200  Supplementary_Fig_3.pdf
-  2b64a4a422a0c4ae7079f93d6638c526433f022bcf7cf2a5e17d1b8d793c1ba3  Supplementary_Fig_4.pdf
-  c7405ba1aea16761287f7741c745ac1165569c711c51373bb0d62e97c063451c  Supplementary_Fig_5.pdf
-  688ad82875a78809385542074ea62d3bd6c335e28716e6848865b4ebdc0ecd7c  Supplementary_Fig_6.pdf
-  abab0bc398f35936ae1571cc5580e34194edceb3a48aeddf1ee6f956cba17f15  Supplementary_Fig_7.pdf
-  dda91326085f0e7a6d39771aa5e836450efd6bb9e796e2160a54a1ef61f3d860  Supplementary_Fig_8.pdf
-  2b52fc52a4d994a0f42a616a1b7af7f1b80944cb98d62e5bc7ec5c40e0eb871b  Supplementary_Fig_9.pdf
+  2b52fc52a4d994a0f42a616a1b7af7f1b80944cb98d62e5bc7ec5c40e0eb871b  Supplementary_Fig_2.pdf
+  ad22dd9e644fa53d745ce9d22a465010489715e1f5870ea7cc253e0bcf3cb427  Supplementary_Fig_3.pdf
+  a97bad051034070f9dee3d1e0ba5a5d51b9128670bfcdc1ca8495b7f7f555200  Supplementary_Fig_4.pdf
+  688ad82875a78809385542074ea62d3bd6c335e28716e6848865b4ebdc0ecd7c  Supplementary_Fig_5.pdf
+  2b64a4a422a0c4ae7079f93d6638c526433f022bcf7cf2a5e17d1b8d793c1ba3  Supplementary_Fig_6.pdf
+  dda91326085f0e7a6d39771aa5e836450efd6bb9e796e2160a54a1ef61f3d860  Supplementary_Fig_7.pdf
+  c7405ba1aea16761287f7741c745ac1165569c711c51373bb0d62e97c063451c  Supplementary_Fig_8.pdf
+  abab0bc398f35936ae1571cc5580e34194edceb3a48aeddf1ee6f956cba17f15  Supplementary_Fig_9.pdf
   7144789866c40dcabe6e4301a36b9cd4ce7204733eb9f70cf414ba27cd606c42  figure1.pdf
   5e4204a302e1c34ef72da0e7262d094fc9c461c0edf4f9c3f398133b90b157cc  figure2.pdf
   7018d76c97dc1f830f396c28cb2c6482670ed602f51e7c7fd65e407e576067c0  figure3.pdf

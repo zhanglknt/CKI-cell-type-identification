@@ -227,7 +227,7 @@ def main():
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
     check(note_heads == list(range(1, 21)), f"V49-S5 SN Note headings 1..20 (nc68: +Note 20 theory) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 28, f"V49-S6 SN Supplementary Fig. refs = 28 (nc70: 9 merged legends + Fig. 7a,d group ref) ({n_sfig_sn})")
+    check(n_sfig_sn == 28, f"V49-S6 SN Supplementary Fig. refs = 28 (nc72: 9 legends, first-citation order + Fig. 9a,d group ref) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
     check(n_stab_sn == 45, f"V49-S7 SN Supplementary Table refs = 45 (nc71: 23->17 tables, merged block refs) ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
@@ -342,9 +342,9 @@ def main():
     check('cell-type classification performance' not in ms and '0.680' not in ms
           and 'ranked 5th of 5 methods' not in ms,
           "V49-N36 classification benchmark cut from MS")
-    check('(Fig. 4; Table 1; Supplementary Fig. 6)' in ms and '(n \u2265 5 pairs; Table 1)' in ms
+    check('(Fig. 4; Table 1; Supplementary Fig. 5)' in ms and '(n \u2265 5 pairs; Table 1)' in ms
           and not re.search(r'(?<!Supplementary )Table 2', ms),
-          "V49-N37 main Table 2 renumbered to Table 1")
+          "V49-N37 main Table 2 renumbered to Table 1 (nc72: SF 6->5)")
     check('not cell-type identity' in ms
           and 'the housekeeping anchor is cell-type-specific' in ms
           and 'limited cross-type discrimination is expected by design' in ms,
@@ -383,8 +383,8 @@ def main():
           "V49-N50 B7 CC provenance disclosure (32 LUSC->LIHC; v51: SI)")
     check('2.5th and 97.5th percentiles of the resampled ratios' in sn,
           "V49-N51 B8 TCGA cluster-bootstrap interval type stated (percentile; v51: SI)")
-    check('Supplementary Fig. 4)' in gd and 'Supplementary Fig. 8)' not in gd,
-          "V49-N52 A4 Guide estimator-comparison pointer = Fig. 4 (nc70: 8->4)")
+    check('Supplementary Fig. 6)' in gd and 'Supplementary Fig. 8)' not in gd,
+          "V49-N52 A4 Guide estimator-comparison pointer = Fig. 6 (nc72: 4->6)")
     # ---- v49.12 review-panel leftovers (N1-N5, C2-C7) ----
     check('seed 20260905' in sn and '89_cluster_boot_v45.py' in sn,
           "V49-N56 N1 seed 20260905 declared (v51: SI)")
