@@ -229,7 +229,7 @@ def main():
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
     check(n_sfig_sn == 28, f"V49-S6 SN Supplementary Fig. refs = 28 (nc70: 9 merged legends + Fig. 7a,d group ref) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
-    check(n_stab_sn == 49, f"V49-S7 SN Supplementary Table refs = 49 (nc66: +2 TOC entries 22/23, +2 in-Note refs) ({n_stab_sn})")
+    check(n_stab_sn == 45, f"V49-S7 SN Supplementary Table refs = 45 (nc71: 23->17 tables, merged block refs) ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
     check("TODO" not in sn, "V49-S9 no TODO in SN")
 
@@ -350,10 +350,10 @@ def main():
           and 'limited cross-type discrimination is expected by design' in ms,
           "V49-N38 Scope design argument present (HK anchor cell-type-specific, v52 wording)")
     # ---- v49.10 review-panel fixes (A/B classes) ----
-    check('Supplementary Tables 1\u201323' in ms
-          and 'All Supplementary Tables (1\u201323) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
+    check('Supplementary Tables 1\u201317' in ms
+          and 'All Supplementary Tables (1\u201317) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
           and 'Supplementary Tables 1\u20134 are cited' not in ms,
-          "V49-N39 A1 MS availability lists 23 supplementary tables (nc66: +Tables 22/23)")
+          "V49-N39 A1 MS availability lists 17 supplementary tables (nc71: 23->17)")
     check('Microglial candidates (16 of 39)' in ms,
           "V49-N40 A5 brain candidate concentration (v51 wording)")
     check('median TT/NN k_n ratio 2.18, 2.53, 2.18, 3.70, and 2.79' in sn,
@@ -452,7 +452,7 @@ def main():
     check('leave-one-population-out range 6.75\u20138.08' in ms
           and 'removing hepatocyte lowers it to 6.75' in sn,
           "V49-N69 B3 calibration leave-one-out (MS pointer; SI 3.10 details, v51)")
-    check('label-permutation confirmed; Supplementary Tables 13, 14)' in ms
+    check('label-permutation confirmed; Supplementary Table 6)' in ms
           and '93_luad_group_permutation_v49.py' in sn,
           "V49-N70 B4 LUAD whole-tumor label permutation (MS pointer; SI 3.13, nc60 A12)")
     check('adjusted log-\u03c9 ratio 1.19, 95% CI [1.12, 1.26]' in ms,
@@ -516,9 +516,9 @@ def main():
           "V49-N84 B13 Introduction adaptation wording")
     # B6: Supp Tables pointer (nc55 F2: single-xlsx pointer per R5; the cited-in-main-text
     # tables 5 and 14 must still be cited in the main text itself)
-    check('All Supplementary Tables (1\u201323) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
+    check('All Supplementary Tables (1\u201317) are provided in CKI_Supplementary_Tables_NC.xlsx' in ms
           and 'Supplementary Tables 5\u201319 provide the per-analysis numerical tables' not in ms
-          and 'Supplementary Table 2)' in ms and 'Supplementary Table 3)' in ms,
+          and 'Supplementary Table 8a)' in ms and 'Supplementary Table 8b)' in ms,
           "V49-N85 B6 Supp Tables pointer in Data availability (nc55: single-xlsx)")
     # C1: composition B=1000 unified (MS Methods + SI Note 8 + Guide 5.8b)
     check('B = 1,000 composition cluster bootstrap' in ms

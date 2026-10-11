@@ -36,7 +36,7 @@ chk('Section 3.12 referenced 2x (proof: L37 dedup)',
     full.count('Section 3.12') == 2,
     f'found {full.count("Section 3.12")}')
 chk('MWU deleted from main claims; permutation -> Section 3.13 (v51)',
-    'label-permutation confirmed; Supplementary Tables 13, 14)' in full
+    'label-permutation confirmed; Supplementary Table 6)' in full
     and 'per-tumor Mann-Whitney' not in full)
 chk('no stale Section 3.20/3.21 refs',
     'Section 3.20' not in full and 'Section 3.21' not in full)
@@ -122,7 +122,7 @@ chk('Discussion range updated (v52)',
 # 6. R1-P1-3 / R3-P1-1: MWU deleted from main text, CI presentation
 chk('pair-level MWU P deleted from main claims (v51)',
     'Dunn\u2013Holm P \u2264 0.008 for both KRAS contrasts' in full
-    and 'label-permutation confirmed; Supplementary Tables 13, 14)' in full)
+    and 'label-permutation confirmed; Supplementary Table 6)' in full)
 chk('LIHC mapping-sensitivity honest (v52)',
     'linear 1.11 [0.94, 1.30] versus softmax 1.29 [1.09, 1.53]' in full)
 chk('softmax demoted to SI sensitivity (v51)',

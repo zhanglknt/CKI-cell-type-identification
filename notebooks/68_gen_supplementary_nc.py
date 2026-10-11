@@ -295,36 +295,30 @@ toc = [
     'Supplementary Note 20: A Scoped Theoretical Framework for \u03c9',
     'Supplementary Methods',
     'Supplementary Table 1: Parameter Sweep Results',
-    'Supplementary Table 2: TCGA Linear-Normalization Robustness',
-    'Supplementary Table 3: LIHC Overall-Survival Cox Models',
-    'Supplementary Table 4: Cross-Organ Conservation Data',
-    'Supplementary Table 5: Human Brain Non-neuronal Cell Regional CKI Data',
-    'Supplementary Table 6: Inter-regional Region-Associated Candidate Data',
-    'Supplementary Table 7: Kang IFN-beta Per-Cell-Type Effects',
-    'Supplementary Table 8: Target-Detection AUC in Mean-Shift Simulation',
-    'Supplementary Table 9: Donor-Paired Detection Power',
-    'Supplementary Table 10: Kang Batch-1 Technical-Replicate Calibration',
-    'Supplementary Table 11: Brain Drift Ladder by Tier and Metric',
-    'Supplementary Table 12: Pan-Cancer NN/TT Ratios',
-    'Supplementary Table 13: LUAD Driver-Group Means',
-    'Supplementary Table 14: LUAD Pairwise Contrasts',
-    'Supplementary Table 15: Purity Sensitivity of the Pan-Cancer Reversal',
-    'Supplementary Table 16: LUAD Admixture-Adjusted Contrasts',
-    'Supplementary Table 17: LUAD Smoking-Covariate Adjustment',
-    'Supplementary Table 18: TCGA Clinical-Severity Gradients',
-    'Supplementary Table 19: Brain min-cells Threshold Sensitivity',
-    'Supplementary Table 20: Tabula Sapiens Lineage-Distance Pair Data',
-    'Supplementary Table 21: Siletti Brain Lineage-Distance Pair Data',
-    'Supplementary Table 22: Neuronal Superclass Pair Data and Block-Shuffle Test',
-    'Supplementary Table 23: SEA-AD Disease-Anchor Positive Control',
+    'Supplementary Table 2: Detection Performance in Mean-Shift Simulations',
+    'Supplementary Table 3: Kang IFN-beta Technical Replicates and Per-Cell-Type Effects',
+    'Supplementary Table 4: Brain Drift Ladder by Tier and Metric',
+    'Supplementary Table 5: Pan-Cancer NN/TT Ratios',
+    'Supplementary Table 6: LUAD Driver-Group Statistics',
+    'Supplementary Table 7: Adjustment and Sensitivity Models for Driver Associations',
+    'Supplementary Table 8: TCGA Robustness: NN/TT Reversal and Survival Models',
+    'Supplementary Table 9: Cross-Organ Conservation Data',
+    'Supplementary Table 10: Human Brain Non-neuronal Cell Regional CKI Data',
+    'Supplementary Table 11: Neuronal Superclass Pair Data and Block-Shuffle Test',
+    'Supplementary Table 12: Inter-regional Region-Associated Candidate Data',
+    'Supplementary Table 13: Brain min-cells Threshold Sensitivity',
+    'Supplementary Table 14: SEA-AD Disease-Anchor Positive Control',
+    'Supplementary Table 15: TCGA Clinical-Severity Gradients',
+    'Supplementary Table 16: Tabula Sapiens Lineage-Distance Pair Data',
+    'Supplementary Table 17: Siletti Brain Lineage-Distance Pair Data',
     'Supplementary Data 1: Analysis Script Index',
     'Supplementary Figures (legends for Supplementary Figs. 1-9)',
 ]
 for item in toc:
     add_para(item)
 
-add_para('Supplementary Tables 1-23 are provided as a single workbook '
-         '(CKI_Supplementary_Tables_NC.xlsx, sheets Table 1-23 in numeric order); '
+add_para('Supplementary Tables 1-17 are provided as a single workbook '
+         '(CKI_Supplementary_Tables_NC.xlsx, sheets Table 1-17 in numeric order); '
          'in-text references in this document appear at first use, so mention '
          'order follows the narrative rather than table numbering.')
 add_para('Roadmap. Readers short on time can navigate by question. '
@@ -567,7 +561,7 @@ add_para(
     'log2(TPM + 1) values, which is mathematically equivalent to the power '
     'transformation p_i \u221d (TPM + 1)^(1/ln 2) (Section 1.1); the softmax-caliber '
     'values are archived here as a sensitivity analysis to verify that the mapping '
-    'choice drives no conclusion (Supplementary Table 2). Scripts: '
+    'choice drives no conclusion (Supplementary Table 8a). Scripts: '
     'notebooks/85_tcga_linear_norm_v44.py '
     '(linear-normalization pair table) with the v52 ex-CC default chain '
     'notebooks/nc52_tcga_excc_main.py (main pipeline and clinical '
@@ -865,7 +859,7 @@ add_para(
     'types have very few pairs (n = 1-3; e.g., Memory B cells n = 1, Smooth muscle n = 1), '
     'making their mean \u03c9 estimates unreliable. We recommend interpreting rankings of cell '
     'types with n < 5 as suggestive only. Bootstrap 95% confidence intervals for cell types '
-    'with n \u2265 5 are provided in Supplementary Table 4. The Spearman correlations between '
+    'with n \u2265 5 are provided in Supplementary Table 9. The Spearman correlations between '
     'CKI \u03c9 and standard metrics are reported with bootstrap 95% CIs (B = 10,000 resamples).'
 )
 
@@ -979,7 +973,7 @@ add_para(
     '\u22120.09, P = 0.87; CKI\u2013scDist \u03c1 = 0.14, P = 0.79; '
     'MELD\u2013scDist \u03c1 = 0.77, P = 0.07); CKI\u2019s \u03c9_cal spread '
     '(1.76\u20133.44) reflects anchor visibility rather than effect size '
-    '(Supplementary Table 7).'
+    '(Supplementary Table 3b).'
 )
 add_table([
     ['Cell type', 'n cells', 'CKI \u03c9_cal', 'MELD within-type AUC',
@@ -1012,7 +1006,7 @@ add_para(
     'construction insensitive to perturbations whose dominant effect is a '
     'broad mean shift \u2014 a design property, disclosed here as a boundary '
     'of the method (the anchor-visibility boundary; see also Supplementary Notes 1 and '
-    '6; Supplementary Table 8).'
+    '6; Supplementary Table 2a).'
 )
 add_table([
     ['Method', 'FPR/type', 'G100 F2', 'G100 F4', 'G100 F8',
@@ -1042,7 +1036,7 @@ add_para(
     'per condition; large pooled pseudobulks defeat the \u03c9 permutation '
     'test. MELD- and scDist-style scores have no such boundary but do not '
     'decompose donor drift, which is CKI\u2019s design target '
-    '(Supplementary Table 9).'
+    '(Supplementary Table 2b).'
 )
 add_table([
     ['Cell type', 'n = 50', 'n = 100', 'n = 200', 'n = 500'],
@@ -1129,7 +1123,7 @@ add_para(
     f'{_cos49["k"]} of {_cos49["n"]} ({_cos49["k"] / _cos49["n"]:.1%}, CI '
     f'[{_wcos49[0]:.3f}, {_wcos49[1]:.3f}]) as divergence; k_n alone fired '
     f'once ({_km49["k_n"]["k"]} of {_km49["k_n"]["n"]}). The per-metric '
-    'values are given in Supplementary Table 10; the replication is shown '
+    'values are given in Supplementary Table 3a; the replication is shown '
     'in main-text Fig. 2e.'
 )
 _rows_kang49 = [['Metric', 'Calibration median [IQR]', 'FPR (k/n)', 'Wilson 95% CI']]
@@ -1204,7 +1198,7 @@ add_para(
     'purchased with the weakest sensitivity to real signal, and as a '
     'single set-overlap statistic it offers no k_n/k_f decomposition. '
     'Per-tier values '
-    'for all seven metrics are given in Supplementary Table 11; main-text '
+    'for all seven metrics are given in Supplementary Table 4; main-text '
     'Fig. 2e, f.'
 )
 add_para(
@@ -1293,7 +1287,7 @@ add_para(
     'Per-sample divergence and group statistics) ranks cancer types by the '
     'NN/TT ratio of mean \u03c9, stratifies LUAD tumors by driver mutation, '
     'and tests survival association in LIHC. This section reports the full '
-    'group statistics behind those claims (Supplementary Tables 12\u201317). '
+    'group statistics behind those claims (Supplementary Tables 5\u20137). '
     'Per-tumor statistics are the '
     'mean of \u03c9, k_f, and k_n over all pairs in the linear-normalization '
     'pair table after the barcode-audit exclusion (34,828 pairs: the 478 '
@@ -1334,7 +1328,7 @@ add_para(
     'plus Edmondson grade (G1-G4, ordinal), age, and sex (listwise '
     'deletion of missing covariates), '
     'with k_f-only, k_n-only, and tumor-normal-\u03c9 exposures as '
-    'sensitivity models (Supplementary Table 3). Proportional hazards '
+    'sensitivity models (Supplementary Table 8b). Proportional hazards '
     'were checked with cox.zph (M2 GLOBAL P = 0.023, reported alongside '
     'the estimates); the \u03c9 null is unchanged across models (HR/SD '
     '1.08 [0.88, 1.33], P = 0.467 in the full model; '
@@ -1396,7 +1390,7 @@ add_para(
     'LUAD driver-mutation stratification. Mean per-tumor \u03c9 was highest '
     'in KRAS-mutant tumors (136.9), exceeding wild-type (115.4) and '
     'EGFR-mutant tumors (122.2; Kruskal-Wallis P = 7.8 \u00d7 10\u207b\u2077; '
-    'Supplementary Tables 13 and 14). The k_f/k_n decomposition separates the '
+    'Supplementary Table 6). The k_f/k_n decomposition separates the '
     'two drivers\u2019 associations: the KRAS contrast carries a functional '
     'component - k_f is elevated in KRAS-mutant tumors (KRAS versus EGFR, '
     'Dunn-Holm P = 0.015; KRAS-wild-type k_f difference 0.011, 95% CI '
@@ -1409,7 +1403,7 @@ add_para(
     'are reported; the EGFR association shows no significant k_f difference (all '
     'Holm-adjusted P > 0.09) and no significant k_n difference (WT > EGFR, '
     'P = 0.09). '
-    'Covariate adjustment resolves the two drivers differently (Supplementary Tables 15\u201317): after adjustment for stromal/immune admixture the '
+    'Covariate adjustment resolves the two drivers differently (Supplementary Table 7): after adjustment for stromal/immune admixture the '
     'KRAS-wild-type contrast retains both components (k_f +0.012, '
     'P = 0.009; k_n -0.0004, P = 0.003) and likewise survives joint '
     'smoking-plus-admixture adjustment (omega +13.6, P = 3.3 \u00d7 '
@@ -1436,7 +1430,7 @@ si_caption(
     'Per-tumor means share TT pairs across groups, so the KW/Dunn tests '
     'and within-group bootstrap CIs do not model this pair-sharing '
     'dependence and are read descriptively; the covariate-adjusted OLS '
-    'contrasts of Supplementary Tables 16 and 17 are the inferential caliber.'
+    'contrasts of Supplementary Table 7b, c are the inferential caliber.'
 )
 _rows_luc49 = [['Contrast', '\u03c9: Dunn-Holm P / bootstrap diff [95% CI]',
                 'k_f: P / diff [95% CI]', 'k_n: P / diff [95% CI]']]
@@ -1503,12 +1497,12 @@ add_para(
     'adjustment is invariant to the transformation. Per-tumor k_n '
     'correlated negatively with admixture in every cancer type, and '
     'restricting tumor-tumor pairs to the low-admixture half of tumors '
-    'increased the NN/TT ratio in all five cancer types (Supplementary Table 15), so the pan-cancer reversal is not an admixture artefact. In '
+    'increased the NN/TT ratio in all five cancer types (Supplementary Table 7a), so the pan-cancer reversal is not an admixture artefact. In '
     'LUAD, admixture differed across driver groups (highest in EGFR-mutant '
     'tumors), and OLS adjustment for admixture abolished the EGFR-wild-type '
-    'differences while preserving both KRAS-wild-type components (Supplementary Table 16); smoking status (ever/never, available for 427 of '
+    'differences while preserving both KRAS-wild-type components (Supplementary Table 7b); smoking status (ever/never, available for 427 of '
     '492 LUAD tumors, 87%) was strongly confounded with driver group but '
-    'did not carry the divergence association (Supplementary Table 17).'
+    'did not carry the divergence association (Supplementary Table 7c).'
 )
 _rows_pur49 = [['Cancer', 'k_n ~ admix r (P)', '\u03c9 ~ admix r (P)',
                 'NN/TT all tumors', 'NN/TT low-admix half [95% CI]']]
@@ -2127,7 +2121,7 @@ add_para(
     'contrast as a primary result; the LIHC Edmondson and BRCA PAM50 '
     'gradients are reported here as denominator-dominated vignettes '
     '(Supplementary Fig. 2d), and the full values '
-    'and test details are given in Supplementary Table 18. The k_f-only controls are post-hoc; the P-values '
+    'and test details are given in Supplementary Table 15. The k_f-only controls are post-hoc; the P-values '
     'reported here (three severity analyses crossed with three metrics) are '
     'nominal and carry no multiplicity correction. Scripts: '
     'notebooks/83_kf_only_ordering.py (published softmax run) and '
@@ -2568,7 +2562,7 @@ add_para(
     'class means; median paired k_f ratio 1.58), so a substantial share of the '
     'residual gradient is carried by the k_n denominator rather than the k_f '
     'numerator (results/nc49_brain_region_matched_summary.csv). The min-cells '
-    'threshold sweep is given in Supplementary Table 19.'
+    'threshold sweep is given in Supplementary Table 13.'
 )
 add_table([
     ['min cells', 'classes', 'pairs', 'Strong', 'lowest-\u03c9 class',
@@ -2934,7 +2928,7 @@ add_para(
     'median k_f of 0.106 (n = 69). Critically, k_n showed no lineage gradient (\u03c1 = '
     '0.052, P = 0.092), confirming that the organ baseline is distance-independent; the '
     'partial correlation of \u03c9 with distance given k_n was \u03c1 = 0.265 (P = 1.9 '
-    '\u00d7 10\u207b\u00b9\u2078). (Supplementary Table 20.)'
+    '\u00d7 10\u207b\u00b9\u2078). (Supplementary Table 16.)'
 )
 add_para(
     'We then replicated the design in an independent brain atlas with a fundamentally '
@@ -2954,7 +2948,7 @@ add_para(
     'a germ-layer prediction was confirmed: microglia (mesoderm) were more distant from '
     'macroglia (ectoderm) than macroglia were from each other (median k_f_fixed 0.163 '
     'versus 0.123; Mann\u2013Whitney P = 4.5 \u00d7 10\u207b\u00b9\u2074\u2076; '
-    'Supplementary Fig. 7e). (Supplementary Table 21.)'
+    'Supplementary Fig. 7e). (Supplementary Table 17.)'
 )
 add_para(
     'The two atlases also delineate the portability boundary of k_n. In the brain design, '
@@ -2966,7 +2960,7 @@ add_para(
     'as the only lineage signal that is portable across pairing designs: k_n tracks '
     'whatever baseline variation a given design happens to fix (organ identity in Tabula '
     'Sapiens; region identity in the brain atlas), and only k_f responds to lineage '
-    'distance in both. (Supplementary Fig. 7; Supplementary Tables 20, 21.)'
+    'distance in both. (Supplementary Fig. 7; Supplementary Tables 16, 17.)'
 )
 
 doc.add_page_break()
@@ -3014,7 +3008,7 @@ add_para(
     'appropriate tier for cross-class comparison. The non-neuronal screen therefore '
     'understates atlas-wide regional divergence: neuronal superclasses\u2014like '
     'astrocytes\u2014carry substantially higher cross-region divergence than the '
-    'remaining non-neuronal classes. (Fig. 5e, f; Supplementary Fig. 8; Supplementary Table 22.)'
+    'remaining non-neuronal classes. (Fig. 5e, f; Supplementary Fig. 8; Supplementary Table 11.)'
 )
 
 doc.add_page_break()
@@ -3054,7 +3048,7 @@ add_para(
     'the floor (\u03c9 0.04; P = 1.0). Benjamini\u2013Hochberg across the 10 tests left '
     'nothing significant (minimum q = 0.145), so the anchor provides directional, '
     'sub-threshold evidence that the pipeline responds to known Alzheimer\u2019s '
-    'biology, not detection. (Supplementary Fig. 8; Supplementary Table 23.)'
+    'biology, not detection. (Supplementary Fig. 8; Supplementary Table 14.)'
 )
 
 add_heading('Supplementary Note 20: A Scoped Theoretical Framework for \u03c9', 2)
@@ -3272,7 +3266,7 @@ add_para(
 
 add_para('')
 
-add_heading('Supplementary Table 4: Cross-Organ Conservation Data', 2)
+add_heading('Supplementary Table 9: Cross-Organ Conservation Data', 2)
 add_para(
     'Complete dataset of 59 same-cell-type cross-organ pairs in Tabula Sapiens, '
     'including \u03c9, Jensen-Shannon divergence, Spearman distance, Cosine distance, '
@@ -3283,14 +3277,14 @@ add_para(
 
 add_para('')
 
-add_heading('Supplementary Table 5: Human Brain Non-neuronal Cell Regional CKI Data', 2)
+add_heading('Supplementary Table 10: Human Brain Non-neuronal Cell Regional CKI Data', 2)
 add_para(
     f'Complete results of CKI brain region analysis for non-neuronal cells from the '
     f'Siletti et al. (2023) human brain atlas, comprising {_br["total_pairs"]:,} pairwise cross-region '
     f'comparisons across 10 cell types (n = {_br["n_nuclei"]:,} nuclei, {_br["n_regions"]} regions, '
     f'{_br["n_genes"]:,} genes). Summary statistics for each cell type (\u03c9 mean, '
     f'median, SD, range, k_n and k_f components; all SDs are sample SDs with '
-    f'ddof = 1) are provided in Supplementary Table 5. '
+    f'ddof = 1) are provided in Supplementary Table 10. '
     f'Raw data file: results/brain_bs_null_observed_pairs.csv ({_br["total_pairs"]:,} rows, '
     f'block-shuffle re-analysis pipeline). '
     f'Summary file: results/brain_bs_null_ct_test.csv (10-row summary). '
@@ -3301,7 +3295,7 @@ add_para(
 
 add_para('')
 
-add_heading('Supplementary Table 6: Inter-regional Region-Associated Candidate Data', 2)
+add_heading('Supplementary Table 12: Inter-regional Region-Associated Candidate Data', 2)
 
 # Build dynamic S4 text
 n_candidates = len(_candidates)
@@ -3347,8 +3341,8 @@ s4_text = (
     f'Complete candidate dataset: results/brain_bs_null_observed_pairs.csv '
     f'({n_candidates:,} threshold-passing rows of 31,764 total). '
     f'Tables 5 and 6 share the same underlying data file ' 
-    f'(results/brain_bs_null_observed_pairs.csv): Supplementary Table 5 reports all 31,764 pairs ' 
-    f'with per-cell-type summary statistics, whereas Supplementary Table 6 retains the ' 
+    f'(results/brain_bs_null_observed_pairs.csv): Supplementary Table 10 reports all 31,764 pairs ' 
+    f'with per-cell-type summary statistics, whereas Supplementary Table 12 retains the ' 
     f'{n_candidates:,} threshold-passing rows with their tier, residual, and ' 
     f'\u03c9 annotations. '
     f'Table content: CKI_Supplementary_Tables_NC.xlsx (sheet Table 6). '
@@ -3406,7 +3400,8 @@ doc.save(out_path)
 print(f'Saved: {out_path}')
 print(f'Paragraphs: {len(doc.paragraphs)}')
 
-# ===== v49.5: export the 15 migrated tables (nc59: reordered by first citation) =====
+# ===== v49.5: export the 15 collected tables (nc59: reordered by first citation;
+# nc71: 23 -> 17 sheets, five homogeneous small-table groups merged as blocks) =====
 def write_si_tables_xlsx():
     from openpyxl import Workbook
     from openpyxl.styles import Font
@@ -3423,50 +3418,86 @@ def write_si_tables_xlsx():
         (_t3, 'Per-cell-type summary of the Siletti et al. (2023) human-brain regional CKI analysis (10 non-neuronal cell types; omega mean, median, SD, range, k_n and k_f components; SDs are sample SDs, ddof = 1). Raw pair-level data: results/brain_bs_null_observed_pairs.csv (31,764 rows).'),
         (_t4, f'Threshold-passing inter-regional region-association candidates (residual < 0.75; {len(_t4):,} of 31,764 pairs) from the multiplicative-model block-shuffle re-analysis, with tier, residual, and omega annotations; {int((_t4["tier"] == "Strong").sum())} Strong signals, none FDR-surviving. Raw data: results/brain_bs_null_observed_pairs.csv.'),
     ]
-    wb = Workbook()
-    wb.remove(wb.active)
-    # nc59: sheet order follows first-citation order in the main text
-    # (old -> new): 1->1, 5->2, 14->3, 2->4, 3->5, 4->6, 6-13->7-14, 15-19->15-19
-    _plan = [
-        ('df', _early[0][0], _early[0][1]),            # old 1  -> new 1
-        ('rows', _SI_TABLE_ROWS[0], _SI_TABLE_CAPS[0]),  # old 5  -> new 2
-        ('rows', _SI_TABLE_ROWS[9], _SI_TABLE_CAPS[9]),  # old 14 -> new 3
-        ('df', _early[1][0], _early[1][1]),            # old 2  -> new 4
-        ('df', _early[2][0], _early[2][1]),            # old 3  -> new 5
-        ('df', _early[3][0], _early[3][1]),            # old 4  -> new 6
-    ]
-    for _k in range(1, 9):                             # old 6-13 -> new 7-14
-        _plan.append(('rows', _SI_TABLE_ROWS[_k], _SI_TABLE_CAPS[_k]))
-    for _k in range(10, 15):                           # old 15-19 -> new 15-19
-        _plan.append(('rows', _SI_TABLE_ROWS[_k], _SI_TABLE_CAPS[_k]))
     # nc63 B2: lineage-distance pair-level tables (Supplementary Note 17)
     _t20 = pd.read_csv('results/nc61_lineage_distance.csv')
     _t21 = pd.read_csv('results/nc62_brain_lineage_pairs.csv')
-    _plan.append(('df', _t20, 'Tabula Sapiens pair-level data for the lineage-distance validation (Supplementary Note 17): all 5,151 cell-type pairs with k_f, k_n, omega, Cell Ontology identifiers and lineage distance, plus same_organ / same_ct / ambiguous flags; the primary analysis uses the 1,054 same-organ cross-cell-type non-ambiguous pairs and the 69 distance-0 cross-organ anchors. Raw data: results/nc61_lineage_distance.csv.'))
-    _plan.append(('df', _t21, 'Siletti et al. brain atlas pair-level data for the lineage-distance validation (Supplementary Note 17): 2,032 same-region cross-cell-type pairs with k_f on the fixed 5,000-gene non-HK panel (kf_fixed), per-pair top-200 k_f (kf_pp200), k_n, both omega variants, Cell Ontology identifiers and lineage distance; the primary analysis excludes the Vascular supertype (n = 1,537), and the full 2,032 rows form the vascular-inclusive sensitivity set. Raw data: results/nc62_brain_lineage_pairs.csv.'))
+    _cap20 = ('Tabula Sapiens pair-level data for the lineage-distance validation (Supplementary Note 17): all 5,151 cell-type pairs with k_f, k_n, omega, Cell Ontology identifiers and lineage distance, plus same_organ / same_ct / ambiguous flags; the primary analysis uses the 1,054 same-organ cross-cell-type non-ambiguous pairs and the 69 distance-0 cross-organ anchors. Raw data: results/nc61_lineage_distance.csv.')
+    _cap21 = ('Siletti et al. brain atlas pair-level data for the lineage-distance validation (Supplementary Note 17): 2,032 same-region cross-cell-type pairs with k_f on the fixed 5,000-gene non-HK panel (kf_fixed), per-pair top-200 k_f (kf_pp200), k_n, both omega variants, Cell Ontology identifiers and lineage distance; the primary analysis excludes the Vascular supertype (n = 1,537), and the full 2,032 rows form the vascular-inclusive sensitivity set. Raw data: results/nc62_brain_lineage_pairs.csv.')
     # nc66 ABCD: neuron superclass pairs + SEA-AD positive control (Supplementary Notes 18/19)
     _t22 = pd.read_csv('results/brain_neuron_superclass_omega.csv')
     _t23 = pd.read_csv('results/sea_ad_dam_positive_control.csv')
-    _plan.append(('df', _t22, 'Neuronal superclass pair-level data for the block-shuffle control (Supplementary Note 18): all 2,995 same-superclass cross-region pairs (MGE interneuron, Thalamic excitatory, Upper-layer intratelencephalic) with omega, k_n and k_f. Block-shuffle test summary (B = 1,000): MGE P = 0.001 (permutation floor, SES = 7.2), Upper-layer IT P = 0.014, Thalamic P = 0.163 (results/brain_neuron_blockshuffle.csv). Raw data: results/brain_neuron_superclass_omega.csv.'))
-    _plan.append(('df', _t23, 'SEA-AD disease-anchor positive control (Supplementary Note 19): 10 pre-registered gene-set x cell-class tests (donor-level pseudobulks, ADNC High versus Not AD/Reference) with observed omega, null mean/sd/max, empirical P and BH q. Pan-reactive astrocyte set P = 0.0145, DAM core P = 0.041, negative controls at the null; minimum q = 0.145. Raw data: results/sea_ad_dam_positive_control.csv.'))
-    assert len(_plan) == 23
-    for _n, (_kind, _payload, _cap) in enumerate(_plan, start=1):
+    _cap22 = ('Neuronal superclass pair-level data for the block-shuffle control (Supplementary Note 18): all 2,995 same-superclass cross-region pairs (MGE interneuron, Thalamic excitatory, Upper-layer intratelencephalic) with omega, k_n and k_f. Block-shuffle test summary (B = 1,000): MGE P = 0.001 (permutation floor, SES = 7.2), Upper-layer IT P = 0.014, Thalamic P = 0.163 (results/brain_neuron_blockshuffle.csv). Raw data: results/brain_neuron_superclass_omega.csv.')
+    _cap23 = ('SEA-AD disease-anchor positive control (Supplementary Note 19): 10 pre-registered gene-set x cell-class tests (donor-level pseudobulks, ADNC High versus Not AD/Reference) with observed omega, null mean/sd/max, empirical P and BH q. Pan-reactive astrocyte set P = 0.0145, DAM core P = 0.041, negative controls at the null; minimum q = 0.145. Raw data: results/sea_ad_dam_positive_control.csv.')
+    # nc71 table trim: 23 -> 17 sheets; five homogeneous small-table groups are
+    # merged as lettered blocks (a/b/c) on a single sheet, mirroring the nc70
+    # figure merges. old -> new: 8+9 -> 2, 10+7 -> 3, 11 -> 4, 12 -> 5,
+    # 13+14 -> 6, 15+16+17 -> 7, 2+3 -> 8, 4 -> 9, 5 -> 10, 22 -> 11, 6 -> 12,
+    # 19 -> 13, 23 -> 14, 18 -> 15, 20 -> 16, 21 -> 17 (old 1 -> new 1
+    # unchanged); sheet order follows first-citation order in the main text.
+    def _blk(_i, _l):
+        return (_l, _SI_TABLE_ROWS[_i], _SI_TABLE_CAPS[_i])
+    _plan = [
+        ('df', _early[0][0], _early[0][1]),                            # old 1        -> new 1
+        ('blocks', [_blk(2, 'a'), _blk(3, 'b')],
+         'Detection performance in mean-shift simulations'),           # old 8+9      -> new 2
+        ('blocks', [_blk(4, 'a'), _blk(1, 'b')],
+         'Kang IFN-\u03b2 dataset: technical-replicate calibration and per-cell-type effects'),  # old 10+7 -> new 3
+        ('rows', _SI_TABLE_ROWS[5], _SI_TABLE_CAPS[5]),                # old 11       -> new 4
+        ('rows', _SI_TABLE_ROWS[6], _SI_TABLE_CAPS[6]),                # old 12       -> new 5
+        ('blocks', [_blk(7, 'a'), _blk(8, 'b')],
+         'LUAD driver-group statistics'),                              # old 13+14    -> new 6
+        ('blocks', [_blk(10, 'a'), _blk(11, 'b'), _blk(12, 'c')],
+         'Adjustment and sensitivity models for driver associations'),  # old 15+16+17 -> new 7
+        ('blocks', [_blk(0, 'a'), _blk(9, 'b')],
+         'TCGA robustness analyses: NN/TT reversal and survival models'),  # old 2+3    -> new 8
+        ('df', _early[1][0], _early[1][1]),                            # old 4        -> new 9
+        ('df', _early[2][0], _early[2][1]),                            # old 5        -> new 10
+        ('df', _t22, _cap22),                                          # old 22       -> new 11
+        ('df', _early[3][0], _early[3][1]),                            # old 6        -> new 12
+        ('rows', _SI_TABLE_ROWS[14], _SI_TABLE_CAPS[14]),              # old 19       -> new 13
+        ('df', _t23, _cap23),                                          # old 23       -> new 14
+        ('rows', _SI_TABLE_ROWS[13], _SI_TABLE_CAPS[13]),              # old 18       -> new 15
+        ('df', _t20, _cap20),                                          # old 20       -> new 16
+        ('df', _t21, _cap21),                                          # old 21       -> new 17
+    ]
+    assert len(_plan) == 17
+    wb = Workbook()
+    wb.remove(wb.active)
+    def _bold_row(_ws, _r):
+        for _c in _ws[_r]:
+            _c.font = Font(bold=True)
+    for _n, _entry in enumerate(_plan, start=1):
+        _kind = _entry[0]
         ws = wb.create_sheet(f'Table {_n}')
-        ws['A1'] = f'Supplementary Table {_n}: {_cap}'
+        if _kind == 'blocks':
+            _blocks, _theme = _entry[1], _entry[2]
+            _a1 = (f'Supplementary Table {_n}: {_theme}. '
+                   + ' '.join(f'({_bl}) {_bcap}' for _bl, _brows, _bcap in _blocks))
+        else:
+            _a1 = f'Supplementary Table {_n}: {_entry[2]}'
+        ws['A1'] = _a1
         ws['A1'].font = Font(bold=True)
         ws.append([])
         if _kind == 'df':
-            ws.append(list(_payload.columns))
-            for _c in ws[3]:
-                _c.font = Font(bold=True)
-            for _row in _payload.itertuples(index=False):
+            ws.append(list(_entry[1].columns))
+            _bold_row(ws, 3)
+            for _row in _entry[1].itertuples(index=False):
                 ws.append([None if pd.isna(_v) else _v for _v in _row])
-        else:
-            for _ri, _row in enumerate(_payload):
+        elif _kind == 'rows':
+            for _ri, _row in enumerate(_entry[1]):
                 ws.append(list(_row))
                 if _ri == 0:
-                    for _c in ws[3]:
-                        _c.font = Font(bold=True)
+                    _bold_row(ws, 3)
+        else:  # blocks: lettered sub-tables stacked on one sheet
+            for _bi, (_bl, _brows, _bcap) in enumerate(_blocks):
+                if _bi:
+                    ws.append([])
+                ws.append([f'({_bl}) {_bcap}'])
+                _bold_row(ws, ws.max_row)
+                for _ri, _row in enumerate(_brows):
+                    ws.append(list(_row))
+                    if _ri == 0:
+                        _bold_row(ws, ws.max_row)
         ws.column_dimensions['A'].width = 28
     out_x = 'results/CKI_Supplementary_Tables_NC.xlsx'
     wb.save(out_x)

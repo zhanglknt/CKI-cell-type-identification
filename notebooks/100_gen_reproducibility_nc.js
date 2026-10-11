@@ -746,7 +746,7 @@ const doc = new Document({
       p(""),
       p("  e. Mapping-scheme and kn_floor sensitivity:"),
       p("     Scripts: notebooks/nc52_tcga_softmax_pairs.py, notebooks/nc52_tcga_mapping_schemes.py, notebooks/nc52_tcga_knfloor_sensitivity.py"),
-      p("     Two-caliber NN/TT table (Supplementary Table 2): linear four-of-five CIs exclude 1 (LIHC 1.11 [0.94, 1.30]) versus softmax five-of-five (LIHC 1.29 [1.09, 1.53]); kn_floor in {0, 1e-5, 1e-4} leaves every ratio identical (no pair-level k_n in (0, 1e-4)), while 1e-3 truncates ~50% of NN pairs and attenuates the reversal. Outputs: results/nc52_tcga_softmax_all_pairs.csv, results/nc52_tcga_mapping_schemes_table.csv, results/nc52_tcga_mapping_schemes_summary.json, results/nc52_tcga_knfloor_sensitivity.csv."),
+      p("     Two-caliber NN/TT table (Supplementary Table 8a): linear four-of-five CIs exclude 1 (LIHC 1.11 [0.94, 1.30]) versus softmax five-of-five (LIHC 1.29 [1.09, 1.53]); kn_floor in {0, 1e-5, 1e-4} leaves every ratio identical (no pair-level k_n in (0, 1e-4)), while 1e-3 truncates ~50% of NN pairs and attenuates the reversal. Outputs: results/nc52_tcga_softmax_all_pairs.csv, results/nc52_tcga_mapping_schemes_table.csv, results/nc52_tcga_mapping_schemes_summary.json, results/nc52_tcga_knfloor_sensitivity.csv."),
       p(""),
       p("  f. Deconvolution feasibility (negative control documentation):"),
       p("     Script: notebooks/nc52_tcga_deconv_feasibility.py"),

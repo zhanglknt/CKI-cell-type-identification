@@ -1,9 +1,10 @@
 """Verify the regenerated SI docx + SI tables xlsx (v49.5): section renumbering
 (3.5-3.13 contiguous), version-tag removal, 3.12 wording sync, 3.13a MWU
 descriptive note, 3,567 caliber, 1.7 LIHC sentence, prior content intact.
-v49.5: 15 embedded tables migrated to CKI_Supplementary_Tables_NC.xlsx as
-Supplementary Table 5-19 (docx keeps zero tables); table-cell assertions read
-the xlsx, caption assertions read the xlsx A1 cells."""
+v49.5: 15 embedded tables migrated to CKI_Supplementary_Tables_NC.xlsx
+(docx keeps zero tables); nc71: 23 -> 17 sheets, five homogeneous small-table
+groups merged as lettered blocks; table-cell assertions read the xlsx,
+caption assertions read the xlsx A1 cells."""
 import re
 from docx import Document
 from openpyxl import load_workbook
@@ -29,13 +30,14 @@ checks = []
 def chk(name, cond, detail=''):
     checks.append((name, 'PASS' if cond else 'FAIL', detail))
 
-# 0. v53 structural: docx has zero tables; xlsx has 23 sheets Table 1..23 (nc66: +Table 22/23)
+# 0. v53 structural: docx has zero tables; xlsx has 17 sheets Table 1..17
+# (nc71: 23->17, five small-table groups merged as lettered blocks)
 chk('SI docx zero tables', len(doc.tables) == 0,
     f'found {len(doc.tables)}')
-_expected_sheets = [f'Table {n}' for n in range(1, 24)]
-chk('xlsx 23 sheets named Table 1..23 (nc66)', wb.sheetnames == _expected_sheets,
+_expected_sheets = [f'Table {n}' for n in range(1, 18)]
+chk('xlsx 17 sheets named Table 1..17 (nc71)', wb.sheetnames == _expected_sheets,
     f'found {wb.sheetnames}')
-for _i, _n in enumerate(range(1, 24)):
+for _i, _n in enumerate(range(1, 18)):
     chk(f'xlsx A1 caption SuppTable {_n}',
         caps[_i].startswith(f'Supplementary Table {_n}: '))
 chk('no old-style Table (Section refs in docx', 'Table (Section' not in full)
@@ -91,20 +93,20 @@ chk('no inline v4x labels',
     and 'v44 linear' not in full and '(v45;' not in full)
 
 # 4. Prose pointers to renumbered tables (every table has >=1 pointer)
-chk('SuppTable 2 prose pointer (v59: 5->2)', 'choice drives no conclusion (Supplementary Table 2).' in full)
-chk('SuppTable 7 prose pointer (v59: 6->7)', '(Supplementary Table 7).' in full)
-chk('SuppTable 8 prose pointer (v59: 7->8)', 'Supplementary Table 8).' in full)
-chk('SuppTable 9 prose pointer (v59: 8->9)', '(Supplementary Table 9).' in full)
-chk('SuppTable 10 prose pointer (v59: 9->10)', 'given in Supplementary Table 10;' in full)
-chk('SuppTable 11 prose pointer (v59: 10->11)', 'given in Supplementary Table 11;' in full)
-chk('SuppTables 12-17 group pointer (v59: 11-17->12-17)', 'Supplementary Tables 12\u201317' in full)
-chk('SuppTables 13 and 14 in-text ref (v59: 12,13->13,14)', '; Supplementary Tables 13 and 14)' in full)
-chk('SuppTables 15-17 in-text ref', 'Supplementary Tables 15\u201317)' in full)
-chk('SuppTable 18 prose pointer', 'given in Supplementary Table 18.' in full)
-chk('SuppTable 19 prose pointer', 'given in Supplementary Table 19.' in full)
+chk('SuppTable 8a prose pointer (nc71: 2->8a)', 'choice drives no conclusion (Supplementary Table 8a).' in full)
+chk('SuppTable 3b prose pointer (nc71: 7->3b)', '(Supplementary Table 3b).' in full)
+chk('SuppTable 2a prose pointer (nc71: 8->2a)', 'Supplementary Table 2a).' in full)
+chk('SuppTable 2b prose pointer (nc71: 9->2b)', '(Supplementary Table 2b).' in full)
+chk('SuppTable 3a prose pointer (nc71: 10->3a)', 'given in Supplementary Table 3a;' in full)
+chk('SuppTable 4 prose pointer (nc71: 11->4)', 'given in Supplementary Table 4;' in full)
+chk('SuppTables 5-7 group pointer (nc71: 12-17->5-7)', 'Supplementary Tables 5\u20137' in full)
+chk('SuppTable 6 in-text ref (nc71: 13,14->6)', '; Supplementary Table 6)' in full)
+chk('SuppTable 7 in-text ref (nc71: 15-17->7)', '(Supplementary Table 7): after adjustment' in full)
+chk('SuppTable 15 prose pointer (nc71: 18->15)', 'given in Supplementary Table 15.' in full)
+chk('SuppTable 13 prose pointer (nc71: 19->13)', 'given in Supplementary Table 13.' in full)
 chk('Section 3.10 in-text ref (Note 2)', 'Section 3.10)' in full)
-chk('TOC SuppTable 2 entry (v59: 5->2)', 'Supplementary Table 2: TCGA Linear-Normalization Robustness' in full)
-chk('TOC SuppTable 19 entry', 'Supplementary Table 19: Brain min-cells Threshold Sensitivity' in full)
+chk('TOC SuppTable 8 entry (nc71: 2->8)', 'Supplementary Table 8: TCGA Robustness: NN/TT Reversal and Survival Models' in full)
+chk('TOC SuppTable 13 entry (nc71: 19->13)', 'Supplementary Table 13: Brain min-cells Threshold Sensitivity' in full)
 
 # 5. 3.12 wording sync (P0-1)
 chk('T1 continuous-metrics framing',
