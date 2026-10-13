@@ -291,7 +291,7 @@ toc = [
     'Supplementary Note 16: JS Divergence Dimensionality Invariance',
     'Supplementary Note 17: Lineage-Distance Validation across Atlases',
     'Supplementary Note 18: Neuronal Superclass Regional Divergence and Block-Shuffle Control',
-    'Supplementary Note 19: Program-Level Diffuseness and a Disease-Anchor Positive Control',
+    'Supplementary Note 19: Program-Level Diffuseness and a Sub-Threshold Disease Anchor',
     'Supplementary Note 20: A Scoped Theoretical Framework for \u03c9',
     'Supplementary Methods',
     'Supplementary Table 1: Parameter Sweep Results',
@@ -307,7 +307,7 @@ toc = [
     'Supplementary Table 11: Neuronal Superclass Pair Data and Block-Shuffle Test',
     'Supplementary Table 12: Inter-regional Region-Associated Candidate Data',
     'Supplementary Table 13: Brain min-cells Threshold Sensitivity',
-    'Supplementary Table 14: SEA-AD Disease-Anchor Positive Control',
+    'Supplementary Table 14: SEA-AD Disease-Anchor Check',
     'Supplementary Table 15: TCGA Clinical-Severity Gradients',
     'Supplementary Table 16: Tabula Sapiens Lineage-Distance Pair Data',
     'Supplementary Table 17: Siletti Brain Lineage-Distance Pair Data',
@@ -1562,6 +1562,33 @@ si_caption(
     'tumors. After adjustment the KRAS \u2212 WT contrast retains both '
     'components, whereas EGFR \u2212 WT is null on every metric (all '
     'P > 0.4) - the apparent EGFR elevation is an admixture artefact.'
+)
+add_para(
+    'TP53 co-mutation, proliferation, and fixed-panel sensitivity '
+    '(notebooks/nc75_tcga_kras_incremental.py). TP53 mutation status for '
+    'the 493 LUAD tumors was retrieved from cBioPortal '
+    '(luad_tcga_pan_can_atlas_2018; 220 of 493 mutant; frequency 0.31 in '
+    'KRAS versus 0.56 wild-type, 0.58 EGFR). Adding a TP53 indicator to '
+    'the smoking-plus-admixture model left the KRAS contrasts essentially '
+    'unchanged (whole-tumor permutation, B = 10,000, seed 42: KRAS \u2212 '
+    'WT \u0394\u03c9 +12.9, P = 2 \u00d7 10\u207b\u2074; KRAS \u2212 '
+    'EGFR +18.0, P = 7 \u00d7 10\u207b\u2074; \u0394k_f P = 0.008). A '
+    'proliferation index (mean of MKI67, TOP2A, PCNA on the log scale) '
+    'was uncorrelated with per-tumor \u03c9 (Spearman \u03c1 = 0.033, '
+    'P = 0.49), and its inclusion likewise left the contrast unchanged '
+    '(KRAS \u2212 WT P = 2 \u00d7 10\u207b\u2074). Panel sensitivity: '
+    'recomputing all 2,000 authoritative LUAD TT pairs with a '
+    'pre-specified fixed functional panel (top-200 non-HK genes by '
+    'across-tumor variance, fixed across pairs and within permutations; '
+    'k_n unchanged) attenuated the KRAS \u2212 WT contrast to marginal '
+    'significance (\u0394\u03c9_fixed +2.6, P = 0.089; P = 0.039 with '
+    'proliferation adjustment) while KRAS \u2212 EGFR persisted (+6.1, '
+    'P = 0.005); group means were 51.4 (WT), 48.4 (EGFR), 53.9 (KRAS) '
+    'under the fixed panel versus 123.5, 121.0, 137.2 under the circular '
+    'scheme. The KRAS elevation thus reflects genuine driver-associated '
+    'divergence, but its wild-type limb is amplified by the per-pair '
+    'circular panel; histological-subtype (TRU/PP/PI) classifications '
+    'were unavailable for adjustment.'
 )
 _smkmods49 = [('B_group_only', 'group only'),
               ('B_smoke_adj', '+ ever-smoker'),
@@ -2993,6 +3020,24 @@ add_para(
     '6 do not (Results).'
 )
 add_para(
+    'Decomposing \u03c9 = k_f / k_n against the same null shows the elevation is '
+    'numerator-led and is not an artefact of anchor collapse: regional structure raises '
+    'k_f and k_n jointly, but k_f more. For MGE interneurons, mean log k_f is \u22123.2 '
+    'observed versus \u22124.29 under the null (3.0-fold in k_f) while mean log k_n is '
+    '\u22127.32 versus \u22128.15 (2.3-fold in k_n; median fold-changes 3.2 versus 2.5); '
+    'upper-layer intratelencephalic neurons behave similarly (2.8-fold versus 2.4-fold; '
+    'medians 2.9 versus 2.6). In thalamic excitatory neurons the two components rise in '
+    'near-lockstep (1.7-fold versus 1.6-fold), consistent with its non-rejection. A '
+    'donor-stratified null (region labels permuted within each of the 4 donors; '
+    'B = 1,000) leaves the conclusions unchanged (MGE P = 0.001, SES = 7.1; upper-layer '
+    'IT P = 0.012, SES = 2.3; thalamic P = 0.160, SES = 1.0), and leave-one-donor-out '
+    'medians remain elevated for MGE (47.4\u201364.2) and upper-layer IT (41.3\u201358.6). '
+    'The thalamic test is the least powered (20 regions, 84 libraries; null SD 4.4 '
+    'versus 2.3 for MGE) and its estimate is the most donor-sensitive (leave-one-out '
+    'medians 25.4\u201376.4), so its non-rejection is read as underpowered rather than '
+    'negative. Raw data: results/nc75_brain_neuron_decomposition.csv.'
+)
+add_para(
     'The cross-class contrast is decisive at the pair level. Neuronal pairs (n = 2,995; '
     'median \u03c9 62.17) exceed the full non-neuronal landscape (n = 31,764; median '
     '28.68; 24.50 excluding astrocytes): one-sided Mann\u2013Whitney z = 52.6, '
@@ -3014,7 +3059,7 @@ add_para(
 doc.add_page_break()
 
 # ===== SN19 (nc66): Hallmark diffuseness + SEA-AD disease anchor =====
-add_heading('Supplementary Note 19: Program-Level Diffuseness and a Disease-Anchor Positive Control', 2)
+add_heading('Supplementary Note 19: Program-Level Diffuseness and a Sub-Threshold Disease Anchor', 2)
 add_para(
     'To ask whether the non-neuronal regional signal concentrates in specific functional '
     'programs, we recomputed the landscape with k_f restricted to MSigDB Hallmark gene '
@@ -3090,8 +3135,10 @@ add_para(
     'softmax(log x + g) relative to p = softmax(log x), a first-order '
     'expansion of the softmax gives \u03b4_i = q_i \u2212 p_i = p_i(g_i '
     '\u2212 g\u0304) + O(p_i||g||\u00b2), with g\u0304 = \u03a3_j p_j g_j '
-    'the p-weighted mean; in particular \u03a3_i \u03b4_i = 0 to first '
-    'order, and the natural energy of a log-factor g on the simplex is the '
+    'the p-weighted mean and ||g||\u00b2 = \u03a3_i p_i g_i\u00b2 the '
+    'p-weighted L2 norm (all norms below); \u03a3_i \u03b4_i = 0 '
+    'exactly, since q is itself a probability vector. The natural '
+    'energy of a log-factor g on the simplex is the '
     'p-weighted variance Var_p(g) = \u03a3_i p_i (g_i \u2212 g\u0304)\u00b2, '
     'since \u03a3_i \u03b4_i\u00b2/p_i = Var_p(g) + O(||g||\u00b3). We '
     'therefore define energies on a panel as E_b = Var_p(\u03b2) and '
@@ -3101,7 +3148,9 @@ add_para(
     'Cov_p(\u03b2, \u03c6) = \u03a3_i p_i (\u03b2_i \u2212 '
     '\u03b2\u0304)(\u03c6_i \u2212 \u03c6\u0304) is the cross term. '
     'This decomposition, not the unweighted \u03a3g_i\u00b2/p_i, is the '
-    'correct probability-scale reading of the log-space factor model.'
+    'correct probability-scale reading of the log-space factor model. '
+    'Throughout, E_b is evaluated on the HK panel and E_f, C_bf on '
+    'the pair-specific top-200 panel (on the respective panels).'
 )
 add_para(
     'Lemma 2 (second-order expansion of JS with explicit remainder). For '
@@ -3142,7 +3191,12 @@ add_para(
     'ratio, whereas the baseline additionally folds in panel-size and '
     'composition differences between the 200-gene and ~1,130-gene sets and '
     'the k_f-scale expansion error diagnosed above, so the calibration '
-    'constant admits a theoretical reading only up to these factors. C3 '
+    'constant admits a theoretical reading only up to these factors. '
+    'Operationally the theoretical \u03b1 is used only for the '
+    'qualitative structure of the estimand; absolute calibration '
+    'always uses the empirical split-half baselines (9.73 brain, '
+    '7.70 mouse), so the \u2248 1.4-fold gap between the two '
+    'readings does not propagate into any reported statistic. C3 '
     '(stable functional panel): the pair-specific panel is not noise-driven '
     'beyond C2; quantified by the leave-pair-out ablation (Supplementary Note '
     '9). C4 (adequate count depth): multinomial sampling contributes '
@@ -3196,14 +3250,20 @@ add_para(
     'functional factor vanishes on housekeeping genes, \u03c6 = 0 on the '
     'HK panel\u2014HK genes are pre-specified for stable expression '
     'across conditions (Methods), so condition-driven regulatory change '
-    'is excluded from that panel by construction. Under A1: (i) k_n on '
+    'is excluded from that panel by assumption. A1 is not guaranteed '
+    'by construction: IFN-\u03b2 stimulation lowers ACTB and GAPDH by '
+    'roughly 40% and raises k_n 1.2-5.7-fold (Supplementary Note 8), '
+    'defining the anchor-visibility boundary of A1; a marked rise in '
+    'k_n itself is the operative signal that A1 has failed in a given '
+    'contrast. Under A1: (i) k_n on '
     'the HK panel identifies E_b (Proposition 3); (ii) split-half null '
     'pairs, on which E_f = 0 by construction, identify \u03b1 = '
     'E_b(top-200)/E_b(HK) (C2); (iii) on an observed pair, k_f '
     'identifies E_f + 2C_bf + \u03b1E_b, and subtracting \u03b1k_n '
     'identifies E_f + 2C_bf\u2014equal to E_f under C5. Three unknowns '
     '(E_b, \u03b1, E_f) meet three measurements in a linear system with '
-    'a unique solution, so the decomposition is identified, not merely '
+    'a unique solution within the scoped approximation, so the '
+    'decomposition is identified, not merely '
     'defined. The two restrictions play different roles: without A1 no '
     'calibration can separate E_f from \u03b1E_b using (k_f, k_n) alone; '
     'without C5 the identified functional quantity is E_f + 2C_bf, with '
@@ -3217,7 +3277,10 @@ add_para(
     'be separated. (a) Approximate layer: in the quadratic form, '
     'strengthening the functional factor (\u03c6 \u2192 \u03bb\u03c6, '
     '\u03bb > 1) with background fixed gives \u03c9(\u03bb) = \u03b1 + '
-    '(\u03bb\u00b2E_f + 2\u03bbC_bf)/E_b, so \u2202\u03c9/\u2202\u03bb '
+    '(\u03bb\u00b2E_f + 2\u03bbC_bf)/E_b (with \u03b1 held '
+    'fixed; strengthening \u03c6 can shift the top-200 panel and '
+    'hence \u03b1, per the post-selection caveat of Proposition '
+    '3), so \u2202\u03c9/\u2202\u03bb '
     '= 2(\u03bbE_f + C_bf)/E_b. Under C5 this is strictly positive for '
     'all \u03bb > 0: the approximate estimand increases strictly with '
     'functional change. Without C5 the same conclusion holds if and only '
@@ -3231,14 +3294,19 @@ add_para(
     'layer: JS(p, q(\u03bb)) is smooth in \u03bb, and by Lemma 2 its '
     'derivative equals that of the quadratic form plus a remainder '
     'derivative of order O(\u03a3_i (|\u03b4_i|/p_i)\u00b2 '
-    '|d\u03b4_i/d\u03bb|), small wherever C1 holds; the sign of '
-    '\u2202\u03c9/\u2202\u03bb is therefore inherited by the raw '
-    'ratio in a neighborhood of the observed \u03bb (local strict '
-    'monotonicity under the same condition), not asserted globally from '
-    'the expansion alone. (c) Global layer: JS is bounded by 1 bit, so '
+    '|d\u03b4_i/d\u03bb|). At the k_n scale, where C1 is '
+    'verified, the remainder is negligible and the sign of '
+    '\u2202\u03c9/\u2202\u03bb is inherited by the raw ratio in '
+    'a neighborhood of the observed \u03bb. At the k_f scale, where '
+    'the Lemma-2 diagnostic reaches 103% at the 90th percentile, no '
+    'such quantitative bound survives: the statement is qualitative '
+    'there, and its empirical support is the ground-truth grid '
+    'below rather than the expansion. (c) Global layer: JS is bounded by 1 bit, so '
     'no global monotonicity can hold; claims are restricted to the '
     'operating regime diagnosed in Lemma 2 and confirmed on ground '
-    'truth. Ground-truth check (factorial grid of Supplementary Note 1): '
+    'truth. Ground-truth check (factorial grid of Supplementary Note 1, '
+    'constructed with C_bf = 0 and therefore covering the C5 branch '
+    'only): '
     'at zero background drift \u03c9 rose monotonically with the '
     'injected shift \u03b4 (Spearman \u03c1 = 0.688, P = 5.1 \u00d7 '
     '10\u207b\u00b9\u2076\u00b2; grid means 10.2 \u2192 27.2 over '
@@ -3484,7 +3552,7 @@ add_para('Supplementary Fig. 5. Pseudo-region negative control for the brain blo
 
 add_para('Supplementary Fig. 6. Brain regional analysis details and pair-specific k_n variability (brain). (a) Mean regional divergence (\u03c9, with SD) per cell type, ranked ascending; purple bars denote significant deviation from the block-shuffle null (p < 0.05 and |standardised effect size (SES)| \u2265 2; SES = [observed \u03c9 \u2212 null mean] / null SD), grey otherwise. (b) \u03c9 versus number of sampled regions (n_regions) per cell type; Spearman \u03c1 is reported (broader spatial coverage is not significantly associated with divergence at n = 10). (c) Distribution of multiplicative residuals (observed/expected \u03c9) across all 31,764 cross-region pairs; colours indicate confidence tier (Strong: < 0.3; Moderate: < 0.5; Weak). (d) Distribution of per-pair k_n values by cell type (bars: mean \u00b1 SD); bar colour reflects the cross-pair coefficient of variation (CV) of k_n, from light (low CV, stable k_n) to dark (high CV, variable k_n); and per-pair \u03c9 (pair-specific k_n) versus \u03c9 estimated with the global mean k_n; red line is y = x. Spearman \u03c1 = 0.142 (P = 7.07\u00d710\u207b\u00b9\u2074\u00b3, n = 31,764).')
 
-add_para('Supplementary Fig. 7. Pair-level distributions and the subcluster tier for the neuronal superclass analysis, and program-level diffuseness with the SEA-AD disease-anchor positive control (Supplementary Notes 18, 19; main Fig. 5e, f). (a) Pair-level \u03c9 ECDFs (log scale) for neuronal superclasses (purple; n = 2,995), non-neuronal classes excluding astrocytes (grey; n = 25,986), and astrocytes (red; n = 5,778); medians 62.2 / 24.5 / 73.4, with astrocytes the only non-neuronal class in the neuronal range. (b) Subcluster-tier pair \u03c9 per supercluster (grey boxes, log scale, 48,450 pairs total; boxes = IQR, whiskers = 1.5 \u00d7 IQR, outliers suppressed) with the superclass-tier median overlaid (purple bars): subcluster medians 18.5\u201329.4 are pulled down by region-restricted subclusters with few pairs, so superclass-level values are the appropriate tier for cross-class comparison (Supplementary Note 18). (c) SEA-AD donor-level test (10 pre-registered gene-set \u00d7 cell-class tests): bars give observed \u03c9 between ADNC-high and reference donors; the dark dash marks the null mean and the line its 95% range (2,000-draw size-matched null with pre-registered genes excluded from the sampling pool). Red = pan-reactive astrocyte set (P = 0.0145) and DAM core set (P = 0.041) in astrocytes; orange = negative controls (homeostatic-microglia set in astrocytes, \u03c9 0.74, P = 0.996; A2 set in microglia, \u03c9 0.04, P = 1.0); grey = remaining tests. Benjamini\u2013Hochberg across the 10 tests: minimum q = 0.145. (d) Hallmark-program diffuseness: histogram of the 400 empirical P-values (10 non-neuronal classes \u00d7 40 programs; size-bucketed random-gene-set null, B = 2,000), with Peroxisome and Bile Acid Metabolism programs in purple. All 11 tests with P \u2264 0.01 (4.0 expected) are peroxisomal\u2013lipid programs; none of the 400 survives Benjamini\u2013Hochberg correction (minimum q = 0.233).')
+add_para('Supplementary Fig. 7. Pair-level distributions and the subcluster tier for the neuronal superclass analysis, and program-level diffuseness with the sub-threshold SEA-AD disease-anchor check (Supplementary Notes 18, 19; main Fig. 5e, f). (a) Pair-level \u03c9 ECDFs (log scale) for neuronal superclasses (purple; n = 2,995), non-neuronal classes excluding astrocytes (grey; n = 25,986), and astrocytes (red; n = 5,778); medians 62.2 / 24.5 / 73.4, with astrocytes the only non-neuronal class in the neuronal range. (b) Subcluster-tier pair \u03c9 per supercluster (grey boxes, log scale, 48,450 pairs total; boxes = IQR, whiskers = 1.5 \u00d7 IQR, outliers suppressed) with the superclass-tier median overlaid (purple bars): subcluster medians 18.5\u201329.4 are pulled down by region-restricted subclusters with few pairs, so superclass-level values are the appropriate tier for cross-class comparison (Supplementary Note 18). (c) SEA-AD donor-level test (10 pre-registered gene-set \u00d7 cell-class tests): bars give observed \u03c9 between ADNC-high and reference donors; the dark dash marks the null mean and the line its 95% range (2,000-draw size-matched null with pre-registered genes excluded from the sampling pool). Red = pan-reactive astrocyte set (P = 0.0145) and DAM core set (P = 0.041) in astrocytes; orange = negative controls (homeostatic-microglia set in astrocytes, \u03c9 0.74, P = 0.996; A2 set in microglia, \u03c9 0.04, P = 1.0); grey = remaining tests. Benjamini\u2013Hochberg across the 10 tests: minimum q = 0.145. (d) Hallmark-program diffuseness: histogram of the 400 empirical P-values (10 non-neuronal classes \u00d7 40 programs; size-bucketed random-gene-set null, B = 2,000), with Peroxisome and Bile Acid Metabolism programs in purple. All 11 tests with P \u2264 0.01 (4.0 expected) are peroxisomal\u2013lipid programs; none of the 400 survives Benjamini\u2013Hochberg correction (minimum q = 0.233).')
 
 add_para('Supplementary Fig. 8. Developmental signature detection and block-shuffle permutation null for the residual model. (a) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (b) The ten Strong candidates with the smallest residual, shown as horizontal bars (residual and \u03c9 value annotated on each bar); bars are coloured by oligodendrocyte (OL) lineage membership (purple, OL-lineage; red, non-OL). Inset: OL-lineage representation among Strong candidates \u2014 12 of 39 Strong, fold = 0.77, hypergeometric P = 0.92 (no enrichment). Cell types and region pairs are given in full. (c) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The number and percentage (to two decimal places) of Strong pairs are annotated on each bar \u2014 e.g., Microglia: Strong 16 (0.96%); Oligodendrocyte: Strong 10 (0.95%); Astrocyte: Strong 3 (0.47%). (d) 10. Block-shuffle permutation null for the residual model. Distribution of multiplicative residuals under block-shuffle permutation of library-to-region assignments (B = 1,000), compared against observed residuals for Strong candidates.')
 
@@ -3529,8 +3597,8 @@ def write_si_tables_xlsx():
     # nc66 ABCD: neuron superclass pairs + SEA-AD positive control (Supplementary Notes 18/19)
     _t22 = pd.read_csv('results/brain_neuron_superclass_omega.csv')
     _t23 = pd.read_csv('results/sea_ad_dam_positive_control.csv')
-    _cap22 = ('Neuronal superclass pair-level data for the block-shuffle control (Supplementary Note 18): all 2,995 same-superclass cross-region pairs (MGE interneuron, Thalamic excitatory, Upper-layer intratelencephalic) with omega, k_n and k_f. Block-shuffle test summary (B = 1,000): MGE P = 0.001 (permutation floor, SES = 7.2), Upper-layer IT P = 0.014, Thalamic P = 0.163 (results/brain_neuron_blockshuffle.csv). Raw data: results/brain_neuron_superclass_omega.csv.')
-    _cap23 = ('SEA-AD disease-anchor positive control (Supplementary Note 19): 10 pre-registered gene-set x cell-class tests (donor-level pseudobulks, ADNC High versus Not AD/Reference) with observed omega, null mean/sd/max, empirical P and BH q. Pan-reactive astrocyte set P = 0.0145, DAM core P = 0.041, negative controls at the null; minimum q = 0.145. Raw data: results/sea_ad_dam_positive_control.csv.')
+    _cap22 = ('Neuronal superclass pair-level data for the block-shuffle control (Supplementary Note 18): all 2,995 same-superclass cross-region pairs (MGE interneuron, Thalamic excitatory, Upper-layer intratelencephalic) with omega, k_n and k_f. Block-shuffle test summary (B = 1,000): MGE P = 0.001 (permutation floor, SES = 7.2), Upper-layer IT P = 0.014, Thalamic P = 0.163 (results/brain_neuron_blockshuffle.csv). k_f/k_n decomposition, donor-stratified null, and leave-one-donor-out: results/nc75_brain_neuron_decomposition.csv. Raw data: results/brain_neuron_superclass_omega.csv.')
+    _cap23 = ('SEA-AD sub-threshold disease-anchor check (Supplementary Note 19): 10 pre-registered gene-set x cell-class tests (donor-level pseudobulks, ADNC High versus Not AD/Reference) with observed omega, null mean/sd/max, empirical P and BH q. Pan-reactive astrocyte set P = 0.0145, DAM core P = 0.041, negative controls at the null; minimum q = 0.145. Raw data: results/sea_ad_dam_positive_control.csv.')
     # nc71 table trim: 23 -> 17 sheets; five homogeneous small-table groups are
     # merged as lettered blocks (a/b/c) on a single sheet, mirroring the nc70
     # figure merges. old -> new: 8+9 -> 2, 10+7 -> 3, 11 -> 4, 12 -> 5,
