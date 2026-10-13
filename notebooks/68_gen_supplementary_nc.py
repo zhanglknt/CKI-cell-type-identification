@@ -1334,6 +1334,15 @@ add_para(
     '1.08 [0.88, 1.33], P = 0.467 in the full model; '
     'notebooks/nc52_lihc_cox_excc.py; outputs: '
     'results/nc52_lihc_cox_excc.csv, results/nc52_lihc_cox_excc_zph.csv). '
+    'Time-dependent handling of the PH violation '
+    '(notebooks/nc76_lihc_cox_timevarying.py): a time-transform Cox '
+    '(z_omega with tt(x) = x log t) showed no significant time-varying '
+    '\u03c9 effect (tt coefficient P = 0.131), and an epoch split at the '
+    'median event time (14.4 months; 40 early and 39 late events) gave '
+    'per-epoch \u03c9 HRs 1.25 [0.91, 1.71] (early) and 0.83 (late), with '
+    'the epoch difference itself non-significant (Wald P = 0.244)\u2014the '
+    'violation is driven by stage, not \u03c9, and the null conclusion is '
+    'time-robust. '
     'The adjusted LUAD driver contrasts were additionally re-run as '
     'whole-tumor label-permutation tests (B = 10,000, seed 42) that re-fit '
     'the full OLS adjustment model at every permutation: the KRAS '
@@ -1589,6 +1598,28 @@ add_para(
     'divergence, but its wild-type limb is amplified by the per-pair '
     'circular panel; histological-subtype (TRU/PP/PI) classifications '
     'were unavailable for adjustment.'
+)
+add_para(
+    'Classification increment over standard DE (notebooks/'
+    'nc76_tcga_followup.py). Per-tumor scores were compared as KRAS- and '
+    'EGFR-status classifiers against a leave-one-out standard-DE '
+    'projection (per-gene Welch t on the log representation, recomputed '
+    'leaving each scored tumor out). \u03c9 did not outperform DE: AUC '
+    '0.661 (\u03c9) versus 0.736 (DE) for KRAS versus WT '
+    '(\u0394AUC \u22120.075, bootstrap 95% CI [\u22120.126, \u22120.023]) '
+    'and 0.542 versus 0.759 for EGFR versus WT (\u0394AUC \u22120.217 '
+    '[\u22120.288, \u22120.149]); \u03c9 exceeded only the proliferation '
+    'index (AUC 0.474; \u0394AUC +0.187 [+0.115, +0.265]). The driver '
+    'contrast is therefore a group-level divergence association, not '
+    'sample-level driver discrimination, and \u03c9 offers no '
+    'classification increment over routine DE in this setting. Label '
+    'audit: of the 75 EGFR-labelled aliquots, 62 matched the expression '
+    'matrix; the 13 non-matches are 8 aliquots from tumour source sites '
+    'outside the 32-site LUAD expression set and 5 patients without an '
+    'expression aliquot in the matrix\u2014exclusions determined by '
+    'sample logistics, not by any expression or mutation property '
+    '(co-mutation rates are structurally uninformative for the '
+    'no-expression group, whose further mutation data were not retrieved).'
 )
 _smkmods49 = [('B_group_only', 'group only'),
               ('B_smoke_adj', '+ ever-smoker'),
@@ -2327,6 +2358,29 @@ add_para(
 
 add_para('Effect-scale detail (migrated from the main text in v51): median within-donor stimulated-versus-control \u03c9 exceeded median donor-versus-donor \u03c9 by 1.1\u20132.0-fold.')
 
+add_para(
+    'Quantitative A1 anatomy (notebooks/nc76_ifnb_theory_quant.py). In the '
+    'notation of Supplementary Note 20, per cell type: E_b (median k_n of '
+    'donor-versus-donor control pairs) is 0.0022-0.0079; the A1 violation '
+    '\u03c6_HK = median k_n(stimulated\u2212control) \u2212 E_b ranges from '
+    '0.12 E_b (CD8 T cells) to 4.76 E_b (CD14+ monocytes), i.e. a '
+    'multiplicative \u03c9 deflation of \u03c6/(E_b+\u03c6) = 10-83%. With '
+    '\u03b1 estimated from split-half pairs (8.1-18.9), the estimand '
+    '\u03b1 + (E_f + 2C_bf)/E_b and the observed \u03c9 give a signed bias '
+    'that stays inside the 2\u221a(E_f/E_b) Cauchy\u2013Schwarz band in '
+    'four of six cell types (B cells \u22129.2 versus 10.1; CD4 \u22122.1 '
+    'versus 7.9; CD8 \u22121.5 versus 7.6; NK \u22122.5 versus 7.8) but '
+    'breaches it precisely in the two anchor-affected monocytic types '
+    '(CD14+ \u221278.0 versus 19.4; FCGR3A+ \u221228.0 versus 13.5). This '
+    'is the expected behaviour: the 2\u221a(E_f/E_b) bound covers only the '
+    'numerator cross-term C_bf, whereas A1 failure multiplies the '
+    'denominator by (1 + \u03c6/E_b) and deflates \u03c9 without bound\u2014'
+    'which is why a marked k_n rise, not the \u03c9 value itself, is the '
+    'operative alarm that A1 has failed, and why k_f-only is the '
+    'recommended statistic in that regime (Supplementary Note 20, '
+    'Identification).'
+)
+
 add_heading('Supplementary Note 9: Fixed Gene-Panel Ablation', 2)
 add_para(
     'Design. To test whether the brain conclusions depend on the per-pair circular '
@@ -2523,7 +2577,7 @@ add_para(
     'drawn for KIRC. Cross-cohort GTEx\u2013adjacent pairs show k_n elevated '
     'to tumor levels in every organ (P \u2264 1.4 \u00d7 10\u207b\u00b2'
     '\u2076), a cohort-level technical effect; mechanistic claims therefore '
-    'rest on within-cohort orderings only. The cross-cohort shift (GTEx\u2013adjacent versus GTEx\u2013GTEx pair k_n, ratio \u2248 1.8\u20132.3\u00d7 in lung, liver, and breast; kidney 1.6\u00d7) bounds the resolution of the healthy\u2013adjacent comparison; the healthy \u2248 adjacent similarity should be read within that tolerance (tentative, GTEx cross-cohort discrepancy unresolved). Pair-level P values in this GTEx comparison treat pairs as independent and are descriptive only.'
+    'rest on within-cohort orderings only. The cross-cohort shift (GTEx\u2013adjacent versus GTEx\u2013GTEx pair k_n, ratio \u2248 1.8\u20132.3\u00d7 in lung, liver, and breast; kidney 1.6\u00d7) bounds the resolution of the healthy\u2013adjacent comparison; the healthy \u2248 adjacent similarity should be read within that tolerance (tentative, GTEx cross-cohort discrepancy unresolved). Pair-level P values in this GTEx comparison treat pairs as independent and are descriptive only. A platform sub-cohort sensitivity within GTEx was not computable: the UCSC Xena phenotype table carries a single cohort label for all GTEx samples (the batch-control device of this comparison is the Toil uniform re-processing of TCGA and GTEx through one quantification pipeline, which yields row-identical gene matrices), so the finest stratification available is the organ level reported above.'
 )
 
 add_para(
@@ -2844,6 +2898,20 @@ add_para(
     '(observed 16, fold 0.31, P = 0.990), and the concentration does not survive '
     'the leave-pair-out panel.'
 )
+add_para(
+    'On the choice of B = 1,000. The permutation budget was chosen for the '
+    'family-level and set-level statistics that carry the brain conclusions '
+    '(class mean \u03c9, rule-matched candidate rates), where B = 1,000 '
+    'bounds Monte-Carlo error below the reported effect sizes; it was never '
+    'intended to support per-pair FDR over m = 31,764. Per-pair inference '
+    'uses the exact permutation P (both tails computed for every pair) '
+    'with Benjamini\u2013Hochberg across the family, and the 39 Strong '
+    'candidates are reported throughout as '
+    'a non-FDR-surviving, anti-enriched catalogue (global family-wise FDR '
+    'q_min = 0.520)\u2014an explicit negative-control framing rather than a '
+    'detection claim, so no larger-B redesign would change any stated '
+    'conclusion.'
+)
 add_heading('Supplementary Note 15: Comparison with Augur Cell-Type Prioritization', 2)
 add_para(
     'Augur (Skinnider et al., Nat. Biotechnol. 2021; main-text ref. 37) '
@@ -2892,6 +2960,23 @@ add_para(
     '(versus \u03c9 \u03c1 = +0.127, P = 0.726). Scripts '
     'notebooks/91_augur_v45.py and notebooks/91b_augur_ovr_v45.py; '
     'report results/augur_comparison_v45_report.md.'
+)
+add_para(
+    'Relation to differential-abundance (DA) methods. Milo, scCODA, DA-seq '
+    'and propeller answer a different question\u2014which cell populations '
+    'change in relative abundance between conditions\u2014whereas CKI '
+    'conditions on composition by construction (pseudobulks within a fixed '
+    'annotation tier) and measures expression-state divergence. The two are '
+    'complementary: a composition shift within an annotated class enters '
+    'the CKI pseudobulk as an expression change, which is exactly the '
+    'confound our composition checks bound (LIHC marker-panel attribution '
+    '+44%; the reference-free non-parenchymal-fraction check against k_n; '
+    'Supplementary Notes 10, 18). A quantitative DA benchmark was not run '
+    'because no DA output can be mapped onto the \u03c9 estimand '
+    '(state divergence conditional on composition); scDist in its Python '
+    'approximation was the closest comparator attempted and is reported '
+    'with its distance-scale mismatch in Section 3.11. We commit '
+    'to an R-native scDist/scCODA benchmark in revision if requested.'
 )
 
 add_heading('Supplementary Note 16: JS Divergence Dimensionality Invariance', 2)
@@ -3038,6 +3123,38 @@ add_para(
     'negative. Raw data: results/nc75_brain_neuron_decomposition.csv.'
 )
 add_para(
+    'Power, panel and anchor sensitivity (notebooks/nc76_brain_followup.py). '
+    'A size-matched power analysis quantifies the thalamic non-rejection: '
+    'downsampling MGE interneurons and upper-layer IT neurons to the '
+    'thalamic scale (20 regions; 40 replicates \u00d7 50 block-shuffle '
+    'permutations each) rejected at P \u2264 0.05 in 40/40 replicates for an '
+    'MGE-strength signal (median SES 4.8) but only 18/40 (45%) for an '
+    'IT-strength signal (median SES 1.8)\u2014a thalamic effect of MGE '
+    'strength would always have been detected, while one of IT strength is '
+    'detected about half the time at 20 regions. Class size enters the '
+    'null itself: the null mean k_n scales inversely with superclass size '
+    '(2.9 \u00d7 10\u207b\u2074 MGE, 3.4 \u00d7 10\u207b\u2074 upper-layer '
+    'IT, 1.5 \u00d7 10\u207b\u00b3 thalamic), mirroring the class-level '
+    'size\u2013k_n correlation of Supplementary Note 11, so the observed/'
+    'null contrast (not the raw k_n) is the size-controlled quantity. '
+    'Fixed-panel robustness: recomputing the three superclasses with a '
+    'pre-specified fixed panel (top-200 non-HK genes by across-region '
+    'variance) preserved the conclusions (MGE P = 0.005, upper-layer IT '
+    'P = 0.005 at the B = 200 floor, thalamic P = 0.090). Anchor-panel '
+    'sensitivity is the material caveat: under an alternative data-driven '
+    'housekeeping panel of matched size (lowest-CV genes across the '
+    'observed region pseudobulks; 10% overlap with HRT Atlas; mean '
+    'expression 1.13 versus 0.32 log1p-CP10k), mean \u03c9 collapsed to '
+    '\u224812 in both observed and null and the separation vanished '
+    '(P = 0.95/0.87/0.76). Decomposition of the MGE arm shows why: the '
+    'numerator rise is unchanged (k_f 2.97-fold) but the higher-expression '
+    'alternative panel responds more strongly to regional drift in the '
+    'denominator (k_n 3.12-fold versus 2.3-fold on HRT)\u2014the '
+    'superclass elevation is therefore anchor-panel dependent, and we '
+    'report it as an HRT-Atlas-anchored result with this limitation '
+    'explicit.'
+)
+add_para(
     'The cross-class contrast is decisive at the pair level. Neuronal pairs (n = 2,995; '
     'median \u03c9 62.17) exceed the full non-neuronal landscape (n = 31,764; median '
     '28.68; 24.50 excluding astrocytes): one-sided Mann\u2013Whitney z = 52.6, '
@@ -3094,6 +3211,22 @@ add_para(
     'nothing significant (minimum q = 0.145), so the anchor provides directional, '
     'sub-threshold evidence that the pipeline responds to known Alzheimer\u2019s '
     'biology, not detection. (Supplementary Fig. 7; Supplementary Table 14.)'
+)
+add_para(
+    'Dose\u2013response check (notebooks/nc76_sea_ad_trend.py). Per-donor \u03c9 '
+    '(donor pseudobulk versus the 12-donor control centroid, k_f on each '
+    'pre-registered set over k_n on HRT HK) was correlated with the '
+    'donor-level Continuous Pseudo-progression Score and with the ordinal '
+    'ADNC ladder (87 donors: 3 Reference, 9 Not AD, 12 Low, 21 Intermediate, '
+    '42 High). The class-level elevations did not translate into a severity '
+    'gradient for the intended sets\u2014DAM core in microglia \u03c1 = 0.05 '
+    '(P = 0.66 versus progression), pan-reactive astrocyte in astrocytes '
+    '\u03c1 = \u22120.17 (P = 0.12)\u2014while nominally significant trends '
+    'appeared only off-target (homeostatic-microglia set in microglia '
+    '\u03c1 = 0.23, P = 0.03; A2-astrocyte set in astrocytes \u03c1 = '
+    '\u22120.22, P = 0.04). The donor-level dose\u2013response is therefore '
+    'absent for the pre-registered biology, consistent with the '
+    'sub-threshold reading above rather than with a robust anchor.'
 )
 
 add_heading('Supplementary Note 20: A Scoped Theoretical Framework for \u03c9', 2)
@@ -3415,7 +3548,7 @@ add_para('To test the neutral-drift specificity property on real data with a gro
 add_para('5.11 Fixed gene-panel ablation', bold=True)
 add_para('To test whether the brain conclusions depend on the per-pair circular selection of k_f genes (top-200 genes ranked by the absolute difference of the same two pseudobulks on which k_f is computed), we recomputed the entire observed brain landscape—all 31,764 pairs, with identical keep gene set, pseudobulks, and k_n—under three alternative gene-selection schemes: (i) a fixed panel of the 2,000 non-HK genes with the highest global mean expression (selected once, pair-independent); (ii) a leave-pair-out panel, in which the top-200 genes for a pair are selected by the mean absolute pseudobulk difference over all other region pairs of the same cell type (adaptive but not circular for the tested pair); and (iii) all 5,000 non-HK genes of the keep set. The reference implementation reproduced the reported landscape exactly (maximum per-pair |Δω| = 6.4 × 10⁻¹³). We summarized pair-level and class-level rank agreement (Spearman), the circularity inflation as the per-pair ratio of k_f under the reported scheme to k_f under each alternative, and the agreement of the multiplicative-residual ranking. A scheme-matched block-shuffle null (B = 200; minimum resolvable P ≈ 0.005) was rerun under the leave-pair-out scheme to verify that class-level significance does not depend on circular selection. Full results: Supplementary Note 9 and the results/fixed_panel_ablation_* files of the companion repository.')
 add_para('5.12 TCGA per-sample statistics and clinical severity analyses', bold=True)
-add_para('Per-tumor statistics were derived from the linear-normalization pair table under the ex-CC default (34,828 pairs: the 478 pairs touching the 32 cell-line-derived aliquots dropped from the 35,306-pair table of 2,000 TT pairs per cancer type drawn by seeded subsampling (1,709 for LIHC after the exclusion), complete NN pairs, and 2,000 TN pairs per cancer type; sample-labelled; the seeded subsampling carries a Monte-Carlo error of roughly 0.01–0.02 ratio units on the NN/TT mean ratio, below the between-cancer differences reported), as the mean of ω, k_f, and k_n over all pairs in which a given sample participates (median 4–11 pairs per tumor across cancer types). Group-level NN/TT and k_n ratios are reported as ratios of means with 95% confidence intervals from a sample-level cluster bootstrap (B = 1,000; seed 42): tumor and normal samples were resampled with replacement independently, each pair reweighted by the product of its endpoint resampling weights, and the ratio recomputed per resample; 95% CIs are the 2.5th and 97.5th percentiles of the resampled ratios. LUAD driver groups were assigned by matching cBioPortal mutation labels to the expression matrix by 15-character TCGA barcode (75 EGFR-labelled and 161 KRAS-labelled aliquots, of which 62 EGFR and 122 KRAS matched the matrix; 2 double mutants excluded), yielding 61 EGFR, 120 KRAS, and 311 wild-type tumors with pair coverage. Between-group differences were tested with Kruskal-Wallis followed by Dunn post-hoc tests with Holm correction (manual implementation, tie-corrected rank variances); group mean differences are reported with within-group bootstrap 95% CIs (B = 1,000). For covariate adjustment, stromal and immune admixture was scored per sample with the official ESTIMATE gene sets (141 stromal and 141 immune genes) using the rank-based single-sample enrichment algorithm over all 45,504 expressed genes of the five-cancer merged matrix; the combined stromal-plus-immune score served as the admixture covariate (it is monotonically equivalent to published ESTIMATE purity, leaving regression-based adjustment invariant). Smoking status (ever/never, TCGA tobacco-smoking-history indicator), age, sex, and pack-years for LUAD were obtained from cBioPortal (study luad_tcga, patient-level clinical data; smoking status available for 508, pack-years for 356, and sex for 522 patients) and merged by patient barcode (427 of 492 tumors with known smoking status, 87%). LUAD group contrasts were re-estimated by OLS with the admixture score as a covariate (metric ~ group + z-scored admixture), with ever-smoker status as a covariate, and in a combined model including both (with an age- and sex-adjusted variant); pack-years were not modeled owing to high missingness and are reported descriptively. The adjusted LUAD contrasts were verified by whole-tumor label-permutation tests that re-fit the full OLS adjustment model at every permutation (B = 10,000, seed 42): the KRAS contrasts remain significant (P ≤ 0.001) and the EGFR–WT contrast does not (P ≥ 0.28), matching the parametric conclusions (notebooks/nc52_tcga_luad_adjmodel_permutation.py, results/nc52_tcga_luad_adjmodel_permutation.csv). The LIHC survival analysis used Cox proportional-hazards regression (R survival::coxph) on the ex-CC default cohort (n = 272 tumors with complete covariates, 79 events) with per-tumor ω standardized to unit SD (hazard ratios per SD), AJCC stage entered as a categorical factor, plus Edmondson grade (G1–G4, ordinal), age, and sex, with listwise deletion of missing covariates; k_f-only, k_n-only, and tumor–normal-ω exposures were run as sensitivity models, and proportional hazards were checked with cox.zph (M2 GLOBAL P = 0.023, reported alongside the estimates). Scripts: notebooks/nc52_tcga_excc_main.py (seed 42), notebooks/nc52_lihc_cox_excc.py, notebooks/nc49_tcga_purity.py, notebooks/nc49_tcga_luad_smoking.py; outputs: results/nc52_tcga_pancancer_excc.csv, results/nc52_tcga_excc_severity.csv, results/nc49_tcga_luad_mutation.csv, results/nc52_lihc_cox_excc.csv, results/nc49_tcga_purity.csv, results/nc49_tcga_admix_scores.csv, results/nc49_tcga_luad_smoking.csv.')
+add_para('Per-tumor statistics were derived from the linear-normalization pair table under the ex-CC default (34,828 pairs: the 478 pairs touching the 32 cell-line-derived aliquots dropped from the 35,306-pair table of 2,000 TT pairs per cancer type drawn by seeded subsampling (1,709 for LIHC after the exclusion), complete NN pairs, and 2,000 TN pairs per cancer type; sample-labelled; the seeded subsampling carries a Monte-Carlo error of roughly 0.01–0.02 ratio units on the NN/TT mean ratio, below the between-cancer differences reported), as the mean of ω, k_f, and k_n over all pairs in which a given sample participates (median 4–11 pairs per tumor across cancer types). Group-level NN/TT and k_n ratios are reported as ratios of means with 95% confidence intervals from a sample-level cluster bootstrap (B = 1,000; seed 42): tumor and normal samples were resampled with replacement independently, each pair reweighted by the product of its endpoint resampling weights, and the ratio recomputed per resample; 95% CIs are the 2.5th and 97.5th percentiles of the resampled ratios. LUAD driver groups were assigned by matching cBioPortal mutation labels to the expression matrix by 15-character TCGA barcode (75 EGFR-labelled and 161 KRAS-labelled aliquots, of which 62 EGFR and 122 KRAS matched the matrix; 2 double mutants excluded), yielding 61 EGFR, 120 KRAS, and 311 wild-type tumors with pair coverage. Between-group differences were tested with Kruskal-Wallis followed by Dunn post-hoc tests with Holm correction (manual implementation, tie-corrected rank variances); group mean differences are reported with within-group bootstrap 95% CIs (B = 1,000). For covariate adjustment, stromal and immune admixture was scored per sample with the official ESTIMATE gene sets (141 stromal and 141 immune genes) using the rank-based single-sample enrichment algorithm over all 45,504 expressed genes of the five-cancer merged matrix; the combined stromal-plus-immune score served as the admixture covariate (it is monotonically equivalent to published ESTIMATE purity, leaving regression-based adjustment invariant). Smoking status (ever/never, TCGA tobacco-smoking-history indicator), age, sex, and pack-years for LUAD were obtained from cBioPortal (study luad_tcga, patient-level clinical data; smoking status available for 508, pack-years for 356, and sex for 522 patients) and merged by patient barcode (427 of 492 tumors with known smoking status, 87%). LUAD group contrasts were re-estimated by OLS with the admixture score as a covariate (metric ~ group + z-scored admixture), with ever-smoker status as a covariate, and in a combined model including both (with an age- and sex-adjusted variant); pack-years were not modeled owing to high missingness and are reported descriptively. The adjusted LUAD contrasts were verified by whole-tumor label-permutation tests that re-fit the full OLS adjustment model at every permutation (B = 10,000, seed 42): the KRAS contrasts remain significant (P ≤ 0.001) and the EGFR–WT contrast does not (P ≥ 0.28), matching the parametric conclusions (notebooks/nc52_tcga_luad_adjmodel_permutation.py, results/nc52_tcga_luad_adjmodel_permutation.csv). The LIHC survival analysis used Cox proportional-hazards regression (R survival::coxph) on the ex-CC default cohort (n = 272 tumors with complete covariates, 79 events) with per-tumor ω standardized to unit SD (hazard ratios per SD), AJCC stage entered as a categorical factor, plus Edmondson grade (G1–G4, ordinal), age, and sex, with listwise deletion of missing covariates; k_f-only, k_n-only, and tumor–normal-ω exposures were run as sensitivity models, and proportional hazards were checked with cox.zph (M2 GLOBAL P = 0.023, reported alongside the estimates), with time-dependent remedies confirming the null (time-transform tt coefficient P = 0.131; epoch-split ω HRs 1.25 early / 0.83 late, difference Wald P = 0.244; notebooks/nc76_lihc_cox_timevarying.py); the 13 EGFR-labelled aliquots not matching the expression matrix comprise 8 aliquots from tumour source sites outside the 32-site LUAD expression set and 5 patients without an expression aliquot, exclusions driven by sample logistics rather than expression or mutation properties. Scripts: notebooks/nc52_tcga_excc_main.py (seed 42), notebooks/nc52_lihc_cox_excc.py, notebooks/nc49_tcga_purity.py, notebooks/nc49_tcga_luad_smoking.py; outputs: results/nc52_tcga_pancancer_excc.csv, results/nc52_tcga_excc_severity.csv, results/nc49_tcga_luad_mutation.csv, results/nc52_lihc_cox_excc.csv, results/nc49_tcga_purity.csv, results/nc49_tcga_admix_scores.csv, results/nc49_tcga_luad_smoking.csv.')
 add_para('In supplementary within-cancer-type stratification analyses, we computed intratumoral ω for samples within each clinical stratum using the hybrid scheme. BRCA PAM50 subtype calls [52,53] were retrieved directly from the cBioPortal API (brca_tcga_pub study, PAM50_SUBTYPE clinical attribute; 522 samples with subtype calls, cached locally for reproducibility, of which 506 had matched expression data and entered the analysis); no de novo centroid-based classification was performed in this work. LIHC Edmondson grades [54] came from cBioPortal (372 patients with calls in the cached pull; 289 ex-CC tumors with pair coverage entered the analysis), and LUAD mutation status (EGFR, KRAS, WT) from cBioPortal (n = 492 samples). Between-stratum differences were tested with Kruskal-Wallis (PAM50 subtypes, LUAD mutations) and trend with Jonckheere-Terpstra (Edmondson grades). Paired versus unpaired tumor-normal comparisons are reported as descriptive statistics (medians and interquartile ranges, IQRs) without formal P-values, as the paired design does not meet the independence assumption of standard between-group tests. k_f-only and k_n component controls for the ordering claims were computed with the identical pipeline (per-cancer loading, gene filtering, and TT-pair subsampling), stratifying per-tumor mean k_f and k_n exactly as for ω; per-cell-type mean k_f for the cross-organ ranking was computed from the same pseudobulks and per-pair gene selection (notebooks/83_kf_only_ordering.py; results/kf_only_ordering.csv; results/kf_only_severity.csv; Supplementary Note 5).')
 add_para('5.13 Computational environment', bold=True)
 add_para('Typical runtime for a single cell-type pair is under 5 minutes on a standard laptop; the full brain analysis (31,764 pairs) required approximately 72 core-hours on a Windows x64 workstation with at least 32 GB RAM (the verified environment of the Reproducibility Guide, Section 1.1 of the Supplementary Information). All analyses were performed in Python 3.14.4 with scanpy 1.12.1 [45], scipy ≥ 1.10.0, numpy ≥ 1.23.0, pandas ≥ 1.5.0, matplotlib ≥ 3.6.0, seaborn [55] ≥ 0.12.0, and scikit-learn [56] ≥ 1.2.0; random seeds were fixed at 42 throughout, except scripts 77/78/79, which used seed 20260903, and the small-cluster studentized bootstrap-t analysis (notebooks/89_cluster_boot_v45.py), which used seed 20260905. Permutation results are stable with respect to seed choice: with B = 1,000 permutations the Monte Carlo standard error of the empirical P-value is approximately 0.016 at P = 0.5, so seed variation has negligible impact on statistical conclusions.')
