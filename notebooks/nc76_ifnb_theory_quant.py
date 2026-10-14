@@ -12,13 +12,22 @@ Per Note 20 definitions, for each cell type:
   estimand   = alpha + (E_f + 2*C_bf) / E_b
   observed   = median omega (stim-ctrl) = k_f / (E_b + phi_HK)
   bias       = observed - estimand   (multiplicative deflation from A1 failure)
-  bound      = 2 * sqrt(E_f / E_b)   (Cauchy-Schwarz cross-term bound; covers
-               the NUMERATOR cross term C_bf only)
+  bound      = 2 * sqrt(alpha * E_f / E_b)   (Cauchy-Schwarz cross-term bound;
+               covers the NUMERATOR cross term C_bf only)
+
+NOTE (nc77 correction): the sqrt(alpha) factor is required. Lemma 1b evaluates
+E_b on the HK panel but E_f and C_bf on the pair-specific top-200 panel, so
+Cauchy-Schwarz is applied in the top-200 inner product, where the background
+energy is alpha*E_b, not E_b:
+    |C_bf| <= sqrt(Var_200(beta) * Var_200(phi)) = sqrt(alpha * E_b * E_f)
+    =>  |2 C_bf / E_b| <= 2 * sqrt(alpha * E_f / E_b).
+The manuscript previously quoted 2*sqrt(E_f/E_b), which understates the bound
+by sqrt(alpha) ~ 2.8-4.4x here.
 
 The check answers: does the omega bias under A1 failure fall inside the
-2*sqrt(E_f/E_b) bound? (Expected: NO in the strongly anchor-affected types -
-the bound covers C_bf, not denominator leakage; the operative guard is the
-k_n rise itself, per the Identification paragraph.)
+2*sqrt(alpha*E_f/E_b) bound? (Expected: NO in the most strongly anchor-affected
+type - the bound covers C_bf, not denominator leakage; the operative guard is
+the k_n rise itself, per the Identification paragraph.)
 
 Data loading mirrors notebooks/79_kang_ifnb_demo.py verbatim.
 
@@ -207,7 +216,7 @@ for ct in sorted(set(ctypes)):
     estimand = alpha + Ef_2C / E_b
     omega_obs = kf_stim / kn_stim
     bias = omega_obs - estimand
-    bound = 2 * np.sqrt(Ef / E_b)
+    bound = 2 * np.sqrt(alpha * Ef / E_b)
     defl = phi_HK / kn_stim  # multiplicative deflation fraction
     rows.append({
         "cell_type": ct, "n_donors": len(donors),
@@ -216,7 +225,7 @@ for ct in sorted(set(ctypes)):
         "deflation_frac": defl, "alpha_splithalf": alpha,
         "kf_stim_ctrl": kf_stim, "Ef_plus_2Cbf": Ef_2C,
         "estimand": estimand, "omega_obs": omega_obs,
-        "bias": bias, "bound_2sqrtEfEb": float(bound),
+        "bias": bias, "bound_2sqrt_aEf_Eb": float(bound),
         "inside_bound": bool(abs(bias) <= bound),
     })
     print(f"  [{ct}] E_b={E_b:.5f} phi_HK/E_b={phi_HK/E_b:.2f} "
@@ -237,7 +246,8 @@ for r in rows:
         f"k_n(stim)={r['kn_stim_ctrl']:.5f} phi/E_b={r['phi_over_Eb']:.2f} "
         f"deflation={r['deflation_frac']*100:.0f}% alpha={r['alpha_splithalf']:.2f} "
         f"estimand={r['estimand']:.2f} omega={r['omega_obs']:.2f} "
-        f"bias={r['bias']:+.2f} bound 2sqrt(E_f/E_b)={r['bound_2sqrtEfEb']:.2f} "
+        f"bias={r['bias']:+.2f} bound 2sqrt(a*E_f/E_b)="
+        f"{r['bound_2sqrt_aEf_Eb']:.2f} "
         f"inside={r['inside_bound']}")
 (OUT / "nc76_ifnb_theory_quant.txt").write_text("\n".join(lines) + "\n",
                                                 encoding="utf-8")

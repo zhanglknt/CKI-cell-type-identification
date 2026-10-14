@@ -7,8 +7,8 @@
  1. CKI_Manuscript_NC.docx  (71,078 bytes)
  2. CKI_NC_Cover_Letter.docx  (38,729 bytes)
  3. CKI_Reproducibility_Guide_NC.docx  (50,756 bytes)
- 4. CKI_Supplementary_NC.docx  (122,068 bytes)
- 5. CKI_Supplementary_Tables_NC.xlsx  (1,579,282 bytes)
+ 4. CKI_Supplementary_NC.docx  (122,332 bytes)
+ 5. CKI_Supplementary_Tables_NC.xlsx  (1,579,283 bytes)
  6. CKI_Tables_NC.xlsx  (5,829 bytes)
  7. CKI_graphical_abstract.pdf  (382,594 bytes)
  8. Supplementary_Fig_1.pdf  (1,491,906 bytes)
@@ -27,12 +27,12 @@
 21. figure5.pdf  (3,350,153 bytes)
 
 SHA-256 checksums:
-  fca8d388c5dc210ce040b789df9c380fa4c4d2996fedc3b9c63fa8cbd96019c8  CKI_Manuscript_NC.docx
-  cb0e9952446bb9839de7e14c9f05c83056c2477d0865574a64af97559e762cbc  CKI_NC_Cover_Letter.docx
-  c7f9a463c5bdeb0500c7a1307f0bdb43c5626c5c77ad0a53f770e7d9e4359c0b  CKI_Reproducibility_Guide_NC.docx
-  d9e6d7f9e66edc7c85b1a854cd288d1f0c033c0a4ce6101cac04e0a6a131aead  CKI_Supplementary_NC.docx
-  e4a971f3ab0b609e6229434b57d8c59661742c903eb84cd06a5319d20d076233  CKI_Supplementary_Tables_NC.xlsx
-  4fb392958779a03919176557307b0da03650385028da402e1b6cbe859c3e1d6d  CKI_Tables_NC.xlsx
+  e2ed43f51734b3641c7d77fb8bda51e844ecf922d2857277e55504eee5eaab43  CKI_Manuscript_NC.docx
+  75535122b13cb3778d7c106597f29225bd8c630f51c4215ce0cc447343db5cb5  CKI_NC_Cover_Letter.docx
+  f3988eb662a8de1bf51a593fafee3e2ae2be3ec52172dfa21fe2584c250be9fe  CKI_Reproducibility_Guide_NC.docx
+  38f76d6b466c98abe5e6db941bc19097556094bb4b750d7e0de9a8cb011150af  CKI_Supplementary_NC.docx
+  2ba43d90a0f74dbe08c8846242c5e47798adc2c26ed0b1ef2fe6b8b0d40ff0c5  CKI_Supplementary_Tables_NC.xlsx
+  4d63555ae428b402ee4c2b6954b1a5ac5d8ef7c691e5b1b439e49b23474ef84d  CKI_Tables_NC.xlsx
   c8529c93bc3197f0a8838a7a0d4be6000aff4bb03f906f04d338d59d603c3299  CKI_graphical_abstract.pdf
   977626cd235ab5fb0e6e5b8cbf51979b202b8f4792aec61a3eec4e184ead95b5  Supplementary_Fig_1.pdf
   2b52fc52a4d994a0f42a616a1b7af7f1b80944cb98d62e5bc7ec5c40e0eb871b  Supplementary_Fig_2.pdf
