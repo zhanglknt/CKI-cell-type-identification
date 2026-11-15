@@ -1,0 +1,76 @@
+TCGA composition check v2: myeloid panel + cluster bootstrap
+======================================================================
+Pairs: 25306 (reused from 73, seed 42 pipeline); panels: immune(7) + myeloid(5) + stromal(6) + epithelial(4)
+
+Panel genes kept per cancer (after mean TPM>=0.5 filter):
+  TCGA-LUAD: immune=CD3D,CD3E,CD79A,CD8A,GZMB,MS4A1,NKG7; myeloid=C1QA,CD163,CD68,FCGR3A,LST1; stromal=COL1A1,COL1A2,DCN,FAP,LUM,VIM; epithelial=EPCAM,KRT18,KRT19,KRT8
+  TCGA-LUSC: immune=CD3D,CD3E,CD79A,CD8A,GZMB,MS4A1,NKG7; myeloid=C1QA,CD163,CD68,FCGR3A,LST1; stromal=COL1A1,COL1A2,DCN,FAP,LUM,VIM; epithelial=EPCAM,KRT18,KRT19,KRT8
+  TCGA-LIHC: immune=CD3D,CD3E,CD79A,CD8A,GZMB,NKG7; myeloid=C1QA,CD163,CD68,FCGR3A,LST1; stromal=COL1A1,COL1A2,DCN,FAP,LUM,VIM; epithelial=EPCAM,KRT18,KRT19,KRT8
+  TCGA-KIRC: immune=CD3D,CD3E,CD79A,CD8A,GZMB,NKG7; myeloid=C1QA,CD163,CD68,FCGR3A,LST1; stromal=COL1A1,COL1A2,DCN,FAP,LUM,VIM; epithelial=EPCAM,KRT18,KRT19,KRT8
+  TCGA-BRCA: immune=CD3D,CD3E,CD79A,CD8A,GZMB,MS4A1,NKG7; myeloid=C1QA,CD163,CD68,FCGR3A,LST1; stromal=COL1A1,COL1A2,DCN,FAP,LUM,VIM; epithelial=EPCAM,KRT18,KRT19,KRT8
+
+[C3_dcomp_TT_gt_NN_myeloid] |Delta myeloid|: TT median=0.749 NN median=0.747
+    effect = 1.003    P = 0.99
+
+[C3_dcomp_TT_gt_NN_overall3] |Delta overall3|: TT median=0.813 NN median=0.610
+    effect = 1.333    P = 1.12e-151
+
+[C3_dcomp_TT_gt_NN_overall4] |Delta overall4|: TT median=0.834 NN median=0.673
+    effect = 1.239    P = 9.39e-77
+
+[C4_attenuation_TCGA-LUAD] TT coef +1.0864 -> 3-panel +1.0701 (att +1.5%) -> 4-panel(+myeloid) +1.1089 (att -2.1%)
+    effect = -0.02071
+
+[C4_attenuation_TCGA-LUSC] TT coef +0.8520 -> 3-panel +0.8174 (att +4.1%) -> 4-panel(+myeloid) +0.9242 (att -8.5%)
+    effect = -0.08475
+
+[C4_attenuation_TCGA-LIHC] TT coef +0.5667 -> 3-panel +0.3448 (att +39.2%) -> 4-panel(+myeloid) +0.3761 (att +33.6%)
+    effect = 0.3364
+
+[C4_attenuation_TCGA-KIRC] TT coef +1.1939 -> 3-panel +0.9167 (att +23.2%) -> 4-panel(+myeloid) +0.9590 (att +19.7%)
+    effect = 0.1968
+
+[C4_attenuation_TCGA-BRCA] TT coef +0.9995 -> 3-panel +1.1180 (att -11.9%) -> 4-panel(+myeloid) +1.1396 (att -14.0%)
+    effect = -0.1402
+
+[C4_attenuation_pooled] TT coef +1.0506 -> 3-panel +0.9909 (att +5.7%) -> 4-panel(+myeloid) +1.0556 (att -0.5%)
+    effect = -0.004773
+
+[C5_spearman_kn_dcomp4_TT_pooled] rho(4-panel)=0.387 (n=10000)
+    effect = 0.3867    P = 0
+
+[C5_spearman_kn_dcomp4_TT_TCGA-LUAD] rho(4-panel)=0.358 (n=2000)
+    effect = 0.3581    P = 1.48e-61
+
+[C5_spearman_kn_dcomp4_TT_TCGA-LUSC] rho(4-panel)=0.287 (n=2000)
+    effect = 0.2868    P = 3.55e-39
+
+[C5_spearman_kn_dcomp4_TT_TCGA-LIHC] rho(4-panel)=0.250 (n=2000)
+    effect = 0.2504    P = 5.82e-30
+
+[C5_spearman_kn_dcomp4_TT_TCGA-KIRC] rho(4-panel)=0.519 (n=2000)
+    effect = 0.5186    P = 4.23e-138
+
+[C5_spearman_kn_dcomp4_TT_TCGA-BRCA] rho(4-panel)=0.233 (n=2000)
+    effect = 0.2332    P = 4.17e-26
+
+[BOOT_attenuation_pooled_4panel] median -0.4%, 95% CI [-3.2%, +2.6%] (B=200, sample-level cluster bootstrap)
+    effect = -0.003906
+
+[BOOT_attenuation_pooled_3panel] median +5.5%, 95% CI [+2.7%, +8.7%] (B=200)
+    effect = 0.05527
+
+[BOOT_attenuation_TCGA-LUAD_4panel] median -2.3%, 95% CI [-7.6%, +4.8%]
+    effect = -0.02307
+
+[BOOT_attenuation_TCGA-LUSC_4panel] median -9.7%, 95% CI [-28.4%, +6.7%]
+    effect = -0.09708
+
+[BOOT_attenuation_TCGA-LIHC_4panel] median +33.5%, 95% CI [+23.0%, +46.9%]
+    effect = 0.3351
+
+[BOOT_attenuation_TCGA-KIRC_4panel] median +19.6%, 95% CI [+14.6%, +25.7%]
+    effect = 0.1963
+
+[BOOT_attenuation_TCGA-BRCA_4panel] median -14.0%, 95% CI [-23.2%, -5.7%]
+    effect = -0.1404

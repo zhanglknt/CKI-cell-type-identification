@@ -1,0 +1,104 @@
+{
+  "baseline_omega": 6.67,
+  "baseline_source": "Mouse split-half equivalent populations (n=6, mean omega=6.67)",
+  "brain": {
+    "n_pairs": 31764,
+    "omega_raw_mean": 47.741802635258985,
+    "omega_raw_median": 35.27832978698987,
+    "omega_cal_mean": 7.157691549514091,
+    "omega_cal_median": 5.289104915590685,
+    "omega_cal_range": [
+      0.9025809253921515,
+      50.9761781634
+    ],
+    "per_cell_type": {
+      "Bergmann glia": {
+        "omega_raw_mean": 16.42,
+        "omega_cal_mean": 2.461769115442279,
+        "omega_raw_median": 14.0,
+        "omega_cal_median": 2.098950524737631,
+        "n_pairs": 21
+      },
+      "Vascular": {
+        "omega_raw_mean": 18.47,
+        "omega_cal_mean": 2.7691154422788604,
+        "omega_raw_median": 16.85,
+        "omega_cal_median": 2.5262368815592207,
+        "n_pairs": 3321
+      },
+      "Fibroblast": {
+        "omega_raw_mean": 24.26,
+        "omega_cal_mean": 3.6371814092953527,
+        "omega_raw_median": 20.55,
+        "omega_cal_median": 3.08095952023988,
+        "n_pairs": 3403
+      },
+      "Microglia": {
+        "omega_raw_mean": 31.99,
+        "omega_cal_mean": 4.796101949025487,
+        "omega_raw_median": 28.56,
+        "omega_cal_median": 4.281859070464767,
+        "n_pairs": 5671
+      },
+      "Ependymal": {
+        "omega_raw_mean": 32.33,
+        "omega_cal_mean": 4.847076461769115,
+        "omega_raw_median": 29.68,
+        "omega_cal_median": 4.4497751124437785,
+        "n_pairs": 780
+      },
+      "Committed oligodendrocyte precursor": {
+        "omega_raw_mean": 33.78,
+        "omega_cal_mean": 5.064467766116942,
+        "omega_raw_median": 31.69,
+        "omega_cal_median": 4.75112443778111,
+        "n_pairs": 1326
+      },
+      "Oligodendrocyte": {
+        "omega_raw_mean": 41.08,
+        "omega_cal_mean": 6.1589205397301345,
+        "omega_raw_median": 38.05,
+        "omega_cal_median": 5.704647676161919,
+        "n_pairs": 5778
+      },
+      "Choroid plexus": {
+        "omega_raw_mean": 48.21,
+        "omega_cal_mean": 7.227886056971514,
+        "omega_raw_median": 42.49,
+        "omega_cal_median": 6.370314842578711,
+        "n_pairs": 15
+      },
+      "Oligodendrocyte precursor": {
+        "omega_raw_mean": 50.62,
+        "omega_cal_mean": 7.589205397301349,
+        "omega_raw_median": 45.19,
+        "omega_cal_median": 6.77511244377811,
+        "n_pairs": 5671
+      },
+      "Astrocyte": {
+        "omega_raw_mean": 103.08,
+        "omega_cal_mean": 15.454272863568216,
+        "omega_raw_median": 91.52,
+        "omega_cal_median": 13.721139430284857,
+        "n_pairs": 5778
+      }
+    }
+  },
+  "mouse": {
+    "n_pairs": 703,
+    "control_omega_raw": 6.67,
+    "control_omega_cal": 1.0,
+    "S_omega_raw": 21.31,
+    "S_omega_cal": 3.194902548725637,
+    "D_omega_raw": 43.19,
+    "D_omega_cal": 6.475262368815592
+  },
+  "human": {
+    "n_pairs": 15,
+    "omega_raw_mean": 21.629385553899077,
+    "omega_raw_median": 19.708178470569987,
+    "omega_cal_mean": 3.2427864398649295,
+    "omega_cal_median": 2.9547493958875544
+  },
+  "interpretation": "Calibrated omega (omega_cal = omega / 6.67) rescales all values so that equivalent populations have omega_cal ~ 1.0. Mouse controls: omega_cal = 1.00 (raw 6.67). Brain global mean: omega_cal = 7.16 (raw 47.74). Astrocytes: omega_cal = 15.45 if available. Bergmann glia: omega_cal = 2.46. Values > 1 indicate functional divergence exceeding the empirical baseline."
+}

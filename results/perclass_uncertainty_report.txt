@@ -1,0 +1,26 @@
+========================================================================
+P1-2: per-class calibration uncertainty (region-clustered joint bootstrap)
+========================================================================
+
+B = 5000, seed 42. Numerator: region-clustered weighted mean of pair omega (regions resampled with replacement; pair weight mult(a)*mult(b)). Denominator: two-stage baseline draw (regions with replacement, then the 50 split-half omega values within each drawn region with replacement).
+
+U1/U2  Per-class baselines and joint calibrated omega:
+                          cell_type  n_baseline_regions  n_baseline_splits  baseline_popmean  baseline_two_stage_lo  baseline_two_stage_hi  n_pairs_crossregion  omega_crossregion  omega_cal_class  omega_cal_class_lo  omega_cal_class_hi  divergent_joint_ci
+                          Astrocyte                   3                150          9.264667               8.248371              10.324702                 5778          82.748246         8.931594            7.831078           10.234793                True
+                      Bergmann glia                   2                100          9.083308               8.705423               9.470291                   21          13.555116         1.492311            0.990735            2.123262               False
+                     Choroid plexus                   3                150         10.662783               8.203620              14.725682                   15          37.756092         3.540923            2.261622            5.921614                True
+Committed oligodendrocyte precursor                   3                150         12.523220              10.321699              14.032223                 1326          28.838673         2.302816            1.915143            2.866282                True
+                          Ependymal                   3                150          9.886557               8.675855              11.414368                  780          22.976860         2.324051            1.883507            2.820750                True
+                         Fibroblast                   3                150         11.156530               7.301401              13.703541                 3403          18.183008         1.629809            1.248347            2.448799                True
+                          Microglia                   3                150          7.583480               7.202429               8.179143                 5671          24.309847         3.205632            2.822739            3.632726                True
+                    Oligodendrocyte                   3                150          9.553633               8.263237              10.427447                 5778          37.054414         3.878568            3.429523            4.478666                True
+          Oligodendrocyte precursor                   3                150          9.073497               8.529360               9.539909                 5671          40.618299         4.476587            4.038093            4.961617                True
+                           Vascular                   3                150          8.258733               7.732749               8.657231                 3321          13.558538         1.641721            1.478007            1.826730                True
+
+U3  Astrocyte / Bergmann-glia gradient:
+     point estimate                     : 5.99x
+     joint region-clustered 95% CI     : [4.12, 9.18]
+     published i.i.d.-numerator 95% CI  : [4.86, 7.42]  (wider: True)
+
+U4  Divergent vs own class baseline (joint 95% CI excludes 1):
+     9 of 10 classes

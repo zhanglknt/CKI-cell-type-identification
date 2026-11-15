@@ -1,0 +1,56 @@
+========================================================================
+P2-3: per-class split-half calibration (brain atlas, 10 classes)
+========================================================================
+
+Sanity: grand split-half mean = 9.7261 (published 9.7261, 29 populations, 1450 splits, match=True)
+Sanity: Bergmann glia region-clustered CI = [9.13, 19.49] (published [8.49, 19.52])
+
+C1  Class-specific baselines (split-half, mean of region means):
+                          cell_type  n_regions  n_splits  baseline_popmean  baseline_lo  baseline_hi  baseline_kf  baseline_kn
+                          Microglia          3       150            7.5835       7.2344       8.2236       0.0009       0.0001
+                           Vascular          3       150            8.2587       7.7090       8.6241       0.0146       0.0018
+          Oligodendrocyte precursor          3       150            9.0735       8.5038       9.5587       0.0005       0.0001
+                      Bergmann glia          2       100            9.0833       8.7826       9.3840       0.0012       0.0001
+                          Astrocyte          3       150            9.2647       8.2370      10.3354       0.0006       0.0001
+                    Oligodendrocyte          3       150            9.5536       8.2384      10.4160       0.0001       0.0000
+                          Ependymal          3       150            9.8866       8.6251      11.4328       0.0073       0.0008
+                     Choroid plexus          3       150           10.6628       8.1632      14.8983       0.0063       0.0008
+                         Fibroblast          3       150           11.1565       7.2875      13.7302       0.0125       0.0012
+Committed oligodendrocyte precursor          3       150           12.5232      10.2716      13.7120       0.0196       0.0015
+
+C2  Cross-region omega, region-clustered CI, and calibrated values:
+                          cell_type  n_pairs_crossregion  omega_crossregion  omega_rc_lo  omega_rc_hi  baseline_class  omega_cal_class  omega_cal_class_lo  omega_cal_class_hi  omega_cal_mouse  omega_cal_brainglobal
+                          Microglia                 5671             24.310       21.807       26.984           7.583            3.206               2.970               3.380            3.645                  2.499
+                           Vascular                 3321             13.559       12.341       14.825           8.259            1.642               1.570               1.756            2.033                  1.394
+          Oligodendrocyte precursor                 5671             40.618       37.203       44.384           9.073            4.477               4.258               4.760            6.090                  4.176
+                      Bergmann glia                   21             13.555        9.088       19.352           9.083            1.492               1.254               1.805            2.032                  1.394
+                          Astrocyte                 5778             82.748       76.048       89.520           9.265            8.932               8.017               9.997           12.406                  8.508
+                    Oligodendrocyte                 5778             37.054       34.424       39.808           9.554            3.879               3.558               4.485            5.555                  3.810
+                          Ependymal                  780             22.977       19.683       26.763           9.887            2.324               2.023               2.662            3.445                  2.362
+                     Choroid plexus                   15             37.756       27.297       56.191          10.663            3.541               2.474               5.099            5.661                  3.882
+                         Fibroblast                 3403             18.183       15.917       20.606          11.157            1.630               1.335               2.488            2.726                  1.870
+Committed oligodendrocyte precursor                 1326             28.839       24.947       32.585          12.523            2.303               2.077               2.791            4.324                  2.965
+
+C3  Astrocyte / Bergmann-glia gradient:
+     raw ratio                            : 6.10x
+     mouse 6.67 / brain-global 9.73       : ratio unchanged (a shared constant cancels);
+         levels change: astrocyte 12.41 -> 8.51, Bergmann glia 2.03 -> 1.39
+     per-class baselines                  : 5.99x [4.86, 7.42]
+     (E2's 6.10 x 6.67/9.73 ~ 4.2x mixes two calibrations and
+      is not a ratio of consistently calibrated values)
+
+C4  'All ten classes diverge beyond baseline'?
+     criterion: region-clustered 95% CI of class mean excludes
+               the calibration point
+     mouse calibration (6.67)        : 10/10 divergent
+     brain-global (9.73)              : 9/10 divergent
+     per-class baselines              : 10/10 divergent
+     per-class, combined bootstrap CI : 10/10 divergent
+     classes flipping (brain-global -> per-class):
+       Bergmann glia                          rc-CI [9.09, 19.35] vs baseline 9.08 -> divergent (omega_cal_class 1.49 [1.25, 1.81])
+
+C5  Gradient decomposition (Astrocyte vs Bergmann glia):
+     per-pair-mean gradient (headline) : 6.10x
+     ratio-of-means gradient           : 6.51x = k_f ratio 2.03 x k_n effect 3.21 (identity holds: True)
+
+Files: results/perclass_calibration.csv / .json / report above

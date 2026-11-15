@@ -1,0 +1,32 @@
+{
+  "seed": 42,
+  "n_populations": 6,
+  "n_splits_per_population": 50,
+  "n_split_omegas_total": 300,
+  "reference_baseline_6split": 6.67,
+  "reference_ci95_6split": [
+    4.24,
+    9.24
+  ],
+  "rep_baseline_mean": 7.696,
+  "rep_baseline_sd": 1.146,
+  "rep_baseline_ci95_t": [
+    7.37,
+    8.021
+  ],
+  "rep_baseline_ci95_boot": [
+    7.382,
+    8.017
+  ],
+  "pooled_mean": 7.696,
+  "pooled_sd": 3.633,
+  "pooled_ci95_t": [
+    7.283,
+    8.109
+  ],
+  "pooled_ci95_boot": [
+    7.302,
+    8.121
+  ],
+  "runtime_sec": 90.0
+}

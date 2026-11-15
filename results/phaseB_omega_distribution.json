@@ -1,0 +1,53 @@
+{
+  "Brain (per-pair)": {
+    "n": 31764,
+    "mean": 38.5451,
+    "std": 32.3267,
+    "median": 28.6788,
+    "min": 3.4343,
+    "max": 267.1139,
+    "skewness": 2.2169,
+    "excess_kurtosis": 6.0154,
+    "normality_test": "D'Agostino-Pearson",
+    "normality_stat": 14497.5898,
+    "normality_p": 0.0,
+    "is_normal": false,
+    "log_normality_p": 5.7678e-164,
+    "is_log_normal": false,
+    "distribution_type": "log-normal"
+  },
+  "Mouse (all pairs)": {
+    "n": 703,
+    "mean": 5.7087,
+    "std": 5.6978,
+    "median": 4.0567,
+    "min": 0.2829,
+    "max": 37.9291,
+    "skewness": 2.9294,
+    "excess_kurtosis": 10.143,
+    "normality_test": "Shapiro-Wilk",
+    "normality_stat": 0.6773,
+    "normality_p": 1.77e-34,
+    "is_normal": false,
+    "log_normality_p": 0.00011156,
+    "is_log_normal": false,
+    "distribution_type": "log-normal"
+  },
+  "Human (analyzed pairs)": {
+    "n": 4851,
+    "mean": 21.6135,
+    "std": 10.4689,
+    "median": 19.6532,
+    "min": 1.3528,
+    "max": 87.6947,
+    "skewness": 1.1689,
+    "excess_kurtosis": 2.3053,
+    "normality_test": "Shapiro-Wilk",
+    "normality_stat": 0.9346,
+    "normality_p": 7.5609e-42,
+    "is_normal": false,
+    "log_normality_p": 2.9904e-19,
+    "is_log_normal": false,
+    "distribution_type": "log-normal"
+  }
+}

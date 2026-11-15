@@ -1,0 +1,25 @@
+Pseudo-region negative control for the brain block-shuffle null
+======================================================================
+B = 1000 permutations; split seed = 20260903
+Pseudo pairs total = 127756
+
+[all pairs (lower tail)] n=127756  tail(P<0.05)=5.967%  binom P=1.46e-53  KS D=0.0632 (P=0)
+[all pairs (upper tail)] n=127756  tail(P<0.05)=6.842%  binom P=6.76e-181  KS D=0.0622 (P=0)
+[same-origin (lower tail)] n=700  tail(P<0.05)=37.571%  binom P=7.19e-153  KS D=0.4585 (P=4.12e-135)
+[same-origin (upper tail)] n=700  tail(P<0.05)=2.000%  binom P=8.2e-05  KS D=0.4595 (P=9.86e-136)
+[cross-origin (lower tail)] n=127056  tail(P<0.05)=5.793%  binom P=9.25e-37  KS D=0.0649 (P=0)
+[cross-origin (upper tail)] n=127056  tail(P<0.05)=6.869%  binom P=6.78e-185  KS D=0.0639 (P=0)
+
+Real-data reference (brain_bs_null_results.csv): lower tail 6.171%, upper tail 7.902%
+
+Per-CT:
+  Astrocyte                                pairs= 23220 mean(p_low)=0.559 mean(p_high)=0.442
+  Bergmann glia                            pairs=    91 mean(p_low)=0.308 mean(p_high)=0.693
+  Choroid plexus                           pairs=    66 mean(p_low)=0.579 mean(p_high)=0.422
+  Committed oligodendrocyte precursor      pairs=  5356 mean(p_low)=0.558 mean(p_high)=0.443
+  Ependymal                                pairs=  3160 mean(p_low)=0.568 mean(p_high)=0.433
+  Fibroblast                               pairs= 13695 mean(p_low)=0.550 mean(p_high)=0.451
+  Microglia                                pairs= 22791 mean(p_low)=0.493 mean(p_high)=0.508
+  Oligodendrocyte                          pairs= 23220 mean(p_low)=0.502 mean(p_high)=0.499
+  Oligodendrocyte precursor                pairs= 22791 mean(p_low)=0.558 mean(p_high)=0.443
+  Vascular                                 pairs= 13366 mean(p_low)=0.545 mean(p_high)=0.456

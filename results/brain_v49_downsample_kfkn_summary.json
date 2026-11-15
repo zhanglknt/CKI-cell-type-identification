@@ -1,0 +1,24 @@
+{
+  "seed": 42,
+  "downsample_replicates": 20,
+  "downsample_target_cells": 4118,
+  "gradient_omega_mean": 1.7405997577854333,
+  "gradient_omega_sd": 0.06824957844929651,
+  "gradient_omega_ci95": [
+    1.6353194841569383,
+    1.8356196978381856
+  ],
+  "gradient_kf_mean": 2.093439763732761,
+  "gradient_kf_ci95": [
+    2.022045459570054,
+    2.17982378555334
+  ],
+  "gradient_kn_mean": 1.2893970731231232,
+  "gradient_kn_ci95": [
+    1.206925530905042,
+    1.4104010087968069
+  ],
+  "spearman_omega_vs_kf_astrocyte": 0.18796992481203004,
+  "spearman_omega_vs_kn_astrocyte": -0.5744360902255639,
+  "runtime_sec": 594.5
+}

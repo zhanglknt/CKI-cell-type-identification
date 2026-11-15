@@ -1,0 +1,5 @@
+metric,observed_spearman_r,cluster_boot_ci_lo,cluster_boot_ci_hi,naive_pair_boot_ci_lo,naive_pair_boot_ci_hi,cluster_boot_se,naive_boot_se,note
+js_raw,-0.396,-0.5364,-0.2265,-0.4214,-0.3717,0.0793,0.0126,"entry-cluster bootstrap (99 pseudobulk entries, pair weight = product of endpoint multiplicities), B=5000, seed=42; replaces independence-assuming P values (P < 1e-145)"
+spearman_dist,-0.461,-0.5764,-0.335,-0.4826,-0.4385,0.0617,0.0112,"entry-cluster bootstrap (99 pseudobulk entries, pair weight = product of endpoint multiplicities), B=5000, seed=42; replaces independence-assuming P values (P < 1e-145)"
+cosine_dist,-0.386,-0.5182,-0.2262,-0.4107,-0.3619,0.0738,0.0125,"entry-cluster bootstrap (99 pseudobulk entries, pair weight = product of endpoint multiplicities), B=5000, seed=42; replaces independence-assuming P values (P < 1e-145)"
+marker_jaccard_dist,-0.3578,-0.5056,-0.1876,-0.3832,-0.3329,0.0811,0.013,"entry-cluster bootstrap (99 pseudobulk entries, pair weight = product of endpoint multiplicities), B=5000, seed=42; replaces independence-assuming P values (P < 1e-145)"

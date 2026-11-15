@@ -1,0 +1,95 @@
+{
+  "cell_types": {
+    "B cells": {
+      "n_cells": 2573,
+      "n_donors": 6,
+      "median_omega_stim_ctrl": 25.932650167480183,
+      "median_omega_donor_donor": 14.035118911443039,
+      "median_omega_split_half": 7.543214878431353,
+      "omega_cal_stim_ctrl": 3.437877693452768,
+      "omega_cal_donor_donor": 1.8606282782125527,
+      "n_sig_perm": 3,
+      "min_perm_P": 0.000999000999000999,
+      "auc_omega": 0.9222222222222223,
+      "auc_kf": 1.0,
+      "auc_raw_js": 1.0
+    },
+    "CD14+ Monocytes": {
+      "n_cells": 5385,
+      "n_donors": 8,
+      "median_omega_stim_ctrl": 28.378398906987506,
+      "median_omega_donor_donor": 25.655051943170733,
+      "median_omega_split_half": 12.421318882252972,
+      "omega_cal_stim_ctrl": 2.2846526343940257,
+      "omega_cal_donor_donor": 2.0654048242675365,
+      "n_sig_perm": 3,
+      "min_perm_P": 0.000999000999000999,
+      "auc_omega": 0.5513392857142857,
+      "auc_kf": 0.984375,
+      "auc_raw_js": 1.0
+    },
+    "CD4 T cells": {
+      "n_cells": 10389,
+      "n_donors": 8,
+      "median_omega_stim_ctrl": 33.35979631034688,
+      "median_omega_donor_donor": 17.45912593208295,
+      "median_omega_split_half": 18.946618066833445,
+      "omega_cal_stim_ctrl": 1.7607256446861135,
+      "omega_cal_donor_donor": 0.9214903615250266,
+      "n_sig_perm": 1,
+      "min_perm_P": 0.007992007992007992,
+      "auc_omega": 0.703125,
+      "auc_kf": 0.7433035714285714,
+      "auc_raw_js": 0.7924107142857143
+    },
+    "CD8 T cells": {
+      "n_cells": 2042,
+      "n_donors": 4,
+      "median_omega_stim_ctrl": 28.91253282102295,
+      "median_omega_donor_donor": 17.926849448410646,
+      "median_omega_split_half": 8.952151549458385,
+      "omega_cal_stim_ctrl": 3.229674191873147,
+      "omega_cal_donor_donor": 2.002518539746486,
+      "n_sig_perm": 2,
+      "min_perm_P": 0.000999000999000999,
+      "auc_omega": 0.7916666666666666,
+      "auc_kf": 0.8541666666666666,
+      "auc_raw_js": 0.875
+    },
+    "FCGR3A+ Monocytes": {
+      "n_cells": 1599,
+      "n_donors": 5,
+      "median_omega_stim_ctrl": 27.778041529627128,
+      "median_omega_donor_donor": 24.088236558392694,
+      "median_omega_split_half": 8.999602404233492,
+      "omega_cal_stim_ctrl": 3.086585415880161,
+      "omega_cal_donor_donor": 2.6765889732041246,
+      "n_sig_perm": 2,
+      "min_perm_P": 0.000999000999000999,
+      "auc_omega": 0.8,
+      "auc_kf": 1.0,
+      "auc_raw_js": 1.0
+    },
+    "NK cells": {
+      "n_cells": 1993,
+      "n_donors": 6,
+      "median_omega_stim_ctrl": 19.284570237809724,
+      "median_omega_donor_donor": 9.886811835163156,
+      "median_omega_split_half": 6.685098914980081,
+      "omega_cal_stim_ctrl": 2.884709782617657,
+      "omega_cal_donor_donor": 1.4789327668747914,
+      "n_sig_perm": 4,
+      "min_perm_P": 0.000999000999000999,
+      "auc_omega": 0.8388888888888889,
+      "auc_kf": 0.9944444444444445,
+      "auc_raw_js": 1.0
+    }
+  },
+  "config": {
+    "B_PERM": 1000,
+    "N_TOP_KF": 200,
+    "N_SPLIT_HALF": 6,
+    "SEED": 20260903,
+    "min_group_cells": 50
+  }
+}

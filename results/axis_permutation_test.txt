@@ -1,0 +1,25 @@
+Thalamo-temporal axis enrichment: permutation test (78)
+======================================================================
+Pool: 5778 mature-oligodendrocyte pairs (brain_bs_null_results.csv)
+Observed: 10 Strong candidates; B = 100000 permutations
+
+[thalamic_relay] thalamic-relay endpoint
+    observed 6/10 (pool base rate 19.4%)
+    permutation P (>= observed) = 1.005e-05   [null mean 1.95, max 8]
+    hypergeometric P (reference, assumes independent draws) = 0.005422
+
+[TF] temporal-fusiform (TF) endpoint
+    observed 4/10 (pool base rate 1.9%)
+    permutation P (>= observed) = 1e-05   [null mean 0.19, max 4]
+    hypergeometric P (reference, assumes independent draws) = 2.143e-05
+
+[thalamotemporal] thalamo-temporal axis endpoint (thalamic relay U STH U TF)
+    observed 9/10 (pool base rate 22.7%)
+    permutation P (>= observed) = 1e-05   [null mean 2.27, max 9]
+    hypergeometric P (reference, assumes independent draws) = 1.26e-05
+
+Interpretation: the permutation null resamples candidate sets
+from the same pair pool, preserving endpoint co-occurrence;
+it does not require independent endpoint draws. P-values are
+nominal: the axis definition was fixed after inspecting the
+ten candidates (post-hoc, single version reported).

@@ -1,0 +1,364 @@
+{
+  "sanity": {
+    "recomputed_grand": 9.7261,
+    "published_value": 9.7261,
+    "match": true,
+    "n_populations": 29,
+    "n_splits": 1450
+  },
+  "sanity_bergmann_rc_ci": {
+    "point": 13.56,
+    "ci": [
+      9.13,
+      19.49
+    ],
+    "published": [
+      8.49,
+      19.52
+    ]
+  },
+  "baselines": [
+    {
+      "cell_type": "Microglia",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 7.583479650558371,
+      "baseline_lo": 7.234410822730524,
+      "baseline_hi": 8.223578226717885,
+      "baseline_kf": 0.0009022561854001806,
+      "baseline_kn": 0.00012079175661071945
+    },
+    {
+      "cell_type": "Vascular",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 8.258732593674173,
+      "baseline_lo": 7.709014699667438,
+      "baseline_hi": 8.624133930537262,
+      "baseline_kf": 0.01458923631195468,
+      "baseline_kn": 0.001791447852790753
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 9.073497165923081,
+      "baseline_lo": 8.503810584301139,
+      "baseline_hi": 9.558730028104225,
+      "baseline_kf": 0.0005437492490462633,
+      "baseline_kn": 6.0873737503537886e-05
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "n_regions": 2,
+      "n_splits": 100,
+      "baseline_popmean": 9.083307774260964,
+      "baseline_lo": 8.782590270745176,
+      "baseline_hi": 9.384025277776752,
+      "baseline_kf": 0.001242050214854483,
+      "baseline_kn": 0.00013433701676440434
+    },
+    {
+      "cell_type": "Astrocyte",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 9.264667070026997,
+      "baseline_lo": 8.237031680089922,
+      "baseline_hi": 10.335421214558624,
+      "baseline_kf": 0.0005725434874048033,
+      "baseline_kn": 6.384042871514136e-05
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 9.553633094459586,
+      "baseline_lo": 8.238382134815447,
+      "baseline_hi": 10.415967031382966,
+      "baseline_kf": 0.00012928113032516139,
+      "baseline_kn": 1.4159031159322357e-05
+    },
+    {
+      "cell_type": "Ependymal",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 9.886556789708413,
+      "baseline_lo": 8.625124514028839,
+      "baseline_hi": 11.432795090193329,
+      "baseline_kf": 0.0072968101685786,
+      "baseline_kn": 0.0007897904579572292
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 10.662782648813566,
+      "baseline_lo": 8.163179309011504,
+      "baseline_hi": 14.898304970382844,
+      "baseline_kf": 0.006262891320339803,
+      "baseline_kn": 0.000753681218785708
+    },
+    {
+      "cell_type": "Fibroblast",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 11.156529747163008,
+      "baseline_lo": 7.287459538915228,
+      "baseline_hi": 13.730172868254122,
+      "baseline_kf": 0.012519495373015771,
+      "baseline_kn": 0.0012204441166796753
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "n_regions": 3,
+      "n_splits": 150,
+      "baseline_popmean": 12.523220485717962,
+      "baseline_lo": 10.271569584966292,
+      "baseline_hi": 13.71199055532878,
+      "baseline_kf": 0.01955665111140043,
+      "baseline_kn": 0.001479268608030477
+    }
+  ],
+  "calibration": [
+    {
+      "cell_type": "Microglia",
+      "n_pairs_crossregion": 5671,
+      "omega_crossregion": 24.30984686096646,
+      "omega_rc_lo": 21.807144014557306,
+      "omega_rc_hi": 26.98366722161984,
+      "baseline_class": 7.583479650558371,
+      "baseline_lo": 7.234410822730524,
+      "baseline_hi": 8.223578226717885,
+      "omega_cal_class": 3.205632240231109,
+      "omega_cal_class_lo": 2.9700104063366153,
+      "omega_cal_class_hi": 3.379942010518229,
+      "omega_cal_mouse": 3.644654701794072,
+      "omega_cal_brainglobal": 2.4994532139148613,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Vascular",
+      "n_pairs_crossregion": 3321,
+      "omega_crossregion": 13.558538233542956,
+      "omega_rc_lo": 12.341309125633957,
+      "omega_rc_hi": 14.82475756566031,
+      "baseline_class": 8.258732593674173,
+      "baseline_lo": 7.709014699667438,
+      "baseline_hi": 8.624133930537262,
+      "omega_cal_class": 1.6417214239298898,
+      "omega_cal_class_lo": 1.5704450623348207,
+      "omega_cal_class_hi": 1.7555373541956047,
+      "omega_cal_mouse": 2.032764352855016,
+      "omega_cal_brainglobal": 1.3940413593567649,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "n_pairs_crossregion": 5671,
+      "omega_crossregion": 40.6182991233601,
+      "omega_rc_lo": 37.20307758072934,
+      "omega_rc_hi": 44.38382536611226,
+      "baseline_class": 9.073497165923081,
+      "baseline_lo": 8.503810584301139,
+      "baseline_hi": 9.558730028104225,
+      "omega_cal_class": 4.476586963173185,
+      "omega_cal_class_lo": 4.2575411927573805,
+      "omega_cal_class_hi": 4.760356302380739,
+      "omega_cal_mouse": 6.089700018494768,
+      "omega_cal_brainglobal": 4.176231091387527,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "n_pairs_crossregion": 21,
+      "omega_crossregion": 13.5551161644348,
+      "omega_rc_lo": 9.087701153623858,
+      "omega_rc_hi": 19.35245039702157,
+      "baseline_class": 9.083307774260964,
+      "baseline_lo": 8.782590270745176,
+      "baseline_hi": 9.384025277776752,
+      "omega_cal_class": 1.4923105658541522,
+      "omega_cal_class_lo": 1.2537345561273434,
+      "omega_cal_class_hi": 1.8051184947760928,
+      "omega_cal_mouse": 2.032251299015712,
+      "omega_cal_brainglobal": 1.3936895142102472,
+      "divergent_mouse": true,
+      "divergent_brainglobal": false,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Astrocyte",
+      "n_pairs_crossregion": 5778,
+      "omega_crossregion": 82.7482460243405,
+      "omega_rc_lo": 76.04755731910622,
+      "omega_rc_hi": 89.5201563752668,
+      "baseline_class": 9.264667070026997,
+      "baseline_lo": 8.237031680089922,
+      "baseline_hi": 10.335421214558624,
+      "omega_cal_class": 8.93159413057024,
+      "omega_cal_class_lo": 8.016915078267132,
+      "omega_cal_class_hi": 9.99687119305644,
+      "omega_cal_mouse": 12.406033886707721,
+      "omega_cal_brainglobal": 8.507884506810628,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "n_pairs_crossregion": 5778,
+      "omega_crossregion": 37.054413640720455,
+      "omega_rc_lo": 34.4236905395671,
+      "omega_rc_hi": 39.8078130890344,
+      "baseline_class": 9.553633094459586,
+      "baseline_lo": 8.238382134815447,
+      "baseline_hi": 10.415967031382966,
+      "omega_cal_class": 3.878567794508387,
+      "omega_cal_class_lo": 3.5581486900101957,
+      "omega_cal_class_hi": 4.484920968986229,
+      "omega_cal_mouse": 5.555384353931102,
+      "omega_cal_brainglobal": 3.8098048825120157,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Ependymal",
+      "n_pairs_crossregion": 780,
+      "omega_crossregion": 22.97685975883077,
+      "omega_rc_lo": 19.683161614929233,
+      "omega_rc_hi": 26.762773953575397,
+      "baseline_class": 9.886556789708413,
+      "baseline_lo": 8.625124514028839,
+      "baseline_hi": 11.432795090193329,
+      "omega_cal_class": 2.3240507537213504,
+      "omega_cal_class_lo": 2.0230797484403467,
+      "omega_cal_class_hi": 2.6617172336460424,
+      "omega_cal_mouse": 3.444806560544343,
+      "omega_cal_brainglobal": 2.3624001540747446,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "n_pairs_crossregion": 15,
+      "omega_crossregion": 37.756091796470805,
+      "omega_rc_lo": 27.29693579820933,
+      "omega_rc_hi": 56.190696218044906,
+      "baseline_class": 10.662782648813566,
+      "baseline_lo": 8.163179309011504,
+      "baseline_hi": 14.898304970382844,
+      "omega_cal_class": 3.540922950415,
+      "omega_cal_class_lo": 2.4735702630348713,
+      "omega_cal_class_hi": 5.098576418767268,
+      "omega_cal_mouse": 5.660583477731755,
+      "omega_cal_brainglobal": 3.8819489701138226,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Fibroblast",
+      "n_pairs_crossregion": 3403,
+      "omega_crossregion": 18.183008091415875,
+      "omega_rc_lo": 15.917451362383337,
+      "omega_rc_hi": 20.6064275578593,
+      "baseline_class": 11.156529747163008,
+      "baseline_lo": 7.287459538915228,
+      "baseline_hi": 13.730172868254122,
+      "omega_cal_class": 1.6298085967134743,
+      "omega_cal_class_lo": 1.3350841019165343,
+      "omega_cal_class_hi": 2.487694680756291,
+      "omega_cal_mouse": 2.7260881696275674,
+      "omega_cal_brainglobal": 1.8695131348483751,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "n_pairs_crossregion": 1326,
+      "omega_crossregion": 28.83867331983169,
+      "omega_rc_lo": 24.947086537029524,
+      "omega_rc_hi": 32.58528551597699,
+      "baseline_class": 12.523220485717962,
+      "baseline_lo": 10.271569584966292,
+      "baseline_hi": 13.71199055532878,
+      "omega_cal_class": 2.302816064982693,
+      "omega_cal_class_lo": 2.0772216538001014,
+      "omega_cal_class_hi": 2.791416934167448,
+      "omega_cal_mouse": 4.3236391783855606,
+      "omega_cal_brainglobal": 2.9650912704856274,
+      "divergent_mouse": true,
+      "divergent_brainglobal": true,
+      "divergent_class": true,
+      "divergent_class_combinedCI": true
+    }
+  ],
+  "gradient": {
+    "raw": 6.10457667942758,
+    "constant_calibration_invariant": true,
+    "per_class": 5.985077325682588,
+    "per_class_ci95": [
+      4.862249407878294,
+      7.420410700538509
+    ],
+    "levels": {
+      "astrocyte": {
+        "mouse": 12.406033886707721,
+        "brain_global": 8.507884506810628,
+        "per_class": 8.93159413057024
+      },
+      "bergmann_glia": {
+        "mouse": 2.032251299015712,
+        "brain_global": 1.3936895142102472,
+        "per_class": 1.4923105658541522
+      }
+    },
+    "note": "any single shared calibration constant cancels in a ratio; the E2-proposed 6.10*6.67/9.73 mixes calibrations and is not a ratio of consistently calibrated values; levels under brain-internal calibration are the correct restatement"
+  },
+  "classification": {
+    "n_classes": 10,
+    "n_divergent": {
+      "mouse": 10,
+      "brain_global": 9,
+      "per_class": 10,
+      "per_class_combined_CI": 10
+    },
+    "flips_vs_brainglobal": [
+      {
+        "cell_type": "Bergmann glia",
+        "omega_rc_lo": 9.087701153623858,
+        "omega_rc_hi": 19.35245039702157,
+        "baseline_class": 9.083307774260964,
+        "omega_cal_class": 1.4923105658541522,
+        "omega_cal_class_lo": 1.2537345561273434,
+        "omega_cal_class_hi": 1.8051184947760928
+      }
+    ]
+  },
+  "decomposition": {
+    "gradient_pairmean": 6.10457667942758,
+    "gradient_ctlevel": 6.5134892251058965,
+    "kf_ratio": 2.0268117022240437,
+    "kn_ratio_inverse": 3.21366272849055,
+    "identity_holds": true,
+    "note": "per-pair mean omega is mean(kf/kn); the multiplicative identity kf-ratio / kn-ratio holds exactly only for the ratio-of-means gradient (6.51x), as already stated in the manuscript"
+  }
+}

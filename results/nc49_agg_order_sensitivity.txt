@@ -1,0 +1,28 @@
+Aggregation-order sensitivity on the mouse pilot's 15 comparisons
+==================================================================
+legacy order softmax(mean(log1p)) vs brain order softmax(log1p(mean counts))
+same cells, same HK set, order-matched per-pair top-200 DE selection
+
+Spearman rho (15 comparisons)       : 0.779 (P = 0.00063)
+Spearman rho (within-category cats) : 0.714 (P = 0.0061)
+median fold (brain/legacy omega)    : 0.96x
+fold range                          : 0.40x - 9.75x
+control (C) category median omega   : legacy 6.46 -> brain 10.94
+
+Per-comparison table:
+                                                   comparison  category  n_a  n_b  omega_legacy  kn_legacy  kf_legacy  omega_brain_order  kn_brain_order  kf_brain_order  fold_brain_over_legacy
+                                        C: hepatocyte (Liver) C_control  199  200     12.160541   0.000261   0.003176          14.688426        0.000853        0.012523                1.207876
+                                  C: endothelial cell (Heart) C_control  568  569      6.573117   0.000315   0.002073           7.658820        0.000977        0.007483                1.165173
+                                           C: B cell (Spleen) C_control  619  619      6.338450   0.000261   0.001654           7.243629        0.000844        0.006116                1.142808
+                                           C: B cell (Marrow) C_control  924  924      5.223529   0.000167   0.000871           9.898878        0.000443        0.004384                1.895056
+                                        C: fibroblast (Heart) C_control 1026 1026      8.147910   0.000107   0.000875          11.978970        0.000222        0.002654                1.470189
+                                       C: neutrophil (Marrow) C_control  299  300      1.593802   0.000226   0.000360          15.543506        0.000465        0.007227                9.752469
+                                 S: B cell (Marrow vs Spleen) S_same_ct  433  245     42.772811   0.004038   0.172727          16.920348        0.008538        0.144467                0.395587
+                                   S: B cell (Spleen vs Lung) S_same_ct  245   27      8.801142   0.008680   0.076390           6.771108        0.017401        0.117821                0.769344
+                          S: endothelial cell (Heart vs Lung) S_same_ct  286  248     19.180924   0.015752   0.302140          13.253266        0.025553        0.338661                0.690961
+                     S: natural killer cell (Marrow vs Liver) S_same_ct   48   28     14.468216   0.006056   0.087624          17.766280        0.009369        0.166451                1.227952
+D: hepatocyte vs endothelial cell of hepatic sinusoid (Liver) D_diff_ct  157  162     30.090669   0.020690   0.622581          25.127111        0.025055        0.629570                0.835047
+                             D: B cell vs neutrophil (Marrow) D_diff_ct  433  161     37.770196   0.017291   0.653066          28.915369        0.024703        0.714298                0.765560
+                    D: endothelial cell vs fibroblast (Heart) D_diff_ct  286  590     61.715322   0.010019   0.618301          58.947237        0.011413        0.672751                0.955148
+                       X: hepatocyte(Liver) vs B cell(Marrow)   X_cross  157  433     31.646711   0.018462   0.584277          23.123992        0.027481        0.635468                0.730692
+          X: cardiac muscle cell(Heart) vs neutrophil(Marrow)   X_cross   36  161     22.964913   0.034046   0.781868          19.517824        0.041620        0.812332                0.849898

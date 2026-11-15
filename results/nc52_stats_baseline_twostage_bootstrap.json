@@ -1,0 +1,71 @@
+{
+  "seed": 42,
+  "B": 5000,
+  "n_populations": 6,
+  "n_splits_per_population": 50,
+  "observed_mean": 7.6958,
+  "population_means_sd": {
+    "Heart|endothelial cell": {
+      "mean": 7.2318,
+      "sd": 1.5878
+    },
+    "Heart|fibroblast": {
+      "mean": 7.0011,
+      "sd": 1.7314
+    },
+    "Liver|hepatocyte": {
+      "mean": 12.4354,
+      "sd": 5.9818
+    },
+    "Marrow|B cell": {
+      "mean": 7.3631,
+      "sd": 1.3933
+    },
+    "Marrow|neutrophil": {
+      "mean": 5.7683,
+      "sd": 2.6692
+    },
+    "Spleen|B cell": {
+      "mean": 6.3749,
+      "sd": 0.9344
+    }
+  },
+  "two_stage_ci95": [
+    6.3798,
+    9.8184
+  ],
+  "single_stage_iid300_ci95": [
+    7.3075,
+    8.1087
+  ],
+  "published_ci95_v44": [
+    7.37,
+    8.02
+  ],
+  "t_ci95_6pop": [
+    5.1801,
+    10.2115
+  ],
+  "lopo_values": [
+    6.7479,
+    7.7623,
+    7.7886,
+    7.8347,
+    7.9599,
+    8.0813
+  ],
+  "omega_cal_precision": {
+    "definition": "omega_cal = omega / baseline_mean",
+    "relative_halfwidth_published": 0.0422,
+    "relative_halfwidth_two_stage": 0.2234,
+    "example_omega_cal_1_induced_range_two_stage": [
+      0.784,
+      1.206
+    ],
+    "example_omega_cal_2_induced_range_two_stage": [
+      1.568,
+      2.413
+    ],
+    "interpretation": "A two-stage 95% CI half-width of ~22.3% of the baseline means omega_cal carries roughly 1 significant digit of calibration precision; reporting omega_cal to more than ~0.1 absolute resolution overstates the calibration constant (supports Note 3 argument)."
+  }
+}

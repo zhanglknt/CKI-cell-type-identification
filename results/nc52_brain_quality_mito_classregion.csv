@@ -1,0 +1,855 @@
+ct,roi,mean_mito_frac
+Astrocyte,Human A13,0.0030878677492273254
+Astrocyte,Human A14,0.005887915503373112
+Astrocyte,Human A19,0.001463935808845367
+Astrocyte,Human A1C,0.00238774558098646
+Astrocyte,Human A23,0.0016402412362003349
+Astrocyte,Human A24,0.0020111645256233953
+Astrocyte,Human A25,0.0019082668916795807
+Astrocyte,Human A29-A30,0.004513050283514308
+Astrocyte,Human A32,0.0014241170856606972
+Astrocyte,Human A35-36,0.001208269587983736
+Astrocyte,Human A35-A36,0.002928846453761871
+Astrocyte,Human A35r,0.0015864618333508679
+Astrocyte,Human A38,0.003509840156393534
+Astrocyte,Human A40,0.003911788423427629
+Astrocyte,Human A43,0.0038303573891807414
+Astrocyte,Human A44-A45,0.002113777535615312
+Astrocyte,Human A46,0.0008934980772004693
+Astrocyte,Human A5-A7,0.003211579174224803
+Astrocyte,Human ANC,0.0015359485749626982
+Astrocyte,Human AON,0.002584888775585956
+Astrocyte,Human BL,0.0014904993295558678
+Astrocyte,Human BM,0.0012208321031509852
+Astrocyte,Human BNST,0.005756497688357514
+Astrocyte,Human CA1-3,0.002873297306476939
+Astrocyte,Human CA1C-CA3C,0.0023336859624446646
+Astrocyte,Human CA1R-CA2R,0.002627711423850897
+Astrocyte,Human CA1R-CA2R-CA3R,0.004479940099159543
+Astrocyte,Human CA1U,0.0018632773926742674
+Astrocyte,Human CA1U-CA2U-CA3U,0.0025352196582287432
+Astrocyte,Human CA2U-CA3U,0.0013944555643585577
+Astrocyte,Human CA3R,0.0015234793160507547
+Astrocyte,Human CA4C-DGC,0.002078435256535216
+Astrocyte,Human CBL,0.0010140248104487015
+Astrocyte,Human CBV,0.0010927548486828489
+Astrocyte,Human CEN,0.002095907331751709
+Astrocyte,Human CM,0.005016154284021593
+Astrocyte,Human CM-Pf,0.0019958525608229447
+Astrocyte,Human CMN,0.0013945797055649454
+Astrocyte,Human CaB,0.0016776112819485499
+Astrocyte,Human CbDN,0.003234727813551297
+Astrocyte,Human Cla,0.0025269235313278853
+Astrocyte,Human CoA,0.003077077583951616
+Astrocyte,Human DGR-CA4Rpy,0.0019878926690350164
+Astrocyte,Human DGU-CA4Upy,0.0011323492446288746
+Astrocyte,Human DTg,0.0013123024853097126
+Astrocyte,Human ETH,0.003808620278281678
+Astrocyte,Human FI,0.0010892398438000176
+Astrocyte,Human GPe,0.0009855211353267156
+Astrocyte,Human GPi,0.00045418842338676896
+Astrocyte,Human Gpe,0.0006704850387299374
+Astrocyte,Human HTHma,0.0009283112407313057
+Astrocyte,Human HTHma-HTHtub,0.001374767966154831
+Astrocyte,Human HTHpo,0.0069891418588198355
+Astrocyte,Human HTHpo-HTHso,0.002889228584109297
+Astrocyte,Human HTHso,0.008380240489727051
+Astrocyte,Human HTHso-HTHtub,0.001450142893857515
+Astrocyte,Human HTHtub,0.006954268512615998
+Astrocyte,Human IC,0.001786970387546109
+Astrocyte,Human IO,0.0007741005279187458
+Astrocyte,Human ITG,0.0025365296869145344
+Astrocyte,Human Idg,0.0031179389666165847
+Astrocyte,Human Ig,0.0013856717995673008
+Astrocyte,Human LEC,0.0031843179241652533
+Astrocyte,Human LG,0.005239537594917895
+Astrocyte,Human LP,0.0006861581609727658
+Astrocyte,Human LP-VPL,0.00453659375266951
+Astrocyte,Human La,0.002530048073957359
+Astrocyte,Human M1C,0.005017662426277173
+Astrocyte,Human MD,0.004628498883320906
+Astrocyte,Human MD-Re,0.004124151054695632
+Astrocyte,Human MEC,0.0016431276332135355
+Astrocyte,Human MG,0.0026996734064980038
+Astrocyte,Human MN,0.0006978070684284095
+Astrocyte,Human MTG,0.0013462195496994856
+Astrocyte,Human MoAN,0.0016142845659260867
+Astrocyte,Human MoRF-MoEN,0.0017988299018240035
+Astrocyte,Human MoSR,0.0009998041116930346
+Astrocyte,Human NAC,0.0037872283954810786
+Astrocyte,Human PAG,0.002799919512329297
+Astrocyte,Human PAG-DR,0.002053882344992669
+Astrocyte,Human PB,0.0010346776696440916
+Astrocyte,Human PN,0.003350021023068023
+Astrocyte,Human PTR,0.0012478700214459814
+Astrocyte,Human Pir,0.0017674667738562099
+Astrocyte,Human PnAN,0.0011586137624777107
+Astrocyte,Human PnEN,0.0013725314089386594
+Astrocyte,Human PnRF,0.0016653923743264402
+Astrocyte,Human Pro,0.0031129831161242406
+Astrocyte,Human Pu,0.0014350247943250847
+Astrocyte,Human Pul,0.0032762522146265413
+Astrocyte,Human RN,0.00023909064417130277
+Astrocyte,Human S1C,0.003388128843927299
+Astrocyte,Human SC,0.0013060510167697214
+Astrocyte,Human SEP,0.005241743544707143
+Astrocyte,Human SI,0.005209381080200331
+Astrocyte,Human SN,0.0014863679002812
+Astrocyte,Human SN-RN,0.0015773034501615354
+Astrocyte,Human STG,0.0030120826077649973
+Astrocyte,Human STH,0.0003303085701058814
+Astrocyte,Human SpC,0.001715368762432315
+Astrocyte,Human Sub,0.0013561752461971508
+Astrocyte,Human TF,0.0029624726439320347
+Astrocyte,Human TH-TL,0.0017473747972086332
+Astrocyte,Human V1C,0.0031218957856829206
+Astrocyte,Human V2,0.002107448204498809
+Astrocyte,Human VA,0.003937257685842335
+Astrocyte,Human VLN,0.0016027876054854771
+Astrocyte,Human VPL,0.0010569815481247477
+Bergmann glia,Human CBL,0.0005641928864506147
+Bergmann glia,Human CBV,0.0008641042134531129
+Bergmann glia,Human CbDN,0.002599603500291749
+Bergmann glia,Human DTg,0.0012787301054522702
+Bergmann glia,Human GPe,0.0002591344908007256
+Bergmann glia,Human IC,0.000387741989132226
+Bergmann glia,Human IO,0.0003123038067133643
+Bergmann glia,Human MN,0.00025133521834747095
+Bergmann glia,Human MoAN,0.0011584552203372795
+Bergmann glia,Human MoRF-MoEN,0.0012434828187248858
+Bergmann glia,Human MoSR,0.00034074031815176754
+Bergmann glia,Human PB,0.00031010552567593494
+Bergmann glia,Human PnAN,0.0013160195572163743
+Bergmann glia,Human PnEN,0.0008801626859286026
+Bergmann glia,Human PnRF,0.0012639262780392141
+Bergmann glia,Human Pul,0.002205071664829107
+Bergmann glia,Human RN,0.0029865604778496766
+Bergmann glia,Human SEP,0.0019508388607101053
+Bergmann glia,Human SpC,0.001026247734602072
+Choroid plexus,Human A5-A7,0.0023626299446469555
+Choroid plexus,Human ANC,0.04137922378077538
+Choroid plexus,Human CA1R-CA2R-CA3R,0.12701197565173458
+Choroid plexus,Human CM-Pf,0.04872547767990127
+Choroid plexus,Human CbDN,0.0017557228311645497
+Choroid plexus,Human DGR-CA4Rpy,0.019070215865497706
+Choroid plexus,Human HTHma-HTHtub,0.001407035175879397
+Choroid plexus,Human IC,0.00199700449326011
+Choroid plexus,Human LG,0.10962284102925626
+Choroid plexus,Human M1C,0.04736311723211287
+Choroid plexus,Human MD-Re,0.08548709941671466
+Choroid plexus,Human MN,0.0018214936247723133
+Choroid plexus,Human MoAN,0.003664291221363399
+Choroid plexus,Human MoRF-MoEN,0.014925651031444657
+Choroid plexus,Human MoSR,0.029629054944676894
+Choroid plexus,Human PnAN,0.014685248316174146
+Choroid plexus,Human PnEN,0.0010936132983377078
+Choroid plexus,Human PnRF,0.0001229256299938537
+Choroid plexus,Human Pul,0.06537856344347877
+Choroid plexus,Human SC,0.0035398230088495575
+Choroid plexus,Human SEP,0.009415578401923532
+Choroid plexus,Human SN-RN,0.0597864768683274
+Choroid plexus,Human STG,0.004909038406006353
+Choroid plexus,Human SpC,0.017685699848408287
+Committed oligodendrocyte precursor,Human A13,0.004042108545733903
+Committed oligodendrocyte precursor,Human A14,0.015459762765300955
+Committed oligodendrocyte precursor,Human A19,0.004186489374517912
+Committed oligodendrocyte precursor,Human A1C,0.0026210762830637807
+Committed oligodendrocyte precursor,Human A23,0.007020175708146469
+Committed oligodendrocyte precursor,Human A24,0.013861989050772773
+Committed oligodendrocyte precursor,Human A25,0.004938921687266964
+Committed oligodendrocyte precursor,Human A29-A30,0.0058477909482883865
+Committed oligodendrocyte precursor,Human A32,0.018821247153781216
+Committed oligodendrocyte precursor,Human A35-A36,0.004109252491775737
+Committed oligodendrocyte precursor,Human A35r,0.006633670838665809
+Committed oligodendrocyte precursor,Human A38,0.005350735992216498
+Committed oligodendrocyte precursor,Human A40,0.005845334727632874
+Committed oligodendrocyte precursor,Human A43,0.007652695380365506
+Committed oligodendrocyte precursor,Human A44-A45,0.004322285193722037
+Committed oligodendrocyte precursor,Human A46,0.005019748437653936
+Committed oligodendrocyte precursor,Human A5-A7,0.002087500441844651
+Committed oligodendrocyte precursor,Human ANC,0.01289535492861717
+Committed oligodendrocyte precursor,Human AON,0.005772135255010189
+Committed oligodendrocyte precursor,Human BL,0.005059141269685957
+Committed oligodendrocyte precursor,Human BM,0.004002772768858837
+Committed oligodendrocyte precursor,Human BNST,0.05975007870873978
+Committed oligodendrocyte precursor,Human CA1-3,0.010736614758319432
+Committed oligodendrocyte precursor,Human CA1C-CA3C,0.006747292086775539
+Committed oligodendrocyte precursor,Human CA1R-CA2R,0.013962575063099029
+Committed oligodendrocyte precursor,Human CA1R-CA2R-CA3R,0.011056808780344247
+Committed oligodendrocyte precursor,Human CA1U,0.007176590602250367
+Committed oligodendrocyte precursor,Human CA1U-CA2U-CA3U,0.0034206992812069446
+Committed oligodendrocyte precursor,Human CA2U-CA3U,0.019201824430964614
+Committed oligodendrocyte precursor,Human CA3R,0.027043315380582588
+Committed oligodendrocyte precursor,Human CA4C-DGC,0.005212445448928742
+Committed oligodendrocyte precursor,Human CBL,0.0027083329168557475
+Committed oligodendrocyte precursor,Human CBV,0.00469263511811443
+Committed oligodendrocyte precursor,Human CEN,0.006200230607821518
+Committed oligodendrocyte precursor,Human CM,0.04443802617835607
+Committed oligodendrocyte precursor,Human CM-Pf,0.012088034094670743
+Committed oligodendrocyte precursor,Human CMN,0.0071689746233230545
+Committed oligodendrocyte precursor,Human CaB,0.00806886022431865
+Committed oligodendrocyte precursor,Human CbDN,0.009839716046731341
+Committed oligodendrocyte precursor,Human Cla,0.0034354729576699834
+Committed oligodendrocyte precursor,Human CoA,0.009365019556147493
+Committed oligodendrocyte precursor,Human DGR-CA4Rpy,0.006431579658752788
+Committed oligodendrocyte precursor,Human DGU-CA4Upy,0.0042165919030697704
+Committed oligodendrocyte precursor,Human DTg,0.010155444973825629
+Committed oligodendrocyte precursor,Human ETH,0.016277250612953407
+Committed oligodendrocyte precursor,Human FI,0.0022837961152243924
+Committed oligodendrocyte precursor,Human GPe,0.009514259689758216
+Committed oligodendrocyte precursor,Human GPi,0.011420335107336135
+Committed oligodendrocyte precursor,Human Gpe,0.0009798432250839866
+Committed oligodendrocyte precursor,Human HTHma,0.002497026075794354
+Committed oligodendrocyte precursor,Human HTHma-HTHtub,0.014404900405159324
+Committed oligodendrocyte precursor,Human HTHpo,0.008918537479046595
+Committed oligodendrocyte precursor,Human HTHpo-HTHso,0.007256567668876641
+Committed oligodendrocyte precursor,Human HTHso,0.00829655969074472
+Committed oligodendrocyte precursor,Human HTHso-HTHtub,0.017747627408494327
+Committed oligodendrocyte precursor,Human HTHtub,0.023217612069250954
+Committed oligodendrocyte precursor,Human IC,0.01393595703057137
+Committed oligodendrocyte precursor,Human IO,0.0004884846738824852
+Committed oligodendrocyte precursor,Human ITG,0.010315150212689776
+Committed oligodendrocyte precursor,Human Idg,0.007279644746074864
+Committed oligodendrocyte precursor,Human Ig,0.0029282385372829023
+Committed oligodendrocyte precursor,Human LEC,0.004019210068074096
+Committed oligodendrocyte precursor,Human LG,0.02656000209816807
+Committed oligodendrocyte precursor,Human LP,0.0019626616973796975
+Committed oligodendrocyte precursor,Human LP-VPL,0.022023043181607204
+Committed oligodendrocyte precursor,Human La,0.00601147238920397
+Committed oligodendrocyte precursor,Human M1C,0.0048011786915989636
+Committed oligodendrocyte precursor,Human MD,0.052444446240605506
+Committed oligodendrocyte precursor,Human MD-Re,0.03172680542064086
+Committed oligodendrocyte precursor,Human MEC,0.004085160454323305
+Committed oligodendrocyte precursor,Human MG,0.0038443058266256764
+Committed oligodendrocyte precursor,Human MN,0.006366683849798689
+Committed oligodendrocyte precursor,Human MTG,0.007744864320227741
+Committed oligodendrocyte precursor,Human MoAN,0.00902211262283096
+Committed oligodendrocyte precursor,Human MoRF-MoEN,0.01104433056234372
+Committed oligodendrocyte precursor,Human MoSR,0.01373874421705064
+Committed oligodendrocyte precursor,Human NAC,0.008673555657590587
+Committed oligodendrocyte precursor,Human PAG,0.013835848413856952
+Committed oligodendrocyte precursor,Human PAG-DR,0.0038702161519960066
+Committed oligodendrocyte precursor,Human PB,0.010289746396089702
+Committed oligodendrocyte precursor,Human PN,0.008679527330605499
+Committed oligodendrocyte precursor,Human PTR,0.013996976055385324
+Committed oligodendrocyte precursor,Human Pir,0.010072747532885565
+Committed oligodendrocyte precursor,Human PnAN,0.007991725925024087
+Committed oligodendrocyte precursor,Human PnEN,0.007095580343830265
+Committed oligodendrocyte precursor,Human PnRF,0.013703387174565373
+Committed oligodendrocyte precursor,Human Pro,0.005306946329879045
+Committed oligodendrocyte precursor,Human Pu,0.005482236300887473
+Committed oligodendrocyte precursor,Human Pul,0.016947334190698746
+Committed oligodendrocyte precursor,Human RN,0.0009815342594368004
+Committed oligodendrocyte precursor,Human S1C,0.0017499145829429532
+Committed oligodendrocyte precursor,Human SC,0.001519401317268151
+Committed oligodendrocyte precursor,Human SEP,0.03655974102321893
+Committed oligodendrocyte precursor,Human SI,0.03571017493668147
+Committed oligodendrocyte precursor,Human SN,0.0076588287479318964
+Committed oligodendrocyte precursor,Human SN-RN,0.011159190772846236
+Committed oligodendrocyte precursor,Human STG,0.006525678761402071
+Committed oligodendrocyte precursor,Human STH,0.0012508225727237575
+Committed oligodendrocyte precursor,Human SpC,0.004910892719726122
+Committed oligodendrocyte precursor,Human Sub,0.00798944171937693
+Committed oligodendrocyte precursor,Human TF,0.012753044067343481
+Committed oligodendrocyte precursor,Human TH-TL,0.003482900577775818
+Committed oligodendrocyte precursor,Human V1C,0.0032330075618389473
+Committed oligodendrocyte precursor,Human V2,0.0068526128772521695
+Committed oligodendrocyte precursor,Human VA,0.0579101005852279
+Committed oligodendrocyte precursor,Human VLN,0.016843765625437268
+Committed oligodendrocyte precursor,Human VPL,0.0011167255036305332
+Ependymal,Human A43,0.14700432365657815
+Ependymal,Human ANC,0.006634754038646507
+Ependymal,Human BL,0.016543400618804573
+Ependymal,Human BM,0.0171265185660809
+Ependymal,Human BNST,0.01467823912180355
+Ependymal,Human CA1-3,0.0258883754804442
+Ependymal,Human CA1C-CA3C,0.01889366110934298
+Ependymal,Human CA1R-CA2R,0.02562208216091429
+Ependymal,Human CA1R-CA2R-CA3R,0.01970216436010733
+Ependymal,Human CA1U,0.023266442137721926
+Ependymal,Human CA1U-CA2U-CA3U,0.01781017838427879
+Ependymal,Human CA2U-CA3U,0.025192782255416494
+Ependymal,Human CA3R,0.012120364497209988
+Ependymal,Human CA4C-DGC,0.010299626005519627
+Ependymal,Human CBV,0.0011842327863305702
+Ependymal,Human CEN,0.03282167247802212
+Ependymal,Human CM-Pf,0.00931163878201007
+Ependymal,Human CMN,0.027152489582952834
+Ependymal,Human CaB,0.004027461263730233
+Ependymal,Human CbDN,0.011352295835094919
+Ependymal,Human DGR-CA4Rpy,0.024263230454056796
+Ependymal,Human DGU-CA4Upy,0.007112740729427306
+Ependymal,Human DTg,0.005256605651500011
+Ependymal,Human ETH,0.0202110001520787
+Ependymal,Human HTHma,0.017600405061605658
+Ependymal,Human HTHma-HTHtub,0.005400525838056391
+Ependymal,Human HTHpo,0.012410840749414113
+Ependymal,Human HTHpo-HTHso,0.006444558634695749
+Ependymal,Human HTHso,0.020964360587002098
+Ependymal,Human HTHso-HTHtub,0.012314090849908107
+Ependymal,Human HTHtub,0.022603632997554787
+Ependymal,Human IC,0.01592806156357698
+Ependymal,Human IO,0.00016891891891891893
+Ependymal,Human La,0.004835059063996705
+Ependymal,Human MD,0.03089438574087962
+Ependymal,Human MD-Re,0.011399460015635543
+Ependymal,Human MG,0.013241220495106506
+Ependymal,Human MN,0.002376351095896783
+Ependymal,Human MoAN,0.006182506018644953
+Ependymal,Human MoRF-MoEN,0.023196306657220694
+Ependymal,Human MoSR,0.014200623323178799
+Ependymal,Human NAC,0.009064079616169075
+Ependymal,Human PAG,0.008248814955005854
+Ependymal,Human PAG-DR,0.022543334940653387
+Ependymal,Human PB,0.006669709145239514
+Ependymal,Human PTR,0.026842097107151675
+Ependymal,Human PnAN,0.02526659039692541
+Ependymal,Human PnEN,0.014045078819662297
+Ependymal,Human PnRF,0.004404031948097422
+Ependymal,Human Pul,0.0122631728834035
+Ependymal,Human SC,0.0235605674928571
+Ependymal,Human SEP,0.01490408954742468
+Ependymal,Human SI,0.006376429199648197
+Ependymal,Human SN,0.0009011078663125643
+Ependymal,Human SN-RN,0.007432913855205494
+Ependymal,Human SpC,0.042869053304616885
+Ependymal,Human Sub,0.010473074261892394
+Ependymal,Human VA,0.012894692476103394
+Ependymal,Human VLN,0.012602621385734428
+Fibroblast,Human A13,0.004282975156053107
+Fibroblast,Human A14,0.0036602557299070097
+Fibroblast,Human A19,0.008173028803934826
+Fibroblast,Human A1C,0.0069702097476748
+Fibroblast,Human A23,0.007226122515081729
+Fibroblast,Human A24,0.011353693382654122
+Fibroblast,Human A25,0.007268030831918095
+Fibroblast,Human A29-A30,0.008173721358104957
+Fibroblast,Human A32,0.00532559465698415
+Fibroblast,Human A35-A36,0.00538066229591939
+Fibroblast,Human A35r,0.00804249501309035
+Fibroblast,Human A38,0.012045393051231128
+Fibroblast,Human A40,0.00661187767977361
+Fibroblast,Human A43,0.007084651879689654
+Fibroblast,Human A44-A45,0.004783381359020261
+Fibroblast,Human A46,0.008371613344027935
+Fibroblast,Human A5-A7,0.0034377772838001678
+Fibroblast,Human ANC,0.009293631752359846
+Fibroblast,Human AON,0.008094770767348412
+Fibroblast,Human BL,0.012726594369563882
+Fibroblast,Human BM,0.006474276887482583
+Fibroblast,Human BNST,0.01393178593230271
+Fibroblast,Human CA1-3,0.016283459162622214
+Fibroblast,Human CA1C-CA3C,0.008419337862651347
+Fibroblast,Human CA1R-CA2R,0.011935102162265572
+Fibroblast,Human CA1R-CA2R-CA3R,0.011748724276146084
+Fibroblast,Human CA1U,0.006160921694708994
+Fibroblast,Human CA1U-CA2U-CA3U,0.005114534342131178
+Fibroblast,Human CA3R,0.003076646804028138
+Fibroblast,Human CA4C-DGC,0.005271773417690638
+Fibroblast,Human CBL,0.005154058374645682
+Fibroblast,Human CBV,0.005162941015353115
+Fibroblast,Human CEN,0.009159554025398576
+Fibroblast,Human CM,0.01777020016385971
+Fibroblast,Human CM-Pf,0.006536473869371487
+Fibroblast,Human CMN,0.010091868131733192
+Fibroblast,Human CaB,0.005486258327890702
+Fibroblast,Human CbDN,0.010499454609572806
+Fibroblast,Human Cla,0.018554342366922695
+Fibroblast,Human CoA,0.007592482381478981
+Fibroblast,Human DGR-CA4Rpy,0.008014376244974853
+Fibroblast,Human DGU-CA4Upy,0.00485337397539624
+Fibroblast,Human DTg,0.009769678297186517
+Fibroblast,Human ETH,0.006824651154139643
+Fibroblast,Human FI,0.006849605249494409
+Fibroblast,Human GPe,0.0065076579035006485
+Fibroblast,Human GPi,0.005081310325678572
+Fibroblast,Human Gpe,0.011355521662048151
+Fibroblast,Human HTHma,0.008692857329446486
+Fibroblast,Human HTHma-HTHtub,0.0031449729259380816
+Fibroblast,Human HTHpo,0.03290804906098964
+Fibroblast,Human HTHpo-HTHso,0.0068423886181547865
+Fibroblast,Human HTHso,0.006783940403429055
+Fibroblast,Human HTHso-HTHtub,0.008227575588842007
+Fibroblast,Human HTHtub,0.010140365876382606
+Fibroblast,Human IC,0.010948329465712748
+Fibroblast,Human IO,0.010148532953892595
+Fibroblast,Human ITG,0.004095401527835493
+Fibroblast,Human Idg,0.008435397287743389
+Fibroblast,Human Ig,0.005376961756639885
+Fibroblast,Human LEC,0.01291361388347363
+Fibroblast,Human LG,0.012394516096445212
+Fibroblast,Human LP,0.006822632763531072
+Fibroblast,Human LP-VPL,0.011800876263497339
+Fibroblast,Human La,0.009428762518201036
+Fibroblast,Human M1C,0.005220876493315955
+Fibroblast,Human MD,0.012519125112793105
+Fibroblast,Human MD-Re,0.015181237797177774
+Fibroblast,Human MEC,0.00455796870539338
+Fibroblast,Human MG,0.005683835272695241
+Fibroblast,Human MN,0.005084681311934762
+Fibroblast,Human MTG,0.010059171779057158
+Fibroblast,Human MoAN,0.004605556137002465
+Fibroblast,Human MoRF-MoEN,0.012296411094006024
+Fibroblast,Human MoSR,0.00977519502681323
+Fibroblast,Human NAC,0.009459886109784226
+Fibroblast,Human PAG,0.013031562213099483
+Fibroblast,Human PAG-DR,0.009136095971005264
+Fibroblast,Human PB,0.008986535705057306
+Fibroblast,Human PN,0.00912649300110894
+Fibroblast,Human PTR,0.005486843192318349
+Fibroblast,Human Pir,0.006570302940206699
+Fibroblast,Human PnAN,0.009412491627720402
+Fibroblast,Human PnEN,0.011200796588800908
+Fibroblast,Human PnRF,0.007405113555946947
+Fibroblast,Human Pro,0.007612463257924963
+Fibroblast,Human Pu,0.01059887642044219
+Fibroblast,Human Pul,0.012650935610826353
+Fibroblast,Human RN,0.001892256304944071
+Fibroblast,Human S1C,0.009294743806189124
+Fibroblast,Human SC,0.00453428534991861
+Fibroblast,Human SEP,0.009051785616556124
+Fibroblast,Human SI,0.015000756355799444
+Fibroblast,Human SN,0.006593282226433474
+Fibroblast,Human SN-RN,0.00813478237306331
+Fibroblast,Human STG,0.006564239782508
+Fibroblast,Human STH,0.0033404356584634614
+Fibroblast,Human SpC,0.008445515302766694
+Fibroblast,Human Sub,0.004877321161180324
+Fibroblast,Human TF,0.010103894463389268
+Fibroblast,Human TH-TL,0.007127318984042321
+Fibroblast,Human V1C,0.011447595774468978
+Fibroblast,Human V2,0.00517901608946223
+Fibroblast,Human VA,0.020393672125506353
+Fibroblast,Human VLN,0.008195382517109655
+Fibroblast,Human VPL,0.004112342925030993
+Microglia,Human A13,0.005774583761138554
+Microglia,Human A14,0.011746441189039088
+Microglia,Human A19,0.003166737810270067
+Microglia,Human A1C,0.0026974566729983866
+Microglia,Human A23,0.0022732271118999945
+Microglia,Human A24,0.005047197156811449
+Microglia,Human A25,0.005656870065713955
+Microglia,Human A29-A30,0.008853282027112034
+Microglia,Human A32,0.004602475871636623
+Microglia,Human A35-36,0.0031938291186865628
+Microglia,Human A35-A36,0.002541897647374976
+Microglia,Human A35r,0.007092492268269868
+Microglia,Human A38,0.007718239661530916
+Microglia,Human A40,0.003736357720874788
+Microglia,Human A43,0.005239204848540893
+Microglia,Human A44-A45,0.0032518985273711325
+Microglia,Human A46,0.0028495202584213532
+Microglia,Human A5-A7,0.0026695245622891605
+Microglia,Human ANC,0.0044139422541043865
+Microglia,Human AON,0.006512630633888381
+Microglia,Human BL,0.0022714693556531358
+Microglia,Human BM,0.004958883441085009
+Microglia,Human BNST,0.011630972162754622
+Microglia,Human CA1-3,0.005899045894776692
+Microglia,Human CA1C-CA3C,0.0040616162877259955
+Microglia,Human CA1R-CA2R,0.004772727001661837
+Microglia,Human CA1R-CA2R-CA3R,0.0068177537068872624
+Microglia,Human CA1U,0.004864616125337075
+Microglia,Human CA1U-CA2U-CA3U,0.007389621958038044
+Microglia,Human CA2U-CA3U,0.0025722126382505366
+Microglia,Human CA3R,0.003535179573317586
+Microglia,Human CA4C-DGC,0.0039357748612696255
+Microglia,Human CBL,0.0026814805017504563
+Microglia,Human CBV,0.003122671738354932
+Microglia,Human CEN,0.006228375142769006
+Microglia,Human CM,0.009983661184325539
+Microglia,Human CM-Pf,0.0049639329168031905
+Microglia,Human CMN,0.003673541197512344
+Microglia,Human CaB,0.004874662875255485
+Microglia,Human CbDN,0.0038178850346049184
+Microglia,Human Cla,0.009858997980411784
+Microglia,Human CoA,0.007343546422662445
+Microglia,Human DGR-CA4Rpy,0.004840415843542696
+Microglia,Human DGU-CA4Upy,0.0030917335118524412
+Microglia,Human DTg,0.004256991236892603
+Microglia,Human ETH,0.01022249862414057
+Microglia,Human FI,0.0021338493590229925
+Microglia,Human GPe,0.0024731758695751083
+Microglia,Human GPi,0.0010630639839388741
+Microglia,Human Gpe,0.0016935515832333856
+Microglia,Human HTHma,0.003716067063117915
+Microglia,Human HTHma-HTHtub,0.0033213006662344636
+Microglia,Human HTHpo,0.009162492165612034
+Microglia,Human HTHpo-HTHso,0.007606669907845313
+Microglia,Human HTHso,0.008761963769050357
+Microglia,Human HTHso-HTHtub,0.009215750140492923
+Microglia,Human HTHtub,0.010581940257752607
+Microglia,Human IC,0.004877648179259933
+Microglia,Human IO,0.001294514985678944
+Microglia,Human ITG,0.004461726209915911
+Microglia,Human Idg,0.005589392356422642
+Microglia,Human Ig,0.0028422275578450003
+Microglia,Human LEC,0.0032421134616455833
+Microglia,Human LG,0.010758799528834075
+Microglia,Human LP,0.0028923346120450577
+Microglia,Human LP-VPL,0.009070569731989594
+Microglia,Human La,0.0020203850089181878
+Microglia,Human M1C,0.004961777700800647
+Microglia,Human MD,0.010563199834710544
+Microglia,Human MD-Re,0.010812510611771216
+Microglia,Human MEC,0.0016815555272733705
+Microglia,Human MG,0.005888291134534161
+Microglia,Human MN,0.0015702575084983734
+Microglia,Human MTG,0.006438401125858856
+Microglia,Human MoAN,0.0035429008127784273
+Microglia,Human MoRF-MoEN,0.0031574780831731767
+Microglia,Human MoSR,0.006937307096388543
+Microglia,Human NAC,0.005186287298578274
+Microglia,Human PAG,0.007120662376943103
+Microglia,Human PAG-DR,0.005122920412292876
+Microglia,Human PB,0.0023010529962504463
+Microglia,Human PN,0.006837902760900173
+Microglia,Human PTR,0.0029940460619327703
+Microglia,Human Pir,0.003651455982277956
+Microglia,Human PnAN,0.003609557321270695
+Microglia,Human PnEN,0.0035064690639090208
+Microglia,Human PnRF,0.0043515307293368
+Microglia,Human Pro,0.003335294558617129
+Microglia,Human Pu,0.004805782585245279
+Microglia,Human Pul,0.010500512406101555
+Microglia,Human RN,0.0010415646829939889
+Microglia,Human S1C,0.002374366473861099
+Microglia,Human SC,0.005005221545241528
+Microglia,Human SEP,0.00922462151059176
+Microglia,Human SI,0.010591928014973181
+Microglia,Human SN,0.004326772760598977
+Microglia,Human SN-RN,0.003553161282856986
+Microglia,Human STG,0.008343652290011576
+Microglia,Human STH,0.002241813052330517
+Microglia,Human SpC,0.004185624902254664
+Microglia,Human Sub,0.005293606647810223
+Microglia,Human TF,0.005148590287000879
+Microglia,Human TH-TL,0.0044257093544871565
+Microglia,Human V1C,0.0027550742549495456
+Microglia,Human V2,0.0027245421140018686
+Microglia,Human VA,0.011916915763219064
+Microglia,Human VLN,0.006420779265870425
+Microglia,Human VPL,0.001094585513382439
+Oligodendrocyte,Human A13,0.0022652723449026416
+Oligodendrocyte,Human A14,0.007505343565192984
+Oligodendrocyte,Human A19,0.0016288367525182413
+Oligodendrocyte,Human A1C,0.0010652520998024535
+Oligodendrocyte,Human A23,0.0012026871528385546
+Oligodendrocyte,Human A24,0.0020252334203131653
+Oligodendrocyte,Human A25,0.002043289630674515
+Oligodendrocyte,Human A29-A30,0.0021536093497297078
+Oligodendrocyte,Human A32,0.003803435339632941
+Oligodendrocyte,Human A35-36,0.0009701433620522679
+Oligodendrocyte,Human A35-A36,0.002839793472417799
+Oligodendrocyte,Human A35r,0.0046642456226790386
+Oligodendrocyte,Human A38,0.0030196154094896876
+Oligodendrocyte,Human A40,0.0014580800147015903
+Oligodendrocyte,Human A43,0.0021089147233819866
+Oligodendrocyte,Human A44-A45,0.001125070667250773
+Oligodendrocyte,Human A46,0.0010929845270432228
+Oligodendrocyte,Human A5-A7,0.0008880761954065098
+Oligodendrocyte,Human ANC,0.0016830193097823586
+Oligodendrocyte,Human AON,0.0023921984873035485
+Oligodendrocyte,Human BL,0.0030362982725120283
+Oligodendrocyte,Human BM,0.0040234257797408645
+Oligodendrocyte,Human BNST,0.007766299329966127
+Oligodendrocyte,Human CA1-3,0.0035001421015757677
+Oligodendrocyte,Human CA1C-CA3C,0.0025863909998954963
+Oligodendrocyte,Human CA1R-CA2R,0.003179222323129165
+Oligodendrocyte,Human CA1R-CA2R-CA3R,0.0038387718946960004
+Oligodendrocyte,Human CA1U,0.0037622511340542992
+Oligodendrocyte,Human CA1U-CA2U-CA3U,0.002726808047843306
+Oligodendrocyte,Human CA2U-CA3U,0.002033593737800714
+Oligodendrocyte,Human CA3R,0.0014751166254365965
+Oligodendrocyte,Human CA4C-DGC,0.0026103523990687197
+Oligodendrocyte,Human CBL,0.0012139426096655485
+Oligodendrocyte,Human CBV,0.0010916639706689787
+Oligodendrocyte,Human CEN,0.003222049865867548
+Oligodendrocyte,Human CM,0.013428178791468234
+Oligodendrocyte,Human CM-Pf,0.003141240719833931
+Oligodendrocyte,Human CMN,0.0029453186615140932
+Oligodendrocyte,Human CaB,0.0027043737988925133
+Oligodendrocyte,Human CbDN,0.0011924074399317609
+Oligodendrocyte,Human Cla,0.006758918559782095
+Oligodendrocyte,Human CoA,0.004752065482691352
+Oligodendrocyte,Human DGR-CA4Rpy,0.00251355405124017
+Oligodendrocyte,Human DGU-CA4Upy,0.001804977838758214
+Oligodendrocyte,Human DTg,0.0014383031962118182
+Oligodendrocyte,Human ETH,0.0070200043693480155
+Oligodendrocyte,Human FI,0.000710093935651786
+Oligodendrocyte,Human GPe,0.001412032025236528
+Oligodendrocyte,Human GPi,0.0024662321139761615
+Oligodendrocyte,Human Gpe,0.0008819869050331121
+Oligodendrocyte,Human HTHma,0.002641035312511944
+Oligodendrocyte,Human HTHma-HTHtub,0.0020624908641609123
+Oligodendrocyte,Human HTHpo,0.011477037501948433
+Oligodendrocyte,Human HTHpo-HTHso,0.004854477481375317
+Oligodendrocyte,Human HTHso,0.0049982547273842515
+Oligodendrocyte,Human HTHso-HTHtub,0.008092523820047092
+Oligodendrocyte,Human HTHtub,0.007795461980344785
+Oligodendrocyte,Human IC,0.00302901708047412
+Oligodendrocyte,Human IO,0.0003421326000133503
+Oligodendrocyte,Human ITG,0.0031379189584357925
+Oligodendrocyte,Human Idg,0.0025755726587236506
+Oligodendrocyte,Human Ig,0.0012385372209097836
+Oligodendrocyte,Human LEC,0.0018146639057311318
+Oligodendrocyte,Human LG,0.007974446130244584
+Oligodendrocyte,Human LP,0.0025807128016020024
+Oligodendrocyte,Human LP-VPL,0.011866993665337682
+Oligodendrocyte,Human La,0.0014239240230423905
+Oligodendrocyte,Human M1C,0.0020781855743301596
+Oligodendrocyte,Human MD,0.013393329700342842
+Oligodendrocyte,Human MD-Re,0.013324349929428067
+Oligodendrocyte,Human MEC,0.0010121518579439262
+Oligodendrocyte,Human MG,0.005254823548479023
+Oligodendrocyte,Human MN,0.0015537335700420035
+Oligodendrocyte,Human MTG,0.002700727717496048
+Oligodendrocyte,Human MoAN,0.001382708203284638
+Oligodendrocyte,Human MoRF-MoEN,0.0021505960079659147
+Oligodendrocyte,Human MoSR,0.001244192455548546
+Oligodendrocyte,Human NAC,0.003525094915515331
+Oligodendrocyte,Human PAG,0.007971381460807113
+Oligodendrocyte,Human PAG-DR,0.0033036405115927582
+Oligodendrocyte,Human PB,0.0008751281087132715
+Oligodendrocyte,Human PN,0.00263720618488469
+Oligodendrocyte,Human PTR,0.0022939829423632395
+Oligodendrocyte,Human Pir,0.003327311630358078
+Oligodendrocyte,Human PnAN,0.0008653913003891122
+Oligodendrocyte,Human PnEN,0.001031927388030358
+Oligodendrocyte,Human PnRF,0.0017313765053879543
+Oligodendrocyte,Human Pro,0.0020885213566618883
+Oligodendrocyte,Human Pu,0.0028413274193750896
+Oligodendrocyte,Human Pul,0.008221108030273542
+Oligodendrocyte,Human RN,0.0005340189089633105
+Oligodendrocyte,Human S1C,0.0008176006665301453
+Oligodendrocyte,Human SC,0.0014240337258054406
+Oligodendrocyte,Human SEP,0.0051915024431655995
+Oligodendrocyte,Human SI,0.008623342836218179
+Oligodendrocyte,Human SN,0.0015677853830168744
+Oligodendrocyte,Human SN-RN,0.001804276357714524
+Oligodendrocyte,Human STG,0.003062477680244397
+Oligodendrocyte,Human STH,0.0003787248224865943
+Oligodendrocyte,Human SpC,0.001842700693381264
+Oligodendrocyte,Human Sub,0.0027904539969851446
+Oligodendrocyte,Human TF,0.0022548548622918167
+Oligodendrocyte,Human TH-TL,0.002874358801222933
+Oligodendrocyte,Human V1C,0.0018460966734616998
+Oligodendrocyte,Human V2,0.0017665042213124125
+Oligodendrocyte,Human VA,0.009112698110261304
+Oligodendrocyte,Human VLN,0.002454962889376464
+Oligodendrocyte,Human VPL,0.0009591061721075647
+Oligodendrocyte precursor,Human A13,0.002392519842803979
+Oligodendrocyte precursor,Human A14,0.004599996067828581
+Oligodendrocyte precursor,Human A19,0.0017288167890836719
+Oligodendrocyte precursor,Human A1C,0.001387162363190634
+Oligodendrocyte precursor,Human A23,0.0013251998997332623
+Oligodendrocyte precursor,Human A24,0.002663679343063294
+Oligodendrocyte precursor,Human A25,0.002286252258599981
+Oligodendrocyte precursor,Human A29-A30,0.0030955149618008674
+Oligodendrocyte precursor,Human A32,0.002172348503640145
+Oligodendrocyte precursor,Human A35-36,0.0012486399901459474
+Oligodendrocyte precursor,Human A35-A36,0.0017610241790763292
+Oligodendrocyte precursor,Human A35r,0.004117542125200805
+Oligodendrocyte precursor,Human A38,0.0026880407040975334
+Oligodendrocyte precursor,Human A40,0.0016795195142588102
+Oligodendrocyte precursor,Human A43,0.002774129709073205
+Oligodendrocyte precursor,Human A44-A45,0.0013043535196523013
+Oligodendrocyte precursor,Human A46,0.0010969327519197408
+Oligodendrocyte precursor,Human A5-A7,0.0013508193722952214
+Oligodendrocyte precursor,Human ANC,0.002564252989305617
+Oligodendrocyte precursor,Human AON,0.0029044417747453636
+Oligodendrocyte precursor,Human BL,0.0019812994617221446
+Oligodendrocyte precursor,Human BM,0.0028758321342598012
+Oligodendrocyte precursor,Human BNST,0.006129512067881134
+Oligodendrocyte precursor,Human CA1-3,0.0028527323313135133
+Oligodendrocyte precursor,Human CA1C-CA3C,0.002405299614327456
+Oligodendrocyte precursor,Human CA1R-CA2R,0.0032106135245512347
+Oligodendrocyte precursor,Human CA1R-CA2R-CA3R,0.002529041175054847
+Oligodendrocyte precursor,Human CA1U,0.003054263840709171
+Oligodendrocyte precursor,Human CA1U-CA2U-CA3U,0.002471627739710413
+Oligodendrocyte precursor,Human CA2U-CA3U,0.0013121447380703385
+Oligodendrocyte precursor,Human CA3R,0.0015650889947607578
+Oligodendrocyte precursor,Human CA4C-DGC,0.002059763249677538
+Oligodendrocyte precursor,Human CBL,0.0028356808300541957
+Oligodendrocyte precursor,Human CBV,0.0025761122511475183
+Oligodendrocyte precursor,Human CEN,0.0031277720810886753
+Oligodendrocyte precursor,Human CM,0.006923204896021151
+Oligodendrocyte precursor,Human CM-Pf,0.0025014091937062234
+Oligodendrocyte precursor,Human CMN,0.003017469021143958
+Oligodendrocyte precursor,Human CaB,0.0024493908405312076
+Oligodendrocyte precursor,Human CbDN,0.0026137978336370745
+Oligodendrocyte precursor,Human Cla,0.004969325860829393
+Oligodendrocyte precursor,Human CoA,0.002880541063103794
+Oligodendrocyte precursor,Human DGR-CA4Rpy,0.0022632906931285626
+Oligodendrocyte precursor,Human DGU-CA4Upy,0.0014069767877298224
+Oligodendrocyte precursor,Human DTg,0.002297450459188514
+Oligodendrocyte precursor,Human ETH,0.004792711170142503
+Oligodendrocyte precursor,Human FI,0.0011170805529081955
+Oligodendrocyte precursor,Human GPe,0.0027679968052512225
+Oligodendrocyte precursor,Human GPi,0.0026247842830185004
+Oligodendrocyte precursor,Human Gpe,0.0007836858804506962
+Oligodendrocyte precursor,Human HTHma,0.00617048050065469
+Oligodendrocyte precursor,Human HTHma-HTHtub,0.0011237742903525334
+Oligodendrocyte precursor,Human HTHpo,0.00753328390966735
+Oligodendrocyte precursor,Human HTHpo-HTHso,0.0029667886358255035
+Oligodendrocyte precursor,Human HTHso,0.005353092138554347
+Oligodendrocyte precursor,Human HTHso-HTHtub,0.004695018018379437
+Oligodendrocyte precursor,Human HTHtub,0.005006448929073021
+Oligodendrocyte precursor,Human IC,0.004411199978391224
+Oligodendrocyte precursor,Human IO,0.0009333358306272398
+Oligodendrocyte precursor,Human ITG,0.0022484052066782763
+Oligodendrocyte precursor,Human Idg,0.002827624262308226
+Oligodendrocyte precursor,Human Ig,0.0013209347496725833
+Oligodendrocyte precursor,Human LEC,0.0015256421031887924
+Oligodendrocyte precursor,Human LG,0.006999569461593096
+Oligodendrocyte precursor,Human LP,0.0019049085786629315
+Oligodendrocyte precursor,Human LP-VPL,0.004820100482867775
+Oligodendrocyte precursor,Human La,0.0018346350218003094
+Oligodendrocyte precursor,Human M1C,0.0017857951153083089
+Oligodendrocyte precursor,Human MD,0.008149324546155357
+Oligodendrocyte precursor,Human MD-Re,0.005717737173298516
+Oligodendrocyte precursor,Human MEC,0.0010730786876295667
+Oligodendrocyte precursor,Human MG,0.0029950103640959953
+Oligodendrocyte precursor,Human MN,0.0014439181976359534
+Oligodendrocyte precursor,Human MTG,0.0031950819819158618
+Oligodendrocyte precursor,Human MoAN,0.002378691527644851
+Oligodendrocyte precursor,Human MoRF-MoEN,0.0036605378234859367
+Oligodendrocyte precursor,Human MoSR,0.001744092064260321
+Oligodendrocyte precursor,Human NAC,0.003523300085311448
+Oligodendrocyte precursor,Human PAG,0.003935056951063541
+Oligodendrocyte precursor,Human PAG-DR,0.003557393994789096
+Oligodendrocyte precursor,Human PB,0.001484464159344015
+Oligodendrocyte precursor,Human PN,0.002491400399609393
+Oligodendrocyte precursor,Human PTR,0.002532414988934344
+Oligodendrocyte precursor,Human Pir,0.0016408079567165417
+Oligodendrocyte precursor,Human PnAN,0.0018957323822146404
+Oligodendrocyte precursor,Human PnEN,0.001422382277644486
+Oligodendrocyte precursor,Human PnRF,0.0022021884867742367
+Oligodendrocyte precursor,Human Pro,0.002702647747371768
+Oligodendrocyte precursor,Human Pu,0.003341275953229982
+Oligodendrocyte precursor,Human Pul,0.007174620040522657
+Oligodendrocyte precursor,Human RN,0.0005338146562386209
+Oligodendrocyte precursor,Human S1C,0.001006731575005375
+Oligodendrocyte precursor,Human SC,0.0020029686486110984
+Oligodendrocyte precursor,Human SEP,0.004180059776312597
+Oligodendrocyte precursor,Human SI,0.006387340610178099
+Oligodendrocyte precursor,Human SN,0.0029276625069032877
+Oligodendrocyte precursor,Human SN-RN,0.0020530924689907293
+Oligodendrocyte precursor,Human STG,0.004203474136345939
+Oligodendrocyte precursor,Human STH,0.0006770336986338599
+Oligodendrocyte precursor,Human SpC,0.002983168698880878
+Oligodendrocyte precursor,Human Sub,0.0027497715388731287
+Oligodendrocyte precursor,Human TF,0.0021023817718520557
+Oligodendrocyte precursor,Human TH-TL,0.002364472575760907
+Oligodendrocyte precursor,Human V1C,0.0022921948765376324
+Oligodendrocyte precursor,Human V2,0.0018995220122524138
+Oligodendrocyte precursor,Human VA,0.005453252519200075
+Oligodendrocyte precursor,Human VLN,0.00289853191876084
+Oligodendrocyte precursor,Human VPL,0.0011779339255475613
+Vascular,Human A13,0.0117048974690195
+Vascular,Human A14,0.01378614940706665
+Vascular,Human A19,0.012850234050283531
+Vascular,Human A1C,0.00851656236316114
+Vascular,Human A23,0.00802885169278654
+Vascular,Human A24,0.008645112188844993
+Vascular,Human A25,0.01348873831022313
+Vascular,Human A29-A30,0.01074956899656056
+Vascular,Human A32,0.010623548030684932
+Vascular,Human A35-A36,0.00946790888424684
+Vascular,Human A35r,0.007229517539761173
+Vascular,Human A38,0.024405610418750855
+Vascular,Human A40,0.00812805771797372
+Vascular,Human A43,0.011288420912512837
+Vascular,Human A44-A45,0.010823306457021488
+Vascular,Human A46,0.00864099492014197
+Vascular,Human A5-A7,0.0047137949267397365
+Vascular,Human ANC,0.013063243095177101
+Vascular,Human AON,0.016709524112173448
+Vascular,Human BL,0.017791645724434677
+Vascular,Human BM,0.005924252628291001
+Vascular,Human BNST,0.015023827277995727
+Vascular,Human CA1-3,0.024999292175477146
+Vascular,Human CA1C-CA3C,0.005517508015912691
+Vascular,Human CA1R-CA2R,0.005850454372689936
+Vascular,Human CA1R-CA2R-CA3R,0.009305419925380646
+Vascular,Human CA1U,0.0038619477659306393
+Vascular,Human CA1U-CA2U-CA3U,0.007881281086930925
+Vascular,Human CA2U-CA3U,0.007073660180388163
+Vascular,Human CA3R,0.005961666533042173
+Vascular,Human CA4C-DGC,0.006166897794738767
+Vascular,Human CBL,0.012374936507195407
+Vascular,Human CBV,0.008168818367394422
+Vascular,Human CEN,0.009665923523071232
+Vascular,Human CM,0.0165377389182928
+Vascular,Human CM-Pf,0.014214782525045728
+Vascular,Human CMN,0.012814612524373473
+Vascular,Human CaB,0.01751723335674899
+Vascular,Human CbDN,0.009035840237265667
+Vascular,Human Cla,0.012718701445655628
+Vascular,Human CoA,0.00718499293098783
+Vascular,Human DGR-CA4Rpy,0.006143047474080113
+Vascular,Human DGU-CA4Upy,0.004019478566322413
+Vascular,Human DTg,0.01027675281547144
+Vascular,Human ETH,0.013372187420796945
+Vascular,Human FI,0.008961649640743266
+Vascular,Human GPe,0.009996418265263837
+Vascular,Human GPi,0.004444301193483385
+Vascular,Human Gpe,0.008456824628786427
+Vascular,Human HTHma,0.018188185819358518
+Vascular,Human HTHma-HTHtub,0.006650221072559963
+Vascular,Human HTHpo,0.01683462113715581
+Vascular,Human HTHpo-HTHso,0.013018283593433029
+Vascular,Human HTHso,0.0055429085385405715
+Vascular,Human HTHso-HTHtub,0.022333297883654152
+Vascular,Human HTHtub,0.009910441819251352
+Vascular,Human IC,0.01918550566751567
+Vascular,Human IO,0.005981772347001409
+Vascular,Human ITG,0.011244509586328813
+Vascular,Human Idg,0.008953724670708119
+Vascular,Human Ig,0.007421352932516915
+Vascular,Human LEC,0.011615084152709367
+Vascular,Human LG,0.020363164869144544
+Vascular,Human LP,0.0085194600982594
+Vascular,Human LP-VPL,0.013799205466984574
+Vascular,Human La,0.007639252005446743
+Vascular,Human M1C,0.010134658955021551
+Vascular,Human MD,0.017969548313805997
+Vascular,Human MD-Re,0.019300682176272607
+Vascular,Human MEC,0.008526616133598671
+Vascular,Human MG,0.008399726708671115
+Vascular,Human MN,0.007401801446748057
+Vascular,Human MTG,0.010960107561205005
+Vascular,Human MoAN,0.009718632621509569
+Vascular,Human MoRF-MoEN,0.01821506393164654
+Vascular,Human MoSR,0.009992897768915642
+Vascular,Human NAC,0.0200468955192577
+Vascular,Human PAG,0.0077830370985868084
+Vascular,Human PAG-DR,0.009226391593443867
+Vascular,Human PB,0.007400608552367352
+Vascular,Human PN,0.012090998314221717
+Vascular,Human PTR,0.014917630272430694
+Vascular,Human Pir,0.009403625414082495
+Vascular,Human PnAN,0.00858573780329114
+Vascular,Human PnEN,0.016168747349868857
+Vascular,Human PnRF,0.007620770369445701
+Vascular,Human Pro,0.009866160626145818
+Vascular,Human Pu,0.015321601339677438
+Vascular,Human Pul,0.016084446851086214
+Vascular,Human RN,0.003987522032520761
+Vascular,Human S1C,0.01102573139669091
+Vascular,Human SC,0.006218344946754619
+Vascular,Human SEP,0.010758890927042065
+Vascular,Human SI,0.020956618314425964
+Vascular,Human SN,0.00815954845561882
+Vascular,Human SN-RN,0.008847386791716353
+Vascular,Human STG,0.012204778784606794
+Vascular,Human STH,0.005948734520809243
+Vascular,Human SpC,0.006390294723029186
+Vascular,Human Sub,0.004431821211980885
+Vascular,Human TF,0.010675407357233385
+Vascular,Human TH-TL,0.008294193516234906
+Vascular,Human V1C,0.0077956062216269105
+Vascular,Human V2,0.006796424731568233
+Vascular,Human VA,0.01263095326392913
+Vascular,Human VLN,0.011807845852824078
+Vascular,Human VPL,0.004176310591397178

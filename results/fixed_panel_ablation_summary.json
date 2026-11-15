@@ -1,0 +1,112 @@
+{
+  "B_perm_s2_null": 200,
+  "n_pairs": 31764,
+  "n_cts": 10,
+  "panel_sizes": {
+    "s0_perpair": 200,
+    "s1_fixed": 2000,
+    "s2_loo": 200,
+    "s3_all": 5000
+  },
+  "spearman_pair_s0_vs_s1": {
+    "rho": 0.918361296913033,
+    "p": 0.0
+  },
+  "spearman_pair_s0_vs_s2": {
+    "rho": 0.9365283853661117,
+    "p": 0.0
+  },
+  "spearman_pair_s0_vs_s3": {
+    "rho": 0.9308243508475845,
+    "p": 0.0
+  },
+  "spearman_ctmean_s0_vs_s1": {
+    "rho": 0.9030303030303028,
+    "p": 0.0003436121977632824
+  },
+  "spearman_ctmean_s0_vs_s2": {
+    "rho": 0.9878787878787878,
+    "p": 9.307459988955516e-08
+  },
+  "spearman_ctmean_s0_vs_s3": {
+    "rho": 0.9272727272727272,
+    "p": 0.00011203450639397583
+  },
+  "grand_mean_s0": 38.54505086515891,
+  "grand_mean_s1": 6.538470499000861,
+  "grand_mean_s2": 26.518597776147,
+  "grand_mean_s3": 5.258750480464868,
+  "astro_mean_s0": 82.7482460243405,
+  "bergmann_mean_s0": 13.555116164434796,
+  "astro_over_bergmann_s0": 6.1045766794275815,
+  "astro_mean_s1": 14.15466752125931,
+  "bergmann_mean_s1": 1.8459630445033088,
+  "astro_over_bergmann_s1": 7.667904058755353,
+  "astro_mean_s2": 61.771188743234866,
+  "bergmann_mean_s2": 9.460731294853705,
+  "astro_over_bergmann_s2": 6.529219234546504,
+  "astro_mean_s3": 11.19161721495267,
+  "bergmann_mean_s3": 1.7029801142109438,
+  "astro_over_bergmann_s3": 6.571783852061113,
+  "kf_ratio_s0_over_s1": {
+    "median": 6.073913830070126,
+    "q25": 5.032782816982259,
+    "q75": 7.022942925515983
+  },
+  "kf_ratio_s0_over_s2": {
+    "median": 1.6067642066605412,
+    "q25": 1.270630806341167,
+    "q75": 2.0718927340555586
+  },
+  "kf_ratio_s0_over_s3": {
+    "median": 7.266371904565968,
+    "q25": 6.09590718821215,
+    "q75": 8.304631017141892
+  },
+  "tier_counts": {
+    "s0": {
+      "None": 25173,
+      "Weak": 5381,
+      "Moderate": 1171,
+      "Strong": 39
+    },
+    "s1": {
+      "None": 24045,
+      "Weak": 6374,
+      "Moderate": 1309,
+      "Strong": 36
+    },
+    "s2": {
+      "None": 22092,
+      "Weak": 6169,
+      "Moderate": 3046,
+      "Strong": 457
+    },
+    "s3": {
+      "None": 24945,
+      "Weak": 5969,
+      "Moderate": 840,
+      "Strong": 10
+    }
+  },
+  "tier_candidate_jaccard_vs_s0": {
+    "s1": {
+      "n_s0": 1210,
+      "n_scheme": 1345,
+      "intersection": 676,
+      "jaccard": 0.359765832889835
+    },
+    "s2": {
+      "n_s0": 1210,
+      "n_scheme": 3503,
+      "intersection": 989,
+      "jaccard": 0.26557465091299676
+    },
+    "s3": {
+      "n_s0": 1210,
+      "n_scheme": 850,
+      "intersection": 529,
+      "jaccard": 0.34552580013063355
+    }
+  }
+}

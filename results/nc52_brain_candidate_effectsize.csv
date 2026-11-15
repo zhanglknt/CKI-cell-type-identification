@@ -1,0 +1,13 @@
+quantity,value,note
+spearman_omega_perpair_vs_global,0.1421,published 0.142 (Supp Fig. 7b)
+explained_variance_rho2,0.0202,~2% of omega ranking variance shared between estimators
+spearman_p,7.07e-143,
+median_abs_log2FC_omega,1.142,median |log2(per-pair-k_n omega / global-k_n omega)|
+n_strong_published,39,"authoritative tier column, brain_bs_null_observed_pairs.csv"
+n_strong_recomputed_perpair,39,multiplicative model re-derived on per-pair omega (sanity)
+n_strong_global_kn,107,same screen re-derived on global-k_n omega
+n_strong_persist,3,candidates Strong under both estimators
+n_strong_lost,36,published Strong candidates lost under global-k_n
+n_strong_gained,104,new Strong candidates under global-k_n
+frac_persist,0.077,fraction of published Strong set surviving estimator switch
+spearman_residual_perpair_vs_global,0.3366,rank correlation of multiplicative residuals (P=0.0e+00)

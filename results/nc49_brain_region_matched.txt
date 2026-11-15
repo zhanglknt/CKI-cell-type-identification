@@ -1,0 +1,15 @@
+Bergmann glia: 21 pairs over 7 regions: ['Human CBL', 'Human CBV', 'Human IC', 'Human IO', 'Human MoAN', 'Human PnAN', 'Human PnEN']
+Astrocyte intra-cerebellar subset (same 7 regions): 21 pairs of 5778 total (region-matched by construction)
+Vascular intra-cerebellar subset (reference endpoint): 21 pairs of 3321 total
+
+Matched region pairs: 21
+
+== Span-matched gradient (astrocyte intra-cerebellar vs Bergmann glia) ==
+  class-mean omega: astro_cb=49.95, bergmann=13.56
+  gradient (ratio of class means): 3.68  [full-data gradient for reference: 6.10]
+  paired per-region-pair median ratio: 4.30 (bootstrap 95% CI [3.40, 4.95], B=10000, seed 42)
+  k_f ratio of class means: 1.39 (median paired 1.58)
+  k_n ratio of class means: 0.33 (median paired 0.30)
+
+== Reference: vascular intra-cerebellar vs Bergmann glia ==
+  matched pairs: 21; gradient (ratio of class means): 1.18

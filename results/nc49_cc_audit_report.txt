@@ -1,0 +1,30 @@
+======================================================================
+1. Barcode source-code audit (all samples in the v44 pair table)
+======================================================================
+TCGA-LUAD: samples=571, source 01=495, 11=76, other=none, CC (ILSBio)=0
+TCGA-LUSC: samples=593, source 01=535, 11=58, other=none, CC (ILSBio)=0
+TCGA-LIHC: samples=455, source 01=398, 11=57, other=none, CC (ILSBio)=32
+TCGA-KIRC: samples=836, source 01=754, 11=82, other=none, CC (ILSBio)=0
+TCGA-BRCA: samples=1138, source 01=1029, 11=109, other=none, CC (ILSBio)=0
+saved: C:\Users\KnightZ\Desktop\细胞受选择\results\nc49_cc_barcode_audit.csv
+
+======================================================================
+2. Ex-CC NN/TT omega and TT/NN k_n sensitivity (LIHC), B=1000 seed 42
+======================================================================
+LIHC full: NN/TT=1.104 | ex-CC: NN/TT=1.112 [0.934,1.299], TT/NN k_n=1.337 [0.997,1.880] (tumours 398 -> 366)
+
+======================================================================
+3. Ex-CC high-purity half sensitivity (all cancers)
+======================================================================
+TCGA-LUAD: high-purity half NN/TT all=2.863 -> ex-CC=2.863 [2.389,3.401] (pairs 482 -> 482)
+TCGA-LUSC: high-purity half NN/TT all=1.817 -> ex-CC=1.817 [1.461,2.229] (pairs 506 -> 506)
+TCGA-LIHC: high-purity half NN/TT all=1.167 -> ex-CC=1.188 [1.005,1.435] (pairs 486 -> 408)
+TCGA-KIRC: high-purity half NN/TT all=2.269 -> ex-CC=2.269 [1.917,2.657] (pairs 493 -> 493)
+TCGA-BRCA: high-purity half NN/TT all=1.740 -> ex-CC=1.740 [1.438,2.053] (pairs 496 -> 496)
+
+======================================================================
+4. CC presence ledger (other LIHC downstream analyses)
+======================================================================
+composition-regression LIHC TT pairs touching a CC sample: 291 of 2000
+LIHC clinical JSON patients: 377, of which TCGA-CC: 32
+Edmondson/severity strata and Cox cohort draw from the clinical JSON; CC patients present there enter those analyses (counts above).

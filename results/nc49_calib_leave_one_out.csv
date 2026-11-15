@@ -1,0 +1,12 @@
+removed_population,removed_mean,loo_baseline,pct_change_vs_full,table,baseline,baseline_value,omega_cal_brain_grand,omega_cal_astrocyte,omega_cal_bergmann_glia
+Heart endothelial cell,7.232,7.789,1.2,loo_baseline,,,,,
+Heart fibroblast,7.001,7.835,1.8,loo_baseline,,,,,
+Liver hepatocyte,12.435,6.748,-12.3,loo_baseline,,,,,
+Marrow B cell,7.363,7.762,0.9,loo_baseline,,,,,
+Marrow neutrophil,5.768,8.081,5.0,loo_baseline,,,,,
+Spleen B cell,6.375,7.96,3.4,loo_baseline,,,,,
+,,,,anchors,full 7.70 (manuscript),7.7,5.01,10.75,1.76
+,,,,anchors,LOO excl. hepatocyte,6.75,5.71,12.26,2.01
+,,,,anchors,LOO min (most conservative upward),6.75,5.71,12.26,2.01
+,,,,anchors,LOO max,8.08,4.77,10.24,1.68
+,,,,anchors,median-of-means,7.12,5.42,11.63,1.9

@@ -1,0 +1,6 @@
+statistic,value,ci95,note
+gradient_ratio_of_class_means,3.685,,"astro intra-cerebellar vs Bergmann glia, 21 matched region pairs"
+gradient_paired_median_ratio,4.298,"[3.403,4.955]",bootstrap B=10000 over matched region pairs
+gradient_full_data_reference,6.105,,unmatched full-data gradient (published 6.10)
+kf_ratio_class_means,1.391,,span-matched k_f component
+kn_ratio_class_means,0.327,,span-matched k_n component

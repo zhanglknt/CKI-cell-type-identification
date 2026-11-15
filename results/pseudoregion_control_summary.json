@@ -1,0 +1,167 @@
+{
+  "B": 1000,
+  "seed_split": 20260903,
+  "seed_perm_base": 777000,
+  "n_pairs_total": 127756,
+  "overall_lower": {
+    "label": "all pairs (lower tail)",
+    "n_pairs": 127756,
+    "tail_rate": 0.0596684304455368,
+    "tail_count": 7623,
+    "binom_p": 1.4618770171549718e-53,
+    "ks_stat": 0.06317386392686186,
+    "ks_p": 0.0
+  },
+  "overall_upper": {
+    "label": "all pairs (upper tail)",
+    "n_pairs": 127756,
+    "tail_rate": 0.06841948714737468,
+    "tail_count": 8741,
+    "binom_p": 6.764873336149646e-181,
+    "ks_stat": 0.062167035506839496,
+    "ks_p": 0.0
+  },
+  "same_origin_lower": {
+    "label": "same-origin (lower tail)",
+    "n_pairs": 700,
+    "tail_rate": 0.3757142857142857,
+    "tail_count": 263,
+    "binom_p": 7.191833248753875e-153,
+    "ks_stat": 0.4585214785214785,
+    "ks_p": 4.11954278116984e-135
+  },
+  "same_origin_upper": {
+    "label": "same-origin (upper tail)",
+    "n_pairs": 700,
+    "tail_rate": 0.02,
+    "tail_count": 14,
+    "binom_p": 8.197513419332483e-05,
+    "ks_stat": 0.4595204795204795,
+    "ks_p": 9.860133149804363e-136
+  },
+  "cross_origin_lower": {
+    "label": "cross-origin (lower tail)",
+    "n_pairs": 127056,
+    "tail_rate": 0.05792721319733031,
+    "tail_count": 7360,
+    "binom_p": 9.246177770977075e-37,
+    "ks_stat": 0.06490639759434613,
+    "ks_p": 0.0
+  },
+  "cross_origin_upper": {
+    "label": "cross-origin (upper tail)",
+    "n_pairs": 127056,
+    "tail_rate": 0.06868624858330186,
+    "tail_count": 8727,
+    "binom_p": 6.78235517653201e-185,
+    "ks_stat": 0.06390739659534522,
+    "ks_p": 0.0
+  },
+  "per_ct": [
+    {
+      "cell_type": "Astrocyte",
+      "n_pseudo_regions": 216,
+      "n_pairs": 23220,
+      "n_cells": 155025,
+      "n_libraries": 606,
+      "omega_mean": 65.80267415156567,
+      "p_low_mean": 0.5592523755314452,
+      "p_high_mean": 0.4417466254675558
+    },
+    {
+      "cell_type": "Bergmann glia",
+      "n_pseudo_regions": 14,
+      "n_pairs": 91,
+      "n_cells": 7965,
+      "n_libraries": 42,
+      "omega_mean": 11.291145089039944,
+      "p_low_mean": 0.3083839237685391,
+      "p_high_mean": 0.692626055263418
+    },
+    {
+      "cell_type": "Choroid plexus",
+      "n_pseudo_regions": 12,
+      "n_pairs": 66,
+      "n_cells": 7643,
+      "n_libraries": 22,
+      "omega_mean": 27.626941594467272,
+      "p_low_mean": 0.5794659885568977,
+      "p_high_mean": 0.4224714679260133
+    },
+    {
+      "cell_type": "Committed oligodendrocyte precursor",
+      "n_pseudo_regions": 104,
+      "n_pairs": 5356,
+      "n_cells": 4118,
+      "n_libraries": 317,
+      "omega_mean": 20.80197369997008,
+      "p_low_mean": 0.5578709938306653,
+      "p_high_mean": 0.4431280071683357
+    },
+    {
+      "cell_type": "Ependymal",
+      "n_pseudo_regions": 80,
+      "n_pairs": 3160,
+      "n_cells": 5779,
+      "n_libraries": 146,
+      "omega_mean": 17.27914243393026,
+      "p_low_mean": 0.5679086736048761,
+      "p_high_mean": 0.43310202455772073
+    },
+    {
+      "cell_type": "Fibroblast",
+      "n_pseudo_regions": 166,
+      "n_pairs": 13695,
+      "n_cells": 8897,
+      "n_libraries": 470,
+      "omega_mean": 13.165332318931908,
+      "p_low_mean": 0.5503783547595158,
+      "p_high_mean": 0.45062101097150387
+    },
+    {
+      "cell_type": "Microglia",
+      "n_pseudo_regions": 214,
+      "n_pairs": 22791,
+      "n_cells": 91826,
+      "n_libraries": 596,
+      "omega_mean": 18.835425038306397,
+      "p_low_mean": 0.4931699426894899,
+      "p_high_mean": 0.5078291459757829
+    },
+    {
+      "cell_type": "Oligodendrocyte",
+      "n_pseudo_regions": 216,
+      "n_pairs": 23220,
+      "n_cells": 490246,
+      "n_libraries": 606,
+      "omega_mean": 33.54273777886751,
+      "p_low_mean": 0.5019439647346624,
+      "p_high_mean": 0.4990551223109362
+    },
+    {
+      "cell_type": "Oligodendrocyte precursor",
+      "n_pseudo_regions": 214,
+      "n_pairs": 22791,
+      "n_cells": 105723,
+      "n_libraries": 604,
+      "omega_mean": 32.063826629562776,
+      "p_low_mean": 0.5581930683944637,
+      "p_high_mean": 0.4428060641039449
+    },
+    {
+      "cell_type": "Vascular",
+      "n_pseudo_regions": 164,
+      "n_pairs": 13366,
+      "n_cells": 9586,
+      "n_libraries": 464,
+      "omega_mean": 11.01587887390256,
+      "p_low_mean": 0.5447036130112592,
+      "p_high_mean": 0.456295537471656
+    }
+  ],
+  "real_data_reference": {
+    "n_pairs": 31764,
+    "lower_tail_rate": 0.06170507492759098,
+    "upper_tail_rate": 0.07902027452461907
+  }
+}

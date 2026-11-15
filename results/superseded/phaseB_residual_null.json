@@ -1,0 +1,45 @@
+{
+  "null_type": "block_shuffle (10x library / sample_id blocks, as in 08d)",
+  "observed": {
+    "strong": 39,
+    "moderate": 1171,
+    "weak": 5381
+  },
+  "null_mean": {
+    "strong": 148.291,
+    "moderate": 1900.3,
+    "weak": 6107.628
+  },
+  "null_std": {
+    "strong": 35.49966646322188,
+    "moderate": 130.57888803324985,
+    "weak": 147.6182834746428
+  },
+  "null_95ci": {
+    "strong": [
+      91.0,
+      230.0
+    ],
+    "moderate": [
+      1656.95,
+      2169.025
+    ],
+    "weak": [
+      5829.975,
+      6393.0
+    ]
+  },
+  "p_values": {
+    "strong": 1.0,
+    "moderate": 1.0,
+    "weak": 1.0
+  },
+  "q_values_bh": {
+    "strong": 1.0,
+    "moderate": 1.0,
+    "weak": 1.0
+  },
+  "B": 1000,
+  "n_total_pairs": 31764,
+  "mu_grand": 38.5451
+}

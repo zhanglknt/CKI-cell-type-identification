@@ -1,0 +1,7 @@
+level,metric,n,r2_with_quality_mito,coef_dlog_detected,coef_dlog_depth,coef_abs_dlog_ncells,coef_d_mito_frac,t3_coef_with_mito,note,gradient_unadjusted,gradient_quality_mito_adjusted
+class_x_library_pair,k_n,4906,0.2714,2.7649,-1.5865,-0.0639,22.9542,0.3887,"as nc52_brain_quality_regression_classlib.csv + |delta mito fraction|; reference values without mito: T3 coefs k_n 0.469, k_f 0.688, omega 0.219",,
+class_x_library_pair,k_f,4906,0.5035,1.0739,-0.3407,0.0719,27.6908,0.5909,"as nc52_brain_quality_regression_classlib.csv + |delta mito fraction|; reference values without mito: T3 coefs k_n 0.469, k_f 0.688, omega 0.219",,
+class_x_library_pair,omega,4906,0.3079,-1.6909,1.2458,0.1357,4.7367,0.2021,"as nc52_brain_quality_regression_classlib.csv + |delta mito fraction|; reference values without mito: T3 coefs k_n 0.469, k_f 0.688, omega 0.219",,
+class_x_region_pair,kn,31764,0.6767,0.408,0.4344,0.0892,5.339,,"reference without mito: omega R2 0.556, adjusted gradient 6.33",,
+class_x_region_pair,kf,31764,0.442,-0.0492,0.5664,0.1033,13.018,,"reference without mito: omega R2 0.556, adjusted gradient 6.33",,
+class_x_region_pair,omega,31764,0.5639,-0.4572,0.132,0.0141,7.679,,"reference without mito: omega R2 0.556, adjusted gradient 6.33",6.1046,6.4503

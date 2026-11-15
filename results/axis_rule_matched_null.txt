@@ -1,0 +1,25 @@
+========================================================================
+P1-4: selection-rule-matched null for the thalamo-temporal axis
+========================================================================
+
+Strong rule re-evaluated on each of B = 1000 block-shuffle permutations; axis hits tallied among surviving mature-oligodendrocyte pairs.
+
+null survivors per permutation: mean 43.7, 95% [20, 79]
+
+  thalamic-relay endpoint:
+    observed 6/10
+    rule-matched null hits: mean 6.58, max 47, P 0.4765
+    (uniform-draw null mean for reference: 1.95)
+    rate test: null mean rate 0.149, P(rate >= obs) 0.0050
+
+  temporal-fusiform (TF) endpoint:
+    observed 4/10
+    rule-matched null hits: mean 1.51, max 27, P 0.1289
+    (uniform-draw null mean for reference: 0.19)
+    rate test: null mean rate 0.034, P(rate >= obs) 0.0020
+
+  thalamo-temporal axis (thalamic relay U STH U TF):
+    observed 9/10
+    rule-matched null hits: mean 8.49, max 47, P 0.3796
+    (uniform-draw null mean for reference: 2.27)
+    rate test: null mean rate 0.193, P(rate >= obs) 0.0010

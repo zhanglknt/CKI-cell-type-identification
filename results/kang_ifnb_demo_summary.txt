@@ -1,0 +1,11 @@
+Kang et al. 2018 IFN-beta PBMC: CKI perturbation demonstration (script 79)
+======================================================================
+Design: 709 pairs; per-pair top-200 DE hybrid; HRT Atlas HK (1099 matched);
+permutation B = 1000 (labels shuffled within donor); split-half baseline x6
+
+[B cells] n=2573 cells, 6 donors | median omega: stim-ctrl 25.93, donor-donor 14.04, split-half 7.54 | omega_cal: stim 3.44 vs donor 1.86 | perm P<0.05: 3/6 (min 9.99e-04) | AUC omega 0.922, k_f 1.000, rawJS 1.000
+[CD14+ Monocytes] n=5385 cells, 8 donors | median omega: stim-ctrl 28.38, donor-donor 25.66, split-half 12.42 | omega_cal: stim 2.28 vs donor 2.07 | perm P<0.05: 3/8 (min 9.99e-04) | AUC omega 0.551, k_f 0.984, rawJS 1.000
+[CD4 T cells] n=10389 cells, 8 donors | median omega: stim-ctrl 33.36, donor-donor 17.46, split-half 18.95 | omega_cal: stim 1.76 vs donor 0.92 | perm P<0.05: 1/8 (min 7.99e-03) | AUC omega 0.703, k_f 0.743, rawJS 0.792
+[CD8 T cells] n=2042 cells, 4 donors | median omega: stim-ctrl 28.91, donor-donor 17.93, split-half 8.95 | omega_cal: stim 3.23 vs donor 2.00 | perm P<0.05: 2/4 (min 9.99e-04) | AUC omega 0.792, k_f 0.854, rawJS 0.875
+[FCGR3A+ Monocytes] n=1599 cells, 5 donors | median omega: stim-ctrl 27.78, donor-donor 24.09, split-half 9.00 | omega_cal: stim 3.09 vs donor 2.68 | perm P<0.05: 2/5 (min 9.99e-04) | AUC omega 0.800, k_f 1.000, rawJS 1.000
+[NK cells] n=1993 cells, 6 donors | median omega: stim-ctrl 19.28, donor-donor 9.89, split-half 6.69 | omega_cal: stim 2.88 vs donor 1.48 | perm P<0.05: 4/6 (min 9.99e-04) | AUC omega 0.839, k_f 0.994, rawJS 1.000

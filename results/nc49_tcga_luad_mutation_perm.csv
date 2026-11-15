@@ -1,0 +1,22 @@
+metric,test,comparison,n_total,stat,p_perm,p_asymptotic
+LUAD_omega,Kruskal-Wallis (perm),WT vs EGFR vs KRAS,492,28.12,9.999000099990002e-05,7.832510348041664e-07
+LUAD_omega,descriptive,WT,311,115.3734,,
+LUAD_omega,descriptive,EGFR,61,122.2156,,
+LUAD_omega,descriptive,KRAS,120,136.9436,,
+LUAD_omega,mean diff (perm),KRAS - WT,431,21.5702,9.999000099990002e-05,
+LUAD_omega,mean diff (perm),KRAS - EGFR,181,14.728,0.0033996600339966003,
+LUAD_omega,mean diff (perm),EGFR - WT,372,6.8422,0.20887911208879112,
+LUAD_kf,Kruskal-Wallis (perm),WT vs EGFR vs KRAS,492,8.386,0.015998400159984,0.015103980459083927
+LUAD_kf,descriptive,WT,311,0.2814,,
+LUAD_kf,descriptive,EGFR,61,0.2732,,
+LUAD_kf,descriptive,KRAS,120,0.2919,,
+LUAD_kf,mean diff (perm),KRAS - WT,431,0.0105,0.025997400259974,
+LUAD_kf,mean diff (perm),KRAS - EGFR,181,0.0187,0.0015998400159984002,
+LUAD_kf,mean diff (perm),EGFR - WT,372,-0.0081,0.2161783821617838,
+LUAD_kn,Kruskal-Wallis (perm),WT vs EGFR vs KRAS,492,16.002,0.00029997000299970003,0.0003350859307509108
+LUAD_kn,descriptive,WT,311,0.0032,,
+LUAD_kn,descriptive,EGFR,61,0.0028,,
+LUAD_kn,descriptive,KRAS,120,0.0027,,
+LUAD_kn,mean diff (perm),KRAS - WT,431,-0.0006,0.00039996000399960006,
+LUAD_kn,mean diff (perm),KRAS - EGFR,181,-0.0001,0.34556544345565443,
+LUAD_kn,mean diff (perm),EGFR - WT,372,-0.0004,0.04709529047095291,

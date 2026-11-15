@@ -1,0 +1,18 @@
+Total pairs: 31764, Strong: 39
+
+                          cell_type  n_pairs  strong_observed  strong_expected  fold_enrichment  p_hypergeom  p_bonferroni
+                          Astrocyte     5778                3         7.094258         0.422877     0.981643      1.000000
+                    Oligodendrocyte     5778               10         7.094258         1.409591     0.158150      1.000000
+          Oligodendrocyte precursor     5671                1         6.962883         0.143619     0.999536      1.000000
+                          Microglia     5671               16         6.962883         2.297899     0.000604      0.006038
+                         Fibroblast     3403                6         4.178221         1.436018     0.235234      1.000000
+                           Vascular     3321                0         4.077541         0.000000     1.000000      1.000000
+Committed oligodendrocyte precursor     1326                1         1.628070         0.614224     0.810629      1.000000
+                          Ependymal      780                2         0.957688         2.088363     0.248450      1.000000
+                      Bergmann glia       21                0         0.025784         0.000000     1.000000      1.000000
+                     Choroid plexus       15                0         0.018417         0.000000     1.000000      1.000000
+
+Oligodendrocyte lineage (pre-specified): pairs=12775 (40.2%), Strong=12/39, expected=15.7, fold=0.77
+Hypergeometric P = 9.162e-01
+Permutation P (B=100,000) = 9.170e-01
+OPC alone hypergeometric P = 9.995e-01

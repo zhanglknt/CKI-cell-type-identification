@@ -1,0 +1,328 @@
+{
+  "null_thresholds": {
+    "omega": 20.81306462415909,
+    "k_f": 0.05206346344120756,
+    "k_n": 0.002846476134865579,
+    "k_total": 0.0035694996195525627,
+    "cosine": 0.014609779235949704,
+    "kf_over_kt": 15.782501739810387
+  },
+  "n_baseline": 200,
+  "seed": 42,
+  "background": "Tabula Muris FACS Marrow (B cell)",
+  "module_size": 200,
+  "n_cells_per_group": 200,
+  "n_reps": 50,
+  "S1_functional_on_hk_detection": {
+    "0.25": {
+      "rates": {
+        "omega": 0.0,
+        "k_f": 0.02,
+        "k_n": 0.613,
+        "k_total": 0.06,
+        "cosine": 0.06,
+        "kf_over_kt": 0.0
+      },
+      "means": {
+        "omega": 9.11991,
+        "k_f": 0.02661,
+        "k_n": 0.00292,
+        "k_total": 0.00274,
+        "cosine": 0.01239,
+        "kf_over_kt": 9.6359
+      },
+      "by_seed": {
+        "42": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.68,
+          "k_total": 0.06,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.58,
+          "k_total": 0.06,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.58,
+          "k_total": 0.06,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "0.5": {
+      "rates": {
+        "omega": 0.0,
+        "k_f": 0.02,
+        "k_n": 1.0,
+        "k_total": 0.113,
+        "cosine": 0.1,
+        "kf_over_kt": 0.0
+      },
+      "means": {
+        "omega": 6.17928,
+        "k_f": 0.02639,
+        "k_n": 0.00428,
+        "k_total": 0.00298,
+        "cosine": 0.01297,
+        "kf_over_kt": 8.77603
+      },
+      "by_seed": {
+        "42": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 1.0,
+          "k_total": 0.12,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 1.0,
+          "k_total": 0.12,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 1.0,
+          "k_total": 0.1,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "1.0": {
+      "rates": {
+        "omega": 0.0,
+        "k_f": 0.02,
+        "k_n": 1.0,
+        "k_total": 0.953,
+        "cosine": 0.847,
+        "kf_over_kt": 0.0
+      },
+      "means": {
+        "omega": 2.4165,
+        "k_f": 0.02544,
+        "k_n": 0.01057,
+        "k_total": 0.00418,
+        "cosine": 0.01559,
+        "kf_over_kt": 6.03209
+      },
+      "by_seed": {
+        "42": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 1.0,
+          "k_total": 0.98,
+          "cosine": 0.84,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 1.0,
+          "k_total": 0.94,
+          "cosine": 0.82,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 1.0,
+          "k_total": 0.94,
+          "cosine": 0.88,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "2.0": {
+      "rates": {
+        "omega": 0.0,
+        "k_f": 0.0,
+        "k_n": 1.0,
+        "k_total": 1.0,
+        "cosine": 1.0,
+        "kf_over_kt": 0.0
+      },
+      "means": {
+        "omega": 0.46321,
+        "k_f": 0.01954,
+        "k_n": 0.04236,
+        "k_total": 0.01142,
+        "cosine": 0.02847,
+        "kf_over_kt": 1.7096
+      },
+      "by_seed": {
+        "42": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 1.0,
+          "k_total": 1.0,
+          "cosine": 1.0,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 1.0,
+          "k_total": 1.0,
+          "cosine": 1.0,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 1.0,
+          "k_total": 1.0,
+          "cosine": 1.0,
+          "kf_over_kt": 0.0
+        }
+      }
+    }
+  },
+  "S2_neutral_on_nonhk_typeI": {
+    "0.25": {
+      "rates": {
+        "omega": 0.02,
+        "k_f": 0.013,
+        "k_n": 0.06,
+        "k_total": 0.06,
+        "cosine": 0.06,
+        "kf_over_kt": 0.007
+      },
+      "means": {
+        "omega": 10.58074,
+        "k_f": 0.02621,
+        "k_n": 0.00248,
+        "k_total": 0.00277,
+        "cosine": 0.01236,
+        "kf_over_kt": 9.42255
+      },
+      "by_seed": {
+        "42": {
+          "omega": 0.02,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.06,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.02,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.06,
+          "cosine": 0.06,
+          "kf_over_kt": 0.02
+        },
+        "2024": {
+          "omega": 0.02,
+          "k_f": 0.0,
+          "k_n": 0.06,
+          "k_total": 0.06,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "0.5": {
+      "rates": {
+        "omega": 0.007,
+        "k_f": 0.013,
+        "k_n": 0.06,
+        "k_total": 0.147,
+        "cosine": 0.1,
+        "kf_over_kt": 0.0
+      },
+      "means": {
+        "omega": 10.06303,
+        "k_f": 0.02486,
+        "k_n": 0.00247,
+        "k_total": 0.00311,
+        "cosine": 0.01287,
+        "kf_over_kt": 7.95272
+      },
+      "by_seed": {
+        "42": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.14,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.16,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.02,
+          "k_f": 0.0,
+          "k_n": 0.06,
+          "k_total": 0.14,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "1.0": {
+      "rates": {
+        "omega": 0.007,
+        "k_f": 0.007,
+        "k_n": 0.06,
+        "k_total": 1.0,
+        "cosine": 0.673,
+        "kf_over_kt": 0.0
+      },
+      "means": {
+        "omega": 12.65228,
+        "k_f": 0.03108,
+        "k_n": 0.00246,
+        "k_total": 0.00474,
+        "cosine": 0.01522,
+        "kf_over_kt": 6.53043
+      },
+      "by_seed": {
+        "42": {
+          "omega": 0.02,
+          "k_f": 0.0,
+          "k_n": 0.06,
+          "k_total": 1.0,
+          "cosine": 0.7,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 1.0,
+          "cosine": 0.66,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 0.06,
+          "k_total": 1.0,
+          "cosine": 0.66,
+          "kf_over_kt": 0.0
+        }
+      }
+    }
+  }
+}

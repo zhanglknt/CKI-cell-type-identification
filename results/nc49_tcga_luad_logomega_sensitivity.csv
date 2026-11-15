@@ -1,0 +1,20 @@
+response,term,coef,p
+omega,const,117.5813,4.208670202510375e-233
+omega,admix_z,17.782,7.8848691681249855e-28
+omega,EGFR,-1.6454,0.7279250791415033
+omega,KRAS,16.8258,4.001436423208294e-06
+log_omega,const,4.6872,0.0
+log_omega,admix_z,0.195,3.7101581201154e-29
+log_omega,EGFR,0.017,0.7353366979474351
+log_omega,KRAS,0.1699,1.241977982740874e-05
+log_kf,const,-1.2868,0.0
+log_kf,admix_z,-0.0206,0.008873246750331668
+log_kf,EGFR,-0.0175,0.47163596868746727
+log_kf,KRAS,0.0509,0.006271827483705384
+log_kn,const,-5.8454,0.0
+log_kn,admix_z,-0.168,2.8687397959780872e-27
+log_kn,EGFR,-0.029,0.5214687631388676
+log_kn,KRAS,-0.1089,0.001686234089354244
+log_omega,KRAS/WT ratio (exp),1.185,1.241977982740874e-05
+log_omega,KRAS/WT ratio CI low (exp),1.117,
+log_omega,KRAS/WT ratio CI high (exp),1.257,

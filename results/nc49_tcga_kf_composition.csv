@@ -1,0 +1,70 @@
+section,cancer,metric,n,test,comparison,stat,se,p,extra
+A1_pair_level,TCGA-LUAD,kf,4850,OLS log ~ is_TT + admix,TT vs NN,0.2078,0.0108,8.208409506047272e-80,unadj_loggap=0.2380
+A1_pair_level,TCGA-LUAD,kn,4850,OLS log ~ is_TT + admix,TT vs NN,0.9908,0.0186,0.0,unadj_loggap=1.0767
+A1_pair_level,TCGA-LUSC,kf,3653,OLS log ~ is_TT + admix,TT vs NN,0.5341,0.0141,1.1191132343247034e-264,unadj_loggap=0.5514
+A1_pair_level,TCGA-LUSC,kn,3653,OLS log ~ is_TT + admix,TT vs NN,0.6186,0.0219,9.741375285438745e-159,unadj_loggap=0.9296
+A1_pair_level,TCGA-LIHC,kf,3596,OLS log ~ is_TT + admix,TT vs NN,0.5297,0.0145,3.604874048817485e-250,unadj_loggap=0.5387
+A1_pair_level,TCGA-LIHC,kn,3596,OLS log ~ is_TT + admix,TT vs NN,0.4847,0.0246,3.5561264854974037e-82,unadj_loggap=0.5656
+A1_pair_level,TCGA-KIRC,kf,5321,OLS log ~ is_TT + admix,TT vs NN,0.5995,0.0154,1.9602022106045603e-293,unadj_loggap=0.4794
+A1_pair_level,TCGA-KIRC,kn,5321,OLS log ~ is_TT + admix,TT vs NN,1.3028,0.0227,0.0,unadj_loggap=1.1884
+A1_pair_level,TCGA-BRCA,kf,7886,OLS log ~ is_TT + admix,TT vs NN,0.8237,0.0147,0.0,unadj_loggap=0.8269
+A1_pair_level,TCGA-BRCA,kn,7886,OLS log ~ is_TT + admix,TT vs NN,0.8563,0.0185,0.0,unadj_loggap=0.9931
+A2_pertumor,TCGA-LUAD,kf,493,linregress kf ~ admix,,-0.1513,,0.0007505502427938119,r2=2.29%
+A2_pertumor,TCGA-LUSC,kf,567,linregress kf ~ admix,,-0.1771,,2.2232997653178833e-05,r2=3.14%
+A2_pertumor,TCGA-LIHC,kf,365,linregress kf ~ admix,,-0.2671,,2.2255743600591117e-07,r2=7.13%
+A2_pertumor,TCGA-KIRC,kf,746,linregress kf ~ admix,,-0.1816,,5.894281439898491e-07,r2=3.30%
+A2_pertumor,TCGA-BRCA,kf,1010,linregress kf ~ admix,,-0.1524,,1.145597316081065e-06,r2=2.32%
+A3_luad_ancova,TCGA-LUAD,kf,492,OLS kf ~ group + admix_z,EGFR - WT,-0.0048,0.0062,0.43709052935359527,
+A3_luad_ancova,TCGA-LUAD,kf,492,OLS kf ~ group + admix_z,KRAS - WT,0.0124,0.0047,0.009211506012927128,
+A3_luad_ancova,TCGA-LUAD,kf,492,OLS kf ~ group + admix_z,KRAS - EGFR,0.0172,0.0069,0.012939079907415612,
+B_panel,TCGA-LUAD,kf_panel,7260,KRAS-KRAS core panel,,300.0,,,top-300 by frequency (50% rule gave <50 genes)
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Estrogen Response Late,10.0,,0.004884899009392869,"q=0.244, set_size=165"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),KRAS Signaling Dn,5.0,,0.02121417396980506,"q=0.53, set_size=69"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Myogenesis,7.0,,0.044528560655386344,"q=0.742, set_size=141"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Estrogen Response Early,7.0,,0.0958159809784829,"q=1, set_size=169"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Epithelial Mesenchymal Transition,7.0,,0.11725067393714528,"q=1, set_size=178"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Coagulation,4.0,,0.17111247373152658,"q=1, set_size=94"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),KRAS Signaling Up,6.0,,0.1809979890095076,"q=1, set_size=165"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Pancreas Beta Cells,1.0,,0.22609208389646368,"q=1, set_size=11"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Inflammatory Response,5.0,,0.3220461539576598,"q=1, set_size=163"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Hedgehog Signaling,1.0,,0.4284982838299988,"q=1, set_size=24"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Apical Junction,4.0,,0.43962392353128293,"q=1, set_size=147"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Complement,4.0,,0.49013728353221864,"q=1, set_size=157"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),IL-6/JAK/STAT3 Signaling,2.0,,0.5037751210364538,"q=1, set_size=73"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Pperoxisome,2.0,,0.5530814457094555,"q=1, set_size=80"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Wnt-beta Catenin Signaling,1.0,,0.5579219561946677,"q=1, set_size=35"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Fatty Acid Metabolism,3.0,,0.5789124208144887,"q=1, set_size=130"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Xenobiotic Metabolism,3.0,,0.624358746764829,"q=1, set_size=139"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),heme Metabolism,3.0,,0.6838786742112122,"q=1, set_size=152"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),UV Response Up,2.0,,0.7634158673364008,"q=1, set_size=119"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Spermatogenesis,1.0,,0.764838566185686,"q=1, set_size=62"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Bile Acid Metabolism,1.0,,0.8265516374678046,"q=1, set_size=75"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Androgen Response,1.0,,0.8562022264817519,"q=1, set_size=83"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Allograft Rejection,2.0,,0.8801886994664362,"q=1, set_size=157"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Hypoxia,2.0,,0.8845440447694976,"q=1, set_size=159"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Interferon Alpha Response,1.0,,0.8862613667855826,"q=1, set_size=93"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Glycolysis,2.0,,0.8928193463929917,"q=1, set_size=163"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),IL-2/STAT5 Signaling,2.0,,0.9059911674890416,"q=1, set_size=170"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),p53 Pathway,2.0,,0.920712602463411,"q=1, set_size=179"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Interferon Gamma Response,2.0,,0.9319544899264118,"q=1, set_size=187"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),TNF-alpha Signaling via NF-kB,2.0,,0.9332490562858093,"q=1, set_size=188"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),UV Response Dn,1.0,,0.9476090456789875,"q=1, set_size=126"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Apoptosis,1.0,,0.9576073044098535,"q=1, set_size=135"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),mTORC1 Signaling,1.0,,0.979094025642935,"q=1, set_size=165"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Adipogenesis,1.0,,0.9818540641289442,"q=1, set_size=171"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Myc Targets V2,0.0,,1.0,"q=1, set_size=49"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Myc Targets V1,0.0,,1.0,"q=1, set_size=120"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Apical Surface,0.0,,1.0,"q=1, set_size=30"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),PI3K/AKT/mTOR  Signaling,0.0,,1.0,"q=1, set_size=73"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),E2F Targets,0.0,,1.0,"q=1, set_size=161"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),G2-M Checkpoint,0.0,,1.0,"q=1, set_size=156"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),DNA Repair,0.0,,1.0,"q=1, set_size=117"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),TGF-beta Signaling,0.0,,1.0,"q=1, set_size=51"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Cholesterol Homeostasis,0.0,,1.0,"q=1, set_size=66"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Mitotic Spindle,0.0,,1.0,"q=1, set_size=179"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Notch Signaling,0.0,,1.0,"q=1, set_size=28"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Protein Secretion,0.0,,1.0,"q=1, set_size=67"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Unfolded Protein Response,0.0,,1.0,"q=1, set_size=77"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Angiogenesis,0.0,,1.0,"q=1, set_size=27"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Reactive Oxygen Species Pathway,0.0,,1.0,"q=1, set_size=41"
+B_hallmark,TCGA-LUAD,kf_panel,300,hypergeometric (BH),Oxidative Phosphorylation,0.0,,1.0,"q=1, set_size=166"

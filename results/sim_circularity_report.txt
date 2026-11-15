@@ -1,0 +1,26 @@
+Simulation circularity check: adversarial scenarios (v40 P2-1)
+================================================================
+Design: same background/gene set/metric code/baseline null as #45.
+S1 functional-on-HK: functional module on HK genes (CKI blind spot)
+S2 neutral-on-nonHK: neutral drift on non-HK genes (outside the
+   HK-anchored calibration)
+
+Null thresholds (95th pct, n=200):
+  omega=20.813, k_f=0.052063, k_n=0.0028465, k_total=0.0035695, cosine=0.01461, kf_over_kt=15.783
+
+S1. Detection of functional-on-HK signal (rate > null 95th pct):
+  (omega expected ~0.05 if CKI is blind to HK-located signal;
+   k_total/cosine expected high -> the blind spot is quantified)
+  delta=0.25  omega=0.000 k_f=0.020 k_n=0.613 k_total=0.060 cosine=0.060 kf_over_kt=0.000
+  delta=0.5   omega=0.000 k_f=0.020 k_n=1.000 k_total=0.113 cosine=0.100 kf_over_kt=0.000
+  delta=1.0   omega=0.000 k_f=0.020 k_n=1.000 k_total=0.953 cosine=0.847 kf_over_kt=0.000
+  delta=2.0   omega=0.000 k_f=0.000 k_n=1.000 k_total=1.000 cosine=1.000 kf_over_kt=0.000
+
+S2. Type-I error under neutral-on-nonHK drift:
+  eta=0.25  omega=0.020 k_f=0.013 k_n=0.060 k_total=0.060 cosine=0.060 kf_over_kt=0.007
+  eta=0.5   omega=0.007 k_f=0.013 k_n=0.060 k_total=0.147 cosine=0.100 kf_over_kt=0.000
+  eta=1.0   omega=0.007 k_f=0.007 k_n=0.060 k_total=1.000 cosine=0.673 kf_over_kt=0.000
+
+Per-seed spread (omega):
+  S1: delta=0.25: 0.00/0.00/0.00; delta=0.5: 0.00/0.00/0.00; delta=1.0: 0.00/0.00/0.00; delta=2.0: 0.00/0.00/0.00
+  S2: eta=0.25: 0.02/0.02/0.02; eta=0.5: 0.00/0.00/0.02; eta=1.0: 0.02/0.00/0.00

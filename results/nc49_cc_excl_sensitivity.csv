@@ -1,0 +1,9 @@
+analysis,cancer,n_tumours_full,n_tumours_excc,stat,ci95,full_stat
+ex_cc_nntt,TCGA-LIHC,398.0,366.0,1.112,"[0.934,1.299]",1.104
+ex_cc_kn_ratio,TCGA-LIHC,,,1.337,"[0.997,1.880]",1.35
+ex_cc_highpurity_half,TCGA-LUAD,247.0,247.0,2.863,"[2.389,3.401]",2.863
+ex_cc_highpurity_half,TCGA-LUSC,267.0,267.0,1.817,"[1.461,2.229]",1.817
+ex_cc_highpurity_half,TCGA-LIHC,199.0,183.0,1.188,"[1.005,1.435]",1.167
+ex_cc_highpurity_half,TCGA-KIRC,375.0,375.0,2.269,"[1.917,2.657]",2.269
+ex_cc_highpurity_half,TCGA-BRCA,505.0,505.0,1.74,"[1.438,2.053]",1.74
+cc_ledger,TCGA-LIHC,377.0,32.0,32.0,,

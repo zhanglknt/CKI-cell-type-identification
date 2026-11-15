@@ -1,0 +1,18 @@
+{
+  "n_boot": 5000,
+  "seed": 42,
+  "gradient": {
+    "point": 5.98507732568259,
+    "joint_region_clustered_ci": [
+      4.117387277165764,
+      9.175597587604951
+    ],
+    "published_iid_ci": [
+      4.86,
+      7.42
+    ],
+    "wider_than_published": true
+  },
+  "n_divergent_joint": 9,
+  "n_classes": 10
+}

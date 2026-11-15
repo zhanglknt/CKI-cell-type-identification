@@ -1,0 +1,471 @@
+{
+  "null_thresholds": {
+    "omega": 20.81306462415909,
+    "k_f": 0.05206346344120756,
+    "k_n": 0.002846476134865579,
+    "k_total": 0.0035694996195525627,
+    "cosine": 0.014609779235949704,
+    "kf_over_kt": 15.782501739810387
+  },
+  "n_baseline": 200,
+  "seed": 42,
+  "background": "Tabula Muris FACS Marrow (B cell)",
+  "n_cells_background": 1848,
+  "n_keep_genes": 6064,
+  "n_hk": 1064,
+  "module_size": 200,
+  "n_cells_per_group": 200,
+  "n_reps": 50,
+  "monotonicity_vs_delta": {
+    "omega": {
+      "spearman_rho": 0.4286,
+      "p": 0.3965014577259473
+    },
+    "k_f": {
+      "spearman_rho": 0.4286,
+      "p": 0.3965014577259473
+    },
+    "k_n": {
+      "spearman_rho": -0.7714,
+      "p": 0.07239650145772594
+    },
+    "k_total": {
+      "spearman_rho": 0.9429,
+      "p": 0.004804664723032055
+    },
+    "cosine": {
+      "spearman_rho": 0.8286,
+      "p": 0.04156268221574335
+    },
+    "kf_over_kt": {
+      "spearman_rho": -1.0,
+      "p": 0.0
+    }
+  },
+  "type_I_error": {
+    "neutral_hk": {
+      "rates_by_condition": {
+        "eta=0.25,eps=0.0": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.44,
+          "k_total": 0.1,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        },
+        "eta=0.5,eps=0.0": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 1.0,
+          "k_total": 0.56,
+          "cosine": 0.64,
+          "kf_over_kt": 0.0
+        },
+        "eta=1.0,eps=0.0": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 1.0,
+          "k_total": 1.0,
+          "cosine": 1.0,
+          "kf_over_kt": 0.0
+        }
+      },
+      "overall": {
+        "omega": 0.0,
+        "k_f": 0.006666666666666667,
+        "k_n": 0.8133333333333334,
+        "k_total": 0.5533333333333333,
+        "cosine": 0.58,
+        "kf_over_kt": 0.0
+      }
+    },
+    "neutral_global": {
+      "rates_by_condition": {
+        "eta=0.0,eps=0.3": {
+          "omega": 0.02,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.04,
+          "cosine": 0.04,
+          "kf_over_kt": 0.02
+        },
+        "eta=0.0,eps=1.0": {
+          "omega": 0.02,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.04,
+          "cosine": 0.04,
+          "kf_over_kt": 0.02
+        }
+      },
+      "overall": {
+        "omega": 0.02,
+        "k_f": 0.02,
+        "k_n": 0.06,
+        "k_total": 0.04,
+        "cosine": 0.04,
+        "kf_over_kt": 0.02
+      }
+    }
+  },
+  "power": {
+    "0.125": {
+      "omega": 0.013333333333333334,
+      "k_f": 0.013333333333333334,
+      "k_n": 0.06,
+      "k_total": 0.04,
+      "cosine": 0.06,
+      "kf_over_kt": 0.0,
+      "by_seed": {
+        "42": {
+          "omega": 0.02,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.04,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.02,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.04,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 0.06,
+          "k_total": 0.04,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "0.25": {
+      "omega": 0.0,
+      "k_f": 0.013333333333333334,
+      "k_n": 0.06,
+      "k_total": 0.05333333333333334,
+      "cosine": 0.06,
+      "kf_over_kt": 0.0,
+      "by_seed": {
+        "42": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.06,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.06,
+          "k_total": 0.06,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 0.06,
+          "k_total": 0.04,
+          "cosine": 0.06,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "0.5": {
+      "omega": 0.0,
+      "k_f": 0.0,
+      "k_n": 0.08,
+      "k_total": 0.14,
+      "cosine": 0.1,
+      "kf_over_kt": 0.0,
+      "by_seed": {
+        "42": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 0.08,
+          "k_total": 0.12,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 0.08,
+          "k_total": 0.08,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 0.08,
+          "k_total": 0.22,
+          "cosine": 0.1,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "1.0": {
+      "omega": 0.0,
+      "k_f": 0.013333333333333334,
+      "k_n": 0.08,
+      "k_total": 0.9933333333333333,
+      "cosine": 0.6666666666666666,
+      "kf_over_kt": 0.0,
+      "by_seed": {
+        "42": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.08,
+          "k_total": 0.98,
+          "cosine": 0.66,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.0,
+          "k_f": 0.0,
+          "k_n": 0.08,
+          "k_total": 1.0,
+          "cosine": 0.66,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.0,
+          "k_f": 0.02,
+          "k_n": 0.08,
+          "k_total": 1.0,
+          "cosine": 0.68,
+          "kf_over_kt": 0.0
+        }
+      }
+    },
+    "2.0": {
+      "omega": 0.13333333333333333,
+      "k_f": 0.15333333333333332,
+      "k_n": 0.09333333333333334,
+      "k_total": 1.0,
+      "cosine": 1.0,
+      "kf_over_kt": 0.0,
+      "by_seed": {
+        "42": {
+          "omega": 0.16,
+          "k_f": 0.18,
+          "k_n": 0.08,
+          "k_total": 1.0,
+          "cosine": 1.0,
+          "kf_over_kt": 0.0
+        },
+        "137": {
+          "omega": 0.12,
+          "k_f": 0.14,
+          "k_n": 0.08,
+          "k_total": 1.0,
+          "cosine": 1.0,
+          "kf_over_kt": 0.0
+        },
+        "2024": {
+          "omega": 0.12,
+          "k_f": 0.14,
+          "k_n": 0.12,
+          "k_total": 1.0,
+          "cosine": 1.0,
+          "kf_over_kt": 0.0
+        }
+      }
+    }
+  },
+  "confounded_detection_delta0.5": {
+    "0.25": {
+      "omega": 0.0,
+      "k_f": 0.0,
+      "k_n": 0.5,
+      "k_total": 0.26,
+      "cosine": 0.14,
+      "kf_over_kt": 0.0
+    },
+    "0.5": {
+      "omega": 0.0,
+      "k_f": 0.0,
+      "k_n": 1.0,
+      "k_total": 0.96,
+      "cosine": 0.94,
+      "kf_over_kt": 0.0
+    },
+    "1.0": {
+      "omega": 0.0,
+      "k_f": 0.0,
+      "k_n": 1.0,
+      "k_total": 1.0,
+      "cosine": 1.0,
+      "kf_over_kt": 0.0
+    }
+  },
+  "auc_signal_vs_neutral": {
+    "omega": 0.8042,
+    "k_f": 0.7159,
+    "k_n": 0.2127,
+    "k_total": 0.6401,
+    "cosine": 0.5842,
+    "kf_over_kt": 0.437
+  },
+  "cv_by_delta": {
+    "0.125": {
+      "omega": 0.2883,
+      "k_f": 0.3035,
+      "k_n": 0.0871,
+      "k_total": 0.187,
+      "cosine": 0.097,
+      "kf_over_kt": 0.1945
+    },
+    "0.25": {
+      "omega": 0.2719,
+      "k_f": 0.2919,
+      "k_n": 0.0873,
+      "k_total": 0.1809,
+      "cosine": 0.0962,
+      "kf_over_kt": 0.1852
+    },
+    "0.5": {
+      "omega": 0.2615,
+      "k_f": 0.2818,
+      "k_n": 0.088,
+      "k_total": 0.1644,
+      "cosine": 0.0927,
+      "kf_over_kt": 0.1824
+    },
+    "1.0": {
+      "omega": 0.213,
+      "k_f": 0.2283,
+      "k_n": 0.0897,
+      "k_total": 0.1505,
+      "cosine": 0.0796,
+      "kf_over_kt": 0.1872
+    },
+    "2.0": {
+      "omega": 0.2471,
+      "k_f": 0.2688,
+      "k_n": 0.0961,
+      "k_total": 0.1727,
+      "cosine": 0.0488,
+      "kf_over_kt": 0.2922
+    }
+  },
+  "robustness": {
+    "dropout": {
+      "0.25": {
+        "omega": 0.0,
+        "k_f": 0.06,
+        "k_n": 0.98,
+        "k_total": 0.46,
+        "cosine": 0.82,
+        "kf_over_kt": 0.0
+      },
+      "1.0": {
+        "omega": 0.0,
+        "k_f": 0.02,
+        "k_n": 0.96,
+        "k_total": 1.0,
+        "cosine": 1.0,
+        "kf_over_kt": 0.0
+      }
+    },
+    "depth": {
+      "0.25": {
+        "omega": 0.0,
+        "k_f": 0.02,
+        "k_n": 0.06,
+        "k_total": 0.06,
+        "cosine": 0.06,
+        "kf_over_kt": 0.0
+      },
+      "1.0": {
+        "omega": 0.0,
+        "k_f": 0.02,
+        "k_n": 0.08,
+        "k_total": 0.98,
+        "cosine": 0.66,
+        "kf_over_kt": 0.0
+      }
+    },
+    "imbalance": {
+      "0.25": {
+        "omega": 0.0,
+        "k_f": 0.48,
+        "k_n": 1.0,
+        "k_total": 1.0,
+        "cosine": 1.0,
+        "kf_over_kt": 0.0
+      },
+      "1.0": {
+        "omega": 0.0,
+        "k_f": 0.38,
+        "k_n": 1.0,
+        "k_total": 1.0,
+        "cosine": 1.0,
+        "kf_over_kt": 0.0
+      }
+    }
+  },
+  "module_size_sensitivity_delta1": {
+    "50": {
+      "means": {
+        "omega": 11.99339,
+        "k_f": 0.02974,
+        "k_n": 0.00248,
+        "k_total": 0.00282,
+        "cosine": 0.01286,
+        "kf_over_kt": 10.51765
+      },
+      "power": {
+        "omega": 0.04,
+        "k_f": 0.02,
+        "k_n": 0.06,
+        "k_total": 0.06,
+        "cosine": 0.1,
+        "kf_over_kt": 0.02
+      }
+    },
+    "200": {
+      "means": {
+        "omega": 12.46272,
+        "k_f": 0.03059,
+        "k_n": 0.00246,
+        "k_total": 0.00476,
+        "cosine": 0.01525,
+        "kf_over_kt": 6.45474
+      },
+      "power": {
+        "omega": 0.0,
+        "k_f": 0.013333333333333334,
+        "k_n": 0.08,
+        "k_total": 0.9933333333333333,
+        "cosine": 0.6666666666666666,
+        "kf_over_kt": 0.0
+      }
+    },
+    "500": {
+      "means": {
+        "omega": 7.30624,
+        "k_f": 0.01802,
+        "k_n": 0.00245,
+        "k_total": 0.00594,
+        "cosine": 0.01904,
+        "kf_over_kt": 2.97585
+      },
+      "power": {
+        "omega": 0.0,
+        "k_f": 0.0,
+        "k_n": 0.08,
+        "k_total": 1.0,
+        "cosine": 1.0,
+        "kf_over_kt": 0.0
+      }
+    }
+  }
+}

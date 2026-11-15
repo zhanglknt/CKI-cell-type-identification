@@ -1,0 +1,30 @@
+{
+  "analysis": "nc52 B5: linear vs softmax mapping comparison (ex-CC default)",
+  "seed": 42,
+  "bootstrap_B": 1000,
+  "n_cancers_CI_excludes_1": {
+    "linear": 4,
+    "softmax": 5
+  },
+  "LIHC": {
+    "linear": {
+      "NN_TT_ratio": 1.112,
+      "CI95": [
+        0.943,
+        1.302
+      ],
+      "CI_excludes_1": false
+    },
+    "softmax": {
+      "NN_TT_ratio": 1.286,
+      "CI95": [
+        1.091,
+        1.533
+      ],
+      "CI_excludes_1": true
+    }
+  },
+  "outputs": [
+    "C:\\Users\\KnightZ\\Desktop\\\u7ec6\u80de\u53d7\u9009\u62e9\\results\\nc52_tcga_mapping_schemes_table.csv"
+  ]
+}

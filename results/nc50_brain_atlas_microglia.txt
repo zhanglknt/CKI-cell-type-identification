@@ -1,0 +1,14 @@
+nc50 brain-atlas microglia validation (Human Brain Cell Atlas v1.0, Microglia supercluster)
+h5ad nuclei: 91838, genes: 58232; HK matched: 1107; HVG2000 excl HK: 1973
+eligible (cell_type, sample) groups (>= 20 cells): 563
+functional within-sample pairs: 35; neutral half-splits: 40 (per type 20; group-size floors {'microglial cell': 200, 'central nervous system macrophage': 100})
+pipeline: per-cell normalize_total(1e4)+log1p, group means; kn_floor=0.0001; seed 42
+
+metric, functional mean+-sd, neutral mean+-sd, MWU P, AUC(functional>neutral)
+omega: 21.8316+-7.1972 vs 1.2956+-0.3594; P=5.487e-14; AUC=1.000
+k_n: 0.0033+-0.0011 vs 0.0014+-0.0009; P=3.242e-09; AUC=0.891
+k_f: 0.0643+-0.0122 vs 0.0020+-0.0016; P=5.487e-14; AUC=1.000
+raw_js: 0.0064+-0.0012 vs 0.0005+-0.0003; P=5.487e-14; AUC=1.000
+cosine: 0.1459+-0.0309 vs 0.0209+-0.0188; P=5.487e-14; AUC=1.000
+spearman: 0.2480+-0.0477 vs 0.1499+-0.0592; P=1.238e-09; AUC=0.901
+jaccard: 0.6332+-0.0400 vs 0.1899+-0.1082; P=5.334e-14; AUC=1.000

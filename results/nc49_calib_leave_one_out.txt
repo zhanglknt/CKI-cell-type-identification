@@ -1,0 +1,34 @@
+Per-population split-half omega (50 reps each):
+                           mean    std  count
+tissue cell_type                             
+Heart  endothelial cell   7.232  1.588     50
+       fibroblast         7.001  1.731     50
+Liver  hepatocyte        12.435  5.982     50
+Marrow B cell             7.363  1.393     50
+       neutrophil         5.768  2.669     50
+Spleen B cell             6.375  0.934     50
+
+Global baseline (mean of 6 population means): 7.696  (manuscript value 7.70)
+
+Leave-one-population-out baselines:
+    removed_population  removed_mean  loo_baseline  pct_change_vs_full
+Heart endothelial cell         7.232         7.789                 1.2
+      Heart fibroblast         7.001         7.835                 1.8
+      Liver hepatocyte        12.435         6.748               -12.3
+         Marrow B cell         7.363         7.762                 0.9
+     Marrow neutrophil         5.768         8.081                 5.0
+         Spleen B cell         6.375         7.960                 3.4
+
+LOO range: [6.75, 8.08]; excluding hepatocyte: 6.75 (-12.3%); median-of-population-means baseline: 7.12 (-7.5%)
+
+Anchors (raw omega): brain grand mean = 38.55, astrocyte = 82.75, Bergmann glia = 13.56
+
+omega_cal anchors under alternative baselines:
+                          baseline  baseline_value  omega_cal_brain_grand  omega_cal_astrocyte  omega_cal_bergmann_glia
+            full 7.70 (manuscript)            7.70                   5.01                10.75                     1.76
+              LOO excl. hepatocyte            6.75                   5.71                12.26                     2.01
+LOO min (most conservative upward)            6.75                   5.71                12.26                     2.01
+                           LOO max            8.08                   4.77                10.24                     1.68
+                   median-of-means            7.12                   5.42                11.63                     1.90
+
+Direction: a smaller baseline (e.g. excluding hepatocyte, 6.75) raises every omega_cal by 14%; Bergmann glia omega_cal moves from 1.76 to 2.01 (further above 1); astrocyte from 10.75 to 12.26. The astrocyte-over-Bergmann-glia ordering and all ratio statements are baseline-invariant; only absolute omega_cal magnitudes shift.

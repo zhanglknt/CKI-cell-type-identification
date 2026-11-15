@@ -1,0 +1,166 @@
+"""Quick spot-check of key manuscript numerical claims against authoritative CSV/JSON data.
+
+Replaces scripts/spot_check_v19.py (whose expected values predated the GB-era
+revisions and no longer matched the authoritative results). Claims verified here
+were cross-checked in the v40/v41 reproducibility review (E4, 34-item table);
+each check names the source file that is the sole authority for the claim.
+"""
+import json
+import re
+
+import numpy as np
+import pandas as pd
+from pathlib import Path
+
+RESULTS = Path(__file__).resolve().parent.parent / "results"
+
+print("=" * 60)
+print("SPOT-CHECK: manuscript claims vs authoritative results")
+print("=" * 60)
+
+errors = 0
+
+
+def check(name, actual, expected, tol=0.0):
+    global errors
+    ok = abs(actual - expected) <= tol if tol else actual == expected
+    if not ok:
+        errors += 1
+    print(f"  {name}: claim={expected}, actual={actual} [{'OK' if ok else 'MISMATCH!'}]")
+
+
+# ============================================================
+# 1. TCGA mean NN/TT omega ratios (ex-CC linear caliber)
+#    Manuscript: 1.11-2.46 across the five cancer types
+# ============================================================
+print("\n--- 1. TCGA NN/TT mean ratios (ex-CC) ---")
+df = pd.read_csv(RESULTS / "nc52_tcga_pancancer_excc.csv").set_index("cancer")
+expected_nn_tt = {"LUAD": 2.464, "LUSC": 1.708, "LIHC": 1.112, "KIRC": 1.880, "BRCA": 1.567}
+for cancer, exp in expected_nn_tt.items():
+    check(cancer, round(df.loc[f"TCGA-{cancer}", "NN_TT_ratio"], 3), exp, tol=0.005)
+
+# ============================================================
+# 2. TCGA k_n reversal: TT/NN median k_n ratios 2.06-3.61x
+#    (nc52_tcga_pancancer_excc.csv, same source as Section 1)
+# ============================================================
+print("\n--- 2. TCGA TT/NN median k_n ratios ---")
+for cancer, exp in {"LUAD": 2.60, "LUSC": 2.53, "LIHC": 2.06, "KIRC": 3.61, "BRCA": 2.78}.items():
+    check(cancer, round(df.loc[f"TCGA-{cancer}", "kn_TT_NN_median_ratio"], 2), exp, tol=0.01)
+
+# ============================================================
+# 3. Mouse pilot category means (calibration basis)
+#    Manuscript: control 6.67; S/D/X = 21.31 / 43.19 / 27.31
+# ============================================================
+print("\n--- 3. Mouse pilot category means ---")
+df2 = pd.read_csv(RESULTS / "mouse_pilot_v2_results.csv")
+cat_expected = {"C_control": 6.67, "S_same_ct": 21.31, "D_diff_ct": 43.19, "X_cross": 27.31}
+cat_n = {"C_control": 6, "S_same_ct": 4, "D_diff_ct": 3, "X_cross": 2}
+for cat, exp in cat_expected.items():
+    sub = df2[df2["category"] == cat]
+    check(f"{cat} mean (n={cat_n[cat]})", round(sub["omega"].mean(), 2), exp, tol=0.01)
+    check(f"{cat} n", len(sub), cat_n[cat])
+fm = pd.read_csv(RESULTS / "full_matrix_pairs.csv")
+check("full pairwise matrix pairs", len(fm), 703)
+
+# ============================================================
+# 4. Brain class-level block-shuffle stats (authoritative file)
+#    Manuscript: astrocyte 82.75 +/- 44.98, P=9.99e-4, SES=6.49
+# ============================================================
+print("\n--- 4. Brain class-level (brain_bs_null_ct_test.csv) ---")
+df3 = pd.read_csv(RESULTS / "brain_bs_null_ct_test.csv")
+astro = df3[df3["cell_type"] == "Astrocyte"].iloc[0]
+check("astrocyte omega_mean", round(astro["omega_mean"], 2), 82.75, tol=0.01)
+check("astrocyte omega_std", round(astro["omega_std"], 2), 44.98, tol=0.01)
+check("astrocyte p_value", round(astro["p_value"], 6), 0.000999, tol=1e-6)
+check("astrocyte SES", round(astro["SES"], 2), 6.49, tol=0.01)
+check("astrocyte n_pairs", int(astro["n_pairs"]), 5778)
+
+# ============================================================
+# 5. Brain tier structure (brain_bs_null_summary.txt)
+#    Manuscript: Strong=39, raw P<0.05 in 31, min q=0.520
+# ============================================================
+print("\n--- 5. Brain null summary ---")
+summary = (RESULTS / "brain_bs_null_summary.txt").read_text()
+m = re.search(r"Strong\s+n=\s*(\d+).*p<0\.05:\s*(\d+)", summary)
+check("Strong tier n", int(m.group(1)), 39)
+check("Strong raw p<0.05", int(m.group(2)), 31)
+check("total pairs", int(re.search(r"Total pairs = (\d+)", summary).group(1)), 31764)
+min_q = pd.read_csv(RESULTS / "brain_bs_null_results.csv")["q_fdr"].min()
+check("min q_fdr (brain null)", round(min_q, 4), 0.5202, tol=0.0005)
+
+# ============================================================
+# 6. Brain set-level tests (brain_setlevel_tests.csv)
+#    Manuscript: 79.5% vs 6.2%, P=9.6e-31; CA z=61; OL 9/10, P=1.3e-5
+# ============================================================
+print("\n--- 6. Brain set-level tests ---")
+sl = pd.read_csv(RESULTS / "brain_setlevel_tests.csv").set_index("test_id")
+check("S1 effect (raw-P rate)", round(sl.loc["S1_global_enrichment", "effect"], 4), 0.7949, tol=0.0005)
+check("S1 P", float(f"{sl.loc['S1_global_enrichment', 'p_value']:.2e}"), 9.57e-31, tol=1e-32)
+check("S2 CA trend z", round(sl.loc["S2_dose_response_CA", "effect"], 1), 61.0, tol=0.05)
+check("S3 thalamotemporal effect", round(sl.loc["S3_OL_thalamotemporal", "effect"], 2), 0.90, tol=0.005)
+check("S3 thalamotemporal P", round(sl.loc["S3_OL_thalamotemporal", "p_value"] / 1e-5, 2), 1.26, tol=0.01)
+
+# ============================================================
+# 7. Internal split-half baselines (reviewer files)
+#    Manuscript: brain 9.73 [9.03, 10.53]; TS 7.67 [7.39, 8.00]
+# ============================================================
+print("\n--- 7. Internal baselines ---")
+brain_txt = (RESULTS / "reviewer_brain_splithalf_summary.txt").read_text()
+check("brain split-half mean", round(float(re.search(r"brain_split_half_mean_omega\s+([\d.]+)", brain_txt).group(1)), 2), 9.73, tol=0.005)
+ts_txt = (RESULTS / "reviewer_ts_splithalf_summary.txt").read_text()
+check("TS split-half mean", round(float(re.search(r"ts_split_half_mean_omega\s+([\d.]+)", ts_txt).group(1)), 2), 7.67, tol=0.005)
+
+# ============================================================
+# 8. Human pairs count (phase35 analyzed pairs)
+#    Manuscript: 4,851 analyzed cell-type pairs (C(99, 2));
+#    the phase33_v3 export (5,151 rows, 102 classes) is the
+#    pre-analysis inventory, superseded as a manuscript number
+# ============================================================
+print("\n--- 8. Human Tabula Sapiens pairs ---")
+df_h = pd.read_csv(RESULTS / "phase35_all_metrics_pairs.csv")
+check("human analyzed pairs (phase35)", len(df_h), 4851)
+df_inv = pd.read_csv(RESULTS / "phase33_v3_human_pairs.csv")
+check("phase33 inventory rows (102 classes)", len(df_inv), 5151)
+
+# ============================================================
+# 9. Kang IFN-beta demonstration (kang_ifnb_demo_summary.json)
+#    Manuscript: CD14 omega AUC 0.55 while k_f retains 0.98
+# ============================================================
+print("\n--- 9. Kang IFN-beta demonstration ---")
+with open(RESULTS / "kang_ifnb_demo_summary.json") as fh:
+    kang = json.load(fh)["cell_types"]
+cd14 = kang["CD14+ Monocytes"]
+check("CD14 omega AUC", round(cd14["auc_omega"], 2), 0.55, tol=0.005)
+check("CD14 k_f AUC", round(cd14["auc_kf"], 2), 0.98, tol=0.005)
+bcells = kang["B cells"]
+check("B cells omega AUC", round(bcells["auc_omega"], 2), 0.92, tol=0.005)
+
+# ============================================================
+# 10. nc50 microglia independent validation
+#     (nc50_brain_atlas_microglia.csv; Human Brain Cell Atlas v1.0)
+#     Manuscript: 35 functional vs 40 neutral pairs,
+#     omega 21.83 +/- 7.20 vs 1.30 +/- 0.36, P=5.5e-14, AUC=1.00
+# ============================================================
+print("\n--- 10. nc50 microglia validation ---")
+from scipy.stats import mannwhitneyu
+mg = pd.read_csv(RESULTS / "nc50_brain_atlas_microglia.csv")
+mg_f = mg[mg["pair_class"] == "functional"]
+mg_n = mg[mg["pair_class"] != "functional"]
+check("functional pairs", len(mg_f), 35)
+check("neutral half-splits", len(mg_n), 40)
+check("omega functional mean", round(mg_f["omega"].mean(), 2), 21.83, tol=0.01)
+check("omega neutral mean", round(mg_n["omega"].mean(), 2), 1.30, tol=0.01)
+check("omega MWU P", float(f"{mannwhitneyu(mg_f['omega'], mg_n['omega'], alternative='greater').pvalue:.2e}"), 5.49e-14, tol=1e-15)
+_auc = mannwhitneyu(mg_f["omega"], mg_n["omega"], alternative="greater").statistic / (len(mg_f) * len(mg_n))
+check("omega AUC (functional>neutral)", round(_auc, 3), 1.0)
+
+# ============================================================
+# Summary
+# ============================================================
+print("\n" + "=" * 60)
+if errors == 0:
+    print("ALL CHECKS PASSED")
+else:
+    print(f"{errors} CHECK(S) FAILED")
+print("=" * 60)
+raise SystemExit(1 if errors else 0)
