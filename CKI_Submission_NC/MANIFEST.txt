@@ -4,12 +4,12 @@
   tag: v0.5.x | GB-rebuttal round: real-data drift calibration + pan-cancer map
 ============================================================
 
- 1. CKI_Manuscript_NC.docx  (71,280 bytes)
+ 1. CKI_Manuscript_NC.docx  (71,292 bytes)
  2. CKI_NC_Cover_Letter.docx  (38,769 bytes)
  3. CKI_Reproducibility_Guide_NC.docx  (50,905 bytes)
- 4. CKI_Supplementary_NC.docx  (131,515 bytes)
- 5. CKI_Supplementary_Tables_NC.xlsx  (1,582,313 bytes)
- 6. CKI_Tables_NC.xlsx  (5,828 bytes)
+ 4. CKI_Supplementary_NC.docx  (136,510 bytes)
+ 5. CKI_Supplementary_Tables_NC.xlsx  (1,582,317 bytes)
+ 6. CKI_Tables_NC.xlsx  (5,829 bytes)
  7. CKI_graphical_abstract.pdf  (382,594 bytes)
  8. Supplementary_Fig_1.pdf  (1,491,906 bytes)
  9. Supplementary_Fig_2.pdf  (59,453 bytes)
@@ -26,12 +26,12 @@
 20. figure4.pdf  (3,350,153 bytes)
 
 SHA-256 checksums:
-  f6c32beefdd3618942e424cbbb1b2390d0c1952454d8bf740b32f39e01220e44  CKI_Manuscript_NC.docx
-  b89f4444e8fc05dcabfb4a48a0f3d439b7943405ab7eb88616ef1f9ea8e919b5  CKI_NC_Cover_Letter.docx
-  4aa4643699d97e73fad44898145e1f91c0138419057db1647c1e08e7ccc1a4ea  CKI_Reproducibility_Guide_NC.docx
-  f6c5f52367ff998bd0c9ac8a1b61713fb46c4e4d831cf4974135a032e1278107  CKI_Supplementary_NC.docx
-  24f45f6861bc28dd7e50306791c9b18d4f8dd4600ec5aa0de65c537b8ec3fc95  CKI_Supplementary_Tables_NC.xlsx
-  539617ae9aac041d4e61938bad1836c18d3ce666c827203ecf7c6cece83a51fd  CKI_Tables_NC.xlsx
+  913fa89f0e7003fbd645418355ccb78333d07f9759202cd5f4658e2be18b3705  CKI_Manuscript_NC.docx
+  86e665e61a1b18489aec99d2bd5389e425fc2d5567fd11ab572de9e1685eddc1  CKI_NC_Cover_Letter.docx
+  a2417d32529331e96dc0915876e4215026ef98e3a75ee8ec48cc741f795b64c9  CKI_Reproducibility_Guide_NC.docx
+  17adc85ced384a7c8dfe72f4671140fa6faecd2c9978c838c27eaac622fb0e4c  CKI_Supplementary_NC.docx
+  d19288dd5b3dd8e250ca2817ad115b529e2c18fa06ba752c22b39951d02c6ad6  CKI_Supplementary_Tables_NC.xlsx
+  852c40f005d7321143fe3e058eaca93fabf7e408a9f58241f98bbb51101c5248  CKI_Tables_NC.xlsx
   c8529c93bc3197f0a8838a7a0d4be6000aff4bb03f906f04d338d59d603c3299  CKI_graphical_abstract.pdf
   977626cd235ab5fb0e6e5b8cbf51979b202b8f4792aec61a3eec4e184ead95b5  Supplementary_Fig_1.pdf
   2b52fc52a4d994a0f42a616a1b7af7f1b80944cb98d62e5bc7ec5c40e0eb871b  Supplementary_Fig_2.pdf
