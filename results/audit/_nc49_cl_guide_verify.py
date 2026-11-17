@@ -33,8 +33,8 @@ chk('CL TCGA abstract-aligned, no range numbers (v59)',
 chk('CL four pillars + brain-atlas pillar (v59)',
     'four pillars' in clfull and 'three pillars' not in clfull
     and '108 regions' in clfull
-    and 'regional differentiation gradient' in clfull
-    and 'calibrated framework for atlas-scale' in clfull)
+    and 'regional gradient (6.10-fold upper bound' in clfull
+    and 'a framework for atlas-scale' in clfull)
 chk('CL GTEx sentence (nc80 M-K: not resolved)',
     'GTEx healthy' in clfull and 'larger shifts are not resolved' in clfull
     and 'arguing against a field-effect reading' not in clfull)

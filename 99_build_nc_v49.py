@@ -277,7 +277,7 @@ def main():
         ("6.10-fold", "A11 regional gradient"),
         ("absorbs ratio bias", "A13 ratio bias (v51 wording)"),
         ("7.70", "A14 omega baseline"),
-        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (v0.5.6, latest-resolving)"),
+        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (v0.6.1 release archived)"),
         ("GSE96583", "A16 Kang GEO"),
         ("GSE109774", "A17 TCGA/brain GEO in Data availability"),
     ]
@@ -381,8 +381,8 @@ def main():
           "V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)")
     check('cross-type gaps should be read descriptively' in ms,
           "V49-N47 B3 Table 1 cross-type caveat (v51 wording)")
-    check('resolves regional differentiation gradients' in ms,
-          "V49-N48 B4 Abstract states brain gradient (nc79: framework clause cut for panel P0-2)")
+    check('housekeeping-dominated and panel-dependent' in ms,
+          "V49-N48 B4 Abstract states brain gradient (nc81: gradient downgraded, panel dependence stated)")
     check('inheriting the four-donor structure' in ms,
           "V49-N49 B5 brain screen donor-confounding disclosure (v52 wording)")
     check('sample-source code (positions 14\u201315)' in sn
@@ -689,7 +689,7 @@ def main():
           and 'module-seed cluster bootstrap' in sn and '[0.070, 0.108]' in sn,
           "NC60-R2M1 paired DeLong dAUC (MS text; nc79 caption slim: SI)")
     check('intervals excluding zero under library clustering' in ms
-          and 'paired McNemar comparisons' in ms
+          and 'library-clustered intervals in Supplementary Tables 3a and 4' in ms
           and 'McNemar-style discordant-pair counts' in sn
           and '\u0394FPR versus \u03c9 is raw JS +0.166 [+0.135, +0.196]' in sn,
           "NC60-R2M2 / nc80-m7 T1 paired contrasts (MS: interval only; SI: "

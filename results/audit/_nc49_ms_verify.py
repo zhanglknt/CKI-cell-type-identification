@@ -74,7 +74,7 @@ chk('Abstract 3,535 (ex-CC, v52)', bool(abs_paras) and '3,535' in abs_paras[0])
 chk('Abstract pan-cancer pattern (nc79)',
     bool(abs_paras) and 'tumor\u2013tumor pairs show higher housekeeping divergence than normal\u2013normal pairs in all five (1.3\u20133.3-fold)' in abs_paras[0])
 chk('Abstract k_n-driven attribution (nc80 plan b)',
-    bool(abs_paras) and 'about half of this reversal is attributable to copy-number instability (56%, 95% CI 46\u201366%)' in abs_paras[0])
+    bool(abs_paras) and 'copy-number instability accounts for 56% (95% CI 46\u201366%) of that k_n gap' in abs_paras[0])
 
 # 5. Sample caliber 3,535 ex-CC everywhere (v52: ex-CC default)
 chk('3,535 present (ex-CC, v52)', '3,535' in full)
@@ -131,7 +131,7 @@ chk('pair-level MWU P deleted from main claims (v51)',
 chk('LIHC mapping-sensitivity honest (v52)',
     'linear 1.11 versus softmax 1.29; Supplementary Table 8a' in full)
 chk('softmax demoted to SI sensitivity (v51; nc79 wording)',
-    'under the authoritative linear probability mapping' in full
+    'Under the authoritative linear probability mapping' in full
     and 'Section 1.7' in full and 'softmax-caliber values are archived here as a sensitivity analysis' in sfull)
 
 # 7. R2-P0/P1: purity + smoking adjustment integrated
