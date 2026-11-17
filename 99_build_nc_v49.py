@@ -115,7 +115,10 @@ def main():
     # (old figure5) renumbered to figure4
     for i in range(1, 4):
         shutil.copy2(STAGE / f"figure{i}.pdf", FIGS_NC / f"figure{i}.pdf")
-    shutil.copy2(STAGE / "figure5.pdf", FIGS_NC / "figure4.pdf")
+    # nc81: figure 4 re-plotted from the result tables (the v58 artwork put
+    # every label at 2.4-3.3 pt once reduced to the 180 mm column width).
+    FIG4_NC81 = BASE / "results" / "figures_nc81" / "figure4.pdf"
+    shutil.copy2(FIG4_NC81, FIGS_NC / "figure4.pdf")
     _stale_fig5 = FIGS_NC / "figure5.pdf"
     if _stale_fig5.exists():
         _stale_fig5.unlink()
@@ -277,7 +280,7 @@ def main():
         ("6.10-fold", "A11 regional gradient"),
         ("absorbs ratio bias", "A13 ratio bias (v51 wording)"),
         ("7.70", "A14 omega baseline"),
-        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (v0.6.1 release archived)"),
+        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (v0.6.2 release archived)"),
         ("GSE96583", "A16 Kang GEO"),
         ("GSE109774", "A17 TCGA/brain GEO in Data availability"),
     ]

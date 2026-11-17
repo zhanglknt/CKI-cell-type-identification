@@ -182,3 +182,86 @@
 **最小可行修复路径（估计 1–1.5 天）**：先做 P0 六项（tag 内容、figure4、失效路径是政策/生产硬伤），再把 P1 的 6/9/10/14 四条叙事改写落地——把论文重新定位为"一个可检验的、以分母为核心的诊断式指数 + 一份诚实的边界清单"，而不是"优于现有度量的新方法"。代价是标题与摘要语气降一档，收益是 6 位里至少 4 位会转 Minor。
 
 **若目标是先拿一个 accept**：另一条路是把脑图谱部分整体压缩成 SI、把 TCGA 部分做成主结果（"HK 归一化在肿瘤中的失效"是一个干净、可检验、有临床意义的警示），主体从"新指数"转为"归一化陷阱的量化"。R3 认为这条路对癌症读者更有价值，R5 也承认脑部分"k_n 主导"难以支撑标题级主张。
+
+---
+
+## 6. 修复回执（nc81 落地，commit 38c2659 / squash 1d71495 / tag v0.6.1）
+
+### 已完成
+
+| P0 | 状态 | 落地内容 |
+|---|---|---|
+| 1 摘要 KRAS 降级 | ✅ | 摘要改为 "KRAS-mutant tumors exceed wild-type group means after purity adjustment but not under a fixed panel (P = 0.089; AUC 0.648)"；同时补 CNA 42% 敏感性、"precision, not specificity"、脑梯度 panel-dependent；摘要 **150 词**（限 150） |
+| 2 代码版本 | ✅ | 正文三处 + Guide 三处 → **v0.6.1**；新 tag `v0.6.1` 已推送，含 64 个 nc75–nc89 脚本（10x modular、Mahalanobis、library-clustered 区间、CNA share v2 全在内）；Zenodo 文案改为"最新归档版本 + v0.6.1 归档随投稿" |
+| 3 Guide 补链 | ✅ | 新增 **Section 5.14 nc80 Analyses**，三条链路（脚本 → 设计 → 输出 → 预期值） |
+| 4 图幅 | ⚠️ 未完成 | 建立 `scripts/check_figure_spec.py`；实测 **0/13 通过**：figure1 最小字 4.0 pt、figure2 3.9、figure3 205.7 mm + 4.4、figure4 441 mm + 4.9；9 张附图 2.8–6.0 pt。所有图均需按 ≥7 pt 重绘 |
+| 5 图注 McNemar | ✅ | 改为 "paired differences with library-clustered intervals in Supplementary Tables 3a and 4" |
+| 6 失效路径 | ✅ | Methods → `results/nc78_posthoc_component_associations.csv`（文件已入库）；"elevation. under" → "Under"；神经元均值/中位数分列 |
+
+### 复核（修复后）
+
+- build **231/231**；ms_verify **130/130**；si_verify **120/120**；cl_guide **45/45**；XV8 **64/64**；_nc80_mj_crossval **137/137**；pytest **29/29**
+- 字数：MAIN **4,996**（≤5,000）、摘要 **150**、CL **530**（≤530）
+- zip 21 条目 14,654,613 B，与根包 21 个散文件逐 sha256 相等
+- 远端：main = `1d71495`，tag `v0.6.1` = 同一提交
+
+### 仍未做的（P0-4 + 部分 P1）
+
+1. **图重绘**：仓库内没有 Figure 1–4 的绘图脚本（v58 图由 `results/audit/_nc70_mainfigs.py` 以矢量带拼合，原始 panel 字号本就 4.9–6.3 pt）。要合规必须回到各 panel 的绘图环节以 ≥7 pt 重出，或用现有的 per-pair 结果 CSV 重建 Fig. 4。
+2. **P1 叙事**：锚点可信性判据（R1-2）、leave-pair-out 上主文（R1-3）、CNA 正常组织实测（R3）、two-way cluster PSD 检查（R2）等需新增分析或新增小节，属"第二轮"。
+
+---
+
+## 7. P0-4 图幅：figure 4 重建（nc81b，tag v0.6.2）
+
+### 病根
+
+`scripts/check_figure_spec.py` 按"有效字号 = 页面字号 × min(1, 180 mm / 页宽)"度量，
+figure 4（旧 v58 figure6 拼接版）画布 **441 × 354 mm**，缩到 180 mm 后
+**1,343 / 1,361 个字符落在 5 pt 以下**（2.4–3.3 pt），只有 18 个字符落在 5–7 pt、
+**0 个**字符达到 7 pt。这不是"字小一点"，是整页不可读；矢量整体缩放无法修复
+（文字相对数据本身就小），只能按数据重绘。
+
+### 处置
+
+新增 `notebooks/110_gen_fig4_nc81.py`，从权威结果表重绘六个 panel：
+
+| panel | 内容 | 数据来源 |
+|---|---|---|
+| a | 解剖示意图 + 10 类细胞 | 重画（原图内 2–3 pt 解剖名不再带入，区域清单在附表 10–11） |
+| b | 10 类平均 ω、6.10 倍梯度 | `results/brain_bs_null_ct_test.csv` |
+| c | Strong 39 / Moderate 1,171 / Weak 5,381 | `results/nc79_a5_scheme_tiers.csv`（主方案行） |
+| d | 五强候选 observed vs expected（res 0.196–0.213） | `results/brain_bs_null_observed_pairs.csv` |
+| e | 三个神经元超类 block-shuffle 零分布（B = 1,000） | `brain_neuron_blockshuffle.csv` + `_null_means.npy` |
+| f | 超类 vs 非神经类中位数 | 同上 + `brain_bs_null_ct_test.csv` |
+
+脚本内自带 6 条断言（39/1,171/5,381/31,764、6.105 倍、res₀ = 0.1964），
+数字与图注对不上会直接中断。
+
+### 结果
+
+- **180 × 214 mm，最小字号 7.0 pt，0 个 span 低于 7 pt**（原 2.4–3.3 pt）
+- 图注同步两处：`59.3–64.2` → **`59.2–64.2`**（三个超类中位数 59.21 / 59.32 / 64.24），
+  `a non-neuronal median of 24.5` → **`a pair-level non-neuronal median of 24.5`**
+  （24.5 是 pair 级中位数，与 panel f 的"类内中位数的中位数 24.16"不是同一统计量，
+  加 `pair-level` 消歧；SI 中 `62.2 / 24.5 / 73.4` 的口径不变）
+- 构建改取 `results/figures_nc81/figure4.pdf`；代码版本 **v0.6.1 → v0.6.2**（7 处）
+- 复核：build 231/231、ms 130、si 120、cl_guide 45、XV8 64、crossval 137、pytest 29
+- zip 21 条目 11,427,759 B，与根包逐 sha256 相等
+
+### 仍未完成的 12 张
+
+| 图 | 页宽 mm | <5 pt 字符 | 5–7 pt 字符 | 说明 |
+|---|---|---|---|---|
+| figure1 | 170.0 | 6 | 115 | 4.0 pt 仅 6 字符，局部可救 |
+| figure2 | 178.0 | 228 | 962 | 主体 5.6 pt，NC 5 pt 底线之上 |
+| figure3 | 205.7 | 28 | 288 | **超宽 25.7 mm**，需缩到 180 或重排 |
+| SF1 | 178.0 | 348 | 818 | 2.8 pt 起 |
+| SF3 | 178.0 | 352 | 415 | 3.4 pt 起 |
+| SF5 | 178.0 | 51 | 15 | 2.8 pt 起 |
+| 其余 6 张 | 178.0 | 3–26 | 6–1,157 | SF8 已全 ≥6 pt |
+
+这 12 张的共同点是"少量标注字过小"，与 figure 4 的"整页不可读"不同性质；
+NC 的硬性下限是 5 pt，我们的内控下限是 7 pt。下一步按两个选项推进：
+(a) figure3 先解宽度硬违规（205.7 → 180 mm）+ 局部补字；
+(b) SF1/SF3 因 <5 pt 字符达 350 量级，需回到各自的 panel 重出。
