@@ -1,0 +1,68 @@
+nc80 paired within-patient TN analysis (v44 linear-mapping mirror)
+======================================================================
+Cohort: patients with >=1 tumour (01) and >=1 normal (11) sample
+TN_same: FULL enumeration; TN_cross: subsample cap 2000; TT/NN: cross-patient, full enumeration within cohort
+Bootstrap: patient-level cluster, B=1000, seed=42
+
+[TCGA-BRCA] patients=108  pairs={'TN_same': 108, 'TT': 5778, 'NN': 5778, 'TN_cross': 2000}
+  median k_n:  TN_same=1.948e-03  TT=2.173e-03  NN=8.818e-04  TN_cross=2.100e-03
+  median k_f:  TN_same=2.763e-01  TT=2.946e-01  NN=1.452e-01  TN_cross=2.994e-01
+  median omega_raw:  TN_same=151.61  TT=136.14  NN=165.11  TN_cross=145.62
+  k_n ratio TN_same/TT = 0.896  boot 95% CI [0.825, 0.965] (n=1000)
+  k_n ratio TN_same/NN = 2.209  boot 95% CI [1.854, 2.568] (n=1000)
+  k_n ratio TN_same/TN_cross = 0.927  boot 95% CI [0.868, 0.991] (n=1000)
+  MWU TN_same_vs_TT_kn: U=258011  p=2.03e-03
+  MWU TN_same_vs_NN_kn: U=479619  p=9.77e-22
+  MWU TN_same_vs_TN_cross_kn: U=95873  p=4.90e-02
+
+[TCGA-KIRC] patients=82  pairs={'TN_same': 82, 'TT': 3321, 'NN': 3321, 'TN_cross': 2000}
+  median k_n:  TN_same=1.609e-03  TT=1.696e-03  NN=7.203e-04  TN_cross=1.818e-03
+  median k_f:  TN_same=3.031e-01  TT=2.465e-01  NN=1.582e-01  TN_cross=3.167e-01
+  median omega_raw:  TN_same=185.58  TT=146.72  NN=213.56  TN_cross=167.53
+  k_n ratio TN_same/TT = 0.949  boot 95% CI [0.805, 1.067] (n=1000)
+  k_n ratio TN_same/NN = 2.234  boot 95% CI [1.938, 2.507] (n=1000)
+  k_n ratio TN_same/TN_cross = 0.885  boot 95% CI [0.820, 0.954] (n=1000)
+  MWU TN_same_vs_TT_kn: U=126563  p=2.75e-01
+  MWU TN_same_vs_NN_kn: U=224144  p=1.37e-23
+  MWU TN_same_vs_TN_cross_kn: U=70215  p=2.72e-02
+
+[TCGA-LIHC] patients=57  pairs={'TN_same': 57, 'TT': 1596, 'NN': 1596, 'TN_cross': 2000}
+  median k_n:  TN_same=3.219e-03  TT=4.145e-03  NN=1.917e-03  TN_cross=4.573e-03
+  median k_f:  TN_same=3.089e-01  TT=3.321e-01  NN=1.644e-01  TN_cross=3.201e-01
+  median omega_raw:  TN_same=81.97  TT=78.05  NN=76.38  TN_cross=65.98
+  k_n ratio TN_same/TT = 0.777  boot 95% CI [0.684, 0.901] (n=1000)
+  k_n ratio TN_same/NN = 1.680  boot 95% CI [1.310, 2.039] (n=1000)
+  k_n ratio TN_same/TN_cross = 0.704  boot 95% CI [0.642, 0.787] (n=1000)
+  MWU TN_same_vs_TT_kn: U=32355  p=2.09e-04
+  MWU TN_same_vs_NN_kn: U=56532  p=1.81e-03
+  MWU TN_same_vs_TN_cross_kn: U=36012  p=2.07e-06
+
+[TCGA-LUAD] patients=75  pairs={'TN_same': 75, 'TT': 2775, 'NN': 2775, 'TN_cross': 2000}
+  median k_n:  TN_same=1.952e-03  TT=2.756e-03  NN=9.541e-04  TN_cross=2.236e-03
+  median k_f:  TN_same=2.936e-01  TT=2.738e-01  NN=2.031e-01  TN_cross=3.122e-01
+  median omega_raw:  TN_same=158.02  TT=97.04  NN=263.64  TN_cross=138.21
+  k_n ratio TN_same/TT = 0.708  boot 95% CI [0.626, 0.803] (n=1000)
+  k_n ratio TN_same/NN = 2.045  boot 95% CI [1.789, 2.576] (n=1000)
+  k_n ratio TN_same/TN_cross = 0.873  boot 95% CI [0.814, 0.929] (n=1000)
+  MWU TN_same_vs_TT_kn: U=68559  p=4.44e-07
+  MWU TN_same_vs_NN_kn: U=166341  p=8.25e-19
+  MWU TN_same_vs_TN_cross_kn: U=60999  p=5.99e-03
+
+[TCGA-LUSC] patients=58  pairs={'TN_same': 58, 'TT': 1653, 'NN': 1653, 'TN_cross': 2000}
+  median k_n:  TN_same=2.364e-03  TT=2.473e-03  NN=1.001e-03  TN_cross=2.711e-03
+  median k_f:  TN_same=3.178e-01  TT=3.442e-01  NN=1.760e-01  TN_cross=3.857e-01
+  median omega_raw:  TN_same=120.43  TT=133.94  NN=187.20  TN_cross=137.72
+  k_n ratio TN_same/TT = 0.956  boot 95% CI [0.901, 1.037] (n=1000)
+  k_n ratio TN_same/NN = 2.362  boot 95% CI [1.707, 3.152] (n=1000)
+  k_n ratio TN_same/TN_cross = 0.872  boot 95% CI [0.824, 0.929] (n=1000)
+  MWU TN_same_vs_TT_kn: U=45418  p=4.96e-01
+  MWU TN_same_vs_NN_kn: U=72056  p=6.97e-11
+  MWU TN_same_vs_TN_cross_kn: U=45603  p=5.46e-03
+
+[POOLED all five cancers]
+  median k_n:  TN_same=2.133e-03  TT=2.361e-03  NN=9.438e-04  TN_cross=2.517e-03
+  k_n ratio TN_same/TT = 0.903  boot 95% CI [0.855, 0.951] (n=1000)
+  k_n ratio TN_same/NN = 2.260  boot 95% CI [2.064, 2.486] (n=1000)
+  k_n ratio TN_same/TN_cross = 0.847  boot 95% CI [0.807, 0.885] (n=1000)
+
+Total time: 523s

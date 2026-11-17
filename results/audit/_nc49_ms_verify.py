@@ -63,13 +63,18 @@ chk('Abstract drift sentence present', len(abs_paras) == 1)
 if abs_paras:
     wc = len(abs_paras[0].split())
     chk('Abstract word count <= 150 (nc79)', wc <= 150, f'{wc} words')
-chk('Abstract real-data calibration sentence (nc79: 147-word abstract)',
-    bool(abs_paras) and 'zero false reports on technical replicates' in abs_paras[0])
+chk('Abstract real-data calibration sentence (nc80 M-C: scoped log-MAD)',
+    bool(abs_paras) and 'with the tightest technical-replicate dispersion among seven metrics' in abs_paras[0]
+    and 'log-scale MAD 0.113' in abs_paras[0]
+    and 'most reproducible' not in abs_paras[0])
+chk('Abstract null-free calibration claim only (nc79 panel P0-2: no error-rate claim)',
+    bool(abs_paras) and 'zero false reports' not in abs_paras[0]
+    and 'shallowest' not in abs_paras[0])
 chk('Abstract 3,535 (ex-CC, v52)', bool(abs_paras) and '3,535' in abs_paras[0])
 chk('Abstract pan-cancer pattern (nc79)',
-    bool(abs_paras) and 'housekeeping divergence between tumors exceeds that between adjacent non-tumor tissues 1.3\u20133.3-fold' in abs_paras[0])
-chk('Abstract k_n-driven attribution (nc79)',
-    bool(abs_paras) and 'the housekeeping program is de-constrained in tumors' in abs_paras[0])
+    bool(abs_paras) and 'tumor\u2013tumor pairs show higher housekeeping divergence than normal\u2013normal pairs in all five (1.3\u20133.3-fold)' in abs_paras[0])
+chk('Abstract k_n-driven attribution (nc80 plan b)',
+    bool(abs_paras) and 'about half of this reversal is attributable to copy-number instability (56%, 95% CI 46\u201366%)' in abs_paras[0])
 
 # 5. Sample caliber 3,535 ex-CC everywhere (v52: ex-CC default)
 chk('3,535 present (ex-CC, v52)', '3,535' in full)
@@ -124,7 +129,7 @@ chk('pair-level MWU P deleted from main claims (v51)',
     'Dunn\u2013Holm P \u2264 0.008 for both KRAS contrasts' in full
     and 'label-permutation confirmed; Supplementary Table 6)' in full)
 chk('LIHC mapping-sensitivity honest (v52)',
-    'linear 1.11 [0.94, 1.30] versus softmax 1.29 [1.09, 1.53]' in full)
+    'linear 1.11 versus softmax 1.29; Supplementary Table 8a' in full)
 chk('softmax demoted to SI sensitivity (v51; nc79 wording)',
     'under the authoritative linear probability mapping' in full
     and 'Section 1.7' in full and 'softmax-caliber values are archived here as a sensitivity analysis' in sfull)
@@ -160,8 +165,8 @@ chk('high-purity half LUAD (v51: SI Note 8)', 'LUAD 2.46 \u2192 2.86' in sfull)
 chk('high-purity half LIHC caliber kept (v52: MS + SI 3.13)',
     'high-purity-half comparisons increased the NN/TT ratio in all five' in full
     and 'high-purity-half 1.17 full-cohort (95% CI [0.97, 1.41]) versus 1.19 excluding CC' in sfull)
-chk('reversal not admixture artefact (v51)',
-    'admixture can only weaken, not create' in full)
+chk('reversal not admixture artefact (nc80 scoped)',
+    'admixture neither uniformly weakens nor uniformly creates the elevation' in full)
 
 # 7c. Methods covariate blocks
 chk('Methods ESTIMATE block (v51: MS count; SI gene sets)',
@@ -256,7 +261,9 @@ chk('Cox limitation sentence (v52)',
 chk('drift Results heading', 'Real-data neutral-drift calibration on technical replicates' in full)
 chk('Kang Wilson CI (v50: SI)', 'Wilson 95% CI [0.000, 0.114]' in sfull)
 chk('Kang-brain size reconciliation (v58: Results + SI Note 10)',
-    'the absolute \u03c9 FPR grows with group size' in full
+    'the absolute \u03c9 exceedance rate grows with group size' in full
+    and 'A library-aware null (class \u00d7 run-stratum, leave-self-out)' in full
+    and '4.8% (95% CI 3.8\u20136.1%)' in full
     and 'essentially fully explained by class size' in sfull)
 
 # 11. Figure legends order (nc79: cross-organ Fig 4 demoted; brain 5->4)
@@ -296,9 +303,9 @@ chk('cross-organ demoted to Table 1 + SF5d (nc79)',
     and '(Fig. 4; Table 1; Supplementary Fig. 5)' not in full)
 
 # 12. Fig 3 legend honest framing
-chk('Fig 2e legend Jaccard admission (nc79 caption slim)',
+chk('Fig 2e legend Jaccard admission (nc79 caption slim; nc80 m7 interval)',
     'marker Jaccard is lower still on the false-positive statistic' in full
-    and 'P = 5.6 \u00d7 10\u207b\u00b2\u00b9' in sfull)
+    and '\u22120.088 [\u22120.116, \u22120.059]' in sfull)
 
 # 13. Citation order (v49.5 refs renumber): superscript citation groups between
 # the Abstract heading and the References heading must first-appear in strict
@@ -323,7 +330,7 @@ for _p in doc.paragraphs[_abs_i + 1:_ref_i]:
     for _r in _p.runs:
         if _r.font.superscript:
             _sup_groups.append(_cite_expand(_r.text))
-chk('superscript citation group count == 71 (nc66: [20-22]+[23,24] merged to [20-24])', len(_sup_groups) == 71,
+chk('superscript citation group count == 70 (nc79: practical-rules [14] aside cut)', len(_sup_groups) == 70,
     f'found {len(_sup_groups)}')
 _first, _seen = [], set()
 for _g in _sup_groups:

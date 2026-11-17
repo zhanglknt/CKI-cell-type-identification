@@ -100,7 +100,7 @@ for _p in paras[_ai + 1:_ri]:
     for _r in _p.runs:
         if _r.font.superscript:
             groups.append(_cite_expand(_r.text))
-chk('citation groups = 71 (nc66: refs 20-24 merged)', len(groups) == 71, f'got {len(groups)}')
+chk('citation groups = 70 (nc79: practical-rules [14] aside cut)', len(groups) == 70, f'got {len(groups)}')
 _first, _seen = [], set()
 for g in groups:
     for n in g:

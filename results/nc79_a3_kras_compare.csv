@@ -1,0 +1,12 @@
+comparison,delta,delta_lo,delta_hi,p_value,test
+AUC_omega_main - AUC_DE_LOO,-0.193,-0.3067,-0.0694,0.002,"DeLong paired AUC (z=-3.094); paired bootstrap B=2000 delta CI, P_boot=0.0040"
+AUC_omega_lowestcv - AUC_DE_LOO,-0.2134,-0.3331,-0.0843,0.0008,"DeLong paired AUC (z=-3.362); paired bootstrap B=2000 delta CI, P_boot=0.0010"
+AUC_omega_main - AUC_omega_lowestcv,0.0204,-0.0157,0.0593,0.2788,"DeLong paired AUC (z=1.083); paired bootstrap B=2000 delta CI, P_boot=0.2780"
+AUC_omega_EL - AUC_omega_main,-0.0206,-0.0369,-0.0045,0.0097,"DeLong paired AUC (z=-2.587); paired bootstrap B=2000 delta CI, P_boot=0.0110"
+AUC_DE_LOO - AUC_DE_5cv,-0.0493,-0.0909,-0.0116,0.0194,"DeLong paired AUC (z=-2.337); paired bootstrap B=2000 delta CI, P_boot=0.0170"
+AUC_omega_main - AUC_DE_5cv,-0.2423,-0.3449,-0.1321,0.0,"DeLong paired AUC (z=-4.366); paired bootstrap B=2000 delta CI, P_boot=0.0000"
+AUC_omega_TNmedian - AUC_omega_main,-0.0193,-0.1093,0.0685,0.6612,"DeLong paired AUC (z=-0.438); paired bootstrap B=2000 delta CI, P_boot=0.6670"
+AUC_omega_main_adj - AUC_DE_adj,-0.1895,-0.2999,-0.0721,0.0013,"DeLong paired AUC (z=-3.214); paired bootstrap B=2000 delta CI, P_boot=0.0010"
+AUC_kf_main - AUC_omega_main,-0.0141,-0.1329,0.0978,0.813,"DeLong paired AUC (z=-0.237); paired bootstrap B=2000 delta CI, P_boot=0.7770"
+Spearman_omega_main_vs_lowestcv,0.9234,,,2.2784263850117245e-76,"Spearman rho, sample-level scores, n=181"
+Spearman_omega_main_vs_EL,0.9826,,,9.396873505640619e-133,"Spearman rho, sample-level scores, n=181"

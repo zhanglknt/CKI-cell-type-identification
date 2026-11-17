@@ -1,0 +1,12 @@
+metric,panel,auc,auc_lo,auc_hi,n_pos,n_neg,method,notes
+omega,main,0.6484,0.5684,0.7329,120,61,"rank AUC, stratified bootstrap B=2000",omega_main; bootstrap P(AUC<=0.5)=0.0005
+omega,lowest_cv,0.628,0.5473,0.7128,120,61,"rank AUC, stratified bootstrap B=2000",omega_lowestcv; bootstrap P(AUC<=0.5)=0.0005
+omega,EL_literature,0.6277,0.5458,0.7113,120,61,"rank AUC, stratified bootstrap B=2000",omega_EL; bootstrap P(AUC<=0.5)=0.0005
+omega_TNmedian,main_TN,0.6292,0.5443,0.7125,119,61,"rank AUC, stratified bootstrap B=2000",omega_TN_median; bootstrap P(AUC<=0.5)=0.0010
+kf,main,0.6343,0.5444,0.7246,120,61,"rank AUC, stratified bootstrap B=2000",kf_main; bootstrap P(AUC<=0.5)=0.0005
+kn,main,0.459,0.3719,0.5445,120,61,"rank AUC, stratified bootstrap B=2000",kn_main; bootstrap P(AUC<=0.5)=0.8305
+DE,none_LOO_projection,0.8414,0.7712,0.9034,120,61,"rank AUC, stratified bootstrap B=2000",de_score; bootstrap P(AUC<=0.5)=0.0000
+DE,none_5fold_wilcoxon_top200,0.8907,0.8322,0.9423,120,61,"rank AUC, stratified bootstrap B=2000",de_score_5cv; bootstrap P(AUC<=0.5)=0.0000
+omega_admix_adj,main,0.6638,0.5825,0.7463,120,61,"rank AUC, stratified bootstrap B=2000",omega_main_adj; bootstrap P(AUC<=0.5)=0.0005
+omega_admix_adj,lowest_cv,0.6522,0.5714,0.7308,120,61,"rank AUC, stratified bootstrap B=2000",omega_lowestcv_adj; bootstrap P(AUC<=0.5)=0.0000
+DE_admix_adj,none_LOO_projection,0.8533,0.7869,0.913,120,61,"rank AUC, stratified bootstrap B=2000",de_score_adj; bootstrap P(AUC<=0.5)=0.0000

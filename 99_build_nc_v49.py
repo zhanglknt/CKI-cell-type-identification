@@ -381,8 +381,8 @@ def main():
           "V49-N46 B2 MK fourth-term pointer + MK ref [34] (v50)")
     check('cross-type gaps should be read descriptively' in ms,
           "V49-N47 B3 Table 1 cross-type caveat (v51 wording)")
-    check('resolves regional differentiation gradients and supports calibrated hypothesis generation' in ms,
-          "V49-N48 B4 Abstract states brain gradient + calibrated framework (nc79 147-word wording)")
+    check('resolves regional differentiation gradients' in ms,
+          "V49-N48 B4 Abstract states brain gradient (nc79: framework clause cut for panel P0-2)")
     check('inheriting the four-donor structure' in ms,
           "V49-N49 B5 brain screen donor-confounding disclosure (v52 wording)")
     check('sample-source code (positions 14\u201315)' in sn
@@ -401,8 +401,7 @@ def main():
           and 'influence-function sandwich standard error' in ms
           and 'Monte Carlo coverage 0.953/0.951 at 6\u20137 clusters' in sn,
           "V49-N57 C6 studentized bootstrap-t pivot/SE described (v51 wording)")
-    check('shifts the pooled k_n coefficient by only \u22120.9%' in ms
-          and '\u22120.9% pooled, 95% CI \u22124.3% to +2.5%' in ms
+    check('\u22120.9% pooled, 95% CI \u22124.3% to +2.5%' in ms
           and 'attenuates by \u22120.5% pooled' not in ms
           and 'attenuates the pooled k_n coefficient by only \u22121.3%' not in ms
           and 'Spearman \u03c1 = 0.380 pooled' in sn
@@ -436,7 +435,8 @@ def main():
           "V49-N60 C5 Results leads with combined-control gradient (nc60 B11 wording)")
     check('0.850' in sn,
           "V49-N61 C7 class-size Pearson correlation (v50: SI Note 10)")
-    check('All TCGA results exclude 32 cell-line-derived aliquots found by barcode audit' in ms
+    check('All TCGA results exclude 32 cell-line-derived aliquots' in ms
+          and 'barcode audit' in ms
           and '34,828 pairs' in sn
           and 'Four controls bound the interpretation' in ms,
           "V49-N62 C4 ex-CC default cohort (v52 wording)")
@@ -564,8 +564,12 @@ def main():
           and 'pair k_n rose 19.2\u201325.2%' in ms
           and 'Pair-Level Copy-Number Associations' in sn
           and 'posthoc_component_associations.csv' in sn
-          and 'attenuates, rather than creates, the CKI signal' in sn,
-          "V49-N101 nc78 CNV associations written into MS+SI (P0-3a)")
+          and 'attenuates, rather than creates, the CKI signal' not in sn
+          and 'creates rather than attenuates the TT/NN housekeeping gap' in sn
+          and '56% (95% CI 46\u201366%)' in ms
+          and '42% (34\u201350%) if normal tissue carries' in ms
+          and 'CNA 40% [30, 51]' in sn,
+          "V49-N101 nc78 CNV associations written into MS+SI (P0-3a; nc80 v2 numbers)")
     # nc78 P0-3c: RIN controls (MS + SI Note 23 + Table 8e)
     check('Supplementary Note 23, Table 8e' in ms
           and 'RIN \u2265 7 (0.299\u20130.448 \u2192 0.304\u20130.440)' in ms
@@ -575,7 +579,7 @@ def main():
           "V49-N102 nc78 RIN controls written into MS+SI (P0-3c)")
     # nc78 P0-4 (#1221 scmethod-M1 ext): alternative HK anchors (MS + SI Note 24)
     check('Supplementary Note 24' in ms
-          and 'WT < EGFR < KRAS per-tumour \u03c9 ordering in LUAD was preserved group-by-group' in ms
+          and 'the WT < EGFR < KRAS ordering in LUAD preserved' in ms
           and 'anchor-type dependent' in ms
           and 'Alternative Housekeeping-Anchor Sensitivity' in sn
           and 'results/nc78_alt_hk_brain.csv' in sn
@@ -586,8 +590,9 @@ def main():
     check('\u03c9 = \u03b1 + E_f/E_b + \u03b5' in ms
           and 'studentized null model' in ms
           and 'remains the default for ordering claims' not in ms
-          and 'median 14 across brain classes, 8.5 across Tabula Sapiens' in ms,
-          "V49-N103 nc78 omega path-B null-model repositioning (P0-2)")
+          and 'operationally defined normalizing constant' in ms
+          and 'the per-gene estimator, median 14 and 8.5' in ms,
+          "V49-N103 nc78 omega path-B null-model repositioning (P0-2; nc80 operational def)")
     # C4: log-omega CI archived
     check('bootstrap CI is archived in the output CSV (v49.14)' in gd,
           "V49-N90 C4 log-omega CI archived in CSV (Guide 5.11e)")
@@ -664,8 +669,8 @@ def main():
     check("baseline-driven" not in ms and "baseline-associated" not in ms,
           "V49-N28 no baseline-* phrasing in MS (EGFR dissolved)")
     # ---- nc60 B-class substantive anchors ----
-    check('i.e. depletion, not enrichment' in ms,
-          "NC60-B2 anti-enrichment direction clause in Results")
+    check('one-sided P(null \u2264 39)' in ms and 'P(null count \u2265 39)' not in ms,
+          "NC60-B2 anti-enrichment direction clause in Results (nc79 A5: correct tail)")
     check('tentatively support the elevation as largely tumor-specific' in ms
           and 'tentatively consistent with tumor-specific elevation' in ms,
           "NC60-B3 GTEx tentative qualifiers (Intro + Results)")
@@ -673,7 +678,7 @@ def main():
           "NC60-B4 cross-cohort GTEx descriptive-only caveat")
     check('showed the highest bulk tissue-state divergence' in ms,
           "NC60-B5 LUAD bulk tissue-state qualification")
-    check('rankings are positively but non-significantly associated' in ms,
+    check('rankings positively but non-significantly associated' in ms,
           "NC60-B9 Augur softened association wording")
     check('monotone in the same \u03c9, not independent evidence (Supplementary Note 14)' in ms,
           "NC60-B10 tier/P monotone caveat in Limitations")
@@ -683,11 +688,14 @@ def main():
     check('paired DeLong P = 2.4 \u00d7 10\u207b\u00b9\u2077 versus k_f' in ms
           and 'module-seed cluster bootstrap' in sn and '[0.070, 0.108]' in sn,
           "NC60-R2M1 paired DeLong dAUC (MS text; nc79 caption slim: SI)")
-    check('McNemar P \u2264 4.1 \u00d7 10\u207b\u00b9\u00b2' in ms
+    check('intervals excluding zero under library clustering' in ms
           and 'paired McNemar comparisons' in ms
-          and 'McNemar-style discordant-pair analysis' in sn,
-          "NC60-R2M2 T1 McNemar (MS text + caption pointer; SI paired note)")
-    check('Paired T1 comparisons (nc60)' in sn and 'Paired AUC contrasts (nc60)' in sn,
+          and 'McNemar-style discordant-pair counts' in sn
+          and '\u0394FPR versus \u03c9 is raw JS +0.166 [+0.135, +0.196]' in sn,
+          "NC60-R2M2 / nc80-m7 T1 paired contrasts (MS: interval only; SI: "
+          "library-clustered intervals, no exact P)")
+    check('Paired T1 comparisons (nc60, nc80)' in sn
+          and 'Paired AUC contrasts (nc60)' in sn,
           "NC60-R2 paired-stats SI paragraphs")
     # v49.2 post-CC anchors + stale purge
     for pat, name in [("3,535", "N29 sample total ex-CC (v52)"),
@@ -703,7 +711,8 @@ def main():
 
     # ---- structural re-checks ----
     print("\n--- structural spot checks ---")
-    check("Here, we show" in ms, "V49-SC1 Introduction ends 'Here, we show'")
+    check("Here, we report a caution at the level of the denominator" in ms,
+          "V49-SC1 Introduction states the finding at k_n level (nc80 plan b)")
     check(ms.count("Conclusions") == 0, "V49-SC3 no 'Conclusions' anywhere")
     check("Keywords:" not in ms, "V49-SC4 no Keywords line")
     check("Supplementary Note 1" in ms and "Supplementary Notes 1\u201324" in ms,

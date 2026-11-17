@@ -1,0 +1,5 @@
+scheme,grand_mean_omega,strong,moderate,weak,n_pairs,note
+(a) cyclic per-pair top-200 (main scheme),38.5451,39,1171,5381,31764,"tier thresholds held fixed (res<0.30/0.50/0.75, omega<15/25/35, lowest-in-pair); residual recomputed within scheme"
+"(b) fixed panel 2,000 non-HK genes",6.5385,36,1309,6374,31764,"tier thresholds held fixed (res<0.30/0.50/0.75, omega<15/25/35, lowest-in-pair); residual recomputed within scheme"
+(b2) leave-pair-out top-200,26.5186,457,3046,6169,31764,"tier thresholds held fixed (res<0.30/0.50/0.75, omega<15/25/35, lowest-in-pair); residual recomputed within scheme"
+"(c) unselected all 5,000 non-HK genes",5.2588,10,840,5969,31764,"tier thresholds held fixed (res<0.30/0.50/0.75, omega<15/25/35, lowest-in-pair); residual recomputed within scheme"

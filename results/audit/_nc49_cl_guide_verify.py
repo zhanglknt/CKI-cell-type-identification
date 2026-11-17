@@ -18,10 +18,12 @@ chk('CL new-evidence paragraph', 'Two properties of this work are worth stating 
 chk('CL change-detection framing (no classification AUC)',
     'specificity-first index' in clfull and '0.680' not in clfull
     and 'dynamic cell-state changes' in clfull)
-chk('CL drift claim qualified',
-    'lowest false-report rate among the continuous divergence metrics' in clfull)
+chk('CL drift claim qualified (nc80 M-C: scoped log-MAD; no error-rate claim)',
+    'a library-effect sensitivity statistic, not an error rate' in clfull
+    and 'tightest dispersion of the seven metrics' in clfull
+    and 'most reproducible' not in clfull)
 chk('CL no "least of seven metrics"', 'least of seven metrics' not in clfull)
-chk('CL below raw JS 10/10', 'below raw JS in all ten cell classes' in clfull)
+chk('CL no shallowest-gradient claim (nc79 A2)', 'shallowest' not in clfull)
 chk('CL 3,535 (v53)', '3,535' in clfull and '3,567' not in clfull)
 chk('CL no 3,563/3,596', '3,563' not in clfull and '3,596' not in clfull)
 chk('CL TCGA abstract-aligned, no range numbers (v59)',
@@ -32,17 +34,20 @@ chk('CL four pillars + brain-atlas pillar (v59)',
     'four pillars' in clfull and 'three pillars' not in clfull
     and '108 regions' in clfull
     and 'regional differentiation gradient' in clfull
-    and 'statistically calibrated framework' in clfull)
-chk('CL GTEx sentence (v53 R5-M3)',
-    'GTEx healthy' in clfull and 'field-effect' in clfull)
+    and 'calibrated framework for atlas-scale' in clfull)
+chk('CL GTEx sentence (nc80 M-K: not resolved)',
+    'GTEx healthy' in clfull and 'larger shifts are not resolved' in clfull
+    and 'arguing against a field-effect reading' not in clfull)
 chk('CL bounded-power phrasing (v53 R5-M3)',
     'bounded power (AUC = 0.80)' in clfull and 'ranked first for' not in clfull)
 chk('CL no baseline-driven/baseline-associated',
     'baseline-driven' not in clfull and 'baseline-associated' not in clfull)
 chk('CL KRAS dual-adjusted upgrade',
     'after purity and smoking adjustment' in clfull)
-chk('CL EGFR dissolved',
-    'whose apparent association dissolved under purity adjustment' in clfull)
+chk('CL EGFR dissolved (nc80 rephrase)',
+    'the apparent EGFR elevation dissolves under purity adjustment' in clfull)
+chk('CL CNA share v2 quoted (nc80 plan b)',
+    'attributable to copy-number instability (56%, 95% CI 46\u201366%)' in clfull)
 chk('CL Fig. 2 / Fig. 3 refs (nc70: 3->2, 4->3)',
     '(Fig. 2)' in clfull and '(Fig. 3)' in clfull and '(Fig. 4)' not in clfull)
 chk('CL co-authors (nc65: Liu + Zu at XJTU, Wu removed)',
@@ -112,7 +117,7 @@ chk('Guide SI param-justification ref updated',
     'Section 3.9 of the Supplementary Information (Parameter Justification)' in gdfull
     and 'Section 3.11 of the Supplementary Information (Parameter Justification)' not in gdfull)
 chk('Guide Jaccard honest framing',
-    'marker Jaccard is lower still on the FPR statistic (19.9%)' in gdfull)
+    'Marker Jaccard has a lower T1 rate (19.9%)' in gdfull)
 chk('Guide B-group scripts listed',
     'nc49_tcga_purity.py' in gdfull and 'nc49_tcga_luad_smoking.py' in gdfull)
 chk('Guide B-group outputs listed',

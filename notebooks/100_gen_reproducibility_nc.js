@@ -363,7 +363,7 @@ const doc = new Document({
       p("Brain drift ladder (nc49_brain_drift_ladder.py):", { bold: true }),
       p("  1. Three pair tiers of escalating drift: T1 same (donor, region) cross-library pairs (n = 2,161, pure technical drift), T2 same-region cross-donor pairs (n = 1,089), T3 same-donor cross-region pairs (n = 1,656, positive control)."),
       p("  2. Per-pair n-matched cell-shuffle null (B = 100 for T1, 30 for T2 and T3, matching the manuscript Methods); calibration ratio and FPR computed for seven metrics: k_n, k_f, omega, raw JS, cosine, Spearman, marker Jaccard."),
-      p("  3. omega shows the lowest T1 misreporting among the continuous divergence metrics (28.6% versus 35.7\u201345.2%; below raw JS in 10/10 cell classes); marker Jaccard is lower still on the FPR statistic (19.9%) but responds weakest to genuine regional divergence (T3 calibration 1.41 versus 1.80 for omega)."),
+      p("  3. On T1 (2,161 strictly matched technical-replicate pairs) omega exceeds its own null 95th percentile on 28.6% of pairs; this is a library-effect sensitivity statistic, not a type-I error rate, and it is stratified by sequencing batch (11.4% within a 10X library identifier versus 66.9% across identifiers) and by cell-number balance (10.3% on the strictly matched block, n = 1,334). On the same pairs omega is the most reproducible of the seven metrics (log-scale dispersion 0.113 versus 0.267-0.586 decades). Marker Jaccard has a lower T1 rate (19.9%) but responds weakest to genuine regional divergence (T3 calibration 1.41 versus 1.80 for omega)."),
       p("  Output: results/nc49_brain_drift_ladder.csv. Figures: notebooks/nc49_fig_drift_ladder.py (Fig. 2; results/figures_final/nc49_fig_drift_ladder.pdf/.png)."),
       p(""),
 

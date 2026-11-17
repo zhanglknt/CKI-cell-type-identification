@@ -463,3 +463,16 @@ _tmp_archive/
 !results/tcga_linear_norm_v44_report.md
 !results/theory_diagnostics.csv
 !results/v38_region_glossary.csv
+
+# ============================================================
+# nc80 backfill (2026-11-16): share v2 script + SI Note 22-cited
+# outputs + ground-truth/share rulings (public-repo reproducibility)
+# ============================================================
+!scripts/nc80_cna_share_v2.py
+!results/nc80_cna_share_v2.csv
+!results/nc80_cna_joint_model.csv
+!results/nc80_cna_share_v2_report.txt
+!results/audit/_nc80_groundtruth_rulings.md
+!results/audit/_nc80_share_v2_ruling.md
+!results/audit/_nc80_mcnemar_library_studentized.py
+!results/audit/_nc80_mj_crossval.py

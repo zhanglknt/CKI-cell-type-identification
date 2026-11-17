@@ -1,0 +1,67 @@
+section,dataset,subset,quantity,value
+iv_point,mouse,C_control (n=6),n,6.0
+iv_point,mouse,C_control (n=6),mean_ratio,6.672891481039585
+iv_point,mouse,C_control (n=6),median_ratio,6.455783415970585
+iv_point,mouse,C_control (n=6),sd_ddof1,3.4730270488414283
+iv_point,mouse,C_control (n=6),se_of_mean,1.4178573554242686
+iv_point,mouse,C_control (n=6),CV_sd_ddof1,0.5204680847440303
+iv_point,mouse,C_control (n=6),ratio_of_means_kf_over_kn,6.736556510290759
+iv_point,mouse,C_control (n=6),mean_of_ratios,6.672891481039585
+iv_point,mouse,C_control (n=6),median_of_ratios,6.455783415970585
+iv_point,mouse,C_control (n=6),pct_gap_mean_vs_median,3.3630010655547804
+iv_point,mouse,C_control (n=6),pair_omega::C: hepatocyte (Liver),12.160541196524411
+iv_point,mouse,C_control (n=6),pair_omega::C: endothelial cell (Heart),6.573117104966837
+iv_point,mouse,C_control (n=6),pair_omega::C: B cell (Spleen),6.338449726974334
+iv_point,mouse,C_control (n=6),pair_omega::C: B cell (Marrow),5.223528987395135
+iv_point,mouse,C_control (n=6),pair_omega::C: fibroblast (Heart),8.147909714276535
+iv_point,mouse,C_control (n=6),pair_omega::C: neutrophil (Marrow),1.5938021561002569
+iv_bootstrap,mouse,"C_control mean, B=2000",ci95_lower,4.305107274773222
+iv_bootstrap,mouse,"C_control mean, B=2000",ci95_upper,9.141897797817007
+iv_bootstrap,mouse,"C_control mean, B=2000",boot_se,1.2718519885499564
+iv_bootstrap,mouse,"C_control median, B=2000",ci95_lower,3.4086655717476964
+iv_bootstrap,mouse,"C_control median, B=2000",ci95_upper,10.154225455400473
+iv_bootstrap,mouse,"C_control mean, B=10000",ci95_lower,4.184811154315379
+iv_bootstrap,mouse,"C_control mean, B=10000",ci95_upper,9.24949546174937
+iv_bootstrap,mouse,"C_control mean, B=10000",boot_se,1.299127851105289
+iv_bootstrap,mouse,"C_control median, B=10000",ci95_lower,3.4086655717476964
+iv_bootstrap,mouse,"C_control median, B=10000",ci95_upper,10.154225455400473
+iv_stored,mouse,phaseB_bootstrap_cis.csv,stored_ci95_lower,4.24
+iv_stored,mouse,phaseB_bootstrap_cis.csv,stored_ci95_upper,9.24
+iv_seed_sweep,mouse,"B=10000, seeds 0-19",ci95_lower_min,4.12099371248988
+iv_seed_sweep,mouse,"B=10000, seeds 0-19",ci95_lower_max,4.306813835753079
+iv_seed_sweep,mouse,"B=10000, seeds 0-19",ci95_upper_min,9.183876877142128
+iv_seed_sweep,mouse,"B=10000, seeds 0-19",ci95_upper_max,9.36525200303654
+iv_seed_sweep,mouse,"B=10000, seed 2",ci95_lower,4.12099371248988
+iv_seed_sweep,mouse,"B=10000, seed 2",ci95_upper,9.327717921080207
+iv_context,mouse,v2_vs_v2b_C_control,max_abs_diff,0.0
+iv_tiers,brain,T1_techrep,n_pairs,2161.0
+iv_tiers,brain,T1_techrep,mean_omega,11.160055505138262
+iv_tiers,brain,T1_techrep,median_omega,8.861424620892162
+iv_tiers,brain,T1_techrep,mean_omega_ci95_lower,10.85723648959864
+iv_tiers,brain,T1_techrep,mean_omega_ci95_upper,11.462844674596063
+iv_tiers,brain,T1_techrep,mean_kn,0.003543687440054295
+iv_tiers,brain,T1_techrep,mean_kf,0.03177118115087378
+iv_tiers,brain,T1_techrep,median_cal_omega,1.0382008750954292
+iv_tiers,brain,T2_cross_donor,n_pairs,1089.0
+iv_tiers,brain,T2_cross_donor,mean_omega,17.969383188277092
+iv_tiers,brain,T2_cross_donor,median_omega,15.33006189499308
+iv_tiers,brain,T2_cross_donor,mean_omega_ci95_lower,17.422592948756204
+iv_tiers,brain,T2_cross_donor,mean_omega_ci95_upper,18.56287326519281
+iv_tiers,brain,T2_cross_donor,mean_kn,0.006498891835712161
+iv_tiers,brain,T2_cross_donor,mean_kf,0.08981758370514484
+iv_tiers,brain,T2_cross_donor,median_cal_omega,1.7642599526903242
+iv_tiers,brain,T3_cross_roi,n_pairs,1656.0
+iv_tiers,brain,T3_cross_roi,mean_omega,22.277252498724412
+iv_tiers,brain,T3_cross_roi,median_omega,16.72873464525086
+iv_tiers,brain,T3_cross_roi,mean_omega_ci95_lower,21.403185774115297
+iv_tiers,brain,T3_cross_roi,mean_omega_ci95_upper,23.152343593727014
+iv_tiers,brain,T3_cross_roi,mean_kn,0.007273412116390471
+iv_tiers,brain,T3_cross_roi,mean_kf,0.1253970845193645
+iv_tiers,brain,T3_cross_roi,median_cal_omega,1.8020584437117992
+iv_tiers,brain,T1_techrep,fold_vs_T1,1.0
+iv_tiers,brain,T2_cross_donor,fold_vs_T1,1.6101517756792258
+iv_tiers,brain,T3_cross_roi,fold_vs_T1,1.9961596506816315
+iv_context,brain,split_half_internal,baseline_mean_omega,9.7261
+iv_context,brain,all_pairs,global_mean_omega,38.54505086515891
+iv_context,brain,all_pairs,global_median_omega,28.678844512873496
+iv_context,mouse,C_control,mouse_baseline_6.67_vs_brain_internal_ratio,1.457554049490514

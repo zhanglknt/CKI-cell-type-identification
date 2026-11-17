@@ -1,0 +1,33 @@
+nc80 T1 library-aware null (panel M-D / stat Q6)
+============================================================
+Null: class x run-stratum leave-self-out q95 of observed omega between libraries (same-donor, same-region, same-class, other blocks).
+
+stratum            n  shuffle  lib(all)  lib(sr)  n_sr
+all_T1          2161    0.286     0.055    0.055  1488
+same_run        1488    0.114     0.007    0.055  1488
+cross_run        673    0.669     0.162      nan     0
+strict_block    1334    0.103     0.004    0.048  1334
+
+Per-class noise scale (median library-null q95 / median cell-shuffle q95):
+  Astrocyte                                  ratio=1.34 shuffle_exceed=0.261 lib_exceed(all)=0.051
+  Bergmann glia                              ratio=1.68 shuffle_exceed=0.519 lib_exceed(all)=0.111
+  Choroid plexus                             ratio=0.99 shuffle_exceed=0.667 lib_exceed(all)=0.222
+  Committed oligodendrocyte precursor        ratio=0.86 shuffle_exceed=0.214 lib_exceed(all)=0.143
+  Ependymal                                  ratio=1.29 shuffle_exceed=0.260 lib_exceed(all)=0.080
+  Fibroblast                                 ratio=1.47 shuffle_exceed=0.123 lib_exceed(all)=0.062
+  Microglia                                  ratio=1.19 shuffle_exceed=0.274 lib_exceed(all)=0.052
+  Oligodendrocyte                            ratio=1.46 shuffle_exceed=0.404 lib_exceed(all)=0.052
+  Oligodendrocyte precursor                  ratio=1.37 shuffle_exceed=0.237 lib_exceed(all)=0.052
+  Vascular                                   ratio=1.32 shuffle_exceed=0.176 lib_exceed(all)=0.059
+
+Mechanism (strictly matched block, n=1,334):
+  strict_n: 1334
+  strict_shuffle_exceed: 0.10344827586206896
+  strict_exceeders_cal_median: 1.2179654751779374
+  strict_nonexceeders_cal_median: 0.9930835834338707
+  strict_exceeders_n_ratio_median: 0.8990742876474297
+  strict_nonexceeders_n_ratio_median: 0.8987062956560531
+  strict_libexceed_sr: 0.047976011994003
+  n_ratio 0-0.7: n=0 shuffle=nan lib_sr=nan
+  n_ratio 0.7-0.9: n=671 shuffle=0.104 lib_sr=0.043
+  n_ratio 0.9-1.01: n=663 shuffle=0.103 lib_sr=0.053
