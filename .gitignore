@@ -476,3 +476,12 @@ _tmp_archive/
 !results/audit/_nc80_share_v2_ruling.md
 !results/audit/_nc80_mcnemar_library_studentized.py
 !results/audit/_nc80_mj_crossval.py
+
+# ============================================================
+# nc82 backfill (2026-11-17): PSD / wild-cluster bootstrap script and
+# SI-cited outputs (SI 3.12), plus the figure-3 rebuild generator
+# ============================================================
+!results/audit/_nc82_psd_wildcluster.py
+!results/audit/_nc82_psd_wildcluster.txt
+!results/nc82_psd_wildcluster.csv
+!results/nc82_psd_wildcluster.json

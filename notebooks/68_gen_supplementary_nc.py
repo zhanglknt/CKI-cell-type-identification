@@ -812,6 +812,10 @@ add_para(
     'compared on the same pairs, no family, all three reported. '
     '(10) Prognostic association: Cox per cancer type, family of five cancers '
     'per exposure, Benjamini\u2013Hochberg, reported as not pan-cancer. '
+    'Families (6) and (7) were pre-specified as two independent families '
+    'before analysis: they answer different questions (is this pair '
+    'unusually similar versus does regional structure raise a class mean) and '
+    'are reported separately rather than jointly corrected. '
     'Two pairs of families are consequently unprotected, (6) against (7) and '
     'the class-level tests against the pair-level screen; both are disclosed in '
     'Limitations, and neither carries a causal claim.'
@@ -1487,6 +1491,27 @@ add_para(
     'results/nc80_mcnemar_t1_studentized.csv.'
 )
 add_para(
+    'Small-cluster controls on the T1 contrasts (nc82). The two-way '
+    'variance V_a + V_b \u2212 V_ab is not guaranteed positive '
+    'semi-definite, and the donor count is small, so both were checked '
+    'directly on the 2,161 T1 pairs (597 libraries, 4 donors). The joint '
+    '6 \u00d7 6 covariance across the six paired contrasts is positive '
+    'definite (smallest eigenvalue 1.414 \u00d7 10\u207b\u2075); PSD '
+    'projection by eigenvalue clamping changes the largest standard error '
+    'by 3.3 \u00d7 10\u207b\u00b9\u2074%, leaving every interval '
+    'unchanged. As a small-cluster reference, a wild-cluster bootstrap '
+    'over the four donors (Rademacher weights on uncentred residuals, '
+    'Cameron\u2013Gelbach\u2013Miller unrestricted; all 2\u2074 = 16 '
+    'sign patterns enumerated exactly, plus 9,999 random draws) preserves '
+    'the sign of every contrast, with wild percentile intervals raw JS '
+    '[+0.153, +0.179], cosine [+0.148, +0.160], Spearman [+0.112, +0.128], '
+    'marker Jaccard [\u22120.094, \u22120.081], k_n [+0.064, +0.077] '
+    'and k_f [+0.072, +0.107]; with only 16 distinct sign patterns these '
+    'are small-cluster sensitivity intervals, not calibrated 95% '
+    'intervals. Script: results/audit/_nc82_psd_wildcluster.py; outputs: '
+    'results/nc82_psd_wildcluster.csv, results/nc82_psd_wildcluster.json.'
+)
+add_para(
     'Library-effect stratification of T1 (nc79). Every T1 pair is matched on '
     'donor, brain region, and cell type by construction (2,161 of 2,161), so '
     'the tier contains no cross-region or cross-donor pairs and its 28.6% '
@@ -1733,10 +1758,11 @@ si_caption(
     'cluster-bootstrap CI is the inferential caliber. The point '
     'estimate exceeds 1 in 5 of 5 cancer types; the CI excludes 1 in 4 of '
     '5 (LIHC includes 1), whereas the k_n mean-ratio CI excludes 1 in all '
-    'five. Ranked by NN/TT effect size (main-text Fig. 3a).'
+    'five. Ranked by NN/TT effect size (main-text Fig. 3).'
 )
 add_para(
-    'LUAD driver-mutation stratification. Mean per-tumor \u03c9 was highest '
+    'LUAD driver-mutation stratification (panel-level view: Supplementary '
+    'Fig. 10). Mean per-tumor \u03c9 was highest '
     'in KRAS-mutant tumors (136.9), exceeding wild-type (115.4) and '
     'EGFR-mutant tumors (122.2; Kruskal-Wallis P = 7.8 \u00d7 10\u207b\u2077; '
     'Supplementary Table 6). The k_f/k_n decomposition separates the '
@@ -1802,7 +1828,7 @@ add_table(_rows_luc49)
 si_caption(
     'Supplementary Table 14. LUAD pairwise contrasts: Dunn post-hoc P-values '
     'with Holm correction, and within-group bootstrap mean differences with '
-    '95% CIs (B = 1,000). Main-text Fig. 3b-d.'
+    '95% CIs (B = 1,000). Supplementary Fig. 10.'
 )
 _coxz49 = _tcga_cox[_tcga_cox['covariate'].str.startswith('z_')].set_index('model')
 _coxlab49 = {'M1_omega_full_exCC': 'M1: \u03c9, full adjustment',
@@ -2222,8 +2248,12 @@ add_para(
     '10\u207b\u00b9\u2077), and a module-seed cluster bootstrap of the '
     'difference (three module-seed clusters resampled on the signal side plus '
     'iid neutral replicates, B = 5,000, seed 42) gives [0.070, 0.108] with no '
-    'non-positive replicate. Paired contrasts against k_total, cosine, '
-    'k_f/k_total, and k_n are likewise significant (all P < 10\u207b\u2078; '
+    'non-positive replicate. The P values in this paragraph are raw paired '
+    'DeLong P values; Holm adjustment within the five-contrast family '
+    '(k_f, k_total, cosine, k_f/k_total, k_n) leaves every contrast '
+    'significant (largest adjusted P < 4 \u00d7 10\u207b\u2079). Paired '
+    'contrasts against k_total, cosine, '
+    'k_f/k_total, and k_n are likewise significant (all raw P < 10\u207b\u2078; '
     'table results/nc60_paired_dauc.csv; script '
     'results/audit/_nc60_paired_stats.py, whose DeLong implementation '
     'reproduces the nc52 single-metric intervals above to 4 decimals).'
@@ -3218,7 +3248,8 @@ add_para(
     'test (P = 9.6 x 10^-31), the dose-response across tiers is monotone '
     '(Cochran-Armitage trend z = 61.0), and the Strong-tier raw P-values are '
     'stochastically smaller than all other pairs (Mann-Whitney P = 5.3 x 10^-24; '
-    'Kolmogorov-Smirnov D = 0.846, P = 4.9 x 10^-32). Second, the 10 mature-oligodendrocyte '
+    'Kolmogorov-Smirnov D = 0.846, P = 4.9 x 10^-32). Second\u2014as an illustrative, '
+    'post-hoc description rather than a tested anatomical claim\u2014the 10 mature-oligodendrocyte '
     'Strong candidates concentrate on a thalamo-temporal axis: a thalamic-relay endpoint '
     '(conservative set: MG, LG, LP, LP-VPL, Pul, VPL, VA, MD, MD-Re, CM-Pf, CM) occurs in '
     '6 of 10 candidates versus a 19.4% base rate among all 5,778 mature-oligodendrocyte '
@@ -4439,6 +4470,8 @@ add_para('Supplementary Fig. 7. Pair-level distributions and the subcluster tier
 add_para('Supplementary Fig. 8. Developmental signature detection and block-shuffle permutation null for the residual model. (a) Multiplicative residual distribution for all 31,764 cross-region pairs, with Strong (residual < 0.3), Moderate (residual < 0.5), and Weak (residual < 0.75) tiers shaded. (b) The ten Strong candidates with the smallest residual, shown as horizontal bars (residual and \u03c9 value annotated on each bar); bars are coloured by oligodendrocyte (OL) lineage membership (purple, OL-lineage; red, non-OL). Inset: OL-lineage representation among Strong candidates \u2014 12 of 39 Strong, fold = 0.77, hypergeometric P = 0.92 (no enrichment). Cell types and region pairs are given in full. (c) Confidence-tier composition (Strong/Moderate/Weak) of all cross-region pairs, stacked by cell type and sorted by the number of Strong pairs (ascending). The number and percentage (to two decimal places) of Strong pairs are annotated on each bar \u2014 e.g., Microglia: Strong 16 (0.96%); Oligodendrocyte: Strong 10 (0.95%); Astrocyte: Strong 3 (0.47%). (d) 10. Block-shuffle permutation null for the residual model. Distribution of multiplicative residuals under block-shuffle permutation of library-to-region assignments (B = 1,000), compared against observed residuals for Strong candidates.')
 
 add_para('Supplementary Fig. 9. Lineage-distance validation of k_f across two independent atlases (Supplementary Note 17). (a) Tabula Sapiens same-organ cross-cell-type pairs (n = 1,054, 6 organs): median k_f by Cell Ontology lineage-distance bin rises monotonically from 0.127 (distance 1\u20132) to 0.271 (distance \u22659); the grey bar anchors same-cell-type cross-organ pairs at distance 0 (median 0.106, n = 69). Spearman \u03c1 = 0.227, P = 9.5 \u00d7 10\u207b\u00b9\u2074; organ-stratified permutation (10,000 draws) P = 1.0 \u00d7 10\u207b\u2074. Pair counts per bin are annotated inside the bars. (b) Siletti et al. brain atlas same-region cross-cell-type pairs (n = 1,537; k_f on a fixed 5,000-gene non-HK panel): median k_f_fixed by lineage-distance bin; the increase is significant (\u03c1 = 0.181, P = 9.9 \u00d7 10\u207b\u00b9\u00b3; region-stratified permutation P = 1.0 \u00d7 10\u207b\u2074) but not monotone across coarse bins. (c) Oligodendrocyte lineage chain across 52 shared brain regions: per-region k_f_fixed for OPC\u2013COP (distance 2), COP\u2013oligodendrocyte (distance 5), and OPC\u2013oligodendrocyte (distance 5); medians 0.063 / 0.075 / 0.130 (2.06-fold), with the ordering holding in 52 of 52 regions (paired Wilcoxon P = 1.8 \u00d7 10\u207b\u00b9\u2070). Grey lines connect matched regions; the purple line connects medians. (d) Spearman correlation of each metric with Cell Ontology lineage distance in Tabula Sapiens (orange; same-organ cross-cell-type pairs) and the Siletti brain atlas (purple; same-region cross-cell-type pairs). k_f correlates positively in both atlases (\u03c1 = 0.227 and 0.181; both permutation P = 1.0 \u00d7 10\u207b\u2074), whereas k_n is null in Tabula Sapiens (\u03c1 = 0.052, P = 0.092) but reverses to strongly positive in the brain (\u03c1 = 0.300, P = 2.1 \u00d7 10\u207b\u00b3\u00b3), so \u03c9 inherits a negative brain gradient (\u03c1 = \u22120.134) with no signal after partialling out k_n (\u03c1 = \u22120.009, P = 0.74). ***, P < 0.001; NS, not significant. (e) Germ-layer test in the brain atlas: microglia (mesoderm) are more divergent from macroglia (median k_f_fixed 0.163, n = 420 region pairs) than macroglia are from each other (0.123, n = 652); Mann\u2013Whitney P = 4.5 \u00d7 10\u207b\u00b9\u2074\u2076. (f) Distance-0 anchors in the brain atlas: median k_f_fixed for same-cell-type cross-region pairs per cell type (n = 31,764 pairs; range 0.006\u20130.033), all far below the closest cross-lineage pair (OPC\u2013COP, red dashed line at 0.063).')
+
+add_para('Supplementary Fig. 10. LUAD driver-mutation stratification (companion to main Fig. 3; Supplementary Information 3.13). (a) Per-tumor \u03c9 in LUAD by driver mutation: wild-type (n = 311), EGFR-mutant (n = 61) and KRAS-mutant (n = 120) tumours; boxes, median and IQR; whiskers, 1.5 \u00d7 IQR; points, individual tumours (jittered). KW, Kruskal\u2013Wallis P = 7.8 \u00d7 10\u207b\u2077; brackets, Dunn post-hoc P-values with Holm correction (WT versus KRAS 3.6 \u00d7 10\u207b\u2077; EGFR versus KRAS 0.008; WT versus EGFR 0.39). (b) The same stratification for the functional component k_f (KW P = 0.015; the KRAS contrast carries a functional component, KRAS versus EGFR P_Holm = 0.015). (c) The same stratification for the housekeeping baseline k_n (KW P = 3.4 \u00d7 10\u207b\u2074; WT > KRAS, P_Holm = 4.2 \u00d7 10\u207b\u2074), the denominator that carries most of the \u03c9 gap. Per-tumor values are means over the tumour\u2013tumour pairs in which a sample participates (Methods); the two double-mutant tumours are excluded; all values are from the linear-normalization re-computation.')
 
 # ===== Add line numbers (continuous, every line) =====
 for sec in doc.sections:

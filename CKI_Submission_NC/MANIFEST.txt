@@ -4,36 +4,38 @@
   tag: v0.5.x | GB-rebuttal round: real-data drift calibration + pan-cancer map
 ============================================================
 
- 1. CKI_Manuscript_NC.docx  (71,270 bytes)
+ 1. CKI_Manuscript_NC.docx  (71,178 bytes)
  2. CKI_NC_Cover_Letter.docx  (38,781 bytes)
- 3. CKI_Reproducibility_Guide_NC.docx  (52,165 bytes)
- 4. CKI_Supplementary_NC.docx  (136,510 bytes)
- 5. CKI_Supplementary_Tables_NC.xlsx  (1,582,317 bytes)
- 6. CKI_Tables_NC.xlsx  (5,829 bytes)
+ 3. CKI_Reproducibility_Guide_NC.docx  (52,809 bytes)
+ 4. CKI_Supplementary_NC.docx  (137,537 bytes)
+ 5. CKI_Supplementary_Tables_NC.xlsx  (1,582,306 bytes)
+ 6. CKI_Tables_NC.xlsx  (5,828 bytes)
  7. CKI_graphical_abstract.pdf  (382,594 bytes)
  8. Supplementary_Fig_1.pdf  (1,491,906 bytes)
- 9. Supplementary_Fig_2.pdf  (59,453 bytes)
-10. Supplementary_Fig_3.pdf  (811,514 bytes)
-11. Supplementary_Fig_4.pdf  (816,544 bytes)
-12. Supplementary_Fig_5.pdf  (833,816 bytes)
-13. Supplementary_Fig_6.pdf  (2,773,954 bytes)
-14. Supplementary_Fig_7.pdf  (652,336 bytes)
-15. Supplementary_Fig_8.pdf  (966,501 bytes)
-16. Supplementary_Fig_9.pdf  (674,256 bytes)
-17. figure1.pdf  (791,755 bytes)
-18. figure2.pdf  (735,010 bytes)
-19. figure3.pdf  (1,897,765 bytes)
-20. figure4.pdf  (74,306 bytes)
+ 9. Supplementary_Fig_10.pdf  (72,626 bytes)
+10. Supplementary_Fig_2.pdf  (59,453 bytes)
+11. Supplementary_Fig_3.pdf  (811,514 bytes)
+12. Supplementary_Fig_4.pdf  (816,544 bytes)
+13. Supplementary_Fig_5.pdf  (833,816 bytes)
+14. Supplementary_Fig_6.pdf  (2,773,954 bytes)
+15. Supplementary_Fig_7.pdf  (652,336 bytes)
+16. Supplementary_Fig_8.pdf  (966,501 bytes)
+17. Supplementary_Fig_9.pdf  (674,256 bytes)
+18. figure1.pdf  (791,755 bytes)
+19. figure2.pdf  (735,010 bytes)
+20. figure3.pdf  (29,248 bytes)
+21. figure4.pdf  (74,306 bytes)
 
 SHA-256 checksums:
-  1e10844b2c6baeda6e46920dcfa7fe7be56a6fa869abc41b01d782ce80969924  CKI_Manuscript_NC.docx
-  a8f116ac96991b63c5298e7f94daa6bb5183ad03edf9b7da09b551c0bc62f1bb  CKI_NC_Cover_Letter.docx
-  ceb37e4a30382c13a68db72fdc79b42df362c43f71a46ded9393358007ed0c45  CKI_Reproducibility_Guide_NC.docx
-  692ceca88941b576c8cab2ff7acb30327aab6fb6dee76afdb92316da5a9b86d1  CKI_Supplementary_NC.docx
-  8113a30db0e561d7cc9f649e2d053862530ca7e8586f8f7ed9ba37a2afca54b1  CKI_Supplementary_Tables_NC.xlsx
-  b6bc5d398a4025fa8cc88a893ac6beb3e16c52be99313ce03aac09f55cdca6b1  CKI_Tables_NC.xlsx
+  068ba371fc134e54f374dc2a3829d15e0546e668cb95d346764346608de8dba5  CKI_Manuscript_NC.docx
+  8af2ffc169642e58a5c1402ec87cc440c1a1b2446c551f055e5bcb255ed45554  CKI_NC_Cover_Letter.docx
+  4bb2cc787a3dbdcec601166d8117e32f7822afa43ab40ed688af71e3d19d30e2  CKI_Reproducibility_Guide_NC.docx
+  7fecdc8abf2a0ee014d971782edf8a44d5b0c52f3a4c1dd9eac8f2ec87582cfe  CKI_Supplementary_NC.docx
+  2858e1e355d9f47313875c5bdc359c3d5a3d39735cbd06acf284ae82643d8949  CKI_Supplementary_Tables_NC.xlsx
+  9e6daf2e3c1e219d92d9081c4dedefac21dace8afd5718ff56323401ca9a4773  CKI_Tables_NC.xlsx
   c8529c93bc3197f0a8838a7a0d4be6000aff4bb03f906f04d338d59d603c3299  CKI_graphical_abstract.pdf
   977626cd235ab5fb0e6e5b8cbf51979b202b8f4792aec61a3eec4e184ead95b5  Supplementary_Fig_1.pdf
+  8b595944fb172a2b578f64ed83e0949875da400e3a04864ce59f4c7cacba4f69  Supplementary_Fig_10.pdf
   2b52fc52a4d994a0f42a616a1b7af7f1b80944cb98d62e5bc7ec5c40e0eb871b  Supplementary_Fig_2.pdf
   ad22dd9e644fa53d745ce9d22a465010489715e1f5870ea7cc253e0bcf3cb427  Supplementary_Fig_3.pdf
   a97bad051034070f9dee3d1e0ba5a5d51b9128670bfcdc1ca8495b7f7f555200  Supplementary_Fig_4.pdf
@@ -44,5 +46,5 @@ SHA-256 checksums:
   abab0bc398f35936ae1571cc5580e34194edceb3a48aeddf1ee6f956cba17f15  Supplementary_Fig_9.pdf
   7144789866c40dcabe6e4301a36b9cd4ce7204733eb9f70cf414ba27cd606c42  figure1.pdf
   5e4204a302e1c34ef72da0e7262d094fc9c461c0edf4f9c3f398133b90b157cc  figure2.pdf
-  7018d76c97dc1f830f396c28cb2c6482670ed602f51e7c7fd65e407e576067c0  figure3.pdf
+  582efae278f1e01589e59cd3efc4878a1ff9c605bd7d9b5978af646e889fc656  figure3.pdf
   4285be14f05d0aaab20b1af93ea1b4ac4272422a76775c5051229364c951ed54  figure4.pdf

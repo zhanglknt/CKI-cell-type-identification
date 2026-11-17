@@ -32,11 +32,11 @@ chk('Results Section 3.12 ref (v51 short form)',
     'relative-calibration advantage' in full and 'Section 3.12' in full)
 chk('Methods Section 3.12 ref (v51)',
     'per-class values in Section 3.12' in full)
-chk('Section 3.12 referenced 2x (proof: L37 dedup)',
-    full.count('Section 3.12') == 2,
+chk('Section 3.12 referenced 4x (nc82: wild-cluster bootstrap + PSD pointers added)',
+    full.count('Section 3.12') == 4,
     f'found {full.count("Section 3.12")}')
 chk('MWU deleted from main claims; permutation -> Section 3.13 (v51)',
-    'label-permutation confirmed; Supplementary Table 6)' in full
+    'label-permutation confirmed)' in full
     and 'per-tumor Mann-Whitney' not in full)
 chk('no stale Section 3.20/3.21 refs',
     'Section 3.20' not in full and 'Section 3.21' not in full)
@@ -58,7 +58,7 @@ chk('no unqualified "misreported least of seven"',
     'least of seven metrics' not in full and 'of the seven metrics except' not in full)
 
 # 4. Abstract (drift sentence, word count <= 150; nc79: NC article limit)
-abs_paras = [t for t in paras if 'Inspired by Ka/Ks' in t]
+abs_paras = [t for t in paras if 'Standard metrics confound genuine cell-state shifts' in t]
 chk('Abstract drift sentence present', len(abs_paras) == 1)
 if abs_paras:
     wc = len(abs_paras[0].split())
@@ -70,6 +70,11 @@ chk('Abstract real-data calibration sentence (nc80 M-C: scoped log-MAD)',
 chk('Abstract null-free calibration claim only (nc79 panel P0-2: no error-rate claim)',
     bool(abs_paras) and 'zero false reports' not in abs_paras[0]
     and 'shallowest' not in abs_paras[0])
+chk('Abstract Ka/Ks heuristic wording (nc82 P2-24: heuristic in first sentence)',
+    bool(abs_paras) and 'Adapting the Ka/Ks heuristic' in abs_paras[0])
+chk('Abstract background-specific trade-off (nc82 P1-6: sensitivity vs specificity)',
+    bool(abs_paras) and 'background-specific precision advantage bought with sensitivity' in abs_paras[0]
+    and '35\u201366% vs 97\u2013100% of injected 10x modules' in abs_paras[0])
 chk('Abstract 3,535 (ex-CC, v52)', bool(abs_paras) and '3,535' in abs_paras[0])
 chk('Abstract pan-cancer pattern (nc79)',
     bool(abs_paras) and 'tumor\u2013tumor pairs show higher housekeeping divergence than normal\u2013normal pairs in all five (1.3\u20133.3-fold)' in abs_paras[0])
@@ -127,7 +132,7 @@ chk('Discussion range updated (v52)',
 # 6. R1-P1-3 / R3-P1-1: MWU deleted from main text, CI presentation
 chk('pair-level MWU P deleted from main claims (v51)',
     'Dunn\u2013Holm P \u2264 0.008 for both KRAS contrasts' in full
-    and 'label-permutation confirmed; Supplementary Table 6)' in full)
+    and 'label-permutation confirmed)' in full)
 chk('LIHC mapping-sensitivity honest (v52)',
     'linear 1.11 versus softmax 1.29; Supplementary Table 8a' in full)
 chk('softmax demoted to SI sensitivity (v51; nc79 wording)',
@@ -139,14 +144,15 @@ chk('purity adj KRAS omega +16.8 (v50: SI 3.13)',
     '\u0394\u03c9 +16.8, P = 4.0 \u00d7 10\u207b\u2076' in sfull)
 chk('purity adj k_f/k_n significant (v50: SI 3.13)',
     '\u0394k_f +0.012, P = 0.009' in sfull and '\u0394k_n \u22120.0004, P = 0.003' in sfull)
-chk('EGFR null after purity adj', 'all adjusted P > 0.4' in full)
+chk('EGFR null after purity adj (nc82: carried by SI 3.13)',
+    'disappear entirely under purity adjustment (all P > 0.4)' in sfull)
 chk('EGFR admixture highest (v50: SI 3.13)',
     'EGFR-mutant tumors carry the highest admixture scores (Kruskal-Wallis P = 0.003)' in sfull)
 chk('smoking enrichment 94/63/86 (v50: SI 3.13)',
     '94% versus 63% EGFR-mutant and 86% wild-type' in sfull)
 chk('smoking chi2 (v50: SI 3.13)', '\u03c7\u00b2 = 30.3, P = 2.7 \u00d7 10\u207b\u2077' in sfull)
 chk('smoking three-model adjustment (v52: MS headline; SI models)',
-    'alone or jointly with admixture, or with age and sex' in full and '+13.3' in sfull
+    'smoking, TP53 and proliferation' in full and '+13.3' in sfull
     and '+13.6' in sfull and '+13.9' in sfull)
 chk('smoking alone +13.9 (v50: SI 3.13)', '+13.9' in sfull)
 chk('purity proxy limitation (v51: SI)',
@@ -156,8 +162,8 @@ chk('pack-years sparsity documented (v51: MS note; SI detail)',
 chk('TCGA design limitation (v52)', 'the TCGA analysis is limited to bulk resolution' in full)
 chk('GTEx healthy-reference analysis (v52 wording)',
     'adjacent non-tumor resembles healthy tissue' in full and 'kidney is an exception' in full)
-chk('Discussion epidemiology sentence (v51: adjustment retained)',
-    'left the contrast essentially unchanged' in full)
+chk('Discussion epidemiology sentence (nc82: adjustment retained, new wording)',
+    'survives adjustment for purity (adjusted log-\u03c9 ratio 1.19' in full)
 
 # 7b. Pan-cancer purity sensitivity (Results para 3)
 chk('k_n admix correlation range (v51r2: SI Note 8)', 'r = \u22120.23 to \u22120.42' in sfull)
@@ -182,14 +188,19 @@ chk('Methods scripts extended (v51: SI)',
     and 'results/nc49_tcga_admix_scores.csv' in sfull)
 
 # 7d. Abstract / Intro / Fig.5 sync
-chk('KRAS dual-component k_f contrast (v58: Results; nc70: Fig 4->3)',
-    'KRAS versus EGFR under k_f alone, P = 0.015; Fig. 3c, d' in full)
-chk('EGFR admixture adjustment (v58: Results)',
-    'Adjusting for ESTIMATE stromal/immune admixture left the KRAS' in full)
-chk('EGFR elevation abolished under adjustment (v58)',
-    'abolished the apparent EGFR elevation (all adjusted P > 0.4)' in full)
-chk('Fig 4 legend NEW-3 fix (nc79: brain 5->4)',
-    'apparent EGFR elevation dissolved under purity adjustment (all adjusted P > 0.4)' in full)
+chk('KRAS dual-component k_f contrast (nc82: detail moved to SI 3.13)',
+    'KRAS versus EGFR under k_f alone, P = 0.015' in full)
+chk('KRAS group-level scoping (nc82 P1-12)',
+    'group-level association rather than a confirmed driver effect' in full
+    and 'fixed gene panel (\u0394\u03c9 +2.6, P = 0.089)' in full)
+chk('KRAS purity adjustment retained in MS (nc82)',
+    'survives adjustment for purity (adjusted log-\u03c9 ratio 1.19, 95% CI [1.12, 1.26])' in full)
+chk('EGFR admixture resolution carried by SI 3.13 (nc82)',
+    'the EGFR-wild-type differences disappear entirely under purity adjustment' in sfull)
+chk('Fig 3 single panel: no stale driver-panel pointer in MS',
+    'Fig. 3b' not in full and 'Fig. 3c' not in full and 'Fig. 3d' not in full)
+chk('Fig 3 legend points to SI 3.13 for the stratification (nc82)',
+    'The accompanying LUAD driver-mutation stratification is reported in Supplementary Information 3.13' in full)
 chk('Fig 4 legend old EGFR-baseline gone',
     'the EGFR association appears only in the k_n baseline' not in full)
 
@@ -227,8 +238,9 @@ chk('short Result 5 heading',
 chk('KRAS magnitude sentence restored (v50: MS headline; Dunn P in SI)',
     'carried predominantly by a lower housekeeping baseline (~73% of the log-\u03c9 gap)' in full
     and '0.097' in sfull)
-chk('KRAS magnitude coexists with adjusted (v50)',
-    'adjusted P = 0.009' in full)
+chk('KRAS magnitude coexists with adjusted (nc82: SI 3.13)',
+    'k_f +0.012, '
+    'P = 0.009' in sfull)
 chk('Hallmark enrichment sentence (v51)',
     'no MSigDB Hallmark enrichment' in full and 'all q \u2265 0.24' in full)
 chk('Hallmark distributed-signal framing (v51: k_f ordering retained)',
@@ -249,7 +261,7 @@ chk('SI availability rewritten',
 
 # 10. Prior-phase content intact
 chk('severity -> Note 5 + Supp Fig 3d (nc72: 2d->3d)',
-    'denominator-dominated vignettes (Supplementary Note 5)' in full
+    'denominator-dominated vignettes, Supplementary Note 5' in full
     and 'Supplementary Fig. 3d' in sfull)
 chk('marker Jaccard 1.41 (nc79: caption slim -> SI)', 'T3 calibration 1.41 versus 1.80' in sfull)
 chk('no leftover 1.40 versus 1.80', '1.40 versus 1.80' not in full)
@@ -283,7 +295,7 @@ chk('Fig 2e legend old classification ROC gone',
 chk('Result 3 anchor narrowed to Fig. 2c (nc70: 2d->2c)',
     'human column) (Fig. 2c).' in full and 'human column) (Fig. 2c, d).' not in full)
 chk('Result 3b AUC sentence cites Fig. 2d (nc70: 2e->2d)',
-    'from neutral perturbations (Fig. 2d; AUC = 0.80' in full)
+    'from neutral perturbations in this SmartSeq2 background (Fig. 2d; AUC = 0.80' in full)
 chk('Result 3b background2 cites Fig. 2d (v51; nc70: 2e->2d)',
     'AUC(k_f) = 0.859; Fig. 2d' in full)
 

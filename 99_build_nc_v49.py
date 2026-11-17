@@ -113,8 +113,13 @@ def main():
     # artwork, built by results/audit/_nc70_mainfigs.py into STAGE.
     # nc79: 4 main figures - cross-organ demoted to Table 1 + SF5d; brain
     # (old figure5) renumbered to figure4
-    for i in range(1, 4):
+    for i in (1, 2):
         shutil.copy2(STAGE / f"figure{i}.pdf", FIGS_NC / f"figure{i}.pdf")
+    # nc82: figure 3 rebuilt as a single panel (NN/TT ratio); the LUAD driver
+    # stratification moved to Supplementary Fig. 10 (P1-12, panel-composition
+    # change, so the figure content changed and a rebuild is licensed).
+    FIG3_NC82 = BASE / "results" / "figures_nc82" / "figure3.pdf"
+    shutil.copy2(FIG3_NC82, FIGS_NC / "figure3.pdf")
     # nc81: figure 4 re-plotted from the result tables (the v58 artwork put
     # every label at 2.4-3.3 pt once reduced to the 180 mm column width).
     FIG4_NC81 = BASE / "results" / "figures_nc81" / "figure4.pdf"
@@ -128,10 +133,15 @@ def main():
     # SF6=S11+S12+S6, SF7=S15+S16, SF8=S17+S18, SF9=S19 copy).
     for i in range(1, 10):
         shutil.copy2(STAGE / f"figure_S{i}.pdf", FIGS_NC / f"Supplementary_Fig_{i}.pdf")
+    # nc82: Supplementary Fig. 10 = LUAD driver stratification, carved out of
+    # figure 3 (cited only inside the SI, so it sits at the end of the
+    # supplementary sequence without renumbering Supplementary Figs. 5-9).
+    shutil.copy2(BASE / "results" / "figures_nc82" / "Supplementary_Fig_10.pdf",
+                 FIGS_NC / "Supplementary_Fig_10.pdf")
     shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
                  FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
-    check(n_fig == 14, f"V49-1 figures staged = 14 (4 main + 9 supp + GA pdf; nc79) got {n_fig}")
+    check(n_fig == 15, f"V49-1 figures staged = 15 (4 main + 10 supp + GA pdf; nc82) got {n_fig}")
 
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_NC ...")
@@ -236,7 +246,7 @@ def main():
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
     check(note_heads == list(range(1, 25)), f"V49-S5 SN Note headings 1..24 (nc78: +N21 Cox, +N22 CNV, +N23 RIN, +N24 alt-HK) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 29, f"V49-S6 SN Supplementary Fig. refs = 29 (nc79: +1 SF5d pointer at cross-organ demotion) ({n_sfig_sn})")
+    check(n_sfig_sn == 31, f"V49-S6 SN Supplementary Fig. refs = 31 (nc82: +2 for SF10 legend and Table 14 caption; the 3.13 pointer reuses the pattern once in the legend) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
     check(n_stab_sn == 49, f"V49-S7 SN Supplementary Table refs = 49 (nc78: +3 Notes 21-22, +1 Note 23 Table 8e) ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
@@ -280,7 +290,7 @@ def main():
         ("6.10-fold", "A11 regional gradient"),
         ("absorbs ratio bias", "A13 ratio bias (v51 wording)"),
         ("7.70", "A14 omega baseline"),
-        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (v0.6.2 release archived)"),
+        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (v0.6.3 release archived)"),
         ("GSE96583", "A16 Kang GEO"),
         ("GSE109774", "A17 TCGA/brain GEO in Data availability"),
     ]
@@ -313,8 +323,8 @@ def main():
     check("90.9" in sn, "V49-N6 brain T2 omega FPR (v51: SI)")
     check("1.41 versus 1.80 for \u03c9" in sn,
           "V49-N7 marker-Jaccard T3 calibration (nc79: caption slim -> SI)")
-    check(ms.count("Section 3.12") == 2,
-          "V49-N17 exactly 2 Section 3.12 pointers in MS (proof: L37 dedup)")
+    check(ms.count("Section 3.12") == 4,
+          "V49-N17 exactly 4 Section 3.12 pointers in MS (nc82: wild-cluster + PSD pointers)")
     # old exploratory phrasing must be gone
     for stale in ("TCGA; exploratory", "apparent tumor homogeneity", "TODO-nc49"):
         check(stale not in ms, f"V49-N18 stale gone: '{stale}'")
@@ -336,7 +346,8 @@ def main():
           f"V49-N22 Abstract words <= 150 ({len(ab_text.split())})")
     # v49.1 post-repair anchors (purity / smoking / EGFR-dissolved)
     check("2.86" in sn, "V49-N25 high-purity LUAD ratio (v51: SI Note 8)")
-    check("abolished the apparent EGFR elevation" in ms, "V49-N27 admixture caveat phrase (v51 wording)")
+    check("disappear entirely under purity adjustment (all P > 0.4)" in sn,
+          "V49-N27 admixture caveat phrase (nc82: carried by SI 3.13)")
     # v50: adjusted-delta details migrated to SI 3.13
     check("\u0394\u03c9 +16.8" in sn, "V49-N23 purity-adjusted KRAS omega (v50: SI 3.13)")
     check("+13.6" in sn, "V49-N24 joint-adjusted KRAS omega (v50: SI 3.13)")
@@ -438,12 +449,12 @@ def main():
           "V49-N60 C5 Results leads with combined-control gradient (nc60 B11 wording)")
     check('0.850' in sn,
           "V49-N61 C7 class-size Pearson correlation (v50: SI Note 10)")
-    check('All TCGA results exclude 32 cell-line-derived aliquots' in ms
+    check('All TCGA results exclude 32 cell-line aliquots' in ms
           and 'barcode audit' in ms
           and '34,828 pairs' in sn
           and 'Four controls bound the interpretation' in ms,
           "V49-N62 C4 ex-CC default cohort (v52 wording)")
-    check('\u03c9 is therefore best read as a studentized null model, not a replacement for k_f' in ms
+    check('\u03c9 is best read as a studentized null model, not a replacement for k_f' in ms
           and 'The ratio earns its increment over k_f under controlled ground truth' not in ms,
           "V49-N63 C2 omega-increment framing (nc78 P0-2 path B supersedes: studentized null model)")
     check('cross-type gaps in mean \u03c9 are descriptive rather than calibrated'
@@ -456,14 +467,14 @@ def main():
     check('span-matched control (21 intra-cerebellar pairs) yields 3.68' in ms
           and 'paired per-region-pair median 4.30, bootstrap 95% CI [3.40, 4.95]' in sn,
           "V49-N67 B1 span-matched control (MS headline; SI Note 10 details, v51)")
-    check('the equal-n decomposition shows the full-data Bergmann-glia k_n elevation is largely a class-size artefact' in ms
+    check('the equal-n decomposition attributes the Bergmann-glia k_n elevation largely to class size' in ms
           and 'equal-n 1.29, 95% CI [1.21, 1.41]' in sn
           and '96_brain_downsample_decomp_v49.py' in sn,
           "V49-N68 B2 equal-n decomposition (MS pointer; SI Note 10 details, v52)")
     check('leave-one-population-out range 6.75\u20138.08' in ms
           and 'removing hepatocyte lowers it to 6.75' in sn,
           "V49-N69 B3 calibration leave-one-out (MS pointer; SI 3.10 details, v51)")
-    check('label-permutation confirmed; Supplementary Table 6)' in ms
+    check('label-permutation confirmed)' in ms
           and '93_luad_group_permutation_v49.py' in sn,
           "V49-N70 B4 LUAD whole-tumor label permutation (MS pointer; SI 3.13, nc60 A12)")
     check('adjusted log-\u03c9 ratio 1.19, 95% CI [1.12, 1.26]' in ms,
@@ -515,7 +526,7 @@ def main():
           and 'spans 3,593 unique barcodes' in sn,
           "V49-N81 B1 sample-count reconciliation (3,596/3,593/3,567; v51: SI)")
     # B2: smoking model wording
-    check('alone or jointly with admixture, or with age and sex' in ms
+    check('smoking, TP53 and proliferation' in ms
           and '+13.3, P = 1.4 \u00d7 10\u207b\u00b3 with smoking, age, and sex' in sn,
           "V49-N82 B2 smoking covariate wording (v52: MS phrase; SI numbers)")
     # B7: exact P values
@@ -570,7 +581,7 @@ def main():
           and 'attenuates, rather than creates, the CKI signal' not in sn
           and 'creates rather than attenuates the TT/NN housekeeping gap' in sn
           and '56% (95% CI 46\u201366%)' in ms
-          and '42% (34\u201350%) if normal tissue carries' in ms
+          and '42% (34\u201350%) at a residual of 0.05' in ms
           and 'CNA 40% [30, 51]' in sn,
           "V49-N101 nc78 CNV associations written into MS+SI (P0-3a; nc80 v2 numbers)")
     # nc78 P0-3c: RIN controls (MS + SI Note 23 + Table 8e)
@@ -638,8 +649,8 @@ def main():
           in sn and 'Supplementary Note 11' in ms,
           "V49-N100 m2 span-matched residual decomposition (v59: MS Note 10->11)")
     # m3 (R1): ependymal against-direction class noted in MS
-    check('ependymal cells, moving against the conservative direction, still do not survive: stratified q = 0.052' in ms,
-          "V49-N101 m3 ependymal stratified-reversal note in MS (v52 wording)")
+    check('the same 3 under a donor-stratified null (ependymal q = 0.052)' in ms,
+          "V49-N101 m3 ependymal stratified-reversal note in MS (nc82 wording)")
     # m4 (R6): exact Mann-Whitney P for cross-organ reversal
     check('Mann-Whitney P = 5.6 \u00d7 10\u207b\u00b9\u2078' in ms
           and 'Mann-Whitney U, P < 0.001' not in ms,
@@ -688,7 +699,7 @@ def main():
     check('(~73% of the log-\u03c9 gap)' in ms
           and 'contributed ~73% of the log-\u03c9 gap (mean-log identity estimand)' in sn,
           "NC60-R3m2 KRAS log-omega gap decomposition ~73% (MS + SI)")
-    check('paired DeLong P = 2.4 \u00d7 10\u207b\u00b9\u2077 versus k_f' in ms
+    check('paired raw DeLong P = 2.4 \u00d7 10\u207b\u00b9\u2077 versus k_f' in ms
           and 'module-seed cluster bootstrap' in sn and '[0.070, 0.108]' in sn,
           "NC60-R2M1 paired DeLong dAUC (MS text; nc79 caption slim: SI)")
     check('intervals excluding zero under library clustering' in ms
@@ -726,8 +737,8 @@ def main():
     print("\n--- package integrity ---")
     names = zipfile.ZipFile(ZIP_PATH).namelist()
     check(all(n.startswith("CKI_Submission_NC/") for n in names), "V49-P1 zip rooted")
-    check(len(names) == 21 and "CKI_Submission_NC/figure5.pdf" not in names,
-          f"V49-P1b nc79 package: 21 entries, no stale figure5.pdf (got {len(names)})")
+    check(len(names) == 22 and "CKI_Submission_NC/figure5.pdf" not in names,
+          f"V49-P1b nc82 package: 22 entries (SF10 added), no stale figure5.pdf (got {len(names)})")
     for must in ["CKI_Submission_NC/CKI_Manuscript_NC.docx",
                  "CKI_Submission_NC/CKI_Supplementary_NC.docx",
                  "CKI_Submission_NC/CKI_NC_Cover_Letter.docx",
@@ -736,6 +747,7 @@ def main():
                  "CKI_Submission_NC/Supplementary_Fig_1.pdf",
                  "CKI_Submission_NC/Supplementary_Fig_5.pdf",
                  "CKI_Submission_NC/Supplementary_Fig_9.pdf",
+                 "CKI_Submission_NC/Supplementary_Fig_10.pdf",
                  "CKI_Submission_NC/figure2.pdf",
                  "CKI_Submission_NC/figure3.pdf",
                  "CKI_Submission_NC/figure4.pdf",

@@ -1,0 +1,25 @@
+{
+  "n_pairs": 2161,
+  "n_libraries": 597,
+  "n_donors": 4,
+  "pairs_per_donor": [
+    53,
+    929,
+    535,
+    644
+  ],
+  "eigenvalues": [
+    1.4137149888523802e-05,
+    3.897476956470343e-05,
+    4.707704011287176e-05,
+    5.52423412116278e-05,
+    0.00020359188329187458,
+    0.0008952713452218507
+  ],
+  "min_eigenvalue": 1.4137149888523802e-05,
+  "psd_violation": false,
+  "max_abs_se_change": 3.3306690738754696e-16,
+  "contrasts": 6,
+  "wild_draws_used": 9999,
+  "wild_exact_patterns": 16
+}

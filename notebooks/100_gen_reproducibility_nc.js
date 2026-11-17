@@ -199,9 +199,9 @@ const doc = new Document({
       p("Document-build dependencies (python-docx 1.2.0, python-pptx, lxml, reportlab, and related packages) are NOT required for any analysis; they are listed separately under 'Document generation' in requirements.txt and are needed only to rebuild the manuscript, supplementary notes, and this guide."),
 
       heading("1.2 CKI Package", 3),
-      p("Version: 0.6.2 (editable install from project root)"),
+      p("Version: 0.6.3 (editable install from project root)"),
       p("Repository: https://github.com/zhanglknt/CKI-cell-type-identification"),
-      p("Archived release: Zenodo concept DOI 10.5281/zenodo.20405458 (always resolves to the latest archived version; the v0.6.2 archive accompanies this submission)"),
+      p("Archived release: Zenodo concept DOI 10.5281/zenodo.20405458 (always resolves to the latest archived version; the v0.6.3 archive accompanies this submission)"),
       p("Install (editable, recommended):"),
       code("cd <project_root>"),
       code("pip install -e ."),
@@ -378,13 +378,13 @@ const doc = new Document({
       p("  4. Sample pairs drawn from: tumor-tumor (TT), normal-normal (NN), tumor-normal (TN). Maximum 2,000 random TT and TN pairs each."),
       p("  5. Per-pair k_n computed on the shared HK gene set for each sample pair."),
       p("  6. Per-pair k_f with top-200 DE genes (ranked by |mean_diff|)."),
-      p("  7. NN/TT ratio computed as mean(omega_NN) / mean(omega_TT) per cancer type under the linear probability mapping (the manuscript and Fig. 3a report this mean NN/TT omega ratio with sample-level cluster-bootstrap 95% CIs; the legacy median/softmax caliber is archived as a sensitivity analysis in Section 1.7 of the Supplementary Information)."),
+      p("  7. NN/TT ratio computed as mean(omega_NN) / mean(omega_TT) per cancer type under the linear probability mapping (the manuscript and Fig. 3 report this mean NN/TT omega ratio with sample-level cluster-bootstrap 95% CIs; the legacy median/softmax caliber is archived as a sensitivity analysis in Section 1.7 of the Supplementary Information)."),
       p("Clinical stratification:", { bold: true }),
       p("  LIHC Edmondson grade (ex-CC, v52): G1 (n=39), G2 (n=134), G3 (n=105), G4 (n=11). Jonckheere-Terpstra trend test."),
       p("  BRCA PAM50 subtype: Basal-like (n=97), HER2 (n=55), LumA (n=224), LumB (n=123), Normal-like (n=7). Kruskal-Wallis test."),
       p("  LUAD mutation: EGFR (n=61), KRAS (n=120), WT (n=311). Kruskal-Wallis test."),
       p("Per-sample statistics (nc52_tcga_excc_main.py, seed 42; ex-CC default since v52):", { bold: true }),
-      p("  Per-tumor statistics are the mean of omega, k_f, k_n over all linear-normalization pairs a sample participates in (34,828 ex-CC pairs: the 478 pairs touching the 32 cell-line-derived aliquots dropped from the 35,306-pair table). Group ratios carry sample-level cluster-bootstrap 95% CIs (B = 1,000; tumor/normal resampled independently, pairs reweighted by endpoint-weight products). LUAD driver groups tested with Kruskal-Wallis + Dunn post-hoc (Holm); group mean differences carry within-group bootstrap CIs. Pair-level Mann-Whitney P-values are descriptive only (dyadic dependence). Outputs: results/nc52_tcga_pancancer_excc.csv, results/nc52_tcga_excc_severity.csv, results/nc49_tcga_luad_mutation.csv. LIHC Cox models: notebooks/nc52_lihc_cox_excc.py (R survival::coxph, AJCC stage categorical, cox.zph PH check; results/nc52_lihc_cox_excc.csv, results/nc52_lihc_cox_excc_zph.csv). Figure: notebooks/nc49_fig_tcga.py (Fig. 3; results/figures_final/nc49_fig_tcga.pdf/.png)."),
+      p("  Per-tumor statistics are the mean of omega, k_f, k_n over all linear-normalization pairs a sample participates in (34,828 ex-CC pairs: the 478 pairs touching the 32 cell-line-derived aliquots dropped from the 35,306-pair table). Group ratios carry sample-level cluster-bootstrap 95% CIs (B = 1,000; tumor/normal resampled independently, pairs reweighted by endpoint-weight products). LUAD driver groups tested with Kruskal-Wallis + Dunn post-hoc (Holm); group mean differences carry within-group bootstrap CIs. Pair-level Mann-Whitney P-values are descriptive only (dyadic dependence). Outputs: results/nc52_tcga_pancancer_excc.csv, results/nc52_tcga_excc_severity.csv, results/nc49_tcga_luad_mutation.csv. LIHC Cox models: notebooks/nc52_lihc_cox_excc.py (R survival::coxph, AJCC stage categorical, cox.zph PH check; results/nc52_lihc_cox_excc.csv, results/nc52_lihc_cox_excc_zph.csv). Figure: notebooks/111_gen_fig3_nc82.py (Fig. 3 + Supplementary Fig. 10; results/figures_nc82/figure3.pdf, results/figures_nc82/Supplementary_Fig_10.pdf; Section 5.15)."),
 
       p("Cross-organ conservation (Table 1): Subset of 59 same-cell-type cross-organ pairs from Tabula Sapiens data. Ranked by mean omega per cell type."),
 
@@ -660,7 +660,7 @@ const doc = new Document({
       p("     Per-sample means of omega/k_f/k_n over the 35,306-pair linear-normalization table; pan-cancer NN/TT mean ratios with sample-level cluster-bootstrap 95% CIs (B = 1,000); LUAD driver-group Kruskal-Wallis + Dunn-Holm contrasts with bootstrap difference CIs; LIHC overall-survival Cox models (six exposures). Covariate sensitivity: ESTIMATE stromal+immune (141+141 genes) admixture scoring (per-cancer k_n/omega ~ admixture regressions, LUAD ANCOVA, high-purity-half NN/TT bootstrap) and LUAD smoking adjustment (cBioPortal study luad_tcga patient-level data; 427/492 tumors with known status; OLS with ever-smoker, age/sex, and admixture covariates). k_f panel semantics: Hallmark enrichment of the LUAD KRAS TT identity panels (no program at FDR < 0.05) and pair-level log k_f composition regressions (TT >= NN k_f retained in 5/5 cancers). Outputs: results/nc49_tcga_pancancer.csv, results/nc49_tcga_luad_mutation.csv, results/nc49_pilot_lihc_cox.csv, results/nc49_tcga_purity.csv, results/nc49_tcga_admix_scores.csv, results/nc49_tcga_luad_smoking.csv, results/nc49_tcga_kf_composition.csv (notebooks/nc49_tcga_kf_composition.py)."),
       p(""),
       p("  d. v49 main figures:"),
-      p("     Scripts: notebooks/nc49_fig_drift_ladder.py (Fig. 2), notebooks/nc49_fig_tcga.py (Fig. 3)"),
+      p("     Scripts: notebooks/nc49_fig_drift_ladder.py (Fig. 2), notebooks/111_gen_fig3_nc82.py (Fig. 3, Section 5.15)"),
       p("     Outputs: results/figures_final/nc49_fig_drift_ladder.pdf/.png, results/figures_final/nc49_fig_tcga.pdf/.png."),
       p(""),
 
@@ -790,11 +790,22 @@ const doc = new Document({
       p(""),
 
       // ========================================================
+      // 5.15 nc82 FIGURE REBUILD (FIG. 3 SINGLE PANEL + SUPP FIG. 10)
+      // ========================================================
+      heading("5.15 nc82 Analyses", 3),
+      p("  a. Figure 3 rebuild and Supplementary Fig. 10 (LUAD driver stratification):"),
+      p("     Script: notebooks/111_gen_fig3_nc82.py."),
+      p("     Design: figure 3 is re-plotted from results/nc52_tcga_pancancer_excc.csv as a single panel (mean NN/TT omega ratio, blue bars, sample-level cluster-bootstrap 95% CIs; TT/NN k_n mean ratio, amber diamonds, 95% CIs on an independent axis; cancer types ranked by NN/TT omega). The LUAD driver-mutation stratification that used to be panels b-d of figure 3 is re-plotted as Supplementary Fig. 10 from results/tcga_linear_norm_v44_TCGA-LUAD_pairs.csv (tumour-tumour pairs only; per-tumor mean of omega_raw, k_f and k_n over the pairs in which a sample participates; mutation labels from data/tcga/luad_egfr_kras_mutations.json matched on the first 12 barcode characters; the two double mutants excluded)."),
+      p("     Outputs: results/figures_nc82/figure3.pdf/.png, results/figures_nc82/Supplementary_Fig_10.pdf/.png."),
+      p("     Expected: NN/TT omega ratios 2.46 (LUAD), 1.88 (KIRC), 1.71 (LUSC), 1.57 (BRCA), 1.11 (LIHC); k_n TT/NN mean ratios 2.55, 3.29, 1.89, 2.27, 1.34. Per-tumor group means - WT n = 311, omega 115.37, k_f 0.2814, k_n 0.0032; EGFR n = 61, omega 122.22, k_f 0.2732, k_n 0.0028; KRAS n = 120, omega 136.94, k_f 0.2919, k_n 0.0027; Kruskal-Wallis P = 7.83e-7 (omega), 0.015 (k_f), 3.35e-4 (k_n). The script asserts every one of these values against Supplementary Tables 5 and 6 and aborts on any mismatch."),
+      p(""),
+
+      // ========================================================
       // 6. OUTPUT FILES
       // ========================================================
       heading("6. Output Files", 2),
       p("All results are written to results/. Ten pre-fix output files whose values contradict the manuscript are consolidated under results/superseded/ (v42 P0-6, three-reviewer consensus); they are retained for provenance and ship with the release tag, but must not be used as numerical sources - each entry below marks the authoritative replacement."),
-      p("Repository tracking policy: only the curated verification subset of results/ cited in this guide is tracked in git (whitelist in .gitignore); the tracked subset covers every input read by scripts/spot_check.py and tests/test_reference_values.py. Additional reference outputs are mirrored byte-identically under archive/CKI_Reproducibility_Package/reference_results/ (CKI_Reproducibility_Package/reference_results/ in tag v0.6.2). Files neither tracked nor mirrored are regenerated with the scripts listed in Section 5."),
+      p("Repository tracking policy: only the curated verification subset of results/ cited in this guide is tracked in git (whitelist in .gitignore); the tracked subset covers every input read by scripts/spot_check.py and tests/test_reference_values.py. Additional reference outputs are mirrored byte-identically under archive/CKI_Reproducibility_Package/reference_results/ (CKI_Reproducibility_Package/reference_results/ in tag v0.6.3). Files neither tracked nor mirrored are regenerated with the scripts listed in Section 5."),
       p(""),
       p("    Mouse (02b_pilot_v2.py, authoritative pilot and calibration output; the v2b re-validation 02c_pilot_v2b.py writes the parallel *v2b_* files):"),
       code("      results/mouse_pilot_v2_results.csv        # omega per pair (authoritative; feeds the legacy 6.67 baseline, superseded by results/mouse_splithalf_v44.csv, 7.70)"),
@@ -917,9 +928,9 @@ const doc = new Document({
       p("    nc50 microglia independent validation (Section 5.12):"),
       code("      results/nc50_brain_atlas_microglia.csv             # per-pair metric values, 35 functional + 40 neutral (Section 5.12a)"),
       code("      results/nc50_brain_atlas_microglia.txt             # summary statistics (means, Mann-Whitney P, AUC) (Section 5.12a)"),
-      p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Fig. 2), notebooks/nc49_fig_tcga.py (Fig. 3), notebooks/nc50_fig_microglia.py (Supplementary Fig. 4)"),
+      p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Fig. 2), notebooks/111_gen_fig3_nc82.py (Fig. 3 + Supplementary Fig. 10), notebooks/nc50_fig_microglia.py (Supplementary Fig. 4)"),
       heading("7. Reproducibility Checklist", 2),
-      p("[\u2713] Install CKI v0.6.2: pip install -e ."),
+      p("[\u2713] Install CKI v0.6.3: pip install -e ."),
       p("[\u2713] Verify Python 3.14.4 environment (Section 1.1)."),
       p("[\u2713] Verify random seed = 42 in all analysis scripts (fixed exceptions: notebooks 77/78/79 use seed 20260903; notebook 89 uses seed 20260905)."),
       p("[\u2713] Verify HK gene source: HRT Atlas v1.0 reference (cki/data/hrt_atlas.csv, shipped; analysis scripts read the byte-identical downloaded copy data/housekeeping/Human_Mouse_Common.csv), loaded directly for all datasets."),

@@ -41,11 +41,11 @@ chk('MAIN (Intro+Results+Discussion) <= 5000 (NC, v52)', 0 < main <= 5000,
     f'{main} incl subheadings, {main_xh} excl {secs}')
 chk('Methods < 3,300 (nc79 ruling: NC guide "typically" 3,000 but "may be longer if necessary"; reproducibility-heavy)',
     0 < secs['Methods'][0] < 3300, f"{secs['Methods'][0]} words (advisory 3,000)")
-abs_p = [p.text for p in doc.paragraphs if 'Inspired by Ka/Ks' in p.text]
+abs_p = [p.text for p in doc.paragraphs if 'Standard metrics confound genuine cell-state shifts' in p.text]
 chk('Abstract <= 150 words (NC: ~150-word Article abstract; nc79)', len(abs_p) == 1 and len(abs_p[0].split()) <= 150,
     f'{len(abs_p[0].split()) if abs_p else 0} words')
 chk('Abstract carries no citation superscripts',
-    all(not r.font.superscript for p in doc.paragraphs if 'Inspired by Ka/Ks' in p.text
+    all(not r.font.superscript for p in doc.paragraphs if 'Standard metrics confound genuine cell-state shifts' in p.text
         for r in p.runs))
 
 H1 = 'CKI: a Ka/Ks-inspired index decomposing functional divergence from baseline variation in cell atlases'
@@ -113,7 +113,7 @@ chk('no orphans (57 cited)', len(_seen) == 57)
 # ---------- 6. zip integrity ----------
 z = zipfile.ZipFile('CKI_Submission_NC.zip')
 names = z.namelist()
-chk('zip 21 entries (nc79: 4 main + 9 supp figures)', len(names) == 21, f'got {len(names)}')
+chk('zip 22 entries (nc82: 4 main + 10 supp figures)', len(names) == 22, f'got {len(names)}')
 chk('zip has Supplementary_Fig_9.pdf',
     'CKI_Submission_NC/Supplementary_Fig_9.pdf' in names)
 sha = hashlib.sha256(open('CKI_Submission_NC.zip', 'rb').read()).hexdigest()
@@ -129,8 +129,8 @@ chk('zip every entry <= 10 MB (NC per-file limit)',
 chk('MS Supplementary Methods 5.x pointers = 21 (nc60 A3: barcode-audit pointer 1.7->5.3)', ms.count('Supplementary Methods 5.') == 21,
     f"got {ms.count('Supplementary Methods 5.')}")
 chk('MS cites Notes 1-24 span (nc78)', 'Supplementary Notes 1\u201324' in ms)
-chk('MS cites Figs 1-9 span (nc70)', 'Supplementary Figs. 1\u20139' in ms)
-chk('MS Section 3.12 pointers = 2 (proof: L37 dedup)', ms.count('Section 3.12') == 2)
+chk('MS cites Figs 1-10 span (nc83: SF10 added)', 'Supplementary Figs. 1\u201310' in ms)
+chk('MS Section 3.12 pointers = 4 (nc82: wild-cluster + PSD pointers)', ms.count('Section 3.12') == 4)
 chk('SI carries Supplementary Methods section', 'Supplementary Methods' in sn)
 _sm_heads = [f'5.{i} ' for i in range(1, 15)]
 _missing = [h for h in _sm_heads if not re.search(rf'^{re.escape(h)}', sn, re.M)]

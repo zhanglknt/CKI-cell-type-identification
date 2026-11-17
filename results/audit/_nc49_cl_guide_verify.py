@@ -78,7 +78,7 @@ chk('Guide CC attrition breakdown (v49.14)',
     and '3,593 unique barcodes' in gdfull
     and '29 expression-matrix samples excluded' not in gdfull)
 chk('Guide mean-ratio caliber',
-    'mean(omega_NN) / mean(omega_TT)' in gdfull and 'Fig. 3a' in gdfull)
+    'mean(omega_NN) / mean(omega_TT)' in gdfull and 'Fig. 3 report this mean NN/TT' in gdfull)
 chk('Guide no median NN/TT caliber',
     'median(omega_NN) / median(omega_TT)' not in gdfull)
 chk('Guide cross-species pointer = SF5 (nc72: 6->5, 2 places)',
@@ -90,7 +90,7 @@ chk('Guide 5.10 v49 Analyses', '5.10 v49 Analyses' in gdfull)
 chk('Guide nc49 scripts listed',
     'nc49_pilot_kang_techrep.py' in gdfull and 'nc49_brain_drift_ladder.py' in gdfull
     and 'nc49_tcga_main.py' in gdfull and 'nc49_pilot_lihc_cox.py' in gdfull
-    and 'nc49_fig_drift_ladder.py' in gdfull and 'nc49_fig_tcga.py' in gdfull)
+    and 'nc49_fig_drift_ladder.py' in gdfull and '111_gen_fig3_nc82.py' in gdfull)
 chk('Guide nc49 outputs listed',
     'results/nc49_pilot_kang_techrep.csv' in gdfull
     and 'results/nc49_brain_drift_ladder.csv' in gdfull
