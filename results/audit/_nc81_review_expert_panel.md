@@ -212,7 +212,7 @@
 
 ---
 
-## 7. P0-4 图幅：figure 4 重建（nc81b，squash 406e3b3 / tag v0.6.2）
+## 7. P0-4 图幅：figure 4 重建（nc81b，tag v0.6.2；main 与 tag 为同一提交）
 
 ### 病根
 
