@@ -485,3 +485,45 @@ _tmp_archive/
 !results/audit/_nc82_psd_wildcluster.txt
 !results/nc82_psd_wildcluster.csv
 !results/nc82_psd_wildcluster.json
+!results/audit/_nc83_figure_audit.md
+!results/audit/_nc83_figure_exceptions.json
+
+# ============================================================
+# nc83 expert panel (2026-11-18): six blind reviews, editor factcheck,
+# panel summary and the review-text extraction script
+# ============================================================
+!results/audit/_nc83_pack_review_text.py
+!results/audit/_nc83_editor_factcheck.md
+!results/audit/_nc83_review_expert_panel.md
+!results/audit/_nc83_review_R1.md
+!results/audit/_nc83_review_R2.md
+!results/audit/_nc83_review_R3.md
+!results/audit/_nc83_review_R4.md
+!results/audit/_nc83_review_R5.md
+!results/audit/_nc83_review_R6.md
+
+# ============================================================
+# nc84 (2026-11-18/19): expert-panel closure -- multi-page supplementary
+# figure recomposition, checker rewrite and the fix report
+# ============================================================
+!notebooks/114_recompose_suppfigs_nc84.py
+!results/figures_nc84/
+!results/figures_nc84/*.pdf
+!results/audit/_nc84_previews/
+!results/audit/_nc84_*.md
+!results/audit/_nc84_*.py
+
+# ============================================================
+# nc85 (2026-11-19): post-fix blind re-review -- extraction script,
+# six independent reviewer reports, editor factcheck and panel summary
+# (review material TXTs are intentionally NOT published)
+# ============================================================
+!results/audit/_nc85_pack_review_text.py
+!results/audit/_nc85_editor_factcheck.md
+!results/audit/_nc85_review_expert_panel.md
+!results/audit/_nc85_review_R1.md
+!results/audit/_nc85_review_R2.md
+!results/audit/_nc85_review_R3.md
+!results/audit/_nc85_review_R4.md
+!results/audit/_nc85_review_R5.md
+!results/audit/_nc85_review_R6.md

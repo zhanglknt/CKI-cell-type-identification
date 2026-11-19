@@ -90,18 +90,17 @@ def run():
         "separation of functional divergence "
         "from background drift: it decomposes divergence into a "
         "housekeeping baseline k_n and an identity-gene rate k_f "
-        "(\u03c9 = k_f/k_n). The work fits Nature Communications\u2019 scope: "
-        "computational methods validated on large-scale real data.",
+        "(\u03c9 = k_f/k_n). The work fits Nature Communications\u2019 methods scope. ",
         doc,
     )
 
     # ── Body: core argument — four pillars (v59: brain-atlas pillar added) ──
     add_para(
         "The manuscript rests on four pillars. First, in ground-truth "
-        "simulation (1,750 replicates per background, two backgrounds), \u03c9 alone did not false-trigger on "
+        "simulation (two backgrounds), \u03c9 alone did not false-trigger on "
         "neutral housekeeping drift (false-positive rate 0.00 versus "
         "0.55\u20130.58 for JS and cosine) and gave the best "
-        "functional-versus-neutral discrimination at bounded power (AUC = 0.80). Second, in "
+        "functional-versus-neutral discrimination at bounded power (AUC = 0.80; 10x pooled 0.51\u20130.53). Second, in "
         "drift calibration, \u03c9 raised no false reports on the 30 "
         "cross-lane technical-replicate pairs (Kang IFN-\u03b2 PBMC; "
         "raw JS 36.7%, cosine 23.3%); on 2,161 brain technical-drift "
@@ -115,7 +114,7 @@ def run():
         "divergent than adjacent non-tumor tissue\u2014a pan-cancer "
         "reversal driven by an elevated housekeeping baseline rather "
         "than reduced functional divergence, about half of which is "
-        "attributable to copy-number instability (56%, 95% CI "
+        "associated with copy-number instability (56%, 95% CI "
         "46\u201366%), a caution for HK-anchored "
         "normalization in bulk tumors; and in lung adenocarcinoma "
         "CKI "
@@ -139,26 +138,21 @@ def run():
     # ── Body: two properties stated explicitly (new-evidence framing) ──
     add_para(
         "Two properties of this work are worth stating explicitly. CKI is "
-        "a specificity-first index, designed to detect dynamic cell-state "
+        "a precision-first index, designed to detect dynamic cell-state "
         "changes rather than discriminate static cell types: on "
-        "real-drift benchmarks it misreports least "
-        "among continuous metrics while retaining "
-        "sensitivity (Fig. 2); in the ground-truth simulation "
+        "technical replicates it shows the tightest precision, not the "
+        "lowest drift (Supplementary Fig. 11); in the ground-truth simulation "
         "it ranks first of six at separating functional "
-        "change from neutral drift (AUC = 0.80; Fig. 2d). And the "
-        "pan-cancer divergence map, with the "
-        "lung adenocarcinoma driver-class decomposition, grounds the "
-        "method in cancer biology (Fig. 3). The ratio "
-        "is theory-backed: a scoped framework identifies \u03c9 \u2212 1 "
-        "with functional-to-background displacement energy; the HK "
-        "denominator studentizes the null eightfold "
-        "(Supplementary Note 20).",
+        "change from neutral drift (AUC = 0.80; Fig. 2d). The pan-cancer map "
+        "grounds the method in cancer biology (Fig. 3). A scoped framework "
+        "gives \u03c9 = \u03b1 + E_f/E_b + \u03b5; the HK denominator "
+        "studentizes the null eightfold (Supplementary Note 20).",
         doc,
     )
 
     # ── Body: suggested reviewers ──
     add_para(
-        "We suggest the following reviewers, none with conflicts: "
+        "Suggested reviewers, none with conflicts: "
         "Prof. Fabian Theis, Helmholtz Munich (fabian.theis@helmholtz-munich.de); "
         "Prof. Joshua Welch, University of Michigan (welchjd@umich.edu); "
         "Prof. Sten Linnarsson, Karolinska Institutet (sten.linnarsson@ki.se); "

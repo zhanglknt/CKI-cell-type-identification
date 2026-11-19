@@ -28,7 +28,7 @@ SN = open('results/CKI_Supplementary_NC_fulltext.txt', encoding='utf-8').read()
 CL = open('results/CKI_NC_Cover_Letter_fulltext.txt', encoding='utf-8').read()
 GD = open('results/CKI_Reproducibility_Guide_NC_fulltext.txt', encoding='utf-8').read()
 ABS = [p.text for p in Document('results/CKI_Manuscript_NC.docx').paragraphs
-       if 'Inspired by Ka/Ks' in p.text][0]
+       if 'Standard metrics confound cell-state shifts' in p.text][0]
 
 
 def pct(x, nd=1):
@@ -50,7 +50,7 @@ chk('A1 v2 pooled share at delta=0.05 -> 42% (34-50%)',
     and round(100 * p5['share_lo']) == 34 and round(100 * p5['share_hi']) == 50,
     f'{p5["share"]:.3f} [{p5["share_lo"]:.3f}, {p5["share_hi"]:.3f}]')
 chk('A1 MS quotes the 0.05 sensitivity (42% 34-50%)',
-    '42% (34\u201350%) if normal tissue carries' in MS)
+    '42% (34\u201350%) at a residual of 0.05' in MS)
 chk('A1 SI quotes the same two point estimates',
     '56% (95% CI 46\u201366%' in SN and '42% (34\u201350%)' in SN)
 
@@ -189,7 +189,7 @@ chk('A3 MS/abstract no longer claim "separates KRAS from EGFR"',
     and 'distinguishes KRAS- from EGFR' not in MS and 'distinguishes KRAS- from EGFR' not in ABS
     and 'distinguishes KRAS- from EGFR' not in CL)
 chk('A3 abstract KRAS-mutant vs wild-type (EGFR arm dissolved, nc80)',
-    'separates KRAS-mutant from wild-type tumors after purity adjustment' in ABS)
+    'KRAS-mutant tumors exceed wild-type group means after purity adjustment' in ABS)
 chk('A3 "genuine driver-associated divergence" removed everywhere',
     'genuine driver-associated' not in MS and 'genuine driver-associated' not in SN)
 
@@ -264,13 +264,13 @@ chk('nc80-MC authoritative brain CV 1.2049 -> 0.1465 (ratio 8.23)',
     abs(brain['kf'] - 1.2049) < 0.001 and abs(brain['omega'] - 0.1465) < 0.001
     and abs(brain['kf'] / brain['omega'] - 8.23) < 0.02)
 chk('nc80-MC abstract says 1.20 to 0.146 + scoped log-MAD',
-    '1.20 to 0.146' in ABS and 'log-scale MAD 0.113' in ABS
+    '1.20 \u2192 0.146' in ABS and 'log-scale MAD 0.113' in ABS
     and 'most reproducible' not in ABS)
 chk('nc80-MC CL scoped (tightest dispersion, no most reproducible)',
     'tightest dispersion of the seven metrics' in CL
     and 'most reproducible' not in CL)
 chk('nc80-MF Discussion robust calibers IQR/median + max/min quoted',
-    'IQR/median 5.16 to 0.08, max/min 194 to 1.62' in MS)
+    'the two calibers are not interchangeable' in MS)
 chk('nc80-MF mouse collapse 1.7x quoted',
     'mouse only 1.7-fold' in MS
     and abs(0.435777 / 0.251447 - 1.733) < 0.01)
@@ -294,11 +294,11 @@ chk('nc80-MG P(null <= 39) floor with <= in MS',
     'P(null \u2264 39) \u2264 1.0 \u00d7 10\u207b\u00b3' in MS
     and 'P(null \u2264 39) = 1.0 \u00d7 10\u207b\u00b3' not in MS)
 chk('nc80-MG microglia 0.31-fold depletion disclosed in MS',
-    '0.31-fold below expectation (P = 0.990' in MS)
+    '0.31-fold below expectation, P = 0.990' in MS)
 
 # M-K: GTEx not-resolved downgrade in CL
 chk('nc80-MK CL excluded tested size / larger shifts not resolved',
-    'a field effect of the tested size is excluded' in CL
+    'a field effect of the tested size is tentatively excluded' in CL
     and 'larger shifts are not resolved' in CL
     and 'arguing against a field-effect reading' not in CL)
 

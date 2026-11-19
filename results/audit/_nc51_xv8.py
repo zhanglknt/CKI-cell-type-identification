@@ -41,7 +41,7 @@ chk('MAIN (Intro+Results+Discussion) <= 5000 (NC, v52)', 0 < main <= 5000,
     f'{main} incl subheadings, {main_xh} excl {secs}')
 chk('Methods < 3,300 (nc79 ruling: NC guide "typically" 3,000 but "may be longer if necessary"; reproducibility-heavy)',
     0 < secs['Methods'][0] < 3300, f"{secs['Methods'][0]} words (advisory 3,000)")
-abs_p = [p.text for p in doc.paragraphs if 'Standard metrics confound genuine cell-state shifts' in p.text]
+abs_p = [p.text for p in doc.paragraphs if 'Standard metrics confound cell-state shifts' in p.text]
 chk('Abstract <= 150 words (NC: ~150-word Article abstract; nc79)', len(abs_p) == 1 and len(abs_p[0].split()) <= 150,
     f'{len(abs_p[0].split()) if abs_p else 0} words')
 chk('Abstract carries no citation superscripts',
@@ -113,7 +113,9 @@ chk('no orphans (57 cited)', len(_seen) == 57)
 # ---------- 6. zip integrity ----------
 z = zipfile.ZipFile('CKI_Submission_NC.zip')
 names = z.namelist()
-chk('zip 22 entries (nc82: 4 main + 10 supp figures)', len(names) == 22, f'got {len(names)}')
+chk('zip 23 entries (nc83: 4 main + 11 supp figures)', len(names) == 23, f'got {len(names)}')
+chk('zip has Supplementary_Fig_11.pdf',
+    'CKI_Submission_NC/Supplementary_Fig_11.pdf' in names)
 chk('zip has Supplementary_Fig_9.pdf',
     'CKI_Submission_NC/Supplementary_Fig_9.pdf' in names)
 sha = hashlib.sha256(open('CKI_Submission_NC.zip', 'rb').read()).hexdigest()
@@ -129,7 +131,7 @@ chk('zip every entry <= 10 MB (NC per-file limit)',
 chk('MS Supplementary Methods 5.x pointers = 21 (nc60 A3: barcode-audit pointer 1.7->5.3)', ms.count('Supplementary Methods 5.') == 21,
     f"got {ms.count('Supplementary Methods 5.')}")
 chk('MS cites Notes 1-24 span (nc78)', 'Supplementary Notes 1\u201324' in ms)
-chk('MS cites Figs 1-10 span (nc83: SF10 added)', 'Supplementary Figs. 1\u201310' in ms)
+chk('MS cites Figs 1-11 span (nc83: SF10 + SF11)', 'Supplementary Figs. 1\u201311' in ms)
 chk('MS Section 3.12 pointers = 4 (nc82: wild-cluster + PSD pointers)', ms.count('Section 3.12') == 4)
 chk('SI carries Supplementary Methods section', 'Supplementary Methods' in sn)
 _sm_heads = [f'5.{i} ' for i in range(1, 15)]
@@ -196,3 +198,13 @@ if F:
     print('FAILURES:', F)
     raise SystemExit(1)
 print('XV8 ALL PASS')
+
+# ---- nc84: version uniqueness + cross-document sync ----
+chk('nc84 no stale package versions anywhere in the four documents',
+    all(x not in t for t in (ms, sn, cl, gd) for x in ('v0.5.6', '0.5.4', 'v0.6.3')))
+chk('nc84 MS and SI both point at Supplementary Table 2c',
+    'Supplementary Table 2c' in ms and 'Supplementary Table 2c' in sn)
+chk('nc84 CL CNA framing synced with MS',
+    'associated with copy-number instability' in cl and 'accounts for 56%' not in ms)
+chk('nc84 supplementary-figure numbering exemption documented in SI',
+    'follow the order of first citation' in sn and 'Supplementary Figs. 1\u201311' in ms)

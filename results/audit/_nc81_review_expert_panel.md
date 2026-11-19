@@ -275,3 +275,51 @@ NC 的硬性下限是 5 pt，我们的内控下限是 7 pt。下一步按两个�
 figure 4 保留重绘版，因为其图面内容确有变化：旧图面印有 **24.3**（非神经类中位数），
 与图注的 24.5 和权威表（pair 级 24.5 / 类中位数 24.16）均不符，属陈旧数字；
 重绘版以逐类中位数作图、图面不再出现该错误值，图注数字同步修正（59.2、pair-level 24.5）。
+
+
+---
+
+## §8 nc82 发布记录（v0.6.3，2026-11-18 00:30）
+
+### 图面（P1-12 落地）
+
+- **figure 3 重绘为单面板**：114 × 80 mm，最小字号 **7.0 pt**（`scripts/check_figure_spec.py` 判 ok），
+  仅保留 NN/TT ω 比（蓝柱 + 95% CI）+ k_n TT/NN（琥珀菱形，右轴）；
+  数据源 `results/nc52_tcga_pancancer_excc.csv`，脚本内断言对 **Supplementary Table 5**
+  （2.464/1.880/1.708/1.567/1.112；k_n 2.548/3.292/1.891/2.270/1.337），逐位相符。
+- **新增 Supplementary Fig. 10**（LUAD driver 分层，178 × 62 mm，7.0 pt ok）：
+  三面板箱线图 + 散点，WT n = 311 / EGFR n = 61 / KRAS n = 120。
+  独立复算（不依赖生成脚本的硬编码值）：KW ω P = 7.83251e-7、k_f P = 0.015104、k_n P = 3.35086e-4；
+  Dunn（tie 校正秩和）+ Holm 手工复算得 WT–KRAS 3.569e-7、EGFR–KRAS 0.008467、WT–EGFR 0.3943，
+  与 `results/nc49_tcga_luad_mutation.csv` 完全一致；图面印值 3.6×10⁻⁷ / 0.008 / 0.39、KW 7.8×10⁻⁷ / 0.015 / 3.4×10⁻⁴ 全部对齐。
+- 合规进度：**3/14 通过**（figure3、figure4、SF10）；其余 11 张按作者 2026-11-17 裁定不动，
+  留待编辑部 technical check。
+
+### 引用闭环（新增发现并修复）
+
+- 交叉验证发现 **SF10 在正文中零引用**、数据可用性仍写 `Supplementary Figs. 1–9`。
+  修复：LUAD driver 句补 `Supplementary Fig. 10`（+3 词）；`1–9 → 1–10`；
+  为守住 5,000 词上限，压缩两处（`Robustness checks:` 前缀 −2、`the anchor itself is drifting → the anchor is drifting` −1），**MAIN 4,999**。
+- 首现顺序复核：Supplementary Fig. **1→9 严格单调**；SF7/SF9 此前已以 `Supplementary Note 18, Fig. 7`、
+  `Supplementary Note 17, Fig. 9` 形式在正文出现（本轮沿用该体例），SF10 落在 LUAD 句（block 45）。
+
+### 发布状态
+
+| 项 | 值 |
+|---|---|
+| MAIN（Intro+Results+Discussion） | **4,999**（Intro 620 / Results 3,176 / Discussion 1,203） |
+| Methods | 3,228 |
+| 包内文件 | **22**（4 主图 + 10 附图 + 4 docx + 2 xlsx + MANIFEST + graphical abstract） |
+| zip | 10,842,777 B，sha256 **5618da7066ea596c2311764b9d0a24156117f4d9dd1b89e09d6ea376d3ad9288** |
+| 一致性 | version3 包 = 根包 22/22 逐 sha256 相等；zip 22 条目与根包逐 sha256 相等 |
+| 版本号 | **v0.6.3**（MS 5 处、Guide 4 处、build 标签 1 处） |
+| 提交 | 本地 e753606 → squash **0eea59e**（tree e51d05e）= remote main = tag v0.6.3（tag object 50eb451） |
+| 验证 | build 232/232、ms 134、si 120、cl_guide 45、XV8 64、crossval 137、pytest 29 |
+
+### 本轮验证器同步
+
+- `_nc51_xv8.py`：`Supplementary Figs. 1–9` → `1–10`；zip 条目 21 → 22
+- `_nc49_ms_verify.py`：Section 3.12 引用 2 → 4
+- `99_build_nc_v49.py`：N17/N62/N63/N68/N101 措辞断言对齐现行文本
+- `.gitignore`：新增 nc82 白名单（`_nc82_psd_wildcluster.py`、`nc82_psd_wildcluster.csv/.json`），
+  否则 SI 3.12 指向的产物在公开仓库中缺失

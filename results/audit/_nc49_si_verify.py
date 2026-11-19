@@ -289,3 +289,20 @@ for name, status, detail in checks:
         nfail += 1
 print(f'TOTAL: {len(checks)} checks, {nfail} failures')
 raise SystemExit(1 if nfail else 0)
+
+# ---- nc84: nc83 expert-panel P0/P1/P2 fixes (SI) ----
+chk('nc84 Supplementary Table 2c prose pointer', 'Supplementary Table 2c' in full)
+chk('nc84 SF11 caption: exceedance not type-I error',
+    'not type-I error rates' in full and 'Wilson intervals do not model donor clustering' in full)
+chk('nc84 no main-text Supplementary Fig. residue', 'main-text Supplementary Fig.' not in full)
+chk('nc84 no stale package versions', 'v0.5.6' not in full and '0.5.4' not in full)
+chk('nc84 SI caption concatenation residue cleared',
+    '(f) 14.' not in full and '(d) 6.' not in full and '(d) 10.' not in full)
+chk('nc84 no cross-pipeline calibration ratio', '9.73 / 7.70' not in full)
+chk('nc84 supplementary figure numbering note',
+    'Supplementary Figs. 1\u20139 follow the order of first citation' in full)
+chk('nc84 claim-to-test map uses inferential caliber',
+    'cluster-bootstrap 95% CI of the NN/TT k_n ratio' in full
+    and 'descriptive complement only' in full)
+chk('nc84 specificity-first downgraded',
+    'precision-biased screen' in full and 'specificity-first screen' not in full)

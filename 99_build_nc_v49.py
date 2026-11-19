@@ -113,8 +113,14 @@ def main():
     # artwork, built by results/audit/_nc70_mainfigs.py into STAGE.
     # nc79: 4 main figures - cross-organ demoted to Table 1 + SF5d; brain
     # (old figure5) renumbered to figure4
+    # nc83: figures 1 and 2 rebuilt from results/figures_nc83/ (figure 1 =
+    # in-place 7 pt typographic repair of the same artwork; figure 2 = the four
+    # mechanistic panels at scale 1.0, the two robustness panels carved out to
+    # Supplementary Fig. 11).  Both changes are licensed by the author's
+    # 2026-11-18 "fix the figure problems as well" instruction.
     for i in (1, 2):
-        shutil.copy2(STAGE / f"figure{i}.pdf", FIGS_NC / f"figure{i}.pdf")
+        shutil.copy2(BASE / "results" / "figures_nc83" / f"figure{i}.pdf",
+                     FIGS_NC / f"figure{i}.pdf")
     # nc82: figure 3 rebuilt as a single panel (NN/TT ratio); the LUAD driver
     # stratification moved to Supplementary Fig. 10 (P1-12, panel-composition
     # change, so the figure content changed and a rebuild is licensed).
@@ -127,21 +133,32 @@ def main():
     _stale_fig5 = FIGS_NC / "figure5.pdf"
     if _stale_fig5.exists():
         _stale_fig5.unlink()
-    # nc70: 9 supplementary figures ship from STAGE, built by
-    # results/audit/_nc70_suppfigs.py as merges of the v6 first-author set
-    # (SF1=S1+S13+S14, SF2=S2+S5, SF3=S3+S4, SF4=S7+S8, SF5=S9+S10,
-    # SF6=S11+S12+S6, SF7=S15+S16, SF8=S17+S18, SF9=S19 copy).
-    for i in range(1, 10):
+    # nc84: Supplementary Figs. 1, 3, 5 and 6 are multi-page vector
+    # recompositions of the *same* first-author panels (notebooks/
+    # 114_recompose_suppfigs_nc84.py; token-overlap Jaccard = 1.000 against the
+    # shipped panels).  The nc70 single-page consolidations scaled native
+    # 6.5-8 pt lettering down to 2.8-4.6 pt; the new pages restore >= 5 pt
+    # with every plotted datum and panel letter unchanged.  The remaining five
+    # supplementary figures still ship from STAGE unchanged.
+    NC84_SFIGS = BASE / "results" / "figures_nc84"
+    for i in (1, 3, 5, 6):
+        shutil.copy2(NC84_SFIGS / f"Supplementary_Fig_{i}.pdf",
+                     FIGS_NC / f"Supplementary_Fig_{i}.pdf")
+    for i in (2, 4, 7, 8, 9):
         shutil.copy2(STAGE / f"figure_S{i}.pdf", FIGS_NC / f"Supplementary_Fig_{i}.pdf")
     # nc82: Supplementary Fig. 10 = LUAD driver stratification, carved out of
     # figure 3 (cited only inside the SI, so it sits at the end of the
     # supplementary sequence without renumbering Supplementary Figs. 5-9).
     shutil.copy2(BASE / "results" / "figures_nc82" / "Supplementary_Fig_10.pdf",
                  FIGS_NC / "Supplementary_Fig_10.pdf")
+    # nc83: Supplementary Fig. 11 = the replication and three-tier ladder panels
+    # carved out of figure 2 (they were figure 2e, f).
+    shutil.copy2(BASE / "results" / "figures_nc83" / "Supplementary_Fig_11.pdf",
+                 FIGS_NC / "Supplementary_Fig_11.pdf")
     shutil.copy2(STAGE / "CKI_graphical_abstract.pdf",
                  FIGS_NC / "CKI_graphical_abstract.pdf")
     n_fig = len(os.listdir(FIGS_NC))
-    check(n_fig == 15, f"V49-1 figures staged = 15 (4 main + 10 supp + GA pdf; nc82) got {n_fig}")
+    check(n_fig == 16, f"V49-1 figures staged = 16 (4 main + 11 supp + GA pdf; nc83) got {n_fig}")
 
     # ---- [1] work dir ----
     print("\n[1] Preparing CKI_Submission_NC ...")
@@ -196,8 +213,10 @@ def main():
     manifest = ["=" * 60,
                 "  CKI Submission Package v49 (Nature Communications)",
                 "  MANIFEST.txt",
-                "  tag: v0.5.x | GB-rebuttal round: real-data drift calibration + pan-cancer map",
-                "=" * 60, ""]
+                "  tag: v0.6.4 | nc84 round: expert-panel P0/P1/P2 fixes, "
+                "Supplementary Table 2c, multi-page Supplementary Figs. 1/3/5/6",
+                "=" * 60,
+                "  Note: 'v49' is the package build-batch label, not a software version.", ""]
     entries = sorted(e for e in os.listdir(WORK_DIR) if e != "MANIFEST.txt")
     for i, e in enumerate(entries, 1):
         p = WORK_DIR / e
@@ -236,6 +255,8 @@ def main():
     run([PY, str(AUD / "_nc49_ms_verify.py")], "nc49 MS self-check")
     run([PY, str(AUD / "_nc49_si_verify.py")], "nc49 SI self-check")
     run([PY, str(AUD / "_nc49_cl_guide_verify.py")], "nc49 CL+Guide self-check")
+    run([PY, str(BASE / "scripts" / "check_figure_spec.py"),
+         "--pkg", str(FIGS_NC)], "Figure spec check (15 figures, nc84)")
 
     # ---- SN inline checks ----
     print("\n--- SN (inline) ---")
@@ -246,9 +267,9 @@ def main():
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
     check(note_heads == list(range(1, 25)), f"V49-S5 SN Note headings 1..24 (nc78: +N21 Cox, +N22 CNV, +N23 RIN, +N24 alt-HK) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 31, f"V49-S6 SN Supplementary Fig. refs = 31 (nc82: +2 for SF10 legend and Table 14 caption; the 3.13 pointer reuses the pattern once in the legend) ({n_sfig_sn})")
+    check(n_sfig_sn == 34, f"V49-S6 SN Supplementary Fig. refs = 34 (nc83: +3 for the new SF11 legend; nc82 had 31) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
-    check(n_stab_sn == 49, f"V49-S7 SN Supplementary Table refs = 49 (nc78: +3 Notes 21-22, +1 Note 23 Table 8e) ({n_stab_sn})")
+    check(n_stab_sn == 55, f"V49-S7 SN Supplementary Table refs = 55 (nc84: +3 Table 2c pointers; nc83 baseline 52) ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
     check("TODO" not in sn, "V49-S9 no TODO in SN")
 
@@ -290,7 +311,7 @@ def main():
         ("6.10-fold", "A11 regional gradient"),
         ("absorbs ratio bias", "A13 ratio bias (v51 wording)"),
         ("7.70", "A14 omega baseline"),
-        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (v0.6.3 release archived)"),
+        ("10.5281/zenodo.20405458", "A15 Zenodo concept DOI (earlier release; honest wording)"),
         ("GSE96583", "A16 Kang GEO"),
         ("GSE109774", "A17 TCGA/brain GEO in Data availability"),
     ]
@@ -379,8 +400,11 @@ def main():
           "V49-N40 A5 brain candidate concentration (v51 wording)")
     check('median TT/NN k_n ratio 2.18, 2.53, 2.18, 3.70, and 2.79' in sn,
           "V49-N41 A6 mean/median caliber cross-pointer (v50: SI carries medians)")
-    check('in main-text Fig. 2e.' in sn and 'main-text Fig. 2e, f.' in sn,
-          "V49-N42 A2 SI main-text figure pointers corrected to Fig. 2e,f (nc70: drift ladder merged into Fig 2)")
+    check('in Supplementary Fig. 11a.' in sn
+          and 'Supplementary Fig. 11b, c.' in sn
+          and 'main-text Supplementary Fig.' not in sn,
+          "V49-N42 A2 SI figure pointers name Supplementary Fig. 11a,b,c without "
+          "the contradictory 'main-text' qualifier (nc84)")
     check('Fig. 4d' not in sn and 'Fig. 4b,c' not in sn,
           "V49-N42b A2 no stale Fig. 4 panel pointers in SI")
     check('(Table 1; Supplementary Fig. 5d)' in sn and '(Table 2 / Fig. 4)' not in sn
@@ -656,8 +680,8 @@ def main():
           and 'Mann-Whitney U, P < 0.001' not in ms,
           "V49-N102 m4 exact cross-organ Mann-Whitney P (5.6e-18, v51 wording)")
     # m5 (R6, optional): CL per-background replicate count
-    check('1,750 replicates per background, two backgrounds' in cl,
-          "V49-N103 m5 CL per-background replicate count")
+    check('ground-truth simulation (two backgrounds)' in cl,
+          "V49-N103 m5 CL per-background replicate count (nc84: compressed)")
     # R5 optional: median qualifier on aggregation-order baseline
     check('split-control median baseline itself moves from 6.46 to 10.94' in sn,
           "V49-N104 R5 median qualifier on agg-order baseline (v51: SI)")
@@ -685,7 +709,7 @@ def main():
     # ---- nc60 B-class substantive anchors ----
     check('one-sided P(null \u2264 39)' in ms and 'P(null count \u2265 39)' not in ms,
           "NC60-B2 anti-enrichment direction clause in Results (nc79 A5: correct tail)")
-    check('tentatively support the elevation as largely tumor-specific' in ms
+    check('tentatively support tumor-specific elevation' in ms
           and 'tentatively consistent with tumor-specific elevation' in ms,
           "NC60-B3 GTEx tentative qualifiers (Intro + Results)")
     check('This cross-cohort reference is descriptive only (processing shifts k_n 1.8\u20132.3-fold)' in ms,
@@ -703,7 +727,8 @@ def main():
           and 'module-seed cluster bootstrap' in sn and '[0.070, 0.108]' in sn,
           "NC60-R2M1 paired DeLong dAUC (MS text; nc79 caption slim: SI)")
     check('intervals excluding zero under library clustering' in ms
-          and 'library-clustered intervals in Supplementary Tables 3a and 4' in ms
+          and 'two-way library-endpoint cluster-robust intervals in Supplementary Table 4' in sn
+          and 'Supplementary Table 3a' in sn
           and 'McNemar-style discordant-pair counts' in sn
           and '\u0394FPR versus \u03c9 is raw JS +0.166 [+0.135, +0.196]' in sn,
           "NC60-R2M2 / nc80-m7 T1 paired contrasts (MS: interval only; SI: "
@@ -733,12 +758,35 @@ def main():
           "V49-SC5 notes cited (nc78: 1-24 span)")
     check("Supplementary Fig. 1" in ms, "V49-SC6 supp fig 1 cited")
 
+    # ---- nc84 expert-panel closure checks ----
+    print("\n--- nc84 closure checks ---")
+    check('KRAS-versus-EGFR discrimination is weak (AUC 0.648)' in ms
+          and 'residence/migration' not in ms
+          and 'accounts for 56%' not in ms,
+          "V49-NC84-1 MS: AUC attribution, dangling citation and CNA framing fixed")
+    check('Supplementary Table 2c)' in ms and 'Supplementary Table 2c' in sn,
+          "V49-NC84-2 six-metric ROC table cited in MS and SI")
+    check('An earlier release is archived at Zenodo' in ms
+          and 'the v0.6.4 archive accompanies this submission' not in ms
+          and 'the code accompanying this submission is GitHub tag v0.6.4' in gd,
+          "V49-NC84-3 declared version matches the available archive wording")
+    check('precision-first index' in cl and 'theory-backed' not in cl
+          and 'specificity-first' not in cl and 'misreports least' not in cl,
+          "V49-NC84-4 CL: overclaims removed, theory notation unified")
+    check('Fig. 2d, 2e' not in gd and 'Fig. 2 heatmap' not in gd
+          and 'notebooks/114_recompose_suppfigs_nc84.py' in gd
+          and 'PSD and wild-cluster checks' in gd,
+          "V49-NC84-5 Guide: stale figure pointers cleared, nc82/nc84 chains added")
+    check('main-text Supplementary Fig.' not in sn and 'v0.5.6' not in sn
+          and '0.5.4' not in sn,
+          "V49-NC84-6 SI: no main-text qualifier, no stale package versions")
+
     # ---- package integrity ----
     print("\n--- package integrity ---")
     names = zipfile.ZipFile(ZIP_PATH).namelist()
     check(all(n.startswith("CKI_Submission_NC/") for n in names), "V49-P1 zip rooted")
-    check(len(names) == 22 and "CKI_Submission_NC/figure5.pdf" not in names,
-          f"V49-P1b nc82 package: 22 entries (SF10 added), no stale figure5.pdf (got {len(names)})")
+    check(len(names) == 23 and "CKI_Submission_NC/figure5.pdf" not in names,
+          f"V49-P1b nc83 package: 23 entries (SF10 + SF11), no stale figure5.pdf (got {len(names)})")
     for must in ["CKI_Submission_NC/CKI_Manuscript_NC.docx",
                  "CKI_Submission_NC/CKI_Supplementary_NC.docx",
                  "CKI_Submission_NC/CKI_NC_Cover_Letter.docx",
@@ -748,6 +796,7 @@ def main():
                  "CKI_Submission_NC/Supplementary_Fig_5.pdf",
                  "CKI_Submission_NC/Supplementary_Fig_9.pdf",
                  "CKI_Submission_NC/Supplementary_Fig_10.pdf",
+                 "CKI_Submission_NC/Supplementary_Fig_11.pdf",
                  "CKI_Submission_NC/figure2.pdf",
                  "CKI_Submission_NC/figure3.pdf",
                  "CKI_Submission_NC/figure4.pdf",

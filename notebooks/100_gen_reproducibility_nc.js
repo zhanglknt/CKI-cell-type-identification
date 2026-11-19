@@ -199,9 +199,9 @@ const doc = new Document({
       p("Document-build dependencies (python-docx 1.2.0, python-pptx, lxml, reportlab, and related packages) are NOT required for any analysis; they are listed separately under 'Document generation' in requirements.txt and are needed only to rebuild the manuscript, supplementary notes, and this guide."),
 
       heading("1.2 CKI Package", 3),
-      p("Version: 0.6.3 (editable install from project root)"),
+      p("Version: 0.6.4 (editable install from project root)"),
       p("Repository: https://github.com/zhanglknt/CKI-cell-type-identification"),
-      p("Archived release: Zenodo concept DOI 10.5281/zenodo.20405458 (always resolves to the latest archived version; the v0.6.3 archive accompanies this submission)"),
+      p("Archived release: Zenodo concept DOI 10.5281/zenodo.20405458 (an earlier release); the code accompanying this submission is GitHub tag v0.6.4"),
       p("Install (editable, recommended):"),
       code("cd <project_root>"),
       code("pip install -e ."),
@@ -257,7 +257,7 @@ const doc = new Document({
           tableRow(["HK source", "HRT Atlas v1.0 (loaded directly)", "all datasets"], [3200, 1600, 4200]),
           tableRow(["HK use_reference", "N/A (loaded directly, not via API)", "all datasets"], [3200, 1600, 4200]),
           tableRow(["HRT Atlas file", "cki/data/hrt_atlas.csv (shipped with the package; byte-identical to the downloaded data/housekeeping/Human_Mouse_Common.csv, see data/README_data.md)", "all"], [3200, 1600, 4200]),
-          tableRow(["Number of HVGs", "2,000 (global, for k_f; Fig. 2 heatmap only)", "mouse full matrix"], [3200, 1600, 4200]),
+          tableRow(["Number of HVGs", "2,000 (global, for k_f; mouse full pairwise matrix only)", "mouse full matrix"], [3200, 1600, 4200]),
           tableRow(["Pilot k_f genes", "200 (per-pair DE, |mean_diff|)", "mouse pilot calibration"], [3200, 1600, 4200]),
           tableRow(["Per-pair DE genes (k_f)", "200", "human, TCGA, brain"], [3200, 1600, 4200]),
           tableRow(["Permutation iterations", "1000 (one-sided)", "mouse pilot (main analysis)"], [3200, 1600, 4200]),
@@ -313,7 +313,7 @@ const doc = new Document({
       p("Identity (functional) genes are defined as:"),
       p("Default (CKI): top-2,000 highly variable genes (HVGs; Scanpy seurat flavor), with HK genes explicitly excluded to maintain k_n/k_f independence (adapted to min(2000, 0.8 * n_total_genes))."),
       p("Hybrid mode: per-pair k_n computed on the shared HK gene set (a single HK reference applied to all pairs, keeping k_n on a consistent scale across the atlas); per-pair k_f uses the top-200 differentially expressed genes (ranked by |mean_diff| between the two groups), excluding HK genes."),
-      p("The default mode (global HVG 2,000) is used only for the Tabula Muris full pairwise matrix (03_full_matrix.py, 703 pairs, Fig. 2 heatmap). The hybrid mode (per-pair k_n with per-pair top-200 DE k_f) is used for all other reported analyses: Tabula Muris pilot analyses (calibration controls + validation, 02b_pilot_v2.py), Tabula Sapiens (human), TCGA, and the Siletti brain atlas. In every dataset, k_n is computed per pair on the shared HK gene set: a sensitivity analysis contrasting this per-pair estimator with a global-k_n variant (k_n computed once from the full gene-by-cell-type pseudobulk matrix) showed that brain k_n exhibits substantial cross-pair variability (CV = 97.52%) that is poorly captured by a global mean, and that the two estimators yield substantially different omega rankings (Spearman rho = 0.142; Supplementary Fig. 6). The parameter sweep (Supplementary Fig. 1) confirmed that the identity-only configuration (w1 = 1.0, w2 = 0.0) achieves the best cell-type discrimination without external pathway databases."),
+      p("The default mode (global HVG 2,000) is used only for the Tabula Muris full pairwise matrix (03_full_matrix.py, 703 pairs). The hybrid mode (per-pair k_n with per-pair top-200 DE k_f) is used for all other reported analyses: Tabula Muris pilot analyses (calibration controls + validation, 02b_pilot_v2.py), Tabula Sapiens (human), TCGA, and the Siletti brain atlas. In every dataset, k_n is computed per pair on the shared HK gene set: a sensitivity analysis contrasting this per-pair estimator with a global-k_n variant (k_n computed once from the full gene-by-cell-type pseudobulk matrix) showed that brain k_n exhibits substantial cross-pair variability (CV = 97.52%) that is poorly captured by a global mean, and that the two estimators yield substantially different omega rankings (Spearman rho = 0.142; Supplementary Fig. 6). The parameter sweep (Supplementary Fig. 1) confirmed that the identity-only configuration (w1 = 1.0, w2 = 0.0) achieves the best cell-type discrimination without external pathway databases."),
 
       // ========================================================
       // 4. DATA SOURCES & PREPROCESSING
@@ -338,7 +338,7 @@ const doc = new Document({
       p("Total pairs: 703 cell-type pairs across 6 organs."),
       p("Cross-species matching note (Supplementary Fig. 5): the mouse-human cell-type matching used for the cross-species comparison is case-insensitive exact matching over a small explicit alias table (notebooks/_ed_fig2_clean.py), because cell-type names in results/full_matrix_pairs.csv are truncated to 18 characters. This rule matches 15 shared cell types between the Tabula Muris and Tabula Sapiens annotations; case-sensitive exact-string matching alone would match 11. Re-running the comparison with a different matching rule will change the plotted cell-type set."),
 
-      heading("4.2 Tabula Sapiens (Human) \u2014 Result 3 (Fig. 2c, d)", 3),
+      heading("4.2 Tabula Sapiens (Human) \u2014 Result 3 (Fig. 2c)", 3),
       p("Dataset:    Tabula Sapiens (Jones et al., Science 2022)"),
       p("Source:     https://github.com/czbiohub-sf/tabula-sapiens (raw data; CZ CELLxGENE Discover provides the processed version used in this study)"),
       p("Technology: 10x Genomics (3\u2032 and 5\u2032 assays)"),
@@ -353,7 +353,7 @@ const doc = new Document({
       p("  7. Full pairwise omega computed for all 4,851 analyzed cell-type pairs (C(99, 2))."),
       p("Method comparison: Spearman rank correlation computed between CKI omega and four standard metrics on all 4,851 cell-type pairs: raw JS divergence (all genes), Spearman distance (1 - Spearman r), cosine distance (1 - cosine similarity), marker Jaccard distance (1 - intersection/union of top-200 marker genes per cell type). Classification AUC from cell-type pair classification task (same-type vs. different-type) computed with sklearn.metrics.roc_auc_score. Output: results/phase35_all_metrics_pairs.csv."),
 
-      heading("4.3 Real-Data Drift Calibration (Kang IFN-\u03b2 PBMC + Siletti Brain Ladder) \u2014 Result 4 (Fig. 2)", 3),
+      heading("4.3 Real-Data Drift Calibration (Kang IFN-\u03b2 PBMC + Siletti Brain Ladder) \u2014 Result 4 (Supplementary Fig. 11)", 3),
       p("Datasets:    Kang et al. (Nat. Biotechnol. 2018) IFN-\u03b2 PBMC cohort, batch 1 (same-donor, same-condition cross-lane technical replicates); Siletti et al. brain atlas (same processing as Section 4.5)."),
       p("Kang cross-lane technical replicates (nc49_pilot_kang_techrep.py):", { bold: true }),
       p("  1. Batch-1 cells grouped by (donor, condition, cell type); groups with at least 50 cells per lane retained, yielding 30 cross-lane pairs."),
@@ -364,7 +364,7 @@ const doc = new Document({
       p("  1. Three pair tiers of escalating drift: T1 same (donor, region) cross-library pairs (n = 2,161, pure technical drift), T2 same-region cross-donor pairs (n = 1,089), T3 same-donor cross-region pairs (n = 1,656, positive control)."),
       p("  2. Per-pair n-matched cell-shuffle null (B = 100 for T1, 30 for T2 and T3, matching the manuscript Methods); calibration ratio and FPR computed for seven metrics: k_n, k_f, omega, raw JS, cosine, Spearman, marker Jaccard."),
       p("  3. On T1 (2,161 strictly matched technical-replicate pairs) omega exceeds its own null 95th percentile on 28.6% of pairs; this is a library-effect sensitivity statistic, not a type-I error rate, and it is stratified by sequencing batch (11.4% within a 10X library identifier versus 66.9% across identifiers) and by cell-number balance (10.3% on the strictly matched block, n = 1,334). On the same pairs omega is the most reproducible of the seven metrics (log-scale dispersion 0.113 versus 0.267-0.586 decades). Marker Jaccard has a lower T1 rate (19.9%) but responds weakest to genuine regional divergence (T3 calibration 1.41 versus 1.80 for omega)."),
-      p("  Output: results/nc49_brain_drift_ladder.csv. Figures: notebooks/nc49_fig_drift_ladder.py (Fig. 2; results/figures_final/nc49_fig_drift_ladder.pdf/.png)."),
+      p("  Output: results/nc49_brain_drift_ladder.csv. Figures: notebooks/nc49_fig_drift_ladder.py (Supplementary Fig. 11; results/figures_final/nc49_fig_drift_ladder.pdf/.png)."),
       p(""),
 
       heading("4.4 TCGA (Human Cancer) \u2014 Result 5 (Fig. 3)", 3),
@@ -660,7 +660,7 @@ const doc = new Document({
       p("     Per-sample means of omega/k_f/k_n over the 35,306-pair linear-normalization table; pan-cancer NN/TT mean ratios with sample-level cluster-bootstrap 95% CIs (B = 1,000); LUAD driver-group Kruskal-Wallis + Dunn-Holm contrasts with bootstrap difference CIs; LIHC overall-survival Cox models (six exposures). Covariate sensitivity: ESTIMATE stromal+immune (141+141 genes) admixture scoring (per-cancer k_n/omega ~ admixture regressions, LUAD ANCOVA, high-purity-half NN/TT bootstrap) and LUAD smoking adjustment (cBioPortal study luad_tcga patient-level data; 427/492 tumors with known status; OLS with ever-smoker, age/sex, and admixture covariates). k_f panel semantics: Hallmark enrichment of the LUAD KRAS TT identity panels (no program at FDR < 0.05) and pair-level log k_f composition regressions (TT >= NN k_f retained in 5/5 cancers). Outputs: results/nc49_tcga_pancancer.csv, results/nc49_tcga_luad_mutation.csv, results/nc49_pilot_lihc_cox.csv, results/nc49_tcga_purity.csv, results/nc49_tcga_admix_scores.csv, results/nc49_tcga_luad_smoking.csv, results/nc49_tcga_kf_composition.csv (notebooks/nc49_tcga_kf_composition.py)."),
       p(""),
       p("  d. v49 main figures:"),
-      p("     Scripts: notebooks/nc49_fig_drift_ladder.py (Fig. 2), notebooks/111_gen_fig3_nc82.py (Fig. 3, Section 5.15)"),
+      p("     Scripts: notebooks/nc49_fig_drift_ladder.py (Supplementary Fig. 11), notebooks/111_gen_fig3_nc82.py (Fig. 3, Section 5.15)"),
       p("     Outputs: results/figures_final/nc49_fig_drift_ladder.pdf/.png, results/figures_final/nc49_fig_tcga.pdf/.png."),
       p(""),
 
@@ -774,19 +774,20 @@ const doc = new Document({
       p(""),
 
       heading("5.14 nc80 Analyses", 3),
-      p("  a. 10x modular operating characteristic (Fig. 2d, 2e):"),
+      p("  a. 10x modular operating characteristic (Section 3.11; Fig. 2d):"),
       p("     Scripts: notebooks/nc80_mj_kang_modular_tpr.py (simulation), notebooks/nc80_mj_kang_modular_summary.py (pooled AUC and paired detection)."),
       p("     Design: Kang GSE96583 control cells only (24,413 singlets; 33 donor x cell-type groups), donor-paired split-half; a fixed 200-gene off-anchor module (top-5,000 non-HK genes by mean expression, seed pool 500 -> 200; 2.3-3.1% of pooled control counts); delta in {0.25, 0.5, 1.0} applied to group B without integer rounding; n in {50, 100, 200}; 200 shared slots (first 100 calibrate the q95 threshold, second 100 give the held-out FPR and are reused with injection under stratified cycling over eligible combinations)."),
       p("     Outputs: results/nc80_mj_kang_modular_raw.csv, results/nc80_mj_kang_modular_tpr.csv, results/nc80_mj_kang_modular_metrics.json, results/nc80_mj_kang_modular_summary.csv/.txt."),
       p("     Expected: paired detection against the same-slot null (null value 0.500) - raw JS 0.967-1.000, cosine 0.863-1.000, omega 0.343-0.657 with no delta monotonicity, k_n 0.010-0.097 (inverted); pooled AUC - omega 0.507-0.534, k_total 0.564-0.634, cosine 0.529-0.592; held-out FPR 0.02-0.10 for every statistic."),
       p("  b. Whitened / Mahalanobis pseudobulk baselines:"),
       p("     Script: notebooks/nc80_mj_mahalanobis_sim.py. mahal_pc is the full Mahalanobis distance in the top-20 PC space (covariance of null PC-score differences, ridge 1e-6 x trace); mahal_diag is gene-level diagonal whitening, d = sqrt(mean_g ((delta_g/sigma_g)^2)); both are fitted on the null only."),
-      p("     Outputs: results/nc80_mj_mahalanobis_metrics.json, results/nc80_mj_mahalanobis_pairs.csv."),
+      p("     Outputs: results/nc80_mj_mahalanobis_metrics.json, results/nc80_mj_mahalanobis_raw.csv."),
       p("     Expected: null log-MAD omega 0.213/0.130 versus mahal_pc 0.117/0.109 and mahal_diag 0.021 (marrow B cell / skin keratinocyte); under neutral housekeeping drift the false-report rates are mahal_diag 0.72/0.94, mahal_pc 0.053/0.180 and omega 0.000/0.000; mahal_pc is anti-monotone on the marrow background (rho = -1.00, power 0.027 at delta = 1.0)."),
       p("  c. Library-clustered intervals and CNA attribution:"),
       p("     Scripts: results/audit/_nc80_mcnemar_library_studentized.py; scripts/nc80_cna_share_v2.py."),
       p("     Outputs: results/nc80_mcnemar_t1_studentized.csv/.json/.txt; results/nc80_cna_share_v2.csv; results/nc80_cna_joint_model.csv."),
       p("     Expected: two-way cluster-robust (V_a + V_b - V_ab, t reference with 596 df) paired delta-FPR versus omega - raw JS +0.166 [+0.135, +0.196], cosine +0.154 [+0.126, +0.183], Spearman +0.120 [+0.091, +0.149], k_n +0.070 [+0.040, +0.101], k_f +0.089 [+0.067, +0.112], marker Jaccard -0.088 [-0.116, -0.059]; variance inflation 2.4-2.7x the naive binomial. CNA share 0.5555 [0.4578, 0.6635] at delta = 0 and 0.4170 [0.3426, 0.4991] at delta = 0.05; joint model CNA 0.3964 [0.3007, 0.5053] plus composition 0.0201."),
+      p("     PSD and wild-cluster checks: the joint two-way cluster-robust covariance (V_a + V_b - V_ab) is positive definite (smallest eigenvalue 1.4 x 10^-5; PSD projection leaves every interval unchanged); a wild-cluster bootstrap over the four donors (all 16 Rademacher sign patterns enumerated exactly plus 9,999 random draws) preserves the sign of every contrast (results/nc80_mcnemar_t1_studentized.json, results/audit/_nc80_mcnemar_library_studentized.py)."),
       p(""),
 
       // ========================================================
@@ -797,15 +798,33 @@ const doc = new Document({
       p("     Script: notebooks/111_gen_fig3_nc82.py."),
       p("     Design: figure 3 is re-plotted from results/nc52_tcga_pancancer_excc.csv as a single panel (mean NN/TT omega ratio, blue bars, sample-level cluster-bootstrap 95% CIs; TT/NN k_n mean ratio, amber diamonds, 95% CIs on an independent axis; cancer types ranked by NN/TT omega). The LUAD driver-mutation stratification that used to be panels b-d of figure 3 is re-plotted as Supplementary Fig. 10 from results/tcga_linear_norm_v44_TCGA-LUAD_pairs.csv (tumour-tumour pairs only; per-tumor mean of omega_raw, k_f and k_n over the pairs in which a sample participates; mutation labels from data/tcga/luad_egfr_kras_mutations.json matched on the first 12 barcode characters; the two double mutants excluded)."),
       p("     Outputs: results/figures_nc82/figure3.pdf/.png, results/figures_nc82/Supplementary_Fig_10.pdf/.png."),
-      p("     Expected: NN/TT omega ratios 2.46 (LUAD), 1.88 (KIRC), 1.71 (LUSC), 1.57 (BRCA), 1.11 (LIHC); k_n TT/NN mean ratios 2.55, 3.29, 1.89, 2.27, 1.34. Per-tumor group means - WT n = 311, omega 115.37, k_f 0.2814, k_n 0.0032; EGFR n = 61, omega 122.22, k_f 0.2732, k_n 0.0028; KRAS n = 120, omega 136.94, k_f 0.2919, k_n 0.0027; Kruskal-Wallis P = 7.83e-7 (omega), 0.015 (k_f), 3.35e-4 (k_n). The script asserts every one of these values against Supplementary Tables 5 and 6 and aborts on any mismatch."),
       p(""),
 
+      // ========================================================
+      // 5.16 nc83/nc84 FIGURE COMPLIANCE (FIG. 1/2 + SUPP FIGS. 1/3/5/6/11)
+      // ========================================================
+      heading("5.16 nc83/nc84 Figure Compliance", 3),
+      p("  a. Figure 1 in-place typographic repair:"),
+      p("     Script: notebooks/112_fix_fig1_nc83.py."),
+      p("     Design: the only sub-7 pt text in figure 1 was eleven spans inherited from the first-author vector artwork - three schematic annotations and four workflow-box second lines at 6.0 pt, two in-plot annotations at 6.0 pt, and the panel (c) title variables at 4.0 pt (the surrounding title words are vector outlines). Each affected span is redacted without touching line art and re-stamped at 7.0 pt in its original font and colour at its original centre and baseline; the panel (c) title is re-typeset because its word fragments cannot be re-sized. Panel geometry, page size (170.0 x 150.8 mm) and all plotted content are unchanged."),
+      p("     Output: results/figures_nc83/figure1.pdf. Expected: every text span between 7.0 and 12.0 pt, with no span below 7.0 pt."),
+      p("  b. Figure 2 re-cut to four panels, Supplementary Fig. 11 added:"),
+      p("     Script: notebooks/113_recompose_nc83.py."),
+      p("     Design: the six-panel consolidation needed a 0.80x reduction of the first-author bands to fit 178 mm, which dropped body text to 5.6 pt. The four mechanistic panels (a-d) are re-laid at 1.0x on a 177.1 mm page in three rows (a|b, c, d), restoring body text to its native 7.0 pt; the two robustness panels (Kang replication and the three-tier drift ladder) become Supplementary Fig. 11 (a-c) at 1.15x. No data, panel content or lettering beyond the panel letters changes."),
+      p("     Outputs: results/figures_nc83/figure2.pdf (177.1 x 208.3 mm), results/figures_nc83/Supplementary_Fig_11.pdf (173.8 x 223.7 mm). Expected: figure 2 primary text 7.0 pt with mathtext sub/superscripts at 4.9-6.3 pt; Supplementary Fig. 11 primary text at or above 5.8 pt."),
+      p("  c. Supplementary Figs. 1, 3, 5 and 6 recomposed as multi-page vector PDFs (nc84):"),
+      p("     Script: notebooks/114_recompose_suppfigs_nc84.py."),
+      p("     Design: the first-author vector panels in results/audit/nc70_backup/figure_S*.pdf carry native lettering of 6.5-8 pt; the nc70 single-page consolidation scaled them to 2.8-4.6 pt. Each affected Supplementary Fig. is re-laid across multiple pages at larger scale with show_pdf_page + clip, preserving every plotted datum, panel letter and panel count while keeping each page within 180 mm. Measured per-page primary-text minima: Supplementary Fig. 1 6.5 pt (3 pages), Supplementary Fig. 3 5.5 pt (3 pages), Supplementary Fig. 5 5.2 pt (4 pages), Supplementary Fig. 6 5.5 pt (1 page); sub/superscripts remain >= 60% of their own line."),
+      p("     Outputs: results/figures_nc84/Supplementary_Fig_1.pdf, _3.pdf, _5.pdf, _6.pdf."),
+      p("  d. Checker and exception policy:"),
+      p("     scripts/check_figure_spec.py now inspects every page of every figure, aggregates per-page minimum primary and sub/superscript sizes, and no longer flags multi-page PDFs. results/audit/_nc83_figure_exceptions.json is empty: no figure relies on a documented exception. All 15 figure PDFs (figure 1-4 plus Supplementary Figs. 1-11) pass with primary >= 7 pt (main) / >= 5 pt (supplementary) and width <= 180 mm."),
+      p(""),
       // ========================================================
       // 6. OUTPUT FILES
       // ========================================================
       heading("6. Output Files", 2),
       p("All results are written to results/. Ten pre-fix output files whose values contradict the manuscript are consolidated under results/superseded/ (v42 P0-6, three-reviewer consensus); they are retained for provenance and ship with the release tag, but must not be used as numerical sources - each entry below marks the authoritative replacement."),
-      p("Repository tracking policy: only the curated verification subset of results/ cited in this guide is tracked in git (whitelist in .gitignore); the tracked subset covers every input read by scripts/spot_check.py and tests/test_reference_values.py. Additional reference outputs are mirrored byte-identically under archive/CKI_Reproducibility_Package/reference_results/ (CKI_Reproducibility_Package/reference_results/ in tag v0.6.3). Files neither tracked nor mirrored are regenerated with the scripts listed in Section 5."),
+      p("Repository tracking policy: only the curated verification subset of results/ cited in this guide is tracked in git (whitelist in .gitignore); the tracked subset covers every input read by scripts/spot_check.py and tests/test_reference_values.py. Additional reference outputs are mirrored byte-identically under archive/CKI_Reproducibility_Package/reference_results/ (CKI_Reproducibility_Package/reference_results/ in tag v0.6.4). Files neither tracked nor mirrored are regenerated with the scripts listed in Section 5."),
       p(""),
       p("    Mouse (02b_pilot_v2.py, authoritative pilot and calibration output; the v2b re-validation 02c_pilot_v2b.py writes the parallel *v2b_* files):"),
       code("      results/mouse_pilot_v2_results.csv        # omega per pair (authoritative; feeds the legacy 6.67 baseline, superseded by results/mouse_splithalf_v44.csv, 7.70)"),
@@ -928,9 +947,9 @@ const doc = new Document({
       p("    nc50 microglia independent validation (Section 5.12):"),
       code("      results/nc50_brain_atlas_microglia.csv             # per-pair metric values, 35 functional + 40 neutral (Section 5.12a)"),
       code("      results/nc50_brain_atlas_microglia.txt             # summary statistics (means, Mann-Whitney P, AUC) (Section 5.12a)"),
-      p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Fig. 2), notebooks/111_gen_fig3_nc82.py (Fig. 3 + Supplementary Fig. 10), notebooks/nc50_fig_microglia.py (Supplementary Fig. 4)"),
+      p("Figure scripts: notebooks/30_genome_biology_figures.py; notebooks/nc49_fig_drift_ladder.py (Supplementary Fig. 11), notebooks/111_gen_fig3_nc82.py (Fig. 3 + Supplementary Fig. 10), notebooks/nc50_fig_microglia.py (Supplementary Fig. 4), notebooks/114_recompose_suppfigs_nc84.py (Supplementary Figs. 1, 3, 5, 6)"),
       heading("7. Reproducibility Checklist", 2),
-      p("[\u2713] Install CKI v0.6.3: pip install -e ."),
+      p("[\u2713] Install CKI v0.6.4: pip install -e ."),
       p("[\u2713] Verify Python 3.14.4 environment (Section 1.1)."),
       p("[\u2713] Verify random seed = 42 in all analysis scripts (fixed exceptions: notebooks 77/78/79 use seed 20260903; notebook 89 uses seed 20260905)."),
       p("[\u2713] Verify HK gene source: HRT Atlas v1.0 reference (cki/data/hrt_atlas.csv, shipped; analysis scripts read the byte-identical downloaded copy data/housekeeping/Human_Mouse_Common.csv), loaded directly for all datasets."),

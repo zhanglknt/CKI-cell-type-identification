@@ -16,7 +16,7 @@ chk('CL no rebuttal framing', 'Previously raised concerns' not in clfull)
 chk('CL no 5th of 5', '5th of 5' not in clfull)
 chk('CL new-evidence paragraph', 'Two properties of this work are worth stating explicitly' in clfull)
 chk('CL change-detection framing (no classification AUC)',
-    'specificity-first index' in clfull and '0.680' not in clfull
+    'precision-first index' in clfull and '0.680' not in clfull
     and 'dynamic cell-state changes' in clfull)
 chk('CL drift claim qualified (nc80 M-C: scoped log-MAD; no error-rate claim)',
     'a library-effect sensitivity statistic, not an error rate' in clfull
@@ -39,7 +39,8 @@ chk('CL GTEx sentence (nc80 M-K: not resolved)',
     'GTEx healthy' in clfull and 'larger shifts are not resolved' in clfull
     and 'arguing against a field-effect reading' not in clfull)
 chk('CL bounded-power phrasing (v53 R5-M3)',
-    'bounded power (AUC = 0.80)' in clfull and 'ranked first for' not in clfull)
+    'bounded power (AUC = 0.80' in clfull and '10x pooled 0.51' in clfull
+    and 'ranked first for' not in clfull)
 chk('CL no baseline-driven/baseline-associated',
     'baseline-driven' not in clfull and 'baseline-associated' not in clfull)
 chk('CL KRAS dual-adjusted upgrade',
@@ -47,9 +48,10 @@ chk('CL KRAS dual-adjusted upgrade',
 chk('CL EGFR dissolved (nc80 rephrase)',
     'the apparent EGFR elevation dissolves under purity adjustment' in clfull)
 chk('CL CNA share v2 quoted (nc80 plan b)',
-    'attributable to copy-number instability (56%, 95% CI 46\u201366%)' in clfull)
+    'associated with copy-number instability (56%, 95% CI 46\u201366%)' in clfull)
 chk('CL Fig. 2 / Fig. 3 refs (nc70: 3->2, 4->3)',
-    '(Fig. 2)' in clfull and '(Fig. 3)' in clfull and '(Fig. 4)' not in clfull)
+    '(Fig. 3)' in clfull and '(Fig. 4)' not in clfull
+    and '(Supplementary Fig. 11)' in clfull and '(Fig. 2)' not in clfull)
 chk('CL co-authors (nc65: Liu + Zu at XJTU, Wu removed)',
     'Wenting Liu and Jian Zu' in clfull
     and "Xi'an Jiaotong University" in clfull
@@ -65,7 +67,7 @@ chk('Guide authors + affiliations (nc65: Liu/Zu XJTU = 1, Zhang 2,3,4)',
     and 'Translational Medical Center, Weifang Second' in gdfull
     and 'Xianming Wu' not in gdfull)
 chk('Guide drift section = Result 4 (Fig. 2) (nc70)',
-    'Real-Data Drift Calibration' in gdfull and 'Result 4 (Fig. 2)' in gdfull)
+    'Real-Data Drift Calibration' in gdfull and 'Result 4 (Supplementary Fig. 11)' in gdfull)
 chk('Guide TCGA = Result 5 (Fig. 3) (nc70)', 'Result 5 (Fig. 3)' in gdfull)
 chk('Guide cross-organ = Table 1 (nc79: main Fig 4 demoted)', 'Cross-organ conservation (Table 1)' in gdfull)
 chk('Guide brain = Result 7 (Fig. 4) (nc79: 5->4)', 'Result 7 (Fig. 4)' in gdfull)
@@ -82,7 +84,7 @@ chk('Guide mean-ratio caliber',
 chk('Guide no median NN/TT caliber',
     'median(omega_NN) / median(omega_TT)' not in gdfull)
 chk('Guide cross-species pointer = SF5 (nc72: 6->5, 2 places)',
-    gdfull.count('Supplementary Fig. 5') == 2
+    gdfull.count('Supplementary Fig. 5') == 3
     and 'Supplementary Fig. 12' not in gdfull)
 chk('Guide SF10 -> SF4 (nc72: 3->4)', '(Supplementary Fig. 4)' in gdfull
     and '80_kang_demo_figure.py (Supplementary Fig. 10)' not in gdfull)
@@ -136,3 +138,24 @@ for name, status, detail in checks:
         nfail += 1
 print(f'TOTAL: {len(checks)} checks, {nfail} failures')
 raise SystemExit(1 if nfail else 0)
+
+# ---- nc84: nc83 expert-panel P1/P2 fixes (CL + Guide) ----
+chk('nc84 CL theory notation unified with MS',
+    'A scoped framework gives \u03c9 = \u03b1 + E_f/E_b + \u03b5' in clfull
+    and 'theory-backed' not in clfull and '\u03c9 \u2212 1' not in clfull)
+chk('nc84 CL no misreports-least overclaim', 'misreports least' not in clfull)
+chk('nc84 CL CNA framing downgraded',
+    'attributable to copy-number instability' not in clfull)
+chk('nc84 CL <= 530 words and near one page', wc <= 530, f'{wc} words')
+chk('nc84 Guide 5.16 documents nc84 recomposition',
+    '5.16 nc83/nc84 Figure Compliance' in gdfull
+    and 'notebooks/114_recompose_suppfigs_nc84.py' in gdfull
+    and 'is empty: no figure relies on a documented exception' in gdfull)
+chk('nc84 Guide stale figure pointers cleared',
+    'Fig. 2d, 2e' not in gdfull and 'Fig. 2 heatmap' not in gdfull
+    and 'mahalanobis_pairs.csv' not in gdfull)
+chk('nc84 Guide version/archival wording honest',
+    'the code accompanying this submission is GitHub tag v0.6.4' in gdfull
+    and 'v0.6.4 archive accompanies this submission' not in gdfull)
+chk('nc84 Guide nc82 PSD / wild-cluster chain added',
+    'PSD and wild-cluster checks' in gdfull and '9,999 random draws' in gdfull)

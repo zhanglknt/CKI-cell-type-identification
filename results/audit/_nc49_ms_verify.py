@@ -43,22 +43,22 @@ chk('no stale Section 3.20/3.21 refs',
 
 # 3. P0-1 qualification of misreporting claims
 chk('T1 qualified (continuous metrics, v51)',
-    'misreported least among continuous divergence metrics' in full)
+    'had the lowest exceedance among continuous metrics' in full)
 chk('marker Jaccard T1 19.9% admitted (v51: MS legend + SI; nc79 caption slim)',
-    'marker Jaccard is lower still on the false-positive statistic' in full and 'T1 FPR 19.9%' in sfull)
+    'marker Jaccard is lower still on the false-positive statistic' in sfull and 'T1 FPR 19.9%' in sfull)
 chk('Jaccard weakest on genuine divergence admitted (v51)',
-    'weakest to real regional divergence' in full)
+    'weakest to real regional divergence' in sfull)
 chk('same-statistic frontier admitted (v50: SI)',
     'T3\u2212T1 FPR gap 0.60 versus 0.56' in sfull and 'T3/T1 ratio 4.0 versus 3.0' in sfull)
 chk('final claim qualified (v50)',
-    '\u03c9 misreports least among the continuous divergence metrics at both tiers' in full)
+    'shows the lowest exceedance among the continuous divergence metrics' in sfull)
 chk('Discussion decision-rules qualified (v50)',
-    'offers no k_n/k_f decomposition' in full)
+    'offers no k_n/k_f decomposition' in sfull)
 chk('no unqualified "misreported least of seven"',
     'least of seven metrics' not in full and 'of the seven metrics except' not in full)
 
 # 4. Abstract (drift sentence, word count <= 150; nc79: NC article limit)
-abs_paras = [t for t in paras if 'Standard metrics confound genuine cell-state shifts' in t]
+abs_paras = [t for t in paras if 'Standard metrics confound cell-state shifts' in t]
 chk('Abstract drift sentence present', len(abs_paras) == 1)
 if abs_paras:
     wc = len(abs_paras[0].split())
@@ -79,7 +79,7 @@ chk('Abstract 3,535 (ex-CC, v52)', bool(abs_paras) and '3,535' in abs_paras[0])
 chk('Abstract pan-cancer pattern (nc79)',
     bool(abs_paras) and 'tumor\u2013tumor pairs show higher housekeeping divergence than normal\u2013normal pairs in all five (1.3\u20133.3-fold)' in abs_paras[0])
 chk('Abstract k_n-driven attribution (nc80 plan b)',
-    bool(abs_paras) and 'copy-number instability accounts for 56% (95% CI 46\u201366%) of that k_n gap' in abs_paras[0])
+    bool(abs_paras) and 'copy-number instability is associated with at most 56% (95% CI 46\u201366%) of that k_n gap' in abs_paras[0])
 
 # 5. Sample caliber 3,535 ex-CC everywhere (v52: ex-CC default)
 chk('3,535 present (ex-CC, v52)', '3,535' in full)
@@ -288,7 +288,7 @@ chk('Fig 2 legend new scope',
     'functional-change detection in the ground-truth simulation' in full)
 chk('Fig 2e legend change-detection ROC (v52)',
     'ROC curves for discriminating injected functional signal' in full
-    and 'highest AUC of six metrics (0.80; paired comparisons in Supplementary Table 2a)' in full
+    and 'highest AUC of six metrics (0.80; paired comparisons in Supplementary Table 2c)' in full
     and 'AUC = 0.91' in full)
 chk('Fig 2e legend old classification ROC gone',
     'ROC curves for cell-type classification across five metrics on Tabula Sapiens data' not in full)
@@ -316,7 +316,7 @@ chk('cross-organ demoted to Table 1 + SF5d (nc79)',
 
 # 12. Fig 3 legend honest framing
 chk('Fig 2e legend Jaccard admission (nc79 caption slim; nc80 m7 interval)',
-    'marker Jaccard is lower still on the false-positive statistic' in full
+    'marker Jaccard is lower still on the false-positive statistic' in sfull
     and '\u22120.088 [\u22120.116, \u22120.059]' in sfull)
 
 # 13. Citation order (v49.5 refs renumber): superscript citation groups between
@@ -389,3 +389,29 @@ for name, status, detail in checks:
         nfail += 1
 print(f'TOTAL: {len(checks)} checks, {nfail} failures')
 raise SystemExit(1 if nfail else 0)
+
+# ---- nc84: nc83 expert-panel P0/P1 fixes (MS) ----
+chk('nc84 abstract AUC attributed to KRAS-vs-EGFR',
+    bool(abs_paras) and 'KRAS-versus-EGFR discrimination is weak (AUC 0.648)' in abs_paras[0]
+    and '(P = 0.089; AUC 0.648)' not in abs_paras[0])
+chk('nc84 intro AUC attribution corrected',
+    '\u03c9 discriminates KRAS- from EGFR-mutant tumours weakly (AUC 0.648 versus 0.841' in full)
+chk('nc84 Supplementary Table 2c pointer present (MS)',
+    'Supplementary Table 2c)' in full and 'Supplementary Table 2a)' not in full)
+chk('nc84 dangling residence/migration citation removed',
+    'residence/migration' not in full)
+chk('nc84 theory language scoped',
+    'with a scoped estimand' in full and 'explicit estimand' not in full
+    and 'The scoped correspondence' in full and 'The full correspondence' not in full)
+chk('nc84 calibration residual conditional',
+    'absorbs only under design-matched permutation' in full)
+chk('nc84 ambient/doublet concession in Limitations',
+    'nor were ambient RNA or doublets modelled' in full)
+chk('nc84 CNA attribution downgraded everywhere',
+    'accounts for 56%' not in full and 'associated with \u226456%' in full
+    and 'unmeasured-reference upper bound' in full)
+chk('nc84 brain legend downgraded',
+    'Brain regional housekeeping-anchored class-level differences' in full)
+chk('nc84 Zenodo claim honest',
+    'An earlier release is archived at Zenodo' in full
+    and 'the v0.6.4 archive accompanies this submission' not in full)
