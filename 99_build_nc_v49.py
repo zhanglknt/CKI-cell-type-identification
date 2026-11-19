@@ -211,12 +211,12 @@ def main():
     shutil.copy2(si_xlsx_src, WORK_DIR / "CKI_Supplementary_Tables_NC.xlsx")
 
     manifest = ["=" * 60,
-                "  CKI Submission Package v49 (Nature Communications)",
+                "  CKI Submission Package (Nature Communications)",
                 "  MANIFEST.txt",
-                "  tag: v0.6.4 | nc84 round: expert-panel P0/P1/P2 fixes, "
+                "  tag: v0.6.5 | cross-reference and wording consistency revision; "
                 "Supplementary Table 2c, multi-page Supplementary Figs. 1/3/5/6",
                 "=" * 60,
-                "  Note: 'v49' is the package build-batch label, not a software version.", ""]
+                "  Note: file sizes and SHA-256 checksums are listed below.", ""]
     entries = sorted(e for e in os.listdir(WORK_DIR) if e != "MANIFEST.txt")
     for i, e in enumerate(entries, 1):
         p = WORK_DIR / e
@@ -267,7 +267,7 @@ def main():
     note_heads = sorted(set(int(m.group(1)) for m in re.finditer(r"Supplementary Note (\d+):", sn)))
     check(note_heads == list(range(1, 25)), f"V49-S5 SN Note headings 1..24 (nc78: +N21 Cox, +N22 CNV, +N23 RIN, +N24 alt-HK) ({note_heads})")
     n_sfig_sn = len(re.findall(r"Supplementary Fig\. \d+", sn))
-    check(n_sfig_sn == 34, f"V49-S6 SN Supplementary Fig. refs = 34 (nc83: +3 for the new SF11 legend; nc82 had 31) ({n_sfig_sn})")
+    check(n_sfig_sn == 36, f"V49-S6 SN Supplementary Fig. refs = 36 (nc86: +1 SF1 stale-pointer fix, +1 SF9 numbering note; nc83 baseline 34) ({n_sfig_sn})")
     n_stab_sn = len(re.findall(r"Supplementary Table \d+", sn))
     check(n_stab_sn == 55, f"V49-S7 SN Supplementary Table refs = 55 (nc84: +3 Table 2c pointers; nc83 baseline 52) ({n_stab_sn})")
     check("3.12 Real-Data Neutral-Drift Calibration" in sn and "3.13 Per-Sample Divergence" in sn, "V49-S8 SN Sections 3.12/3.13 present (renumbered from 3.20/3.21)")
@@ -581,7 +581,7 @@ def main():
     # C3: aggregation-order quantification (MS Methods + Guide 5.11h + Section 2)
     check('rank ordering is largely preserved (Spearman \u03c1 = 0.78)' in sn
           and 'mouse Tabula Muris pilot and the human Tabula Sapiens pipelines' in gd
-          and 'Aggregation-order same-data quantification (v49.14)' in gd
+          and 'Aggregation-order same-data quantification' in gd
           and 'control-category median baseline itself moves from 6.46 to 10.94' in gd,
           "V49-N88 C3 aggregation-order quantified + attribution unified (v51: SI)")
     # C2: ex-CC Cox (SI + Guide 5.11i)
@@ -603,7 +603,7 @@ def main():
           and 'Pair-Level Copy-Number Associations' in sn
           and 'posthoc_component_associations.csv' in sn
           and 'attenuates, rather than creates, the CKI signal' not in sn
-          and 'creates rather than attenuates the TT/NN housekeeping gap' in sn
+          and 'tracks rather than attenuates the TT/NN housekeeping gap' in sn
           and '56% (95% CI 46\u201366%)' in ms
           and '42% (34\u201350%) at a residual of 0.05' in ms
           and 'CNA 40% [30, 51]' in sn,
@@ -632,7 +632,7 @@ def main():
           and 'the per-gene estimator, median 14 and 8.5' in ms,
           "V49-N103 nc78 omega path-B null-model repositioning (P0-2; nc80 operational def)")
     # C4: log-omega CI archived
-    check('bootstrap CI is archived in the output CSV (v49.14)' in gd,
+    check('bootstrap CI is archived in the output CSV' in gd,
           "V49-N90 C4 log-omega CI archived in CSV (Guide 5.11e)")
     # B9: span-matched decomposition in SI
     check('k_f 1.39 and k_n 0.33' in sn,
@@ -767,8 +767,8 @@ def main():
     check('Supplementary Table 2c)' in ms and 'Supplementary Table 2c' in sn,
           "V49-NC84-2 six-metric ROC table cited in MS and SI")
     check('An earlier release is archived at Zenodo' in ms
-          and 'the v0.6.4 archive accompanies this submission' not in ms
-          and 'the code accompanying this submission is GitHub tag v0.6.4' in gd,
+          and 'the v0.6.5 archive accompanies this submission' not in ms
+          and 'the code accompanying this submission is GitHub tag v0.6.5' in gd,
           "V49-NC84-3 declared version matches the available archive wording")
     check('precision-first index' in cl and 'theory-backed' not in cl
           and 'specificity-first' not in cl and 'misreports least' not in cl,
@@ -780,6 +780,52 @@ def main():
     check('main-text Supplementary Fig.' not in sn and 'v0.5.6' not in sn
           and '0.5.4' not in sn,
           "V49-NC84-6 SI: no main-text qualifier, no stale package versions")
+
+    # ---- nc86 closure checks: A-class mechanical fixes + r6-alt P1/P2 ----
+    print("\n--- nc86 closure checks ---")
+    check('Supplementary Note 7, Supplementary Fig. 4' in ms
+          and 'Supplementary Note 17, Supplementary Fig. 9' in ms
+          and 'Supplementary Note 18, Supplementary Fig. 7' in ms
+          and 'Supplementary Note 19, Supplementary Fig. 7' in ms
+          and 'Supplementary Note 18, Fig. 7' not in ms,
+          "V49-NC86-1 MS: bare Fig. 4 / 7 / 9 pointers given full Supplementary prefixes")
+    _sf_seq = [int(x) for x in dict.fromkeys(
+        re.findall(r"Supplementary Fig\. (\d+)", ms))]
+    check([n for n in _sf_seq if n <= 9] == list(range(1, 10)),
+          f"V49-NC86-1b MS Supplementary Figs. 1-9 first-citation monotonic ({_sf_seq})")
+    check('genomic instability creates' not in ms
+          and 'genomic instability accompanies' in ms
+          and 'dividing by k_n rescales the statistic' in ms
+          and 'studentizes the statistic' not in ms,
+          "V49-NC86-2 MS: causal verb and studentization rhetoric downgraded")
+    check('sheet Table 9).' in sn and 'sheet Table 10).' in sn
+          and 'sheet Table 12).' in sn
+          and 'sheet Table 4).' not in sn and 'sheet Table 5).' not in sn
+          and 'sheet Table 6).' not in sn,
+          "V49-NC86-3 SI: Supplementary Tables 9/10/12 point to correct sheets")
+    check('Supplementary Tables 10 and 12 share' in sn
+          and 'associates at most 56%' in sn
+          and 'tracks rather than' in sn
+          and 'attributes 56%' not in sn,
+          "V49-NC86-4 SI: Note 22 aligned with main-text upper-bound wording")
+    check('Supplementary Fig. 9 is cited in the Discussion' in sn
+          and 'Supplementary Figs. 1\u20139 follow the order of first citation' in sn,
+          "V49-NC86-5 SI: Numbering note records the SF9 citation and shorthand convention")
+    check('global HVG set for Supplementary Fig. 1' in sn
+          and 'global HVG set for Fig. 2' not in sn,
+          "V49-NC86-6 SI: stale Fig. 2 pointer replaced")
+    check('at most 56%' in cl and 'copy-number instability (56%' not in cl,
+          "V49-NC86-7 CL: 56% carries the upper-bound qualifier")
+    check('(Section 3.11; Fig. 2d)' not in gd
+          and 'expert-panel round on v51r2' not in gd
+          and '(v49.14)' not in gd
+          and 'Section 3.11):' in gd,
+          "V49-NC86-8 Guide: stale figure pointer and internal round labels cleared")
+    check(ms.count('v0.6.5') >= 2 and sn.count('v0.6.5') >= 2
+          and gd.count('v0.6.5') >= 3
+          and 'v0.6.4' not in ms and 'v0.6.4' not in sn
+          and 'v0.6.4' not in gd and 'v0.6.4' not in cl,
+          "V49-NC86-9 version strings uniformly at v0.6.5 across all four documents")
 
     # ---- package integrity ----
     print("\n--- package integrity ---")

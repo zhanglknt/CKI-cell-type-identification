@@ -48,7 +48,8 @@ chk('CL KRAS dual-adjusted upgrade',
 chk('CL EGFR dissolved (nc80 rephrase)',
     'the apparent EGFR elevation dissolves under purity adjustment' in clfull)
 chk('CL CNA share v2 quoted (nc80 plan b)',
-    'associated with copy-number instability (56%, 95% CI 46\u201366%)' in clfull)
+    'associated with copy-number instability (at most 56%, 95% CI 46\u201366%)' in clfull
+    and 'copy-number instability (56%' not in clfull)
 chk('CL Fig. 2 / Fig. 3 refs (nc70: 3->2, 4->3)',
     '(Fig. 3)' in clfull and '(Fig. 4)' not in clfull
     and '(Supplementary Fig. 11)' in clfull and '(Fig. 2)' not in clfull)
@@ -155,7 +156,7 @@ chk('nc84 Guide stale figure pointers cleared',
     'Fig. 2d, 2e' not in gdfull and 'Fig. 2 heatmap' not in gdfull
     and 'mahalanobis_pairs.csv' not in gdfull)
 chk('nc84 Guide version/archival wording honest',
-    'the code accompanying this submission is GitHub tag v0.6.4' in gdfull
-    and 'v0.6.4 archive accompanies this submission' not in gdfull)
+    'the code accompanying this submission is GitHub tag v0.6.5' in gdfull
+    and 'v0.6.5 archive accompanies this submission' not in gdfull)
 chk('nc84 Guide nc82 PSD / wild-cluster chain added',
     'PSD and wild-cluster checks' in gdfull and '9,999 random draws' in gdfull)

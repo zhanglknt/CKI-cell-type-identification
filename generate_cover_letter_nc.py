@@ -114,7 +114,7 @@ def run():
         "divergent than adjacent non-tumor tissue\u2014a pan-cancer "
         "reversal driven by an elevated housekeeping baseline rather "
         "than reduced functional divergence, about half of which is "
-        "associated with copy-number instability (56%, 95% CI "
+        "associated with copy-number instability (at most 56%, 95% CI "
         "46\u201366%), a caution for HK-anchored "
         "normalization in bulk tumors; and in lung adenocarcinoma "
         "CKI "

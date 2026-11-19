@@ -1,0 +1,98 @@
+{
+  "round": "nc85",
+  "reviewers": [
+    {
+      "id": "R1",
+      "total": 4.8,
+      "reco": "Reject",
+      "dims": {
+        "novelty": 5.5,
+        "theory": 4.5,
+        "statistics": 4.5,
+        "evidence": 4.0,
+        "clarity": 6.5,
+        "impact": 4.0
+      }
+    },
+    {
+      "id": "R2",
+      "total": 6.5,
+      "reco": "Major Revision",
+      "dims": {
+        "novelty": 6.5,
+        "theory": 7.0,
+        "statistics": 7.0,
+        "evidence": 6.0,
+        "clarity": 6.5,
+        "impact": 6.0
+      }
+    },
+    {
+      "id": "R3",
+      "total": 6.5,
+      "reco": "Major Revision",
+      "dims": {
+        "novelty": 6.0,
+        "theory": 6.5,
+        "statistics": 7.5,
+        "evidence": 6.5,
+        "clarity": 7.0,
+        "impact": 6.0
+      }
+    },
+    {
+      "id": "R4",
+      "total": 5.5,
+      "reco": "Major Revision",
+      "dims": {
+        "novelty": 6.0,
+        "theory": 4.5,
+        "statistics": 5.0,
+        "evidence": 5.0,
+        "clarity": 6.0,
+        "impact": 5.0
+      }
+    },
+    {
+      "id": "R5",
+      "total": 6.0,
+      "reco": "Major Revision",
+      "dims": {
+        "novelty": 6.0,
+        "theory": 7.0,
+        "statistics": 6.5,
+        "evidence": 5.5,
+        "clarity": 6.0,
+        "impact": 5.5
+      }
+    },
+    {
+      "id": "R6",
+      "total": 7.0,
+      "reco": "Major Revision",
+      "dims": {
+        "novelty": 7.0,
+        "theory": 7.0,
+        "statistics": 8.0,
+        "evidence": 7.5,
+        "clarity": 6.0,
+        "impact": 6.5
+      }
+    }
+  ],
+  "mean_total": 6.05,
+  "dim_means": {
+    "novelty": 6.167,
+    "theory": 6.083,
+    "statistics": 6.417,
+    "evidence": 5.75,
+    "clarity": 6.333,
+    "impact": 5.5
+  },
+  "reco_counts": {
+    "Reject": 1,
+    "Major Revision": 5,
+    "Minor Revision": 0,
+    "Accept": 0
+  }
+}

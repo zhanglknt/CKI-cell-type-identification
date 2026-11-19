@@ -690,7 +690,7 @@ for line in pseudo:
     p.paragraph_format.space_before = Pt(0)
 
 add_para(
-    'Note: in the released cki package (v0.6.4), bootstrap_test() reproduces lines 9-15 '
+    'Note: in the released cki package (v0.6.5), bootstrap_test() reproduces lines 9-15 '
     'by default (reselect_identity = True): the HK set H is resolved once before the '
     'permutation loop and held fixed, while the k_f gene set is re-selected at every '
     'permutation (and for the observed value) as the top 200 non-HK genes by absolute '
@@ -707,7 +707,7 @@ add_para(
 add_para('')
 add_para('Algorithm 2: Pairwise Identity Gene Selection (Tabula Sapiens Extension)', bold=True)
 add_para(
-    'Unlike the Tabula Muris full pairwise matrix (global HVG set for Fig. 2), Tabula Sapiens and all pilot analyses (mouse calibration, human, TCGA, brain) employ pairwise identity '
+    'Unlike the Tabula Muris full pairwise matrix (global HVG set for Supplementary Fig. 1), Tabula Sapiens and all pilot analyses (mouse calibration, human, TCGA, brain) employ pairwise identity '
     'gene selection to avoid dilution of HVG across 102 cell types.'
 )
 pseudo2 = [
@@ -1046,7 +1046,7 @@ add_para(
     'formula P = (count(omega_null \u2264 omega_obs) + 1)/(B + 1), because region-associated '
     'candidates are defined by anomalously low \u03c9; the complementary upper-tail '
     'P-value is computed for every pair and both tails are reported. In the released '
-    'cki package (v0.6.4), the tested tail is selected by the tail parameter of '
+    'cki package (v0.6.5), the tested tail is selected by the tail parameter of '
     'bootstrap_test() and block_shuffle_test() (tail = "upper", "lower", or '
     '"two-sided"); earlier releases used the parameter name "direction".'
 )
@@ -3853,10 +3853,10 @@ add_para(
     'identifies E_f + 2C_bf\u2014equal to E_f under C5. Three unknowns '
     '(E_b, \u03b1, E_f) meet three measurements in a linear system with '
     'a unique solution within the scoped approximation, so the '
-    'decomposition is identified, not merely '
-    'defined. The two restrictions play different roles: without A1 no '
+    'decomposition is identifiable in principle but is not estimated here. '
+    'The two restrictions play different roles: without A1 no '
     'calibration can separate E_f from \u03b1E_b using (k_f, k_n) alone; '
-    'without C5 the identified functional quantity is E_f + 2C_bf, with '
+    'without C5 the recovered functional quantity is E_f + 2C_bf, with '
     'the Cauchy\u2013Schwarz bound above. The post-selection caveat of '
     'Proposition 3 applies throughout: E_f and \u03b1 are defined '
     'relative to the data-selected panel.'
@@ -4109,17 +4109,18 @@ add_para(
     'divergence, and the direction of that contribution was mis-stated in '
     'earlier drafts. CNA distance is larger between tumours than between '
     'normal samples, and k_n rises with CNA distance, so the two are '
-    'co-directional and copy-number divergence creates rather than '
+    'co-directional and copy-number divergence tracks rather than '
     'attenuates the TT/NN housekeeping gap (nc80 re-analysis, '
     'scripts/nc80_cna_share_v2.py, '
     'results/nc80_cna_share_v2.csv). Quantitatively, within the '
     'tumour stratum alone (both ends measured; \u03b2_CNA^TT = +1.93 '
     '(LIHC) to +3.82 (KIRC) on log k_n per unit CNA distance), the observed TT '
     'CNA distance of 0.129\u20130.246 against an assumed near-zero normal '
-    'value attributes 56% (95% CI 46\u201366%; direct contribution-ratio '
+    'value associates at most 56% (95% CI 46\u201366%; direct contribution-ratio '
     'pooling of the five per-cancer estimates against the full '
     'pair-table TT/NN gap, sample-cluster bootstrap B = 2,000) '
-    'of the TT/NN k_n gap to copy-number divergence. Per cancer the '
+    'of the TT/NN k_n gap with copy-number divergence (an unmeasured-reference ' 
+    'upper bound). Per cancer the '
     'shares are BRCA 62% [46, 83], KIRC 42% [27, 59], LIHC 89% [41, '
     '193] (the smallest contrast, whose share is not stably identified; '
     'CI exceeding 1), LUAD 48% [30, 68] and LUSC 57% [32, 95]; KIRC is '
@@ -4365,7 +4366,7 @@ add_para(
     'including \u03c9, Jensen-Shannon divergence, Spearman distance, Cosine distance, '
     'and Marker Jaccard distance values. Data file: '
     'results/phase35_cross_organ_conservation.csv. '
-    'Table content: CKI_Supplementary_Tables_NC.xlsx (sheet Table 4).'
+    'Table content: CKI_Supplementary_Tables_NC.xlsx (sheet Table 9).'
 )
 
 add_para('')
@@ -4383,7 +4384,7 @@ add_para(
     f'Summary file: results/brain_bs_null_ct_test.csv (10-row summary). '
     f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py. '
     f'Figure generation: notebooks/_fig6_clean.py (Figure 4). '
-    f'Table content (per-cell-type summary): CKI_Supplementary_Tables_NC.xlsx (sheet Table 5).'
+    f'Table content (per-cell-type summary): CKI_Supplementary_Tables_NC.xlsx (sheet Table 10).'
 )
 
 add_para('')
@@ -4433,12 +4434,12 @@ s4_text = (
     f'5) {top5_lines[4]}. '
     f'Complete candidate dataset: results/brain_bs_null_observed_pairs.csv '
     f'({n_candidates:,} threshold-passing rows of 31,764 total). '
-    f'Tables 5 and 6 share the same underlying data file ' 
+    f'Supplementary Tables 10 and 12 share the same underlying data file ' 
     f'(results/brain_bs_null_observed_pairs.csv): Supplementary Table 10 reports all 31,764 pairs ' 
     f'with per-cell-type summary statistics, whereas Supplementary Table 12 retains the ' 
     f'{n_candidates:,} threshold-passing rows with their tier, residual, and ' 
     f'\u03c9 annotations. '
-    f'Table content: CKI_Supplementary_Tables_NC.xlsx (sheet Table 6). '
+    f'Table content: CKI_Supplementary_Tables_NC.xlsx (sheet Table 12). '
     f'Analysis scripts: notebooks/08d_brain_blockshuffle_null.py and notebooks/08e_brain_blockshuffle_results.py.'
 )
 add_para(s4_text)
@@ -4449,7 +4450,7 @@ add_heading('Supplementary Data 1: Analysis Script Index', 2)
 add_para(
     'Complete analysis scripts used in this study are organized in the notebooks/ '
     'directory of the GitHub repository (github.com/zhanglknt/CKI-cell-type-identification). '
-    'The package can be installed via: pip install git+https://github.com/zhanglknt/CKI-cell-type-identification.git. '
+    'The package can be installed via: pip install -e . at GitHub tag v0.6.5 (see the Reproducibility Guide). '
     'Key scripts include: notebooks/04_phase32_sweep.py (parameter sweep and calibration), '
     'notebooks/06_phase34_v2.py (TCGA pan-cancer analysis), '
     'notebooks/05_phase33_v3_fixed.py (Tabula Sapiens cross-organ analysis), '
@@ -4461,7 +4462,7 @@ add_para(
 # ===== Supplementary Figures (legends migrated from the main text, nc60) =====
 add_heading('Supplementary Figures', 2)
 add_para('Legends for Supplementary Figs. 1-11. Figure files are provided separately (results/ figures listed in the Reproducibility Guide).')
-add_para('Numbering note. Supplementary Figs. 1\u20139 follow the order of first citation in the main text; Supplementary Figs. 10 and 11 are companion figures to main Figs. 3 and 2, respectively, and retain their series numbers so that cross-references remain stable.')
+add_para('Numbering note. Supplementary Figs. 1\u20139 follow the order of first citation in the main text; Supplementary Fig. 9 is cited in the Discussion (Supplementary Note 17); within a \u201cSupplementary Note N, Fig. M / Table K\u201d pointer the items are Supplementary Fig. M and Supplementary Table K; Supplementary Figs. 10 and 11 are companion figures to main Figs. 3 and 2, respectively, and retain their series numbers so that cross-references remain stable.')
 
 add_para('Supplementary Fig. 1. Parameter sweep, pathway analysis, JS divergence dimensionality invariance, and \u03c9 distribution characterization. (a) k_n stability as a function of housekeeping gene set size; k_n decreases monotonically with increasing HK gene number (250\u20131,000), indicating that the baseline rate is gene-set-size-dependent; absolute \u03c9 values are therefore scheme-specific, consistent with the fixed-panel ablation (Results). (b) Variance of module-level GSVA enrichment scores across 38 mouse cell-type entries for the 20 HVG-partition modules (sorted by variance). Cell-type divergence is broadly distributed across modules rather than concentrated in a single module, consistent with the identity-only configuration of k_f. (c) Weight sweep for multi-component k_f. Identity-only (w_identity = 1.0, w_pathway = 0.0) achieves optimal cell-type discrimination (AUC = 0.786, n = 703 mouse cell-type pairs, 6 organs). (d) Mean JS divergence between random Dirichlet distribution pairs as a function of dimensionality (50\u20135,000 genes, n = 2,000 trials per dimension), showing that JS divergence is effectively constant across dimensions (ratio = 1.001 between d = 1,130 and d = 2,000). (e) Dimensionality ratio relative to the HK gene set (d = 1,130), confirming that k_n and k_f are dimensionally comparable. (f) \u03c9 distribution characterization. Histograms and Q-Q plots of \u03c9 distributions for brain, mouse, and human datasets, showing right-skewness; normality is rejected for brain (D\u2019Agostino-Pearson, P < 2.2 \u00d7 10\u207b\u00b9\u2076) and human (Shapiro-Wilk, P = 7.6 \u00d7 10\u207b\u2074\u00b2), while the mouse pilot (n = 15 pairs) does not reject normality (P = 0.071), although the small sample size limits the power of this test.')
 

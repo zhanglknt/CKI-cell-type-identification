@@ -414,4 +414,4 @@ chk('nc84 brain legend downgraded',
     'Brain regional housekeeping-anchored class-level differences' in full)
 chk('nc84 Zenodo claim honest',
     'An earlier release is archived at Zenodo' in full
-    and 'the v0.6.4 archive accompanies this submission' not in full)
+    and 'the v0.6.5 archive accompanies this submission' not in full)

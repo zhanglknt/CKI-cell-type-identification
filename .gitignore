@@ -519,6 +519,8 @@ _tmp_archive/
 # (review material TXTs are intentionally NOT published)
 # ============================================================
 !results/audit/_nc85_pack_review_text.py
+!results/audit/_nc85_panel_summarize.py
+!results/audit/_nc85_panel_scores.json
 !results/audit/_nc85_editor_factcheck.md
 !results/audit/_nc85_review_expert_panel.md
 !results/audit/_nc85_review_R1.md
@@ -527,3 +529,8 @@ _tmp_archive/
 !results/audit/_nc85_review_R4.md
 !results/audit/_nc85_review_R5.md
 !results/audit/_nc85_review_R6.md
+!results/audit/_nc85_review_R6_alt.md
+# nc86 (2026-11-19): A-class mechanical fixes, v0.6.5 re-release report,
+# B1-B5 structural-analysis roadmap
+!results/audit/_nc86_fix_report.md
+!results/audit/_nc86_b_class_roadmap.md

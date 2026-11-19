@@ -106,8 +106,8 @@
 
 | 项 | 状态 | 说明 |
 |---|---|---|
-| **A. 发布 v0.6.4** | **待裁定（P0 #1 的外部动作）** | 远端最高 tag 为 `v0.6.3`、Zenodo concept DOI 最新归档为 `v0.5.6`；MS/Guide 已改为诚实措辞，但仍声明「tag v0.6.4」。需 squash + force-push `main` + `tag -f v0.6.4` 并 force-push tag，声明才与可用版本一致。Zenodo 新建 v0.6.4 版本需 API token，未见凭据。 |
-| **B. F2 编号路线** | **已按推荐路线（豁免 + SI 加注）落地，请追认** | 若改走全量重编号，需同步 11 个 PDF、SI 图注、正文/SI 引用、5 个验证器、Guide、MANIFEST、zip，代价 2–4 h 且打乱已固化引用链。 |
+| **A. 发布 v0.6.4** | **✅ 已闭合（2026-11-19，作者批准执行）** | 本地全史 commit `070fed2` → squash `d7e45cf4aecdc66504e59b727f9370e2771db383`（parent `0eea59e`，tree `7ac4d980`）→ force-push `main` → annotated tag `v0.6.4`（`0d7d0576`，peeled = main）。`git ls-remote` 核验通过，远端 tree 与本地 tree 逐字节相等，旧 commit 备份为 `backup-pre-v0.6.4`，本地全史保留。**仅余 Zenodo v0.6.4 版本归档未执行**：本会话 `ZENODO_TOKEN` / `ZENODO_API_TOKEN` / `GITHUB_TOKEN` / `GH_TOKEN` 均 unset，需作者提供 API token 或网页端操作；稿件措辞已改为「earlier release / earlier snapshot」，不依赖该归档存在，不构成声明失实。 |
+| **B. F2 编号路线** | **✅ 作者已追认「豁免 + SI 加注」** | 不重编号。SI `Numbering note.` 已落地；MS 正文 `Supplementary Fig` 首现序列 [11, 1, 2, 3, 4, 10, 5, 6, 8, 7]，SF10/SF11 为 Figs. 3/2 伴生图保留系列号，按裁定属合规例外。详见 `_nc85_editor_factcheck.md` F2。 |
 | C. 共同作者 ORCID | 残余 minor | 无权威来源，未填。 |
 | D. CL 严格一页 | 残余 minor | 509 词，取决于最终排版。 |
 | E. ambient RNA / doublet 对照、PMI/RIN 分层 | 采用「明确让步」 | 专家团允许的替代路线；若审稿要求补数据需另开分析。 |
